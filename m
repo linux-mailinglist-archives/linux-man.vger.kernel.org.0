@@ -1,222 +1,121 @@
-Return-Path: <linux-man+bounces-4113-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4114-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90D78BD0CFD
-	for <lists+linux-man@lfdr.de>; Mon, 13 Oct 2025 00:16:16 +0200 (CEST)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8049EBD15D7
+	for <lists+linux-man@lfdr.de>; Mon, 13 Oct 2025 06:15:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3FC7B3B64D9
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 22:16:15 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 92C2534766D
+	for <lists+linux-man@lfdr.de>; Mon, 13 Oct 2025 04:15:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 473B923C51D;
-	Sun, 12 Oct 2025 22:16:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7373D259CBC;
+	Mon, 13 Oct 2025 04:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eV7FHrZV"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P8jj0mbK"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A7C2222C0
-	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 22:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC2714D2B7
+	for <linux-man@vger.kernel.org>; Mon, 13 Oct 2025 04:15:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760307373; cv=none; b=BHe93AFGdp8m/KefJDPLhKQin3+YC6Cldi/vStK1qNzirwyf4Mc//jOWynii5dq3ZYDUiOX7nwG7//4P6safzRAIwb2r1VDHiROMjAdN3ZE9AHGa/y4VHbtdOryZn9Wjime4EEPuBM013WjT+F3s8pnms+oVK83zTLyDUuX0j18=
+	t=1760328916; cv=none; b=bPb+6g1nKwpcgr4pZ/zEFAttnzOzI5tYQUixs+sX3h4iRgbDWmWvxRdgtwxHX9RzvlK1nITmTCN1H/bd4c9r7jpY/zHrrJ+a80boJcoa5o5Ckp/VMe0+My8E2+zNKPeUOb9jb7DcrXSh+03uLBIl3/i9ILhf0a/5TSZlIcyM3Z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760307373; c=relaxed/simple;
-	bh=+x8kEfgdEvJ7AaiOxBtFvGdW0p1ZwUewEyIMGQxYubo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bnRqcwhz+pd4KAiR/gRp+1YMzyyGJvFz1xNrNE5OmfSwv2qVoKCtz+55wgXMbDa7t/G+fyldWpiRegZKnlHPYWoYUQA5Xj11XfTTCE6ZXi/UcJUZCOMQJ5riEuHh0VVRAWV5lezz9M1Lka+AKjOZuK+9ZQL/M1BRU9Tz9kPkfoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eV7FHrZV; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BD53C4CEE7;
-	Sun, 12 Oct 2025 22:16:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760307372;
-	bh=+x8kEfgdEvJ7AaiOxBtFvGdW0p1ZwUewEyIMGQxYubo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eV7FHrZV8mcUPY2QaIzLRHrYZT3aFz67FNrtCE6BlBMT4oKScYmt6OZJXtimw9UNf
-	 BYpoGTiqC2NatfwhDo9/WZyh4GwuvtzoCBhD6FOXb+3pkRPrF98k6VInDAJRlSWcB+
-	 pgwP4wrvu0xWuCF0UUmVQZMHakCmq1uPzDGEOoNntI8GYX/srsJ97NyMnUvfC6iBjQ
-	 oEa2JTU9QpHnmbvanhUL1W5WewhoQMwORKh0oXXANhVNNVyIt4HL1qynG3EBrRarpc
-	 WCiFN04tdt2tfWZ+aw9/g3mJ0FTge38HSR1d3deWD7WpmjuruTj38tut2TUz25DKSR
-	 VBnQuBel06JWg==
-Date: Mon, 13 Oct 2025 00:16:09 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH v2 2/3] pidfd_open.2: add PIDFD_THREAD
-Message-ID: <7vb3ed5qttoe6n5ozzjwqtzw5iupifozplkkhd3jjvbhy5efqy@d4ksex445ixl>
-References: <20251008020031.1215030-1-kolyshkin@gmail.com>
- <20251008020031.1215030-3-kolyshkin@gmail.com>
+	s=arc-20240116; t=1760328916; c=relaxed/simple;
+	bh=GIwQaiTj/5LG+RU8+Olm1P2KmF2g2ijoQR7LtNWSqm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zo2L6vquyiFI2wE8yy5ixn2plOt/qg9UbG/J/N8/07C9idi0vHAq7nLN/3BP4tDEsTZZ8cgrCdp59xIq97B3zexlQ01AIBs7PLGt6g3EtRYLjDSmml9ENxatfRzXafzFwr0M/uuGGIUltIYp44XbvB+lEsT7LWJHJsAY2r84Kwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P8jj0mbK; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-46e6c8bc46eso22724905e9.3
+        for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 21:15:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1760328913; x=1760933713; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=colkYyZbzoORxyEYRGBidVhmHrro9mfSyhDk+5cS57k=;
+        b=P8jj0mbKRJce8lpHjLn6fvZkpUMoo03H6bQO2WoMsHJ7pNZkPyKFcBPeRHGgyXmZ1t
+         1o4I23DBKO8ZyBp/V/CG/05Ksd6M9oS0vhoIp2Abp1cgePNPI4lMl1xA+xYVj3vpRhIN
+         ZZcc7v7efLZ9oSpa+G0I8IpBoTadFXGTKWb07fvX/XjAFPTferEKgrayLBU0JtMpRPSx
+         I6HhImhHVr6Z+9LUhzCEmPxkjgI1wGH/sfL5XOrSVI5FxDrtwRIr1cuHNJTdVDv+uSM8
+         0zMk8Gv2w0E0MlE6aiusshkoPh4gZO0ultt08Rce5Ycmju7p8ZB4byCCmbdDv/zmVhiD
+         j/aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760328913; x=1760933713;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=colkYyZbzoORxyEYRGBidVhmHrro9mfSyhDk+5cS57k=;
+        b=G7NUhCrD54nvoKk5xHIhfwNKCTPWpbiwMbbY/JKhB4x2CjyUdcLSEv9wqLiw8h+CVS
+         gVC4SkiJIfE0nLettMRNmbmanVxMIXxjCB3ygWkFJA4Q/oLfvK5cp0Wl7NZ2SfPsFT7Z
+         86iQXlNJAo050RM7TFz++uvOm9MrOKVog+wYcCxeKpIF5oIAHWvhAtx9Wu0vQYXOYCPs
+         13IlYBkUzgPbrXmiIcWWB9Xg1aDWWxDcTXUXSau3IWoP7cJOIk/R1xPdt9SS2lNeSADW
+         OXM20X3+GPES+AxSbFQH2T3iVN6LGQbWHRwQlhbGwTfA80XgPnDAiN+HE13BZShXADXQ
+         G6vw==
+X-Forwarded-Encrypted: i=1; AJvYcCUU3QjxeoQjcYQdT9rIDXZ+CRrxaOX3Z8fOuHueTt5jp8kIAbRrVHz/jYFHW1k19ZUSK3H4ll2eNy4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3V7Pkn8OeEnqVUTrv03nB++jpJH3nY26l428naPXzxYvolhLr
+	jt7PI3DNAtBsij5ouVszucACOWZIaV0iI+/AhugaqjZaRVLO0ORkVS3Q
+X-Gm-Gg: ASbGncs5oQji9Yd5NDWky8Rgi4QOTZCtmVx+bFEV8lNSWsEa4EiAkm1DqFs52EydrVj
+	nzCSR+JRn04ayRt2Kbvpv/SqXNtuH4+xofsr2TEoA+oRoUrCibGicmMY0q5vBkSX1Z3xalKuh6a
+	Zvp1YFeM4SHKbc1/o2Z2rahJfj3grGhUb0xuhuxW5mt/klFAU5hZ1JMwMYS/NShjFlFjBZ+rZ0M
+	oDkcT+6uCYtxz2IsM5AttfoTHXAlZDe/e1H98RY8B/JuJKSBa/ZjU9anuj7bunQUD7Ogd+D27Gd
+	bgXq/x7hIfGcRNbsqbygwlu45e+arTSG9DT6+70iOQPnL+NdClvrrDLA9NHGu21F4Pw5y0IG/Ly
+	H+pRg4hcKU47H8N+7Hw8h6M7eAek38ipNNQsWc2iZSA1R7rPyQWbkhQSYjwM=
+X-Google-Smtp-Source: AGHT+IECiVBvIpj/XkfavhhFkEhUHJSj2F77oaKYcZbnOL1gCKKAC8pproGszqhcGtZRZGjYUmGA5g==
+X-Received: by 2002:a05:600c:4584:b0:46f:b42e:e367 with SMTP id 5b1f17b1804b1-46fb42ee40cmr83475705e9.41.1760328912477;
+        Sun, 12 Oct 2025 21:15:12 -0700 (PDT)
+Received: from localhost ([212.73.77.104])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-46fb49c4027sm161997725e9.17.2025.10.12.21.15.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Oct 2025 21:15:12 -0700 (PDT)
+From: Askar Safin <safinaskar@gmail.com>
+To: luca.boccassi@gmail.com
+Cc: alx@kernel.org,
+	brauner@kernel.org,
+	cyphar@cyphar.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple instances
+Date: Mon, 13 Oct 2025 07:14:59 +0300
+Message-ID: <20251013041459.148478-1-safinaskar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAMw=ZnTuK=ZijDbhrMOXmiGjs=8i2qyQUwwtM9tcvTSP0k6H4g@mail.gmail.com>
+References: <CAMw=ZnTuK=ZijDbhrMOXmiGjs=8i2qyQUwwtM9tcvTSP0k6H4g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zytyyit2ynccahp7"
-Content-Disposition: inline
-In-Reply-To: <20251008020031.1215030-3-kolyshkin@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+Luca Boccassi <luca.boccassi@gmail.com>:
+> I don't think so. This was in a mount namespace, so it was not shared,
 
---zytyyit2ynccahp7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH v2 2/3] pidfd_open.2: add PIDFD_THREAD
-Message-ID: <7vb3ed5qttoe6n5ozzjwqtzw5iupifozplkkhd3jjvbhy5efqy@d4ksex445ixl>
-References: <20251008020031.1215030-1-kolyshkin@gmail.com>
- <20251008020031.1215030-3-kolyshkin@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20251008020031.1215030-3-kolyshkin@gmail.com>
+If it was not shared, then this seems like a bug. Please, say me
+reproduction steps, I will try to fix the bug.
 
-Hi Kir,
+If you don't have reproduction steps, then, at very least, say something
+like "this happens at line xxx of this big program".
 
-On Tue, Oct 07, 2025 at 07:00:29PM -0700, Kir Kolyshkin wrote:
-> PIDFD_THREAD flag for pidfd_open(2) was added in Linux 6.9 (see [1]).
-> EPOLLHUP was added in Linux 6.9 (see [2]).
->=20
-> This adds description of both, mostly taken from kernel commit
-> messages and previous discussions in linux-man (see [3]).
->=20
-> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
-ommit/?id=3D64bef697d33b
-> [2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
-ommit/?id=3D43f0df54c96f
-> [3]: https://lore.kernel.org/linux-man/20240709021335.158849-3-kolyshkin@=
-gmail.com/
->=20
-> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
-> ---
->  man/man2/pidfd_open.2 | 35 +++++++++++++++++++++++++++++------
->  1 file changed, 29 insertions(+), 6 deletions(-)
->=20
-> diff --git a/man/man2/pidfd_open.2 b/man/man2/pidfd_open.2
-> index 3c7c568c2..e8b61ec3e 100644
-> --- a/man/man2/pidfd_open.2
-> +++ b/man/man2/pidfd_open.2
-> @@ -4,7 +4,7 @@
->  .\"
->  .TH pidfd_open 2 (date) "Linux man-pages (unreleased)"
->  .SH NAME
-> -pidfd_open \- obtain a file descriptor that refers to a process
-> +pidfd_open \- obtain a file descriptor that refers to a task
->  .SH LIBRARY
->  Standard C library
->  .RI ( libc ,\~ \-lc )
-> @@ -25,24 +25,32 @@ .SH DESCRIPTION
->  The
->  .BR pidfd_open ()
->  system call creates a file descriptor that refers to
-> -the process whose PID is specified in
-> +the task whose PID is specified in
+Also, note that "unshare(CLONE_NEWNS)" and "unshare --mount" behave
+differently: if you do "unshare(CLONE_NEWNS)", then all shared mounts
+continue to be shared. But if you do "unshare --mount", then it
+internally does "unshare(CLONE_NEWNS)" and then equivalent of
+"mount --make-rprivate", i. e. makes all mounts inside new namespace
+private.
 
-Should this say TID (thread ID)?  Or is it correct as PID?  I don't know
-which is appropriate here.
+> it was a new image, so not shared either, and '/' was not involved at
 
+When you make a new mount under existing shared mount, it becomes shared, too.
+(I just checked this.) Also, on systemd, all mounts (not only '/') are shared
+by default, I just checked this, too.
 
-Have a lovely night!
-Alex
-
->  .IR pid .
->  The file descriptor is returned as the function result;
->  the close-on-exec flag is set on the file descriptor.
->  .P
->  The
->  .I flags
-> -argument either has the value 0, or contains the following flag:
-> +argument either has the value 0, or contains the following flags:
->  .TP
->  .BR PIDFD_NONBLOCK " (since Linux 5.10)"
->  .\" commit 4da9af0014b51c8b015ed8c622440ef28912efe6
->  Return a nonblocking file descriptor.
-> -If the process referred to by the file descriptor has not yet terminated,
-> +If the task referred to by the file descriptor has not yet terminated,
->  then an attempt to wait on the file descriptor using
->  .BR waitid (2)
->  will immediately return the error
->  .B EAGAIN
->  rather than blocking.
-> +.TP
-> +.BR PIDFD_THREAD " (since Linux 6.9)"
-> +.\" commit 64bef697d33b75fc06c5789b3f8108680271529f
-> +Create a file descriptor that refers to a specific thread, rather than a=
- process
-> +(thread-group leader). If this flag is not set,
-> +.I pid
-> +must refer to a process.
-> +.P
->  .SH RETURN VALUE
->  On success,
->  .BR pidfd_open ()
-> @@ -155,13 +163,28 @@ .SS Use cases for PID file descriptors
->  .BR select (2),
->  and
->  .BR epoll (7).
-> -When the process that it refers to terminates,
-> -these interfaces indicate the file descriptor as readable.
-> +When the task that it refers to terminates and becomes a zombie,
-> +these interfaces indicate the file descriptor as readable
-> +.RB ( EPOLLIN ).
-> +When the task is reaped, these interfaces produce a hangup event
-> +.\" commit 43f0df54c96f
-> +.RB ( EPOLLHUP ).
->  Note, however, that in the current implementation,
->  nothing can be read from the file descriptor
->  .RB ( read (2)
->  on the file descriptor fails with the error
->  .BR EINVAL ).
-> +The polling behavior depends on whether
-> +.B PIDFD_THREAD
-> +flag was used when obtaining the file descriptor:
-> +.RS
-> +.IP \[bu] 3
-> +With \fBPIDFD_THREAD\fR, the file descriptor becomes readable when the t=
-ask
-> +exits and becomes a zombie, even if the thread-group is not empty.
-> +.IP \[bu] 3
-> +Without \fBPIDFD_THREAD\fR, the file descriptor becomes readable only wh=
-en
-> +the last thread in the thread group exits.
-> +.RE
->  .IP \[bu]
->  If the PID file descriptor refers to a child of the calling process,
->  then it can be waited on using
-> --=20
-> 2.51.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---zytyyit2ynccahp7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjsKKEACgkQ64mZXMKQ
-wqm+xw//VxG5sPMFRPWnjuWj5rc5S90hzlgiTE4GoPQ+vSsj196Hvsrb1HRw4O1u
-eitltgu45JLKkSpsS9+w4F4sYg0hg5k0O0ak7IYTZYz+GL6MB8fca1fo45Z+pBWW
-Wte02lafs2MlaoRgu0ovDnz5aeRnGGBInmIgA9Gg2WiNBFvMn5nrOu9caJhOIm8t
-ErZxjFqQPvFHLu/zeWDyHLazeHCQ2uP7UlA933oGm5E1XrV1fxGFHzw5ni9y1QNx
-5egPkKx1Zx9nCgOQ9ys+UDkyarbsKt9ik/Pa2trdmLhxf+y+kc0wgsLa8dnbG8UY
-W6+Z9OgCXg+vN2CCY8Hck4izCLCkvDL1wKzrZSE81sjesP8Z1UnyRaBihqTzPaC0
-b1bndeXScoTcABXx6pIsB/LcmPBynNMQ1CmY6hlS4GRTGfB3MGMw9JFCiIREM+gI
-VPuIB7TGybg8x6p0PRvpKbFLGJyWwEXnueKwi94VN54eH+HFPN0svQMnV5TxU9KO
-pgPJVheHHZ170BUHBnjBPFklaWJdJfRm5VL2kgD2Uy2K3K3XB+Bs2erhQPk9lPM+
-2oL1pI8EM8zd/nKwunjlMEu38P0P/mU+BOyakO6EmD0MTdemOaWhUyd6C66ZwlD7
-o8mEJXsqukPM2r42eQR+9auMqQeQwQrFhWaJTt0TnMXHtJtsOmc=
-=gLKg
------END PGP SIGNATURE-----
-
---zytyyit2ynccahp7--
+-- 
+Askar Safin
 
