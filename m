@@ -1,86 +1,86 @@
-Return-Path: <linux-man+bounces-4124-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4125-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9506BDB865
-	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 00:00:29 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA3FEBDB8E9
+	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 00:04:47 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id C99B14E5063
-	for <lists+linux-man@lfdr.de>; Tue, 14 Oct 2025 22:00:28 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 150B518A82AB
+	for <lists+linux-man@lfdr.de>; Tue, 14 Oct 2025 22:05:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4CE49258CDF;
-	Tue, 14 Oct 2025 22:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6217330F945;
+	Tue, 14 Oct 2025 22:03:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MemeKtSE"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YGSGPm0K"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3E4289E17
-	for <linux-man@vger.kernel.org>; Tue, 14 Oct 2025 22:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CCA30CD8D
+	for <linux-man@vger.kernel.org>; Tue, 14 Oct 2025 22:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760479225; cv=none; b=c6KYZOMJ0PENsCkgjuSWWT0+ujoGTepc3zTBIJMHJFwnw2nHkCFt9lLIkEQOMm7uktt4kNhscO2R8mhsqz0q3Je5TTYLBZoeDoKJWYp7WyDfjq4Gi0D7RfllV7fmqSnTF+zlNJCk2h7WVXeKTCasBvXAFVn46q/igGcbN2Ot5yQ=
+	t=1760479399; cv=none; b=LdQEBvniyPa7gqoaWjYy9yfMfqsjrutl1PB7LQSkVDW11pfeslIN0opn3w8SfBrfwZrOR0/iyiDmahP2gSPHGnNWtP0rLbzlIcudBXkIiL+TeIjDNeDPKGXfyhXD84cpfkxdYLDxyVyxJVMDBbA+60IKSJPtg3z30ToJltBCj3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760479225; c=relaxed/simple;
-	bh=eccUNZxwa0MM7idZxPoCPiGn3/WzaAaiAnVglsMRWHQ=;
+	s=arc-20240116; t=1760479399; c=relaxed/simple;
+	bh=qSGAK2JH548gNTH9p5mI1GJ3esx28wRm+DFqILx897Q=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H8GKgQ5KSsJJnfRSrQYLm5OYWQlk5YmwF8eaAn+HpNEd9FTYcFsoKOWmVAN4kWPUQIxGwPIQ9JacprCFPsDTc/PvlbAjyAiVK0qAXHjK+MHNYRqz5fn9G3sBFCWPAX2LXzq9/4h9yp4l1Ygt7rzFlCxAGQCaKqC8G4AXu/erAK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MemeKtSE; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type; b=gv2eKoSUqGe4hi/7DdlgUmCuRAinhAs7pvgnKA67xp+Olmd6l9LMH55X/A4a/fClNnUPqAMeS/fO/ptxCXR6aVyHofXUizZvBVYGJ8JjXZ6T8n6WRx1Zs6qyDC0cdhr/b3rn8+FBKHIGZLTs13SqpVatW+IirTCHhapZ1ZOobL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YGSGPm0K; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1760479222;
+	s=mimecast20190719; t=1760479396;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2oXCesY3Qb5goQfrE6Q5FwqXprZMKeZrWPp9W++zY1s=;
-	b=MemeKtSEi2Cs85sCnPHsROqo5+ptiPkzQ71pKaWCqfCtUALdO8ZBJJYKoH9wb7v1VxieEV
-	tA5cE6JE0zbWqTVNLtudgi0VoIgdAwXyb5+sNv6RoIhR0/jEB2Ig/tIBbohGTQ8XjXpnFR
-	lOnVpOxGmKnKWINXpix3tDbvmdRLedY=
+	bh=PBosT1S/Gwls0sK4NnGdLR9qXRMZX9GJspyFj0GxbGg=;
+	b=YGSGPm0Ke8gNfEWZHlEi57rBJWxvFzNtCX9lhuiyKksZ08CZjCcmvMGQBNfF61kBSJVi3H
+	5ELqWcbL05GzBbkpMSxid44gJYP7iLsfcoOTByXlQ43hGSDJsrv16uiJ3i95r3Uw060gwq
+	/wr8OvdjQwgSN7FyLrHO1odLaOcEza0=
 Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
  [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-653-_iNLx4SINweDvGDxd_8ALg-1; Tue, 14 Oct 2025 18:00:21 -0400
-X-MC-Unique: _iNLx4SINweDvGDxd_8ALg-1
-X-Mimecast-MFC-AGG-ID: _iNLx4SINweDvGDxd_8ALg_1760479220
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-81a8065daf4so162704756d6.0
-        for <linux-man@vger.kernel.org>; Tue, 14 Oct 2025 15:00:21 -0700 (PDT)
+ us-mta-670-EZKaqW64NcSLtGvrxzx40g-1; Tue, 14 Oct 2025 18:03:15 -0400
+X-MC-Unique: EZKaqW64NcSLtGvrxzx40g-1
+X-Mimecast-MFC-AGG-ID: EZKaqW64NcSLtGvrxzx40g_1760479395
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-78f6250f0cdso257122436d6.2
+        for <linux-man@vger.kernel.org>; Tue, 14 Oct 2025 15:03:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760479220; x=1761084020;
+        d=1e100.net; s=20230601; t=1760479394; x=1761084194;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:from:references:cc:to:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=2oXCesY3Qb5goQfrE6Q5FwqXprZMKeZrWPp9W++zY1s=;
-        b=tg9JRTI69AxwoZMFPr/ZlUVvHXKsGc68cK/wul3FJuUX0GWcL5V8rmZ7okNfnzq9uN
-         qvMLte6k6SFoDM70g/Dd4lH4bg+pALY6RGOk0PNyOtdVM7Kqrg7gfrZpodQp7H5LvJGx
-         HnbikXuSWCKfNXAXD5ptTwAgT09rIAOf59jWpK4l/2OgpQDYZoy7vMNfKDP62Hi8wnPf
-         4e9Qoq8PWmbwPlivrlKRO1IWgCyK78aBRFEsDcXs1zQjyqPxA30fmGv/5cHD6wzqgqEc
-         +hkZsBvJ5vEdSAMBBLZ9+VXWcPyVIGldNdFMr/bK1ZSaI2e7TkOFWVhvStsz7Q9psM3N
-         Vs2A==
-X-Gm-Message-State: AOJu0YwXLPXRxIgXtW/RqYMDB31N2T6heb2i7LzmkmrIXkrwDVs8+MfZ
-	PLdG4kEBuEcyPBO2X9zmCwffyqI7h2hDMU2OcilDqZmnzcFCWTf/rxSFObA2HQIO65pRSCpY6qz
-	X2dwqzBOFaMpl2sp6cWEx7RRGeaoS7FCDfn/Hm39TDUCx8hlM/jhLJQA+3ddkGw==
-X-Gm-Gg: ASbGncuyZwyZPuAKwfeC1x10ca9SxusRPy2wrYSXjnOzWaeoipj9ouADMk/kJ4ENdF8
-	F2MU478XYBv6SI+zuMkF58yEyzM1RoPAbYkG1wWiSgueAR7iOmnZIDImuv9vTGcK3vCGrtabJLZ
-	n1pyNoppjbzifjjVZ6fmk8aXFjXnc5lTa0qwGvixh4Nv/DnPDSsJvE5d9f7CbcmjB4s4qqPlMQt
-	U2tQRyAAphKxCHv0eko0pmUoxdbJe8HuZEHplQRMKvk8pZXl6Pni6w6PIvJuNDs1VV5e6dHOLWc
-	V1V4eA2n9iPN7igsg2i8s0ZTu/R5ixHnijPPaurpaw==
-X-Received: by 2002:a05:6214:c29:b0:78f:493d:15c6 with SMTP id 6a1803df08f44-87b20feda94mr326329336d6.3.1760479220326;
-        Tue, 14 Oct 2025 15:00:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFx3mtqgpYqBpNx/jFtZ8T4tz45L5lZZu0ltba9SSwPw/KNlp+g2bNDqZ9vsmzPmBZpFfQ1kg==
-X-Received: by 2002:a05:6214:c29:b0:78f:493d:15c6 with SMTP id 6a1803df08f44-87b20feda94mr326329036d6.3.1760479219801;
-        Tue, 14 Oct 2025 15:00:19 -0700 (PDT)
+        bh=PBosT1S/Gwls0sK4NnGdLR9qXRMZX9GJspyFj0GxbGg=;
+        b=tDwD+EVooPkc4p8R6xZcoMQDcgBJ3wNBBNsgman+PYFwpiiZqHzs9WikicYS2FaIaA
+         CuMbkbcsKxGa/CKqtWSMOqGBDJ6M7ihZ1siMAq06ICwZ3LdLnU/a5nuilLr+g4UlT4oS
+         UGY9vnnZ8ZRIinb04BL+D8fcLVH8OcfYbPzZ+uhRlTdvWQCBJ3haYsfmhZG3BrLOAobk
+         vInrcJ9d4hpxUBRxg+frq1tmk4Yp+DV35iKK9+5wP2lmaLzGYbQQsPYg9JOdNtwQqVzo
+         jCsZUQZI16xyn8exglp2UI8MBGX+z9IF7gc8ByN7ajv/rRbE0sdvG59gdomoS4/Xl05H
+         zjZw==
+X-Gm-Message-State: AOJu0Yw/fD8QBEhHerhgU/yDgsud8DipS4Tcbu1yQggEXOZajima15Jq
+	PcvIN2AFBgIdYeKKharXcGD7Bl9R/WtTV7YimaaTOV1C4yGHepQODWjAfBN84nVNkd0J7naOTT+
+	HQz0mhR5rS7NdhmVQXkVr4fgr+yiMD6ME6oK9lyIXnmE5+ln0XOm/bcOLKkHNIrijB562EQ==
+X-Gm-Gg: ASbGncsSxRI75Qgbqneiwn0Cgg/ppcqA1QS5woE4sE+wyUbbJoNMan4RK2X+EHPjB6n
+	Uptr4sPXEUnNLOgXw5vZaI8Mc5VHw+cBooAtnXVWKqEwtkfFJLh7iW7VAVBYUFBD+o9oIZDu9+h
+	VVodKdCRTjQAauKOKp14eDCV9sqsTCW5QQpXivH0yoqFCWLgF0znUqS66zYQK5UvXswT9iUktcg
+	oaOwF3h39StVfgTJuufmKDYaPx+DuFxhSWx0xUoJKgH2Ady0c5eyEZopv1dJ4V9pmh/BGnIfgWF
+	d9oMrJbUeUzFnVo0c5iOIUdgXDDrnnzuVBJzwretJg==
+X-Received: by 2002:a05:6214:2503:b0:746:e5b3:e123 with SMTP id 6a1803df08f44-87b2efc1fecmr375874266d6.59.1760479393961;
+        Tue, 14 Oct 2025 15:03:13 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFUne54PESv5SZ1Wpl54udgZw28+YaAIaKGwlcKxJXNpCr5Ivbe2eUzT4fVm4xR9lYJhimBuw==
+X-Received: by 2002:a05:6214:2503:b0:746:e5b3:e123 with SMTP id 6a1803df08f44-87b2efc1fecmr375873646d6.59.1760479393358;
+        Tue, 14 Oct 2025 15:03:13 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-87c012919e1sm6069016d6.34.2025.10.14.15.00.18
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-87c0122d19asm6150006d6.29.2025.10.14.15.03.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Oct 2025 15:00:19 -0700 (PDT)
-Message-ID: <e6af212b-7efa-4f36-b39d-35f3856f657c@redhat.com>
-Date: Tue, 14 Oct 2025 18:00:18 -0400
+        Tue, 14 Oct 2025 15:03:12 -0700 (PDT)
+Message-ID: <0d2c1adb-ec94-4411-9ca3-d137feb076d9@redhat.com>
+Date: Tue, 14 Oct 2025 18:03:12 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -90,10 +90,11 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] CONTRIBUTING.d/ai: Add guidelines banning AI for
  contributing
-To: Collin Funk <collin.funk1@gmail.com>, Alejandro Colomar <alx@kernel.org>
+To: Alejandro Colomar <alx@kernel.org>, Collin Funk <collin.funk1@gmail.com>
 Cc: linux-man@vger.kernel.org
 References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
  <877bwx6u48.fsf@gmail.com>
+ <xcupkgdicaihwfxnggznr2wkks6d4axm23is6arlly6zyeftlb@xf2gci2joaeu>
 From: Carlos O'Donell <carlos@redhat.com>
 Content-Language: en-US
 Autocrypt: addr=carlos@redhat.com; keydata=
@@ -141,45 +142,47 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  6mzR3XVZmF7FAZNTSV+1GCekJlnCSp4M8HItrojuEtrdH8Ba4WWxK+cIKejqzhwKFpQYBLg9
  m/A+1AHg4g==
 Organization: Red Hat
-In-Reply-To: <877bwx6u48.fsf@gmail.com>
+In-Reply-To: <xcupkgdicaihwfxnggznr2wkks6d4axm23is6arlly6zyeftlb@xf2gci2joaeu>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/14/25 5:39 PM, Collin Funk wrote:
-> Alejandro Colomar <alx@kernel.org> writes:
+On 10/14/25 5:59 PM, Alejandro Colomar wrote:
+> Hi Collin,
 > 
->> Signed-off-by: Alejandro Colomar <alx@kernel.org>
->> ---
+> On Tue, Oct 14, 2025 at 02:39:19PM -0700, Collin Funk wrote:
+>>> So far, I haven't noticed any contributors using AI.  Probably, the
+>>> combination of relatively few people contributing documentation,
+>>> combined with still working on a mailing list, has helped us avoid the
+>>> wave of AI contributions.
+>>>
+>>> However, it's better to take preventive measures.  AI is entirely banned
+>>> in this project.  The guidelines are clear and concise.
 >>
->> Hi!
+>> It might be good to provide a sentence or two of reasoning, to avoid
+>> repeated questions on the list.
 >>
->> I've already been DDoSed in my own home server by AI crawlers (which is
->> the reason I decided to move the HTTPS server to port 80, just to break
->> links and stop the madness.  I could install Anubis, but I'll resist for
->> some time.
->>
->> So far, I haven't noticed any contributors using AI.  Probably, the
->> combination of relatively few people contributing documentation,
->> combined with still working on a mailing list, has helped us avoid the
->> wave of AI contributions.
->>
->> However, it's better to take preventive measures.  AI is entirely banned
->> in this project.  The guidelines are clear and concise.
+>> My main concern with accepting AI contributions is the current lack of
+>> legislation and case law in the United States with respect to the
+>> copyright-ability of the output. I also don't trust AI answers much, but
+>> that theoretically could change in the future as technology improves (or
+>> less people blindly trust the output).
 > 
-> It might be good to provide a sentence or two of reasoning, to avoid
-> repeated questions on the list.
+> I have many concerns, including copyright, licensing, quality, and also
+> harm to the environment.  I posted this patch to the mailing list so
+> that we have a resource to point to for complete discussion, instead of
+> just including a sentence or two, which would necessarily be incomplete.
 > 
-> My main concern with accepting AI contributions is the current lack of
-> legislation and case law in the United States with respect to the
-> copyright-ability of the output. I also don't trust AI answers much, but
-> that theoretically could change in the future as technology improves (or
-> less people blindly trust the output).
+> I might include a note saying something like
+> 
+> 	if you believe your use of AI is necessary for a major reason,
+> 	please disclose it and ask for an exception
+> 
+> for covering some cases where health is involved (such as what Carlos
+> mentioned).
 
-... and what about EU contributors?
-
-Upstream has to deal with the complex jurisdictional intersection of laws.
-
-I recommend simple and easy to follow policy.
+Requiring such disclosure of health issues may be illegal and discriminatory
+in many jurisdictions. I urge caution here and recommend we not go in that
+direction.
 
 -- 
 Cheers,
