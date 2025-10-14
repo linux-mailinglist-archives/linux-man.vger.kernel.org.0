@@ -1,87 +1,87 @@
-Return-Path: <linux-man+bounces-4131-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4132-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEADDBDBD97
-	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 01:58:23 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D91ABBDBD9A
+	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 01:59:49 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 83EC74004FA
-	for <lists+linux-man@lfdr.de>; Tue, 14 Oct 2025 23:58:22 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 9BA664EFCBB
+	for <lists+linux-man@lfdr.de>; Tue, 14 Oct 2025 23:59:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 999162DCF7B;
-	Tue, 14 Oct 2025 23:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A9402E6CA1;
+	Tue, 14 Oct 2025 23:59:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dezeCGqX"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BUZAdjer"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE21E24A06A
-	for <linux-man@vger.kernel.org>; Tue, 14 Oct 2025 23:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F8524A06A
+	for <linux-man@vger.kernel.org>; Tue, 14 Oct 2025 23:59:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760486299; cv=none; b=jFUHi63Jnm3A4FSzIT2KhO1DUu92Z78/0dhkT9AG+PQZ9+cDvDLba04awwdxXnG+u+mvsHAlLf4jqa7npeF/eH7ItyugftXbPJpOHAHjjmCgEicvmkisSFpECDFaKwj4tBuZno23OPjXvPiTVjy6Sn/ffNu0pg8ev5IwSR4OJPc=
+	t=1760486384; cv=none; b=gv8sc8uPlKqecMHT8Ff7LBQ9xZBLLyddqXYywufPneLQLuPiTFnh4wJ5GfH+T3iPJkND9LAkUdcM4eaNSOh8GZKBZC0uE02macpIpzIS0sCxX7jNe7m7O8WpTQjho9x54sHifopbaYAmCfUEmRAS/cAFz0TZb4JojgMXfwPiEwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760486299; c=relaxed/simple;
-	bh=v7ftw92t60RfnfeHma271GBRZ0aCCBGEtNz1pP9fdCQ=;
+	s=arc-20240116; t=1760486384; c=relaxed/simple;
+	bh=e7C3//K9p4oP/AlOmkIdHsYK4D0lu7DTZgwjk76x3dM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QKNWfTWn/0t+kWIcgFVk9tAQIdJnM2Gia3+J5q4tPsocpHIB/kxpuvWC/F5aGb6JKKVxy5HXz05qpJykcinvvD+lFlfNK9T9rCf2Jrio4wbTvvdDaRoXWP1XBjKE/Y1v5xpLG8RfvFjaqEJQ0BI8ohmfYaDHORbbGaKww0Uz9FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dezeCGqX; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type; b=vCo99XG8VFa9uevf93nJP0yKRJe4M+V3K/4JBQCzVtM7ut4+0bfKUTTCJyAGmuEnI8nn1ZOOK2QwEfb+FmE+cnUjFDTgayOBkLofQQeufCLhcqo9T11KDnUF81xwUOwvfWhegJU/IF7Ir1/EV7WPTyedIyhRSl98ZaEVVJjRTnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BUZAdjer; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1760486296;
+	s=mimecast20190719; t=1760486381;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=AZpU1hdqaTigzuRFWlnwdXLSGZTlWk4PMmiiUnh0kKQ=;
-	b=dezeCGqXfn05afw9yRtCCggNa6tYvydZVcOlH7L+ANqmBfKoPjUMsjObD8AZcO8cnEozWL
-	+XKakR/WII9mM7A5DnwEPJfIQfLZrNwzBY3xOgH2ArZR9qypHERY4AxZI0ho0MKQrCFE5/
-	+LNQKIWnmMD42hLhHLmkpE4EcDAOgVE=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=qvSIVfBYClRKytwhNisv9vnfkgxV12qKiaQ+We7ELdE=;
+	b=BUZAdjerIhjJrQK/pC4THVw+FjBUI+iO//cMoqPTf5OX/FjjSgJUWn8ReMU1+y3bZcOTDs
+	pp+PcfhJS6BvrypBqt4Q8hhoOC84YExOtVfTm57AO2NTh1/0HkBiN0XDWIY6ZN00Jt5Af5
+	mPK4Y8sispBZuXIqmp4oDTCxEdBBkKE=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-695-OAiZahuBN0K7LSbr1ynmLQ-1; Tue, 14 Oct 2025 19:58:15 -0400
-X-MC-Unique: OAiZahuBN0K7LSbr1ynmLQ-1
-X-Mimecast-MFC-AGG-ID: OAiZahuBN0K7LSbr1ynmLQ_1760486295
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-818c83e607bso153602076d6.2
-        for <linux-man@vger.kernel.org>; Tue, 14 Oct 2025 16:58:15 -0700 (PDT)
+ us-mta-122-5Spi-Mw0NkmMVJYqlp2TEQ-1; Tue, 14 Oct 2025 19:59:39 -0400
+X-MC-Unique: 5Spi-Mw0NkmMVJYqlp2TEQ-1
+X-Mimecast-MFC-AGG-ID: 5Spi-Mw0NkmMVJYqlp2TEQ_1760486379
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-827061b4ca9so2685494685a.3
+        for <linux-man@vger.kernel.org>; Tue, 14 Oct 2025 16:59:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760486294; x=1761091094;
+        d=1e100.net; s=20230601; t=1760486379; x=1761091179;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:from:references:cc:to:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=AZpU1hdqaTigzuRFWlnwdXLSGZTlWk4PMmiiUnh0kKQ=;
-        b=TWXAI/WLQ5rlXhWQDGCgkL1mhyUoaJIXkyn41eMMUPI2NuFSmYE6IcQIm6FZpV713r
-         cFxx4pRXRfUIOyFtUQbLUeP1IJkgko3qRl6p+X2wguLwACK5MpMpiWz8UQ6QU94g5xa9
-         H/Xc2EqUcJoRychIGmIAfIONXNlyUf+4dch1e+E3OgYFjUWXExzUVI3VI6RhLdzB1HE1
-         1s1SdB8RhXeh4nrRTaXGWksk+fhwQEbufBHM8PtCjGhf7QMmDoEO0yaBcQaJrM4CdM47
-         ngUcyX2WBn0rRnL8pru9MYsWtbrqwUuPkEpXuPdRQx7+21wno+1W0OUFK0zY/cZJIurB
-         tPiw==
-X-Forwarded-Encrypted: i=1; AJvYcCUGuZk+f4luzOdDl0YQj+b136SNQo7uUcZ1XHUw7CKdeA7Rmv2z4NYq4VMam7ChLFdT6zZ3IiohbwQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywi0NzqiOzH64H6H1wVnowfhxBxnDQUSF/xWoMHooXDMONqWvzf
-	jf2lPxB1n5LhjX1ivrBHuFHX/VjJO6usWry1ByHDcyymTxc/YqgbUmwyxw9Lve7WscOEyhP0xWn
-	v+0ILU5nNgvaWh2hhV4NlY7pA2fmVWFTQYcK1evN6UOfN+QQOOdhJ9V0Ac2GJCknK8xI0eQ==
-X-Gm-Gg: ASbGnct6Na91ZMjGetZ/kN1YhnECPP9D20/Bvz4FuwZpjir9JpQ5IeGt2w9LNpPkyA2
-	qW1OImzriuuMsJ58iIritTSPzAhyc54c4rv/6qIloC7pDDGJUrdM2dFF8LkMUBH4R3niWjqYK9L
-	afHad8YZVf1Ge6kZevkOs/iNEXgYyrb40x5I67yr3DkeobZsa+o7+jocp1mxSH7e3YMLjMcDnVw
-	Selfp4SxZIQzvLx7kSU+gCd07K1lceM8kh7U5G3udpdGCXglsN2srS8R/nSJNE2Wc9ebwNyfcdo
-	5YOfD+YuDAXazA+xwDWvkqxf/t3ZOyn16fYCp8rJgw==
-X-Received: by 2002:a05:622a:410:b0:4e6:d656:6b43 with SMTP id d75a77b69052e-4e6eace796cmr347240891cf.19.1760486294079;
-        Tue, 14 Oct 2025 16:58:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE96qaXb5uTkbzPK2/YtGWA28S5qffv1qJNaU4DZbJaCpEskDMmkXPvSavptOJ6NYZaBoEkfA==
-X-Received: by 2002:a05:622a:410:b0:4e6:d656:6b43 with SMTP id d75a77b69052e-4e6eace796cmr347240691cf.19.1760486293660;
-        Tue, 14 Oct 2025 16:58:13 -0700 (PDT)
+        bh=qvSIVfBYClRKytwhNisv9vnfkgxV12qKiaQ+We7ELdE=;
+        b=OrrXBX8SdhkLK1Hi6CeDOUTuI0jNmON6Ecbx+XKObOziNSVu3TdGp8NJpqAA2rR0cF
+         DK4lRDYKD5dHUWV/kI0GAMT81EWXZ+wpWYiJjiLd+D9sacgsvdsMy8e7MDg9c4FiNy3D
+         x2Bf9v2jyzzloSy20/ELUdHq1W4h/4tqQqQL0nf5T+sV5KAd7yaKnrXGJjZw7bPuZk7/
+         T8W50vpTlWRlcRx6+WaB/5Z+1wTd9q5m1hMh9bRWC0xz4TPXrVYzlIc3PcJiGgLV/NSm
+         ofwvrXWNKDhtiFZOJ9MYkxTf7KsxHyoICtpiE9RLzDEDlGEYNl1wdPbNSRvHMiETN+ct
+         Nw1Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXPJXmsSZLyTYGXqj4PoGYkAm0gFwAnA4SqlRJeTh412SogKzuKYLLcqHvoZ9M4gB2i/3ZqmaKU3JI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywt/nAVAD4vqKIMAXsSJdodINXEDArBdcUyQwWMWdUuL3HSTF8T
+	FpuGXJnCJSUEA3CUvjmMAvBObWM8nnne0w9NqaHYWvHYhKjaSFzjN4tsKyjMlSzhCyErw8Z2Y69
+	JvHKwFh53XxHvNjsw3Z4FuknHFlVVMdTmlhfLWEdZd44MLY+bOIrW6Q7+tUD7kA==
+X-Gm-Gg: ASbGncssNjpen3nTihL6kE40zy//avj/ut7pIKRBJN3G6SIFOUqMTqEcadfzNjTkjr9
+	epsO3wDYgfxRTQ2k7to/6qh+jN9RhpA9uXaTyfwxcJixu+sSMKBMP8rjGzn4MssveWa9A+9z4x7
+	hcLIMrbsZOk2IZKHd2A5SHPsGZAwbZEaPhAy19G5QYGvJDYggOZgrnsfjqOZXtS8Gcbbmy0771f
+	LGgpv6MJyBV4W4HfRQ6Gbft0KdQY8mkXAwDlULidKmMf3yw3fywYs1RuRvlzjhRpjV0YFcp2wgH
+	CLNhw03duqFcewORiAtUBv/8catdX7AvX9US40Vd1g==
+X-Received: by 2002:a05:620a:f01:b0:84b:4e71:9975 with SMTP id af79cd13be357-88353b2b03cmr3478939085a.70.1760486379375;
+        Tue, 14 Oct 2025 16:59:39 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFLOd64KWNe4EY8oQPSN6ITHnYLPXCAP9VU65vONwcXCH3zc9juA96UjaMKHoRnOGIrw1hLaA==
+X-Received: by 2002:a05:620a:f01:b0:84b:4e71:9975 with SMTP id af79cd13be357-88353b2b03cmr3478937585a.70.1760486378881;
+        Tue, 14 Oct 2025 16:59:38 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4e881c577e6sm8025701cf.7.2025.10.14.16.58.12
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-884a293cdc8sm1310042785a.62.2025.10.14.16.59.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Oct 2025 16:58:13 -0700 (PDT)
-Message-ID: <6b7b6e13-d850-4b7a-8331-6bf8f6aa82d7@redhat.com>
-Date: Tue, 14 Oct 2025 19:58:12 -0400
+        Tue, 14 Oct 2025 16:59:38 -0700 (PDT)
+Message-ID: <e0749995-7af3-412d-b64a-b22c70da3294@redhat.com>
+Date: Tue, 14 Oct 2025 19:59:36 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -91,11 +91,14 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] CONTRIBUTING.d/ai: Add guidelines banning AI for
  contributing
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Collin Funk <collin.funk1@gmail.com>, linux-man@vger.kernel.org
 References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
- <877bwx6u48.fsf@gmail.com> <e6af212b-7efa-4f36-b39d-35f3856f657c@redhat.com>
- <87y0pd5duj.fsf@gmail.com>
+ <877bwx6u48.fsf@gmail.com>
+ <xcupkgdicaihwfxnggznr2wkks6d4axm23is6arlly6zyeftlb@xf2gci2joaeu>
+ <0d2c1adb-ec94-4411-9ca3-d137feb076d9@redhat.com>
+ <wcfg5wvv27thvhn2bc5wevuxotadj3xvuaf55hz5ctxryfuacr@mdjyx3p2sdut>
+ <l63iddwjzdy4mzjzgr3aosgpbetrgoozcm5nas3u2gcxvs36tz@zv3mzlafl2nc>
 From: Carlos O'Donell <carlos@redhat.com>
 Content-Language: en-US
 Autocrypt: addr=carlos@redhat.com; keydata=
@@ -143,33 +146,51 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  6mzR3XVZmF7FAZNTSV+1GCekJlnCSp4M8HItrojuEtrdH8Ba4WWxK+cIKejqzhwKFpQYBLg9
  m/A+1AHg4g==
 Organization: Red Hat
-In-Reply-To: <87y0pd5duj.fsf@gmail.com>
+In-Reply-To: <l63iddwjzdy4mzjzgr3aosgpbetrgoozcm5nas3u2gcxvs36tz@zv3mzlafl2nc>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/14/25 6:16 PM, Collin Funk wrote:
-> Carlos O'Donell <carlos@redhat.com> writes:
+On 10/14/25 6:20 PM, Alejandro Colomar wrote:
+> On Wed, Oct 15, 2025 at 12:10:33AM +0200, Alejandro Colomar wrote:
+>> Hi Carlos,
+>>
+>> On Tue, Oct 14, 2025 at 06:03:12PM -0400, Carlos O'Donell wrote:
+>>>> 	if you believe your use of AI is necessary for a major reason,
+>>>> 	please disclose it and ask for an exception
+>>>>
+>>>> for covering some cases where health is involved (such as what Carlos
+>>>> mentioned).
+>>>
+>>> Requiring such disclosure of health issues may be illegal and discriminatory
+>>> in many jurisdictions. I urge caution here and recommend we not go in that
+>>> direction.
+>>
+>> Hmmm, true.  Do you have any suggestions for the wording?
 > 
->>> My main concern with accepting AI contributions is the current lack
->>> of
->>> legislation and case law in the United States with respect to the
->>> copyright-ability of the output. I also don't trust AI answers much, but
->>> that theoretically could change in the future as technology improves (or
->>> less people blindly trust the output).
->>
->> ... and what about EU contributors?
->>
->> Upstream has to deal with the complex jurisdictional intersection of laws.
->>
->> I recommend simple and easy to follow policy.
+> How about this?
 > 
-> Thanks for mentioning it. I didn't mean to imply that the EU and other
-> jurisdictions are not important. I just do not know much about their
-> situations.
+> 	Name
+> 		AI - using artificial intelligence for contributing
+> 
+> 	Description
+> 		Any use of AI for contributing to this project is unacceptable.
+> 
+> 		AI is harmful for many reasons, including --but not limited to--
+> 		copyright and/or licensing, quality, and harm to the
+> 		environment.
+> 
+> 	Caveats
+> 		If you believe your use of AI is necessary for a major reason,
+> 		please disclose the use of AI, and ask for an exception.
+> 
+> 
+> 
+> 
 
-Sorry, I didn't mean to imply that either!
+I suggest reviewing what other projects have done, like QEMU:
+https://www.qemu.org/docs/master/devel/code-provenance.html#use-of-ai-generated-content
 
-The question was mostly a rhetorical vehicle to get to my point.
+Which limits only "contributions which are believed to include or derive from AI generated content".
 
 -- 
 Cheers,
