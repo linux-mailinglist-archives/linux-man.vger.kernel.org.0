@@ -1,115 +1,181 @@
-Return-Path: <linux-man+bounces-4137-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4138-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B16BDE77F
-	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 14:29:29 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80466BDEBE8
+	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 15:25:27 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 31D344EEDD8
-	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 12:29:28 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 347DE424996
+	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 13:25:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5BB2326D5C;
-	Wed, 15 Oct 2025 12:29:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 751C31EEA5D;
+	Wed, 15 Oct 2025 13:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfFIJOKS"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UWCK51yB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831F72C21FC
-	for <linux-man@vger.kernel.org>; Wed, 15 Oct 2025 12:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124871A0BD6
+	for <linux-man@vger.kernel.org>; Wed, 15 Oct 2025 13:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760531364; cv=none; b=aWvRHpQg/7L4pnHgL2Kp4fkrg1AVaGyCEJPy9lXbYLgjawxXNj7zV8g2Ld2tCC8yXg/DD3h7v6qSReVH6hfK58LtvnGyp9Bk9cWYyCZZI4JBN91ZEoMp2km+HhuAm59+smDuk0p4M0h7u1mNlXA+BAGohWyLSzQ//yPqcNil6s4=
+	t=1760534722; cv=none; b=qr2+wCi4h2GSfR/046r1WoTflhDLhmPdO8NEus1WesHWN4RdgbB7aI6TiVR7msUmd7PyUsB4l5KEK9GP0whFzmgFSxFX52SMLwqdfW+mCSEbwl6PNXVnYPrjY5hSEgLa5xdHxGiFzqvx9GcsD5/EgGIfRchjVw2gKJHwnU4TDMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760531364; c=relaxed/simple;
-	bh=Qhm155KxlYzFWokNq0W8WXtwFCpQkhsK7khb//ylpgQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OeU7iPtW5yxM0z2s7aEVzUDOwdg/SMpVrxATvzfrUSh1Z7mjNhA9P2yw4XOlKDVMHkl16X0Wf0QBUqB44K44b2H6n1Xtsmcwtpk2/Qj0elG9aZNPed/YTZo9nxnmWhmSBDg8l/G5KNx+cCigIYV9B3lyKz572oYoEhiHHQN2U3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfFIJOKS; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02314C4CEF8;
-	Wed, 15 Oct 2025 12:29:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760531363;
-	bh=Qhm155KxlYzFWokNq0W8WXtwFCpQkhsK7khb//ylpgQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nfFIJOKSsw1NFtn0c+J0fAoRRx2g8ceRK93fF+Q2cgdhhPXFc1Ajsyr7MRSw9b2Ed
-	 e1Z1TmnG1muQNqbcBW92DJ+OHxuGAbo2p0RPK/bif8ZPyrM/A6eQFTdpuySGB/9cUq
-	 SwR4dTwUAoi/8VTuKFA4NYu3aclTkSNuLWiYPftbv8/YVMtwqJDkKfIsIMuucwZ4wE
-	 17gEIylTiEM7lBk6UEctEt5JSYETyvScLjv2go6GyteCYr73pmv3TqVKHOwEpplDm4
-	 mYiCHYlnnTghEenlZDC8eQ1KxA7k9CEFZSy/qmCiIgs6Tgm9l6NpaOR6vqe7khtWob
-	 JxgzH2qY82zFw==
-Date: Wed, 15 Oct 2025 14:29:19 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Carlos O'Donell <carlos@redhat.com>, 
-	Collin Funk <collin.funk1@gmail.com>, Sam James <sam@gentoo.org>
-Subject: Re: [PATCH v3] CONTRIBUTING.d/ai: Add guidelines banning AI for
- contributing
-Message-ID: <xxrcp3p7mb6defk3thmz5jzyrx3gbjysbhvz532h7nkv3ssjia@l74mrn7lgo3q>
-References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
- <a6d76881a06350e807107bdd71d62efee4df485e.1760527144.git.alx@kernel.org>
+	s=arc-20240116; t=1760534722; c=relaxed/simple;
+	bh=rXNVNkJtaJGDUr0F6r+ILdp4j6jugTcDQa/696t7dhM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KsQEGbN983eBLQ2iCxU+71iJ83qF7UFEiQwIExrV6pKJb7It0jzu4bYkSlYhjcvblobcIMh+EOsjYrItxheheNSVtHkVVPMiz0wQgNj6VFGQ7yyUOrPOP2z6ekMOEjEY1s2tZovWeGFm5gWTd/PNsYmnCaiQuVeMkza6oqF+ewI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UWCK51yB; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1760534719;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=NocTdbQoz3v5wta2NtWx2Okd0HDhfgVIUPJvO7GwN5E=;
+	b=UWCK51yB1xsRkXsjSl2LYYpOPpMGxP4yRfIxKSi9BCcOej3Yp4hm9OwNQwFJqfdpy/x7pl
+	DzP3aM2k1VREQdcyzr4rO9NQujji/7vDTiZJn+tEdOw8WrynAj39dciM2/Ly1tHgCI5yo9
+	sIbKdLieftBOAbHFA+hYxnogrC1wGVc=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-673-yqqIBjqIP3-_bgGNbRXRUg-1; Wed, 15 Oct 2025 09:25:17 -0400
+X-MC-Unique: yqqIBjqIP3-_bgGNbRXRUg-1
+X-Mimecast-MFC-AGG-ID: yqqIBjqIP3-_bgGNbRXRUg_1760534717
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-78e45d71f05so255415466d6.2
+        for <linux-man@vger.kernel.org>; Wed, 15 Oct 2025 06:25:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760534717; x=1761139517;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=NocTdbQoz3v5wta2NtWx2Okd0HDhfgVIUPJvO7GwN5E=;
+        b=j58K1e1ogKoPhPlXex601kUj/3HPsfMqRAIj7JEGL1MQnPu4y189tMtV0ZhZr8P6fP
+         rZikD+gMZZ3wDfFgx82I8ojggnopcyoM/ExZUhDbSLP3lvfXPxqcC8OYxNuniTipRPbr
+         5tz0jmIx3xZNmqVWITht4NkWRZ0w9iFhv3jTUKM0uFgyKiSRaLb3f2ldr8e86zwwXxSo
+         vy4EwULoxy03kaYOMdcsnEy3xb+NXXMR8A8X0gqm8/iioeUQeaNHrgz45orvGMugwMR0
+         iRNNuQD2+Q58UmpObxN9WTi6yPBtN3Toz0kI+YAPjGhP2iBJKCnSL6tAB1EwITxjE9EI
+         CtWw==
+X-Forwarded-Encrypted: i=1; AJvYcCWS0EE5AnxovG84q4wQj6RRRUw5Zoy8B/qrla7+Mdum93cFJLA49m4xNS97ZSLPS1fPn7Z0dckLWBI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwG4VtLcrTqGnEjHOGKj7UnWKTFOn1NaMPk42NNZPUGw4zlPvK4
+	l0fURcloMJA+aMDpYKQivw5JsFLCLONRS1Dn9p/9MS7JCi7ChPnvdzd3aCHqF836YVt3loTlZDb
+	Xc4IZNNch9rehX3k+sssRPD550915NtBU6j37jEoZryf65SSLi+32zLGzRKkDTA==
+X-Gm-Gg: ASbGnct4l2VMNSzZ+ZD7OtWTjPyOE2qrcOexJ2/L7nRLL4f5hkGlQC9EoBcOm3+KFQH
+	ZRYby0c901Iq9zFdX6GO3P7wOmp4D6Jg1BWqti6RzzApc5I+4yrElPpNQF+U+nvO8ooK+xATeo7
+	ewoDiarVCyuA1mCsg/Bxk5MRaBUnHT6CHYOqtBNb1V1Mcmw8IBO57OnzxYgXqrroa10jTR1DTIi
+	9oj+r2qQOFBrplb4wiL4GOWHlamn8Bfh0lFJcBoP0gdYgZ4ZcY9p09lykfqjoFWU/8ufwoFqBcQ
+	0ntPF7Xo+1uDt+DAC1Uz1K9L84c/6nHviwSAW1MqzQ==
+X-Received: by 2002:a05:6214:5098:b0:80f:e547:f03c with SMTP id 6a1803df08f44-87b2efb9386mr399823216d6.34.1760534716914;
+        Wed, 15 Oct 2025 06:25:16 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFmTLsrSMF78pwMCIzFcDuMmXZy4qWRyTI4oulOUu6hkJCOdDs70XBpYVfOFuasmVro2MkMCw==
+X-Received: by 2002:a05:6214:5098:b0:80f:e547:f03c with SMTP id 6a1803df08f44-87b2efb9386mr399822626d6.34.1760534716337;
+        Wed, 15 Oct 2025 06:25:16 -0700 (PDT)
+Received: from [192.168.0.241] ([198.48.244.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-87c0121c043sm18165356d6.14.2025.10.15.06.25.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Oct 2025 06:25:15 -0700 (PDT)
+Message-ID: <4d14273a-ae17-4f68-9a91-e06fac1d9be5@redhat.com>
+Date: Wed, 15 Oct 2025 09:25:14 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ixdkivgdyorz7qec"
-Content-Disposition: inline
-In-Reply-To: <a6d76881a06350e807107bdd71d62efee4df485e.1760527144.git.alx@kernel.org>
-
-
---ixdkivgdyorz7qec
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Carlos O'Donell <carlos@redhat.com>, 
-	Collin Funk <collin.funk1@gmail.com>, Sam James <sam@gentoo.org>
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3] CONTRIBUTING.d/ai: Add guidelines banning AI for
  contributing
-Message-ID: <xxrcp3p7mb6defk3thmz5jzyrx3gbjysbhvz532h7nkv3ssjia@l74mrn7lgo3q>
+To: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Cc: Collin Funk <collin.funk1@gmail.com>, Sam James <sam@gentoo.org>
 References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
  <a6d76881a06350e807107bdd71d62efee4df485e.1760527144.git.alx@kernel.org>
-MIME-Version: 1.0
+From: Carlos O'Donell <carlos@redhat.com>
+Content-Language: en-US
+Autocrypt: addr=carlos@redhat.com; keydata=
+ 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
+ m/A+1AHg4g==
+Organization: Red Hat
 In-Reply-To: <a6d76881a06350e807107bdd71d62efee4df485e.1760527144.git.alx@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 15, 2025 at 01:21:03PM +0200, Alejandro Colomar wrote:
+On 10/15/25 7:21 AM, Alejandro Colomar wrote:
 > This policy is based on the Gentoo policy (see link below).
->=20
+> 
 > Cc: Carlos O'Donell <carlos@redhat.com>
 > Cc: Collin Funk <collin.funk1@gmail.com>
 > Cc: Sam James <sam@gentoo.org>
 > Link: <https://wiki.gentoo.org/wiki/Project:Council/AI_policy>
 > Signed-off-by: Alejandro Colomar <alx@kernel.org>
 > ---
->=20
+
+Needs a v4 so we can review the final CC-BY-SA-4.0 license requirements.
+
 > Hi!
->=20
+> 
 > I changed obvious wording, such as replacing the project name.
 > On top of that, I removed a misleading sentence:
->=20
+> 
 > 	They are capable of providing good assistance if you are careful
 > 	enough, but we can't really rely on that.
->=20
+> 
 > I don't think it's possible to be careful enough.
-
-Ah, and I removed the reference to LLMs, banning all AIs in general.
-
->=20
->=20
+> 
+> 
 > Have a lovely day!
 > Alex
->=20
->  CONTRIBUTING.d/ai | 42 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 42 insertions(+)
->  create mode 100644 CONTRIBUTING.d/ai
->=20
+> 
+>   CONTRIBUTING.d/ai | 42 ++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 42 insertions(+)
+>   create mode 100644 CONTRIBUTING.d/ai
+> 
 > diff --git a/CONTRIBUTING.d/ai b/CONTRIBUTING.d/ai
 > new file mode 100644
 > index 000000000..92d5d85d6
@@ -123,6 +189,15 @@ Ah, and I removed the reference to LLMs, banning all AIs in general.
 > +	It is expressly forbidden to contribute to this project any
 > +	content that has been created with the assistance of artificial
 > +	intelligence tools.
+
+OK.
+
+Though it has been discussed on-list that this policy could be seen as
+forbiding assistive technologies, but that this was not the intent of
+the Gentoo Council's wording.
+
+I don't have better wording.
+
 > +
 > +    Concerns
 > +	Copyright concerns.
@@ -158,35 +233,20 @@ Ah, and I removed the reference to LLMs, banning all AIs in general.
 > +	This policy can be revisited, should a case been made over such
 > +	a tool that does not pose copyright, ethical, and quality
 > +	concerns.
->=20
+
+The original content is CC-BY-SA 4.0, and so you need attribution and
+a link to the license and a statement that you altered it.
+
+e.g.
+This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+Text derived from the [Gentoo project AI policy](https://wiki.gentoo.org/wiki/Project:Council/AI_policy), used under the Creative Commons Attribution license.
+
+> 
 > base-commit: ac6f5c32b3fae7549c5a42d96a3273adc24e5023
-> --=20
-> 2.51.0
->=20
 
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
 
---ixdkivgdyorz7qec
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+Cheers,
+Carlos.
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjvk5kACgkQ64mZXMKQ
-wqlOzg//SwljoYXp8pnOfQDQ2jREHdb1cvc8lHLmiwIzEykOvKfJJK4MyYnNmlVZ
-rbsCG/kYqJD3YzxKXKCH39kSJjWAdqC7vM7JF/xOfU0OLhi+Zd4KAgIhpOhXmTwm
-Ov0KiVTS1OBHoaeE37G3myH+lyslqxfFDaTx/wk5CArU72lNP6Jn8IbMM8KNnxLY
-qiylfA1V3C9UuJNTWpMYxhMYV/2vjQkIN0pdbFN6B6Jpdd9nE9wQDbcDLX9Adken
-/e5yQ5d3OXSbGgaYA2QJ3S8JRQ8UDKSQrxcz2BAB0WNSh8+Jt4o7OE0cqdF0D8wd
-C2wYqKpqshMlush1gT7I/If4iFQ7fVr7a4iTk4ieLcKOpYGHeJV/gndwyzPoe1Nb
-y8XjIpLxfkT+TlmVIp8FU9K9RxGoQ3M/heWnX27+RwGcIG8JhiC0STU2EZDtBiHT
-whvJ55f+nFG145x/jA4G15NSY6DikvcMiVjOYSqVwfO80va9p39CrKeANcD5LvhG
-Or6R8bgAVjgT9fR4OepJB5djfDIilca3CG3FdED5UedqQqZaSrZPUSfK9a329zzV
-eeP+StXjyqMUShDCYliTGIqD3MR8BM2AciaA1tSx8DUBKSuZ5coP0bgbyvWInjVS
-qYBDiYJcxRW2eAS0Q/RnVwS0t+op1Q65EBuWLnLHkBWgoEr4L8w=
-=x27v
------END PGP SIGNATURE-----
-
---ixdkivgdyorz7qec--
 
