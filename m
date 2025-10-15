@@ -1,47 +1,47 @@
-Return-Path: <linux-man+bounces-4160-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4161-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CAE6BE0D0F
-	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 23:29:49 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1433BE0D63
+	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 23:40:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 398563AF4D0
-	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 21:29:48 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2EAE419C744A
+	for <lists+linux-man@lfdr.de>; Wed, 15 Oct 2025 21:41:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 265B92FC86C;
-	Wed, 15 Oct 2025 21:29:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A96C42FFDF2;
+	Wed, 15 Oct 2025 21:40:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IohwDCXZ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODmVc6J0"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34692F90C4;
-	Wed, 15 Oct 2025 21:29:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A5B2FF67A;
+	Wed, 15 Oct 2025 21:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760563784; cv=none; b=CMerJ6x6sQ5JgcqkdC3UBOZrkl1Mkz3v0YuXda9gt4h16E21gexpRdJbMQW4j3EehNGplu8QJJaPO/w7jU+6bh2ZmK3dOW80sutFBRoQTRMgLUm9OnH81I11TpN4KUnlvEw2pfsHzHw5XU3rgptK+p0ZbBTjl7YIaTF0RnfxZyY=
+	t=1760564434; cv=none; b=WqDm/K2jNmcIl25c3LNcRgLpXp7yURbIaAmzE/zvVENOUnRjBqwN153Ysabr5b0niPOAD4AYImAv9ksvrQ9RuCDrJd7FvM/aWHbWpbFr+9Ia9NAODB43VqcNCIXshDXKMOdtSM8wYf5zO+mTfbQfDfReHIk6vacx3a3mKo+ZqdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760563784; c=relaxed/simple;
-	bh=HS6i/pBYjMvXBzaPKDcEFOI2RAx+uNQ+TIfM6YaWHSk=;
+	s=arc-20240116; t=1760564434; c=relaxed/simple;
+	bh=WKfZEPnTf3pc2qBTMBE9UypqrBWAxUjB8feJIBXgGeM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jmkyBidOOMlr2j7pRQ1ZlvXMEq3I5wCZFwy5Dy9wmeMrE6asVJDkwnSIM5SpEZFrTf4yTM8QvmSqNuybYVTLaw8jdZAtF15EBXgLo09km7v3aabPtgj67GA+yv+hbRWM6PQ9IxHLw1a7w/pi2r5BFKgVMrNhVZ779+TAsh3My6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IohwDCXZ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA713C4CEF8;
-	Wed, 15 Oct 2025 21:29:41 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=I6tHKltXbchQ/zFRF3OYbMKZAunkmVcI84Brt1wtiV+TE3p/cv1vE1vcyhnoKhCQwhncR6cBEM5SPjnOh3BunE/m5LaQ9m9JrdKTWLjaEvGrjaZXYpSZSvTUd5FuVrPpZaAlQAZbMF7ncPBvKD352jdT+/aDzZWJzGdctLdM7lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODmVc6J0; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A8CC4CEF8;
+	Wed, 15 Oct 2025 21:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760563784;
-	bh=HS6i/pBYjMvXBzaPKDcEFOI2RAx+uNQ+TIfM6YaWHSk=;
+	s=k20201202; t=1760564433;
+	bh=WKfZEPnTf3pc2qBTMBE9UypqrBWAxUjB8feJIBXgGeM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IohwDCXZw+HI5M5xn1MEFo0IjDJvLEO6Oxrq+sU50sJebRtnsOUOjHNAxuQzLt5XB
-	 sQc34KMbR4VjNoVM5+KAe3gMDnDRxpJaenfiqBmAKGkzMHkI0UiWiclh3fvxgZehqJ
-	 ffzSGmoNlaB3nAkX4Rrg2lzov5jR29FLlBi4OmrgrDHJHJ623Z2Gv4cZRqj1j6AzQU
-	 LwbkuYi4Z25T+/YVRdsCtt9giv8zoIaY3MgZxSET4fXMsVEt09stL9eiwLZNJMnQCh
-	 kcpCf/9yZJ8KgqEp1kByMlD2tvzMw4roe5uj4y2EPNjLHa2FtAzgWR6c8fEAvWnwF/
-	 vmdge3sm+SOog==
-Date: Wed, 15 Oct 2025 23:29:39 +0200
+	b=ODmVc6J0+MG4S47Jjgn0gLJMBJOOm9s+9Vbp/sIjePjyOFJNEBXbd7w48M/qbwBhZ
+	 +G9neXjMxk91r6YkntUUZxYJ534z+wDvr3t9oop/jK0XrqvZBeJuTO9peU2fh1lWY4
+	 d+oCuKQG+6t6noixJF0AD2azfcBpUEoz7S9HmbkcbGnw7w2EOd6313gIywmvvEle9W
+	 qNq2KXOGEx0fF0O/PMqPULH7IB4fDHTIoUj2sNNEqXMxUThtET1polBywPM8g8hD2J
+	 aTnDAiEuXHLptagC5bjlCu1MZ/ZWchkKtV7cHsz0f082yEkxbBBEI1ttav0I3tpU8V
+	 /OEZUER/l197A==
+Date: Wed, 15 Oct 2025 23:40:29 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
@@ -50,11 +50,10 @@ Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
 	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
 	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
 	Waiman Long <longman@redhat.com>
-Subject: Re: [PATCH v2 1/5] man/man2/prctl.2, PR_FUTEX_HASH_SET_SLOTS.2const:
- Document PR_FUTEX_HASH_SET_SLOTS
-Message-ID: <ueacsjksonhqg6pt6hvlav4uhfms2vrqttfez3ouryud5myhb6@uunect56gya2>
+Subject: Re: [PATCH v2 2/5] man/man7/sched.7: Update the real-time section
+Message-ID: <l3u4eon4paxymk4zxre7trz5jxkrc7vr3ohkdmmvvkw2n6lofl@5m7lz332hyr4>
 References: <20250915141305.906440-1-bigeasy@linutronix.de>
- <20250915141305.906440-2-bigeasy@linutronix.de>
+ <20250915141305.906440-3-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,12 +61,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ok23wencajuhdeod"
+	protocol="application/pgp-signature"; boundary="dnyggwyokbftrpyw"
 Content-Disposition: inline
-In-Reply-To: <20250915141305.906440-2-bigeasy@linutronix.de>
+In-Reply-To: <20250915141305.906440-3-bigeasy@linutronix.de>
 
 
---ok23wencajuhdeod
+--dnyggwyokbftrpyw
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -79,148 +78,212 @@ Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
 	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
 	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
 	Waiman Long <longman@redhat.com>
-Subject: Re: [PATCH v2 1/5] man/man2/prctl.2, PR_FUTEX_HASH_SET_SLOTS.2const:
- Document PR_FUTEX_HASH_SET_SLOTS
-Message-ID: <ueacsjksonhqg6pt6hvlav4uhfms2vrqttfez3ouryud5myhb6@uunect56gya2>
+Subject: Re: [PATCH v2 2/5] man/man7/sched.7: Update the real-time section
+Message-ID: <l3u4eon4paxymk4zxre7trz5jxkrc7vr3ohkdmmvvkw2n6lofl@5m7lz332hyr4>
 References: <20250915141305.906440-1-bigeasy@linutronix.de>
- <20250915141305.906440-2-bigeasy@linutronix.de>
+ <20250915141305.906440-3-bigeasy@linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <20250915141305.906440-2-bigeasy@linutronix.de>
+In-Reply-To: <20250915141305.906440-3-bigeasy@linutronix.de>
 
 Hi Sebastian,
 
-Sorry for taking a month to reply.
-
-On Mon, Sep 15, 2025 at 04:13:01PM +0200, Sebastian Andrzej Siewior wrote:
+On Mon, Sep 15, 2025 at 04:13:02PM +0200, Sebastian Andrzej Siewior wrote:
+> Update the outdated information:
+> - The PREEMPT_RT patch is merged. The patch continues to exist (as of
+>   now) but is not mandatory.
+> - The patch can be still downloaded but most people use the git tree
+>   these days. Add a reference to it.
+> - CONFIG_PREEMPT_DESKTOP was never thing as far as I remember. It was
+>   always CONFIG_PREEMPT and its description referred to "low latency
+>   desktop".
+> - Within the PREEMPT-RT patch there was a brief window which introduced
+>   PREEMPT_RT_BASE and PREEMPT_RT_FULL. I am going to ignore this.
+> - The introduction of PREEMPT_LAZY in 6.13 moved PREEMPT_RT from a
+>   preemption model to an option.
+> - The mentioned wiki is deprecated. Update the URL to the new one.
+>=20
 > Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Thanks!  I've applied the patch, and amended it with the following
-change:
+Thanks!  I've applied the patch, with the following amendment:
 
-	diff --git c/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const i/man/man2const/=
-PR_FUTEX_HASH_SET_SLOTS.2const
-	index 1605c18c6..dfd97540c 100644
-	--- c/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
-	+++ i/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
-	@@ -27,7 +27,7 @@ .SH DESCRIPTION
-	 .TP
-	 .I 0
-	 Use the global hash.
-	-This is the behaviour used before 6.17.
-	+This is the behaviour used before Linux 6.17.
-	 .TP
-	 .I >0
-	 Specify the number of slots to allocate.
+	diff --git i/man/man7/sched.7 w/man/man7/sched.7
+	index 51300d611..9622c1824 100644
+	--- i/man/man7/sched.7
+	+++ w/man/man7/sched.7
+	@@ -960,18 +960,18 @@ .SS Real-time features in the mainline Linux kernel
+	 or cloned from a git tree
+	 .UR https://git.kernel.org\:/pub\:/scm\:/linux\:/kernel\:/git\:/rt\:/linu=
+x-stable-rt.git
+	 .UE .
+	-The individual releases are maintained as long as
+	-the matching LTS kernel is maintained.
+	+The individual releases are maintained
+	+as long as the matching LTS kernel is maintained.
+	 .P
+	-Since 6.12 it possible to enable the real-time preemption
+	+Since Linux 6.12 it possible to enable the real-time preemption
+	 without the need for any patches.
+	 The
+	 .I realtime\-patch
+	 continues to exist and contains support
+	-for not yet integrated architectures,
+	-drivers and features that are in development.
+	+for not-yet-integrated architectures,
+	+drivers, and features that are in development.
+	 .P
+	-Since 6.13 real-time becomes an option
+	+Since Linux 6.13 real-time became an option
+	 and not a preemption model.
+	 With this change,
+	 the following preemption models are available:
+	@@ -982,13 +982,13 @@ .SS Real-time features in the mainline Linux kernel
+	 .BR CONFIG_PREEMPT_LAZY .
+	 The real-time capabilities can be enabled with the option
+	 .B CONFIG_PREEMPT_RT
+	-and the preemption model be set to either
+	+and the preemption model can be set to either
+	 .B CONFIG_PREEMPT
+	 or
+	 .BR CONFIG_PREEMPT_LAZY .
+	 The latter model is less eager to preempt
+	 .B SCHED_NORMAL
+	-tasks in an attempt to reduce lock holder preemption.
+	+tasks in an attempt to reduce lock-holder preemption.
+	 It does not affect real-time tasks.
+	 .P
+	 With
 
-Have a lovely night!
+
+Cheers,
 Alex
 
 > ---
->  man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const | 67 ++++++++++++++++++++
->  1 file changed, 67 insertions(+)
->  create mode 100644 man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
+>  man/man7/sched.7 | 58 ++++++++++++++++++++++++++++++++++--------------
+>  1 file changed, 41 insertions(+), 17 deletions(-)
 >=20
-> diff --git a/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const b/man/man2const=
-/PR_FUTEX_HASH_SET_SLOTS.2const
-> new file mode 100644
-> index 0000000000000..1605c18c6985b
-> --- /dev/null
-> +++ b/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
-> @@ -0,0 +1,67 @@
-> +.\" Copyright, the authors of the Linux man-pages project
-> +.\"
-> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> +.\"
-> +.TH PR_FUTEX_HASH_SET_SLOTS 2const (date) "Linux man-pages (unreleased)"
-> +.SH NAME
-> +PR_FUTEX_HASH_SET_SLOTS
-> +\-
-> +set the size of the private hash
-> +.SH LIBRARY
-> +Standard C library
-> +.RI ( libc ,\~ \-lc )
-> +.SH SYNOPSIS
-> +.nf
-> +.BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
-> +.B #include <sys/prctl.h>
+> diff --git a/man/man7/sched.7 b/man/man7/sched.7
+> index 3299c21dc1ad8..db7753c9e912c 100644
+> --- a/man/man7/sched.7
+> +++ b/man/man7/sched.7
+> @@ -933,16 +933,12 @@ the following to modify the autogroup nice value for
+>  .EE
+>  .in
+>  .SS Real-time features in the mainline Linux kernel
+> -.\" FIXME . Probably this text will need some minor tweaking
+> -.\" ask Carsten Emde about this.
+> +.\" The archaeologist knows about v2.6.9-mm1-V0.1-realtime-preempt
+>  Since Linux 2.6.18, Linux is gradually
+>  becoming equipped with real-time capabilities,
+>  most of which are derived from the former
+>  .I realtime\-preempt
+>  patch set.
+> -Until the patches have been completely merged into the
+> -mainline kernel,
+> -they must be installed to achieve the best real-time performance.
+>  These patches are named:
+>  .P
+>  .in +4n
+> @@ -953,24 +949,52 @@ they must be installed to achieve the best real-tim=
+e performance.
+>  .P
+>  and can be downloaded from
+>  .UR http://www.kernel.org\:/pub\:/linux\:/kernel\:/projects\:/rt/
+> +.UE
+> +or cloned from a git tree
+> +.UR https://git.kernel.org\:/pub\:/scm\:/linux\:/kernel\:/git\:/rt\:/lin=
+ux-stable-rt.git
+>  .UE .
+> +The individual releases are maintained as long as
+> +the matching LTS kernel is maintained.
+>  .P
+> -Without the patches and prior to their full inclusion into the mainline
+> -kernel, the kernel configuration offers only the three preemption classes
+> +Since 6.12 it possible to enable the real-time preemption
+> +without the need for any patches.
+> +The
+> +.I realtime\-patch
+> +continues to exist and contains support
+> +for not yet integrated architectures,
+> +drivers and features that are in development.
 > +.P
-> +.B int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS,
-> +.BI "          unsigned long " size ", unsigned long " flags ");
-> +.fi
-> +.SH DESCRIPTION
-> +Set the number of slots to use for the private hash.
-> +.TP
-> +.I size
-> +Specify the size of private hash to allocate.
-> +.RS
-> +.TP
-> +.I 0
-> +Use the global hash.
-> +This is the behaviour used before 6.17.
-> +.TP
-> +.I >0
-> +Specify the number of slots to allocate.
-> +The value must be power of two, and the lowest possible value is 2.
-> +The upper limit depends on the available memory in the system.
-> +Each slot requires 64 bytes of memory.
-> +Kernels compiled with
-> +.I CONFIG_PROVE_LOCKING
-> +will consume more than that.
-> +.RE
-> +.TP
-> +.I flags
-> +.RS
-> +The argument must be 0.
-> +.SH RETURN VALUE
-> +On success,
-> +0 is returned.
-> +On error, \-1 is returned, and
-> +.I errno
-> +is set to indicate the error.
-> +.SH ERRORS
-> +.TP
-> +.B EINVAL
-> +An argument is invalid.
-> +.TP
-> +.B ENOMEM
-> +Failed to allocate memory.
-> +.TP
-> +.B EBUSY
-> +The global hash is in use and can not be changed.
-> +.SH STANDARDS
-> +Linux.
-> +.SH HISTORY
-> +Linux 6.17.
-> +.SH SEE ALSO
-> +.BR prctl (2),
-> +.BR PR_FUTEX_HASH (2const)
+> +Since 6.13 real-time becomes an option
+> +and not a preemption model.
+> +With this change,
+> +the following preemption models are available:
+>  .BR CONFIG_PREEMPT_NONE ,
+>  .BR CONFIG_PREEMPT_VOLUNTARY ,
+> +.BR CONFIG_PREEMPT ,
+>  and
+> -.B CONFIG_PREEMPT_DESKTOP
+> -which respectively provide no, some, and considerable
+> -reduction of the worst-case scheduling latency.
+> -.P
+> -With the patches applied or after their full inclusion into the mainline
+> -kernel, the additional configuration item
+> +.BR CONFIG_PREEMPT_LAZY .
+> +The real-time capabilities can be enabled with the option
+>  .B CONFIG_PREEMPT_RT
+> -becomes available.
+> -If this is selected, Linux is transformed into a regular
+> +and the preemption model be set to either
+> +.B CONFIG_PREEMPT
+> +or
+> +.BR CONFIG_PREEMPT_LAZY .
+> +The latter model is less eager to preempt
+> +.B SCHED_NORMAL
+> +tasks in an attempt to reduce lock holder preemption.
+> +It does not affect real-time tasks.
+> +.P
+> +With
+> +.B CONFIG_PREEMPT_RT
+> +enabled,
+> +Linux is transformed into a regular
+>  real-time operating system.
+> -The FIFO and RR scheduling policies are then used to run a thread
+> +The
+> +.BR SCHED_FIFO ,
+> +.BR SCHED_RR ,
+> +and
+> +.B SCHED_DEADLINE
+> +scheduling policies are then used to run a thread
+>  with true real-time priority and a minimum worst-case scheduling latency.
+>  .SH NOTES
+>  The
+> @@ -1032,5 +1056,5 @@ and
+>  .I \%Documentation/\:scheduler/\:sched\-nice\-design\:.txt
+>  .P
+>  Worth looking at:
+> -.UR http://rt.wiki.kernel.org/\:index.php
+> +.UR https://wiki.linuxfoundation.org/\:realtime/\:start
+>  .UE
 > --=20
 > 2.51.0
+>=20
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---ok23wencajuhdeod
+--dnyggwyokbftrpyw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjwEkMACgkQ64mZXMKQ
-wqm12BAAlOhO2wkDTUSpIcotKfUT2By9agldaWx6+5tC+mMzFXdAVhrJIA8xBpWb
-aiKgVw4xQgcm+OvjuBs+ejyehthuzUqUPIaKjlxu5OwfOlJfecrfllB07zICAIkB
-lkKwDF+9Ifc3+eKIRBR5sdUvjN9wCoWgWyndxWEvoTq4xdSgGFlm4KLtZl7apXgU
-sfn46hH0nsLHnYae35LJrq7YdkF/k9oiL4+4OvqSFaBJ5BUBpONljrTftB4eekgu
-pMY3e4bvCmTKfMIMZqWA2TJgHiPe7qDBECQIDP09efUCN+TgaUIBfZxW3dY2dBOP
-7jqTGzLZTI/9S/ZQPRdV4Ls/Kh3r4ifH/NeVIp6TMrq1IW0wOK5zFfOkARzKI0jS
-BFMDgW1FWRMoB8OQZ7EBw/TcWfeTiNUvrWIStVsp7iW4g3rpEmLeDusA4k5wkDNH
-mjUPWgEIvsegPmBxVgbMkUZ2eCrukxVabB2BUVLoCmW1sylpWo0sIjHFmX9SHYei
-MJCLXw8y74X6pl58YPBZgUSa1j5Pd7Nnaj3SfjHXdw6Y7s4BMEbbi4A0MWos8m8Q
-skgefr+i1tdPd+an352vzv6O4f/OA1aS3LPwrJKm51r4E7XsrKejVrptSOXi+gQr
-VxRLAh1s9duWiVj8yK/k4YVqiwEkLBvEAsdUoSLwqxoFGYz6z6M=
-=OfOu
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjwFMwACgkQ64mZXMKQ
+wqlapQ//bP8Dpyj9R+yDIN+XJeOIe89LsK565S6JaOPH4emz2do+iL57+sIJ7qOL
+iD5/0SKyVBx2wRL9+ZQiGnKS7LR/US9dv34IuP6R74sloGk0/w2UNSo5IL/jmxtf
+k1uZKunBsWFy6X51fuWQQ+2wch4x0LLzaj9vS+GqTFD0X3SRumW0HN+Ea0vtS4ef
+Qho4QJ5OdEg0SnNyur2miiNAVMn0INXlqEXva4NAulPH5CcH8ecQmox2ZqLo/NIu
+7EbDk/j8ulVZGcjJCRQJEMOgP2Ys+AEuGm9ulyuL1VWjxa5D/EGxj6HsUr2RWYiQ
+rmGtQ6ZPew37L49T6b5Fl1+nMLrGW8YuG8mIcMbVpu9XqCqrv0QpGtLsiPqp0pHq
+ilI4Xyaa31k8Y/Yr9uP3ISagQjpDsGdc5m9lLp+NT9F0D2Y+in2DP3liRGdP6O/a
+9CAGZ/S2eV0eheK9y3kLTic2KGvNpzV7WzWoE6xkEQwEtEBpJhYclMshGAGb3Dhj
+F+5dOhaWf1IL98WlDRQE0BQCpqw81kHwulFZcIZOi5vum/p61PAUz5xPzIXOER52
+IgQAvYERS2iMhUVf6oJk0GZdYsLq9NVWeYeVTh3mYIj4xVLC3wKl1QIkBg/MErJV
+OQu3QnSvQw6h5uUPI+MTSB+LOwE92h4nSlznu/KPpX7ocyUThsg=
+=xX8P
 -----END PGP SIGNATURE-----
 
---ok23wencajuhdeod--
+--dnyggwyokbftrpyw--
 
