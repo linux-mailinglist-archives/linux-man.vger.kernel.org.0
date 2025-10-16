@@ -1,112 +1,155 @@
-Return-Path: <linux-man+bounces-4171-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4172-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A81BE4333
-	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 17:23:41 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id D44F5BE4A59
+	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 18:41:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C75A13B5C3A
-	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 15:22:51 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 504C119A4FAF
+	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 16:42:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2EEA2D9EE6;
-	Thu, 16 Oct 2025 15:22:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E553F2DEA9E;
+	Thu, 16 Oct 2025 16:41:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="g7vdsqko"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J59oVhDq"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6666850276;
-	Thu, 16 Oct 2025 15:22:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EC61DF970
+	for <linux-man@vger.kernel.org>; Thu, 16 Oct 2025 16:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760628168; cv=none; b=M6jF3cA1EJkn3076qA5JCN9KwsoUF0TRbACES1cAgwaglgRyC4L/IUqWrqGC5Y4i8BfaLheQyjes26xLtvqB9PQTd03bSUbH/ycxMAUQdOrm3YrDzitb6XGmPk3hY/es8n1I+zsK8XgVAglRuaFwZTEPgL27bNZZBht8zi0y/YY=
+	t=1760632914; cv=none; b=Qdr94opqbgL0L+D29iZLGCphbJIJDXHjapzM8PORaTE+1P5Oidx+hglt6ZC6CpDZOgYbdLrsLpKKZ4vvwd+5GxH2NuMkd3nVMaOmczcLQ1dHdPyT4qpKktELyarGMvaxrVrjwhUJKoqoPvyZcquKOG7NRwDrBD+CDW0adiYBcm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760628168; c=relaxed/simple;
-	bh=iE+5oLR5+fHIc0aaDtyQ1X84qdWIqbh6Kn79N0lB3Bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kHs80fF0E04f9lYv+kUXf7cnRfgj0372hLiMG2HspRoXc/Err/qu24qIS2Guy+l1UoHxc/JW9oeETs5DNP6xaASFhLQUkhf1h5Vxs3VjgFWG5/spOSDvAoIKZceagbezwGtRTq3dnU0d1+ADzkZsWRbtt4pEZYoYjnLz89g92nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=g7vdsqko; arc=none smtp.client-ip=83.149.199.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
-Received: from localhost.intra.ispras.ru (unknown [10.10.3.121])
-	by mail.ispras.ru (Postfix) with ESMTP id C6C6F40762D8;
-	Thu, 16 Oct 2025 15:22:36 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru C6C6F40762D8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
-	s=default; t=1760628156;
-	bh=k31hMYi4EBGG84ORPgHjW2xsh6Q8pv4v6szMsNIRaTw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=g7vdsqkoid2/acl9B9uHWglYRd8M1tcYHzROY4fCBXcoWONYODrxOu68UiHg6irVA
-	 4HOaYiw+XMZ8wzZl2g4F0lFbD2uZqWnPeeWoD7Di+Q59mEpZdtIU/9dapF63b7FFhl
-	 CUc484FY4fVwcLj/pbgcdoVzUoDtfl9ka8Gz3FzE=
-From: Alexander Monakov <amonakov@ispras.ru>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org
-Subject: [PATCH v1] man/man2/flock.2: Mention non-atomicity w.r.t close
-Date: Thu, 16 Oct 2025 18:22:36 +0300
-Message-ID: <181d561860e52955b29fe388ad089bde4f67241a.1760627023.git.amonakov@ispras.ru>
-X-Mailer: git-send-email 2.49.1
+	s=arc-20240116; t=1760632914; c=relaxed/simple;
+	bh=LHqfbHDEb0H+4dSKdepwyYWImZCSGlK/xtpLHrE+Nic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J2c4eDf+Wicpef1dbs6/UuIrPA+htZPTCD5pvS4czlAhk717lQNase+R0ksLppBWSVjR3ymydRmgoJVY9qqXvHTL+eYV7PqLg6aZfSzQygYe+rQxy5+oirDAgm2oUoKGFFlD3yr64zzKpknHPVTgUCAgEAKj8pAVKQTJx7Qx4pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J59oVhDq; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CA2C4CEF1;
+	Thu, 16 Oct 2025 16:41:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1760632914;
+	bh=LHqfbHDEb0H+4dSKdepwyYWImZCSGlK/xtpLHrE+Nic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=J59oVhDqsS7T6WWU0TAyN3z335EzZok596Hgsub5bToSFf7JBjex21w0e1WRTrVvi
+	 G6Wtqo9CDObqUtm0/t8fXbFFc2TKxv4x0GtEuFbQ9+3Q31bNuSTU4COAuwVbg6DY9x
+	 jKhQBpy8xbhpMKr/VE3KthWnqUVZxhpx8MDq98Yo6k0wJ1WY8UppuV+069vp1MnBM9
+	 EjS79pQXw9wwmkmJUOkfmBqSpwn1GZXo3vdL7HU94Idq8EizlbC6JsujYxJMDQJtcE
+	 QuvVOuiCD+4/1Kny7xq9y+XkHqCuPaooIndv1jetdxDEN2k0U3xjIIWjIqHPtZQN1Q
+	 ayHXPbU6AicLQ==
+Date: Thu, 16 Oct 2025 18:41:50 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Carlos O'Donell <carlos@redhat.com>, Collin Funk <collin.funk1@gmail.com>, Sam James <sam@gentoo.org>, 
+	"G. Branden Robinson" <branden@debian.org>
+Subject: [PATCH v5] CONTRIBUTING.d/ai: Add guidelines banning AI for
+ contributing
+Message-ID: <1bb0cfde967ecb12f6d3df2106388121647946e0.1760632863.git.alx@kernel.org>
+X-Mailer: git-send-email 2.51.0
+References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
 
-Ideally one should be able to use flock to synchronize with another
-process (or thread) closing that file, for instance before attempting
-to execve it (as execve of a file open for writing fails with ETXTBSY).
+This policy is based on the Gentoo policy (see link below).
+However, I've modified our text to be more restrictive.
 
-Unfortunately, on Linux it is not reliable, because in the process of
-closing a file its locks are dropped before the refcounts of the file
-(as well as its underlying filesystem) are decremented, creating a race
-window where execve of the just-unlocked file sees it as if still open.
-
-Linux developers have indicated that it is not easy to fix, and the
-appropriate course of action for now is to document this limitation.
-
-Link: <https://lore.kernel.org/linux-fsdevel/68c99812-e933-ce93-17c0-3fe3ab01afb8@ispras.ru/>
-
-Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
+Cc: Carlos O'Donell <carlos@redhat.com>
+Cc: Collin Funk <collin.funk1@gmail.com>
+Cc: Sam James <sam@gentoo.org>
+Cc: "G. Branden Robinson" <branden@debian.org>
+Link: <https://wiki.gentoo.org/wiki/Project:Council/AI_policy>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
- man/man2/flock.2 | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ CONTRIBUTING.d/ai | 65 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+ create mode 100644 CONTRIBUTING.d/ai
 
-diff --git a/man/man2/flock.2 b/man/man2/flock.2
-index b424b3267..793eaa3bd 100644
---- a/man/man2/flock.2
-+++ b/man/man2/flock.2
-@@ -245,6 +245,21 @@ .SH NOTES
- and occurs on many other implementations.)
- .\" Kernel 2.5.21 changed things a little: during lock conversion
- .\" it is now the highest priority process that will get the lock -- mtk
-+.P
-+Release of a lock when a file descriptor is closed
-+is not sequenced after all observable effects of
-+.BR close (2).
-+For example, if one process writes a file while holding an exclusive lock,
-+then closes that file, and another process blocks placing a shared lock
-+on that file to wait until it is closed, it may observe that subsequent
-+.BR execve (2)
-+of that file fails with
-+.BR ETXTBSY ,
-+and
-+.BR umount (2)
-+of its underlying filesystem fails with
-+.BR EBUSY ,
-+as if the file is still open in the first process.
- .SH SEE ALSO
- .BR flock (1),
- .BR close (2),
+diff --git a/CONTRIBUTING.d/ai b/CONTRIBUTING.d/ai
+new file mode 100644
+index 000000000..269d62d48
+--- /dev/null
++++ b/CONTRIBUTING.d/ai
+@@ -0,0 +1,65 @@
++Name
++	AI - artificial intelligence policy
++
++Description
++	It is expressly forbidden to contribute to this project any
++	content that has been created with the assistance of AI tools.
++
++	This also includes AI assistive tools used in the contributing
++	process, even if such tools do not generate the contributed
++	code.
++
++    Exceptions
++	As an exception to the above, AI assistive tools on which the
++	contributor depends for health reasons, and which don't have
++	a major influence on the contribution, are allowed, and the
++	contributor does not need to disclose their use.
++
++    Concerns
++	Copyright concerns.
++		At this point, the regulations concerning copyright of
++		generated contents are still emerging worldwide.  Using
++		such material could pose a danger of copyright
++		violations, but it could also weaken claims to copyright
++		and void the guarantees given by copyleft licensing.
++
++	Quality concerns.
++		Popular LLMs are really great at generating plausibly
++		looking, but meaningless content.  They pose both the
++		risk of lowering the quality of a project, and of
++		requiring an unfair human effort from contributors and
++		maintainers to review contributions and detect the
++		mistakes resulting from the use of AI.
++
++		AI tools should be considered adversarial, as if they
++		were a black box with Jia Tan inside them.
++
++	Ethical concerns.
++		The business side of AI boom is creating serious ethical
++		concerns.  Among them:
++
++		-  Commercial AI projects are frequently indulging in
++		   blatant copyright violations to train their models.
++		-  Their operations are causing concerns about the huge
++		   use of energy, water, and other natural resources.
++		-  The advertising and use of AI models has caused
++		   a significant harm to employees and reduction of
++		   service quality.
++		-  LLMs have been empowering all kinds of spam and scam
++		   efforts.
++
++Caveats
++	This policy can be revisited, should a case been made over such
++	a tool that does not pose copyright, ethical, and quality
++	concerns.
++
++Copyright
++	Text derived from (and more restrictive than) the Gentoo project
++	AI policy
++	<https://wiki.gentoo.org/wiki/Project:Council/AI_policy>.
++
++	SPDX-License-Identifier: CC-BY-SA-4.0
++
++See also
++	<https://tukaani.org/xz-backdoor/>
++	<https://xcancel.com/spendergrsec/status/1958264076162998771>
 
-Range-diff against v0:
--:  --------- > 1:  181d56186 man/man2/flock.2: Mention non-atomicity w.r.t close
+base-commit: cef39ff51bfd016d7079baefbf2a39f0fed7549b
 -- 
-2.49.1
+2.51.0
 
 
