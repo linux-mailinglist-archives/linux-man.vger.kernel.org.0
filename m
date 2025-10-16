@@ -1,60 +1,57 @@
-Return-Path: <linux-man+bounces-4168-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4169-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8E0BE2CBA
-	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 12:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88697BE2D20
+	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 12:33:41 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id C45C24F5E9A
-	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 10:30:11 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 69D7C4E9614
+	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 10:33:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 471AD2D9EE6;
-	Thu, 16 Oct 2025 10:29:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDD5A1A2C11;
+	Thu, 16 Oct 2025 10:33:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JPZ8xYYT"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ih7kkxvx"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A542C11D4;
-	Thu, 16 Oct 2025 10:29:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5B732863E
+	for <linux-man@vger.kernel.org>; Thu, 16 Oct 2025 10:33:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760610565; cv=none; b=raNESWGfdgFKFjyVVRUKpS2SaZ7Jh7DNV+mU6qB2Luavww3nT+2GkO+PIPmsYUyOFx514HtOvrsMcOaMRgkuH8Tw5cXQth95G9/B6W5/vyZwzxxYLiEbSw4pEGlbqd5lTuAEUrWytB39XLatN+JHhZ+ngfXt0rdPXYisg28/5WA=
+	t=1760610813; cv=none; b=FNJlEupzOZnxTFZjc5BH0d6MJWXH8Ld2BWy7Z0/cEklyseAFKZ4rkKo8/LCD8yn5V2ml3NJrXvc2UfrQ5d+mwjajGNBpzH+o6A6h2BJxbjgBWp2eJuYi8NgCwFa8wSMJW/4Azmllu96KWSAGv3yNn7KOFKeDQoXjMyXTkN3/eIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760610565; c=relaxed/simple;
-	bh=vGn4LQ6PjgY7cksHSlJCYhC4n/ojq1fCtHom8ypt/EU=;
+	s=arc-20240116; t=1760610813; c=relaxed/simple;
+	bh=zxJF3PBDCAL3UGkL4zKizydKkwLBt0py7G8d/EGgS4k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QKnuBsgAmGFRvJPrbXn3nWdxr72hPcifP2+O8jlU5R5asCnWmsv5wc7P0pjVjSD6BiFwNVFtKMWF6fPrOadaCjtzfLzpDgFhl7Yizg5eotUGHleIMdx5YgsaFFzwCxk8W/0u1zjGUaBHsQxpotvYybQTMo0HGPlzWo3YIvq1WV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JPZ8xYYT; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F7CC4CEF1;
-	Thu, 16 Oct 2025 10:29:23 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=lvYX0x75inKZlPgMnf/Aa5epnCU8XZriLKwNc0DfjborpERMV9LtkpCfuEL6kLYqS9zMbm6oGnQrxLKT0pM5TiTpxNXdZqfhlnjQxJCRtMUp3f2jsaTOz+NlqpLFqwc00F3g/b9nBkRDIHrgeqYvPsmmtjAw91WdKQ+S998DNkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ih7kkxvx; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36EA2C4CEF1;
+	Thu, 16 Oct 2025 10:33:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760610564;
-	bh=vGn4LQ6PjgY7cksHSlJCYhC4n/ojq1fCtHom8ypt/EU=;
+	s=k20201202; t=1760610813;
+	bh=zxJF3PBDCAL3UGkL4zKizydKkwLBt0py7G8d/EGgS4k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JPZ8xYYTdOxFH05lnqQg5lEMbELYS9myaW29dHJwnXrsIam9zHTVTFUKCYrv1ENuA
-	 opBwv5htRr6F3a0MpVdhLcUmPXWx5gyCILN19GG4RWXcdMJuXOCT0PNnZoDZ84tDKV
-	 sjKX+HZbmWx9ObnWhE7hBxQKmeDSqhlHpHvnMRsMbm41+AM14mhmira27WFxvWcOqd
-	 JLzodzwtS48FcJPRMG0IWscauM/RB2nzSRYvZeQQEVJi/Tno+K2EbqlcP/XYrrSClt
-	 uFrR8KmoM5zMllpcHfQu/J4CIV7eHdoICRRzXRbVVqoW9gZIFNSznCxX6E67P3TM5H
-	 zjZiiggHI2Xmg==
-Date: Thu, 16 Oct 2025 12:29:21 +0200
+	b=ih7kkxvxriJR/agvNMR9Hu5X2W6UnYb7OG1k9zMjtxzd0NFQHvVOLjSlaM81x+KmT
+	 x8dBkgKijEheEGsvviyaF/Y2hosjNfoxDa3hJHviffLewJysktih6olF4udKTEhXAz
+	 ExsrPWY7zagavJN9OosjTep9oeKGNkOuKrFAkdFCrcxt/MXc1tBUb/pTDjenI1uEih
+	 pHyzmVXq6xfLS1v97DzER+QOEzZ1zBeaPdrrX0DAM1egOMl8vk3Cj9YcmUCt2L54XY
+	 hlgKCBaDUIOLGYU/OyUDSjQitw1R7FdPvWpE5nTOXwu3PQii7B8u16x+DHdwYzdQnW
+	 8IjMEjyZJ0pcg==
+Date: Thu, 16 Oct 2025 12:33:29 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Luca Boccassi <luca.boccassi@gmail.com>, 
-	Askar Safin <safinaskar@gmail.com>, brauner@kernel.org, cyphar@cyphar.com, 
-	linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple
- instances
-Message-ID: <caphk5vjat3dbm5hb5nhvpyc3p26nkc6bfr3p25lndqbqllj47@i45f4savslj4>
-References: <CAMw=ZnSBMpQsuTu9Gv7T3JhrBQMgJQxhR7OP9H_cuF=St=SeMg@mail.gmail.com>
- <20251012125819.136942-1-safinaskar@gmail.com>
- <CAMw=ZnTuK=ZijDbhrMOXmiGjs=8i2qyQUwwtM9tcvTSP0k6H4g@mail.gmail.com>
- <bc7w4t422bvpcylsagpsagl3orryepdbz4qimkuttd3ehtdsfu@thng5d5wn567>
- <20251012185703.oksyg4loz5fcassb@illithid>
+To: Kirill Kolyshkin <kolyshkin@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH v3 2/3] pidfd_open.2: add PIDFD_THREAD
+Message-ID: <x5745npnfpft6hcqevfrbbsk3xue3zlmiryxf4row64ntjukqt@boixy2qahh3m>
+References: <7vb3ed5qttoe6n5ozzjwqtzw5iupifozplkkhd3jjvbhy5efqy@d4ksex445ixl>
+ <20251013191049.193375-2-kolyshkin@gmail.com>
+ <gavot3gmd5kmwzhlyqobzp36qdtqzyt7zaqaw4lnfbfxanm6d5@amvqcybaaqbx>
+ <CAGmPdrxdwVSkUh1xWnp1bbtirnJSZTiVCOCn43iMn_AKgsForg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,152 +59,248 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4y27m3sj7qvjy3rw"
+	protocol="application/pgp-signature"; boundary="2v7n4h7nxkyxn2ew"
 Content-Disposition: inline
-In-Reply-To: <20251012185703.oksyg4loz5fcassb@illithid>
+In-Reply-To: <CAGmPdrxdwVSkUh1xWnp1bbtirnJSZTiVCOCn43iMn_AKgsForg@mail.gmail.com>
 
 
---4y27m3sj7qvjy3rw
+--2v7n4h7nxkyxn2ew
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Luca Boccassi <luca.boccassi@gmail.com>, 
-	Askar Safin <safinaskar@gmail.com>, brauner@kernel.org, cyphar@cyphar.com, 
-	linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple
- instances
-Message-ID: <caphk5vjat3dbm5hb5nhvpyc3p26nkc6bfr3p25lndqbqllj47@i45f4savslj4>
-References: <CAMw=ZnSBMpQsuTu9Gv7T3JhrBQMgJQxhR7OP9H_cuF=St=SeMg@mail.gmail.com>
- <20251012125819.136942-1-safinaskar@gmail.com>
- <CAMw=ZnTuK=ZijDbhrMOXmiGjs=8i2qyQUwwtM9tcvTSP0k6H4g@mail.gmail.com>
- <bc7w4t422bvpcylsagpsagl3orryepdbz4qimkuttd3ehtdsfu@thng5d5wn567>
- <20251012185703.oksyg4loz5fcassb@illithid>
+To: Kirill Kolyshkin <kolyshkin@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH v3 2/3] pidfd_open.2: add PIDFD_THREAD
+Message-ID: <x5745npnfpft6hcqevfrbbsk3xue3zlmiryxf4row64ntjukqt@boixy2qahh3m>
+References: <7vb3ed5qttoe6n5ozzjwqtzw5iupifozplkkhd3jjvbhy5efqy@d4ksex445ixl>
+ <20251013191049.193375-2-kolyshkin@gmail.com>
+ <gavot3gmd5kmwzhlyqobzp36qdtqzyt7zaqaw4lnfbfxanm6d5@amvqcybaaqbx>
+ <CAGmPdrxdwVSkUh1xWnp1bbtirnJSZTiVCOCn43iMn_AKgsForg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20251012185703.oksyg4loz5fcassb@illithid>
+In-Reply-To: <CAGmPdrxdwVSkUh1xWnp1bbtirnJSZTiVCOCn43iMn_AKgsForg@mail.gmail.com>
 
-Hi Branden, Luca,
+Hi Kir,
 
-On Sun, Oct 12, 2025 at 01:57:03PM -0500, G. Branden Robinson wrote:
-> At 2025-10-12T16:57:22+0200, Alejandro Colomar wrote:
-> > On Sun, Oct 12, 2025 at 03:25:37PM +0100, Luca Boccassi wrote:
-> > > On Sun, 12 Oct 2025 at 13:58, Askar Safin <safinaskar@gmail.com> wrot=
-e:
-> > > > So everything is working as intended, and no changes to manual
-> > > > pages are needed.
-> > >=20
-> > > I don't think so. This was in a mount namespace, so it was not
-> > > shared, it was a new image, so not shared either, and '/' was not
-> > > involved at all. It's probably because you tried with a tmpfs
-> > > instead of an actual image.
-> > >=20
-> > > But it really doesn't matter, I just wanted to save some time for
-> > > other people by documenting this, but it's really not worth having a
-> > > discussion over it, feel free to just disregard it. Thanks.
-> >=20
-> > I appreciate you wanting to save time for other people by documenting
-> > it.  But we should also make sure we understand it fully before
-> > documenting it.  I'd like us to continue this discussion, to be able
-> > to understand it and thus document it.  I appreciate Aleksa and
-> > Askar's efforts in understanding this, and the discussion too, which
-> > helps me understand it too.  I can't blindly take patches without
-> > review, and this discussion helps a lot.
+On Wed, Oct 15, 2025 at 05:06:29PM -0700, Kirill Kolyshkin wrote:
+> On Wed, Oct 15, 2025 at 2:16=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
+> wrote:
+> >
+> > Hi Kir,
+> >
+> > On Mon, Oct 13, 2025 at 12:10:48PM -0700, Kir Kolyshkin wrote:
+> > > PIDFD_THREAD flag for pidfd_open(2) was added in Linux 6.9 (see [1]).
+> > >
+> > > Add a TODO to describe the nuances of using poll/epoll/select
+> > > with a pidfd referring to a process vs a thread.
+> > >
+> > > [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.g=
+it/commit/?id=3D64bef697d33b
+> > >
+> > > Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+> > > ---
+> >
+> > As far as I can see, the only change in v3 compared to v2 is that the
+> > commit message is smaller now.  Is that correct?
 >=20
-> I have some unsolicited project management advice to offer.
+> Not quite; I have answered to your earlier concern, let me quote it here:
 >=20
-> I think you should say "won't" rather than "can't" in your final
-> sentence.  You are defending a point of policy--rightly so, in my view.
-> If someone wants to argue your preference on the subject, policy is the
-> correct ground upon which to engage.
+> > >  The
+> > >  .BR pidfd_open ()
+> > >  system call creates a file descriptor that refers to
+> > > -the process whose PID is specified in
+> > > +the task whose PID is specified in
+> >
+> > Should this say TID (thread ID)?  Or is it correct as PID?  I don't know
+> > which is appropriate here.
+>=20
+> So I removed the PID and TID usage:
+>=20
+> > > -the process whose PID is specified in
+> > > +the task referenced by
+>=20
+> In my opinion, as the function is named pidfd_open, it's hard to remove
+> the term PID entirely, but in some cases we can rephrase the text to
+> not use it. This is what v3 does.
+>=20
+> I'm not entirely against using the term TID, but here it may result in
+> even more confusion.
 
-Actually, I think I should have said "shouldn't" instead of "can't".
+Ahh, thanks!  That makes sense.
 
-I technically can (in the sense that nothing stops me from doing
-'git am && git push' if I wanted to), so "can't" is not appropriate.
+I was eyeballing the two emails to find the differences, but I missed
+that difference.  It's hard to do eyeball-diff.  :)
 
-And I don't know what I'll do tomorrow, so "won't" is not appropriate
-either; I always reserve the right to change my mind later.
-
-However, as a guideline, I "shouldn't" merge stuff without understanding
-it.  Sometimes there are reasons for doing so, such as not having
-knowledgeable reviewers at hand, and not being knowledgeable myself.
-In this specific case, we have Aleksa and Askar willing to help, which
-is why I want to follow the policy.
-
-> The practice of distinguishing mechanism from policy is a valuable skill
-> in domains outside of software design where we most often speak of them.
-
-Thanks for correcting me on this.
-
-> It's even more important in the instant context to articulate matters of
-> policy when a contributor indulges a passive-aggressive outburst like
-> Luca's, above.  Confusion of mechanism with policy is the lever by which
-> that sort of emotionalism operates; obviously we _could_ just do
-> whatever a contributor wants without discussion and without
-> interrogating the wisdom of doing so.
-
-I was trying to be nice with Luca.  I think confronting his message,
-which I agree was a bit passive-aggressive, can be counter-productive in
-this case, where I'm interested in having him continue discussing this
-matter with Aleksa and Askar.
-
-And in the case of Luca, I have a story, which I should disclose for
-context.
-
-A year ago or so, I contributed (or tried to) to systemd, for my first
-time, and I experienced what looked to me terrible project management.
-<https://github.com/systemd/systemd/pull/35275>
-<https://github.com/systemd/systemd/pull/35226>
-We had a heated fight, and they banned me from systemd.  I didn't know
-Luca before, nor any of the systemd maintainers.
-
-After some time, and seeing Luca engage (aggressively) with other people
-elsewhere (mostly, LWN), I have a theory, that Luca's aggressive
-behavior might be related to receiving a lot of hate by his work in
-systemd.  I still don't know if it's a cause or a consequence, though.
-
-So, I wanted to show Luca the management style we're used to here, and
-that a maintainer can be nice with contributors, even if they disagree.=20
-
-Even if Luca has behaved in a way that I don't like elsewhere, I'd like
-to give him the opportunity to be nice here.  And for that, I was ready
-to indulge his previous message.
-
-Luca, I still would like you to engage in discussion with Aleksa and
-Askar to better understand this matter.  Please do so.  Taking some
-extra time to fully understand it now, can help document this better,
-and save many times that amount of time to other programmers.
-
-Peace and love.  :)
+That's why I recommend contributors to use the --range-diff feature of
+git-format-patch(1).  See the contributing guidelines about it (below).
 
 
 Have a lovely day!
 Alex
 
+	$ cat CONTRIBUTING.d/patches/range-diff=20
+	Name
+		patches/range-diff - instructions for producing a range-diff
+
+	Description
+		We recommend using git-format-patch(1) to prepare the patches.
+		Please use --range-diff to document the differences between
+		revisions of the patch set, even in the first revision.
+
+		To prepare a git(1) branch to be sent as a patch set (v1):
+
+			$ git format-patch -o ./patches master..HEAD \
+				--range-diff=3Dmaster -v1 \
+				--cover-letter;
+
+		The range diff will be included in the cover letter (or in a
+		single patch, if there is only one):
+
+			$ tail -n7 ./patches/v1-0000-cover-letter.patch;
+			Range-diff against v0:
+			-:  --------- > 1:  7ec952012 foo.3: tfix
+			-:  --------- > 2:  d80376b08 bar.3: ffix
+			-:  --------- > 3:  892a12470 foo.3: wfix
+			--
+			2.43.0
+
+		To send a v2 after some feedback:
+
+			$ git format-patch -o ./patches master..HEAD \
+				--range-diff=3Dold_master..old_HEAD -v2 \
+				--cover-letter;
+
+		The values for 'old_master' and 'old_HEAD' can be consulted in
+		the previous cover letter.  In this example, it would be
+		'--range-diff=3D7ec952012^..892a12470'.
+
+	See also
+		<https://inbox.sourceware.org/gcc/ZiV5unTogyI7rPJA@debian/>
+
+>=20
+> > Have a lovely night!
+> > Alex
+> >
+> > >  man/man2/pidfd_open.2 | 35 +++++++++++++++++++++++++++++------
+> > >  1 file changed, 29 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/man/man2/pidfd_open.2 b/man/man2/pidfd_open.2
+> > > index 3c7c568c2..60cac6fdd 100644
+> > > --- a/man/man2/pidfd_open.2
+> > > +++ b/man/man2/pidfd_open.2
+> > > @@ -4,7 +4,7 @@
+> > >  .\"
+> > >  .TH pidfd_open 2 (date) "Linux man-pages (unreleased)"
+> > >  .SH NAME
+> > > -pidfd_open \- obtain a file descriptor that refers to a process
+> > > +pidfd_open \- obtain a file descriptor that refers to a task
+> > >  .SH LIBRARY
+> > >  Standard C library
+> > >  .RI ( libc ,\~ \-lc )
+> > > @@ -25,24 +25,32 @@ .SH DESCRIPTION
+> > >  The
+> > >  .BR pidfd_open ()
+> > >  system call creates a file descriptor that refers to
+> > > -the process whose PID is specified in
+> > > +the task referenced by
+> > >  .IR pid .
+> > >  The file descriptor is returned as the function result;
+> > >  the close-on-exec flag is set on the file descriptor.
+> > >  .P
+> > >  The
+> > >  .I flags
+> > > -argument either has the value 0, or contains the following flag:
+> > > +argument either has the value 0, or contains the following flags:
+> > >  .TP
+> > >  .BR PIDFD_NONBLOCK " (since Linux 5.10)"
+> > >  .\" commit 4da9af0014b51c8b015ed8c622440ef28912efe6
+> > >  Return a nonblocking file descriptor.
+> > > -If the process referred to by the file descriptor has not yet termin=
+ated,
+> > > +If the task referred to by the file descriptor has not yet terminate=
+d,
+> > >  then an attempt to wait on the file descriptor using
+> > >  .BR waitid (2)
+> > >  will immediately return the error
+> > >  .B EAGAIN
+> > >  rather than blocking.
+> > > +.TP
+> > > +.BR PIDFD_THREAD " (since Linux 6.9)"
+> > > +.\" commit 64bef697d33b75fc06c5789b3f8108680271529f
+> > > +Create a file descriptor that refers to a specific thread, rather th=
+an a process
+> > > +(thread-group leader). If this flag is not set,
+> > > +.I pid
+> > > +must refer to a process.
+> > > +.P
+> > >  .SH RETURN VALUE
+> > >  On success,
+> > >  .BR pidfd_open ()
+> > > @@ -155,13 +163,28 @@ .SS Use cases for PID file descriptors
+> > >  .BR select (2),
+> > >  and
+> > >  .BR epoll (7).
+> > > -When the process that it refers to terminates,
+> > > -these interfaces indicate the file descriptor as readable.
+> > > +When the task that it refers to terminates and becomes a zombie,
+> > > +these interfaces indicate the file descriptor as readable
+> > > +.RB ( EPOLLIN ).
+> > > +When the task is reaped, these interfaces produce a hangup event
+> > > +.\" commit 43f0df54c96f
+> > > +.RB ( EPOLLHUP ).
+> > >  Note, however, that in the current implementation,
+> > >  nothing can be read from the file descriptor
+> > >  .RB ( read (2)
+> > >  on the file descriptor fails with the error
+> > >  .BR EINVAL ).
+> > > +The polling behavior depends on whether
+> > > +.B PIDFD_THREAD
+> > > +flag was used when obtaining the file descriptor:
+> > > +.RS
+> > > +.IP \[bu] 3
+> > > +With \fBPIDFD_THREAD\fR, the file descriptor becomes readable when t=
+he task
+> > > +exits and becomes a zombie, even if the thread-group is not empty.
+> > > +.IP \[bu] 3
+> > > +Without \fBPIDFD_THREAD\fR, the file descriptor becomes readable onl=
+y when
+> > > +the last thread in the thread group exits.
+> > > +.RE
+> > >  .IP \[bu]
+> > >  If the PID file descriptor refers to a child of the calling process,
+> > >  then it can be waited on using
+> > > --
+> > > 2.51.0
+> > >
+> >
+> > --
+> > <https://www.alejandro-colomar.es>
+> > Use port 80 (that is, <...:80/>).
+
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---4y27m3sj7qvjy3rw
+--2v7n4h7nxkyxn2ew
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjwyPsACgkQ64mZXMKQ
-wqk+Mw//c02phs9bkKnnt1aR7YDepCQsc1NPOnUiaG3CHrcARz1/c1Qnl6bEYppO
-Z7fDkFLnm/yKBjSTKCU75JdSj31KklKyMR3rzw3Lqj7YxELRwhiNx21YR6pERjSL
-nn/UI1hGucCRJ7V12UJ8eC6/0T+HW/KNsxINriL+mTAVFkxoO/SI3gU890jmvhiZ
-/xv2ofUrMJkRYLMr/g/kp2UcarolOLVeXLTsb3AatFg4M6lOKNGSbhPFv3gsmdk7
-cjJtvRFP0LbD46IjCSbM8+aCfURkoD6G/Q/on8rhK3iaYHTyMzEiwjC3jtHFz679
-Q8PTwxOFJ2k7bXYH6bwLGwmd7J679+4xW4o/I9xLlMMGNXEhyP68V8gxSQ7njY4y
-2b8fIdcH3Nc6iYDInidlN2YAON8VGmkfBtw813BKRN2R8jQOgh5r4NwMErZb+oNH
-FqBUoDPw311A/BJkwHZtUnqN8Y9kAUcYlk5ZGYk6AVjDSP9sBiV2a+58xNCAfiKh
-t4kTaiuxngmpQawceAqDCYu4DnEXcfz1oy7jf4gVq0Zhly3Zbj8fjCzDaYjGVyFN
-bsXxP3dhHUmokU1Y+XPybLmoyxBcQUj0C0FA2jpZkWwgiv9K+buGNOnm2CcRKjtk
-uB1L9/4ench9jn7aUndP+Z8B8lOu4nlwaIQ06tfmgPCOC7VdR8I=
-=bn4h
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjwyfkACgkQ64mZXMKQ
+wqm7PBAAru/207vhO3mnrlLNOrrBHOPR6iD912HiBS51+hE8bvPfB/Xvj0JdYa6Y
+cUwZ0AThjC+lNHkPfS6Immo1jfO+tD+LO9i79JcxmFl6flEdiTNoteDb3a8++dDw
+9VngCQerDHkAMN/RgchD3sOBD6kLoPTEFWDelFGWgfqvOT0GtzpH4FSjR74t34Sb
+XnP71srY37SDihjd/X9eqQ6VRWdgQGDRBWn312Um9L4UvkeCNPlcwfRJ2m0368N4
+KslW6VnC5SHoZzTuRNCkkM1Ehg2j3WmKpfeKANNUIDwwbHLOJ3kgfLHzQmKLRgcP
+KY6rMo1ZVWe+E6Fy6gvYpV4FaNyIKBLx2PQTcocWjKnJLTyztvdy3rgDXm0k9fww
+zpqf53haydwIavHRZFUMYxihXjWgC4AMCXdw7m6kTwc5SZBazZnRkaC7LOZkICS0
+kyOssgnOmVhrWVXMWKYWW1Og6zjMtYi62+3d1bMMp5wNmYbftM61JILcBUuVhKJO
+QAJGtaEsiybntFOAchkTZuQX0IWQMzy5JzSwJtl0F3ZMWWGM0c+W+qR3sR/ZxEvp
+t9Vq4OyglwdINBJDke+k/Zi4bsIFdz/nlLv/pogQ/kzjhl5jB1sXfBDWLjfeSnXc
+pBEqSbTXlbpkEIBZPm26OMJ6Fod6TaKKF/RHat3ZGaSaKSXsplc=
+=Ges8
 -----END PGP SIGNATURE-----
 
---4y27m3sj7qvjy3rw--
+--2v7n4h7nxkyxn2ew--
 
