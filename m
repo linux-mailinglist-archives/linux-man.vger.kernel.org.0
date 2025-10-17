@@ -1,154 +1,139 @@
-Return-Path: <linux-man+bounces-4172-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4173-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id D44F5BE4A59
-	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 18:41:57 +0200 (CEST)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
+	by mail.lfdr.de (Postfix) with ESMTPS id 83950BE7204
+	for <lists+linux-man@lfdr.de>; Fri, 17 Oct 2025 10:19:19 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 504C119A4FAF
-	for <lists+linux-man@lfdr.de>; Thu, 16 Oct 2025 16:42:21 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 2F3FF35BDA3
+	for <lists+linux-man@lfdr.de>; Fri, 17 Oct 2025 08:19:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E553F2DEA9E;
-	Thu, 16 Oct 2025 16:41:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C623927E07E;
+	Fri, 17 Oct 2025 08:19:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J59oVhDq"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B/+DH+cu"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EC61DF970
-	for <linux-man@vger.kernel.org>; Thu, 16 Oct 2025 16:41:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD3026B955
+	for <linux-man@vger.kernel.org>; Fri, 17 Oct 2025 08:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760632914; cv=none; b=Qdr94opqbgL0L+D29iZLGCphbJIJDXHjapzM8PORaTE+1P5Oidx+hglt6ZC6CpDZOgYbdLrsLpKKZ4vvwd+5GxH2NuMkd3nVMaOmczcLQ1dHdPyT4qpKktELyarGMvaxrVrjwhUJKoqoPvyZcquKOG7NRwDrBD+CDW0adiYBcm8=
+	t=1760689154; cv=none; b=e5exhz4bIn5uME6h9AGlwxMCTFFXDkZV0opivfcmrVDM7ZdmUmoungKz+4K64FEMb9B1GEFCCHRFKV40CmXHOBRppK2RTTw5PsdGhiwBq2MBaFKnRtabOlalgtOpUypWDLiJoaZPLra6jNV0h8PeSDqNV/PNCuMHHRuO1teITlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760632914; c=relaxed/simple;
-	bh=LHqfbHDEb0H+4dSKdepwyYWImZCSGlK/xtpLHrE+Nic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J2c4eDf+Wicpef1dbs6/UuIrPA+htZPTCD5pvS4czlAhk717lQNase+R0ksLppBWSVjR3ymydRmgoJVY9qqXvHTL+eYV7PqLg6aZfSzQygYe+rQxy5+oirDAgm2oUoKGFFlD3yr64zzKpknHPVTgUCAgEAKj8pAVKQTJx7Qx4pI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J59oVhDq; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CA2C4CEF1;
-	Thu, 16 Oct 2025 16:41:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760632914;
-	bh=LHqfbHDEb0H+4dSKdepwyYWImZCSGlK/xtpLHrE+Nic=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J59oVhDqsS7T6WWU0TAyN3z335EzZok596Hgsub5bToSFf7JBjex21w0e1WRTrVvi
-	 G6Wtqo9CDObqUtm0/t8fXbFFc2TKxv4x0GtEuFbQ9+3Q31bNuSTU4COAuwVbg6DY9x
-	 jKhQBpy8xbhpMKr/VE3KthWnqUVZxhpx8MDq98Yo6k0wJ1WY8UppuV+069vp1MnBM9
-	 EjS79pQXw9wwmkmJUOkfmBqSpwn1GZXo3vdL7HU94Idq8EizlbC6JsujYxJMDQJtcE
-	 QuvVOuiCD+4/1Kny7xq9y+XkHqCuPaooIndv1jetdxDEN2k0U3xjIIWjIqHPtZQN1Q
-	 ayHXPbU6AicLQ==
-Date: Thu, 16 Oct 2025 18:41:50 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Carlos O'Donell <carlos@redhat.com>, Collin Funk <collin.funk1@gmail.com>, Sam James <sam@gentoo.org>, 
-	"G. Branden Robinson" <branden@debian.org>
-Subject: [PATCH v5] CONTRIBUTING.d/ai: Add guidelines banning AI for
- contributing
-Message-ID: <1bb0cfde967ecb12f6d3df2106388121647946e0.1760632863.git.alx@kernel.org>
+	s=arc-20240116; t=1760689154; c=relaxed/simple;
+	bh=fjG69EZH3PKlDUYxNR6GGha8meVr8+NXsVqZjM4pC74=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h815CNspvS0/4NeOTMv0hcBY+yZ3zLeTj1tkA6nsQ1LvbVOmPTiKKqh7Knmh7/z0mcdYNB6yxbTn6ZlKLS55zRXA82LX9KP/xFQH5TdTplJUxzB8v6ZwIk+K1DTMvtXa/ctxTbExt978NB7/EGMcVkDm2X3cuhVeSXTDq7aLrQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B/+DH+cu; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-290d14e5c9aso8840065ad.3
+        for <linux-man@vger.kernel.org>; Fri, 17 Oct 2025 01:19:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1760689152; x=1761293952; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=K4ozeaLG5gFLLCCtOANRgk9zzMJ4tB9PbpcT0wOKcuU=;
+        b=B/+DH+culsngyBhWbMUIobazX4VxrH0dgHtgBg22QU9MlevULjjDkeqvbkL5YbPlRA
+         17qZcAnmsmZjnxHX301qDbKPoAeV5dM4rLvid4IRNX9hWHm2/sMEk2OL8Kz9/gy+5nve
+         a4TTu6826bUqwVLXahQqo7YD1catvPvth3dRMsahVSa6KV7Y0XsASH4J9+vuMou9MccT
+         1WvQDHX9jFzXZw8et2IXycxZ3ZcSrKwmD4k+Vo9BaJOYXGcrphPKmVjWWg/bqd2hU1Qb
+         2e0xFXCrb/og6KJJdQ8K7k7lF+ZIt8OKw8JSphiZtdZAVW2dJI9EOHsGmrGq2v5uIF+r
+         qvVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760689152; x=1761293952;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=K4ozeaLG5gFLLCCtOANRgk9zzMJ4tB9PbpcT0wOKcuU=;
+        b=AD6l73ixw9PI59HnSriCvzY/BioTDd7TsrxfAI4jEyjsW22JweITPPDJ5RBeEYChTZ
+         oeTpcEUtmFo4KPrkm+BzMKGEdE9RoP4RQGCcygce1dJpSplX0gqPmoVQ5c67pqGl8/gX
+         5p8qrNCrx8djU6OylhNZx+OZZTOycR+q72RiFBlAvP+hywS4lwVH3qkbwJRZrxDqzD/b
+         VpXrS05msSU755ZhFQIm5TNWUmTM4A9oFoKfQ5OmKCZLvqT/1xnMbp/LQchQFk8FiQyY
+         3alS1gtCd9N7K4YEMmyVNgRxjRn9dVNarSwZSWd1JzOBilR7hqiVhkZna2wo/azU23HM
+         4LVg==
+X-Forwarded-Encrypted: i=1; AJvYcCWEWAIwoUrqQgpKCcdoNuJYlh7/rXltGItNPADHqy2/StDJz7oetPDbz80ywNexnX57+PDGDykxBnU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YziXZLCURe549ceg5UdsJvpfv6pRqpMxeufulXnwHdHvogA5i06
+	HM+nkIpKBuzZeGUjBIyAr5E/iw3TQg0eaEFJ1+9+EyvEh6zrFhtmWc03
+X-Gm-Gg: ASbGncuFcvwPHxAbFBziyg606m5XoX19YPegTGt9PppnUbidWaIy2qR1iEvtb9+fAbL
+	NyxqTBG0+n00zOTUNyY3B4naGJ7BMezykiXo3SaPIvD6PrJpxWBhIsAXsS+ICfNhdZYjwy0WK/n
+	9I92g6xgj+y4im+QHYKSRMIFB92I9+qCl+Gy1oN2zVTB/rBa+Te6efsP0d/6dKwzroyfABMinML
+	9tIiQT9wBGLwgIGPAZvrOeXizuOl3JhBUZRnRDUfmqcVm9pJD45cz2LZBY4brCJgdOsD/6qk6gL
+	cJZo7QGvw3CB9pRYttSyyeoxdRGbzfRfJd5PMHfO3yrYd/AOORDyGFVEoOvQ8pJQ4QA4xKU2/aZ
+	xiYIZL+Td7r3YqnuH2Y7CboOH/ViNx3hu//PqNybTm8oDlzowwWtYpnkxSQ==
+X-Google-Smtp-Source: AGHT+IHsfISct4TL/tdQ5lz6CNgk4m53YGcuNFJauKWcSGbXZWFBEjSU50gH/WAW59j12KP6EmNPSQ==
+X-Received: by 2002:a17:902:f68c:b0:25c:d4b6:f119 with SMTP id d9443c01a7336-290c9c89ce1mr36843315ad.12.1760689152265;
+        Fri, 17 Oct 2025 01:19:12 -0700 (PDT)
+Received: from fedora ([2601:646:8081:3770::43bc])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-290ad977cacsm45910855ad.105.2025.10.17.01.19.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Oct 2025 01:19:11 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Collin Funk <collin.funk1@gmail.com>,
+	linux-man@vger.kernel.org
+Subject: [PATCH] man/man3/opendir.3: document that long file names result in ENAMETOOLONG
+Date: Fri, 17 Oct 2025 01:18:43 -0700
+Message-ID: <4266061219d7406c0aa737f8d52108fea7e0f7fb.1760689006.git.collin.funk1@gmail.com>
 X-Mailer: git-send-email 2.51.0
-References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-This policy is based on the Gentoo policy (see link below).
-However, I've modified our text to be more restrictive.
+This behavior can be see with the following example program:
 
-Cc: Carlos O'Donell <carlos@redhat.com>
-Cc: Collin Funk <collin.funk1@gmail.com>
-Cc: Sam James <sam@gentoo.org>
-Cc: "G. Branden Robinson" <branden@debian.org>
-Link: <https://wiki.gentoo.org/wiki/Project:Council/AI_policy>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    $ cat main.c
+    #include <string.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <dirent.h>
+    #include <errno.h>
+    int
+    main (int argc, char **argv)
+    {
+      if (argc < 2)
+        return EXIT_FAILURE;
+      DIR *dir = opendir (argv[1]);
+      if (dir == NULL)
+        {
+          fprintf (stderr, "%s\n", strerror (errno));
+          return EXIT_FAILURE;
+        }
+      closedir (dir);
+      return EXIT_SUCCESS;
+    }
+    $ gcc main.c
+    $ mkdir -p `python3 -c 'print("./" + "a/" * 32768)'`
+    $ ./a.out `python3 -c 'print("./" + "a/" * 32768)'`
+    File name too long
+
+Signed-off-by: Collin Funk <collin.funk1@gmail.com>
 ---
- CONTRIBUTING.d/ai | 65 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
- create mode 100644 CONTRIBUTING.d/ai
+ man/man3/opendir.3 | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/CONTRIBUTING.d/ai b/CONTRIBUTING.d/ai
-new file mode 100644
-index 000000000..269d62d48
---- /dev/null
-+++ b/CONTRIBUTING.d/ai
-@@ -0,0 +1,65 @@
-+Name
-+	AI - artificial intelligence policy
-+
-+Description
-+	It is expressly forbidden to contribute to this project any
-+	content that has been created with the assistance of AI tools.
-+
-+	This also includes AI assistive tools used in the contributing
-+	process, even if such tools do not generate the contributed
-+	code.
-+
-+    Exceptions
-+	As an exception to the above, AI assistive tools on which the
-+	contributor depends for health reasons, and which don't have
-+	a major influence on the contribution, are allowed, and the
-+	contributor does not need to disclose their use.
-+
-+    Concerns
-+	Copyright concerns.
-+		At this point, the regulations concerning copyright of
-+		generated contents are still emerging worldwide.  Using
-+		such material could pose a danger of copyright
-+		violations, but it could also weaken claims to copyright
-+		and void the guarantees given by copyleft licensing.
-+
-+	Quality concerns.
-+		Popular LLMs are really great at generating plausibly
-+		looking, but meaningless content.  They pose both the
-+		risk of lowering the quality of a project, and of
-+		requiring an unfair human effort from contributors and
-+		maintainers to review contributions and detect the
-+		mistakes resulting from the use of AI.
-+
-+		AI tools should be considered adversarial, as if they
-+		were a black box with Jia Tan inside them.
-+
-+	Ethical concerns.
-+		The business side of AI boom is creating serious ethical
-+		concerns.  Among them:
-+
-+		-  Commercial AI projects are frequently indulging in
-+		   blatant copyright violations to train their models.
-+		-  Their operations are causing concerns about the huge
-+		   use of energy, water, and other natural resources.
-+		-  The advertising and use of AI models has caused
-+		   a significant harm to employees and reduction of
-+		   service quality.
-+		-  LLMs have been empowering all kinds of spam and scam
-+		   efforts.
-+
-+Caveats
-+	This policy can be revisited, should a case been made over such
-+	a tool that does not pose copyright, ethical, and quality
-+	concerns.
-+
-+Copyright
-+	Text derived from (and more restrictive than) the Gentoo project
-+	AI policy
-+	<https://wiki.gentoo.org/wiki/Project:Council/AI_policy>.
-+
-+	SPDX-License-Identifier: CC-BY-SA-4.0
-+
-+See also
-+	<https://tukaani.org/xz-backdoor/>
-+	<https://xcancel.com/spendergrsec/status/1958264076162998771>
-
-base-commit: cef39ff51bfd016d7079baefbf2a39f0fed7549b
+diff --git a/man/man3/opendir.3 b/man/man3/opendir.3
+index a9af16269..6a5c7880f 100644
+--- a/man/man3/opendir.3
++++ b/man/man3/opendir.3
+@@ -73,6 +73,10 @@ .SH ERRORS
+ .B EMFILE
+ The per-process limit on the number of open file descriptors has been reached.
+ .TP
++.B ENAMETOOLONG
++.I name
++was too long.
++.TP
+ .B ENFILE
+ The system-wide limit on the total number of open files has been reached.
+ .TP
 -- 
 2.51.0
 
