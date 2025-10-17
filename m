@@ -1,91 +1,108 @@
-Return-Path: <linux-man+bounces-4175-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4174-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E99BE7EDE
-	for <lists+linux-man@lfdr.de>; Fri, 17 Oct 2025 12:03:08 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id D44FDBE741B
+	for <lists+linux-man@lfdr.de>; Fri, 17 Oct 2025 10:48:14 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 0E6D64E3848
-	for <lists+linux-man@lfdr.de>; Fri, 17 Oct 2025 10:03:07 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 69ACC1AA0BBF
+	for <lists+linux-man@lfdr.de>; Fri, 17 Oct 2025 08:48:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 854842E54A2;
-	Fri, 17 Oct 2025 10:03:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2044123BF91;
+	Fri, 17 Oct 2025 08:47:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jwilk.net header.i=@jwilk.net header.b="TiNZrXr5"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fw9KY6US"
 X-Original-To: linux-man@vger.kernel.org
-Received: from 11.mo534.mail-out.ovh.net (11.mo534.mail-out.ovh.net [46.105.33.174])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688D02DC76F
-	for <linux-man@vger.kernel.org>; Fri, 17 Oct 2025 10:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.33.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E6C296BCB
+	for <linux-man@vger.kernel.org>; Fri, 17 Oct 2025 08:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760695382; cv=none; b=NQ8x74wr/JsSU89cd8vH4D0g+45Ef/oziNZ4gnBLZX87lJ1uz7HsOgnrfEx4WJdjJMw7eUGLKBQhVLKPdq9wTC09dYUpsuXDi6huMqOmDMKuodr6tyQbP6h1sbugNc/pgBq0+rVbMOBP27KSOLLSdzX7xZhiMn9abt/nVmwfkds=
+	t=1760690857; cv=none; b=uXHbTdLQ9kVJDkVm2qAfc88w9Vh3vV/OSlNvUFIKF09TD09zZUntxdrELGQskVeTat9cMzokLyJw4HBtLBk42E4ibab+rTFJsAtpfoHOubwfR2hVjqxNyKeyEr3CnTeZYfOcbnio46a+ZV315Tm5ysIfHdoOms5OrS66CNbxG50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760695382; c=relaxed/simple;
-	bh=D0ObX/u7HEAwfmW5Y4iz7drjq+UvVhnRoiaaumNn8rY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fqra4OvZqcFRWqFhNN8x5IEwH4lNCV0EzkP0gQ2l2LgnZQX22TNhbt25ZFM1/UnCl8TlXyoYLCN0FHuCdv+PtPT8lleYI9dkMb5rcdTGXP9GAbOrFGPH441SCsyUMWafkn2YdxE0Fzer/T1QBrRoZuY1KJH961Kosyo0cwZkBTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jwilk.net; spf=pass smtp.mailfrom=jwilk.net; dkim=pass (2048-bit key) header.d=jwilk.net header.i=@jwilk.net header.b=TiNZrXr5; arc=none smtp.client-ip=46.105.33.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jwilk.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jwilk.net
-Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net [79.137.60.36])
-	by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4cnz1q6Q47z68wK;
-	Fri, 17 Oct 2025 08:46:07 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net. [127.0.0.1])
-        by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <collin.funk1@gmail.com>; Fri, 17 Oct 2025 08:46:07 +0000 (UTC)
-Received: from mta7.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.109.249.244])
-	by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4cnz1q547Xz20s5;
-	Fri, 17 Oct 2025 08:46:07 +0000 (UTC)
-Received: from jwilk.net (unknown [10.1.6.4])
-	by mta7.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 6A752B83549;
-	Fri, 17 Oct 2025 08:46:06 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-109S003c1c9ff22-2512-4e81-8452-57ce6156f9bc,
-                    537122C7478F486C3FAD405332B7F21BD3E5ACFC) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp:31.0.179.180
-Date: Fri, 17 Oct 2025 10:45:53 +0200
-From: Jakub Wilk <jwilk@jwilk.net>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/opendir.3: document that long file names result
- in ENAMETOOLONG
-Message-ID: <20251017084553.d2dgnaicr6loseev@jwilk.net>
-References: <4266061219d7406c0aa737f8d52108fea7e0f7fb.1760689006.git.collin.funk1@gmail.com>
+	s=arc-20240116; t=1760690857; c=relaxed/simple;
+	bh=XBVQKSujFaEyjXkG0jVUOrqJmcdAesSNBm8jqAULd5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=rDJ70afs9u1epEUbXZAnnWE/+NFQWwXN/648VcUr0lbv84b//yPXrRfMDPvSNjmnCl88N9/ixZBdOdPsd5Bdv15/y/r7jTAtKLnvJFF4xzm0vKttCFuGEPEX4B0UfOH8snVl98qTpQILd03h0pwH0mL0ayMLBXeRup7vrRFSIDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fw9KY6US; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1760690855;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oWHKmyRGDnijKGetuUi8i7DuKqQ4X+F9JLfgCF6E7V8=;
+	b=Fw9KY6USojMImFSf8Qa1wncOFDLSNw1rj3SeTbLhDEnoBm83nokAuR2s7gIzbadnB+IHtz
+	F4pN+4ZUh2519+ZFpgvJFvW8aAA9mY0PYGHf/C4DCcFBubF7gyYteqvjB5PHB9Obnba8DD
+	5UTQadP7w9AGbK3F+YDf7vbRXiurvOg=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-482-JMfg9ljqNleHJwnsPdIqfA-1; Fri,
+ 17 Oct 2025 04:47:33 -0400
+X-MC-Unique: JMfg9ljqNleHJwnsPdIqfA-1
+X-Mimecast-MFC-AGG-ID: JMfg9ljqNleHJwnsPdIqfA_1760690852
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 55C901800451;
+	Fri, 17 Oct 2025 08:47:32 +0000 (UTC)
+Received: from MiWiFi-R3L-srv.redhat.com (unknown [10.72.112.94])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8DBBE1800579;
+	Fri, 17 Oct 2025 08:47:29 +0000 (UTC)
+From: Baoquan He <bhe@redhat.com>
+To: linux-man@vger.kernel.org
+Cc: Baoquan He <bhe@redhat.com>,
+	chrisl@kernel.org,
+	baohua@kernel.org,
+	alx@kernel.org
+Subject: [PATCH] iman/man2/swapon.2: update the description about default priority value iman/man2/swapon.2: update priority section
+Date: Fri, 17 Oct 2025 16:47:25 +0800
+Message-ID: <20251017084725.318029-1-bhe@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <4266061219d7406c0aa737f8d52108fea7e0f7fb.1760689006.git.collin.funk1@gmail.com>
-X-Ovh-Tracer-Id: 166351712904424553
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEgYvwdeLqcx2PvdAeEAzgqC/doS6QDfW8eg9Nqxt+Yxwlcd6kTOSDBn7nGoMMEeJiMBlsiL1RAyFwmQFwSWZhQrTINjxaPewsPg5byqeAjsmXSS2U3dLMzU5K4KHcF5ZZpYknk7CRHjCGFRBB+aEHPhsrwNU7nccnG4xVjQ6ktmAY1fpvXAzqphHTwjqgxJawwRwq17nzpWDU8ACUk+vjMGI2+P5z7B1Sx+ls5b+hzhJV1gvIJQyMWNxeb2OGEhAnd0gUlbwc5+Vd8hbsOQQnTgCqcYe+AwMxkk/3lBAts9htauVKryirbq0Awfo7z2ryk6fsF8G4fXgXpDoUsEvJ2BpwvOip7RqztISJithoIMTSGPIkbLftG8BaTK2uI8rJ+NGvgiofC6PndUSojX7jWJWsYe839yVNNHAW3mouChdVvzpfGUz+N5pD5nbBnZvy61s6wAGD2R8xC4Ux4fS22DX/XO5wL6y7Cmctgf02Q6gvnvoqizBVj3t+jAgJnSTPsJOpC2CK5fDx0i+xhb9ZDLg4er33RgIBUizUPk8OGktVg9YU7yx59ler/ShfLeTFG9Z8kvopecI2RHtGNV4pums8CfidbSPpNi0pwLloCo+Pv1TgfCAk7eOpWkXgZ3LupvuIiJKtCpjh5QQKpTB5uSavjIYSBB/QzNlv2luGe1Q
-DKIM-Signature: a=rsa-sha256; bh=WBeO6ijf4SonAoVj0XqGaemAto7JlTmmAHWyV6JnEe0=;
- c=relaxed/relaxed; d=jwilk.net; h=From; s=ovhmo917968-selector1;
- t=1760690768; v=1;
- b=TiNZrXr5GilpB4Py9eBthXyGK7JD6/qi4bp7l2zUjiAldOyhmuM5SUZHniPeT8weGc9s5BSY
- d0nOnp58B2533GwLtMW/sTV377WpqyrbnjuBnArO5O3cf3R6Sr8UCUabJWBePYVDe2iLJXZDMjU
- B8fs5MXySQdDr+cgjdOYIEPBIJC/OmO7DFhYGUFPxmHWijmG3DflAguEVyLIuJ2J3sJLZe1M62O
- UFe5d2NhmRRuvx0heknY0yO/Lc+Po5ILrAme1RdPHEaSYKocWIDDvy+PkFJcPcJ7b/QcqWYs0II
- xF0uauIWryjIj7qp/PLvBNOdTm64FgKMdY5x35Dro0b8A==
+Content-type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-* Collin Funk <collin.funk1@gmail.com>, 2025-10-17 01:18:
->    $ mkdir -p `python3 -c 'print("./" + "a/" * 32768)'`
->    $ ./a.out `python3 -c 'print("./" + "a/" * 32768)'`
->    File name too long
+This update the description about default priority value which is
+changed in kernel.
 
-Simpler reproducer:
+Link: <https://lore.kernel.org/all/20251011081624.224202-1-bhe@redhat.com/>
+Signed-off-by: Baoquan He <bhe@redhat.com>
+Cc: chrisl@kernel.org
+Cc: baohua@kernel.org
+Cc: alx@kernel.org
+---
+ man/man2/swapon.2 | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-$ ./a.out $(printf '%0999d')
-File name too long
-
+diff --git a/man/man2/swapon.2 b/man/man2/swapon.2
+index df5e8d8c7ec6..20e213827733 100644
+--- a/man/man2/swapon.2
++++ b/man/man2/swapon.2
+@@ -60,9 +60,8 @@ These functions may be used only by a privileged process (one having the
+ capability).
+ .SS Priority
+ Each swap area has a priority, either high or low.
+-The default priority is low.
+-Within the low-priority areas,
+-newer areas are even lower priority than older areas.
++The default priority is the lowest,
++and all default areas share the same priority value, -1.
+ .P
+ All priorities set with
+ .I swapflags
 -- 
-Jakub Wilk
+2.41.0
+
 
