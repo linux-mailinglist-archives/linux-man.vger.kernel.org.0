@@ -1,87 +1,87 @@
-Return-Path: <linux-man+bounces-4183-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4184-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27512BF2FE3
-	for <lists+linux-man@lfdr.de>; Mon, 20 Oct 2025 20:47:25 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B029BBF31C2
+	for <lists+linux-man@lfdr.de>; Mon, 20 Oct 2025 21:05:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 97EF834E7A6
-	for <lists+linux-man@lfdr.de>; Mon, 20 Oct 2025 18:47:24 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 5921B3B67D9
+	for <lists+linux-man@lfdr.de>; Mon, 20 Oct 2025 19:05:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4E252C21F1;
-	Mon, 20 Oct 2025 18:47:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B50E25A65B;
+	Mon, 20 Oct 2025 19:05:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="StqRs4A9"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FdIEdC31"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F932C327E
-	for <linux-man@vger.kernel.org>; Mon, 20 Oct 2025 18:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64B3242D6A
+	for <linux-man@vger.kernel.org>; Mon, 20 Oct 2025 19:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760986041; cv=none; b=QtV1fH5jwaOjyitnpNebnR58pHSvVbS9jGQxcLNu2T/kugChLvTKSBITEcF6NYDkaGAWZCpSdsB27L8IIRrfg1v7/sEVts2IWOT0R4tC7lKVx6+QF3ILpahh/wsua7jZ8oM1SwEYiLq+PsH5tGrYGqwiLTCRrZ2v0omOqWn56Iw=
+	t=1760987110; cv=none; b=FxX3kxl4bDJsOpMBltwa8H4Aj+a3Oa701v10SWoRFShaxuNRehuwxbW1lSPx4RymN+IqEySANWqHVdjLGvcwGPkmnKuf4DmkmQpEEJFiKQ7R5tgt9UP95Y+Aalm5QYxfSucoCSXmGXuSPRg0ISY3vcwo9GxEvjl+BZO9TY+egT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760986041; c=relaxed/simple;
-	bh=MH/XBnvqjG3ovAZTVbz+j7xRUrkplQRNUR4KqGLp/Rc=;
+	s=arc-20240116; t=1760987110; c=relaxed/simple;
+	bh=WZtmfsqkD16/HJsleV1zVM0XjDvABBiuTScUozzI+L8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qJZDG+Nm5ym95+0SJGp97iYo79hjGmqln35KxB7NtSlFLV7Qj8RPrpgtqLObHAQeaMMcb6WY5GMbASowFib9MnJq039IRvVA6ssmnec6zhxqDX037dfT/DXSnTzVcbhpy9Q/q80otWcLvRkHycNAuamF6k+owC2lRZeer15mLIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=StqRs4A9; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type; b=ms4ORJORFwLHJCqbsHNtqOmvh7ZnmSldpaVEuMkIahFRG6qhcQKSSsFXKlaEGcHLKxmH/Ww8fhMFLYewudddkitHdAYb1fUhlxq/xLuogHwu5OYG5uSP4D8C652bBzN64rMeuPyN+ZZ9avb2GPxHHFNm+YxISFK1ESb8iMpZuao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FdIEdC31; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1760986038;
+	s=mimecast20190719; t=1760987107;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=j6Jo0hK51CFj82Ao/j6h+U6E9zmPyEuDcb3W6tma9nE=;
-	b=StqRs4A9cNvPq43sBzEs6KpaHRkToCDCTKrxXV6SSLrehObydr5gBNlLArcmp3VnUiYOGW
-	yVq7gKVaBSmWtWTSElzWFm7cRUmyHtakL3ZVdDB4CFOi+nsim68p9n7ZEK/zHWZL6D5rno
-	tfITcE2ZHahv+76FgryFmE86keEgt44=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=7bs7keFnEM6PY74ZAkxm9lBJLAuR0jx96xiPwluI4cs=;
+	b=FdIEdC311jLDe5fqiJtQ8t7jeERP4ieTtQ89BLSN/wJnS4Nz28U/ZtyC9WGtBSFs91a2ej
+	sL5Aqj/O60HX/w2/N0JqBX/N86XQaChWAqmvrud4XtFhO7uP2cRSONa+nScU3cJaVf8qJV
+	0mT+PmiA61d/wa/8gegyMSaQ1IZ5fSE=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-530-Yys9ZCJJMTeuj7MnQ-I5fw-1; Mon, 20 Oct 2025 14:47:17 -0400
-X-MC-Unique: Yys9ZCJJMTeuj7MnQ-I5fw-1
-X-Mimecast-MFC-AGG-ID: Yys9ZCJJMTeuj7MnQ-I5fw_1760986036
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-87c2085ff29so168320906d6.2
-        for <linux-man@vger.kernel.org>; Mon, 20 Oct 2025 11:47:17 -0700 (PDT)
+ us-mta-121-QsUVhvNSMv6heFI3p03ZRg-1; Mon, 20 Oct 2025 15:05:06 -0400
+X-MC-Unique: QsUVhvNSMv6heFI3p03ZRg-1
+X-Mimecast-MFC-AGG-ID: QsUVhvNSMv6heFI3p03ZRg_1760987106
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-88f1dad9992so542012285a.1
+        for <linux-man@vger.kernel.org>; Mon, 20 Oct 2025 12:05:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760986036; x=1761590836;
+        d=1e100.net; s=20230601; t=1760987106; x=1761591906;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:from:references:cc:to:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=j6Jo0hK51CFj82Ao/j6h+U6E9zmPyEuDcb3W6tma9nE=;
-        b=M5E6ah4pl8/4XjrD4rF2QcO5xPJnMUdTLN/n1DHTwyDoHsX/4s01Szp6A6+ZYu4SSR
-         +ZgynBsHqCwOYoAVWkjZ1Krlw84je8p7J0ogUQdH2zUvIys8L18TyStYEhT9egMkkMk9
-         08ua6zL+uJVSUCu+AbzMm/Q1O/Zd35Lb0FSw1VAvU/nQYm6vJTHWpS4eRNhn4kuBhGi+
-         PouaCrWSCGGb+r+ZvxMi+TcqLenfQ8iglOID3wcpejVD+/vF0gJIeaD3pc7/SOoaYeMJ
-         eLQ4IU4CP+m9KGo6+lQPT+HYMmYvRQuMqv0i8a02V+0somm10geRUrCFZ65fCsPTCQgS
-         JRwg==
-X-Gm-Message-State: AOJu0YwbfGZF2wldxpx8tk56hkK4wJ6qVjekx1mcm0fePb9zFAhHnUWn
-	TJ70qnDBMoEKf5ZvSFbPH3eqfLzyUeLQnl5ZKXdfe0cJIDXuEdPDgvoqDb8BCkfR4cq9NpByl2C
-	Rkd3wMuLfrygxvuIxO8VUaeBc4H+A2m8MLqkF27SJ2EGZsbz9zBcQAJroywZawA==
-X-Gm-Gg: ASbGncunYfYoPPVSqygSG16qcXM8iDhzg/yQZBm10rncwcHshWpPl5Wp4tBHvbYRKIR
-	8b9S8Q32HhC2kApYrIasCC3/X4uJvjTU3tOerglVoTPbfL5Q62NaAguVe5v6p4T8sOf3QyZ6ez2
-	uM1V2LzYubwzp+Y1TK/6KlP3uBzRbrFUyhyOWF8lTHFsUXYk+CwNpQmnNN2IpeOI0tjmMzBuIP3
-	KCOykwp7yKmVNFoXvDCvert2rfYrJwPMwjWPnVwHucRguhxQygWYK6ku//Jf23dK9WwtRuG4abP
-	uxHm2UkR7hQvN1qR9YnR3Zeo2j3PaNoWvDSiAnqd4jpubDWa0xzBtF1CJyow3f/vw3kMQR0EIsD
-	a
-X-Received: by 2002:a05:622a:d:b0:4e8:9965:6174 with SMTP id d75a77b69052e-4e89d3a2987mr150540871cf.55.1760986036454;
-        Mon, 20 Oct 2025 11:47:16 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IELUIXHQlBtgHhgpXPlPBDY5DWgxF+nUMqECXY+SeQk45akj6/gGVNIFCQZqKTOByRnfVAUzg==
-X-Received: by 2002:a05:622a:d:b0:4e8:9965:6174 with SMTP id d75a77b69052e-4e89d3a2987mr150540721cf.55.1760986035984;
-        Mon, 20 Oct 2025 11:47:15 -0700 (PDT)
+        bh=7bs7keFnEM6PY74ZAkxm9lBJLAuR0jx96xiPwluI4cs=;
+        b=D2GNl8tqi7kktKAOfdyF2FjSXxPaddxhACcAY42kFBhzVRiRSXoxUzz4tpkHSymTAf
+         Yd+16GE/rKVGJ/FKxuZA5ZLOjm9jPujuLwI80egfy1ZZaEPcFfj4rAACSe/ZFfMzxxNq
+         osA8dBhFYsqRjuEjvJ+8vD2KPoNY28BOFx7P3AJEB42rIrh0miysMRESbLcK8py2fXH1
+         2f2EqUdCzzIgMYDIv2xmBjyAvhQZPuBFm6e2uMzr6fftb6swYDGl3X0Vt9NQKQX7o0Lq
+         +TkrVSM1IbzgCHl1bXxGO0er9JwVvzBQopwPhXwKm6IgjAIzmPvh1j6MmLMQTPQe2frS
+         EO0A==
+X-Gm-Message-State: AOJu0Yy602b8PcTeRMHsvA42XQQkMrLtnNESXbLyBlkH5g65iYZBjSJT
+	Dq8S+jsgohwuhtcVMODEUt175riOjydQkB51rQKIaDXEKPOsHqLFbfsXF7tya5nT9C/sAFW6Jlo
+	0pBl5MHKBa1sVZjNHi/VEcsST9LX0zf5ypei2XJWJ8y22JDffkHbOaVD+VGP/Sw==
+X-Gm-Gg: ASbGncvGz+KZPtUfr1NgyWNlJrja5Xdqsxj9vp1ccS716f2jNXT+CZOeoaUx9l9g+lV
+	VRNRvEOwdFuDh33pvMe16bbs8eJ9zucM5UIEk3PJLPvrVmZj0mInnjzrnZv2Jb/vOkH5inDwLU+
+	4k/zdrxEkyfYReU1ma/5eZNbMlU3DnFWvG7Pv6OyAp8Ofl9PSpqSgKXfMAUKP34ToCyhyGxgjUb
+	9xrYjnbD6icPmWGFzRxoAMoM9Qq4jrx4t8x3YSuDSjinQ0iJEmIsqga5QtnulrmLRWtJTgojU/T
+	eSvMXBbgibuKrdUBvmaQa8e3OhM9GvuLZI+YXLoTVstfCd2NEjTtCwee5Qp85cZkDzzUZ1Wj1jB
+	S
+X-Received: by 2002:a05:620a:4004:b0:893:1fde:110e with SMTP id af79cd13be357-8931fde12d1mr699355885a.5.1760987105626;
+        Mon, 20 Oct 2025 12:05:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF5Q0PCB+OoF/Kjl1sn41Rhtn2acF7N7P6LylGXXmLUW1GyZoc3f9sHZpLu1EDrc5ungW4ALg==
+X-Received: by 2002:a05:620a:4004:b0:893:1fde:110e with SMTP id af79cd13be357-8931fde12d1mr699351285a.5.1760987104990;
+        Mon, 20 Oct 2025 12:05:04 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-891cc7e1543sm612766785a.4.2025.10.20.11.47.13
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-891cfb566c4sm616465485a.58.2025.10.20.12.05.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Oct 2025 11:47:14 -0700 (PDT)
-Message-ID: <7ab30dc1-34c1-43cb-ac3b-f838f5564307@redhat.com>
-Date: Mon, 20 Oct 2025 14:47:13 -0400
+        Mon, 20 Oct 2025 12:05:04 -0700 (PDT)
+Message-ID: <4ff2124b-3468-4ef4-a046-492d132bd9b7@redhat.com>
+Date: Mon, 20 Oct 2025 15:05:02 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -154,22 +154,43 @@ Content-Transfer-Encoding: 7bit
 
 On 10/15/25 3:24 PM, G. Branden Robinson wrote:
 > Hi Alex,
+>> Let's consider again the case that AI is a fancy version of a chat
+>> with Jia Tan.  Should we trust contributions where Jia Tan has
+>> influenced in any way?  I strongly believe that we shouldn't.
 > 
-> At 2025-10-15T20:11:10+0200, Alejandro Colomar wrote:
->> I prefer that they use badly written English by a human, than
->> good-looking English written by an AI.
-> 
-> That's a tolerable and defensible position, but it is not the element of
-> your policy that is drawing pushback from Carlos, Sam, or me.
-> 
-> (...assuming I'm understanding Carlos and Sam correctly--as always I can
-> speak only for myself.)
+> I don't think the Jia Tan scenario is a useful litmus test.
 
-I believe, given what you've written, that you have understood my objections
-correctly.
+Agreed.
+
+The attack vector of "indirect influence" is very hard to both carry
+out and successfully exploit.
+
+One mitigation is to ask for at least one different human reviewer.
+That person reads the change and understands what it does and the
+intent behind the change.
+
+As Collin and Sam can attest that's what we're doing in glibc with our
+consensus and Reviewed-by: policy (and cost of compliance applies [1]
+since we're stalling at ~60% review of all changes).
+
+Even then an indirect influence attack could cause us to accept a
+seemingly innocuous change in behaviour within the norms of the standard
+that impacts a downstream application that is actually the attack target.
+
+The only defense against this is the continuous integration efforts by
+various distributions to place brand new component builds continuously
+into testing in the hopes that one of them exercises the same API in
+the same non-conforming way e.g. Hyrum's law [2] but applied to testing.
+
+Then we get a report and fix the issue quickly.
+
+The solution is more humans, trust, and relationship building.
 
 -- 
 Cheers,
 Carlos.
+
+[1] Maxim: Cost of compliance approaches infinity as compliance approaches 100%.
+[2] https://www.hyrumslaw.com/
 
 
