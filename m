@@ -1,138 +1,141 @@
-Return-Path: <linux-man+bounces-4178-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4179-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13A6EBEE84F
-	for <lists+linux-man@lfdr.de>; Sun, 19 Oct 2025 17:12:50 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF070BF0245
+	for <lists+linux-man@lfdr.de>; Mon, 20 Oct 2025 11:21:29 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 76D21349EA9
-	for <lists+linux-man@lfdr.de>; Sun, 19 Oct 2025 15:12:49 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 84445188BA3C
+	for <lists+linux-man@lfdr.de>; Mon, 20 Oct 2025 09:21:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 440932E8B93;
-	Sun, 19 Oct 2025 15:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 112472F5499;
+	Mon, 20 Oct 2025 09:21:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="Jv4M+AfC"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hgrobfGJ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF452D46D6
-	for <linux-man@vger.kernel.org>; Sun, 19 Oct 2025 15:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455922F1FCD
+	for <linux-man@vger.kernel.org>; Mon, 20 Oct 2025 09:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760886766; cv=none; b=BLx5ZZxiGYTeMqd+90F/BZnXigQsn2TYCvYVh93zN2r4xknrIwSTV3FlJ69fJqS0WIFWR0cPAWvGfcG0EJc4+d5w9SP38olge+Vzw3Akmq2Mb7DOktBDMEAqopn/Hh6kfyVHpans+kMh36NKbtZan6ZtXjehe5OQ28nQxpuxzVI=
+	t=1760952084; cv=none; b=ihFwEuFgjDbbiAm88Yjyet2FFgwKMPQz2mHgW/HJWPcxUsVFeDzVKASz8MyGVqVcaeD5gYmKRs+3HGEO1KxCelXMBnp6xxOStrwhsoC5daYbWRWUkxsRrYu4Zc/QxxDEFsyKx+AGNc/95GsLhuZX3g07ASm+UYD61L+50AW1i4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760886766; c=relaxed/simple;
-	bh=0qmJFAvQZbcwOk04a6hROMg0NsV37Z55WBIcztZQ9zU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AP/SyI6Tm1hOgipHPT4jPfA3nG4LeuXCVCiSVcdIo5jJFK8NEcH65E6z4mUrwvPCkjjQQVCWZHRl1zyGn0pbT9E5yTngln4pm9yDiHuYsaavtmadDOpqBLbCD3ceDGW2Y3tpFPGiey0uZYBLNJuC73CJ+gpqEm9M7H6SUYMRXYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=Jv4M+AfC; arc=none smtp.client-ip=142.132.201.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1760886453;
-	bh=i723+aEeeR9PVo2+7KUrgybnjYp0BFmPB6ikjZMoo00=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jv4M+AfCVJkHSa3tCNGgRMSxvEtVOcoPtJqtzKO1ZIJrriTzdwHWn17y/tXlenKf3
-	 JOUYxPP/kLcXWrFpE9IxqI9XRu+ImtZEWO0U7/067HeSwh3GgKXNnfBHfncirKe+Qp
-	 BUUXZ6DXIPvammwcIHSBgWggEm44ThW+VoRccsG2NMZLGtLmTTQA8M1Sk1AIRJKO0z
-	 Z42QeBaqlA56S+lGrDpCTUPWpeN8EyOUXibl7yfffqPQG5rlP1+ZJi/iu7qhvF/buX
-	 f+Ym11qtMdMwxjqjx4SMfxRozbUlZuFpuLO0Yi4haF2k1oK1gq/L/1g1bAwC5QYYXy
-	 zzh3ebY5slWhQ==
-Original-Subject: Re: Issue in man page sprof.1
-Author: Helge Kreutzmann <debian@helgefjell.de>
-Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by mail.helgefjell.de with local
-  id 00000000000200CB.0000000068F4FEB5.00085438; Sun, 19 Oct 2025 15:07:33 +0000
-Date: Sun, 19 Oct 2025 15:07:33 +0000
-From: Helge Kreutzmann <debian@helgefjell.de>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page sprof.1
-Message-ID: <aPT-tcGshLcplRsB@meinfjell.helgefjelltest.de>
-References: <aKsmQcxdqf4EnO5i@meinfjell.helgefjelltest.de>
- <ng3ohykyqc5cpglpviqh7hekvdltyrnpf54pfaqlg6hevkclfu@qjywntzohfxn>
+	s=arc-20240116; t=1760952084; c=relaxed/simple;
+	bh=Wh6rkJ/lywZpPAyG7+bk3QsIFJDZkLZJ2WYyLXpKICg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LAx5/DYPcGLsMVXFrc9NMoGbYLDUQugZUC++1bE6c1cgDMdDGcDxlXhC4MdMM1YXWpF7jpRVJDP8q1Whk2Tam+uUSn6d2969wnUhc2bl+y1zovtL/rI92vEXHhLTXKWYJ9mdcrvqpbZGrMkNaMMX7y6ODG6OviqQzdPRzdCqogU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hgrobfGJ; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-88fca7a60cfso761369385a.2
+        for <linux-man@vger.kernel.org>; Mon, 20 Oct 2025 02:21:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1760952081; x=1761556881; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jhsap4W2Q1nXpHRNl3nfKrR/Udrf36a6PgrYzUcPcHY=;
+        b=hgrobfGJsTwb5+nPEkakTPC6SxxKVhyoEUa4vrqMFXrRiSWcaqzyu4DVe9sqkYXTJs
+         wOu1XzW4sbCDAs5iurIPaCom+HKokxcCIdx6FdYxQ2bR1PUUQXx54opAw8bwe6GFwIGG
+         HTxip0WvB/w4+hJsfBV9bkeBjF2qNxJ9E9WZS+BE9mcVAWPMF9Zt62+l+9sKiKvW/uhH
+         nGX+67D/GzSXhnKtXV5BnksNeUanrZa0XOCTgLdExppXvhZ3EMybKau1U27XR464adJP
+         tKkmQUIYBL2qo5/uZ5Kb3lXrIQhJa4UEH2lAQsmaCOsDc9OqSzoDMosLcjG3Jhr+CpsT
+         hkgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760952081; x=1761556881;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=jhsap4W2Q1nXpHRNl3nfKrR/Udrf36a6PgrYzUcPcHY=;
+        b=wepvohUNdbhZMphbCzySH+riCdRwH+nQhzTPgsgFeHV0Y9gMD6Por/bpmFV2mXG9F/
+         TQ+J4RQdQpHMRNWEnlBT7Ut5BAP7pilpOBjGa/X4FfHfb8H0jTyX0pL5T/EF/t+hJLar
+         HF22xtrcBeYlY6S9+tSSJ50wZuCzHS9yeTsFnoiasLmgB27l0pp5lUjo1VOaYltYNwdf
+         GhcEct7nSMzokrM7yCDYuQh66ZfRIYapG7JJElfX3HgOtu4hwmV+5cC7tczVMWuwuzVb
+         ewtVdd+3JSUdN/ajWh6kdmzDwbaZeVTQuPLwjiTNK4D1YcbcQDUjmTT5FBVF7RA5g+CZ
+         DBBw==
+X-Gm-Message-State: AOJu0YxnI7QoIECRucGEFTPmHQD1N6PP4DImLLAV3Tvr+dei4LHqwToh
+	TcsME8jp1VZdYxAXbvL2qY70WdIm0Hq57y0dlGDaopI6B+NzZmyeFFJNJwHlomXe2UtsF9omFf3
+	6fqc0mT5exASyikk4zzATraAFLWoE7d9uMuyb
+X-Gm-Gg: ASbGncvEBYp9bWF5eY08J9clOncaBsXH5HF9nx09Niv0WCEKS0HGJDEG9Z90ZK3YmXQ
+	XDMWiBp033HyYj4hPHPqgoLXfHuRAZabKy8Ktp3u+0y+DTfybyI6rRtV9G7K64o2lc773m7+Lwd
+	7n9pJgEa0OF/rodcnlSCN71WkmG00okwwTTAStKQw0ci4bkD1s7V9GTSw0L1mshFxyGa2UBNDVY
+	txDNJDN/nllHCLcqABSNFpTaSJMKnUVgszzGmHGk0tLr4GUVC6YnRAGXLwXScaOsAKX7d5q4HBQ
+	LfZb/Tw5z4JVFAj3HUW4ewKBi0g=
+X-Google-Smtp-Source: AGHT+IHuzcNnYJ8sEResC5r6QQ8A8TmMFWo612XBeVXaB1JoOV2S60FTrxWC4J0QeoAcBBPmPjaPJotfU85tymTVmJ8=
+X-Received: by 2002:a05:620a:2550:b0:88d:125f:8b5c with SMTP id
+ af79cd13be357-890707f72d6mr1596778085a.88.1760952080649; Mon, 20 Oct 2025
+ 02:21:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-545848-1760886453-0001-2"
-Content-Disposition: inline
-In-Reply-To: <ng3ohykyqc5cpglpviqh7hekvdltyrnpf54pfaqlg6hevkclfu@qjywntzohfxn>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
-
---=_meinfjell-545848-1760886453-0001-2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+MIME-Version: 1.0
+References: <20251017123110.321638-1-bhe@redhat.com>
+In-Reply-To: <20251017123110.321638-1-bhe@redhat.com>
+From: Barry Song <21cnbao@gmail.com>
+Date: Mon, 20 Oct 2025 17:21:08 +0800
+X-Gm-Features: AS18NWAmeMDxwJ86_infRJjF7dQMYJfcSY3dsCJDMnsXgqvfhnhG_qb6tyYfPvM
+Message-ID: <CAGsJ_4wqvrMw0rwDvciVN3JiQ=_5+30HpWNFz2pMHWNQBvDrwg@mail.gmail.com>
+Subject: Re: [PATCH v2] iman/man2/swapon.2: update priority section
+To: Baoquan He <bhe@redhat.com>
+Cc: linux-man@vger.kernel.org, chrisl@kernel.org, alx@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello Alex,
-Am Mon, Sep 01, 2025 at 03:43:58PM +0200 schrieb Alejandro Colomar:
-> On Sun, Aug 24, 2025 at 02:48:33PM +0000, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
-> >=20
-> > Issue:    Inconsistency detected by ld.so: dl-open.c: 930: _dl_open: As=
-sertion `_dl_debug_update (args.nsid)->r_state =3D=3D RT_CONSISTENT' failed!
->=20
-> Could you please clarify this report?  Is this something libc-help@
-> should be aware of?
+On Mon, Oct 20, 2025 at 6:56=E2=80=AFAM Baoquan He <bhe@redhat.com> wrote:
+>
+> This update the description about default priority value which is
+> changed in kernel.
 
-I followed the version in Trixie stept by step, now this error is
-gone, but the output in=20
-$ sprof -p libdemo.so.1 $LD_PROFILE_OUTPUT/libdemo.so.1.profile
+Thanks for sending this. Would it be possible to include a reference to
+the related commit =E2=80=94 for example, at least the commit subject? Also=
+,
+does the man page prefer using a link to the kernel patchset?
 
-is different:
-Flat profile:
+>
+> Link: https://lore.kernel.org/all/20251011081624.224202-1-bhe@redhat.com/
+> Signed-off-by: Baoquan He <bhe@redhat.com>
+> Cc: chrisl@kernel.org
+> Cc: baohua@kernel.org
+> Cc: alx@kernel.org
+> ---
+>  man/man2/swapon.2 | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/man/man2/swapon.2 b/man/man2/swapon.2
+> index df5e8d8c7ec6..20e213827733 100644
+> --- a/man/man2/swapon.2
+> +++ b/man/man2/swapon.2
+> @@ -60,9 +60,8 @@ These functions may be used only by a privileged proces=
+s (one having the
+>  capability).
+>  .SS Priority
+>  Each swap area has a priority, either high or low.
+> -The default priority is low.
+> -Within the low-priority areas,
+> -newer areas are even lower priority than older areas.
+> +The default priority is the lowest,
+> +and all default areas share the same priority value, -1.
 
-Each sample counts as 0,01 seconds.
-  %   cumulative   self              self     total
- time   seconds   seconds    calls  us/call  us/call  name
+Not sure what =E2=80=9Cdefault areas=E2=80=9D means.
+maybe just the below?
+"
+Areas that are not assigned a priority will receive the default priority of=
+ -1.
+"
 
-Also for the following commands, no numbers are shown, also no=20
-lines with <UNKNOWN>.
+>  .P
+>  All priorities set with
+>  .I swapflags
+> --
+> 2.41.0
+>
 
-I'll leave this up to you how to handle this, for me this is now
-closed, I was just curios since I'm not a C programmer.
-
-Greetings
-
-           Helge
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_meinfjell-545848-1760886453-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmj0/rIACgkQQbqlJmgq
-5nDF3g//ZSeCrBiZh+OStcYzh/wa77AnHFeylQLTbRqeQIT+FrQl+nbz0ZvBfhqT
-6ZGnVTixFUWR2WT/d1eTELSuplFNFwM0lGCU1CGf6FBtMHHRB1NdO2bciM81Bs4R
-oUmcXnfz8WuPjCKJOvq9PfHvmg3cyR/Wk9FPbj9wqSMd5G2c1YvHIL/k+vFUDHQw
-g3l61DXMVIz98n+PHzJhcZLLy2QmCi3pvHvk+W3iqLH7z75aGOYMXC5XcreskGJy
-/YZaPDApga6sF8NVdpSBRh95QizD2Anrzfuxi+qGqTEaNk+EcuZQWVMb8UyIHcBM
-iFkTnnx1JZ0S269XH/vIOJLope4K+xqcMoB7IWJY0N77+FQd+LlyLqNncQfkURbp
-8e3sgP2qTNqqlD8Tenhri35YuEmYecohvC6nK/SCmgVlNHyHvVbAiO8Im4dRwTtr
-stPvsxpGobpaNbKt2GaUoLOqY9Jx4TMGt6tb2Zlc/SSoLGsLGy3e2/W0BslyfltH
-y9GeP2Laiz0k2okMRDPvIAEwDUDRCDg6Ctgu+5I/9yinyQ0Z43eSU/MFnDX7cb5I
-DrAL2GFth8Tx8ij9gT8qU+jDYKcZSWS7aOdv9C2xj1ucwgKbk6T4Ce3IWmL274zJ
-hU1D/Qz0FFnMQwgMYgO5vhGYY9dbI16I8f5ObqSE94MPklfvdtQ=
-=1Z4T
------END PGP SIGNATURE-----
-
---=_meinfjell-545848-1760886453-0001-2--
+Thanks
+Barry
 
