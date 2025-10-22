@@ -1,158 +1,154 @@
-Return-Path: <linux-man+bounces-4186-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4187-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 037B4BF7CE3
-	for <lists+linux-man@lfdr.de>; Tue, 21 Oct 2025 19:01:37 +0200 (CEST)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A5ABFA99F
+	for <lists+linux-man@lfdr.de>; Wed, 22 Oct 2025 09:36:54 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 8AAE74E477E
-	for <lists+linux-man@lfdr.de>; Tue, 21 Oct 2025 17:01:36 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id A3DB6345CA4
+	for <lists+linux-man@lfdr.de>; Wed, 22 Oct 2025 07:36:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 16648348465;
-	Tue, 21 Oct 2025 17:01:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DDD62FB085;
+	Wed, 22 Oct 2025 07:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fW0Pdi4s"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLC3Qv94"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CD3348466
-	for <linux-man@vger.kernel.org>; Tue, 21 Oct 2025 17:01:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C688D2F530E;
+	Wed, 22 Oct 2025 07:36:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761066093; cv=none; b=EgHzSCLkiAI/cBx/iIzvgiA4ncRtxt201xQIudupcQI2vYowNmB0FYWvVcIXpJ/VzKVMG4BpIPQDQi/TbljlOnAcqkUIrFEHo70XTRWW91PndTJvvcy+7tghXQvSQHhUcMRcf1RJEV8GIGWXDLKOocHq1e6QG3xygJfP4xXweHU=
+	t=1761118609; cv=none; b=BTdhusHgmzU3ginD8Ompv2OGXdEmtSS/j3EKUYTlPDE87tdKH5oMFaLuvjDGECSLvm3iEyAgZ0sqxzMwiSTNbxtogGR3YN5fzgPNRgIc5dyK6Rks0loO5oZSs2wMpkGNKsKjLDc+FDAIObnZp24jlIgqgOONmNclMXeGBOoKUTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761066093; c=relaxed/simple;
-	bh=8vJ2ZUghpSQfYpJBO0r7oH+Y2yZPCCWjfgPc+mbVKfo=;
+	s=arc-20240116; t=1761118609; c=relaxed/simple;
+	bh=CdwqoIYNwleAnsXyjdRG5d+qDP1i41HQIvKLMb00c0Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HGGrBYN/oGbqNdwi6acjtxDeQZjHDxb8f09JEycmeaV071wnss9N5/NxXF0GbMTTAjbeEXrV7qabSfPbKa1sJqGIG7m71FG6f9HHBwa8gvYZ9oiX/Gai7bEopw3APwc5upItZRscxn3mlHFGwIdsnDIuoN7+7ZyYHW6WsRM6xko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fW0Pdi4s; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA91AC4CEF1;
-	Tue, 21 Oct 2025 17:01:29 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=ALdEPssdrwH3K7vuPYkcS6RGTb3zAXk3s7UNpVlv7Q83N2HxQzSa6x7q+cX42daW6+lwAkOeGM8gFlTIhvo0RfPoCmhz6e0beGEZ1JcOcbkCQ976Ha9v3sa6uZQMgDTVYziT4lWOc5bCYzQ/deUXg6jiHYW3E+yfJhcLDZLRQ5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLC3Qv94; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BEEDC4CEE7;
+	Wed, 22 Oct 2025 07:36:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761066092;
-	bh=8vJ2ZUghpSQfYpJBO0r7oH+Y2yZPCCWjfgPc+mbVKfo=;
+	s=k20201202; t=1761118607;
+	bh=CdwqoIYNwleAnsXyjdRG5d+qDP1i41HQIvKLMb00c0Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fW0Pdi4stTPgsx/lqMr7xtjck0DO4BsNnz/yKQ7yjYw31dJ9MeqLfV3aj5h4xxWxu
-	 lfBkVAOkWIBq/eXyfpCxZ2rqtOQgfadtPiqME8lK4efxttQu9Zecyy65E9edsy5tdy
-	 y45DbtKREceTHhT6V5KV8Bxi8rVTkqDJpZD6fFDQi1/EufP6U0oFYYB1HN7zv5nY+1
-	 U9/9x8LRr/maWC+By31fOcCxI/Gf4anfYrJb38kiolJ6AAAxGP+wQ4q/b/NVYLL4kU
-	 7SHg8f5C3jT66TlD51b34Xc+C/CB1w//p2Ysui2Hof8AO6R5uTFfm4RWokQEfnAuay
-	 gFlSO9uz4Z/Bw==
-Date: Tue, 21 Oct 2025 19:01:26 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: linux-man@vger.kernel.org, Collin Funk <collin.funk1@gmail.com>, 
-	Sam James <sam@gentoo.org>, "G. Branden Robinson" <branden@debian.org>
-Subject: Re: [PATCH v5] CONTRIBUTING.d/ai: Add guidelines banning AI for
- contributing
-Message-ID: <o4hafugg6ru5jxqjaio6wfuhsxwkz4bqzztqjrpbtqj64kfk6j@vjgtprrxmqlh>
-References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
- <1bb0cfde967ecb12f6d3df2106388121647946e0.1760632863.git.alx@kernel.org>
- <a9412306-c265-4acb-8620-4925038a9841@redhat.com>
+	b=nLC3Qv94wmovrpGymrRdVNm0Xtvb8Nsy7JWZwp7J4a0HS4oJ9SP/4vrwSDoWAJSFD
+	 CbDSZIjTY7/V/JInDLd1an1GgU206yO1p9+YB4iPSGxC0vgYP9Yax4Tltgmyq93BvZ
+	 WsGQQ7ywdQTdflb3im8Jv4LHsQaHtTe7XxxszfCSetKnuYdaZgHKKcls0Lj/rq+mbE
+	 9fgxJn8GiPDL+8nntiz5cen9JIjf/IDmXGIFHLP88VXsNAfkXKwRvzWyt5KB1ZGIRe
+	 kb59QBvfIuItUL202UsTczztmnYtvrjDvST2R6heR6rfEX45xGRJ3zF+ghix0b+AZY
+	 AdcCHwf3F0BHA==
+Date: Wed, 22 Oct 2025 09:36:43 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Luca Boccassi <luca.boccassi@gmail.com>
+Cc: Aleksa Sarai <cyphar@cyphar.com>, Alejandro Colomar <alx@kernel.org>, 
+	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple
+ instances
+Message-ID: <20251022-oberdeck-baucontainer-221cf7218f15@brauner>
+References: <20251006103852.506614-1-luca.boccassi@gmail.com>
+ <2hg43wshc3iklydtwx25ulqadzyuldkyi6wylgztzwendi5zhw@kw223cxay7qn>
+ <CAMw=ZnR6QMNevxtxWysqi5UkDmbD68Ge=R5cVAxskqtmhb5m5A@mail.gmail.com>
+ <bywtfrezkfevzz7y2ecq4w75nfjhz2qqu2cugwl3ml57jlom5k@b5bebz4f24sd>
+ <CAMw=ZnSZmW=BFbLLSKsn7sze-FXZroQw6o4eJU9675VmGjzDRw@mail.gmail.com>
+ <rleqiwn4mquteybmica3jwilel3mbmaww5p3wr7ju7tfj2d6wt@g6rliisekp2e>
+ <CAMw=ZnTDw59GqW-kQkf1aTEHgmBRzcD0z9Rk+wpE_REEmaEJBw@mail.gmail.com>
+ <2025-10-06-brief-vague-spines-berms-pzthvt@cyphar.com>
+ <CAMw=ZnQki4YR24CfYJMAEWEAQ63yYer-YzSAeH+xFA-fNth-XQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="64ohlao5rothliji"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <a9412306-c265-4acb-8620-4925038a9841@redhat.com>
+In-Reply-To: <CAMw=ZnQki4YR24CfYJMAEWEAQ63yYer-YzSAeH+xFA-fNth-XQ@mail.gmail.com>
 
+On Mon, Oct 06, 2025 at 02:44:58PM +0100, Luca Boccassi wrote:
+> On Mon, 6 Oct 2025 at 14:41, Aleksa Sarai <cyphar@cyphar.com> wrote:
+> >
+> > On 2025-10-06, Luca Boccassi <luca.boccassi@gmail.com> wrote:
+> > > On Mon, 6 Oct 2025 at 12:57, Alejandro Colomar <alx@kernel.org> wrote:
+> > > >
+> > > > Hi Luca,
+> > > >
+> > > > On Mon, Oct 06, 2025 at 12:46:41PM +0100, Luca Boccassi wrote:
+> > > > > > > > >  .TP
+> > > > > > > > > +.B EINVAL
+> > > > > > > > > +The source mount is already mounted somewhere else. Clone it via
+> > > > > > [...]
+> > > > > > > > > +.BR open_tree (2)
+> > > > > > > > > +with
+> > > > > > > > > +.B \%OPEN_TREE_CLONE
+> > > > > > > > > +and use that as the source instead (since Linux 6.15).
+> > > > > > > >
+> > > > > > > > The parenthetical in that position makes it unclear if you're saying
+> > > > > > > > that one should use open_tree(2) with OPEN_TREE_CLONE since Linux 6.15,
+> > > > > > > > or if you're saying that this error can happen since that version.
+> > > > > > > > Would you mind clarifying?  I think if you mean that the error can
+> > > > > > > > happen since Linux 6.15, we could make it part of the paragraph tag, as
+> > > > > > > > in unshare(2).
+> > > > > > >
+> > > > > > > I meant the former, the error is always there, but OPEN_TREE_CLONE can
+> > > > > > > be used since 6.15 to avoid it. Sent v2 with this and the other fix,
+> > > > > > > thanks for the prompt review.
+> > > > > >
+> > > > > > Hmmm, I see.  Why not use open_tree(2) and OPEN_TREE_CLONE before 6.15?
+> > > > > > The syscall and flag existed, AFAICS.  I think we should clarify --at
+> > > > > > least in the commit message--, why that version is important.
+> > > > >
+> > > > > It was just not supported at all, so it would still fail with EINVAL
+> > > > > before 6.15 even with the clone.
+> > > >
+> > > > Thanks!  What's the exact commit (or set of commits) that changed this?
+> > > > That would be useful for the commit message.
+> > > >
+> > > > > Would you like me to send a v3 or would you prefer to amend the commit
+> > > > > message yourself?
+> > > >
+> > > > I can amend myself.
+> > >
+> > > Sorry, I am not a kernel dev so I do not know where it was introduced
+> > > exactly, and quickly skimming the commits list doesn't immediately
+> > > reveal anything. I only know that by testing it, it works on 6.15 and
+> > > fails earlier.
+> >
+> > If I'm understanding the new error entry correctly, this might be commit
+> > c5c12f871a30 ("fs: create detached mounts from detached mounts"), but
+> > Christian can probably verify that.
+> >
+> > Just to double check that I understand this new error explanation -- the
+> > issue is that you had a file descriptor that you thought was a detached
+> > mount object but it was actually attached at some point, and the
+> > suggestion is to create a new detached bind-mount to use with
+> > move_mount(2)? Do you really get EINVAL in that case or does this move
+> > the mount?
+> 
+> Almost - the use case is that I prep an image as a detached mount, and
+> then I want to apply it multiple times, without having to reopen it
+> again and again. If I just do 'move_mount()' multiple times, the
+> second one returns EINVAL. From 6.15, I can do open_tree with
+> OPEN_TREE_CLONE before applying with move_mount, and everything works.
 
---64ohlao5rothliji
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: linux-man@vger.kernel.org, Collin Funk <collin.funk1@gmail.com>, 
-	Sam James <sam@gentoo.org>, "G. Branden Robinson" <branden@debian.org>
-Subject: Re: [PATCH v5] CONTRIBUTING.d/ai: Add guidelines banning AI for
- contributing
-Message-ID: <o4hafugg6ru5jxqjaio6wfuhsxwkz4bqzztqjrpbtqj64kfk6j@vjgtprrxmqlh>
-References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
- <1bb0cfde967ecb12f6d3df2106388121647946e0.1760632863.git.alx@kernel.org>
- <a9412306-c265-4acb-8620-4925038a9841@redhat.com>
-MIME-Version: 1.0
-In-Reply-To: <a9412306-c265-4acb-8620-4925038a9841@redhat.com>
+Your use-case was to create a new detached filesystem via fsmount().
+And then send that fd to multiple different mount namespaces. One of
+those mount namespaces would manage to attach that mount. At that point
+it's not possible to attach that mount in another different mount
+namespace again. IOW, it's fine to move it around in the same mount
+namespace but it's not fine to move it _across_ mount namespaces after
+it has been attached to one. Only a detached mount can be moved across
+mount namespaces freely.
 
-Hi Carlos,
+And fyi, your original idea wouldn't have been able to address the
+use-case. Even if it would've worked you would've simply moved the same
+mount between different mount points defeating the purpose of having it
+available at multiple locations.
 
-On Mon, Oct 20, 2025 at 02:25:42PM -0400, Carlos O'Donell wrote:
-> On 10/16/25 12:41 PM, Alejandro Colomar wrote:
-> > This policy is based on the Gentoo policy (see link below).
-> > However, I've modified our text to be more restrictive.
->=20
-> Looking forward to a v6.
-
-Sure!  Thanks for reviewing!
-
-> > @@ -0,0 +1,65 @@
-> > +Name
-> > +	AI - artificial intelligence policy
-> > +
-> > +Description
-> > +	It is expressly forbidden to contribute to this project any
-> > +	content that has been created with the assistance of AI tools.
-> > +
-> > +	This also includes AI assistive tools used in the contributing
-> > +	process, even if such tools do not generate the contributed
-> > +	code.
-> > +
-> > +    Exceptions
-> > +	As an exception to the above, AI assistive tools on which the
-> > +	contributor depends for health reasons, and which don't have
->=20
-> May we please rephrase as follows:
-> ~~~
-> As an exception to the above, AI assistive tools which don't have a
-> major influence on the contribution e.g. screen reader, text to speech
-> where the contributor verifies output, are allowed, and the
-> contributor need not disclose their use.
-> ~~~
-
-Yup, that sounds comfortable.
-
->=20
-> You can be perfectly healthy and lack hands, eyes, or other body parts.
-
-Agree.
-
-> > +	a major influence on the contribution, are allowed, and the
-> > +	contributor does not need to disclose their use.
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---64ohlao5rothliji
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmj3vGYACgkQ64mZXMKQ
-wqm8Xg/9FcfVZXgLZoL6N4Lz9Kz1AXmBQ1U2YMtsNNn2guAMOj8jaGTR6dA/mGpE
-P2wKXAGRlREfE33r9C/zVYYTzERVGSh3nNDedhJY6Ha1tmX1q4hXVWSYyesHxQCe
-6nGyeJmVQPd3sLo/xqM7NZxj8XDB+KzmXtHa2y3KhVAoceROgKaaB65ScA+1eNN7
-k9eTewAmVOs9rzq0lxJTcCVtta/woUXKSUkH7DwUPOPRF8r70REk8zFKMMcwDyfl
-Yfgc43+32jT/h39hFQog6Io99gEHpFuHHmgm+s9skIimS0VJ24+XHKQE/T0os1U5
-mujiHGuiGtzmheHbBehZy3MqJiS1t0TUe1DqQ9UqRsg2oe1qY8PzMYxoQ7oQC3Kz
-2C5B1KHNas4H7ncA+W6uQ88x7qr1fQsY2BvF0HLF/X0Fj8skUS5rkwNJ0OBdR5P/
-qWfsCz3j2rwFnWEO/jEbuDSrIC8bxG43HbH0Ng5atnlwSps/8BPys3LCw9wSUD03
-Lcwra/VrTjEwCAY/MGK5P1zuIxr2r0S1ARCyWGHPmsLuWd8BXyworSXqtVPYiC9j
-LNpC3ZBhBl/SLKk8ijZ5PzU3+0Sm2KcoDkz2AmFyUkIiukr4HE08iTK4k/EsKE8g
-5aPKm4ylmh3JnwF65RAIkXnuxvyv94I62QtS/BIdwsSiUFA1sPo=
-=1pzd
------END PGP SIGNATURE-----
-
---64ohlao5rothliji--
+Being able to create detached mounts from detached mounts mounts enables
+that use-case. Now you can distribute the same filesystem across
+different mount namespaces.
 
