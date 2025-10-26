@@ -1,115 +1,124 @@
-Return-Path: <linux-man+bounces-4194-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4195-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31656C0A6FD
-	for <lists+linux-man@lfdr.de>; Sun, 26 Oct 2025 13:28:08 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B777C0AE84
+	for <lists+linux-man@lfdr.de>; Sun, 26 Oct 2025 18:22:26 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id E8590189F787
-	for <lists+linux-man@lfdr.de>; Sun, 26 Oct 2025 12:28:31 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 05EF23B26D1
+	for <lists+linux-man@lfdr.de>; Sun, 26 Oct 2025 17:22:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67A4D248F69;
-	Sun, 26 Oct 2025 12:28:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 89366223328;
+	Sun, 26 Oct 2025 17:22:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpI7gZPH"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTr7N18X"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A387621770C
-	for <linux-man@vger.kernel.org>; Sun, 26 Oct 2025 12:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460DF205E26
+	for <linux-man@vger.kernel.org>; Sun, 26 Oct 2025 17:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761481680; cv=none; b=QDyZUqqK4eTRZEY8ShxmkNhwtuIRJ8h8kUidtWvKxBT9lnJE8bceJOBwVY2AgHUd4fZzhtN3oiZANQHuAS20DQIRevgCr+wxl9+51Rena1p5BtW3ELh+FJt0P8gz1PMm6qULXZ6SiZc6cnN80OqMRx5RUozxBypOGCpJpaLZSUQ=
+	t=1761499342; cv=none; b=NcNRoXv5Fniqeobk+dWgb08V4IHVaYYLwQ25mX04g4kNSRQN+ks4x53pY/CGsJWJBkuJ1ss5sXwo8bwZuXcrUw0Vbqe9ZFdas5IfFiQUrlWm6cFZj3/adHqqz9Jer3Ra2XxQMesOTwiC2VwKJx99vK9PGtpjmQsHERMTIIGVhVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761481680; c=relaxed/simple;
-	bh=96xgEF/cDhtXAWfkTUNwDGMDjcisf5kN8St/i2PJMdA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UZ0geP1tKNRPnk3uCiXD8fZBLgBJ8IGnZ4Spp41wcXzX2zxxqZjW1J5cpudNvCn3+km1Yq1v+E9RX3/WYFv0BzaksTMBrbQ88cCwUqzKBG4HhdexBzj2hqmJihFhDc2pRzWKbcF/taNI8IkLOFu9DbKFMO5M5KN4evS7sZSvQ14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpI7gZPH; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6399328ff1fso6576898a12.0
-        for <linux-man@vger.kernel.org>; Sun, 26 Oct 2025 05:27:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761481677; x=1762086477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EIyo2FXSI9SPMUW3EpKSAUcsK0v7MMc631sMa+neJaU=;
-        b=mpI7gZPHdQ8TTyod60+eGIxcs/iWH3jWkmzTxX+jc8uNfd6EBHLpnWAH6Y6CeStdPH
-         Fn5IVLPB7bQ2JbUn3kqErMQDlzAh/WAtSdYqOmqQWrG9LPitlSmghihc/KnVs9f1CKjH
-         9kW8q7rgcAUhGxGixlfKPorsP0dWOzZw3pEy45tyYZW5r8HrfvUpp5u976f42RlQEp+o
-         3x8sVDD/E5m5sGGuQL91ozMQ+MnYMc8pwkyhntxRk/wTc9LaBM3EsyMieHN5oYnOFGkh
-         G+2iDdYQG58kgaE+bd/HRL97opcdxSbkW4qRFXUpPgXoS3mtdtj7RTpy7VIs8UyqzbIH
-         oyuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761481677; x=1762086477;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=EIyo2FXSI9SPMUW3EpKSAUcsK0v7MMc631sMa+neJaU=;
-        b=jutBPgaX9qq2xl83uh7fgA9wpXiUpYFu/QM6smUh5U7xSfsQJezT+ETga1ZiDezgvg
-         ZV4BQdYhYi5CTav0yYZBnPKolxEg8+s84b0BCj+b6S1T9sBsZcEE/TuJVK08MMSg2IkI
-         e0WH79OrDREknkt+6dPmn0YFkWZVShCCIpe+yIiP4bPJ5QoQSjaAW89ipetrGNXhuZlg
-         TnGvg97ns0gVy1Bd3i0R7GBmsplocUhMDRy6/Qr97/olNNqsEp1PZeHkoH3J4JltwcxX
-         JHY32gSH7aea6r7ET83El29I9b6m5a2jGhmCurSn8bDxn7GcpzfiD0b1PolsmioBdhYV
-         S2ag==
-X-Forwarded-Encrypted: i=1; AJvYcCXpIKukdEmZBpPchxrJbNOsCQwzkDU8Yjgdr6qtlFx8p5vuRoL4hLhFQcKUK0FaMMZdcBHLGYRl550=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFr5oI+w7ynL/36Er08nD06D9weSG2LAp7ODjxYkRY38UI33fL
-	lmTRj0Lv4usFoi7lN8pcrDOY4AihLS9POwQpu/C2IBHiy0T7WcV/syi/
-X-Gm-Gg: ASbGnctx7Ybe33MYo+Ptd2GIceWiRlVUF7ybdEC0gRmQZQFuy4nLvjyFg7lYMtl2AHK
-	MablfMJrWOprotvOLlWuJ6xEw9pIHgHSwwYTJjh73DIPy8AC830S4z3Wx58QwQMhwVgz6h26rMV
-	sOIl2MOU8gSOwmyA/K5nx6HMwMr3nBTY4BVNRCLK7KhXxDjrSUKs059UQvIDndzngFTeYQJxHj1
-	KJG5iN2hIcW+TXv17CP+8jZ3dODkcmExKmAVIgMRqZycjs7nexlZp/6ZEi+6JspP24prdW0tQh+
-	MdKT51kbqS8nzCWl5pq7bKqtf1aQkDq2GeNtXNcf+eohdn0OM+AxsVGavY0R6FRAsBpQiDVc/HD
-	kWmZJVp13XLNcRFNLgxlUjQiV4jgP825HRtiZYNkG5Fyhu3MsabxbXnU/CItwx2cX5Fay37HiUv
-	bGdxJKzihWiKFY1pSvn9YkJg==
-X-Google-Smtp-Source: AGHT+IG+nghLDB0dKUqOb9CoFdpZ3LvT3sjNG3elsEcJPMQmBpgpXzecd9vKXOr4yry1R2RtnfT9gg==
-X-Received: by 2002:a05:6402:430e:b0:63c:b2:c656 with SMTP id 4fb4d7f45d1cf-63e6000378amr6445996a12.4.1761481676685;
-        Sun, 26 Oct 2025 05:27:56 -0700 (PDT)
-Received: from localhost ([212.73.77.104])
-        by smtp.gmail.com with UTF8SMTPSA id 4fb4d7f45d1cf-63e7ef6c13fsm3796082a12.7.2025.10.26.05.27.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 26 Oct 2025 05:27:56 -0700 (PDT)
-From: Askar Safin <safinaskar@gmail.com>
-To: alx@kernel.org
-Cc: brauner@kernel.org,
-	cyphar@cyphar.com,
-	dhowells@redhat.com,
-	g.branden.robinson@gmail.com,
-	jack@suse.cz,
-	linux-api@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org,
-	mtk.manpages@gmail.com,
-	safinaskar@zohomail.com,
-	viro@zeniv.linux.org.uk
-Subject: Re: [PATCH v5 0/8] man2: document "new" mount API
-Date: Sun, 26 Oct 2025 15:27:42 +0300
-Message-ID: <20251026122742.960661-1-safinaskar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <hk5kr2fbrpalyggobuz3zpqeekzqv7qlhfh6sjfifb6p5n5bjs@gjowkgi776ey>
-References: <hk5kr2fbrpalyggobuz3zpqeekzqv7qlhfh6sjfifb6p5n5bjs@gjowkgi776ey>
+	s=arc-20240116; t=1761499342; c=relaxed/simple;
+	bh=E7Clbxg7Acudbvju8Up0BwIWAuFBsp+YQdSOlXjK/z0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cpYs887HqPAN7xodBsxFWAKGCDl5eK3/ytvd+57XoMEnU4SKcT1nn4cQBNtWU/xrD9q+S4dwnWxKNx6K/qhPORv6rWNAfygENsLUuJkKBeMwI5pSupH9l1qebOsRvPED1rs/RR8e4b4RiRvP/npyPpbtmooExzahzfTLK0TuAJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTr7N18X; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C46BC4CEE7;
+	Sun, 26 Oct 2025 17:22:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1761499341;
+	bh=E7Clbxg7Acudbvju8Up0BwIWAuFBsp+YQdSOlXjK/z0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MTr7N18XhbP4fCTDZwkxBDl29/VUWyBL47vRSRwOD9I5uV2QZdiSefazNnHcTDgS8
+	 /Ldd6QAr4HGpedR68oTue7BA+vgABvYOvWpOOIItAlFeildph756aMrwnVDGNZLb7c
+	 f1GNlLnXaso5mCn5yX1eA8d9R23S83ZPUT5J4SKM8Se5tBcLS2LmIEwNObUux7U9Jz
+	 Bxny8bab0lDFEo+q+7rn9FP5t96SCKysFM4bjas1UAIt3Mq8hi+9+j3oisbm9dsSLx
+	 5NS65v/HVKLKv3oe81b86yEfjPz9l3Ln9CZFC+8pOBLEJNmKyC2w+lB+Snt0Kffw9D
+	 YLVYoYS17zYoQ==
+Date: Sun, 26 Oct 2025 18:22:17 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Wes Gibbs <wg21908@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [man-pages] Working on bug #220489 (copy_file_range(2) glibc
+ fallback text outdated)
+Message-ID: <7n4xzc255szvbbycsrfpryyhyjfzfw4ugbp7pximicp7wbrsbn@exfjaxvhyevn>
+References: <aP0T3yZ0jflUtliV@secra.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="awz7l3exess4ugrr"
+Content-Disposition: inline
+In-Reply-To: <aP0T3yZ0jflUtliV@secra.localdomain>
 
-Alejandro Colomar <alx@kernel.org>:
-> The full patch set has been merged now.  I've done a merge commit where
 
-Alejandro, I still don't see manpages for "new" mount API here:
-https://man7.org/linux/man-pages/dir_section_2.html
+--awz7l3exess4ugrr
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Wes Gibbs <wg21908@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [man-pages] Working on bug #220489 (copy_file_range(2) glibc
+ fallback text outdated)
+Message-ID: <7n4xzc255szvbbycsrfpryyhyjfzfw4ugbp7pximicp7wbrsbn@exfjaxvhyevn>
+References: <aP0T3yZ0jflUtliV@secra.localdomain>
+MIME-Version: 1.0
+In-Reply-To: <aP0T3yZ0jflUtliV@secra.localdomain>
 
-Please, publish.
+Hi Wes,
 
--- 
-Askar Safin
+On Sat, Oct 25, 2025 at 02:15:59PM -0400, Wes Gibbs wrote:
+> Hi,
+>=20
+> I=E2=80=99d like to take on updating the copy_file_range(2) man page to r=
+eflect that
+> glibc no longer provides a user-space fallback after version 2.30, per Bu=
+gzilla #220489.
+
+Thanks!
+
+
+Have a lovely day!
+Alex
+
+>=20
+> Wes Gibbs
+> wg21908
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--awz7l3exess4ugrr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmj+WMIACgkQ64mZXMKQ
+wqnUIA//aqKmJX4XRlpoYwn0YG93tuV43C5Y6Uh86XukbH25StNQic2sBFOn0hg7
+0KN1JwMykKM7MpQjAXMXW+lU4Xpc4X15n1TtNyB+HGWYEsfJjZStNUw7WYF+zw0/
+CiRoHzOor0F2RhTcOpaI/0ZD5i1q8VNrgMQgnCL+oZtcjLnX6gWxzoBvSBXFByj2
+aIpShuajG66MqyJHcXJNLAQeYrWuAxjihNesMY9UeWjnwaiF6PhyyTjpJUuh+WTS
+0RDc1ssC6SDyIMj/LJiWQsYlu04EhoHWBoKeI70a+cKskP71HVbcP7Yw5dDYVx01
+8FYd8Ome4cgpkNBxX7ktS9wPiLBNSVcBHimySnovp4uqNUQ+0hPyiBVtIXOaFLgx
+b3u71UKd8PhZMz0dfRXydIngNv4ecfE91QAcl3JfsO8/n2A/IV/Lse7ehQYFypnV
+zK1lj4auWYQVuhiyqBAA0j6QO5Lb1mZTGZge6Xip36RmxmVefhS5YifPYTIeNyvA
+SYW+poBmKgV/bVfhiEDGRTpLD94GDjhKlpysBKJaC/9gvp+9ivYr/KPFGYB0ekeu
+VHQfgQ2EicEkec/ssfyVlrncxVVr3YBCFFYxfyUvb8BjrcoWhtIq3fiv+mUIu0Pb
+cp9TPiwKB0q4yc/zKxGYQQUeRFgQBSCNRFGUEHnhas99SKy4FYk=
+=C4nj
+-----END PGP SIGNATURE-----
+
+--awz7l3exess4ugrr--
 
