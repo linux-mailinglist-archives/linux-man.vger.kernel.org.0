@@ -1,54 +1,57 @@
-Return-Path: <linux-man+bounces-4195-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4196-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B777C0AE84
-	for <lists+linux-man@lfdr.de>; Sun, 26 Oct 2025 18:22:26 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id E44B2C0AEAB
+	for <lists+linux-man@lfdr.de>; Sun, 26 Oct 2025 18:27:45 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 05EF23B26D1
-	for <lists+linux-man@lfdr.de>; Sun, 26 Oct 2025 17:22:25 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 6AEAC4EA3D6
+	for <lists+linux-man@lfdr.de>; Sun, 26 Oct 2025 17:27:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 89366223328;
-	Sun, 26 Oct 2025 17:22:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4979B2C11D4;
+	Sun, 26 Oct 2025 17:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTr7N18X"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7dR/cFS"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460DF205E26
-	for <linux-man@vger.kernel.org>; Sun, 26 Oct 2025 17:22:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1F8205E26;
+	Sun, 26 Oct 2025 17:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761499342; cv=none; b=NcNRoXv5Fniqeobk+dWgb08V4IHVaYYLwQ25mX04g4kNSRQN+ks4x53pY/CGsJWJBkuJ1ss5sXwo8bwZuXcrUw0Vbqe9ZFdas5IfFiQUrlWm6cFZj3/adHqqz9Jer3Ra2XxQMesOTwiC2VwKJx99vK9PGtpjmQsHERMTIIGVhVs=
+	t=1761499661; cv=none; b=X4NYPc1dBGk0e4o13C/SIl5qsMLkYyf7Fi17nLbLuHaaciy0zC/BVC0FVuCxaMkdw81CmU2NGv82vNMtc9jfzlVdCUbfu4Loj9SQoG/I9Cy0RhvQcuuYhvlMB0v35R95Er6MfGqzPvxmYNyBhF3tIUz+c+SVIdpMsREwADtr8Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761499342; c=relaxed/simple;
-	bh=E7Clbxg7Acudbvju8Up0BwIWAuFBsp+YQdSOlXjK/z0=;
+	s=arc-20240116; t=1761499661; c=relaxed/simple;
+	bh=ojMKD630vCvaxyVc4ANcWJgQ82Xcn/ry9tixOPvqfaM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cpYs887HqPAN7xodBsxFWAKGCDl5eK3/ytvd+57XoMEnU4SKcT1nn4cQBNtWU/xrD9q+S4dwnWxKNx6K/qhPORv6rWNAfygENsLUuJkKBeMwI5pSupH9l1qebOsRvPED1rs/RR8e4b4RiRvP/npyPpbtmooExzahzfTLK0TuAJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTr7N18X; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C46BC4CEE7;
-	Sun, 26 Oct 2025 17:22:20 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=CDwBHHKXNEf1sNm/K5CyN9XVEoSFf7zMLXUJY1jQjqaMNiBr+5wdqdPbge1nAFVbrLOGLMDsuIu3RF7+kAvo+M+dLE+aE/s7RCySa4NBMDmqa0ruBvKC8HvO8UccQSguxps1NvTtFaYoGBO+e48cxZW93rBezZXwpvlNUcDfppg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7dR/cFS; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB12DC4CEE7;
+	Sun, 26 Oct 2025 17:27:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761499341;
-	bh=E7Clbxg7Acudbvju8Up0BwIWAuFBsp+YQdSOlXjK/z0=;
+	s=k20201202; t=1761499660;
+	bh=ojMKD630vCvaxyVc4ANcWJgQ82Xcn/ry9tixOPvqfaM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MTr7N18XhbP4fCTDZwkxBDl29/VUWyBL47vRSRwOD9I5uV2QZdiSefazNnHcTDgS8
-	 /Ldd6QAr4HGpedR68oTue7BA+vgABvYOvWpOOIItAlFeildph756aMrwnVDGNZLb7c
-	 f1GNlLnXaso5mCn5yX1eA8d9R23S83ZPUT5J4SKM8Se5tBcLS2LmIEwNObUux7U9Jz
-	 Bxny8bab0lDFEo+q+7rn9FP5t96SCKysFM4bjas1UAIt3Mq8hi+9+j3oisbm9dsSLx
-	 5NS65v/HVKLKv3oe81b86yEfjPz9l3Ln9CZFC+8pOBLEJNmKyC2w+lB+Snt0Kffw9D
-	 YLVYoYS17zYoQ==
-Date: Sun, 26 Oct 2025 18:22:17 +0100
+	b=D7dR/cFSC4iWlihjR6+jdiVgcLq9yPP0qHXB3fogNjF5KJEIjLjeGUuHIFVvdHqeZ
+	 hq6yb7g9VDWed7505L3Hzgb9/JtA074FSBkexLXLYQu4aD/ntNAAatt6uiJUyWyS1w
+	 QQCx8gYod0ga67iXjRse8C4yQDL4E0xTaRW2CHNj+8UJ/yPG3dkSoLcmUMGdZwit+U
+	 6DfeUXf5YrmJ04JKBiwRB4JlqCVRdnni9hxDQap+wyLEiKSKAxqTQHNZO8PYRjtA4O
+	 MXS7zh9NWqkK3n7ZLYWW+pvba4ua5eEnYNzenS8dXrFavp54mXFXhkR5fQ/soZ1a/d
+	 9T5RNNAmB95Zg==
+Date: Sun, 26 Oct 2025 18:27:32 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Wes Gibbs <wg21908@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [man-pages] Working on bug #220489 (copy_file_range(2) glibc
- fallback text outdated)
-Message-ID: <7n4xzc255szvbbycsrfpryyhyjfzfw4ugbp7pximicp7wbrsbn@exfjaxvhyevn>
-References: <aP0T3yZ0jflUtliV@secra.localdomain>
+To: Askar Safin <safinaskar@gmail.com>
+Cc: brauner@kernel.org, cyphar@cyphar.com, dhowells@redhat.com, 
+	g.branden.robinson@gmail.com, jack@suse.cz, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
+	mtk.manpages@gmail.com, safinaskar@zohomail.com, viro@zeniv.linux.org.uk
+Subject: Re: [PATCH v5 0/8] man2: document "new" mount API
+Message-ID: <tfy2f45ah23b65gdlitiaffwy6nltevmo3z2akwnc3nbpkfh6w@ihzheoumkysn>
+References: <hk5kr2fbrpalyggobuz3zpqeekzqv7qlhfh6sjfifb6p5n5bjs@gjowkgi776ey>
+ <20251026122742.960661-1-safinaskar@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,69 +59,79 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="awz7l3exess4ugrr"
+	protocol="application/pgp-signature"; boundary="u7izvt4jolxhgk5l"
 Content-Disposition: inline
-In-Reply-To: <aP0T3yZ0jflUtliV@secra.localdomain>
+In-Reply-To: <20251026122742.960661-1-safinaskar@gmail.com>
 
 
---awz7l3exess4ugrr
+--u7izvt4jolxhgk5l
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Wes Gibbs <wg21908@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [man-pages] Working on bug #220489 (copy_file_range(2) glibc
- fallback text outdated)
-Message-ID: <7n4xzc255szvbbycsrfpryyhyjfzfw4ugbp7pximicp7wbrsbn@exfjaxvhyevn>
-References: <aP0T3yZ0jflUtliV@secra.localdomain>
+To: Askar Safin <safinaskar@gmail.com>
+Cc: brauner@kernel.org, cyphar@cyphar.com, dhowells@redhat.com, 
+	g.branden.robinson@gmail.com, jack@suse.cz, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
+	mtk.manpages@gmail.com, safinaskar@zohomail.com, viro@zeniv.linux.org.uk
+Subject: Re: [PATCH v5 0/8] man2: document "new" mount API
+Message-ID: <tfy2f45ah23b65gdlitiaffwy6nltevmo3z2akwnc3nbpkfh6w@ihzheoumkysn>
+References: <hk5kr2fbrpalyggobuz3zpqeekzqv7qlhfh6sjfifb6p5n5bjs@gjowkgi776ey>
+ <20251026122742.960661-1-safinaskar@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <aP0T3yZ0jflUtliV@secra.localdomain>
+In-Reply-To: <20251026122742.960661-1-safinaskar@gmail.com>
 
-Hi Wes,
+Hi Askar,
 
-On Sat, Oct 25, 2025 at 02:15:59PM -0400, Wes Gibbs wrote:
-> Hi,
+On Sun, Oct 26, 2025 at 03:27:42PM +0300, Askar Safin wrote:
+> Alejandro Colomar <alx@kernel.org>:
+> > The full patch set has been merged now.  I've done a merge commit where
 >=20
-> I=E2=80=99d like to take on updating the copy_file_range(2) man page to r=
-eflect that
-> glibc no longer provides a user-space fallback after version 2.30, per Bu=
-gzilla #220489.
+> Alejandro, I still don't see manpages for "new" mount API here:
+> https://man7.org/linux/man-pages/dir_section_2.html
 
-Thanks!
+<man7.org> is not official.  It's Michael Kerrisk's (previous
+maintainer) website.  He usually publishes new pages shortly-ish after
+each new release, and I haven't issued a new release yet.
+
+I have plans to release soon-ish, but have internet issues at home (the
+cable in the street is broken, so I'm connecting on cell internet from
+the laptop).  Hopefully, I'll be able to release this month.
 
 
 Have a lovely day!
 Alex
 
 >=20
-> Wes Gibbs
-> wg21908
+> Please, publish.
+>=20
+> --=20
+> Askar Safin
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---awz7l3exess4ugrr
+--u7izvt4jolxhgk5l
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmj+WMIACgkQ64mZXMKQ
-wqnUIA//aqKmJX4XRlpoYwn0YG93tuV43C5Y6Uh86XukbH25StNQic2sBFOn0hg7
-0KN1JwMykKM7MpQjAXMXW+lU4Xpc4X15n1TtNyB+HGWYEsfJjZStNUw7WYF+zw0/
-CiRoHzOor0F2RhTcOpaI/0ZD5i1q8VNrgMQgnCL+oZtcjLnX6gWxzoBvSBXFByj2
-aIpShuajG66MqyJHcXJNLAQeYrWuAxjihNesMY9UeWjnwaiF6PhyyTjpJUuh+WTS
-0RDc1ssC6SDyIMj/LJiWQsYlu04EhoHWBoKeI70a+cKskP71HVbcP7Yw5dDYVx01
-8FYd8Ome4cgpkNBxX7ktS9wPiLBNSVcBHimySnovp4uqNUQ+0hPyiBVtIXOaFLgx
-b3u71UKd8PhZMz0dfRXydIngNv4ecfE91QAcl3JfsO8/n2A/IV/Lse7ehQYFypnV
-zK1lj4auWYQVuhiyqBAA0j6QO5Lb1mZTGZge6Xip36RmxmVefhS5YifPYTIeNyvA
-SYW+poBmKgV/bVfhiEDGRTpLD94GDjhKlpysBKJaC/9gvp+9ivYr/KPFGYB0ekeu
-VHQfgQ2EicEkec/ssfyVlrncxVVr3YBCFFYxfyUvb8BjrcoWhtIq3fiv+mUIu0Pb
-cp9TPiwKB0q4yc/zKxGYQQUeRFgQBSCNRFGUEHnhas99SKy4FYk=
-=C4nj
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmj+WgQACgkQ64mZXMKQ
+wqkeVxAAhVvnync+BnWREmvpRHx2InmUvxBQFNSS8P4y7gFTW6KFP25hSxhNrg40
+i4GhHEBpu9Ub0NCdNlgW83bKhy6U11w/eCgfxx3rSmbucn6e+aC8smgiv5tpI3CV
+sD7/0GNsTIgwQyDC1OSewjah49Dx9jCBdR0ncOWrS10Ya2WieXJ+1teyfLpw5a7l
+PfRTiREwMsIWGuPvVXbpnzSUWGXvi9Mq5NQ1u1XVcxbAlCQ74Tra4ZpBUpjZ0Gn9
+pxgAnJ/PWIYq18Atem/7zT8i52dOHO8TYL/d1b5i7xXQn5GlcqgceESkpet8Zxv0
++Y9jPDRTJxXbYfVEd1593KZ1gy+ucQBU2KCmPw2ql4++4ETKnl3mlOHosydfVrTV
+hakjNGhQSU0lW8oKNeTa/13dNiDpe+NbGlDFTiFEdlvPQWX/17OLLiJ7MDYTzvgb
+R5x6fHjesq2dbMD2XRSZ+dMj6yAndnl+kXEsQgneSPvrcrxje+6Mc0Wt9uDnvKPG
+Yr/+IDSWQZh0QpNwXC+8h/PRrGPl/T3NWwPHeyHPVKNZIBRGQU3As6hpOhxF3MLH
+XomgOw5wwg+G5NjTmYWobxX4NtxpBosyITGeeYTz0Er+1GXowRjpya9xin9Ba9AL
+fH9lTpYFHsnHGrocVyMaJVzYPaokjnI0jm7IKiHDl+vh945nHWo=
+=Dmul
 -----END PGP SIGNATURE-----
 
---awz7l3exess4ugrr--
+--u7izvt4jolxhgk5l--
 
