@@ -1,316 +1,325 @@
-Return-Path: <linux-man+bounces-4201-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4202-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37B3EC14A3B
-	for <lists+linux-man@lfdr.de>; Tue, 28 Oct 2025 13:33:48 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id A8663C14C67
+	for <lists+linux-man@lfdr.de>; Tue, 28 Oct 2025 14:09:34 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 564404F814E
-	for <lists+linux-man@lfdr.de>; Tue, 28 Oct 2025 12:31:51 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 1B2564F6693
+	for <lists+linux-man@lfdr.de>; Tue, 28 Oct 2025 13:09:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B625254B1F;
-	Tue, 28 Oct 2025 12:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DF8F3314AB;
+	Tue, 28 Oct 2025 13:09:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TKO7dli4"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MyaQkh3z"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFAD2D7D47
-	for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 12:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC23C308F11
+	for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 13:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761654709; cv=none; b=XYKiNPu5ZrWmER6ZQ58qOWrMlE2Z/vd/2l0/yepmqQ4fwmNcx468YaNe00oWx5yBzd58iuNyrA1JvutR7e681NdV+yc1IXw2W3ElUXFoOOju4T9zEQrK/ms7GkSAVXKTIQVszyjjC5cS0B6eEqAbLbRiTbwRh0k2FmMetOnWa4w=
+	t=1761656956; cv=none; b=K+KZVvOAjJbLpNAOEoeFrDK+/XTb+2sZBY7UZGQFYc/ZfgzdIYORPGtmx/dtvN014YSZL6dSWaU2QjDdzqKlVhDtg8IxBTX/1feKju/5oGAQLay6ehgRLiAR7Fj4RXrXFmvHgd79ARDVtMCqg1NZckOm0+LUkhJdqnMo/sJ+65k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761654709; c=relaxed/simple;
-	bh=z52H2arAVJjMVV94xVnXc8k6sBrdnCp3/G4HW1etkR0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CUv4/Z7QceExYrS/H9/on1OEiZRFE08KFmm/SjyR5u6EyBeHWpo+EcELUS91DeRezTeR4shuA+91cSWCD7mV5lJCyF/DE7zU3ptqmqWysa5dJj9E+wpHaq7kSoWjhHarKZlXdNVXlRjkmNd9NVDLCLsiQyjfxDiI/E+GRAZcU+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TKO7dli4; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1761654705;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=trr5LIE2mhygCQCaWzmlux+MnUJ+Aozr+/V/vV5qgic=;
-	b=TKO7dli4ZVZ+ZhkJ0jkU0RS0PYjGPDI1pMPhMPiKCiXquJb9Ew2RgYDuCQ9s1xvsj91gtq
-	zSDCc7RiQAc5WqEnDKJUyJVpyFYhubYLY0FO8GBP1rS/KFP/GuopJcqC/cC8Knjoj+4cbj
-	zDS+bQmKXURUHFDLtAlvsIpfFyB/aXQ=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-53-EKptZoY8OhmU_-EYl4gkCg-1; Tue, 28 Oct 2025 08:31:43 -0400
-X-MC-Unique: EKptZoY8OhmU_-EYl4gkCg-1
-X-Mimecast-MFC-AGG-ID: EKptZoY8OhmU_-EYl4gkCg_1761654703
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-4ecf3420ce3so58603401cf.3
-        for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 05:31:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761654703; x=1762259503;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=trr5LIE2mhygCQCaWzmlux+MnUJ+Aozr+/V/vV5qgic=;
-        b=QPwPuBr2i3n0fH8Eupknqf9HHBg5JFxkl9RN+2M4ULC4qjG5MX9gMddnHWQZyDFiLO
-         xlUgN86Iqc1k1dYmN+fWL/Sy+UEKCeUSIAiksf1H9H+pbV5rlxjawAeWjPZvx3tTiXE4
-         /fUpgBt1LQMFTOJVoIMlf0OzRlR1h5S+AcaDzrJORF3t52vll0hssUIyMAM3dXyT8UE5
-         91h8oNfaw2rVe4Ue733cyFnUZAMnn/gz4L7aYmMMLD83KNQcVIOEnBud+elGnngq3awN
-         rFx+ibCjuj165ZE/GuLBlhv+eSC+MRItZZrzbvp1SmxLo74qa4YcPXjRXsjdbXWRi1Gk
-         Oe1w==
-X-Forwarded-Encrypted: i=1; AJvYcCXgg5Mj9AxMvHwxD/YP0ugsrZRzueywSInufDlIa5+ouHZ8QfdJp0AwrBtcaYTt6IxyKx8Qm6v/GWE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgLFtQdxTP12eGArI4IniG/grPWlAS3DP/nR5Zh5UNfyvpMCSf
-	tgW8ChJMaZTpUERdrMrgr181g09ad+kkd6oOd9ikswoQg4H9wK3le2ZR+zPjAlhbvkNiEk2+GqZ
-	IDUMsb8c1EW30/HbvaWuL+C2XL3qZfdXNdNfDTLH2j1eyhW3pz46hQGrtHZY+LA==
-X-Gm-Gg: ASbGncsMiw+ugBa+x5KDxRo5QofvCUzFESY8KMsc1cLpV8Ju6Uw+UT3AI0FjxwndHCF
-	FTFk8tlrWB35xD8cZlAvtQZZXczPYyZ1Mkg0JRtEo4u7ZUbX6chscdsZC0xdX35dP4dpy1VgEKV
-	jKTItI6iJI7tCtuHJuonEyI80TADD4bPun80PK7EvFlT2C62AtqmDaQYgLZFuQ2XROoUCMEVtNh
-	NKr/Pv1m4PlmV7n5N/qA1ALqglwoYprPywex+EdhYh5leC/0E5IZRoFzE9oWqnHDEMAHX5qKxgf
-	Ifm7gsQ3cTYL097DTmM+HOyBHoJSg5HGExe0y+Ixh+RikI6O9qrRw4MwFYHjNEzZ4ChAEyI0pOF
-	t
-X-Received: by 2002:ac8:59c3:0:b0:4eb:9ea0:cc3b with SMTP id d75a77b69052e-4ed074588e7mr48250321cf.11.1761654702740;
-        Tue, 28 Oct 2025 05:31:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH7YiYFEHoRbVLHNqEOvUVfGumK7A7cn69+cCjePfy7xTtR76jbuaHrwrM6D1ZapGlIHuL3PA==
-X-Received: by 2002:ac8:59c3:0:b0:4eb:9ea0:cc3b with SMTP id d75a77b69052e-4ed074588e7mr48249871cf.11.1761654702295;
-        Tue, 28 Oct 2025 05:31:42 -0700 (PDT)
-Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4eba37d7db2sm71509591cf.11.2025.10.28.05.31.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Oct 2025 05:31:41 -0700 (PDT)
-Message-ID: <bfc8e849-c0a2-4ae3-a2f4-df14c34987f3@redhat.com>
-Date: Tue, 28 Oct 2025 08:31:40 -0400
+	s=arc-20240116; t=1761656956; c=relaxed/simple;
+	bh=seup9dETNAtOFEotfLxqGCE7lmrFx/fdb5ium7A3ck4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wjl+XatUBo7zZBJdfWlzNo4FNhkVL+03W+Ymr/UypWt3madg36hONxhmTBqMncBYBGulZt3zXkIXBawpmVnXerSE81/spQeofocRIDvNALIRfVqVs9ZOxwIZwZ/Jde5lUxij4eWrKOwarURvBmOWxfreQcB9Ov7tiDbhhEHnkqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MyaQkh3z; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21BBFC4CEE7;
+	Tue, 28 Oct 2025 13:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1761656956;
+	bh=seup9dETNAtOFEotfLxqGCE7lmrFx/fdb5ium7A3ck4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MyaQkh3zLKAjsh14Rqn+SdKfi3Ju/Op5RhN5AkgGflJdsu2DEiXTAp2SKbWviRbww
+	 4BdhHPngXaonIJnth5Uvrmvsu89sGhfdqJM+AjbsY8jsiIBt8qIttVmcEZ745iCS+K
+	 vYnal86DSQyD2B4Yc/1XVpSUPKFteWJHkEd1+lM0QzUIOABhiqzv5SEJFuCoIkesLq
+	 PlarH9JpUvgYAXHmsrPEJXkk7KlcMxcpdk152+t2a3lxi5PxY1V2CPBnH0qkNzdSQ1
+	 XkCGYy5m2gl9psGiG9xIUBvzAdnda4zoS6TGMsA1Pp3o8zu/Wju30BBO3Z1pbGdUGU
+	 u37hOgVjQR9kg==
+Date: Tue, 28 Oct 2025 14:09:12 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Carlos O'Donell <carlos@redhat.com>, Sam James <sam@gentoo.org>
+Cc: linux-man@vger.kernel.org, Collin Funk <collin.funk1@gmail.com>, 
+	"G. Branden Robinson" <branden@debian.org>
+Subject: Re: [PATCH v6] CONTRIBUTING.d/ai: Add guidelines banning AI for
+ contributing
+Message-ID: <zmid4picivx2s2uivgphtuzx57yl7omvrff5cp77zgxzoqiaiv@kp5ze5d27mq5>
+References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
+ <07d0b354caffa459dd8a40d31fefcf5315513a40.1761586102.git.alx@kernel.org>
+ <bfc8e849-c0a2-4ae3-a2f4-df14c34987f3@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qx2lt65nk3dyives"
+Content-Disposition: inline
+In-Reply-To: <bfc8e849-c0a2-4ae3-a2f4-df14c34987f3@redhat.com>
+
+
+--qx2lt65nk3dyives
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Carlos O'Donell <carlos@redhat.com>, Sam James <sam@gentoo.org>
+Cc: linux-man@vger.kernel.org, Collin Funk <collin.funk1@gmail.com>, 
+	"G. Branden Robinson" <branden@debian.org>
 Subject: Re: [PATCH v6] CONTRIBUTING.d/ai: Add guidelines banning AI for
  contributing
-To: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Cc: Collin Funk <collin.funk1@gmail.com>, Sam James <sam@gentoo.org>,
- "G. Branden Robinson" <branden@debian.org>
+Message-ID: <zmid4picivx2s2uivgphtuzx57yl7omvrff5cp77zgxzoqiaiv@kp5ze5d27mq5>
 References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
  <07d0b354caffa459dd8a40d31fefcf5315513a40.1761586102.git.alx@kernel.org>
-From: Carlos O'Donell <carlos@redhat.com>
-Content-Language: en-US
-Autocrypt: addr=carlos@redhat.com; keydata=
- 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
- m/A+1AHg4g==
-Organization: Red Hat
-In-Reply-To: <07d0b354caffa459dd8a40d31fefcf5315513a40.1761586102.git.alx@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <bfc8e849-c0a2-4ae3-a2f4-df14c34987f3@redhat.com>
+MIME-Version: 1.0
+In-Reply-To: <bfc8e849-c0a2-4ae3-a2f4-df14c34987f3@redhat.com>
 
-On 10/27/25 1:29 PM, Alejandro Colomar wrote:
-> This policy is based on the Gentoo policy (see link below).
-> However, I've modified our text to be more restrictive.
+Hi Carlos, Sam,
 
-Looking forward to a v7.
+On Tue, Oct 28, 2025 at 08:31:40AM -0400, Carlos O'Donell wrote:
+> On 10/27/25 1:29 PM, Alejandro Colomar wrote:
+> > This policy is based on the Gentoo policy (see link below).
+> > However, I've modified our text to be more restrictive.
+>=20
+> Looking forward to a v7.
+>=20
+> > Cc: Carlos O'Donell <carlos@redhat.com>
+> > Cc: Collin Funk <collin.funk1@gmail.com>
+> > Cc: Sam James <sam@gentoo.org>
+> > Cc: "G. Branden Robinson" <branden@debian.org>
+> > Link: <https://wiki.gentoo.org/wiki/Project:Council/AI_policy>
+> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> > ---
+> >   CONTRIBUTING.d/ai | 68 +++++++++++++++++++++++++++++++++++++++++++++++
+> >   1 file changed, 68 insertions(+)
+> >   create mode 100644 CONTRIBUTING.d/ai
+> >=20
+> > diff --git a/CONTRIBUTING.d/ai b/CONTRIBUTING.d/ai
+> > new file mode 100644
+> > index 000000000..63cf3d548
+> > --- /dev/null
+> > +++ b/CONTRIBUTING.d/ai
+> > @@ -0,0 +1,68 @@
+> > +Name
+> > +	AI - artificial intelligence policy
+> > +
+> > +Description
+> > +	It is expressly forbidden to contribute to this project any
+> > +	content that has been created with the assistance of AI tools.
+> > +
+> > +	This also includes AI assistive tools used in the contributing
+> > +	process, even if such tools do not generate the contributed
+> > +	code.  For example, AI linters and AI static analyzers are
+> > +	forbidden.
+>=20
+> In an attempt to simplify the policy I suggest dropping the second
+> paragraph.
+>=20
+> Leaving just:
+> ~~~
+> Description
+> 	It is expressly forbidden to contribute to this project any
+> 	content that has been created with the assistance of AI tools.
+> ~~~
+>=20
+> If someone uses a linter or static analyzer *and* includes suggestions
+> directly then that is content that is AI generated and not permitted
+> (covered by the first paragraph).
+>=20
+> The second paragraph admits odd interpretations including questions
+> like:
+>=20
+>  * If I used AI to summarize a page for my own understanding, am I
+>    forever tainted by that use and unable to contribute?
 
-> Cc: Carlos O'Donell <carlos@redhat.com>
-> Cc: Collin Funk <collin.funk1@gmail.com>
-> Cc: Sam James <sam@gentoo.org>
-> Cc: "G. Branden Robinson" <branden@debian.org>
-> Link: <https://wiki.gentoo.org/wiki/Project:Council/AI_policy>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
->   CONTRIBUTING.d/ai | 68 +++++++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 68 insertions(+)
->   create mode 100644 CONTRIBUTING.d/ai
-> 
-> diff --git a/CONTRIBUTING.d/ai b/CONTRIBUTING.d/ai
-> new file mode 100644
-> index 000000000..63cf3d548
-> --- /dev/null
-> +++ b/CONTRIBUTING.d/ai
-> @@ -0,0 +1,68 @@
-> +Name
-> +	AI - artificial intelligence policy
-> +
-> +Description
-> +	It is expressly forbidden to contribute to this project any
-> +	content that has been created with the assistance of AI tools.
-> +
-> +	This also includes AI assistive tools used in the contributing
-> +	process, even if such tools do not generate the contributed
-> +	code.  For example, AI linters and AI static analyzers are
-> +	forbidden.
+I wouldn't say forever, but I certainly don't want you to use that
+information in your contributions.  As I discussed in an LWN thread,
+you may be spammed by AI tools (e.g., your browser or IDE or whatever
+may show you suggestions), but as long as you actively discard that
+information in your brain, I'm okay with that.
 
-In an attempt to simplify the policy I suggest dropping the second
-paragraph.
+If you say something like "I accidentally saw something from AI, but
+I promise I didn't use that information", I'm okay with your
+contributions.
 
-Leaving just:
-~~~
-Description
-	It is expressly forbidden to contribute to this project any
-	content that has been created with the assistance of AI tools.
-~~~
+Similarly, if you've ever contributed to GCC, are you able to contribute
+to Clang?  How much is our brain tainted by GPL?  As long as you
+actively discard the knowledge of GCC internals that would result in
+copying copyrighted code, I think it's fine to contribute to both.
 
-If someone uses a linter or static analyzer *and* includes suggestions
-directly then that is content that is AI generated and not permitted
-(covered by the first paragraph).
+>  * If I used AI to translate a page to my native language and then
+>    used that knowledge to support my changes in the future, am I
+>    forever tainted by that use and unable to contribute?
 
-The second paragraph admits odd interpretations including questions
-like:
+Same here.  I would like you to try to forget such information, and
+regain it without AI.
 
-  * If I used AI to summarize a page for my own understanding, am I
-    forever tainted by that use and unable to contribute?
+> The understanding of "contributing process" can be understood to span
+> years, decades even, and as such complicates the policy.
+>=20
+> In conclusion, I suggest a simplified policy that doesn't impose such
+> language on the contributor.
 
-  * If I used AI to translate a page to my native language and then
-    used that knowledge to support my changes in the future, am I
-    forever tainted by that use and unable to contribute?
+I'm not sure about that, as then it could be interpreted as not
+prohibiting using linters (it would essentially be the same wording as
+Gentoo's policy, which some interpret to allow AI linters), which I want
+to prohibit.
 
-The understanding of "contributing process" can be understood to span
-years, decades even, and as such complicates the policy.
+Maybe we could add something clarifying that as long as you don't use
+the information at all (maybe because you're spammed by your web
+browser, or your IDE, but you're able to ignore it), that's okay-ish.
 
-In conclusion, I suggest a simplified policy that doesn't impose such
-language on the contributor.
+> > +
+> > +    Exceptions
+> > +	As an exception to the above, AI assistive tools which don't
+> > +	have any influence on the contribution other than enabling the
+> > +	contributor to work with its computer (e.g., screen reader,
+>=20
+> s/its/their/g
+>=20
+> > +	text to speech) --where the contributor verifies the output to
+> > +	the best of its ability-- are allowed, and the contributor need
+>=20
+> s/its/their/g
 
-> +
-> +    Exceptions
-> +	As an exception to the above, AI assistive tools which don't
-> +	have any influence on the contribution other than enabling the
-> +	contributor to work with its computer (e.g., screen reader,
+Thanks!  I thought it was a valid gender-neutral singular pronoun, but
+I now see in a web search that it has some less-than-human implication.
+I'll change it to their.
 
-s/its/their/g
+> Do we have policy on a neutral term e.g. their?
 
-> +	text to speech) --where the contributor verifies the output to
-> +	the best of its ability-- are allowed, and the contributor need
+We don't.
 
-s/its/their/g
+> > +	not disclose their use.
+>=20
+> +1 from me here, the exceptions paragraph meets my notion of inclusive
+> use of the technology.
+>=20
+> > +    Concerns
+> > +	Copyright concerns.
+> > +		At this point, the regulations concerning copyright of
+> > +		generated contents are still emerging worldwide.  Using
+> > +		such material could pose a danger of copyright
+> > +		violations, but it could also weaken claims to copyright
+> > +		and void the guarantees given by copyleft licensing.
+> > +
+> > +	Quality concerns.
+> > +		Popular LLMs are really great at generating plausibly
+> > +		looking, but meaningless content.  They pose both the
+> > +		risk of lowering the quality of a project, and of
+> > +		requiring an unfair human effort from contributors and
+> > +		maintainers to review contributions and detect the
+> > +		mistakes resulting from the use of AI.
+> > +
+> > +		AI tools should be considered adversarial, as if they
+> > +		were a black box with Jia Tan inside them.
+>=20
+> Suggest dropping the second paragraph.
+>=20
+> The policy should stand clearly without oblique references to issues of
+> the times.
+>=20
+> The paragraph detracts from the clearly written concern causing the
+> reader to have to go read the reference material and determine how it
+> relates to the policy.
 
-Do we have policy on a neutral term e.g. their?
+Okay.
 
-> +	not disclose their use.
+> > +
+> > +	Ethical concerns.
+> > +		The business side of AI boom is creating serious ethical
+> > +		concerns.  Among them:
+> > +
+> > +		-  Commercial AI projects are frequently indulging in
+> > +		   blatant copyright violations to train their models.
+> > +		-  Their operations are causing concerns about the huge
+> > +		   use of energy, water, and other natural resources.
+> > +		-  The advertising and use of AI models has caused
+> > +		   a significant harm to employees and reduction of
+> > +		   service quality.
+> > +		-  LLMs have been empowering all kinds of spam and scam
+> > +		   efforts.
+> > +
+> > +Caveats
+> > +	This policy can be revisited, should a case been made over such
+> > +	a tool that does not pose copyright, ethical, and quality
+> > +	concerns.
+>=20
+> Suggest "copyright, quality, or ethical concerns" to match order in the
+> text above.
 
-+1 from me here, the exceptions paragraph meets my notion of inclusive
-use of the technology.
+Yup, I noticed that.  I wanted to reduce divergence from Gentoo's
+policy, but I agree it's better to be consistent here.
 
-> +    Concerns
-> +	Copyright concerns.
-> +		At this point, the regulations concerning copyright of
-> +		generated contents are still emerging worldwide.  Using
-> +		such material could pose a danger of copyright
-> +		violations, but it could also weaken claims to copyright
-> +		and void the guarantees given by copyleft licensing.
-> +
-> +	Quality concerns.
-> +		Popular LLMs are really great at generating plausibly
-> +		looking, but meaningless content.  They pose both the
-> +		risk of lowering the quality of a project, and of
-> +		requiring an unfair human effort from contributors and
-> +		maintainers to review contributions and detect the
-> +		mistakes resulting from the use of AI.
-> +
-> +		AI tools should be considered adversarial, as if they
-> +		were a black box with Jia Tan inside them.
+Sam, I suggest that Gentoo revises the order there too.
 
-Suggest dropping the second paragraph.
+> > +
+> > +Copyright
+> > +	Text derived from (and more restrictive than) the Gentoo project
+>=20
+> Drop "(and more restrictive than)" since you have the same license as
+> the original text.
+>=20
+> If you want to keep something here I suggest:
+>=20
+> "Text is derived from, but different than, the Gentoo Project AI Policy"
+>=20
+> The notion of more or less restrictive is relative.
 
-The policy should stand clearly without oblique references to issues of
-the times.
-
-The paragraph detracts from the clearly written concern causing the
-reader to have to go read the reference material and determine how it
-relates to the policy.
-
-> +
-> +	Ethical concerns.
-> +		The business side of AI boom is creating serious ethical
-> +		concerns.  Among them:
-> +
-> +		-  Commercial AI projects are frequently indulging in
-> +		   blatant copyright violations to train their models.
-> +		-  Their operations are causing concerns about the huge
-> +		   use of energy, water, and other natural resources.
-> +		-  The advertising and use of AI models has caused
-> +		   a significant harm to employees and reduction of
-> +		   service quality.
-> +		-  LLMs have been empowering all kinds of spam and scam
-> +		   efforts.
-> +
-> +Caveats
-> +	This policy can be revisited, should a case been made over such
-> +	a tool that does not pose copyright, ethical, and quality
-> +	concerns.
-
-Suggest "copyright, quality, or ethical concerns" to match order in the
-text above.
-
-> +
-> +Copyright
-> +	Text derived from (and more restrictive than) the Gentoo project
-
-Drop "(and more restrictive than)" since you have the same license as
-the original text.
-
-If you want to keep something here I suggest:
-
-"Text is derived from, but different than, the Gentoo Project AI Policy"
-
-The notion of more or less restrictive is relative.
-
-> +	AI policy
-> +	<https://wiki.gentoo.org/wiki/Project:Council/AI_policy>.
-> +
-> +	SPDX-License-Identifier: CC-BY-SA-4.0
-> +
-> +See also
-> +	<https://tukaani.org/xz-backdoor/>
-> +	<https://xcancel.com/spendergrsec/status/1958264076162998771>
-> 
-> base-commit: cef39ff51bfd016d7079baefbf2a39f0fed7549b
+Okay.
 
 
--- 
-Cheers,
-Carlos.
+Have a lovely day!
+Alex
 
+>=20
+> > +	AI policy
+> > +	<https://wiki.gentoo.org/wiki/Project:Council/AI_policy>.
+> > +
+> > +	SPDX-License-Identifier: CC-BY-SA-4.0
+> > +
+> > +See also
+> > +	<https://tukaani.org/xz-backdoor/>
+> > +	<https://xcancel.com/spendergrsec/status/1958264076162998771>
+> >=20
+> > base-commit: cef39ff51bfd016d7079baefbf2a39f0fed7549b
+>=20
+>=20
+> --=20
+> Cheers,
+> Carlos.
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--qx2lt65nk3dyives
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkAwHIACgkQ64mZXMKQ
+wqnS4g//aM60hl0OtHMqgE4gh8aYgtcc99/q0QgHYUA3TWWZvyY7NQqu3q+lcjdk
+6ZrlzLWC5zltyFbggcXrrLTDEmgGyKhaZsBI1JIIvXfscLczczI4zqL5XpTw1eMQ
+xdi7Lw/STt96xd/ZXF5ZI/Myu81AaCU9PuXFYOAj5o0nPSOGsvSMumFFcJUD7/S5
+JUyY+sORQyTmEfT5okXINLjkOZJg7KOGQg0n6KaTsBw3etI4JF3EBpo1HwT8qZ2l
+yJATxVf8fELTlmetmZM1mEzWG37XDsS6nVfmW7j0OrLctdz63Z3Bwiw9DMnJ1nsm
+0RQtGhIjf4Af8TbBENinhVDzCrMOmiPfWgLbvYcszr9yQ6QwQZ/PAkM9gD/ObYEF
+AY2ywryjpcbd33fRwF9Ifbrxs/aYopzmt0FfkT9XpI0X3JZcYXpntLyXViE5sFUR
+8s+X0SXuQ2aLBDVIoQYNgQv2/m7xOHwXnCqeeIO5W5hOCuyY3y1EmyVc8Uf6WwUy
+nqx8aGj8YvEPDhDOIK+8L8G1M+GSVVFwq5E5oRloGdUoa8sAT2OeNjHer8GcoDMj
+9HtpVBaN39DfJJFpD6bZYSNPLyJux6IdIeDsvlSS8IexEoWYik82wEmQ66f2FHZe
+ztaSqk7Z0fauTDrG+ZxhnZfgJhvvha/KVMiRZyxppnHgo1n+1Yc=
+=YggQ
+-----END PGP SIGNATURE-----
+
+--qx2lt65nk3dyives--
 
