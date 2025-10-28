@@ -1,57 +1,56 @@
-Return-Path: <linux-man+bounces-4203-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4204-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F24AC14CD3
-	for <lists+linux-man@lfdr.de>; Tue, 28 Oct 2025 14:21:13 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id BD4FEC17548
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 00:20:01 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C5AB51A2842D
-	for <lists+linux-man@lfdr.de>; Tue, 28 Oct 2025 13:21:37 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 956091AA020F
+	for <lists+linux-man@lfdr.de>; Tue, 28 Oct 2025 23:17:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC1912DA746;
-	Tue, 28 Oct 2025 13:21:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5D2C36C237;
+	Tue, 28 Oct 2025 23:15:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ToZKXy+S"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3fSu16H"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C14C264634
-	for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 13:21:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A487D36B995
+	for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 23:15:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761657668; cv=none; b=N5gBDYZPMaxPgvqrMj7MLOU3IW5jD/C8286WkIur3sYytMa3bHBBA5hxtei+RVuz7hdGz/Bln1rHDUZdossQSO3bCquMlqAVxVRoDtgrrawzN21Qz3hqQm8HjCJzCG83pDP6JWTMkfspAGkcqp02xk+6ap5B4ulkW1z/RvxCxx4=
+	t=1761693334; cv=none; b=egfW1pHFp8lsGKx6fDawz3TR9+Ln/A7ZpVfyaxDlmsfDtO2iWq9L8pwYVJAO8z3Xq/oAzWWSH1TksOoSWwf07LNSrPwNTNLiI+OkL7rn8xfFOKCtcnLXyZVQsgYDeByVapwFKklmTEuCrQfXhudT+loKg8CtjswopKA76A/jStM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761657668; c=relaxed/simple;
-	bh=B35qN5qIWoh52tU90Dz4GdXOS7QhoOAnw2iGZG9ATLY=;
+	s=arc-20240116; t=1761693334; c=relaxed/simple;
+	bh=Q/5rMjO4hLAsjliBI+epYQnAKoS2XrmFf1dhmL0+U1E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CMyluwkq2mNOVQ93xMU/QrAwS0z78P1H/6ZM4DFNLmjJ4UPUsRSD2dxfXUlXgztMdSMO22l0wO53jHwOKBNRmpZOkTBU6pbUdBhquJ7JodJt4xV1W8/EGQzQW1wEEDv8D5JU/bUFaDSM4br7x3Qj5bbHkxyVMcbWpFr0lRAhGDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ToZKXy+S; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BEA9C4CEF7;
-	Tue, 28 Oct 2025 13:21:06 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=IR+gXSrsqVGMHTtS0bltlQ0zfOUElO5LOFD33npLiQ3nyxmV1etF0vrcxqZQwjrGkh2Tdxd/dVjo5aMLcm0ZfjxmFqVAxodhLiUlqkQWk9c6XeYrC7Pha9GQPDKioF+l6m4pkV8gdKIb/kCVvX1jiEGwPfaJ++q68aZfR27VxgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3fSu16H; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED14C4CEE7;
+	Tue, 28 Oct 2025 23:15:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761657668;
-	bh=B35qN5qIWoh52tU90Dz4GdXOS7QhoOAnw2iGZG9ATLY=;
+	s=k20201202; t=1761693334;
+	bh=Q/5rMjO4hLAsjliBI+epYQnAKoS2XrmFf1dhmL0+U1E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ToZKXy+S+xKjbPyNPNxcm9b+fTj5D361HohOqN6CG2obS+AP0qajc5gmT+uJMIF81
-	 ApFMWbkwh5h3pt56LoXhnLG7ohDA41kfstjmkeSQqrshKkNXWeN2YbiWFvrEUVmJXt
-	 PItmFhEFOJQfBZuSVC3A6tDtiT+kN13Meg47G77Sc4d5i1I8jjmfUR3dhxNKVq05Z1
-	 VdOXqxcz3e/OL7522XYNiMo1MF95Lex6Hp+BdKqRjXa0jUCyYElB5e3EilQ31K7Ct6
-	 EVD1PyaO+NrhOb3yCLy4x9DKsNIApFfd7yCa6X9cqSarouqldyzRR4xBEpXWzLkwfs
-	 3ThT+FDfDWI5A==
-Date: Tue, 28 Oct 2025 14:21:04 +0100
+	b=S3fSu16HrAXh51Mm8MmsWlmN7ER1jB/uysZZSZZLlvY8T7bADZliHjryLH2dxnEI3
+	 1k7R400Z9DA8zHWiwCvpHW20+4yxr+iMsnCrCyveprbhNcmeZ1LgqVJ23tGc0egXAR
+	 ZdI/4PlZkB8wsHStuv0xdwR/WVQonGGIWMVQElYh4bY+wrubplNOxJXDFbU8ZHSKEg
+	 GIEzWSCUVcXTMVRrkztHbM6gC9FdDltBhcdA2B0GdHJhieL/SlkUVBp7qZW+WG1JKd
+	 3crsXuvrTUbx+XtYyrDY/RYTvPPlflmcuoH4e9L9WULrVqL4M12zlfNZfNP9/agI37
+	 kEhcuGXQDM0Wg==
+Date: Wed, 29 Oct 2025 00:15:31 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
+To: linux-man@vger.kernel.org, Jan Kara <jack@suse.cz>
 Cc: Alejandro Colomar <alx@kernel.org>, 
-	Carlos O'Donell <carlos@redhat.com>, Collin Funk <collin.funk1@gmail.com>, Sam James <sam@gentoo.org>, 
-	"G. Branden Robinson" <branden@debian.org>
-Subject: [PATCH v7] CONTRIBUTING.d/ai: Add guidelines banning AI for
- contributing
-Message-ID: <299541d41bc305e65971801d06131941127eb99d.1761657613.git.alx@kernel.org>
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, "G. Branden Robinson" <branden@debian.org>
+Subject: [PATCH v2] man/man3/readdir.3, man/man3type/stat.3type: Improve
+ documentation about .d_ino and .st_ino
+Message-ID: <7cce7dac8fb57608d71b073f8a3c94532e5cb688.1761693028.git.alx@kernel.org>
 X-Mailer: git-send-email 2.51.0
-References: <07d0b354caffa459dd8a40d31fefcf5315513a40.1761586102.git.alx@kernel.org>
+References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,96 +59,102 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <07d0b354caffa459dd8a40d31fefcf5315513a40.1761586102.git.alx@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
 
-This policy is based on the Gentoo policy (see link below).
-However, I've modified our text to be more restrictive.
-
-Cc: Carlos O'Donell <carlos@redhat.com>
-Cc: Collin Funk <collin.funk1@gmail.com>
-Cc: Sam James <sam@gentoo.org>
+Suggested-by: Pali Rohár <pali@kernel.org>
+Co-authored-by: Pali Rohár <pali@kernel.org>
 Cc: "G. Branden Robinson" <branden@debian.org>
-Link: <https://wiki.gentoo.org/wiki/Project:Council/AI_policy>
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
- CONTRIBUTING.d/ai | 66 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
- create mode 100644 CONTRIBUTING.d/ai
 
-diff --git a/CONTRIBUTING.d/ai b/CONTRIBUTING.d/ai
-new file mode 100644
-index 000000000..95784872a
---- /dev/null
-+++ b/CONTRIBUTING.d/ai
-@@ -0,0 +1,66 @@
-+Name
-+	AI - artificial intelligence policy
-+
-+Description
-+	It is expressly forbidden to contribute to this project any
-+	content that has been created with the assistance of AI tools.
-+
-+	This also includes AI assistive tools used in the contributing
-+	process, even if such tools do not generate the contributed
-+	code.  For example, AI linters and AI static analyzers are
-+	forbidden.
-+
-+	If for some reason, a contributor receives information from an
-+	AI tool unintentionally, it should actively try to not use that
-+	information, and should also disclose the incident when
-+	contributing.
-+
-+    Exceptions
-+	As an exception to the above, AI assistive tools which don't
-+	have any influence on the contribution other than enabling the
-+	contributor to work with their computer (e.g., screen reader,
-+	text to speech) --where the contributor verifies the output to
-+	the best of their ability-- are allowed, and the contributor
-+	need not disclose their use.
-+
-+    Concerns
-+	Copyright concerns.
-+		At this point, the regulations concerning copyright of
-+		generated contents are still emerging worldwide.  Using
-+		such material could pose a danger of copyright
-+		violations, but it could also weaken claims to copyright
-+		and void the guarantees given by copyleft licensing.
-+
-+	Quality concerns.
-+		Popular LLMs are really great at generating plausibly
-+		looking, but meaningless content.  They pose both the
-+		risk of lowering the quality of a project, and of
-+		requiring an unfair human effort from contributors and
-+		maintainers to review contributions and detect the
-+		mistakes resulting from the use of AI.
-+
-+	Ethical concerns.
-+		The business side of AI boom is creating serious ethical
-+		concerns.  Among them:
-+
-+		-  Commercial AI projects are frequently indulging in
-+		   blatant copyright violations to train their models.
-+		-  Their operations are causing concerns about the huge
-+		   use of energy, water, and other natural resources.
-+		-  The advertising and use of AI models has caused
-+		   a significant harm to employees and reduction of
-+		   service quality.
-+		-  LLMs have been empowering all kinds of spam and scam
-+		   efforts.
-+
-+Caveats
-+	This policy can be revisited, should a case been made over such
-+	a tool that does not pose copyright, quality, or ethical
-+	concerns.
-+
-+Copyright
-+	Text derived from --but different than-- the Gentoo project
-+	AI policy
-+	<https://wiki.gentoo.org/wiki/Project:Council/AI_policy>.
-+
-+	SPDX-License-Identifier: CC-BY-SA-4.0
+Hi Jan,
 
-base-commit: cef39ff51bfd016d7079baefbf2a39f0fed7549b
+Would you mind reviewing this?  The thread started here:
+<https://lore.kernel.org/linux-man/20250525103344.fe27ugiytfyoadz5@pali/T/#u>.
+
+Hi Branden,
+
+I wasn't able to do anything after your request from
+<https://lore.kernel.org/linux-man/20250525103344.fe27ugiytfyoadz5@pali/T/#m1bd706844fd322b2b0f9090ceac68e7ba29200eb>.
+Pali will probably be better placed to do that, since he authored that
+text.
+
+Hi Pali,
+
+Sorry for being so slow with this!  I wasn't able to work on this until
+now.
+
+
+Have a lovely night!
+Alex
+
+ man/man3/readdir.3      | 22 +++++++++++++++++++++-
+ man/man3type/stat.3type | 16 +++++++++++++++-
+ 2 files changed, 36 insertions(+), 2 deletions(-)
+
+diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
+index e1c7d2a6a..368e98e6e 100644
+--- a/man/man3/readdir.3
++++ b/man/man3/readdir.3
+@@ -58,7 +58,27 @@ .SH DESCRIPTION
+ structure are as follows:
+ .TP
+ .I .d_ino
+-This is the inode number of the file.
++This is the inode number of the file,
++which belongs to the filesystem
++.I .st_dev
++(see
++.BR stat (3type))
++of the directory on which
++.BR readdir ()
++was called.
++If the directory entry is the mount point,
++then
++.I .d_ino
++differs from
++.IR .st_ino :
++.I .d_ino
++is the inode number of the underlying mount point,
++while
++.I .st_ino
++is the inode number of the mounted file system.
++According to POSIX,
++this Linux behavior is considered to be a bug,
++but is nevertheless conforming.
+ .TP
+ .I .d_off
+ The value returned in
+diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
+index f3c312bf0..b87195766 100644
+--- a/man/man3type/stat.3type
++++ b/man/man3type/stat.3type
+@@ -66,7 +66,21 @@ .SH DESCRIPTION
+ macros may be useful to decompose the device ID in this field.)
+ .TP
+ .I .st_ino
+-This field contains the file's inode number.
++This field contains the file's inode number,
++which belongs to the
++.IR .st_dev .
++If
++.BR stat (2)
++was called on the mount point,
++then
++.I .d_ino
++differs from
++.IR .st_ino :
++.I .d_ino
++is the inode number of the underlying mount point,
++while
++.I .st_ino
++is the inode number of the mounted file system.
+ .TP
+ .I .st_mode
+ This field contains the file type and mode.
+
+base-commit: abac986a3283e679b6b323f58ab6677bc49a05e0
 -- 
 2.51.0
 
