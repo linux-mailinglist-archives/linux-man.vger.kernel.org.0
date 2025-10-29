@@ -1,52 +1,62 @@
-Return-Path: <linux-man+bounces-4226-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4227-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1490C1AC47
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 14:37:33 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04E73C1C51E
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 18:01:57 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 070E418988C7
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 13:30:51 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 4BC4A6E2D67
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 15:34:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 998472641FB;
-	Wed, 29 Oct 2025 13:25:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EAC97330D51;
+	Wed, 29 Oct 2025 15:32:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhw7d2a9"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="drV+wl9B"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558F3246BB9;
-	Wed, 29 Oct 2025 13:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A7A3358D8
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 15:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761744316; cv=none; b=cF5Mgm1DSZW6+eTX9+8Stur5XbXg9H9gIoCV/lIRknZWi2kpIfdeBENdwRe5d//gpvtug6gkoTcUaGfb6czc8opAGH06di8JhoudeRPQIFCp3jJXiBUwc5iF+Meg276g9Qfh9butqbgXJx9XdBS67UiG18HOY2Yg6Gy6z/APHn0=
+	t=1761751979; cv=none; b=emaCXmkPnON+AhsICGPJ4H606vcXS7KzPPxhJU9T3Kr/vabAPDdGZ1Kqq2GO6ju7zu7OHzh/H/2HGXejoSNXqRy7W1qKjQiiBqqXetuYwfsvNMJUOhclKp+nZEfRLoQ3/t2reFuMH+hOvBi6YXULxSTZ1ii+wrXC+jnCCSLkyOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761744316; c=relaxed/simple;
-	bh=katCKghEuzzRWiPDmJ5bO5CV0MVd38Dh62WCeKmWr7w=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=H7wjxJ7jwLaoP8h7gdX68Wpkow3/FrI+Fxn/aeH7pJE5Pbc2yEga2fk+ex8emdSPSPNQWV1VYHEFYPB3ckGkSDZcmyj8nhDM3yqEumc1/vNEJPfeMf3cgw1Dn8+SsxyqeUF+BDafwC9clGuA48tVQ5ObZzE/ik5OiFF2n3Zx0XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhw7d2a9; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBDE1C4CEFD;
-	Wed, 29 Oct 2025 13:25:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761744316;
-	bh=katCKghEuzzRWiPDmJ5bO5CV0MVd38Dh62WCeKmWr7w=;
-	h=Date:From:To:Cc:Subject:From;
-	b=hhw7d2a9ofDEwPVU/V0JIPzIgEECf0GgZwhzXbYOiE65r817fRNHqU23j8grjvO0b
-	 qnom/K8ho87H1m5G8DTx/A0UpGq4nY+soswIVv1x4AV4UXGDhXsmWvQ4EZnJFDLjcj
-	 1jNKP8Cud8CP5aRANCjFs67AJGDDJnlH9IFnkn9+zRKraiaSGcFbdC5OcqBgb4/OcG
-	 UKIoD115eHkHgCXjCcNHIoV6vD2McB6NTs3TsQjO0TtGR/DmK5vm8lTB9yj0g2+mn4
-	 nHDCFoNy4VfXHJptnpQsq84gQ6DvcQO7NQmkDQlbJVr70Kd92SNrDc7nOzf8XvKTDo
-	 AiC9ZKVCX45ew==
-Date: Wed, 29 Oct 2025 14:24:59 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: man-pages-6.16 released
-Message-ID: <5cy4sb3beseqeehhva5r5f5ji3ofvotzobqcp3634k3lqeeoqi@nxf5gxvdifcn>
+	s=arc-20240116; t=1761751979; c=relaxed/simple;
+	bh=f+u4Kwu6y8WuVRFjda7lE3XOgeKIJsM2YWVejxD/58Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hr7JM3A0azx24rBEhbnWJ01ERhNVudULTyNZyava/ebOy7KoJ4DApPGvejYI7DYTUAUiUM1RzHmZCtvE+bWW4g0zQWtN0VwtUGiz/LqOb+oz6q3jfLvAEVmLlLnV11u61OGA3Euw6ytTqhtIhcFDzA5Uix2GASNTDPjKCZcDnEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=drV+wl9B; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202505; t=1761751367;
+	bh=f+u4Kwu6y8WuVRFjda7lE3XOgeKIJsM2YWVejxD/58Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=drV+wl9BysNFvBiIJbA9lyXnygRGonXtiI+/QplYgnDQdrYAdfFUCY85p+ykxo1Ht
+	 uLRGjZoqB0Vy2loptZmBVLetyECfbLX/owGtPpRzKcxRyymuwyYplzZ4NBd0k94zOK
+	 yQAfqKpwX/xVNYohfMzOKDhkU3e3M3a0WTVk3pthX86hr21E9wnJ+O3x+tFSlfKI6g
+	 dmcRASaHMjuTImRWO48O2DOAmPER39itrFI5SjBX/7OVN0xtDbRzkZQOzSAxDLfqYr
+	 CsekI8uVlxZZg45Epf9wME75zTaLqLsGthapUPJMhQFwg3AEQKFG7wFdG3rM5VWOGf
+	 5yutf48TNTaeg==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id CA061A67E;
+	Wed, 29 Oct 2025 16:22:47 +0100 (CET)
+Date: Wed, 29 Oct 2025 16:22:47 +0100
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>, 
+	linux-man@vger.kernel.org, "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Subject: Re: [PATCH v2 3/5] alloca.3: clarify reasoning for no error return
+ in BUGS
+Message-ID: <jhuyhyu2xgbcqwahlmjqc7lvqw44mrzuoveikrcdy6gm2ztu3o@tarta.nabijaczleweli.xyz>
+References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
+ <cover.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
+ <2001f398efa7415df60019cd29164d7cfe87ae04.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
+ <4c862994-1fb7-7c45-8f0e-9a3bb8d76e13@gmail.com>
+ <20251029084200.umuk2hbescz3txgn@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -54,285 +64,105 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="c3bbmtjujgvpbaml"
+	protocol="application/pgp-signature"; boundary="ancuvpz55b5dyajj"
 Content-Disposition: inline
+In-Reply-To: <20251029084200.umuk2hbescz3txgn@illithid>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
---c3bbmtjujgvpbaml
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--ancuvpz55b5dyajj
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: man-pages-6.16 released
-Message-ID: <5cy4sb3beseqeehhva5r5f5ji3ofvotzobqcp3634k3lqeeoqi@nxf5gxvdifcn>
-MIME-Version: 1.0
 
-Gidday!
+Hi!
 
-I'm proud to announce:
+On Wed, Oct 29, 2025 at 03:42:00AM -0500, G. Branden Robinson wrote:
+> At 2021-09-15T21:42:26+0200, Alejandro Colomar (man-pages) wrote:
+> > On 9/14/21 2:41 PM, =D0=BD=D0=B0=D0=B1 wrote:
+> > >   .SH BUGS
+> > > -There is no error indication if the stack frame cannot be extended.
+> > > -(However, after a failed allocation, the program is likely to receiv=
+e a
+> > > +Due to the nature of the stack, it is impossible to check if the all=
+ocation
+> > > +would overflow the space available, and, hence, neither is indicatin=
+g an error.
+> > I'm not sure this use of neither (without a preceding "not") is valid
+> > English.  Is it?
+> The sentence is confusingly cast, but the problem is not as simple as
+> you describe.  It is common in English to use "neither" without "not"
+> preceding or following.
+(I think if you want to be quaint you could say that embedded
+ negatives are negatives for the purposes of "neither" and the like,
+ even after lexicalising so far you can't analyse them in modern english:
+ im-possible n[ot]-either n[ot]-or, as you demonstrate below.)
 
-	man-pages-6.16 - manual pages for GNU/Linux
+> Neither wolverines nor beavers have yet self-domesticated.
+> Neither C nor C++ are good language choices for novice programmers.
+>=20
+> That's more grammatically conventional.  However, I would recast even
+> more aggressively, as I find "due to the nature of the stack" hand-wavy.
+I don't disagree but I'd say it doesn't matter? "How the stack actually
+works" for our purposes of overallocating is really neither here nor there
+and changes depending on the system (grows up/down)
+and hardening (guard pages y/n), but the pitfall is similar regardless.
 
-Tarball download:
-<https://www.kernel.org/pub/linux/docs/man-pages/>
-Git repository:
-<https://git.kernel.org/cgit/docs/man-pages/man-pages.git/>
-Online PDF book:
-<https://www.kernel.org/pub/linux/docs/man-pages/book/>
+Classical wisdom for alloca()/blowing the stack in general is you don't
+know you did it until you accessed some byte of your stack that you
+actually can't see, and the allocation is infallible for this reason,
+and AFAIK this holds in present day.
 
-Thanks to all the contributors to this release (in BCC)!
-And thanks to our sponsors!
+I'll agree that the wording above is not my best work.
 
-	-  Adfinis		<https://adfinis.com/>
-	-  Google		<https://opensource.google/>
-	-  Hudson River Trading	<https://www.hudsonrivertrading.com/>
-	-  Meta			<https://www.meta.com/>
-	-  Red Hat		<https://www.redhat.com/>
+Given the above, I'd go for something closer to
+  It's impossible to know how much stack space the caller has
+  remaining, so alloca() can't return a failure. When stack space
+  has been exceeded, a SIGSEGV will be generated when writing to or
+  reading from an out-of-memory region.
+(maybe an ", or during allocation" but idk if any alloca implementation
+ actually pokes the allocated area anywhere?
+ ISTR some discussion about large stack allocations and poking at
+ least once per page to grow the stack correctly with guard pages
+ present(?).
+ Conversely, "will" matches getrlimit(2), but seems very strong;
+ idk if it's a "may generally but will on linux" or if it's still
+ a "may" universally and it's still possible to crash the stack
+ into your normal program area on linux. or if it just depends).
 
-(The list of sponsors will change soon, as we're in talks for renewing
- sponsors.  If any company would like to sponsor the project, it would
- be a great moment to manifest.)
+> I suggest something like:
+>=20
+> alloca() does not query the system for available stack memory, and does
+> not fall back to using the heap if stack storage is unavailable.  It
+> therefore cannot indicate an error if the allocation fails.  If it does,
+> the system generates a SIGSEGV signal.
 
-You are receiving this message either because:
+This seems to be semantically similar to your sample,
+so I'd say we're in accord.
 
-        a)  (BCC) You contributed to this release.
+The wording downthread seems solid.
 
-        b)  You are subscribed to <linux-man@vger.kernel.org>,
-            <linux-kernel@vger.kernel.org>, or
-            <libc-alpha@sourceware.org>.
+Best,
 
-        c)  (BCC) I have information (possibly inaccurate) that you are
-            the maintainer of a translation of the manual pages, or are
-            the maintainer of the manual pages set in a particular
-            distribution, or have expressed interest in helping with
-            man-pages maintenance, or have otherwise expressed interest
-            in being notified about man-pages releases.
-            If you don't want to receive such messages from me, or you
-            know of some other translator or maintainer who may want to
-            receive such notifications, send me a message.
-            If you want to be added to this list (which I store
-            encrypted), send me a message.
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D NEWS =3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-This release adds two build dependencies:
-
--  awk/awk
--  pcre2-utils/pcre2grep
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Linux Software=
- Map =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
-
-Begin4
-Title:          Linux man-pages
-Version:        6.16
-Entered-date:   2025-10-29
-Description:    Manual pages for GNU/Linux.  This package contains
-                manual pages for sections 2, 3, 4, 5, and 7, and
-                subsections of those.  Only a few pages are provided in
-                sections 1, 6, and 8, and none in 9.
-Keywords:       man pages
-Maintained-by:  Alejandro Colomar <alx@kernel.org>
-Primary-site:   http://www.kernel.org/pub/linux/docs/man-pages
-                2.7M  man-pages-6.16.tar.gz
-Copying-policy: several; the pages are all freely distributable as long as
-                nroff source is provided
-End
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Changes in man=
--pages-6.16 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Released: 2025-10-29, Aldaya
-
-
-New and rewritten pages
------------------------
-
-man2/
-	fsconfig.2
-	fsmount.2
-	fsopen.2
-	fspick.2
-	move_mount.2
-	open_tree.2
-
-man2const/
-	PR_FUTEX_HASH_GET_SLOTS.2const
-	PR_FUTEX_HASH_SET_SLOTS.2const
-
-man2type/
-	mount_attr.2type			(split from mount_setattr(2))
-
-man3/
-	_Fork.3
-	countof.3
-	memeq.3
-	streq.3
-
-
-Newly documented interfaces in existing pages
----------------------------------------------
-
-man2/
-	mount_setattr.2
-		glibc wrapper
-
-	pidfd_open.2
-		PIDFD_THREAD
-
-	pidfd_send_signal.2
-		PIDFD_SIGNAL_THREAD
-		PIDFD_SIGNAL_THREAD_GROUP
-		PIDFD_SIGNAL_PROCESS_GROUP
-
-	quotactl.2
-		quotactl_fd(2)
-
-	readv.2
-		RWF_DONTCACHE
-
-	sigaction.2
-		SI_ASYNCNL
-		FPE_FLTUNK
-		FPE_CONDTRAP
-		SEGV_ACCADI
-		SEGV_ADIDERR
-		SEGV_ADIPERR
-		SEGV_MTEAERR
-		SEGV_MTESERR
-		SEGV_CPERR
-		TRAP_UNK
-		TRAP_PERF
-		SYS_USER_DISPATCH
-		EMT_TAGOVF
-
-man3/
-	abs.3
-		umaxabs(3)
-
-	opendir.3
-		ENAMETOOLONG
-
-man7/
-	operator.7
-		(type){}
-		alignof
-		_Countof
-
-	rtnetlink.7
-		RTAX_UNSPEC
-		RTAX_LOCK
-		RTAX_MTU
-		RTAX_WINDOW
-		RTAX_RTT
-		RTAX_RTTVAR
-		RTAX_SSTHRESH
-		RTAX_CWND
-		RTAX_ADVMSS
-		RTAX_REORDERING
-		RTAX_HOPLIMIT
-		RTAX_INITCWND
-		RTAX_FEATURES
-		RTAX_RTO_MIN
-		RTAX_INITRWND
-		RTAX_QUICKACK
-		RTAX_CC_ALGO
-		RTAX_FASTOPEN_NO_COOKIE
-
-	sched.7
-		CONFIG_PREEMPT
-		CONFIG_PREEMPT_LAZY
-
-	tcp.7
-		TCP_SAVE_SYN
-		TCP_SAVED_SYN
-
-
-New and changed links
----------------------
-
-man2/
-	open_tree_attr.2			(open_tree(2))
-	quotactl_fd.2				(quotactl(2))
-man3/
-	umaxabs.3				(abs(3))
-
-
-Global changes
---------------
-
--  man/
-   -  Update documentation for POSIX.1-2024 (still more work to do).
-   -  SYNOPSIS: Use GNU forward-declarations of parameters for sizes of
-      array parameters.
-   -  Improve style of source code for tbl(1) tables.
-   -  man2/: Use the common name 'fd' instead of 'fildes'.
-   -  Use semantic newlines.
-   -  EXAMPLES
-      -  Use err(3) and errc(3bsd) instead of similar macros.
-      -  Fix includes (thanks to iwyu(1)).
-      -  Use NITEMS() consistently.
-      -  Don't name unused parameters.
--  share/mk/
-   -  Add support for the chapter man3attr.
-   -  help: Document the usual targets.
-   -  lint-man-blank: Add target to lint about blank lines.
-   -  lint-man-ws: Diagnose spurious use of white space.
-   -  lint-man-quote: Diagnose an unmatched quote.
-   -  lint-man-poems: Diagnose (lack of) semantic newlines.
-   -  lint-man-dash: Diagnose unescaped dashes
-   -  Merge handling of man(7) and mdoc(7) pages.
-   -  lint, build, check: Move exceptions to separate files.
-   -  Remove unused variables.
-   -  Unify local variable names.
-   -  Silence diagnostics about unnamed parameters.
-   -  configure/build-depends/:
-      -  Add awk/awk.
-      -  Add pcre2-utils/pcre2grep.
-
-
-Changes to individual files
----------------------------
-
--  src/bin/
-   -  sortman(1): Fix order of intro(*) pages for subsections.
-   -  diffman-git(1): Show sections as hunk context.
-
-The manual pages and other files in the repository have been improved
-beyond what this changelog covers.  To learn more about changes applied
-to individual pages, or the authors of changes, use git(1).
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---c3bbmtjujgvpbaml
+--ancuvpz55b5dyajj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkCFasACgkQ64mZXMKQ
-wqmBtRAAsHe6jbrxZSgaP2zT0yESE6S2wrGb4Q1cVd5iE+OwAnvsfQsarLxBshNI
-X3R7joraZunvb84E5rBud+y1MIoo6EzvaxzqBmW/Ftr1+68BMb2eDW+jBiDZWwes
-J4HdYFMRJx1CIj5oGGYZJCZMEmWgovNo5REqxW6kQnSt2o+4CaS41ysBoIpWamoF
-IkhLhp7V1kuRyUIaumiZ/Fhl8g73kTZ0Xxuelj1ta943Tkna6RlvcOUaOgdhFpNy
-o/DahzyVRzfUzaBbSsqTZM57p2LQIFh+KMDY3q/YWq0d0AqtoGrxOZUso8SW3a5W
-hW4c71gxuk8xxiTvrCcb3lZosdcqbEsMUfwF6NDh9qHEq+21BIiHUeDb4N7NAx4p
-PPkgx29N6PKCQxz+go9OMi90n+MS+SW02oi0ZCOAhmIsZWKO/c64DILftvZouZET
-wKyo/PigRQWnkP0PeKX/Ord5KotrjADIAhOAY7BhXcEKm1KCdEa6k8bmJeDSKpMe
-mXIEjtkwB9KAqX8/tqqQCylMOZ362f3v2xAYHzFR517ynjvndLWGotJyL7IEob5f
-aonR6Y/GEuIZFpZf3i1fZgTvjsuU8Eep7TwlGPt4amWiJ/2Pb6/MLJNJjGctgn0m
-A4r7sRDRKn6dYcv0oWxtY6/UbQ41P/+TDQHrfaPcO0jS9pFU+ZU=
-=vNjb
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmkCMUIACgkQvP0LAY0m
+WPE1qQ//Q1y6+cp+Zum0bWPJ+/zygdK3gnmxe3f3DfrijK4JEzMNdCkN3lcdaqqp
+k3beTChDUrshneTmPv0Sv5KzGJCewlz1iHK7ZSsy3JMAFuMxDmpHuagFfAhxRLn8
+hiAKnEDcBr6xTl97AtaRbQeVy0Kjcqsnh1VJROour/AZuCymGdJUXoA5tcFZufX9
+OTZErMYFJDam2K5zWbPYgMVmw9AU+j0l11kAMLPbcWRjsv0Vfb4pPgjrvq+gmedK
+rDAyvckvMo8j89MK7J4RN5KCIfs1l03tEzCzO4mOPHZG6zkgL4xRrvGXjZdduz6C
+wiK0G4Xgsce3Rke9M3wi9TJv9jxD+prfSy1S22ths4+Iwirb+PkQE5pGOtzincfm
+KKOkaELAuBeLcTr60CCOBgq9VTAY5d53viZWaSKvPIwFdMN37jHyH3/Myu3KSb54
+Umu97E9Ci621MUQu1LXOapJgQcpSrqCJcNepLPJRb7ugarxc4ZWJQkC/SrYT5pXk
+NAnPiUOXOVFSx5FZKi5CPxabGXnOK4ztj/CVl7BWrAiSBSBM1SHwSIYN6OFQ9c0w
+oChJfH4nfH/X62STRDjNX6+iAddFzyZ/Yn1fa9x9EwfVmrPd+FEEC6ogaCjsqE8t
+Vy7cQ3X+TMzutmL+kuFGL2yNf6X8vSeKGiXf856AFxCwWkb7+5s=
+=fCh+
 -----END PGP SIGNATURE-----
 
---c3bbmtjujgvpbaml--
+--ancuvpz55b5dyajj--
 
