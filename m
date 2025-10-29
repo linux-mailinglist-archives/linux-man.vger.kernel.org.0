@@ -1,160 +1,232 @@
-Return-Path: <linux-man+bounces-4216-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4217-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C4D2C194FE
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 10:10:48 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id AE5C4C194DD
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 10:09:47 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id ECBDF4070E9
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 09:01:06 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id BD2D91AA1E7A
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 09:08:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8C962DF6F8;
-	Wed, 29 Oct 2025 09:01:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C62231E115;
+	Wed, 29 Oct 2025 09:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1RUxSyM"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YZHHX13U"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com [209.85.215.196])
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DBE1A3164
-	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 09:01:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0554311978
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 09:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761728463; cv=none; b=KLoDpO4aDvzoNtK2e0Cq7KD8hgzCD+0jn/+2ihm8e/ugeVqAzRMdGLuZEgOl4/+XW2EkXJu6JZtt2tFsV43TC51udVlFKOu2uZnJ1uvSNvjHT/zBaQC9oaiq48TLzS6/2jdH89SRJSew/u4NxmNjsXuvvpL0v1WYNlrtDK0zmw0=
+	t=1761728845; cv=none; b=RcEwBmltsfRo1hbJjAN0FFvwwrUrLgoekyg2034zNVC15TaVqS5Q9cqBNTVx+O807a0IAd3gOz3hSxqalxK9YyUmFRwlJZNm+0h5fF6+J7G98HGkIpMwDfG9dvD1iNV/YBDIhgMh/HsbkByAqNkk9zXywt/H9nL7TK7/cF1P7+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761728463; c=relaxed/simple;
-	bh=jQhuuAvoKgkk6vfmb3VFERiNTx6StUXHjNHCAWBJip4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hzbnD7Gs1aRY3vbEdPoTFD0C75hBbXlpxdb+m9PZ6URS2TyYoaKGHUBv2uxOMKi6PMI6QUei5GEiaJWeoObgQGSkb/IOEuuzeAEa9Ys8WU0/9LeYdm+cXts1GgQjh5a4Q/Qq4YeM3ellU1zJSV2QiQBpnt6j4Kh67lN0hxafXK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1RUxSyM; arc=none smtp.client-ip=209.85.215.196
+	s=arc-20240116; t=1761728845; c=relaxed/simple;
+	bh=1txVME3ng5Gd2DCrYv0RwrWb4URVUt/ti/HgG8Kfxfg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kKUKNOBVhNCkINDLHhmQaNt/Hv2xaLSqfaHIf0LPx8+TtGJLM97EooZow4n5+jRuyTprG1nGVUr2kLaAAw5DLPmKDX6/xvvdzvtnTqJ0yAiS2CshYKCkUaDHXc8JUVcDGjwUtue61aheVJedc+P+5ATPXDpJaY8TnwEpv3wPEY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YZHHX13U; arc=none smtp.client-ip=74.125.224.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f196.google.com with SMTP id 41be03b00d2f7-b8aa14e5ed9so488853a12.0
-        for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 02:01:01 -0700 (PDT)
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-63e393c4a8aso8191450d50.2
+        for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 02:07:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761728461; x=1762333261; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IUwDe+S5e4Vj4jBiFCqPV2Mo5aWLB9NDL+lhcB1gW2E=;
-        b=h1RUxSyMayik310C3Re+CfagmQKHbNR3CDnvrulhZ2c29pGx/v1riybjNKuUaUXYxk
-         GpGRDgwyFyDWNUXXzfJk+hNsOQ0vARQ7Bdi5Sujig2rpWMzAatwVzjg8K97ce7r3+Rof
-         W4o9r1Vx1Ldbt02bELgxQ5mL4fvHo941lfsGID9Y/dmuulr0WLavqRjHz4oM+e0YVtQE
-         C16x6Niny18jpTVy4U2soffozT+YJcVJ5eOlfDmSmv8JV9KxbsF3UicUQLzR+xfo9L0d
-         TiWGqRION/7Zi4WCLq8zC0K2D5bsKj4jnzsBpJi4+rKxx97VbZPDgk7dpVT8Ku5Vnb1c
-         1XJQ==
+        d=gmail.com; s=20230601; t=1761728842; x=1762333642; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=mP9dNzXMt+ontptqoBbTI8ltxgJAjLoDMAeajzutyG0=;
+        b=YZHHX13UiHBQWguXFdp7cpieNmZrzW+AAyGrrcPPwY5ItAHm2XaIFIxBYEN7AWXgUE
+         j1O+6SaOBt0w5mO+JdueoCDrOTu2zKDttTRAZBnAKhltF9lhfVnmgvrBZV/qZs6P9qrp
+         mn/qLuR7JjUxEL+/vWoAsXSP7fxDSIYWuJ/e5lUF+xyQF+kFNpoPtYDmKkz9vMGq2guM
+         DQzmby8ATaRUiD5bDEI+Ulb3mgsP2j0SYLSD90DoWs8O28AfDqRVawTzw93/TYedCVF5
+         oHsK88MQ6istVls6NziCh/RVMpmSzHSWV1K+jBJoaBhjC7GGxaqqXjL3BQuSJok3H6Kx
+         HnzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761728461; x=1762333261;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=IUwDe+S5e4Vj4jBiFCqPV2Mo5aWLB9NDL+lhcB1gW2E=;
-        b=U/LLmylcftjYJ4j30PcpuZoCxUK0QFv70iNqc2zYd2jJLDPKvjSkIpYXiU++u2nFQ4
-         nOKICTYWdu0VWvhkQtD6fhyoiPLo2yarxFq5+zjssODGcMeNUmPL338xI9pooTt5Dk9K
-         gFgQzYtdTB1ZsrD44yMmgWdQoI60ILAJCRK/U3G4GC7sfNc64zv4+BijTwJCC7ZqFNGo
-         7ixhRoA7HV7PjEG16YgQSPhNxjFkYLOqzKM7XsAxGPXcP5QEmnokTmrX467ENfe+gAha
-         DQ3KWViLsDvJZztyQpl64IO5KbxfrDsQ2vqQj3rSmSyTITlz/zDoZzdR1DxDxOk7+S6x
-         aWig==
-X-Gm-Message-State: AOJu0YzSF60OrzYw1SYIvLFl7YjGUReCQVK+PaMo9v8VQJF2vQYHKWqe
-	kVp/umOyOeewx3po6tCfeRu28SLgEpSZKqGZO198LJFa0Hehqi/vwEehofa8SQ4z6p4DC7WJRMm
-	IlyOGyIEs8MLW7ILoFrSlZ0pxpJ2JKSP1YFSSZoo=
-X-Gm-Gg: ASbGncvzuMXDv7XpKbnhFEP5UXRg2AMAsgsZsZPhNDq3zbbrhWfEyTzTJEs1dhuYwk0
-	9hLsZEDT2MIq6Yx7NAmE3M8ErH2c5F6NXhGOe3PS8wxQ7v6Wug8x8tWKrKYQHI8uZWhGknqVu/6
-	lL3/kDwjsE19TxaFxSeeOYx3jdK9j7BbrwjpVJqRsSKM/4YYFT6aBxKwmtr19Gn5s/E/Bkwo2Nm
-	fPTGcxMz3mwc0oOlU233LMc/8DoR9gYQTA0qNXBEgpbckNmBSrUhBrrnnb6Hbo=
-X-Google-Smtp-Source: AGHT+IEyxx6Sq0hZGAlRLWTS97VWoSc6zGwQOtw6uII/95srKVXzkTRekQWkkYiSNvyQhYLdOZ2fy+pcsXJIBO+Xl8I=
-X-Received: by 2002:a17:903:2f85:b0:264:ee2:c3f5 with SMTP id
- d9443c01a7336-294dee29c4cmr23574625ad.19.1761728460916; Wed, 29 Oct 2025
- 02:01:00 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1761728842; x=1762333642;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mP9dNzXMt+ontptqoBbTI8ltxgJAjLoDMAeajzutyG0=;
+        b=c5PBFsVDbj9KrwjsPL7Rq9I6HK+gVll2I+kO124xF9AfU0P3Lf1CM7ibW3Uvzup+s7
+         XOdkfjrYZAsaMp+9Aid1MioqB+DX3dVKxs2wQcsNqOf/UAbBTPOyRXnGtB8nTWbDS6O3
+         EaSoSaGHvLwQWFRFDqG712bJnZTWYlGpPgPPg5TFZTuQ2OydNKD/BX57AYSRuxwzH1UC
+         ofII4zf3av1Bl8OvbqXnPjd0XOeZTyMXODlEP8r93Ec9SDAcpwauUWtUAHXQr/s5o4nD
+         yOtk3SQJQXV54X+KazXNbK/y3mB10LKut/uiZ2qKA265rSR+XyQZmJqu8gi2F6Yd9eXH
+         q7LQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWAtu5ovHiHvMOJUtDM28oewXXM+8Lc+GceMWJa+ljmwWxpalhRawxC224WP/xlg4eCHB2uFQM7xJg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLebDHgmexEETuYhJlXKb3Oc6JBP73EFTufpgMf9PsoRM0THNb
+	TLLKeWkiBYNwUqG/vXPAsf65wdpKWKEQjwFPZUbjOMk6BTRKJc/np6zg
+X-Gm-Gg: ASbGncvjcbIFHE7eR0/EpHmmHMyZ8FlPz5uy7nv1D8Hcdj/cBc1ijX0/z54OEPauwuv
+	opC5IWEwMwkBmreMIYPkRwLuYswp/rbCwloY3m+8mlNITybCMKuvMIuWTUkZGjqUUE6PyEPq45u
+	o6IPUYdCfnWuCUP+Er5hZ9q6p3MJi9CEMn4Wqugw9/GG90lC+MZ+b1HFDMsNuWPAJFslf4SJLCD
+	XlvBXes7PXC2GVgSJM6bCtaVaJCVLeOPjbNwV/cqS7iE4Ew7Tzk1yI7AsCn36hwtVYQUyBM5YPi
+	4SnQgAScV0ctTdbtuZGfT9iaqKNuokKcYpsCIq6uVSDY67Zpx37PbAy2CWeMeioRNAdPL81DE4w
+	LaTW6wsPln9aliXZIaB0TvvRAJaYz8dcTPjnwakH9FoapJL5nnkL3GmFRTE7KGuGxdQ==
+X-Google-Smtp-Source: AGHT+IEw4GnjVCta2MFf3zfTQ8N1SGb/7GocOKxcncpMghOfk4y/2P18gcAHLzLG+UACGle1LgH3Gw==
+X-Received: by 2002:a05:690e:158d:20b0:63c:e90c:a6d3 with SMTP id 956f58d0204a3-63f76cf6311mr1623292d50.4.1761728842377;
+        Wed, 29 Oct 2025 02:07:22 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-63f4c4535basm3973844d50.19.2025.10.29.02.07.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Oct 2025 02:07:21 -0700 (PDT)
+Date: Wed, 29 Oct 2025 04:07:18 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH 4/5] tm.3type: describe tm_zone, tm_gmtoff
+Message-ID: <20251029090718.6xpq6zf6iawjta2j@illithid>
+References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
+ <a8be8830890c50b1a36e9b7d20693c19c77ca4e5.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
+ <90beebd3-2636-21d5-323b-766c8d81d6d3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <b959eedd02cbc0066e4375c9e1ca2855b6daeeca.1745176438.git.devhoodit@gmail.com>
- <e2wxznnsnew5vrlhbvvpc5gbjlfd5nimnlwhsgnh6qanyjhpjo@2hxdsmag3rsk>
-In-Reply-To: <e2wxznnsnew5vrlhbvvpc5gbjlfd5nimnlwhsgnh6qanyjhpjo@2hxdsmag3rsk>
-From: hoodit dev <devhoodit@gmail.com>
-Date: Wed, 29 Oct 2025 18:00:50 +0900
-X-Gm-Features: AWmQ_bl9f3gHaYptHoYabHsvKO58o6lKLlx8-0mWznmYNGurQ_CmfsV001sLwHc
-Message-ID: <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
-Subject: Re: [PATCH] man/man2/clone.2: Document CLONE_NEWPID and CLONE_NEWUSER flag
-To: Alejandro Colomar <alx@kernel.org>, "Carlos O'Donell" <carlos@redhat.com>
-Cc: linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="sny5vjceisalonmp"
+Content-Disposition: inline
+In-Reply-To: <90beebd3-2636-21d5-323b-766c8d81d6d3@gmail.com>
+
+
+--sny5vjceisalonmp
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/5] tm.3type: describe tm_zone, tm_gmtoff
+MIME-Version: 1.0
 
-Hi, Alejandro Colomar and Carlos
+Hi Alex,
 
-Just a friendly ping to check if you had a chance to review this patch.
+At 2022-07-19T14:17:15+0200, Alejandro Colomar wrote:
+> > +.PP
+> > +.I tm_gmtoff
+> > +is the difference, in seconds, of the timezone represented by this bro=
+ken-down time and UTC
+> > +(this is the reverse of
+>=20
+> Could you come up with a more mathematically precise term for
+> "reverse"?  What is reverse?  The additive inverse?  Maybe use
+> "additive inverse"?  I think "opposite" also has the meaning of
+> additive inverse in maths, and it's maybe a simpler term (although
+> additive inverse is more precise, IMHO).  But reverse is definitely
+> confusing to me.
 
-Thanks
+I think the idiomatic term is "inverse".
 
-2025=EB=85=84 5=EC=9B=94 2=EC=9D=BC (=EA=B8=88) =EC=98=A4=EC=A0=84 6:30, Al=
-ejandro Colomar <alx@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> Hi Carlos,
->
-> On Mon, Apr 21, 2025 at 04:16:03AM +0900, devhoodit wrote:
-> > CLONE_NEWPID and CLONE_PARENT can be used together, but not CLONE_THREA=
-D.  Similarly, CLONE_NEWUSER and CLONE_PARENT can be used together, but not=
- CLONE_THREAD.
-> > This was discussed here: <https://lore.kernel.org/linux-man/06febfb3-e2=
-e2-4363-bc34-83a07692144f@redhat.com/T/>
-> > Relevant code: <https://github.com/torvalds/linux/blob/219d54332a09e8d8=
-741c1e1982f5eae56099de85/kernel/fork.c#L1815>
-> >
-> > Cc: Carlos O'Donell <carlos@redhat.com>
-> > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > Signed-off-by: devhoodit <devhoodit@gmail.com>
->
-> Could you please review this patch?
->
->
-> Have a lovely night!
-> Alex
->
-> > ---
-> >  man/man2/clone.2 | 9 +++------
-> >  1 file changed, 3 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/man/man2/clone.2 b/man/man2/clone.2
-> > index 1b74e4c92..b9561125a 100644
-> > --- a/man/man2/clone.2
-> > +++ b/man/man2/clone.2
-> > @@ -776,9 +776,7 @@ .SS The flags mask
-> >  no privileges are needed to create a user namespace.
-> >  .IP
-> >  This flag can't be specified in conjunction with
-> > -.B CLONE_THREAD
-> > -or
-> > -.BR CLONE_PARENT .
-> > +.BR CLONE_THREAD .
-> >  For security reasons,
-> >  .\" commit e66eded8309ebf679d3d3c1f5820d1f2ca332c71
-> >  .\" https://lwn.net/Articles/543273/
-> > @@ -1319,11 +1317,10 @@ .SH ERRORS
-> >  mask.
-> >  .TP
-> >  .B EINVAL
-> > +Both
-> >  .B CLONE_NEWPID
-> > -and one (or both) of
-> > +and
-> >  .B CLONE_THREAD
-> > -or
-> > -.B CLONE_PARENT
-> >  were specified in the
-> >  .I flags
-> >  mask.
-> > --
-> > 2.49.0
-> >
->
-> --
-> <https://www.alejandro-colomar.es/>
+The existing language I see in my man-pages checkout looks fine.
+
+tm(3type):
+     tm_gmtoff is the difference, in seconds, of the timezone
+     represented by this broken=E2=80=90down time and UTC (this is the addi=
+tive
+     inverse of timezone(3)).
+
+> > +as a variable, is an XSI extension \(em some systems provide the V7-co=
+mpatible
+>=20
+> I tend to prefer the em dash to be next to (no whitespace) the
+> enclosed clause.  That makes it easier to mentally associate (as in a
+> set of parentheses) to the clause.  I'm not sure if it's a thing of
+> mine, or if it's standard practise?
+
+Practices vary.
+
+"Spacing around an em dash varies. Most newspapers insert a space before
+and after the dash, and many popular magazines do the same, but most
+books and journals omit spacing, closing whatever comes before and after
+the em dash right up next to it. This website prefers the latter, its
+style requiring the closely held em dash in running text."
+
+https://www.merriam-webster.com/grammar/em-dash-en-dash-how-to-use
+
+> > +.\" FreeBSD
+> > +.BR timezone ()
+> > +function.
+> > +The
+> > +.I tm_gmtoff
+> > +fields provides an alternative (with the opposite sign) for those syst=
+ems.
+> > +.PP
+> > +.I tm_zone
+> > +points to potentially-constant static storage and may be overriden on =
+subsequent calls to
+> > +.BR localtime (3)
+> > +&a. (this, however, never happens under glibc).
+>=20
+> What is "&a."?  Is that documented somewhere?  I didn't know that
+> abbreviature.
+
+Possibly an abbreviation of "et alli" (Latin: "and others"; modern
+abbreviation "et al."), as "&c." used to abbreviate "et cetera" (Latin:
+"and the rest").
+
+In English orthography, "&a." is nonstandard, possibly archaic.  ("&c."
+is _definitely_ archaic.)
+
+I'm not a Latin scholar, but it's possible that "etc." is better used in
+reference to other parts of a whole.
+
+"Dude broke my arms, my legs, my ribs, etc., and laughed in my face."
+
+And "et al." is better used when making collective reference to other
+independent entities.
+
+"Art Cohen, et al., brought a class action case against Donald Trump for
+fraud."
+
+But if a real classical studies major tells you I'm full of it, listen
+to them.
+
+I snipped your advice about avoiding Latin abbreviations altogether,
+which I continue to endorse.
+
+> BTW, if the '.' is not a sentence ending, it might be good to mark it
+> with the ineffable \& escape :)
+>=20
+> &a.\& (this ...
+
+I'd avoid use of "&a." altogether as it will confuse English readers,
+native and otherwise.
+
+The dummy character escape sequence is not ineffable.  I just effed it.
+;-)
+
+groff_man_style(7):
+     \&        Dummy character.  Prefix an input line with it to prevent
+               a dot or apostrophe from being interpreted as beginning a
+               roff control line.  Append \& to an end=E2=80=90of=E2=80=90s=
+entence
+               punctuation sequence to keep it from being recognized as
+               such.
+
+Regards,
+Branden
+
+--sny5vjceisalonmp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmkB2T4ACgkQ0Z6cfXEm
+bc5Ajg/+MC9Gl8woCrf649VJMGHe7JNNJtkDrNK8jboYKhKjKlBUbZ5fs7uQn8Pk
+S0axqk59yrGWxEAdAeI38sT/P0gjx8+RPuNnPrz0d3acJiyIByGJeJyMsghdwUuH
+8E2KbgCiRHYc5HnHkUBieDlrRW+hJ1txPUAOqs6tCp4pEr09dek4xCLfh3FLJXB0
+p1cuRG9wM/lhP3XDTd46z2CG31jZK2z/DhNjFg6ofD6Y5ep1XzRDI/0gyswQUAku
+9CXQ4FAquGMl67WMWq7Bma3kR4D2RHySkdm4Pt4Yy3Ehb8reel43djvhd1KFw9+T
+bS6B0UG5SsMokYxChjxdGSPrlV4B5v7QzYLZXNdmC2FL9eLG/Y814WP7RG2dPDX9
+U1decHRADsIkBp0UnHnt3pq+eDD4MCuEsXmZRBr+8bbesTG9a73x0UvXkBfTtWbZ
+m/USSO0j0ifTQI5nO9JSDsc/aRSkM3sqnEaXSdNM2sa3IRaulc6ygzhs40HN9Oc4
+lg2camvkymI27558Y6Uk3T3BLFYEJH5LsBwIrP+Ec7n8inIt37oGNojDYM+mm63F
+tsBkKM0aY0pis8to4Sl3m9gn2nqQODLIkvsg4GSpgiBgsDuBXdKrC8bmxhu3Xa3+
++LWU+XyxjbLBGNenWIyvll14lecLBCI0/zWAIuCAeVasQ1MsbcU=
+=+GQE
+-----END PGP SIGNATURE-----
+
+--sny5vjceisalonmp--
 
