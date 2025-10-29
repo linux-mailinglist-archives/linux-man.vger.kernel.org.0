@@ -1,134 +1,106 @@
-Return-Path: <linux-man+bounces-4211-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4212-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9805C18061
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 03:14:05 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47911C180B6
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 03:29:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 67C7C4E348A
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 02:14:04 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 7471E1A2712C
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 02:29:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50B732E9EDA;
-	Wed, 29 Oct 2025 02:14:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 161862D7DC1;
+	Wed, 29 Oct 2025 02:29:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aDyYnGpw"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TLpkAiay"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com [209.85.160.194])
+Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com [209.85.222.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F756260587
-	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 02:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472AB2D73B0
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 02:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761704042; cv=none; b=tHTIVgOtVVIZgVNOHIcaC5fdcbDzZCdsB0R9OJcMw4nvor0mQZ3rmdPwXZZVMgOzHPe7c1ZWyxVnW5NfmqrpkzvGu3Vc2V4GfLZ/3IvAOIYqfVtFfUelg/cshcDmMlxzsfVfTGy+RluhWFbUmZ/u+MPlOohELh6/t4MWWbagrmg=
+	t=1761704959; cv=none; b=jyzApTLiQiwzpPk2eVLL9MEi5P7E8Btuq1UbqbFeH8yOYTQe3yD37xor2AQoHCndulwDZjuZYeaPyuxHSnkLvWWxpuLqvQ+UIBFELLulvNWnIiraBqxCm6iXloCVUvD/4mP+PcKn3ZsU8b1SnwcopL6AQVlrK+EFLLhA9ZWAeS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761704042; c=relaxed/simple;
-	bh=RkPMZDI2fSCmOUdTk+pRdEia0CuDx6VL41N9mkBSqsE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dTvMOUiJKj1trfaiAzF8SWTvSBMitWT6PjZj85KHudVyhE/TzWQ7sk/SKhrAObkelnXo3DX6a6A7jZp1N3MvdTfSNzEUcqXjGgJyH+ryQmoqzVfVVot/2dzHIo8ub+s+x9/P622ZvMW8Eg6HfsdiWz0xRmTn2JQup4k+Rn4p/HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aDyYnGpw; arc=none smtp.client-ip=209.85.160.194
+	s=arc-20240116; t=1761704959; c=relaxed/simple;
+	bh=hwuGVgbxkfrPehaVc1+yKjSuJdyvDm42TyLWIl1/U6o=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=APfwlVsdYmoyQApJgKkOR/Oro+K36iYTh36U4agNzsqNDfzIzAW6IeXlowGYwc9QrLaB6u369VJQRa4rZmGx0TI6PeuOn+UdwLK9EGhzv5WaDmSQ3BEEpgx6znKzNcvpDeZSnfAUcHoojTkDbgFsJgJzGolQrAGJZhlXFbQdrK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TLpkAiay; arc=none smtp.client-ip=209.85.222.196
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qt1-f194.google.com with SMTP id d75a77b69052e-4ecee8ce926so31035141cf.1
-        for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 19:14:00 -0700 (PDT)
+Received: by mail-qk1-f196.google.com with SMTP id af79cd13be357-85a4ceb4c3dso617198585a.3
+        for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 19:29:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761704039; x=1762308839; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9FWGO09obzy5Yd6srHFp1/ggQCAKyxLjPIUzikwp1jg=;
-        b=aDyYnGpwB03AE6TWNmmyUOuo5qpRwe4jse8qCeha6ecRm+Upv4KC4Pa80BeQNfTt6W
-         nyu/z3hShA7/H2UHaYnGfE+4cGpjDa4taujjl8V3d4NAq3ZBzhfOnR2ESNXyPz2GS276
-         LLex9s53lIyRfkBQpJJIX4zcDeQ4J0qDN89JUTBC46YrAJYbEyfTMo1loNs+GeA1Pfo2
-         35cLfLZWE+rWqsqdtNMxysJg85ZROaWOZYJ++pWJk7rbY/wts/hqhLq0Hq5DVXQ7nftt
-         0XJS7HHOrcr98eQgL70AHp4MUqZdALlDW033tytJ3rKCUhpXeUFI80JUpaHcy1SCuDa4
-         GZoQ==
+        d=gmail.com; s=20230601; t=1761704956; x=1762309756; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hwuGVgbxkfrPehaVc1+yKjSuJdyvDm42TyLWIl1/U6o=;
+        b=TLpkAiayoYpl+tE/Q/uqQkyFgw3Zh0pOfl9o/XAZ/jyS0MRiDMYiUh2FxcImzGmtIg
+         LyVJ8138f8l6gwSh5ozSJWYJr3AwjkZWbd1mZm1PJoJFC6joFrx4n5Mx79nOS2Gb64VC
+         93Y1XSwOQ5QRIB44Ho7338Ddkf0xCPSYTYHXBL4K5cO7szkjs8Xy3Bhhhzr4i6Zf0LQy
+         LY9HJTGF5W8xFHBgRX5A6LA9MUzTFXyEut9Nv5zyY198q7N2YqSjjvLCfjJvGyLbadti
+         XcPgCRNOgUWvJqvPbib7XrZRJDiZwelgPrVpRkzwH9PF1sSK+ZnrcNuWHUDjvtWKhfXT
+         GTIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761704039; x=1762308839;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9FWGO09obzy5Yd6srHFp1/ggQCAKyxLjPIUzikwp1jg=;
-        b=sqAYdXp/3CkB3s1RjqmtNKmLhFBNb9yu90MA3nhqBeBXvvou5udGsf3Z4Tc4ufN8o7
-         SNejC/F5oX+Ab9kRP5jZgfVI+evnfQVsEWdT5zpHwz5GdoScqtoyXuuRWyjB5Dq51ba3
-         dunrIksw+oD8wbQgvXmCgXtTgRpcWrf/fIZD0ZS9BjtOhdWXcvnFZvErCvZicKDycbN+
-         Pu17lmM78vRgR0DzS0kee3wDq+FO5ZS1DxFEEoCuhs5jDd+8Xt/QNvxD0UNIT0nNe+kC
-         w7czAU1PVArpJ2qr4iRJyVm0qJjwIY3jx+QPmbtt9AnDjPJRnEmzjr7cjhg5U/RWm2I5
-         h/uQ==
-X-Gm-Message-State: AOJu0YxQGxwwLuQmROV6Mbk9vmPv3C9DsAe/ryzhLhuqU0SHfs4ZSSp6
-	r21Q7yaY5SGtFa3S1WgB7D2HkwIqzvMP4bqBvFGo9Q/8PfbLzAe4zZgE0EpZoQ/Vxve7aw==
-X-Gm-Gg: ASbGncst4K2eeI6Y6Eb4obHJ0emJjArhZ9rSZ99lYytYj2oiZYWf6QGC/SkPw+7rIAU
-	03W8lkbUI4RslT4RzvC9Mc3m1SnaGkiiEejWSPhl1biXvh+/spqwCQ7QesGPmbM+BGbOBDzFVVB
-	b1SJEJIixDyHAtL8ETAEZomKeguemrsmnHunrDAKbwO8dL/Isybd7yj3ZzPXRNGj5cK8vf3wLyv
-	A3csKegAoR7kuKMi/MOlMoSWWYglDCqHsSgOM92r80pPErZLP5oKffHwY6KpNb+PGhS5M3KOzJd
-	V/OR9hBimdnphhLoJwigFznSTqBkAT4XGU314/jBs/qBw9qSxXe2bRNDON/qhgspp1Tb0Ep3zY6
-	URY/a3mnac8c6dcI4R3XAMRILKkJzz3ou/CEtdz+jYYYCVNrOqH5wNyciTNoYZqFEYOnA1wjc+q
-	lcCN9h8u/G0hjhAsQt+tOb98cuvRd7mZeCNcklvI2b55kbD8EqgT+6yARrhRA=
-X-Google-Smtp-Source: AGHT+IF73RTl/SUy6QNWksbQWfiDwXxUu57w2vsk8RKQojeuK41cQ7lHBsTsSNj6/sksgryXIzSH/w==
-X-Received: by 2002:ac8:5ccb:0:b0:4ed:d2b:d43f with SMTP id d75a77b69052e-4ed15b53ce1mr21413751cf.7.1761704039303;
-        Tue, 28 Oct 2025 19:13:59 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1761704956; x=1762309756;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hwuGVgbxkfrPehaVc1+yKjSuJdyvDm42TyLWIl1/U6o=;
+        b=S96DX4FuYlXIUc6zl8ambS3lksOeWl1JlZKAPiiKgY2Cqqwzs2BQ2SHMpA/O/2OdYi
+         3IsVL/W5hPkkrf2ccOuZyGxmq0eHKYIzVqo4Ir811VIuE4BkYGLQetsL+n1kEIbI/fzg
+         jNNgVlzQIIZqv9WQqcW8Zn180ZFxG9Sxcfw9B082fCbcRfCky0sMSyJ6+Afh36Lu3SLs
+         5F8NMSsAsD8wdsSnt56Q5kUMiYVLLaufv80ONXINWwZqUZr0cBdCbHqfsNacYIafA3QT
+         EoZ7rL4ExFctWEvFoGbMj26n7UpjF89z/por59dYhWXXJH6WUDmojdwIPoYe2XH3IXBi
+         Uyuw==
+X-Gm-Message-State: AOJu0Yyrb3vI6aGl5Jcjzmvhb+YQHIWncEiNcuFxCHNNCuTzergCZmqQ
+	k5vQUBRR9hAgHuEDK1jzJIRoa917TKYbI7rKCgJVdEOv/RlOdH8AresFfOU+qwbPZC3BSA==
+X-Gm-Gg: ASbGncvyip3hwAXwH8quqD+gm9YctnIHyGWmlAoJT7tes8ToQVfIDUzGnW0MBigTRZp
+	tzDM065g4ex/vatu94Gn9oQvW7IYmQP8yOPMaEdR/bQ8q4Y/Tun7Atkgu+GUCW33ToWF80OxZ7Y
+	Sa6cFrZptiwTz8jV5WG38GG3OR6XM1wncKWh0htXkaprY4B3YMMwx27MEZOtanoJe1y1yA2LvPD
+	QhfuKQU+9b5DOrslWVgx+oLeFQ7lzywK9ffho7IpxdTQC8uuiyw5rPChdD+mLTeqEltWQau4O/K
+	affRWcHBmof2A2xRANkVOE/pRMuMgAgnGzjkPJ2Q6S6HC2S6ukLRev3jdCUJsEg8xXE3MCEDZku
+	YmkswPhkTUadp8etsM53BjVef46hsXBEjfo91BTHwlJqF7pYtSbJBqDDcx5Css2uHKL5fPnlFMi
+	PnMDenTX1RLmjZQlPA9xUI9BPAsjqrWEBbGRVfLABKfvtWzNafcSP2ma8qqjs=
+X-Google-Smtp-Source: AGHT+IFSck3iRX2O3F8AxNGNXrPTbir+6Gik+r47JYB82kZ9S1Pgn6bkZm8SG3ldQsf85WtWxZTlIQ==
+X-Received: by 2002:a05:620a:6890:b0:8a4:6ac1:aed with SMTP id af79cd13be357-8a8e436125bmr233536085a.11.1761704956013;
+        Tue, 28 Oct 2025 19:29:16 -0700 (PDT)
 Received: from secra.localdomain (pool-71-255-240-10.washdc.fios.verizon.net. [71.255.240.10])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-87fc48a8bc4sm89004146d6.7.2025.10.28.19.13.58
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-89f261747efsm940993185a.55.2025.10.28.19.29.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Oct 2025 19:13:58 -0700 (PDT)
+        Tue, 28 Oct 2025 19:29:15 -0700 (PDT)
 Received: from secra.localdomain (localhost [127.0.0.1])
-	by secra.localdomain (8.18.1/8.18.1) with ESMTP id 59T2DwFD085957;
-	Tue, 28 Oct 2025 22:13:58 -0400
+	by secra.localdomain (8.18.1/8.18.1) with ESMTP id 59T2TFAL086564;
+	Tue, 28 Oct 2025 22:29:15 -0400
 Received: (from secra@localhost)
-	by secra.localdomain (8.18.1/8.18.1/Submit) id 59T2Dw3B085956;
-	Tue, 28 Oct 2025 22:13:58 -0400
+	by secra.localdomain (8.18.1/8.18.1/Submit) id 59T2TF4M086563;
+	Tue, 28 Oct 2025 22:29:15 -0400
+Date: Tue, 28 Oct 2025 22:29:15 -0400
 From: Wes Gibbs <wg21908@gmail.com>
 To: linux-man@vger.kernel.org
-Cc: mtk.manpages@gmail.com, colomar.alejandro@gmail.com, bigeasy@linutronix.de,
-        Wes Gibbs <wg21908@gmail.com>
-Subject: [PATCH v2] Subject: copy_file_range.2: glibc no longer provides fallback after 2.30
-Date: Tue, 28 Oct 2025 22:13:48 -0400
-Message-ID: <20251029021348.85946-1-wg21908@gmail.com>
-X-Mailer: git-send-email 2.48.1
+Cc: mtk.manpages@gmail.com, colomar.alejandro@gmail.com, bigeasy@linutronix.de
+Subject: Re: [PATCH] Subject: copy_file_range.2: glibc no longer provides
+ fallback after 2.30
+Message-ID: <aQF7-4nEtRb7oJsK@secra.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Update the documentation to note that glibc no longer provides a
-user-space fallback for copy_file_range() when the system call is
-not available, as of glibc 2.30. Applications must now handle ENOSYS
-themselves.
+Hi Alejandro,
 
-Fixes: https://bugzilla.kernel.org/show_bug.cgi?id=220489
-Signed-off-by: Wes Gibbs <wg21908@gmail.com>
----
- man/man2/copy_file_range.2 | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+You emailed me earlier about my submitted patch for 220489.
 
-diff --git a/man/man2/copy_file_range.2 b/man/man2/copy_file_range.2
-index e9e9e9945..5146c0d11 100644
---- a/man/man2/copy_file_range.2
-+++ b/man/man2/copy_file_range.2
-@@ -202,10 +202,16 @@ that was also backported to earlier stable kernels.
- .SH STANDARDS
- Linux, GNU.
- .SH HISTORY
--Linux 4.5,
--but glibc 2.27 provides a user-space
--emulation when it is not available.
-+Linux 4.5.
-+Before glibc 2.30, the glibc wrapper function provided a user-space
-+fallback implementation when the kernel did not implement this
-+system call. Since glibc 2.30, that fallback has been removed; the
-+function now fails with ENOSYS if the kernel lacks support for
-+.BR copy_file_range ().
-+.\" Fallback introduced in glibc 2.27:
- .\" https://sourceware.org/git/?p=glibc.git;a=commit;f=posix/unistd.h;h=bad7a0c81f501fbbcc79af9eaa4b8254441c4a1f
-+.\" Fallback removed in glibc 2.30:
-+.\" https://sourceware.org/git/?p=glibc.git;a=commit;h=50c6ee3e74e08b8205f18dfb2830e9ec1bcf2ad4
- .SH NOTES
- If
- .I fd_in
--- 
-2.48.1
+You're right - the patch had the wrong author line.
 
+I've corrected it and resent a v2 with the proper Signed-off-by tag.
+
+Thanks for catching that!
+Wes
 
