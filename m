@@ -1,57 +1,55 @@
-Return-Path: <linux-man+bounces-4219-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4220-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F5D3C19AA3
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 11:23:09 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 67506C19D2A
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 11:45:20 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7C0CD46566B
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 10:22:29 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 05E3542719C
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 10:38:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA057321F31;
-	Wed, 29 Oct 2025 10:21:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4DD1331A74;
+	Wed, 29 Oct 2025 10:28:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l72js7C1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eoRBdQVF"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BAB2FE067
-	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 10:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5632E0418
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 10:28:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761733292; cv=none; b=mTtGE/ME+yu12+QMA8Vp99i8WLKIVUB8zu7AwTLAlPdhmKhFQpZRFIafP199nDpYwqv4ihyLYwveMlfQAhKBvGB4xFSrwzCuNvCoefnr7OwZIPtpOO2MpItlAuGm/yPRO0RVFmsp85UDK9bEBidGsUs2VWi99VQXie6pfuaAJ0M=
+	t=1761733689; cv=none; b=t0ax4lFIWiMIKKQ0t8AhptYMI8ED+RZmF/ck1QBa2o8xiHcMNiHvuM0gxcudMPAVBSJ2FXFdxovnzFhXKGqSiIZkxwyrZCVCiOYExOOBy55qZXq7U1gwEhnbCwTb4vWO4rm4I6R5z8AzuUtJZKFnXHCiEWfRsMXrjoNaN1utUBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761733292; c=relaxed/simple;
-	bh=7DV8Jr84JfpXNzqLLs2Nr8bImWJKWT5S4AdpuHFNTX4=;
+	s=arc-20240116; t=1761733689; c=relaxed/simple;
+	bh=V1qA9DPBPddb/QMLqsxypCmj8mYMQGy/vKVCMGdae9k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O0hXPDqOU7kT1XsNRosGnnanSpu939Z7yUZtwzoLl5znxEPEGPAW84c/YiQdsxVB7Vmgu8yAuGU3Pc4H6+M95ovI0NCwxKZ28bvwT5Jj6ZDc22v6xA98UU2rXCv5TKUGLZu1cNT5tvDGXcU3cUIHNniym3g4IMqBg0ug9UCH6Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l72js7C1; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B824C4CEFF;
-	Wed, 29 Oct 2025 10:21:29 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=WNx/0F1+UtBLW2nAYBD2eL2ewjNkzJhzS9WaKyQfDGkqNwqS5k2SuB00prnbmqHYXj7FbZ2MxeL+fof/ja1MQ9gEjTstB9F87vuBC6ZbqWgQncyk3bir/WuLtNhc3Iala5BNYU0poNDoGz7+XT+iC4avPc2hHjiETbB6oteX+4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eoRBdQVF; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE37FC4CEF7;
+	Wed, 29 Oct 2025 10:28:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761733291;
-	bh=7DV8Jr84JfpXNzqLLs2Nr8bImWJKWT5S4AdpuHFNTX4=;
+	s=k20201202; t=1761733687;
+	bh=V1qA9DPBPddb/QMLqsxypCmj8mYMQGy/vKVCMGdae9k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=l72js7C1Sy3CRcxXt6ijH4AwBlyatkOMmmXOHjDaNBV5B3KfXlIvmo20C9kLvBOLK
-	 qYCjniMmyMXYAw43Y8e7oCltUeiZgfArqIpHuqDvBbH6TmDcJrE95LYAWC18T1uzUz
-	 Fc7qYVYuhNOTITGGIzilRIRle3eLeW/Av88Tnq58Vuyir2t3qhtFsoPxjJsRM1PDx9
-	 oKiipp3hEu03etjNyQEbM0qvKvvgjwjoi521MC4ivYsBbF97tC4m4e6QBGVRxpix9F
-	 Ooim+AcZLWG3qyIaaYgCU7kVRQr0FLFAvv8hpkU+dlOJQSgS4CUjOfEgW2fZFm9/3S
-	 j8rmJL8Drb2bw==
-Date: Wed, 29 Oct 2025 11:21:27 +0100
+	b=eoRBdQVF2g4ZaxF2c53wA5sTkuT70seMWXqCmcv0M2wmLo0IohVNX/TAO6NjV+yYs
+	 i1gS2DQi41pQGjV2gufhVT/AdkXxafs1G1BOJmL5bD5KUbWuGHKQX03DFEdVCiNyeT
+	 6triCOiT7iCOnH0OnYYO+fuU3NIztYSrtvEPp4Nd4YC1Fo+PpqDhyqRqfCMNn0FEOn
+	 W6CwHudOwy2DF8zJahhn4VFDR2Zhqorkti4q2b4xJUD19X0DKKCrppFNFKt4JYdtif
+	 q6OWAGp32uyHL1jRQElF8tOzj48CG0AhO6AB9hq8q8RBziHg6gevHBKIYg2BhsHSio
+	 1Hsz2vYDPKwfg==
+Date: Wed, 29 Oct 2025 11:28:03 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 4/5] tm.3type: describe tm_zone, tm_gmtoff
-Message-ID: <oaa34iz4h2uu4dz2z6ias6lugfh57fspd6bdep5ycw4zzv37oe@rhos3t2bvz6y>
-References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
- <a8be8830890c50b1a36e9b7d20693c19c77ca4e5.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
- <90beebd3-2636-21d5-323b-766c8d81d6d3@gmail.com>
- <20251029090718.6xpq6zf6iawjta2j@illithid>
+To: Kir Kolyshkin <kolyshkin@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH v3 2/3] pidfd_open.2: add PIDFD_THREAD
+Message-ID: <edgo7ztyfw4o4j6yl2sa67rydefbfypenrs5r5qngmon5rjtku@43f2uzni7qyw>
+References: <7vb3ed5qttoe6n5ozzjwqtzw5iupifozplkkhd3jjvbhy5efqy@d4ksex445ixl>
+ <20251013191049.193375-2-kolyshkin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,175 +57,193 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t2jyg3b5kcnpnf3g"
+	protocol="application/pgp-signature"; boundary="b2i54yycmynrevuj"
 Content-Disposition: inline
-In-Reply-To: <20251029090718.6xpq6zf6iawjta2j@illithid>
+In-Reply-To: <20251013191049.193375-2-kolyshkin@gmail.com>
 
 
---t2jyg3b5kcnpnf3g
+--b2i54yycmynrevuj
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 4/5] tm.3type: describe tm_zone, tm_gmtoff
-Message-ID: <oaa34iz4h2uu4dz2z6ias6lugfh57fspd6bdep5ycw4zzv37oe@rhos3t2bvz6y>
-References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
- <a8be8830890c50b1a36e9b7d20693c19c77ca4e5.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
- <90beebd3-2636-21d5-323b-766c8d81d6d3@gmail.com>
- <20251029090718.6xpq6zf6iawjta2j@illithid>
+To: Kir Kolyshkin <kolyshkin@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH v3 2/3] pidfd_open.2: add PIDFD_THREAD
+Message-ID: <edgo7ztyfw4o4j6yl2sa67rydefbfypenrs5r5qngmon5rjtku@43f2uzni7qyw>
+References: <7vb3ed5qttoe6n5ozzjwqtzw5iupifozplkkhd3jjvbhy5efqy@d4ksex445ixl>
+ <20251013191049.193375-2-kolyshkin@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20251029090718.6xpq6zf6iawjta2j@illithid>
+In-Reply-To: <20251013191049.193375-2-kolyshkin@gmail.com>
 
-Hi Branden,
+Hi Kir,
 
-On Wed, Oct 29, 2025 at 04:07:18AM -0500, G. Branden Robinson wrote:
-> Hi Alex,
+On Mon, Oct 13, 2025 at 12:10:48PM -0700, Kir Kolyshkin wrote:
+> PIDFD_THREAD flag for pidfd_open(2) was added in Linux 6.9 (see [1]).
 >=20
-> At 2022-07-19T14:17:15+0200, Alejandro Colomar wrote:
-> > > +.PP
-> > > +.I tm_gmtoff
-> > > +is the difference, in seconds, of the timezone represented by this b=
-roken-down time and UTC
-> > > +(this is the reverse of
-> >=20
-> > Could you come up with a more mathematically precise term for
-> > "reverse"?  What is reverse?  The additive inverse?  Maybe use
-> > "additive inverse"?  I think "opposite" also has the meaning of
-> > additive inverse in maths, and it's maybe a simpler term (although
-> > additive inverse is more precise, IMHO).  But reverse is definitely
-> > confusing to me.
+> Add a TODO to describe the nuances of using poll/epoll/select
+> with a pidfd referring to a process vs a thread.
 >=20
-> I think the idiomatic term is "inverse".
+> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
+ommit/?id=3D64bef697d33b
+>=20
+> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
 
-Inverse is too generic.  Inverse functions do something else.  The
-specific terms are "opposite (of a) number" and "additive inverse",
-AFAIK, and maybe also "inverse (of a) number".
+Thanks!  I've applied the patch.
 
-> The existing language I see in my man-pages checkout looks fine.
->=20
-> tm(3type):
->      tm_gmtoff is the difference, in seconds, of the timezone
->      represented by this broken=E2=80=90down time and UTC (this is the ad=
-ditive
->      inverse of timezone(3)).
->=20
-> > > +as a variable, is an XSI extension \(em some systems provide the V7-=
-compatible
-> >=20
-> > I tend to prefer the em dash to be next to (no whitespace) the
-> > enclosed clause.  That makes it easier to mentally associate (as in a
-> > set of parentheses) to the clause.  I'm not sure if it's a thing of
-> > mine, or if it's standard practise?
->=20
-> Practices vary.
->=20
-> "Spacing around an em dash varies. Most newspapers insert a space before
-> and after the dash, and many popular magazines do the same, but most
-> books and journals omit spacing, closing whatever comes before and after
-> the em dash right up next to it. This website prefers the latter, its
-> style requiring the closely held em dash in running text."
->=20
-> https://www.merriam-webster.com/grammar/em-dash-en-dash-how-to-use
+For posterity, here's the range-diff comparing to v2:
 
-Yup, and both of those are different from the Spanish practice of using
-spaces as if em dashes were parentheses, as we recently discussed, and
-which is my preferred practice.
-
-> > > +.\" FreeBSD
-> > > +.BR timezone ()
-> > > +function.
-> > > +The
-> > > +.I tm_gmtoff
-> > > +fields provides an alternative (with the opposite sign) for those sy=
-stems.
-> > > +.PP
-> > > +.I tm_zone
-> > > +points to potentially-constant static storage and may be overriden o=
-n subsequent calls to
-> > > +.BR localtime (3)
-> > > +&a. (this, however, never happens under glibc).
-> >=20
-> > What is "&a."?  Is that documented somewhere?  I didn't know that
-> > abbreviature.
->=20
-> Possibly an abbreviation of "et alli" (Latin: "and others"; modern
-> abbreviation "et al."), as "&c." used to abbreviate "et cetera" (Latin:
-> "and the rest").
->=20
-> In English orthography, "&a." is nonstandard, possibly archaic.  ("&c."
-> is _definitely_ archaic.)
->=20
-> I'm not a Latin scholar, but it's possible that "etc." is better used in
-> reference to other parts of a whole.
->=20
-> "Dude broke my arms, my legs, my ribs, etc., and laughed in my face."
->=20
-> And "et al." is better used when making collective reference to other
-> independent entities.
->=20
-> "Art Cohen, et al., brought a class action case against Donald Trump for
-> fraud."
->=20
-> But if a real classical studies major tells you I'm full of it, listen
-> to them.
->=20
-> I snipped your advice about avoiding Latin abbreviations altogether,
-> which I continue to endorse.
->=20
-> > BTW, if the '.' is not a sentence ending, it might be good to mark it
-> > with the ineffable \& escape :)
-> >=20
-> > &a.\& (this ...
->=20
-> I'd avoid use of "&a." altogether as it will confuse English readers,
-> native and otherwise.
->=20
-> The dummy character escape sequence is not ineffable.  I just effed it.
-> ;-)
->=20
-> groff_man_style(7):
->      \&        Dummy character.  Prefix an input line with it to prevent
->                a dot or apostrophe from being interpreted as beginning a
->                roff control line.  Append \& to an end=E2=80=90of=E2=80=
-=90sentence
->                punctuation sequence to keep it from being recognized as
->                such.
->=20
-> Regards,
-> Branden
-
-Thanks!
+	$ git range-diff old^..old HEAD^..HEAD=20
+	1:  efaf8c056 ! 1:  b0b6040f9 pidfd_open.2: add PIDFD_THREAD
+	    @@ Commit message
+		 pidfd_open.2: add PIDFD_THREAD
+	    =20
+		 PIDFD_THREAD flag for pidfd_open(2) was added in Linux 6.9 (see [1]).
+	    -    EPOLLHUP was added in Linux 6.9 (see [2]).
+	    =20
+	    -    This adds description of both, mostly taken from kernel commit
+	    -    messages and previous discussions in linux-man (see [3]).
+	    +    Add a TODO to describe the nuances of using poll/epoll/select
+	    +    with a pidfd referring to a process vs a thread.
+	    =20
+		 [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
+commit/?id=3D64bef697d33b
+	    -    [2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/lin=
+ux.git/commit/?id=3D43f0df54c96f
+	    -    [3]: https://lore.kernel.org/linux-man/20240709021335.158849-3-ko=
+lyshkin@gmail.com/
+	    =20
+		 Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+	    =20
+	      ## man/man2/pidfd_open.2 ##
+	    @@ man/man2/pidfd_open.2: .SH DESCRIPTION
+	      .BR pidfd_open ()
+	      system call creates a file descriptor that refers to
+	     -the process whose PID is specified in
+	    -+the task whose PID is specified in
+	    ++the task referenced by
+	      .IR pid .
+	      The file descriptor is returned as the function result;
+	      the close-on-exec flag is set on the file descriptor.
 
 Have a lovely day!
 Alex
 
+> ---
+>  man/man2/pidfd_open.2 | 35 +++++++++++++++++++++++++++++------
+>  1 file changed, 29 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/man/man2/pidfd_open.2 b/man/man2/pidfd_open.2
+> index 3c7c568c2..60cac6fdd 100644
+> --- a/man/man2/pidfd_open.2
+> +++ b/man/man2/pidfd_open.2
+> @@ -4,7 +4,7 @@
+>  .\"
+>  .TH pidfd_open 2 (date) "Linux man-pages (unreleased)"
+>  .SH NAME
+> -pidfd_open \- obtain a file descriptor that refers to a process
+> +pidfd_open \- obtain a file descriptor that refers to a task
+>  .SH LIBRARY
+>  Standard C library
+>  .RI ( libc ,\~ \-lc )
+> @@ -25,24 +25,32 @@ .SH DESCRIPTION
+>  The
+>  .BR pidfd_open ()
+>  system call creates a file descriptor that refers to
+> -the process whose PID is specified in
+> +the task referenced by
+>  .IR pid .
+>  The file descriptor is returned as the function result;
+>  the close-on-exec flag is set on the file descriptor.
+>  .P
+>  The
+>  .I flags
+> -argument either has the value 0, or contains the following flag:
+> +argument either has the value 0, or contains the following flags:
+>  .TP
+>  .BR PIDFD_NONBLOCK " (since Linux 5.10)"
+>  .\" commit 4da9af0014b51c8b015ed8c622440ef28912efe6
+>  Return a nonblocking file descriptor.
+> -If the process referred to by the file descriptor has not yet terminated,
+> +If the task referred to by the file descriptor has not yet terminated,
+>  then an attempt to wait on the file descriptor using
+>  .BR waitid (2)
+>  will immediately return the error
+>  .B EAGAIN
+>  rather than blocking.
+> +.TP
+> +.BR PIDFD_THREAD " (since Linux 6.9)"
+> +.\" commit 64bef697d33b75fc06c5789b3f8108680271529f
+> +Create a file descriptor that refers to a specific thread, rather than a=
+ process
+> +(thread-group leader). If this flag is not set,
+> +.I pid
+> +must refer to a process.
+> +.P
+>  .SH RETURN VALUE
+>  On success,
+>  .BR pidfd_open ()
+> @@ -155,13 +163,28 @@ .SS Use cases for PID file descriptors
+>  .BR select (2),
+>  and
+>  .BR epoll (7).
+> -When the process that it refers to terminates,
+> -these interfaces indicate the file descriptor as readable.
+> +When the task that it refers to terminates and becomes a zombie,
+> +these interfaces indicate the file descriptor as readable
+> +.RB ( EPOLLIN ).
+> +When the task is reaped, these interfaces produce a hangup event
+> +.\" commit 43f0df54c96f
+> +.RB ( EPOLLHUP ).
+>  Note, however, that in the current implementation,
+>  nothing can be read from the file descriptor
+>  .RB ( read (2)
+>  on the file descriptor fails with the error
+>  .BR EINVAL ).
+> +The polling behavior depends on whether
+> +.B PIDFD_THREAD
+> +flag was used when obtaining the file descriptor:
+> +.RS
+> +.IP \[bu] 3
+> +With \fBPIDFD_THREAD\fR, the file descriptor becomes readable when the t=
+ask
+> +exits and becomes a zombie, even if the thread-group is not empty.
+> +.IP \[bu] 3
+> +Without \fBPIDFD_THREAD\fR, the file descriptor becomes readable only wh=
+en
+> +the last thread in the thread group exits.
+> +.RE
+>  .IP \[bu]
+>  If the PID file descriptor refers to a child of the calling process,
+>  then it can be waited on using
+> --=20
+> 2.51.0
+>=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---t2jyg3b5kcnpnf3g
+--b2i54yycmynrevuj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkB6qcACgkQ64mZXMKQ
-wqnw/Q//b0BBQtlEcvKeR91EEd71uWumKyQvP/oFOlGX7in+C9DcDXYdxpgrqy7A
-iAbQM3Ur2PuQoujFRkdGBH9tvsPwNlp8dW1Fsa9D3YMKdEXqeQUuuEZq4eum88mU
-aHb5WULeqpfjEypeL4NU4uL656xc0f8OsyrkqToAga3K8m3UKPj7fvvBXToEgw5G
-ztPsc7LnCZIkg83729TUfQt7TBxKUk6rPpclu18a1ShGEw95ClgJigvVwDlK3LDA
-sgUYBD8WOKUqR4eEGfDwpdK2PhSw3B99DoQ9rwLdNBi/FirBKKll/dxjSYlZL2uS
-6z3DEbtMkHuKY2rQJgAtzzct0NcmtMQjQYtnYmBQ2tCOyPYtMIEPC5tBuc+8Lc/I
-smuFAYHqipPtQT495MdPE3X5OWxbrpZyA4FXYheCXRIhB5XODOylwvq0TO9yalZ5
-JmAyEgRy3YCH1GR2gnA0UP4fRRFREXYhrAYBX2iFC+QOYXV1lBxA22vwVaaWgS+R
-Pmqt8oZYWsm1Jnkakp8uB8FDDOKKlcVdp2W64Kkbn4D6qcbQBbnOY3dWckSTwRz3
-wAuOmnhWOmVNhJvZD+Qp9+KSJLyCA0s8ysoc3cs/P99OLp+3YdNdCCx2n7yNPoc5
-5wTeKbEVbVjmhliO2ITUrxKSS2dxPYD90oP3ycLcwlexqlyzGYs=
-=7pKE
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkB7DMACgkQ64mZXMKQ
+wqm0qg//aHKgEsUpfdevHWuexFEKld7yCdJeBBlbqQC0AiDv53ZQIaf7VUdgvnOF
+t2H90MUEOGCQ7KHoyQFnOMjEoyNAjmFcjAQXWXZqmHggX4BYghKIr1LVaN/o1LvS
+5OYcs+DZxAVdiK3iScVnz8hOEscIMSaVoQIDRYteWzKIvbCL/xrvvflNZCk1/+N6
+dL42USo80OSrt0jUrSoN9Rk7JFwv3YjkuyX6yn3BLN1BEFvLerpGXaoOO+9D8mXb
+IxuUpNJulrD9lWd/NzizRrl3W5U6MnH0Q7kkxv+egNjyzEo8TS2T2kfA0Y/KxF/Q
+tGYkqQ3mChI1/du3XHrZ5O5GnoBcauOChk0UIan7X3zCFj+LKQ4RFm5Fjn1QWpUD
+yyMp0fo/VmQvc5CmLbS0R6whXEx9e9s5aa/uZZzq8ujjV61oqvERD5KSl/sDvOG7
+HWQTx34FBzCnmOcCtHCcO6YfnGxvIARq4SDldGqLIqkAAf8IvpYkUtTeZ89Zqd7I
+D0EdhDn6WdtmiqJJj+OvGUt0xnWEW9lbqVpPRYSy0TBjrnDhxp+GCEy8n5AoSkkd
+zarQXM9g/s+rL9QqxzXbIRQemAfzEG0Eeh5cLNtwUleQ5bqDEYaeAWgypSf8sOXq
+3nL5ylEdJEWmzVbJ2IuPVFY+fM/SxnNUjK0Xoj31Su4WLWw51kk=
+=oAqO
 -----END PGP SIGNATURE-----
 
---t2jyg3b5kcnpnf3g--
+--b2i54yycmynrevuj--
 
