@@ -1,106 +1,96 @@
-Return-Path: <linux-man+bounces-4212-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4213-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47911C180B6
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 03:29:24 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id BD536C1814C
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 03:40:22 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 7471E1A2712C
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 02:29:48 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 763C93B7468
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 02:40:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 161862D7DC1;
-	Wed, 29 Oct 2025 02:29:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD0E32E03E0;
+	Wed, 29 Oct 2025 02:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TLpkAiay"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJbnMp89"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com [209.85.222.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472AB2D73B0
-	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 02:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2012DCBEC
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 02:40:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761704959; cv=none; b=jyzApTLiQiwzpPk2eVLL9MEi5P7E8Btuq1UbqbFeH8yOYTQe3yD37xor2AQoHCndulwDZjuZYeaPyuxHSnkLvWWxpuLqvQ+UIBFELLulvNWnIiraBqxCm6iXloCVUvD/4mP+PcKn3ZsU8b1SnwcopL6AQVlrK+EFLLhA9ZWAeS0=
+	t=1761705619; cv=none; b=hB1BzbC9tg87m/rLV207EXb6JFXk6qgPg+hZZ6+7fvmHARLDobBdLZs+rTNdAHXQKYsrtLRWiyzaQjw8ZJNxK7vP3m5YhhO33/AXDC5t/X2hs/WSTzSFgWQMubsSA03bGLzRFdEwVThWFj+AocBY7GfzlZQmLejeXj/KALk/PSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761704959; c=relaxed/simple;
-	bh=hwuGVgbxkfrPehaVc1+yKjSuJdyvDm42TyLWIl1/U6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=APfwlVsdYmoyQApJgKkOR/Oro+K36iYTh36U4agNzsqNDfzIzAW6IeXlowGYwc9QrLaB6u369VJQRa4rZmGx0TI6PeuOn+UdwLK9EGhzv5WaDmSQ3BEEpgx6znKzNcvpDeZSnfAUcHoojTkDbgFsJgJzGolQrAGJZhlXFbQdrK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TLpkAiay; arc=none smtp.client-ip=209.85.222.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk1-f196.google.com with SMTP id af79cd13be357-85a4ceb4c3dso617198585a.3
-        for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 19:29:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761704956; x=1762309756; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hwuGVgbxkfrPehaVc1+yKjSuJdyvDm42TyLWIl1/U6o=;
-        b=TLpkAiayoYpl+tE/Q/uqQkyFgw3Zh0pOfl9o/XAZ/jyS0MRiDMYiUh2FxcImzGmtIg
-         LyVJ8138f8l6gwSh5ozSJWYJr3AwjkZWbd1mZm1PJoJFC6joFrx4n5Mx79nOS2Gb64VC
-         93Y1XSwOQ5QRIB44Ho7338Ddkf0xCPSYTYHXBL4K5cO7szkjs8Xy3Bhhhzr4i6Zf0LQy
-         LY9HJTGF5W8xFHBgRX5A6LA9MUzTFXyEut9Nv5zyY198q7N2YqSjjvLCfjJvGyLbadti
-         XcPgCRNOgUWvJqvPbib7XrZRJDiZwelgPrVpRkzwH9PF1sSK+ZnrcNuWHUDjvtWKhfXT
-         GTIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761704956; x=1762309756;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hwuGVgbxkfrPehaVc1+yKjSuJdyvDm42TyLWIl1/U6o=;
-        b=S96DX4FuYlXIUc6zl8ambS3lksOeWl1JlZKAPiiKgY2Cqqwzs2BQ2SHMpA/O/2OdYi
-         3IsVL/W5hPkkrf2ccOuZyGxmq0eHKYIzVqo4Ir811VIuE4BkYGLQetsL+n1kEIbI/fzg
-         jNNgVlzQIIZqv9WQqcW8Zn180ZFxG9Sxcfw9B082fCbcRfCky0sMSyJ6+Afh36Lu3SLs
-         5F8NMSsAsD8wdsSnt56Q5kUMiYVLLaufv80ONXINWwZqUZr0cBdCbHqfsNacYIafA3QT
-         EoZ7rL4ExFctWEvFoGbMj26n7UpjF89z/por59dYhWXXJH6WUDmojdwIPoYe2XH3IXBi
-         Uyuw==
-X-Gm-Message-State: AOJu0Yyrb3vI6aGl5Jcjzmvhb+YQHIWncEiNcuFxCHNNCuTzergCZmqQ
-	k5vQUBRR9hAgHuEDK1jzJIRoa917TKYbI7rKCgJVdEOv/RlOdH8AresFfOU+qwbPZC3BSA==
-X-Gm-Gg: ASbGncvyip3hwAXwH8quqD+gm9YctnIHyGWmlAoJT7tes8ToQVfIDUzGnW0MBigTRZp
-	tzDM065g4ex/vatu94Gn9oQvW7IYmQP8yOPMaEdR/bQ8q4Y/Tun7Atkgu+GUCW33ToWF80OxZ7Y
-	Sa6cFrZptiwTz8jV5WG38GG3OR6XM1wncKWh0htXkaprY4B3YMMwx27MEZOtanoJe1y1yA2LvPD
-	QhfuKQU+9b5DOrslWVgx+oLeFQ7lzywK9ffho7IpxdTQC8uuiyw5rPChdD+mLTeqEltWQau4O/K
-	affRWcHBmof2A2xRANkVOE/pRMuMgAgnGzjkPJ2Q6S6HC2S6ukLRev3jdCUJsEg8xXE3MCEDZku
-	YmkswPhkTUadp8etsM53BjVef46hsXBEjfo91BTHwlJqF7pYtSbJBqDDcx5Css2uHKL5fPnlFMi
-	PnMDenTX1RLmjZQlPA9xUI9BPAsjqrWEBbGRVfLABKfvtWzNafcSP2ma8qqjs=
-X-Google-Smtp-Source: AGHT+IFSck3iRX2O3F8AxNGNXrPTbir+6Gik+r47JYB82kZ9S1Pgn6bkZm8SG3ldQsf85WtWxZTlIQ==
-X-Received: by 2002:a05:620a:6890:b0:8a4:6ac1:aed with SMTP id af79cd13be357-8a8e436125bmr233536085a.11.1761704956013;
-        Tue, 28 Oct 2025 19:29:16 -0700 (PDT)
-Received: from secra.localdomain (pool-71-255-240-10.washdc.fios.verizon.net. [71.255.240.10])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-89f261747efsm940993185a.55.2025.10.28.19.29.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Oct 2025 19:29:15 -0700 (PDT)
-Received: from secra.localdomain (localhost [127.0.0.1])
-	by secra.localdomain (8.18.1/8.18.1) with ESMTP id 59T2TFAL086564;
-	Tue, 28 Oct 2025 22:29:15 -0400
-Received: (from secra@localhost)
-	by secra.localdomain (8.18.1/8.18.1/Submit) id 59T2TF4M086563;
-	Tue, 28 Oct 2025 22:29:15 -0400
-Date: Tue, 28 Oct 2025 22:29:15 -0400
-From: Wes Gibbs <wg21908@gmail.com>
+	s=arc-20240116; t=1761705619; c=relaxed/simple;
+	bh=xNfOQ9v36PkNHFaC3UdeiWeLKAdSx3wxa0veNVXOLA0=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ilhfRiXpzqkPXXW8awAwef66bT+mL/bm7IYGXFxK/sSMwV6OwMuoIYMLbP/bl8ouBEqY7Ua+wtFkENmYxp/cGTSYrNtk32FMi5swDjOz5f/lLxVLmd8DXcyO9Q/wcIEhwHWXN2BEGl05sCVXWrtB45hZUqf0Qnbzq+Q4KE8j6yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJbnMp89; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 113C6C4CEFD
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 02:40:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1761705619;
+	bh=xNfOQ9v36PkNHFaC3UdeiWeLKAdSx3wxa0veNVXOLA0=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=eJbnMp892vbxWi8fH+NhdtnOdDuYFOz1BiFrzEDABvZBihGqPPlmRVkSx4qCGBh+3
+	 yHPnNB7f6N5dP9ufvTljp081y+dTF85Jgz8PWHc/ONIn4lCYAKQK45d+Ot3m33e9XS
+	 sCeXh5dIzrxdeKdqRrAZ48BA2+fbNoeUsp4zI//brDmxYgC7Bets6BX99K+C9lzewx
+	 1Yx0l9zm9qF/aAy1qcc0Y0/01F8WkW26EX6vPZWl2L/rI8MQc2u1NqV43vIqqhZbuQ
+	 x6M05Ab57tfdmkFddCpvictJXKf0iLZNM3xK0UnpYB3agGEraG94nO8Co3VapsVyDI
+	 i8LYxQ7o0flBg==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 072E5C3279F; Wed, 29 Oct 2025 02:40:19 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
 To: linux-man@vger.kernel.org
-Cc: mtk.manpages@gmail.com, colomar.alejandro@gmail.com, bigeasy@linutronix.de
-Subject: Re: [PATCH] Subject: copy_file_range.2: glibc no longer provides
- fallback after 2.30
-Message-ID: <aQF7-4nEtRb7oJsK@secra.localdomain>
+Subject: [Bug 220489] copy_file_range glibc user-space emulation in versions
+ 2.27-2.29 only
+Date: Wed, 29 Oct 2025 02:40:18 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: wg21908@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-220489-11311-ktarTHxCKy@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-220489-11311@https.bugzilla.kernel.org/>
+References: <bug-220489-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Hi Alejandro,
+https://bugzilla.kernel.org/show_bug.cgi?id=3D220489
 
-You emailed me earlier about my submitted patch for 220489.
+--- Comment #2 from Wes Gibbs (wg21908@gmail.com) ---
+I'm aware of have some remaining feedback to address on this ticket, feedba=
+ck
+that was provided by Alejandro Colomar that was sent on 2025-10-28 23:24.  I
+will need to address this in a v3 patch.  I will have this sent in in the n=
+ext
+few days.  Thank you for the peer review.
 
-You're right - the patch had the wrong author line.
+--=20
+You may reply to this email to add a comment.
 
-I've corrected it and resent a v2 with the proper Signed-off-by tag.
-
-Thanks for catching that!
-Wes
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
