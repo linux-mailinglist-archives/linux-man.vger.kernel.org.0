@@ -1,249 +1,173 @@
-Return-Path: <linux-man+bounces-4220-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4221-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67506C19D2A
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 11:45:20 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DDE6C19D0F
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 11:44:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 05E3542719C
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 10:38:21 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4F7851CC319C
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 10:38:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4DD1331A74;
-	Wed, 29 Oct 2025 10:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1035332EB3;
+	Wed, 29 Oct 2025 10:30:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eoRBdQVF"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jYY4fVHq"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5632E0418
-	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 10:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB093321D5
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 10:30:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761733689; cv=none; b=t0ax4lFIWiMIKKQ0t8AhptYMI8ED+RZmF/ck1QBa2o8xiHcMNiHvuM0gxcudMPAVBSJ2FXFdxovnzFhXKGqSiIZkxwyrZCVCiOYExOOBy55qZXq7U1gwEhnbCwTb4vWO4rm4I6R5z8AzuUtJZKFnXHCiEWfRsMXrjoNaN1utUBQ=
+	t=1761733819; cv=none; b=VF1W8dPskiyDUxJ3P6AN0a/1T5PPS9hjukxEqIRHcNdFsA7XpudW2qcObXttcRWISAQykLkFnMOQPSF0U1xdfnP5oNBJH6YmMh2ea+6a0X4xVkq6FcL2lGyWek9DzQM/0PEnfQnHCMXWCsPg/uJuEiJ2vhwLB2D7ekHEBWqA+jM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761733689; c=relaxed/simple;
-	bh=V1qA9DPBPddb/QMLqsxypCmj8mYMQGy/vKVCMGdae9k=;
+	s=arc-20240116; t=1761733819; c=relaxed/simple;
+	bh=Jrw6RZQ/AaKE7koIWgicvxezeEzT11malD+LJ4ujOA4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WNx/0F1+UtBLW2nAYBD2eL2ewjNkzJhzS9WaKyQfDGkqNwqS5k2SuB00prnbmqHYXj7FbZ2MxeL+fof/ja1MQ9gEjTstB9F87vuBC6ZbqWgQncyk3bir/WuLtNhc3Iala5BNYU0poNDoGz7+XT+iC4avPc2hHjiETbB6oteX+4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eoRBdQVF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE37FC4CEF7;
-	Wed, 29 Oct 2025 10:28:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761733687;
-	bh=V1qA9DPBPddb/QMLqsxypCmj8mYMQGy/vKVCMGdae9k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eoRBdQVF2g4ZaxF2c53wA5sTkuT70seMWXqCmcv0M2wmLo0IohVNX/TAO6NjV+yYs
-	 i1gS2DQi41pQGjV2gufhVT/AdkXxafs1G1BOJmL5bD5KUbWuGHKQX03DFEdVCiNyeT
-	 6triCOiT7iCOnH0OnYYO+fuU3NIztYSrtvEPp4Nd4YC1Fo+PpqDhyqRqfCMNn0FEOn
-	 W6CwHudOwy2DF8zJahhn4VFDR2Zhqorkti4q2b4xJUD19X0DKKCrppFNFKt4JYdtif
-	 q6OWAGp32uyHL1jRQElF8tOzj48CG0AhO6AB9hq8q8RBziHg6gevHBKIYg2BhsHSio
-	 1Hsz2vYDPKwfg==
-Date: Wed, 29 Oct 2025 11:28:03 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH v3 2/3] pidfd_open.2: add PIDFD_THREAD
-Message-ID: <edgo7ztyfw4o4j6yl2sa67rydefbfypenrs5r5qngmon5rjtku@43f2uzni7qyw>
-References: <7vb3ed5qttoe6n5ozzjwqtzw5iupifozplkkhd3jjvbhy5efqy@d4ksex445ixl>
- <20251013191049.193375-2-kolyshkin@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=MrdznPz8xYAlXcRaRg63q0OiTbLT3/o0Bv/bkXjtoUqlqKRHsXPRKS/Ta8l+coBoGXJR71THU+qW/4lRaxGsvWXudaJ95D5Cnhh5nkX7wzd0fwFZ08vbNemIvMq4+iCc8V24P5T1YwWtENfz4daWyFo0oFkOZMb3B1Z3zkZyXfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jYY4fVHq; arc=none smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-71d71bcac45so73586117b3.0
+        for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 03:30:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1761733816; x=1762338616; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=goql7in4JBK2swUb6p9aVysVuyNKEJ4vZA4DKChjbGw=;
+        b=jYY4fVHqwajrBbhcJgQMJ/IyR/s9hh3uZRbq/xDi8FktIwooDWmVyezo1aZ6wIc2v1
+         IIH1r0FW0w4asXWcXIPCX/OWKAE+zlKA5GGSJkHn9zUKjXmDOoIT0I6mnPrOH5YqYp6/
+         Kcss98zFZ9Ext0DyNrMQJGPQ4eN5pIaCA86Kt2H0UPuQWcSRxmiAMDEzPOK+7XclfoY2
+         UD+r1cRWPLeg3jAkeVflyYBJqayxF295NkqQ4gppzdT8H3wwaRdqUtOOjJGIbM+gqJ2d
+         jISJMHHG3U6d47Z8as0lOSLFqFTyoniAcVeODq2H/msdTBDozx/z8CnJ0mTWTHv6FJGp
+         djHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761733816; x=1762338616;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=goql7in4JBK2swUb6p9aVysVuyNKEJ4vZA4DKChjbGw=;
+        b=OyHyMbX4GnuUiPM8dpjbbKO0jLSi7uS8/WJRGWSfS50pFmAK5KqTl0NTX3kz9BoEBC
+         uLjWVLYqccPxkNa5HTbCToB0GX27CYV2fg63uVQQzUX9knqb2MsWc7/r5mdXbLB7ZFnE
+         TPOgTik9LG3gZgpfTTMVGWwjJuFgd2oGnYNYUvZSu6rX3VFaohVpAdDz6Cq30krsb/Nb
+         Qy2C5UTXFQ5SRlhYPYC5/ethzkGlVU32n7aLyf0qQKsO0gx4x9Ilwfuway18MZ9OKY3C
+         t/CtV2EGzzlu24yNbdaDwDcM6uknY/apY+aiJThznVufPrQfw40BhATp6TrFmnICE599
+         Uwlg==
+X-Forwarded-Encrypted: i=1; AJvYcCW1gTRQKzQBnr+anRzHci9VTwuLdHzEh8NXfUXBbv+RyPPokm42NS6IYOntWXTwuL5kjc0JHqyHyyE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyeE7ZH4o02CWr0v12EuC60grzuw5iqp8X9ox+CvfTRePIL0uHY
+	yu4vC9vlRzqv88DLiDj52b5ecE16cCBclrDxGfxXpzQegJqEaZRhOSNI
+X-Gm-Gg: ASbGncvul/oj53ZWe+svNUEAq6LLr9thcXz/yl6460MdPcKWqZU43/RTV5KpBlZ8YP0
+	eaNBD9yBHXkfFaGQnb+LvOQSpeqq+vzE+YyWqr8Vg8vcvo3Odjq1k/HmmTytn5S8KKGja2fAVs4
+	ywoGBgGR0T/z7g8cRVSYoVhZB/ePjNUgAODc+IDYhthktQkn7qLi918sL++ro87jcNqpjoEF+IB
+	wf5wMmKwlLcmFvzvjs3kmBl1THn7tLi8n+mmV3KY9k+DMhsLJAyjixVu7kpFwMQomuTUFFniOUx
+	v4zk8MtRPPrLER8fY5+3riN0guws+1+HhNfnUBCzJ6sWrWLQILR42Md99aAFh6RKC2OAqlU8ckz
+	RnUfmP4OEi18i9Oos7fVkUttDPG42lYUKcFCMYnkVRN0XzS29ZutVtODqREsf8P1Fid9Aczhn+O
+	+K
+X-Google-Smtp-Source: AGHT+IFrRoAQK6y4uum7b4of9yEEOPFqxsvp4xBijMEbE4TFs8ClLuVVXv7wLsO1hffPWUFiulULfw==
+X-Received: by 2002:a05:690e:4193:b0:63c:f5a7:406 with SMTP id 956f58d0204a3-63f76e05ca8mr1984308d50.58.1761733815753;
+        Wed, 29 Oct 2025 03:30:15 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-785ed1fb943sm35243207b3.61.2025.10.29.03.30.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Oct 2025 03:30:14 -0700 (PDT)
+Date: Wed, 29 Oct 2025 05:30:12 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
+	linux-man@vger.kernel.org,
+	"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Subject: Re: [PATCH v2 3/5] alloca.3: clarify reasoning for no error return
+ in BUGS
+Message-ID: <20251029103012.5tswxzup6yyhmi76@illithid>
+References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
+ <cover.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
+ <2001f398efa7415df60019cd29164d7cfe87ae04.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
+ <4c862994-1fb7-7c45-8f0e-9a3bb8d76e13@gmail.com>
+ <20251029084200.umuk2hbescz3txgn@illithid>
+ <n7qbvcugequfez7depunqaxhz7wag3uid2khobz3wdzik7tytu@mta4olxxaxvr>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="b2i54yycmynrevuj"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="czqxivmugxgywpud"
 Content-Disposition: inline
-In-Reply-To: <20251013191049.193375-2-kolyshkin@gmail.com>
+In-Reply-To: <n7qbvcugequfez7depunqaxhz7wag3uid2khobz3wdzik7tytu@mta4olxxaxvr>
 
 
---b2i54yycmynrevuj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--czqxivmugxgywpud
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH v3 2/3] pidfd_open.2: add PIDFD_THREAD
-Message-ID: <edgo7ztyfw4o4j6yl2sa67rydefbfypenrs5r5qngmon5rjtku@43f2uzni7qyw>
-References: <7vb3ed5qttoe6n5ozzjwqtzw5iupifozplkkhd3jjvbhy5efqy@d4ksex445ixl>
- <20251013191049.193375-2-kolyshkin@gmail.com>
+Subject: Re: [PATCH v2 3/5] alloca.3: clarify reasoning for no error return
+ in BUGS
 MIME-Version: 1.0
-In-Reply-To: <20251013191049.193375-2-kolyshkin@gmail.com>
 
-Hi Kir,
+Hi Alex,
 
-On Mon, Oct 13, 2025 at 12:10:48PM -0700, Kir Kolyshkin wrote:
-> PIDFD_THREAD flag for pidfd_open(2) was added in Linux 6.9 (see [1]).
+At 2025-10-29T11:15:13+0100, Alejandro Colomar wrote:
+> On Wed, Oct 29, 2025 at 03:42:00AM -0500, G. Branden Robinson wrote:
+> > The sentence is confusingly cast, but the problem is not as simple
+> > as you describe.  It is common in English to use "neither" without
+> > "not" preceding or following.
+> >=20
+> > Neither wolverines nor beavers have yet self-domesticated.
+> > Neither C nor C++ are good language choices for novice programmers.
 >=20
-> Add a TODO to describe the nuances of using poll/epoll/select
-> with a pidfd referring to a process vs a thread.
+> C is quite simple, and as a consequence, a great choice for a novice
+> programmer, IMO.  :)
+
+I should have known I couldn't slip that example past you.  ;-)
+
+> > alloca() does not query the system for available stack memory, and
+> > does not fall back to using the heap if stack storage is
+> > unavailable.  It therefore cannot indicate an error if the
+> > allocation fails.  If it does, the system generates a SIGSEGV
+> > signal.
 >=20
-> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
-ommit/?id=3D64bef697d33b
->=20
-> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+> Is this last sentence a guarantee?  Can something different ever
+> occur?
 
-Thanks!  I've applied the patch.
+I don't know the Linux kernel well enough to say.  I don't know why we
+still name signals after hardware traps on the PDP-11 and VAX.  Well, I
+do, but I'm not happy about it.  It's yet another case of claiming
+portability wins by rearchitecting the world to look like old hardware.
 
-For posterity, here's the range-diff comparing to v2:
+https://queue.acm.org/detail.cfm?id=3D3212479
 
-	$ git range-diff old^..old HEAD^..HEAD=20
-	1:  efaf8c056 ! 1:  b0b6040f9 pidfd_open.2: add PIDFD_THREAD
-	    @@ Commit message
-		 pidfd_open.2: add PIDFD_THREAD
-	    =20
-		 PIDFD_THREAD flag for pidfd_open(2) was added in Linux 6.9 (see [1]).
-	    -    EPOLLHUP was added in Linux 6.9 (see [2]).
-	    =20
-	    -    This adds description of both, mostly taken from kernel commit
-	    -    messages and previous discussions in linux-man (see [3]).
-	    +    Add a TODO to describe the nuances of using poll/epoll/select
-	    +    with a pidfd referring to a process vs a thread.
-	    =20
-		 [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-commit/?id=3D64bef697d33b
-	    -    [2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/lin=
-ux.git/commit/?id=3D43f0df54c96f
-	    -    [3]: https://lore.kernel.org/linux-man/20240709021335.158849-3-ko=
-lyshkin@gmail.com/
-	    =20
-		 Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
-	    =20
-	      ## man/man2/pidfd_open.2 ##
-	    @@ man/man2/pidfd_open.2: .SH DESCRIPTION
-	      .BR pidfd_open ()
-	      system call creates a file descriptor that refers to
-	     -the process whose PID is specified in
-	    -+the task whose PID is specified in
-	    ++the task referenced by
-	      .IR pid .
-	      The file descriptor is returned as the function result;
-	      the close-on-exec flag is set on the file descriptor.
+> Here's somethingvery similar, with s/does/fails/ in the last sentence.
 
-Have a lovely day!
-Alex
+Yes, that's an improvement on my suggested wording.  It keeps "does"
+=66rom working as a "pro-verb" (cf. "pronoun"); the reader does not have
+to scan backward in the sentence to find out what action is referred to.
 
-> ---
->  man/man2/pidfd_open.2 | 35 +++++++++++++++++++++++++++++------
->  1 file changed, 29 insertions(+), 6 deletions(-)
->=20
-> diff --git a/man/man2/pidfd_open.2 b/man/man2/pidfd_open.2
-> index 3c7c568c2..60cac6fdd 100644
-> --- a/man/man2/pidfd_open.2
-> +++ b/man/man2/pidfd_open.2
-> @@ -4,7 +4,7 @@
->  .\"
->  .TH pidfd_open 2 (date) "Linux man-pages (unreleased)"
->  .SH NAME
-> -pidfd_open \- obtain a file descriptor that refers to a process
-> +pidfd_open \- obtain a file descriptor that refers to a task
->  .SH LIBRARY
->  Standard C library
->  .RI ( libc ,\~ \-lc )
-> @@ -25,24 +25,32 @@ .SH DESCRIPTION
->  The
->  .BR pidfd_open ()
->  system call creates a file descriptor that refers to
-> -the process whose PID is specified in
-> +the task referenced by
->  .IR pid .
->  The file descriptor is returned as the function result;
->  the close-on-exec flag is set on the file descriptor.
->  .P
->  The
->  .I flags
-> -argument either has the value 0, or contains the following flag:
-> +argument either has the value 0, or contains the following flags:
->  .TP
->  .BR PIDFD_NONBLOCK " (since Linux 5.10)"
->  .\" commit 4da9af0014b51c8b015ed8c622440ef28912efe6
->  Return a nonblocking file descriptor.
-> -If the process referred to by the file descriptor has not yet terminated,
-> +If the task referred to by the file descriptor has not yet terminated,
->  then an attempt to wait on the file descriptor using
->  .BR waitid (2)
->  will immediately return the error
->  .B EAGAIN
->  rather than blocking.
-> +.TP
-> +.BR PIDFD_THREAD " (since Linux 6.9)"
-> +.\" commit 64bef697d33b75fc06c5789b3f8108680271529f
-> +Create a file descriptor that refers to a specific thread, rather than a=
- process
-> +(thread-group leader). If this flag is not set,
-> +.I pid
-> +must refer to a process.
-> +.P
->  .SH RETURN VALUE
->  On success,
->  .BR pidfd_open ()
-> @@ -155,13 +163,28 @@ .SS Use cases for PID file descriptors
->  .BR select (2),
->  and
->  .BR epoll (7).
-> -When the process that it refers to terminates,
-> -these interfaces indicate the file descriptor as readable.
-> +When the task that it refers to terminates and becomes a zombie,
-> +these interfaces indicate the file descriptor as readable
-> +.RB ( EPOLLIN ).
-> +When the task is reaped, these interfaces produce a hangup event
-> +.\" commit 43f0df54c96f
-> +.RB ( EPOLLHUP ).
->  Note, however, that in the current implementation,
->  nothing can be read from the file descriptor
->  .RB ( read (2)
->  on the file descriptor fails with the error
->  .BR EINVAL ).
-> +The polling behavior depends on whether
-> +.B PIDFD_THREAD
-> +flag was used when obtaining the file descriptor:
-> +.RS
-> +.IP \[bu] 3
-> +With \fBPIDFD_THREAD\fR, the file descriptor becomes readable when the t=
-ask
-> +exits and becomes a zombie, even if the thread-group is not empty.
-> +.IP \[bu] 3
-> +Without \fBPIDFD_THREAD\fR, the file descriptor becomes readable only wh=
-en
-> +the last thread in the thread group exits.
-> +.RE
->  .IP \[bu]
->  If the PID file descriptor refers to a child of the calling process,
->  then it can be waited on using
-> --=20
-> 2.51.0
->=20
+Regards,
+Branden
 
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---b2i54yycmynrevuj
+--czqxivmugxgywpud
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkB7DMACgkQ64mZXMKQ
-wqm0qg//aHKgEsUpfdevHWuexFEKld7yCdJeBBlbqQC0AiDv53ZQIaf7VUdgvnOF
-t2H90MUEOGCQ7KHoyQFnOMjEoyNAjmFcjAQXWXZqmHggX4BYghKIr1LVaN/o1LvS
-5OYcs+DZxAVdiK3iScVnz8hOEscIMSaVoQIDRYteWzKIvbCL/xrvvflNZCk1/+N6
-dL42USo80OSrt0jUrSoN9Rk7JFwv3YjkuyX6yn3BLN1BEFvLerpGXaoOO+9D8mXb
-IxuUpNJulrD9lWd/NzizRrl3W5U6MnH0Q7kkxv+egNjyzEo8TS2T2kfA0Y/KxF/Q
-tGYkqQ3mChI1/du3XHrZ5O5GnoBcauOChk0UIan7X3zCFj+LKQ4RFm5Fjn1QWpUD
-yyMp0fo/VmQvc5CmLbS0R6whXEx9e9s5aa/uZZzq8ujjV61oqvERD5KSl/sDvOG7
-HWQTx34FBzCnmOcCtHCcO6YfnGxvIARq4SDldGqLIqkAAf8IvpYkUtTeZ89Zqd7I
-D0EdhDn6WdtmiqJJj+OvGUt0xnWEW9lbqVpPRYSy0TBjrnDhxp+GCEy8n5AoSkkd
-zarQXM9g/s+rL9QqxzXbIRQemAfzEG0Eeh5cLNtwUleQ5bqDEYaeAWgypSf8sOXq
-3nL5ylEdJEWmzVbJ2IuPVFY+fM/SxnNUjK0Xoj31Su4WLWw51kk=
-=oAqO
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmkB7KwACgkQ0Z6cfXEm
+bc7BlQ//XwgV3Uno7m2PN/ynH5GztN/S6KMvGvWM2ee/nVRSSMbp4S3c4jmrlEci
+Jmp/TYWdAJMRRbwU+T5reghvb87YFKdqGEVwrW4ZrGxsqO0trTAMywIyMtPohR5b
+MmJq+oA2K3kAAmDJqe9VfGuY3w4cGpYjMbLgDU4YTuiFlBAcbEtHCAewpMjTo9f6
+ptiOdNcgW/cBNsNi71B+4Hg6Hgf/8RhSc/ZvqkPm1m2uS9ZopRs1zdS/bh8rlC8v
+Cy/K/agRlMxzuqQwacd6sjIdtBjWQo3mcLAWYRAhUQh58Bvb5WFcWyv51ixDS1u/
+OR0Xlgxqir+oY1pwHfQdYkBq5nhjNnxb8rdJ+U9DzN6IXOcr+jFSZQwDfatVHA06
+VSRjvXgmg9P1xPeP1YuWrZbzJ7XeoJ5SJx7JjccMycoIeQVpbT9Io9nnC8zpadC9
+f8HBi6/ToUvMFktuvbgSyo1uioLBGvw02Kf9sSh7mtBrpCUn0Ec6IhVYtJ+2vl1H
+FN0R4XybB8Ylbw1HQbs+PRcBpWsqdOUjTwy2VaVSNDhkEnF/eu54vFhP5OJXFLrw
+DgdqrHQOFCW8d+SyM9f894BUGmqYCZpjdQKOUKsmsgYxnmMKtUA+kUPR5lS+CR/p
+yqFQC3PBG6EkOP7YTC3GPCFgC0L5sOyAoT7p3N59moy/6xhUsEc=
+=gyQO
 -----END PGP SIGNATURE-----
 
---b2i54yycmynrevuj--
+--czqxivmugxgywpud--
 
