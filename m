@@ -1,200 +1,208 @@
-Return-Path: <linux-man+bounces-4223-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4224-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2E5DC19F02
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 12:14:27 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A10C19F29
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 12:15:52 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id EFCF3343570
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 11:14:26 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 298E91AA7F06
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 11:15:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D433A32E68C;
-	Wed, 29 Oct 2025 11:13:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE3F61B423B;
+	Wed, 29 Oct 2025 11:15:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F+RPB1Ef"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zvfbw8LN"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018D132E131
-	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 11:13:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8FE19F12D
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 11:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761736385; cv=none; b=KTW1S1WzHazjtXc7Jvuv2dy7HoLhIoCH6949ew7aASE6Wl9TrS2k5ZSlw1164ptiGQ62+AsuU3liO7fVuGD4PYk0jvDLThTrFUUB0RTy86ZUqIUdeL4DbnbhHMfmA7FATC2GvAiiUo7nX00+YTQ3isM//SkdtjTj2c7NKekYkNQ=
+	t=1761736503; cv=none; b=mEAaC8OQrLurrbar2AZ63lLX9eoI7bSP+eJKcui9rP3KU31ZxBMaylab1fs8ixHuInV57rKyVFbmRIgUUe1ax62Sls37sQyZvYGYagkRgLSqjnpWQaMJsY7TLiT/L9YGwrVRxbiCJ/0rYUDbu4szicm6LwaJC+aArfcvMCrajbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761736385; c=relaxed/simple;
-	bh=zhdxTEShvknd5+/p8P925ersJ+5efv95PPWzv4LzhQ4=;
+	s=arc-20240116; t=1761736503; c=relaxed/simple;
+	bh=F2strqYpcduR4Y/xE6ZQtSPepM0mVzGfqAcfMwX04Lo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t7npdKUKmw9xaV9DkVDb4vM5SsRxxM4M4yvbj+vktpfI/NNFqyx60v4WOz3p8OA58gvjVdCs75+sANQyKPCqucDc/BzEiaf0Bpk/5HmcsFzzW/NT5Ex1pbdKtOaWfvekiR40I7kYn1ESxGumMi528VEQlHoFuVDuqCleZUJX/oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F+RPB1Ef; arc=none smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-633c1b740c5so7574942d50.3
-        for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 04:13:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761736382; x=1762341182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6TLESnwd+Rwhopnyp2d3HdQUb70moqH2vg6cxdXXKPA=;
-        b=F+RPB1EfE48BDp/JdYMUXIG7NBczYMIr08NVYYClbHs2xc90HjP4hYpe2Vr1ORWvuH
-         hDwsbYh0VduR4j/tf/gmKT+EDncL8ZO2si0L1CX/Kzsyh0sVPx87C0O81jRwH0vX66qJ
-         yIzMSpGgzBLTf+JqHCJNh4S1ldTHgjmOwMSzzKi0G3tQJJwKqy9iR1YGkIfg59inKlMw
-         G+WyAmGvlY0G4AFHhXksGxmBXxAESLJY7OcORDRNdBXxbp9jOrBbMuzU+YNg99Kk/RKS
-         2rICGxg5epLcV2Qptq/ejvuibC9khWjB805C8KCM5W/dV54gGowMnwqzoMYJkNykB8hr
-         vDzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761736382; x=1762341182;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6TLESnwd+Rwhopnyp2d3HdQUb70moqH2vg6cxdXXKPA=;
-        b=o1OpdbRj98bSAzqDVbStF9NRhkEg/XpLQs3wOJT9cm9TVjP37zxVve6BO6dJYzatph
-         aCjmE44TtIMjyUHXYopOK6JcgHjkQ5ZtxhlJbHPpkk+n4+sYzd2bGwFeYYLE7EPPL4Gw
-         l1plf7tb3zNixMHt+0ZHYBVkjgmJK7s4N8OwxC+wxuqI9COQwG+/7+yYMj9OTsVSBAH3
-         eY63jkoJxDqfk55R2TJYDNWeQyzd84uaW4UsdStxzeskVy3OlOnEPOsWrWyrYJy5Imup
-         Z9pHN2yiWwiAIz8grD3v5OBqlsQGKa7QhQpnbPz7DpSUW6EdEKmR71skJZ4+d4ETKL0v
-         bOxg==
-X-Forwarded-Encrypted: i=1; AJvYcCXTEYuFsGOerc+lgjFzjAa8CAC4/zJRP73SOGPJ9QgfYyYRXBlltejNm8h3VCnWcwbViDLwBh4zIQo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxc4PN/RLMNbeD+c7t1vQqfpzwX0Njeu/Z6ShDMbDyZPt9eGYJh
-	GFbCRstRl1m21aO9oLFpCcd7aLY09cFAi9jZta43wGmleN0IpO6UpwE+y49XFA==
-X-Gm-Gg: ASbGncu5PsqgPT812MJfwAA/2hfweKLyLMbd4s4BdfuIqIsTaP4+el0/DCHNYNAI7yG
-	hAZP9VMbKQilSHnijs8oX2o4rBfPzoO+muQh2N7JJNR3wM95Dx+F6fDb4hooXbtpMkeyt84Q0TF
-	VZsdeWMglAloZNu83V2jEQJCKj3TzUeBAyKWLqmRlJRqhtZ3RrDi7Ze97Jj9rPdInOeWZn6n70K
-	IBCEZNR8Ui7bbO8QdJ/vW8UYgC/URxcXjE+UYv+im567D79hOPv5sPzlELHomJAivUbkymZ8rvQ
-	2M3Og61ej7I5+B3Hel8dqhPcs3YVC9/7fvVeBMylWkdDOesb9l9sHClTju/t52qt426Oa+w8FFa
-	MQ0bdKOKLPfsenrvVrO7Mhk+81pDzjAQzZ4shRP3+VZy1KbcJeZeC9kSjimIUmfGEIQ==
-X-Google-Smtp-Source: AGHT+IHn/gwVfo2iau586Ultc0Pf36iiqBk2xkIJnQqvcqVJZf/bPdYewK1tS4AwnE14B6qum3qMGQ==
-X-Received: by 2002:a05:690e:1586:20b0:63d:7ac:b991 with SMTP id 956f58d0204a3-63f76ce7e7amr1975966d50.5.1761736381951;
-        Wed, 29 Oct 2025 04:13:01 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-63f4c455454sm4084182d50.24.2025.10.29.04.13.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Oct 2025 04:13:01 -0700 (PDT)
-Date: Wed, 29 Oct 2025 06:12:59 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
-	linux-man@vger.kernel.org,
-	"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Subject: Re: [PATCH v2 3/5] alloca.3: clarify reasoning for no error return
- in BUGS
-Message-ID: <20251029111259.nvmnemste6zkg6kw@illithid>
-References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
- <cover.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <2001f398efa7415df60019cd29164d7cfe87ae04.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <4c862994-1fb7-7c45-8f0e-9a3bb8d76e13@gmail.com>
- <20251029084200.umuk2hbescz3txgn@illithid>
- <n7qbvcugequfez7depunqaxhz7wag3uid2khobz3wdzik7tytu@mta4olxxaxvr>
- <20251029103012.5tswxzup6yyhmi76@illithid>
- <gweobuilxwbb3llrq7lcwyvlnsobqfoqo2enu52sravwznof6f@gwlezhulonwj>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z6PsLOzSMCscM5rPuFYsv4decXingZ76MbINXX/bHY5Sd7oxO/O6deDZkrgZD+eszDV+7AoiVPHUAy0RJtbIR6q1p7OVF00MgU0PJyWfgloE/kLKK7H5Lr6IVTcuVEoQVlQz8nBWrZi9LR178FNfC2M0BT/QsIi4OVxGn3b12bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zvfbw8LN; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AEA2C4CEF7;
+	Wed, 29 Oct 2025 11:14:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1761736501;
+	bh=F2strqYpcduR4Y/xE6ZQtSPepM0mVzGfqAcfMwX04Lo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Zvfbw8LNkwNC7eOOzQcgbgBiM+SGh5QIS/jLXtKG15ZzJUHJGvywNJBNjBuq+gXzD
+	 OG51buOAd5dXwgGNMmD3AOay3iPC081NM44wRABNZo+LyERnSMiCBJKOH/vikTxwRz
+	 cX6ssx0YC6nend2KRMumFsR7HeaXIRzuMfX5LrGrW+Qkbjoemdpm7ui2XjicbTl8nm
+	 SrpjcVbTp03IW+8jBb5sYjKVdglcfC7tkGyyitxyfbO7yAl9CHdUv67KuFvkDN5rKW
+	 gY1W8uWbgUmTI7+gD30i5pKBHdoNTzItDzWmstLVmrqXdNTeM3DnAp4wsRLzt4lYDw
+	 poamEMGkQrSlw==
+Date: Wed, 29 Oct 2025 12:14:57 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Kir Kolyshkin <kolyshkin@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH 3/3] pidfd_send_signal.2: describe flags
+Message-ID: <er7zp3thj3fcgenhja5eh5ypeutkqubsno5ad5cni4uaiis45h@eulj4t33apfc>
+References: <20251008020031.1215030-1-kolyshkin@gmail.com>
+ <20251008020031.1215030-4-kolyshkin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5qr4vtibs2yrjpsc"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gmt3urczsynn4coa"
 Content-Disposition: inline
-In-Reply-To: <gweobuilxwbb3llrq7lcwyvlnsobqfoqo2enu52sravwznof6f@gwlezhulonwj>
+In-Reply-To: <20251008020031.1215030-4-kolyshkin@gmail.com>
 
 
---5qr4vtibs2yrjpsc
+--gmt3urczsynn4coa
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 3/5] alloca.3: clarify reasoning for no error return
- in BUGS
+From: Alejandro Colomar <alx@kernel.org>
+To: Kir Kolyshkin <kolyshkin@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH 3/3] pidfd_send_signal.2: describe flags
+Message-ID: <er7zp3thj3fcgenhja5eh5ypeutkqubsno5ad5cni4uaiis45h@eulj4t33apfc>
+References: <20251008020031.1215030-1-kolyshkin@gmail.com>
+ <20251008020031.1215030-4-kolyshkin@gmail.com>
 MIME-Version: 1.0
+In-Reply-To: <20251008020031.1215030-4-kolyshkin@gmail.com>
 
-Hi Alex,
+Hi Kir,
 
-At 2025-10-29T11:58:21+0100, Alejandro Colomar wrote:
-> > > Is this last sentence a guarantee?  Can something different ever
-> > > occur?
-> >=20
-> > I don't know the Linux kernel well enough to say.
+On Tue, Oct 07, 2025 at 07:00:30PM -0700, Kir Kolyshkin wrote:
+> Those flags were added in Linux 6.9 (see [1]), and are documented in
+> [2].
 >=20
-> Hmmm, then I'll reuse the old wording for that, which said it was
-> likely.
-
-In principle, some linux-mm people might be lurking.
-
-> I've now also replaced 'If it fails' by 'If the allocation fails', to
-> avoid confusing programmers to think that 'it' may refer to the
-> function (that is, to think that the function can somehow return
-> NULL).  That would conflist with the previous sentence, so it's not
-> necessary, but I think this is more readable by being more explicit.
-
-"Clarity over all" is a basic principle of technical writing.
-
-> 	Author: Alejandro Colomar <alx@kernel.org>
-> 	Date:   Wed Oct 29 11:52:52 2025 +0100
+> The text added is a modified version of [3], removing some repetition
+> and adapting from markdown to mandoc.
 >=20
-> 	    man/man3/alloca.3: wfix
-> 	   =20
-> 	    Reported-by: Alejandro Colomar <alx@kernel.org>
-> 	    Cc: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
-> 	    Suggested-by: "G. Branden Robinson" <branden@debian.org>
-> 	    Co-authored-by: "G. Branden Robinson" <branden@debian.org>
-> 	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
+ommit/?id=3De1fb1dc08e73
+> [2]: https://github.com/brauner/man-pages-md/blob/main/pidfd_send_signal.=
+md
+> [3]: https://github.com/brauner/man-pages-md/pull/2
 >=20
-> 	diff --git a/man/man3/alloca.3 b/man/man3/alloca.3
-> 	index 52b87a8a3..367de81d0 100644
-> 	--- a/man/man3/alloca.3
-> 	+++ b/man/man3/alloca.3
-> 	@@ -111,11 +111,14 @@ .SH NOTES
-> 	 making them unfit for implementing functionality like
-> 	 .BR strdupa (3).
-> 	 .SH BUGS
-> 	-Due to the nature of the stack, it is impossible to check if the alloca=
-tion
-> 	-would overflow the space available, and, hence, neither is indicating a=
-n error.
-> 	-(However, the program is likely to receive a
-> 	+.BR alloca ()
-> 	+does not query the system for available stack memory,
-> 	+and does not fall back to using heap if stack storage is unavailable.
-> 	+It therefore cannot indicate an error if the allocation fails.
-> 	+If the allocation fails,
-> 	+the program is likely to receive a
-> 	 .B SIGSEGV
-> 	-signal if it attempts to access unavailable space.)
-> 	+signal.
-> 	 .P
-> 	 On many systems
-> 	 .BR alloca ()
+> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+
+Thanks!  I've applied the patch (amending some formatting issues).
+
+
+Have a lovely day!
+Alex
+
+> ---
+>  man/man2/pidfd_send_signal.2 | 53 ++++++++++++++++++++++++++++++++++--
+>  1 file changed, 50 insertions(+), 3 deletions(-)
 >=20
-> Would you mind signing the patch?
+> diff --git a/man/man2/pidfd_send_signal.2 b/man/man2/pidfd_send_signal.2
+> index c4a9ce40e..70eaaa34f 100644
+> --- a/man/man2/pidfd_send_signal.2
+> +++ b/man/man2/pidfd_send_signal.2
+> @@ -78,8 +78,55 @@ .SH DESCRIPTION
+>  .P
+>  The
+>  .I flags
+> -argument is reserved for future use;
+> -currently, this argument must be specified as 0.
+> +argument allows to modify the scope of the signal. By
+> +default, the scope of the signal will be inferred from the
+> +. I pidfd
+> +argument. For example, if
+> +.I pidfd
+> +refers to a specific thread, i.e., the
+> +.I pidfd
+> +was created through
+> +.BR pidfd_open (2)
+> +passing the
+> +.B PIDFD_THREAD
+> +flag
+> +or through
+> +.BR clone3 (2)
+> +using the
+> +.B CLONE_PIDFD
+> +flag together with the
+> +.B CLONE_THREAD
+> +flag, then passing
+> +.I pidfd to
+> +.BR pidfd_send_signal (2)
+> +and leaving the
+> +.I flags argument as
+> +.B 0
+> +will cause the signal to be sent to the specific thread referenced by the
+> +.I pidfd.
+> +.TP
+> +.BR PIDFD_SIGNAL_THREAD " (since Linux 6.9)"
+> +.\" commit e1fb1dc08e73466830612bcf2f9f72180965c9ba
+> +Ensure that the signal is sent to the specific thread referenced by
+> +.I pidfd.
+> +.TP
+> +.BR PIDFD_SIGNAL_THREAD_GROUP " (since Linux 6.9)"
+> +.\" commit e1fb1dc08e73466830612bcf2f9f72180965c9ba
+> +If
+> +.I pidfd
+> +refers to a thread-group leader, ensure that the signal is
+> +sent to the thread-group, even if
+> +.I pidfd
+> +was created to refer to a specific thread.
+> +.TP
+> +.BR PIDFD_SIGNAL_PROCESS_GROUP " (since Linux 6.9)"
+> +.\" commit e1fb1dc08e73466830612bcf2f9f72180965c9ba
+> +If
+> +.I pidfd
+> +refers to a process-group leader, ensure that the signal is
+> +sent to the process-group, even if
+> +.I pidfd
+> +was created to refer to a specific thread or to a thread-group leader.
+>  .SH RETURN VALUE
+>  On success,
+>  .BR pidfd_send_signal ()
+> @@ -103,7 +150,7 @@ .SH ERRORS
+>  .TP
+>  .B EINVAL
+>  .I flags
+> -is not 0.
+> +is not valid.
+>  .TP
+>  .B EPERM
+>  The calling process does not have permission to send the signal
+> --=20
+> 2.51.0
+>=20
+>=20
 
-Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
 
-There ya go!
-
-Regards,
-Branden
-
---5qr4vtibs2yrjpsc
+--gmt3urczsynn4coa
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmkB9rMACgkQ0Z6cfXEm
-bc4nsBAAiK8bxoY/9klmYn1Gk2DAz9Hp7uFKQgfvGQ2bxEwp9vEJneOE8eWhz+qK
-eu9b+X2TAo4U1qh9jWzd4p7I54IQPsTWamJb+PE9AAx/oyiCUSYqNR2WMjIdgnnB
-m4Vaw+z8mKOrG8AeuLgcrwvTm8vyLdDeagpzlbr/u166q7MqqrM1Cl30EQJ20pnM
-DVDHPz2JypjGio9VFqyJ4LI7+G6J3+SfFtQBuP+5pZ1nVWNxPh8NiWwVlP9RjPIV
-q22S5sJH0htzrPhchPnYnFhJjS0KQgulLeBjnIvjLgYyL93NtZgHa/v8M0HzXhJs
-ow1NugN5T7EFJMYVJYMPTpwsQPlFfxRnsxiE9i6XB4tnzud2IPQ4i3B0LabVR0Hi
-iKyW5JmsyaEVHsXEerKikT7jxnPH/AtDDSgUYz4FfnGTbnNp+THrznCmiUWCEAyo
-yMpFqil4LS+isofg6wCQpMoCpp0JgvX+4qpdibLapZab3M5KE1Ho8KJEHAOmuSb8
-LCURAfklSrVSbpj3WyANb1ktBWRsqg9zSWeBUDYAUId/T/xAM28GN/6gxtj+s9Lo
-TqZMuQLojpEKqsos6Z4PBiAfhpiW9IWOIkxcw1YzfgatW5ijLcHbUpW2THvBtnNT
-xCnJyCyzCFz055pQqI4k2DW2GAgrQW7Yrr2LrgkyfEtK2eNbF3k=
-=rKr3
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkB9zEACgkQ64mZXMKQ
+wqmrZA/+PFMgeZBclnfmOBQUHslP4LWTFfzDlrL8VkTtlbU+eyTQhHRnFrh+BJWO
+1w3bQLBpIecFeDiEqCqcPtLrBcuYyogWnpflWn2rXKuf4UCaHdllZHYiMDY0DzLy
+hVXnmMM6xPcusrjkkXVQDgFMbYm6r+fYC5wYlS2r7hwOU0/g+HdckQSI9+0eq74X
+H4ZT/pXmzjhT6LL9lE2ivIJ8Z7jN50Hv+GVaFAfqVhoKF9nN6GbfpvY8iuNhgY25
+k3J9DB/OTSisf3yXEAEcBfjICq1+Lk5VdvUXWgw3SwrCGQFumbmrOvcUkxKIYtul
++wbvCR7DxTC0aHHrSe9BEmfawgP3yybxBJztAdheqzRuGUrWwCmgyuH6mNKuHIRj
+ErDtuu6jb0hyLnYna1O5JobgGFHOyWmjk9sX16FYW6OK3ak+f8HI9faPWwhkHcSN
+Etc5VZOv1v6tveQQ/Yc9MJ2cQO7yk1M6/MHaKLTk32zixCBDEyW0KKvvaP919IDo
+QVVovjePBwjIbOLD6JhTnyRWXEMkbvHxz9vU/t7O6qxCfSssvJutVl9U+sxCfssK
+pWFTlPgWA/LLkPkF04EgrhagwRmkKpDULP6VpqrfdGOswJEofy4xa6Wt+oH/1+ns
+i53Xa6UjUhzwBwLExP3gSXT9hC5xGtsxPdn5wGRf8zNscxEpVX4=
+=IPwQ
 -----END PGP SIGNATURE-----
 
---5qr4vtibs2yrjpsc--
+--gmt3urczsynn4coa--
 
