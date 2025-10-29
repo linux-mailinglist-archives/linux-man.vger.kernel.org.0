@@ -1,59 +1,57 @@
-Return-Path: <linux-man+bounces-4218-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4219-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A714C19A03
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 11:15:23 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F5D3C19AA3
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 11:23:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 83C3934877B
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 10:15:22 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7C0CD46566B
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 10:22:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CB5C2E040E;
-	Wed, 29 Oct 2025 10:15:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA057321F31;
+	Wed, 29 Oct 2025 10:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lEJwuS6L"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l72js7C1"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C53F2D7394
-	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 10:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BAB2FE067
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 10:21:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761732918; cv=none; b=LXDoJ4qPGUo67WI9ZSoV6ppUHwyHrmnq0P5yzef0HEiS+BmUvtLoXSKjbdQAm/b67oYaJlt+E32zovvsSxeu4GGkXu9vx/lld076GrjXi4pVzV4EKLnIlAq2MCYAwh/dJBoSi6Xt+IuUx+6wJ6UzgEeeEdj/aH0Mxdureso8tKA=
+	t=1761733292; cv=none; b=mTtGE/ME+yu12+QMA8Vp99i8WLKIVUB8zu7AwTLAlPdhmKhFQpZRFIafP199nDpYwqv4ihyLYwveMlfQAhKBvGB4xFSrwzCuNvCoefnr7OwZIPtpOO2MpItlAuGm/yPRO0RVFmsp85UDK9bEBidGsUs2VWi99VQXie6pfuaAJ0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761732918; c=relaxed/simple;
-	bh=4RUQKodtUat07DlC8oSQmPtkTuv0P+EeY9c46Rv4T78=;
+	s=arc-20240116; t=1761733292; c=relaxed/simple;
+	bh=7DV8Jr84JfpXNzqLLs2Nr8bImWJKWT5S4AdpuHFNTX4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cDK8+uMWlzwh+kylNr7WrzgJB4fW8evQn+PCBWFF8HE3eyknq5tylnFaYIC6Ba6yEWMaQMSLMFSb8k8qPGSfbStJZC/RB0zI9NdjIcRawwwRapQ3uEmsSu+8daWO0mm0h0vMwWBQqeKlDyC6bm7Cx2YZDWAvnO7lyMqKBGaQQno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lEJwuS6L; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0808C4CEF7;
-	Wed, 29 Oct 2025 10:15:15 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=O0hXPDqOU7kT1XsNRosGnnanSpu939Z7yUZtwzoLl5znxEPEGPAW84c/YiQdsxVB7Vmgu8yAuGU3Pc4H6+M95ovI0NCwxKZ28bvwT5Jj6ZDc22v6xA98UU2rXCv5TKUGLZu1cNT5tvDGXcU3cUIHNniym3g4IMqBg0ug9UCH6Fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l72js7C1; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B824C4CEFF;
+	Wed, 29 Oct 2025 10:21:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761732916;
-	bh=4RUQKodtUat07DlC8oSQmPtkTuv0P+EeY9c46Rv4T78=;
+	s=k20201202; t=1761733291;
+	bh=7DV8Jr84JfpXNzqLLs2Nr8bImWJKWT5S4AdpuHFNTX4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lEJwuS6Luq07+a9N+O44pWpr5TJ1BxSm4Ifz15u5+auEwMBPDXMWE7zCtFJvVm4Ke
-	 xIHW6HmX+5ikHnIuRmQ2td7ZBZpAC4fYRfnwQ6k9lmYQ56gTNZCc1YEvgjtfIlSUhq
-	 /Zp0hmSPzSArUJ33Kke8DWf07VAYwwXGiWT9B9tRCA6anMhIWTO9NdLTLovgYUdO2h
-	 ooh+ZIqUMp/T2iO6axd/CklLDOpnWPr3n4YfYL2svAtBOR7pgH1kdTDJedDyEAlgyF
-	 TC24ajO3s4tpWgvW6aS1I94weJKfs1elyw4tWFCS3VREl5mRpAVsh0s6g/FYbEtHKo
-	 qdMZMy9qEt5jg==
-Date: Wed, 29 Oct 2025 11:15:13 +0100
+	b=l72js7C1Sy3CRcxXt6ijH4AwBlyatkOMmmXOHjDaNBV5B3KfXlIvmo20C9kLvBOLK
+	 qYCjniMmyMXYAw43Y8e7oCltUeiZgfArqIpHuqDvBbH6TmDcJrE95LYAWC18T1uzUz
+	 Fc7qYVYuhNOTITGGIzilRIRle3eLeW/Av88Tnq58Vuyir2t3qhtFsoPxjJsRM1PDx9
+	 oKiipp3hEu03etjNyQEbM0qvKvvgjwjoi521MC4ivYsBbF97tC4m4e6QBGVRxpix9F
+	 Ooim+AcZLWG3qyIaaYgCU7kVRQr0FLFAvv8hpkU+dlOJQSgS4CUjOfEgW2fZFm9/3S
+	 j8rmJL8Drb2bw==
+Date: Wed, 29 Oct 2025 11:21:27 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>, 
-	linux-man@vger.kernel.org, "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Subject: Re: [PATCH v2 3/5] alloca.3: clarify reasoning for no error return
- in BUGS
-Message-ID: <n7qbvcugequfez7depunqaxhz7wag3uid2khobz3wdzik7tytu@mta4olxxaxvr>
-References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
- <cover.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <2001f398efa7415df60019cd29164d7cfe87ae04.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <4c862994-1fb7-7c45-8f0e-9a3bb8d76e13@gmail.com>
- <20251029084200.umuk2hbescz3txgn@illithid>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
+	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>, linux-man@vger.kernel.org
+Subject: Re: [PATCH 4/5] tm.3type: describe tm_zone, tm_gmtoff
+Message-ID: <oaa34iz4h2uu4dz2z6ias6lugfh57fspd6bdep5ycw4zzv37oe@rhos3t2bvz6y>
+References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
+ <a8be8830890c50b1a36e9b7d20693c19c77ca4e5.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
+ <90beebd3-2636-21d5-323b-766c8d81d6d3@gmail.com>
+ <20251029090718.6xpq6zf6iawjta2j@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -61,139 +59,175 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mmzxbcnj3q3k5aim"
+	protocol="application/pgp-signature"; boundary="t2jyg3b5kcnpnf3g"
 Content-Disposition: inline
-In-Reply-To: <20251029084200.umuk2hbescz3txgn@illithid>
+In-Reply-To: <20251029090718.6xpq6zf6iawjta2j@illithid>
 
 
---mmzxbcnj3q3k5aim
+--t2jyg3b5kcnpnf3g
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>, 
-	linux-man@vger.kernel.org, "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Subject: Re: [PATCH v2 3/5] alloca.3: clarify reasoning for no error return
- in BUGS
-Message-ID: <n7qbvcugequfez7depunqaxhz7wag3uid2khobz3wdzik7tytu@mta4olxxaxvr>
-References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
- <cover.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <2001f398efa7415df60019cd29164d7cfe87ae04.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <4c862994-1fb7-7c45-8f0e-9a3bb8d76e13@gmail.com>
- <20251029084200.umuk2hbescz3txgn@illithid>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
+	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>, linux-man@vger.kernel.org
+Subject: Re: [PATCH 4/5] tm.3type: describe tm_zone, tm_gmtoff
+Message-ID: <oaa34iz4h2uu4dz2z6ias6lugfh57fspd6bdep5ycw4zzv37oe@rhos3t2bvz6y>
+References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
+ <a8be8830890c50b1a36e9b7d20693c19c77ca4e5.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
+ <90beebd3-2636-21d5-323b-766c8d81d6d3@gmail.com>
+ <20251029090718.6xpq6zf6iawjta2j@illithid>
 MIME-Version: 1.0
-In-Reply-To: <20251029084200.umuk2hbescz3txgn@illithid>
+In-Reply-To: <20251029090718.6xpq6zf6iawjta2j@illithid>
 
 Hi Branden,
 
-On Wed, Oct 29, 2025 at 03:42:00AM -0500, G. Branden Robinson wrote:
+On Wed, Oct 29, 2025 at 04:07:18AM -0500, G. Branden Robinson wrote:
 > Hi Alex,
 >=20
-> At 2021-09-15T21:42:26+0200, Alejandro Colomar (man-pages) wrote:
-> > On 9/14/21 2:41 PM, =D0=BD=D0=B0=D0=B1 wrote:
-> > >   .SH BUGS
-> > > -There is no error indication if the stack frame cannot be extended.
-> > > -(However, after a failed allocation, the program is likely to receiv=
-e a
-> > > +Due to the nature of the stack, it is impossible to check if the all=
-ocation
-> > > +would overflow the space available, and, hence, neither is indicatin=
-g an error.
+> At 2022-07-19T14:17:15+0200, Alejandro Colomar wrote:
+> > > +.PP
+> > > +.I tm_gmtoff
+> > > +is the difference, in seconds, of the timezone represented by this b=
+roken-down time and UTC
+> > > +(this is the reverse of
 > >=20
-> > I'm not sure this use of neither (without a preceding "not") is valid
-> > English.  Is it?
+> > Could you come up with a more mathematically precise term for
+> > "reverse"?  What is reverse?  The additive inverse?  Maybe use
+> > "additive inverse"?  I think "opposite" also has the meaning of
+> > additive inverse in maths, and it's maybe a simpler term (although
+> > additive inverse is more precise, IMHO).  But reverse is definitely
+> > confusing to me.
 >=20
-> The sentence is confusingly cast, but the problem is not as simple as
-> you describe.  It is common in English to use "neither" without "not"
-> preceding or following.
+> I think the idiomatic term is "inverse".
+
+Inverse is too generic.  Inverse functions do something else.  The
+specific terms are "opposite (of a) number" and "additive inverse",
+AFAIK, and maybe also "inverse (of a) number".
+
+> The existing language I see in my man-pages checkout looks fine.
 >=20
-> Neither wolverines nor beavers have yet self-domesticated.
-> Neither C nor C++ are good language choices for novice programmers.
-
-C is quite simple, and as a consequence, a great choice for a novice
-programmer, IMO.  :)
-
-> Maybe you were expecting something like this wording:
+> tm(3type):
+>      tm_gmtoff is the difference, in seconds, of the timezone
+>      represented by this broken=E2=80=90down time and UTC (this is the ad=
+ditive
+>      inverse of timezone(3)).
 >=20
-> Due to the nature of the stack, checking if the allocation would
-> overflow the space available is not possible, and, hence, neither is
-> indicating an error.
+> > > +as a variable, is an XSI extension \(em some systems provide the V7-=
+compatible
+> >=20
+> > I tend to prefer the em dash to be next to (no whitespace) the
+> > enclosed clause.  That makes it easier to mentally associate (as in a
+> > set of parentheses) to the clause.  I'm not sure if it's a thing of
+> > mine, or if it's standard practise?
 >=20
-> That's more grammatically conventional.  However, I would recast even
-> more aggressively, as I find "due to the nature of the stack" hand-wavy.
+> Practices vary.
 >=20
-> I suggest something like:
+> "Spacing around an em dash varies. Most newspapers insert a space before
+> and after the dash, and many popular magazines do the same, but most
+> books and journals omit spacing, closing whatever comes before and after
+> the em dash right up next to it. This website prefers the latter, its
+> style requiring the closely held em dash in running text."
 >=20
-> alloca() does not query the system for available stack memory, and does
-> not fall back to using the heap if stack storage is unavailable.  It
-> therefore cannot indicate an error if the allocation fails.  If it does,
-> the system generates a SIGSEGV signal.
+> https://www.merriam-webster.com/grammar/em-dash-en-dash-how-to-use
 
-Is this last sentence a guarantee?  Can something different ever occur?
+Yup, and both of those are different from the Spanish practice of using
+spaces as if em dashes were parentheses, as we recently discussed, and
+which is my preferred practice.
 
-Here's somethingvery similar, with s/does/fails/ in the last sentence.
-
-	diff --git i/man/man3/alloca.3 w/man/man3/alloca.3
-	index 52b87a8a3..4f4a87201 100644
-	--- i/man/man3/alloca.3
-	+++ w/man/man3/alloca.3
-	@@ -111,11 +111,14 @@ .SH NOTES
-	 making them unfit for implementing functionality like
-	 .BR strdupa (3).
-	 .SH BUGS
-	-Due to the nature of the stack, it is impossible to check if the allocati=
-on
-	-would overflow the space available, and, hence, neither is indicating an =
-error.
-	-(However, the program is likely to receive a
-	+.BR alloca ()
-	+does not query the system for available stack memory,
-	+and does not fall back to using heap if stack storage is unavailable.
-	+It therefore cannot indicate an error if the allocation fails.
-	+If it fails,
-	+the system generates a
-	 .B SIGSEGV
-	-signal if it attempts to access unavailable space.)
-	+signal.
-	 .P
-	 On many systems
-	 .BR alloca ()
-
-
-Have a lovely day!
-Alex
-
-> (I checked getrlimit(2) before composing that.)
+> > > +.\" FreeBSD
+> > > +.BR timezone ()
+> > > +function.
+> > > +The
+> > > +.I tm_gmtoff
+> > > +fields provides an alternative (with the opposite sign) for those sy=
+stems.
+> > > +.PP
+> > > +.I tm_zone
+> > > +points to potentially-constant static storage and may be overriden o=
+n subsequent calls to
+> > > +.BR localtime (3)
+> > > +&a. (this, however, never happens under glibc).
+> >=20
+> > What is "&a."?  Is that documented somewhere?  I didn't know that
+> > abbreviature.
+>=20
+> Possibly an abbreviation of "et alli" (Latin: "and others"; modern
+> abbreviation "et al."), as "&c." used to abbreviate "et cetera" (Latin:
+> "and the rest").
+>=20
+> In English orthography, "&a." is nonstandard, possibly archaic.  ("&c."
+> is _definitely_ archaic.)
+>=20
+> I'm not a Latin scholar, but it's possible that "etc." is better used in
+> reference to other parts of a whole.
+>=20
+> "Dude broke my arms, my legs, my ribs, etc., and laughed in my face."
+>=20
+> And "et al." is better used when making collective reference to other
+> independent entities.
+>=20
+> "Art Cohen, et al., brought a class action case against Donald Trump for
+> fraud."
+>=20
+> But if a real classical studies major tells you I'm full of it, listen
+> to them.
+>=20
+> I snipped your advice about avoiding Latin abbreviations altogether,
+> which I continue to endorse.
+>=20
+> > BTW, if the '.' is not a sentence ending, it might be good to mark it
+> > with the ineffable \& escape :)
+> >=20
+> > &a.\& (this ...
+>=20
+> I'd avoid use of "&a." altogether as it will confuse English readers,
+> native and otherwise.
+>=20
+> The dummy character escape sequence is not ineffable.  I just effed it.
+> ;-)
+>=20
+> groff_man_style(7):
+>      \&        Dummy character.  Prefix an input line with it to prevent
+>                a dot or apostrophe from being interpreted as beginning a
+>                roff control line.  Append \& to an end=E2=80=90of=E2=80=
+=90sentence
+>                punctuation sequence to keep it from being recognized as
+>                such.
 >=20
 > Regards,
 > Branden
 
+Thanks!
+
+Have a lovely day!
+Alex
 
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---mmzxbcnj3q3k5aim
+--t2jyg3b5kcnpnf3g
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkB6SoACgkQ64mZXMKQ
-wql2Eg//THlR9kvyixmSDpuF1F3smzEvxRE9bn1PX//kV0vjR2eX89u+OonaUmyM
-EzmeQ0OblSAiJhQFm9/Eb+PM6SNfY/++a0UBp6BZ3FMYAwkU3xrBjOe27ervgRb9
-+UG1OAwlGidurheg4v9Pm5SPpurNKftFPzz9/P+E9Slb9marJyHpHkAqCaNlPTqD
-8PtU6iBw3f9kBOJtoFFJaujtagcMSmmnqifvRE7C7gn6NJpwdR28rkJVRJylN08a
-nHBbLVeJ+82d7E/MFyyq4mzuyEPa/eKNxaUtn11JqvsjEQuRN24+MKBL2MALWuhp
-UXQ3pRbWPApj8ZqYg6B8qPHy+nO09SRKJCghQQUHBhb0FfOw+3I743DZGGXdo63X
-w5vD89XAxVhBmOdGIC1zY+ZLs408zVkRGQPaYxdQdoef0sZKoLpQ9GtTBQiegFMi
-lHluAIkPAnzboMscxMITXA5nSyJhmCsi4c6pBZZq+Gsr88LPnaeM688jlpZz2eFl
-DiW+txErEn0JlnVuvlQ7aYZRqlEtevxRHYrU6zBklVUVOOKspun7nTWMeLKG0qgh
-qRZNWABLarZ9fSBiIgi9NPBF26x8Z8zGfrpiurEgFxnGq07EP1vNNeLFkrZy2r0V
-SVvQbFukmci1WvBDyFLsW/dRIxmrolkMffOGtlqoNqnGPmVtSGY=
-=aQli
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkB6qcACgkQ64mZXMKQ
+wqnw/Q//b0BBQtlEcvKeR91EEd71uWumKyQvP/oFOlGX7in+C9DcDXYdxpgrqy7A
+iAbQM3Ur2PuQoujFRkdGBH9tvsPwNlp8dW1Fsa9D3YMKdEXqeQUuuEZq4eum88mU
+aHb5WULeqpfjEypeL4NU4uL656xc0f8OsyrkqToAga3K8m3UKPj7fvvBXToEgw5G
+ztPsc7LnCZIkg83729TUfQt7TBxKUk6rPpclu18a1ShGEw95ClgJigvVwDlK3LDA
+sgUYBD8WOKUqR4eEGfDwpdK2PhSw3B99DoQ9rwLdNBi/FirBKKll/dxjSYlZL2uS
+6z3DEbtMkHuKY2rQJgAtzzct0NcmtMQjQYtnYmBQ2tCOyPYtMIEPC5tBuc+8Lc/I
+smuFAYHqipPtQT495MdPE3X5OWxbrpZyA4FXYheCXRIhB5XODOylwvq0TO9yalZ5
+JmAyEgRy3YCH1GR2gnA0UP4fRRFREXYhrAYBX2iFC+QOYXV1lBxA22vwVaaWgS+R
+Pmqt8oZYWsm1Jnkakp8uB8FDDOKKlcVdp2W64Kkbn4D6qcbQBbnOY3dWckSTwRz3
+wAuOmnhWOmVNhJvZD+Qp9+KSJLyCA0s8ysoc3cs/P99OLp+3YdNdCCx2n7yNPoc5
+5wTeKbEVbVjmhliO2ITUrxKSS2dxPYD90oP3ycLcwlexqlyzGYs=
+=7pKE
 -----END PGP SIGNATURE-----
 
---mmzxbcnj3q3k5aim--
+--t2jyg3b5kcnpnf3g--
 
