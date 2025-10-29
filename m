@@ -1,168 +1,201 @@
-Return-Path: <linux-man+bounces-4227-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4228-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04E73C1C51E
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 18:01:57 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id C871EC1D04C
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 20:35:00 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 4BC4A6E2D67
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 15:34:20 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 28112188D016
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 19:34:51 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EAC97330D51;
-	Wed, 29 Oct 2025 15:32:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AD000358D3D;
+	Wed, 29 Oct 2025 19:34:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="drV+wl9B"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLZRzmuU"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A7A3358D8
-	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 15:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2E43559F1
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 19:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761751979; cv=none; b=emaCXmkPnON+AhsICGPJ4H606vcXS7KzPPxhJU9T3Kr/vabAPDdGZ1Kqq2GO6ju7zu7OHzh/H/2HGXejoSNXqRy7W1qKjQiiBqqXetuYwfsvNMJUOhclKp+nZEfRLoQ3/t2reFuMH+hOvBi6YXULxSTZ1ii+wrXC+jnCCSLkyOs=
+	t=1761766459; cv=none; b=go8hiJ5QvjRI3xt09cehm1CAmvwW5iW9jh1+bgxc49OeLQBoULO8hKHZZIbE5ASy0Icz3yS17SleSPCWUWD/BRcFDY19NOlN35suwkNIE3iVak4POB/qwGXkM8jYV8VGHxuGe4rVRGIJpBKlbi7LHk//xOcwhopGJcfQPF4SFGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761751979; c=relaxed/simple;
-	bh=f+u4Kwu6y8WuVRFjda7lE3XOgeKIJsM2YWVejxD/58Y=;
+	s=arc-20240116; t=1761766459; c=relaxed/simple;
+	bh=0TNxtkiA8JRBMW2NG9FPJnhm4ztCuNMBQSRAUm3YhCs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hr7JM3A0azx24rBEhbnWJ01ERhNVudULTyNZyava/ebOy7KoJ4DApPGvejYI7DYTUAUiUM1RzHmZCtvE+bWW4g0zQWtN0VwtUGiz/LqOb+oz6q3jfLvAEVmLlLnV11u61OGA3Euw6ytTqhtIhcFDzA5Uix2GASNTDPjKCZcDnEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=drV+wl9B; arc=none smtp.client-ip=139.28.40.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202505; t=1761751367;
-	bh=f+u4Kwu6y8WuVRFjda7lE3XOgeKIJsM2YWVejxD/58Y=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=MyPBcDmkGfVHfTun3UrWtbbJ61iBXRqB0+7bjQhKq3mDnzTEkqYvIq1UOx2dWeTnW41Nbphaw5Lh4w4puzVFoGsXqDy8jTYL5LgLzfOgHNXOBJtRsEXfttN+wYPjz8VorDXXyektJuJC6hvrAhukesT2gU73UUKpwrMiWBCvhGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLZRzmuU; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F016C4CEF8;
+	Wed, 29 Oct 2025 19:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1761766459;
+	bh=0TNxtkiA8JRBMW2NG9FPJnhm4ztCuNMBQSRAUm3YhCs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=drV+wl9BysNFvBiIJbA9lyXnygRGonXtiI+/QplYgnDQdrYAdfFUCY85p+ykxo1Ht
-	 uLRGjZoqB0Vy2loptZmBVLetyECfbLX/owGtPpRzKcxRyymuwyYplzZ4NBd0k94zOK
-	 yQAfqKpwX/xVNYohfMzOKDhkU3e3M3a0WTVk3pthX86hr21E9wnJ+O3x+tFSlfKI6g
-	 dmcRASaHMjuTImRWO48O2DOAmPER39itrFI5SjBX/7OVN0xtDbRzkZQOzSAxDLfqYr
-	 CsekI8uVlxZZg45Epf9wME75zTaLqLsGthapUPJMhQFwg3AEQKFG7wFdG3rM5VWOGf
-	 5yutf48TNTaeg==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id CA061A67E;
-	Wed, 29 Oct 2025 16:22:47 +0100 (CET)
-Date: Wed, 29 Oct 2025 16:22:47 +0100
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+	b=YLZRzmuUtZhVAQWOgsuj5vmypSaiGOKx/WUE5Ga0rNVXli4vEKl7XjaMfM+liQBVJ
+	 q2CzSMcwpC9xawSMbQiLSRi0SFLvfQ4Ret5qVewTwXNidnVp6kSex4nLy8KgtaypPp
+	 +L37Z7EV/sAK4VbO5jNn88PHLSMThgjzQzyJcKp3SWRkDV12iFFZvNKhdfAm6UxhDn
+	 DdVIWKWtVlgMBQj38EMyHAbM7oHfTYFOZMXFhZV7vWOHugYb468s5qvcpV2W3ZjVZS
+	 K+tvXLEWpaSIgGGH9IjlzaY3Ur2fQVo1hbAEwGZKrFKB3g2LoXotI/Aq/nVIlh1fPT
+	 2Q7oPRPZtn9YA==
+Received: by pali.im (Postfix)
+	id 1B045680; Wed, 29 Oct 2025 20:34:13 +0100 (CET)
+Date: Wed, 29 Oct 2025 20:34:13 +0100
+From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>, 
-	linux-man@vger.kernel.org, "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Subject: Re: [PATCH v2 3/5] alloca.3: clarify reasoning for no error return
- in BUGS
-Message-ID: <jhuyhyu2xgbcqwahlmjqc7lvqw44mrzuoveikrcdy6gm2ztu3o@tarta.nabijaczleweli.xyz>
-References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
- <cover.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <2001f398efa7415df60019cd29164d7cfe87ae04.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <4c862994-1fb7-7c45-8f0e-9a3bb8d76e13@gmail.com>
- <20251029084200.umuk2hbescz3txgn@illithid>
+Cc: linux-man@vger.kernel.org, Jan Kara <jack@suse.cz>,
+	Alejandro Colomar <alx@kernel.org>
+Subject: Re: [PATCH v2] man/man3/readdir.3, man/man3type/stat.3type: Improve
+ documentation about .d_ino and .st_ino
+Message-ID: <20251029193413.mjm2kzszktkjsak5@pali>
+References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
+ <7cce7dac8fb57608d71b073f8a3c94532e5cb688.1761693028.git.alx@kernel.org>
+ <20251028235306.sxnpm333u4xtxgt5@pali>
+ <20251029070039.6axt6yugqobyv2nh@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ancuvpz55b5dyajj"
-Content-Disposition: inline
-In-Reply-To: <20251029084200.umuk2hbescz3txgn@illithid>
-User-Agent: NeoMutt/20231221-2-4202cf-dirty
-
-
---ancuvpz55b5dyajj
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251029070039.6axt6yugqobyv2nh@illithid>
+User-Agent: NeoMutt/20180716
 
-Hi!
+Hello Branden,
 
-On Wed, Oct 29, 2025 at 03:42:00AM -0500, G. Branden Robinson wrote:
-> At 2021-09-15T21:42:26+0200, Alejandro Colomar (man-pages) wrote:
-> > On 9/14/21 2:41 PM, =D0=BD=D0=B0=D0=B1 wrote:
-> > >   .SH BUGS
-> > > -There is no error indication if the stack frame cannot be extended.
-> > > -(However, after a failed allocation, the program is likely to receiv=
-e a
-> > > +Due to the nature of the stack, it is impossible to check if the all=
-ocation
-> > > +would overflow the space available, and, hence, neither is indicatin=
-g an error.
-> > I'm not sure this use of neither (without a preceding "not") is valid
-> > English.  Is it?
-> The sentence is confusingly cast, but the problem is not as simple as
-> you describe.  It is common in English to use "neither" without "not"
-> preceding or following.
-(I think if you want to be quaint you could say that embedded
- negatives are negatives for the purposes of "neither" and the like,
- even after lexicalising so far you can't analyse them in modern english:
- im-possible n[ot]-either n[ot]-or, as you demonstrate below.)
+On Wednesday 29 October 2025 02:00:39 G. Branden Robinson wrote:
+> Hi Pali,
+> 
+> Thanks for following up.
+> 
+> At 2025-10-29T00:53:06+0100, Pali Rohár wrote:
+> > Hello Branden, I'm sorry but I have not received your message because
+> > I'm not subscribed to the list. Otherwise I would have replied to you
+> > earlier.
+> 
+> No worries--it's a risk I take when forgetting to CC people's accounts.
+> 
+> > If you are referring to the "bug" then it is written in informative
+> > part in RATIONALE section of readdir / POSIX.1-2024. I wrote in my
+> > first email in that email thread which Alejandro linked above.
+> > 
+> > Here is direct link to POSIX spec and below is quoted part:
+> > https://pubs.opengroup.org/onlinepubs/9799919799/functions/readdir.html
+> > 
+> > "When returning a directory entry for the root of a mounted file
+> > system, some historical implementations of readdir() returned the file
+> > serial number of the underlying mount point, rather than of the root
+> > of the mounted file system. This behavior is considered to be a bug,
+> > since the underlying file serial number has no significance to
+> > applications."
+> 
+> Thanks--this is precisely what I was asking for!
+> 
+> > That part is in the "informative" section. I have not found anything
+> > in normative sections which would disallow usage of that "historical"
+> > behavior, so my understanding was that "historical" behavior is
+> > conforming too.
+> > 
+> > Please correct me if I'm wrong here, or if it should be understood in
+> > different way.
+> 
+> I can't speak for the Austin Group, but I don't read the text quite the
+> same way.  I interpret it as saying that some historical implementations
+> of readdir() would _not_ "return a pointer to a structure representing
+> the directory entry at the current position in the directory stream
+> specified by the argument dirp, and position the directory stream at the
+> next entry."  But I suspect that's not what it _intends_ to say.
+> 
+> Instead, these implementations "returned [sic] the file serial number of
+> the underlying mount point", which I interpret to mean that they would
+> return a pointer to a _dirent_ struct whose _d_ino_ member was not the
+> file serial number of the file (of directory type) named by the _d_name_
+> member but a pointer to a _dirent_ struct whose _d_ino_ member was the
+> file serial number of the underlying mount point.
+> 
+> I think there are two conclusions we can reach here.
+> 
+> 1.  POSIX.1-2024 might be a little sloppy in the wording of its
+>     "RATIONALE" for this interface.  Presumably no historical
+>     implementation's readdir() returned a _d_ino_ number directly.
+>     (Though with all the exuberant integer/pointer punning that used to
+>     go in Unix, I'd wouldn't bet a lot of money that *no* implementation
+>     ever did.)  I'll wager a nickel that readdir() has always, on every
+>     implementation, returned a pointer to a _dirent_ struct, and it is
+>     only the value of the _d_ino_ member of the pointed-to struct that
+>     some implementations have populated inconsistently when the entry is
+>     a directory that is a mount point.
+> 
+>     If I'm right, this is an example of the common linguistic error of
+>     synecdoche: confusing a container with (a subset of) its contents.
+> 
+> 2.  The behavior POSIX describes as buggy is, in fact, nonconforming.
 
-> Neither wolverines nor beavers have yet self-domesticated.
-> Neither C nor C++ are good language choices for novice programmers.
->=20
-> That's more grammatically conventional.  However, I would recast even
-> more aggressively, as I find "due to the nature of the stack" hand-wavy.
-I don't disagree but I'd say it doesn't matter? "How the stack actually
-works" for our purposes of overallocating is really neither here nor there
-and changes depending on the system (grows up/down)
-and hardening (guard pages y/n), but the pitfall is similar regardless.
+Only two? I can image that somebody come up with another conclusion.
+(just a joke)
 
-Classical wisdom for alloca()/blowing the stack in general is you don't
-know you did it until you accessed some byte of your stack that you
-actually can't see, and the allocation is infallible for this reason,
-and AFAIK this holds in present day.
+Anyway, I think that it is important to document the existing Linux
+behavior and whether it is POSIX-conforming or not is then second step.
+We can drop the information about POSIX conformity from manpage until we
+figure out how it is.
 
-I'll agree that the wording above is not my best work.
+> > Also I have not read all those 4000 pages, so maybe there is something
+> > hidden. It is quite hard to find information about this topic and that
+> > is why I think this should be documented in Linux manpages.
+> 
+> I reckon someone should open a Mantis ticket with the Austin Group's
+> issue tracker to get clarity on what I characterized as "sloppy"
+> wording.  Either it is and we can get the standard clarified, or I'm
+> wrong and an authority can point out how.  (Maybe both!)
+> 
+> I'm subscribed to the austin-group-l reflector and will take an action
+> item to file this ticket.  I'll try to do within a week.  (I have a lot
+> of old Unix books and would like to rummage around in them for any
+> documented land mines in this area.)
+> 
+> Regards,
+> Branden
 
-Given the above, I'd go for something closer to
-  It's impossible to know how much stack space the caller has
-  remaining, so alloca() can't return a failure. When stack space
-  has been exceeded, a SIGSEGV will be generated when writing to or
-  reading from an out-of-memory region.
-(maybe an ", or during allocation" but idk if any alloca implementation
- actually pokes the allocated area anywhere?
- ISTR some discussion about large stack allocations and poking at
- least once per page to grow the stack correctly with guard pages
- present(?).
- Conversely, "will" matches getrlimit(2), but seems very strong;
- idk if it's a "may generally but will on linux" or if it's still
- a "may" universally and it's still possible to crash the stack
- into your normal program area on linux. or if it just depends).
+Thanks for taking that part. It would be really nice if austin group can
+clarify how the whole situation is in a non-confusing way.
 
-> I suggest something like:
->=20
-> alloca() does not query the system for available stack memory, and does
-> not fall back to using the heap if stack storage is unavailable.  It
-> therefore cannot indicate an error if the allocation fails.  If it does,
-> the system generates a SIGSEGV signal.
+Anyway, inode number is always connected to the specific mounted
+filesystem. So when the application is doing something with inodes, it
+always needs a pair (dev_t, ino_t) unless inodes belongs to same fs dev.
 
-This seems to be semantically similar to your sample,
-so I'd say we're in accord.
+readdir() and getdents() returns just ino_t, and without knowledge of
+dev_t, applications cannot use returned ino_t for anything useful.
+On "historical" implementations, the dev_t can be fetched for example by
+one fstat(dir_fd, &st) call as dev_t would be same for all readdir and
+getdents entries. But on non-"historical" implementation, it would be
+needed to call stat() on every one entry. For example /mnt/ directory
+which usually contains just mountpoints, will contain entries where
+each one has inode number 2 (common inode number for root of fs).
 
-The wording downthread seems solid.
+I looked into archives and I have found that this problem was already
+discussed in the past. Here are some email threads from coreutils:
+https://lore.kernel.org/lkml/87y6oyhkz8.fsf@meyering.net/t/#u
+https://public-inbox.org/bug-coreutils/8763c5wcgn.fsf@meyering.net/t/#u
+https://public-inbox.org/bug-coreutils/87iqvi2j0q.fsf@rho.meyering.net/t/#u
+https://public-inbox.org/bug-coreutils/87verkborm.fsf@rho.meyering.net/
+https://public-inbox.org/bug-coreutils/022320061637.4398.43FDE4D7000110830000112E22007507440A050E040D0C079D0A@comcast.net/
 
-Best,
+Maybe they could be a good reference for future discussion by austin group.
 
---ancuvpz55b5dyajj
-Content-Type: application/pgp-signature; name="signature.asc"
+Just my personal idea: If there would be some xgetdents syscall (like
+there statx over stat), it could return both inode numbers with dev_t
+and application can take which it wants.
 
------BEGIN PGP SIGNATURE-----
+For example, NFS4's readdir can return both inode numbers (depending
+what is client asking). NFSv4.1 spec has nicely documented this problem
+with UNIX background of mount point crossing:
+https://www.rfc-editor.org/rfc/rfc8881.html#section-5.8.2.23
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmkCMUIACgkQvP0LAY0m
-WPE1qQ//Q1y6+cp+Zum0bWPJ+/zygdK3gnmxe3f3DfrijK4JEzMNdCkN3lcdaqqp
-k3beTChDUrshneTmPv0Sv5KzGJCewlz1iHK7ZSsy3JMAFuMxDmpHuagFfAhxRLn8
-hiAKnEDcBr6xTl97AtaRbQeVy0Kjcqsnh1VJROour/AZuCymGdJUXoA5tcFZufX9
-OTZErMYFJDam2K5zWbPYgMVmw9AU+j0l11kAMLPbcWRjsv0Vfb4pPgjrvq+gmedK
-rDAyvckvMo8j89MK7J4RN5KCIfs1l03tEzCzO4mOPHZG6zkgL4xRrvGXjZdduz6C
-wiK0G4Xgsce3Rke9M3wi9TJv9jxD+prfSy1S22ths4+Iwirb+PkQE5pGOtzincfm
-KKOkaELAuBeLcTr60CCOBgq9VTAY5d53viZWaSKvPIwFdMN37jHyH3/Myu3KSb54
-Umu97E9Ci621MUQu1LXOapJgQcpSrqCJcNepLPJRb7ugarxc4ZWJQkC/SrYT5pXk
-NAnPiUOXOVFSx5FZKi5CPxabGXnOK4ztj/CVl7BWrAiSBSBM1SHwSIYN6OFQ9c0w
-oChJfH4nfH/X62STRDjNX6+iAddFzyZ/Yn1fa9x9EwfVmrPd+FEEC6ogaCjsqE8t
-Vy7cQ3X+TMzutmL+kuFGL2yNf6X8vSeKGiXf856AFxCwWkb7+5s=
-=fCh+
------END PGP SIGNATURE-----
-
---ancuvpz55b5dyajj--
+Pali
 
