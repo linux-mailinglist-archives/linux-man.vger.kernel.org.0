@@ -1,117 +1,148 @@
-Return-Path: <linux-man+bounces-4209-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4210-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B3F6C1768C
-	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 00:53:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B85C178B5
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 01:30:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0B4EC400AB9
-	for <lists+linux-man@lfdr.de>; Tue, 28 Oct 2025 23:53:15 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 79D06421E68
+	for <lists+linux-man@lfdr.de>; Wed, 29 Oct 2025 00:30:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 654AE3064AE;
-	Tue, 28 Oct 2025 23:53:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CCF128E579;
+	Wed, 29 Oct 2025 00:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MN+p+mZv"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CfVu6MEu"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247C62DECC2
-	for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 23:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838DD28C006
+	for <linux-man@vger.kernel.org>; Wed, 29 Oct 2025 00:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761695592; cv=none; b=Vts+SFvaLG97o68qHbKc+3I/wu0B0XMjDjSDuRny0pxDHk6mGzYdhlCqfEYBHi+NaPxufExH7L4GkqvgRaSsHJvgR9L59YYtwymDg8WcyIi985/OHVsKmiwsHHYwr0Hv1+08y9nF5cGAiGybfbM/W4As+VX6WRrR4Vmv2sDGQI4=
+	t=1761697819; cv=none; b=E6WtYv5vOu9wq/SV6YEs1YtWxKGMJiK33gJTEVJeFKvmyBdb38nmkh8Oqly74mPBimtJzbozTRfhKGnLWX72zocn21ck2Kj+RfgXw5Y7yo8eZzwNQ8fOxGSeNXyWfQw9d1Slr8WNgZaHTOW0irRPFQegSCp1FwxuHjVzVBFfYNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761695592; c=relaxed/simple;
-	bh=fHhcNNmh/I+I2YBN/2iPt7RdFzCyx/hOiJpWgelDJQo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mrwfutDeWkOLE5WsJVvDOmoMxCKHtgv9ug2UaGm2G0bbf0lknNuUOO1yLtZxKchTZSdn0IpVSe/4KHQ98N5/vx9YWKHpdow4++M6Acb1ie7qtiWVILhoY/xCHCpP3u7VJl+JtEj8BqaX0oUZf6GWXYS2/B9cYCPB8rpjHz6eqI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MN+p+mZv; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ABDFC4CEE7;
-	Tue, 28 Oct 2025 23:53:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761695591;
-	bh=fHhcNNmh/I+I2YBN/2iPt7RdFzCyx/hOiJpWgelDJQo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MN+p+mZvLdQZVwu/RkzkdrFhiY3qzjGsD7H7fVVlVEXGlT7QfJ/0Gd5WbcyQ+UkHk
-	 HB66CjXZlDDxSXekftCps4mg6pg/LIUHzXBNzOxVcOQTND5wVMJt/iFcgMML2gmL1I
-	 mGMTjHQuHiDQkwwaRQszWztQ6xcLHC0FIGb4ZIA/B8TAqCoVGMbuGUT8FQP732N0VI
-	 msLCJsjFLdH6+xOXrkcCZcq+gQOTVrR893LsaSmcBYE40g4I/mtoHxgKVOfK0cc317
-	 6s74LWXnYlYxGs7LyC/nka6WN5AKbx17+SXX2C1lR5hFpyYAUj5msAiolLtmOCXwnH
-	 hNAfT/YmwIMXA==
-Received: by pali.im (Postfix)
-	id 6C40955E; Wed, 29 Oct 2025 00:53:06 +0100 (CET)
-Date: Wed, 29 Oct 2025 00:53:06 +0100
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: "G. Branden Robinson" <branden@debian.org>
-Cc: linux-man@vger.kernel.org, Jan Kara <jack@suse.cz>,
-	Alejandro Colomar <alx@kernel.org>
-Subject: Re: [PATCH v2] man/man3/readdir.3, man/man3type/stat.3type: Improve
- documentation about .d_ino and .st_ino
-Message-ID: <20251028235306.sxnpm333u4xtxgt5@pali>
-References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
- <7cce7dac8fb57608d71b073f8a3c94532e5cb688.1761693028.git.alx@kernel.org>
+	s=arc-20240116; t=1761697819; c=relaxed/simple;
+	bh=dExIVCKOuPZUpaJrePlFZ53W1Kufcp8Kjp2sPJNHJNo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=kbO3b3ChOyIZPZHIiMrR/jF4HM7SgxHosLtQdkg3fBKty8wdEDmLPmsO8ANdaOJ30ROrIB2D9WWsq77Mfcev9hsJHGGx9/XQtjITkXdCW3GUunsQFscEstiM+PezYURO/ZimDtxo00sUQLFmRKo1RSH2QEgsE4Bv3JFCf/G4/Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CfVu6MEu; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-27eec33b737so94907235ad.1
+        for <linux-man@vger.kernel.org>; Tue, 28 Oct 2025 17:30:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1761697818; x=1762302618; darn=vger.kernel.org;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=o60Rl3W84Ge29DSaXH8W/UsUZ22uc+DkdzU9GgVlq40=;
+        b=CfVu6MEu1cSldTU2lkZvM4oReh7pqaBK7NGGEHfiejFK9e1SCfdwTt0q5rY1dJDMP7
+         AcuP9ch9ELE8mKnW6ZcTHzQi6Wej7pbcJOcVLwZjc2PDkmlpO7m9Wk7QAMYh++rCsBR6
+         itslPTdoo7RDdOnTtl54mTC9D/YuKuIYH9/K/p94ZbIJYykFWCI9jVaRkwkEcFHDJ2gM
+         /tdKkobnjsWoByBzaJtE27U88Yu2qOv6WXT2Vyvt5OqPUAgDrk1xx05GCkOYbYAbxPQh
+         pzQuxJpTbj92cMIxCtTp48FCR+TJ2vN0khEJyEGc/HR0fEiNLImOARzWz3nCvGSMJQ/u
+         eByw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761697818; x=1762302618;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=o60Rl3W84Ge29DSaXH8W/UsUZ22uc+DkdzU9GgVlq40=;
+        b=O5F11QuCQirb+2WtTSFboa0XbPb4jkq30kHtiU3eQT9Us1UKPfe02j4tggC57NL48M
+         wqdKFX8BwipwrYmmhOIkjUExO9quGQAqAQlJl8m9vR1jqX7EuEU4wfqs2ylDzF8cvyhN
+         KkJqZjkoiWXiVYLplY9oGlPHns6p3b8FKg+qhS4qVsuvUORU9u5QeFmuGjY5lBPDUq4m
+         zm0J5HRm6FzL83taFDrkPNcDLbLFo/LR9hzG0EADtdW2Wsxl4cXldThUIrfjh+ewM4oh
+         sAlTeYwojemtWuR0+fqpb8x74elWJGCG6Id9T6jEdvBA5tff4kysYfvpJnbpTvDBZRbk
+         vg3A==
+X-Forwarded-Encrypted: i=1; AJvYcCWYD2W2isAF44y2+7qm+ZmCgZBO0VbF/6fFvH3KyylfLfYRPJMIO/AFo66wNcHX32NcUQIUUU9yQOY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwA4uEgdoKBCJKJh01h0VAkWwTMjcbtudfpSeOIDMAt/PdIcRFC
+	aR/eDP2fuUppYmBrqEO6qHl+PcSiNPi4QTptLosZgf9fBU/7wKYrcgV+veSes9Le
+X-Gm-Gg: ASbGncvEFPPPiVPLUwrrWmmgt+rQ346E/z+YCgLe5GB6Wtcf9HtDS7yhqzZlUlgyFBV
+	d3RzIH6ewG5n57ILd4A4mc5ytVWgt5f1AMolf6fEB11t796iEl+ZeHBB9iJjOzf4geBa8vQuLhO
+	EHruQxF9TcrASQUZcDtmXcroe9Gr0hraT/06EPqUl8NDznwSv89O08U5xRMOzB11NgiF8kE5uoF
+	Yg0bgMPaHcKhJ8NWHhkDCoOqWbi3A3Bc60YEkq8z3+IJrR3BVNHvzstKNSQy8jxzFtrN+UnECth
+	o9xV6itDag6lldvYEyyiFTJRSX6BDvd7N5rKaY/MDg1WbqcYYS7WvZURZMHq8OnXoQ0BSeYWSKD
+	ECygSD9nndPsH2UlWNbb+RQsgHsBdMbYmCjXc6MqV2nBA3FTocO6mtYn3KQ==
+X-Google-Smtp-Source: AGHT+IEz3tu5AtJHKHYk3zJtWPzt08n5It8nZPn8gBcD2hsShnG1PAXoIO+XrqveNW/bgufsRuIC0w==
+X-Received: by 2002:a17:903:2309:b0:290:a70e:6261 with SMTP id d9443c01a7336-294dedfa9d9mr13546415ad.11.1761697817490;
+        Tue, 28 Oct 2025 17:30:17 -0700 (PDT)
+Received: from fedora ([2601:646:8081:3770::43bc])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-29498cf4a40sm132607495ad.0.2025.10.28.17.30.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Oct 2025 17:30:16 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Jakub Wilk <jwilk@jwilk.net>,  linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man3/opendir.3: document that long file names
+ result in ENAMETOOLONG
+In-Reply-To: <um3c7pddogzafccx5wtr5pzpyle7ve5xbcl4wrx4sk3yzkrere@euo5ol6ekmqr>
+References: <4266061219d7406c0aa737f8d52108fea7e0f7fb.1760689006.git.collin.funk1@gmail.com>
+	<20251017084553.d2dgnaicr6loseev@jwilk.net>
+	<um3c7pddogzafccx5wtr5pzpyle7ve5xbcl4wrx4sk3yzkrere@euo5ol6ekmqr>
+Date: Tue, 28 Oct 2025 17:29:58 -0700
+Message-ID: <87ms5a5z3t.fsf@gmail.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7cce7dac8fb57608d71b073f8a3c94532e5cb688.1761693028.git.alx@kernel.org>
-User-Agent: NeoMutt/20180716
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-On Wednesday 29 October 2025 00:15:31 Alejandro Colomar wrote:
-> Hi Jan,
-> 
-> Would you mind reviewing this?  The thread started here:
-> <https://lore.kernel.org/linux-man/20250525103344.fe27ugiytfyoadz5@pali/T/#u>.
-> 
-> Hi Branden,
-> 
-> I wasn't able to do anything after your request from
-> <https://lore.kernel.org/linux-man/20250525103344.fe27ugiytfyoadz5@pali/T/#m1bd706844fd322b2b0f9090ceac68e7ba29200eb>.
-> Pali will probably be better placed to do that, since he authored that
-> text.
-> 
-> Hi Pali,
-> 
-> Sorry for being so slow with this!  I wasn't able to work on this until
-> now.
-> 
-> 
-> Have a lovely night!
-> Alex
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-Hello Branden, I'm sorry but I have not received your message because
-I'm not subscribed to the list. Otherwise I would have replied to you
-earlier. If you are referring to the "bug" then it is written in
-informative part in RATIONALE section of readdir / POSIX.1-2024. I wrote
-in my first email in that email thread which Alejandro linked above.
+Alejandro Colomar <alx@kernel.org> writes:
 
-Here is direct link to POSIX spec and below is quoted part:
-https://pubs.opengroup.org/onlinepubs/9799919799/functions/readdir.html
+> Hi Collin, Jakub,
+>
+> On Fri, Oct 17, 2025 at 10:45:53AM +0200, Jakub Wilk wrote:
+>> * Collin Funk <collin.funk1@gmail.com>, 2025-10-17 01:18:
+>> >    $ mkdir -p `python3 -c 'print("./" + "a/" * 32768)'`
+>> >    $ ./a.out `python3 -c 'print("./" + "a/" * 32768)'`
+>> >    File name too long
+>
+> Thanks!  I've applied the patch.
+>
+>>=20
+>> Simpler reproducer:
+>>=20
+>> $ ./a.out $(printf '%0999d')
+>> File name too long
+>
+> And also thanks!  I've amended the commit message to use the simpler
+> reproducer.
 
-"When returning a directory entry for the root of a mounted file system,
-some historical implementations of readdir() returned the file serial
-number of the underlying mount point, rather than of the root of the
-mounted file system. This behavior is considered to be a bug, since the
-underlying file serial number has no significance to applications."
+Thanks! That is fine. My example was a longer than needed since I was
+testing long path handling in Coreutils and wanted deep directory
+entries.
 
-That part is in the "informative" section. I have not found anything in
-normative sections which would disallow usage of that "historical"
-behavior, so my understanding was that "historical" behavior is
-conforming too.
+Collin
 
-Please correct me if I'm wrong here, or if it should be understood in
-different way.
 
-Also I have not read all those 4000 pages, so maybe there is something
-hidden. It is quite hard to find information about this topic and that
-is why I think this should be documented in Linux manpages.
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Pali
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEI3EYVQjRMXvVeOXMjOZJGuMNfXUFAmkBYAYACgkQjOZJGuMN
+fXU2hw//TMHtJrC9aXaPW9GolBknjzKwR8fArq2Ug1v/K28H48kxWL+N772sz4TD
+bb3a1W+DnE4/xny8DCgUKoSp1L30piKiQfweIXIl1litFFsQbMGhLnZkdnyKjcV4
+I4Zqgg1/5i+UuHJuWL0uKq9Dxpckqu9cGXavxw8hCBNBmc6QVMMJUK/3ZEbUZQqH
+vHUIlNNY+FCn4PljZZtK4Fudo2KOLTbHlsu7vpGe2cniHfo12VMMT9X6EYcwGip9
+aLnkvS9L3WDc4T3HSv8R/n1Pu/3rRn2aopaFFNJhV2trw20Sq+bwYBqoxxjr4O0Q
+oX4DYmAqm3Zo6+RUOKqcdwvSXCQPCWuHVWbwuOkPqTC7h5gKO30T6JX6A8RB4ZFl
+Kisss428iu/pzoUZbbuMy5i93no25zaumIe7PbpLrwXjPyYCfqqIuFv3giPB86me
+fTVw6hX/J4UTe7aUmaYZ3TCNMRGn5CmDEzuddCVOqYsxfXW3y1YJJe/UGdRjloxc
+nFiiGvmf51NY+ioti9pX9ppU40OYx5rQ7JMG9PTS2heVjxtuTYPfZewYk2gdy52X
+gQH+3ZpHsbujRWox6H/BZLTo9E3jxYr/owEnq3qZhgDJLXo8mIJRKoKFe1T5PsJX
+fGvVP7dk7OxH6fEDw0EB+/dFrNWtwmMfZjspikVVKG1E4pOF3sM=
+=xYzp
+-----END PGP SIGNATURE-----
+--=-=-=--
 
