@@ -1,109 +1,115 @@
-Return-Path: <linux-man+bounces-4233-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4234-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53B4CC1F40A
-	for <lists+linux-man@lfdr.de>; Thu, 30 Oct 2025 10:22:22 +0100 (CET)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 76F9FC1FE68
+	for <lists+linux-man@lfdr.de>; Thu, 30 Oct 2025 12:59:41 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 583224E9830
-	for <lists+linux-man@lfdr.de>; Thu, 30 Oct 2025 09:21:40 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id D497634D441
+	for <lists+linux-man@lfdr.de>; Thu, 30 Oct 2025 11:59:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A32532B9AB;
-	Thu, 30 Oct 2025 09:21:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B27C2351FA7;
+	Thu, 30 Oct 2025 11:59:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yb70e5pX";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="bQYGv3cg";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="SENs5ZAR";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="D1Om1QgN"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="VXGx+F7w";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="QeMo81b9";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="DbVLR1uv";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="sM/3a2ws"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68832D0C9D
-	for <linux-man@vger.kernel.org>; Thu, 30 Oct 2025 09:21:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC2A314D27
+	for <linux-man@vger.kernel.org>; Thu, 30 Oct 2025 11:59:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761816096; cv=none; b=O54Vvu9l/Kc8PRiJ4lT8M3HaSOwdV4M1Zh/zc5Ty/QYH9dwnZs+7RuuLI6q/Z1KzHjpbVhK3h2+GVTZfb7GjmruKGTYoqSaaBgzGcOT+Z5qBjtKQevaPm7rAIm4NTq1jBDCI9pGa2srm3Qi8DkqpU3QPqSHY0lzShHMyqFOVPbg=
+	t=1761825547; cv=none; b=IgKVN9JNe5bBXCFK3dGb2F8rVU7qQL+FeMIDPviNdRDfAmirAXBCeYOuBLPweH0eKFJsUj+KULzMWogsvHb6jOSIsYIf2yZ1jSdx5HDdT1IK14n0h/7aymvsxz6fjRAGFB3Xqvp00jqN42b4Pk5ZIlC9VwszGrB3Lx3A8TxmtCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761816096; c=relaxed/simple;
-	bh=mey37MteCDHBKJI5h/hOYw2OFoMf57tziUJBushSKbg=;
+	s=arc-20240116; t=1761825547; c=relaxed/simple;
+	bh=FIu+eNgNwmuRctJyoD8MfT8mI+bVyHbDd5nRW36Y6hI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lvTu9tzE7MBNGw6TAwtZxt+5/Owxfo9av59iBwPahI0OVHqqSJW5noU/qUjnIJz5Ik/pNP21YiVWa4skKn8CfuO0vJUuwzHJWTh017qu63n1ESL+6vtYChsGTO177tlydL4QFdruFIMvEtvqm+Mln1kf43JZoNm11YDqnGnDg6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yb70e5pX; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=bQYGv3cg; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=SENs5ZAR; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=D1Om1QgN; arc=none smtp.client-ip=195.135.223.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=gtooM+7Lh0hIaDZfmmyRJHcQZnm4d3NpfJXmmkbIcgJFr+Fgqg3IYFyEa0iOyjoKdmCBF5EoFb0LnzQv/gQ5ADRPW27qKwawceuo0Jn1alQQyK06IgjQPOJrxiDybKL3YUB7b+ZGZVi73Gu6kZFImkEdMSJkg3gFMD+0HqySt7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=VXGx+F7w; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=QeMo81b9; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=DbVLR1uv; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=sM/3a2ws; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D475F1FB7D;
-	Thu, 30 Oct 2025 09:21:30 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B18361F788;
+	Thu, 30 Oct 2025 11:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1761816091; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1761825543; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Pvbv2sklXqmoaX+CK0LqtKadq+enVVZtpxET8db+orM=;
-	b=yb70e5pXF1TSbHliSdhzU3Llt1VmZKKcDTNC/6CNt5y/+aUSCNMETsFWMGG9laeunI3zha
-	6ZN56WI/iqRb8tBEfMEeOFE4VwVWdIaTyz5B13G2YEhtLjZ06FXu0aBnYsmCO467rBAAwB
-	Sxdd6GMIjPYVrn43yhh5Lq+W49eVJf8=
+	bh=fuFTLWT5mgIzPyXQ0odFzFXczzPc2pyComr27uQm3YI=;
+	b=VXGx+F7wCxsWa2zCBJQJBsguI89P/MJXjHMqAIhhOWvRd6EFYK+UZyUJBsxEFGIehB/2vJ
+	lDE8Hdh86N3RsZ1kazH8jo7rQ2QM8dzjCGFwcYcKavLRsS3gt9s8GcJjzU3XzfGF3X7Xn5
+	hxGFDTDjm01qph59eXPzdEHroI1KAO8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1761816091;
+	s=susede2_ed25519; t=1761825543;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Pvbv2sklXqmoaX+CK0LqtKadq+enVVZtpxET8db+orM=;
-	b=bQYGv3cg2BN0E3sU1leFaAdQKlZLzlu/pyNyDgR16feEWr5utq8wS6opSGpJuTyzzC5+xU
-	2cQQ+JKPldVI+UAw==
+	bh=fuFTLWT5mgIzPyXQ0odFzFXczzPc2pyComr27uQm3YI=;
+	b=QeMo81b9rtPXCeSMgedpjYGz5x+rJ1NI5iRBAaQ5+3jU6jtWMiQTpoZNx91Qgqik8xETjC
+	yWDe0FP6yWU3yhAg==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1761816090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1761825542; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Pvbv2sklXqmoaX+CK0LqtKadq+enVVZtpxET8db+orM=;
-	b=SENs5ZARRKtMsQstswlC6k3Ri9VRb3EQoLveYJ0c8Y/NMW9l6Cyp74VPaiVu8BkZgXY2gf
-	oRMik1WzpSYZMrQ+zRn2vD9tVgdh+uGpqQHLUdfXZs3+xB8S4Ivj/tJjkCD8k3iuJvWru7
-	rnJFC4OPjqd0wl2/e/xbb1+VUOc9P+0=
+	bh=fuFTLWT5mgIzPyXQ0odFzFXczzPc2pyComr27uQm3YI=;
+	b=DbVLR1uvos4zVgnMXQ96gOgjHqudJspL2ZAQ7OzVjAODCAaDYjjtFNP8UkDjbXixKzoey4
+	COrAjUmwCrd77TuyWySl1z1YheqA/+vHg5xcgn9BopAR/EsnXwNzA3t9jgxNBanrS0csHU
+	b+V09BNkee/AGh1BNScbiKLTf9K5uSc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1761816090;
+	s=susede2_ed25519; t=1761825542;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Pvbv2sklXqmoaX+CK0LqtKadq+enVVZtpxET8db+orM=;
-	b=D1Om1QgNI6GI/63fEoin48YVV1OZR8lOZM+Q8UGhBGL6D35c7ontH3sT7KTaT/igiKgyWR
-	UscOSE/YMOHoHcAA==
+	bh=fuFTLWT5mgIzPyXQ0odFzFXczzPc2pyComr27uQm3YI=;
+	b=sM/3a2wsMRUJH4rxhtjwtfXmG2vuaFgjS1HVuXbStGuW1ttZFrSZDS6njQEYIkd6RLWn4s
+	8l3mWt6/V8ZuMDDw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CAD291396A;
-	Thu, 30 Oct 2025 09:21:30 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A77F31396A;
+	Thu, 30 Oct 2025 11:59:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id IcR/MRouA2l8agAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 30 Oct 2025 09:21:30 +0000
+	id zFPfKAZTA2n7CgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 30 Oct 2025 11:59:02 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 6160CA0AD6; Thu, 30 Oct 2025 10:21:30 +0100 (CET)
-Date: Thu, 30 Oct 2025 10:21:30 +0100
+	id 38813A0AD6; Thu, 30 Oct 2025 12:58:58 +0100 (CET)
+Date: Thu, 30 Oct 2025 12:58:58 +0100
 From: Jan Kara <jack@suse.cz>
-To: Alexander Monakov <amonakov@ispras.ru>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org, 
-	Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v1] man/man2/flock.2: Mention non-atomicity w.r.t close
-Message-ID: <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
-References: <181d561860e52955b29fe388ad089bde4f67241a.1760627023.git.amonakov@ispras.ru>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Jan Kara <jack@suse.cz>, 
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, "G. Branden Robinson" <branden@debian.org>
+Subject: Re: [PATCH v2] man/man3/readdir.3, man/man3type/stat.3type: Improve
+ documentation about .d_ino and .st_ino
+Message-ID: <zb4rkj5ql32ddtdojv6ina27xjqg6s27o43m7snxwv5eigwmgg@zveelok53sg7>
+References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
+ <7cce7dac8fb57608d71b073f8a3c94532e5cb688.1761693028.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <181d561860e52955b29fe388ad089bde4f67241a.1760627023.git.amonakov@ispras.ru>
-X-Spam-Level: 
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7cce7dac8fb57608d71b073f8a3c94532e5cb688.1761693028.git.alx@kernel.org>
 X-Spamd-Result: default: False [-3.80 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
@@ -123,68 +129,102 @@ X-Spamd-Result: default: False [-3.80 / 50.00];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
 X-Spam-Flag: NO
 X-Spam-Score: -3.80
+X-Spam-Level: 
 
-On Thu 16-10-25 18:22:36, Alexander Monakov wrote:
-> Ideally one should be able to use flock to synchronize with another
-> process (or thread) closing that file, for instance before attempting
-> to execve it (as execve of a file open for writing fails with ETXTBSY).
+On Wed 29-10-25 00:15:31, Alejandro Colomar wrote:
+> Suggested-by: Pali Rohár <pali@kernel.org>
+> Co-authored-by: Pali Rohár <pali@kernel.org>
+> Cc: "G. Branden Robinson" <branden@debian.org>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
 > 
-> Unfortunately, on Linux it is not reliable, because in the process of
-> closing a file its locks are dropped before the refcounts of the file
-> (as well as its underlying filesystem) are decremented, creating a race
-> window where execve of the just-unlocked file sees it as if still open.
+> Hi Jan,
 > 
-> Linux developers have indicated that it is not easy to fix, and the
-> appropriate course of action for now is to document this limitation.
-> 
-> Link: <https://lore.kernel.org/linux-fsdevel/68c99812-e933-ce93-17c0-3fe3ab01afb8@ispras.ru/>
-> 
-> Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
+> Would you mind reviewing this?  The thread started here:
+> <https://lore.kernel.org/linux-man/20250525103344.fe27ugiytfyoadz5@pali/T/#u>.
 
-The change looks good to me. Feel free to add:
+The changes look correct to me but the wording is a bit confusing. Let me
+try to suggest some improvements.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+...
+
+> diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
+> index e1c7d2a6a..368e98e6e 100644
+> --- a/man/man3/readdir.3
+> +++ b/man/man3/readdir.3
+> @@ -58,7 +58,27 @@ .SH DESCRIPTION
+>  structure are as follows:
+>  .TP
+>  .I .d_ino
+> -This is the inode number of the file.
+> +This is the inode number of the file,
+> +which belongs to the filesystem
+> +.I .st_dev
+> +(see
+> +.BR stat (3type))
+> +of the directory on which
+> +.BR readdir ()
+> +was called.
+> +If the directory entry is the mount point,
+> +then
+> +.I .d_ino
+> +differs from
+> +.IR .st_ino :
+> +.I .d_ino
+> +is the inode number of the underlying mount point,
+> +while
+> +.I .st_ino
+> +is the inode number of the mounted file system.
+> +According to POSIX,
+> +this Linux behavior is considered to be a bug,
+> +but is nevertheless conforming.
+
+I'd suggest:
+This is the inode number of the file in the file system containing the
+directory on which readdir() was called. If the directory entry is the
+mount point, then .d_ino differs from .st_ino returned by stat(3type) on
+this file: .d_ino is the inode number of the mount point, while .st_ino is
+the inode number of the root directory of the mounted file system.
+According to POSIX, this Linux behavior is considered to be a bug, but is
+nevertheless conforming.
+
+> diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
+> index f3c312bf0..b87195766 100644
+> --- a/man/man3type/stat.3type
+> +++ b/man/man3type/stat.3type
+> @@ -66,7 +66,21 @@ .SH DESCRIPTION
+>  macros may be useful to decompose the device ID in this field.)
+>  .TP
+>  .I .st_ino
+> -This field contains the file's inode number.
+> +This field contains the file's inode number,
+> +which belongs to the
+> +.IR .st_dev .
+> +If
+> +.BR stat (2)
+> +was called on the mount point,
+> +then
+> +.I .d_ino
+> +differs from
+> +.IR .st_ino :
+> +.I .d_ino
+> +is the inode number of the underlying mount point,
+> +while
+> +.I .st_ino
+> +is the inode number of the mounted file system.
+
+Here I'd suggest:
+This field contains the file's inode number in the file system on .st_dev.
+If stat(2) was called on the mount point, then .st_ino differs from .d_ino
+returned by readdir(3) for the corresponding directory entry in the parent
+directory. In this case .st_ino is the inode number of the root directory
+of the mounted file system while .d_ino is the inode number of the mount
+point in the parent file system.
 
 								Honza
-> ---
->  man/man2/flock.2 | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/man/man2/flock.2 b/man/man2/flock.2
-> index b424b3267..793eaa3bd 100644
-> --- a/man/man2/flock.2
-> +++ b/man/man2/flock.2
-> @@ -245,6 +245,21 @@ .SH NOTES
->  and occurs on many other implementations.)
->  .\" Kernel 2.5.21 changed things a little: during lock conversion
->  .\" it is now the highest priority process that will get the lock -- mtk
-> +.P
-> +Release of a lock when a file descriptor is closed
-> +is not sequenced after all observable effects of
-> +.BR close (2).
-> +For example, if one process writes a file while holding an exclusive lock,
-> +then closes that file, and another process blocks placing a shared lock
-> +on that file to wait until it is closed, it may observe that subsequent
-> +.BR execve (2)
-> +of that file fails with
-> +.BR ETXTBSY ,
-> +and
-> +.BR umount (2)
-> +of its underlying filesystem fails with
-> +.BR EBUSY ,
-> +as if the file is still open in the first process.
->  .SH SEE ALSO
->  .BR flock (1),
->  .BR close (2),
-> 
-> Range-diff against v0:
-> -:  --------- > 1:  181d56186 man/man2/flock.2: Mention non-atomicity w.r.t close
-> -- 
-> 2.49.1
-> 
 -- 
 Jan Kara <jack@suse.com>
 SUSE Labs, CR
