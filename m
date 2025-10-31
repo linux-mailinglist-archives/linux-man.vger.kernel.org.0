@@ -1,209 +1,239 @@
-Return-Path: <linux-man+bounces-4236-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4237-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66394C243E9
-	for <lists+linux-man@lfdr.de>; Fri, 31 Oct 2025 10:48:59 +0100 (CET)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id D65C8C24907
+	for <lists+linux-man@lfdr.de>; Fri, 31 Oct 2025 11:45:05 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id BE4B73B90C5
-	for <lists+linux-man@lfdr.de>; Fri, 31 Oct 2025 09:45:29 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 59C9A349E2B
+	for <lists+linux-man@lfdr.de>; Fri, 31 Oct 2025 10:45:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA1D52F60DB;
-	Fri, 31 Oct 2025 09:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3738F340277;
+	Fri, 31 Oct 2025 10:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V8aPt3S/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ksb83KW1"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893CC1E9B3D
-	for <linux-man@vger.kernel.org>; Fri, 31 Oct 2025 09:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AF71F2C34;
+	Fri, 31 Oct 2025 10:44:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761903927; cv=none; b=Uk8c8bLyx/CJO++PFNbvpsFG6Ufn76zu0kT/1KSbGNkBS/e0DRATJXztL2IbqycVLHhrWMisuCH7SFNlAcjcSg7vVAFZWQ3Ja4WOzQQfYxjT5R2mUZkm5KOKq94vRe2hFN2Y4XQmDTjjYXUa15WRWJephK8Om0CaDt6eBsgCcKE=
+	t=1761907457; cv=none; b=ivQ8QN1jboBdc2EQRJLiKcNGdZ9+nz86ntIW1YYN7q4uTVje3NzoglePOoe5haXam0Lp9t2F4YCqzl7tyuCbCStN59xU/IFrziKR/WU9Xz4eEdxSTyjjDODM7sChzCwdSyyNvm7KJjerYz0Z5umXsHSb4f3uuxqr1+KX4fS8xck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761903927; c=relaxed/simple;
-	bh=Dbkz4xNvnuz6/33QRmTW4u8OllI5vRQX1UK9RTPdq9E=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=T7b5l+nt5ry64gt2njrQYgP5Xb4gsxNYjho0gg4oE9C+G6IukFLOjd4r66l30+wSDR50GjvDSVjnG/eSpSYxWZhVe3zCMjs01PLUYZqrPuyPHfEalN72M5BY6p7rSOcaq3hVQ7srraf88c0pa6AvG7oVfrEIAqzQFi+RaWN58ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V8aPt3S/; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F3EBDC4CEFB
-	for <linux-man@vger.kernel.org>; Fri, 31 Oct 2025 09:45:26 +0000 (UTC)
+	s=arc-20240116; t=1761907457; c=relaxed/simple;
+	bh=BOTABqyQPYcWiLb75ejnbbz1/8lvEOtc3qM7xAltJZM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ekB19MAMc0RbKpVRNCCjCvws1QPCb6hi1bWXLHheGB5r3LONZG86YWGUR7DzYKTo8wusJKyyRwONlnJbhSSE37PQ+s+IsITYQY/CLgad0yQsCHIhQA0fY7USb7tgJ2jobljU2Q+1Rh9DG3z6DfSZ0OjIcXbpusA2BcLTAJWmdTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ksb83KW1; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07AFDC4CEFB;
+	Fri, 31 Oct 2025 10:44:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761903927;
-	bh=Dbkz4xNvnuz6/33QRmTW4u8OllI5vRQX1UK9RTPdq9E=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=V8aPt3S/mKFKV2YtuaTxNmLETxNXvVa5g2TJolBu1SbJn1oMHjROUhpnHCeHACosc
-	 BY2/yKtm4pEssQgnLOxjEVIPXGNvWD43dYkFCHy7TvNwA4n7DL5hUgHTugkF1OAdq8
-	 knM+IDhzqUT0LwTumRcRekT7Vc/2AsPuJKqYGXo4+PQXnKGRdViWlpwO2jCs3eSpib
-	 PasVA5KTT6yiv3fid56i0C2SsyJ70MJa35rdO02BFLx2JQzv55ayjv4e/yHeFYmr1p
-	 4D1a+16Rrhj7hdzWsco1DGmnvHX8xSxZXL4535mbnV3M0ViOy+zjME/8A8A6wKOSCz
-	 E2aPprIMEIx/g==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id EBD20C41612; Fri, 31 Oct 2025 09:45:26 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
+	s=k20201202; t=1761907457;
+	bh=BOTABqyQPYcWiLb75ejnbbz1/8lvEOtc3qM7xAltJZM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ksb83KW1/hEj0UpQBuKXDAUDXGg1TIIAngFxXJkJGmJFW3VZBDrzgcVhFIELM5xEn
+	 6As9kAsH0O/sSpWYlPRF4iuwt/7qj2ZrnQm0VTPbRxAjZSqqVZVuz5n4r78R6mYbTY
+	 fkBMTTHUOe2t8i7NjpJZCsJ0BLXpHelAIKUZJ4NXtmfpqe3DXS/qRb+/6mC+NKv9Ro
+	 Fp5hAyfR5Ch8+6VSJ6JS6OhcD7UvfL/cZmwdntmLSX/7guDHtHYzhu/VIXaUGEw62K
+	 qzTki1W8jMLpms4ycrzXMQkk0JQlXbNFnrezqTkcHx7uKUp7Cvay+g0WqYvpVnYCrV
+	 dDImrETy4ekHA==
+Date: Fri, 31 Oct 2025 11:44:14 +0100
+From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
-Subject: [Bug 220726] Patch of ioctl_vt (2), small clarification.
-Date: Fri, 31 Oct 2025 09:45:26 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alx@kernel.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-220726-11311-VT0Y6QVktj@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-220726-11311@https.bugzilla.kernel.org/>
-References: <bug-220726-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, Jan Kara <jack@suse.cz>, 
+	"G. Branden Robinson" <branden@debian.org>, linux-fsdevel@vger.kernel.org
+Subject: [PATCH v3] man/man3/readdir.3, man/man3type/stat.3type: Improve
+ documentation about .d_ino and .st_ino
+Message-ID: <bfa7e72ea17ed369a1cf7589675c35728bb53ae4.1761907223.git.alx@kernel.org>
+X-Mailer: git-send-email 2.51.0
+References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D220726
+Suggested-by: Pali Rohár <pali@kernel.org>
+Co-authored-by: Pali Rohár <pali@kernel.org>
+Co-authored-by: Jan Kara <jack@suse.cz>
+Cc: "G. Branden Robinson" <branden@debian.org>
+Cc: <linux-fsdevel@vger.kernel.org>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
---- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
-Hi,
+Hi Jan,
 
-On Fri, Oct 31, 2025 at 04:41:33AM +0000, bugzilla-daemon@kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D220726
->=20
->             Bug ID: 220726
->            Summary: Patch of ioctl_vt (2), small clarification.
->            Product: Documentation
->            Version: unspecified
->           Hardware: All
->                 OS: Linux
->             Status: NEW
->           Severity: normal
->           Priority: P3
->          Component: man-pages
->           Assignee: documentation_man-pages@kernel-bugs.osdl.org
->           Reporter: teika@gmx.com
->         Regression: No
->=20
-> Created attachment 308874
->   --> https://bugzilla.kernel.org/attachment.cgi?id=3D308874&action=3Dedit
-> Patch of man/man2/ioctl_vt.2
->=20
-> Let me submit a patch of the man page ioctl_vt (2), which clarifies a bit.
->=20
-> I also have a comment in this page about the struct vt_mode in VT_SETMODE=
-. It
-> has the member "waitv", which does not seem to be meaningful any more tod=
-ay.
->=20
-> It is because among all files in the kernel source drivers/tty/, it is on=
-ly
-> refered once, in vt/vt_ioctl.c, in the line:
->=20
-> vc->vt_mode.waitv =3D 0;
->=20
-> --=20
-> You may reply to this email to add a comment.
->=20
-> You are receiving this mail because:
-> You are watching the assignee of the bug.
+I've put your suggestions into the patch.  I've also removed the
+sentence about POSIX, as Pali discussed with Branden.
 
-Would you mind sending the patch to the mailing list?  Please see
-
-        $ cat CONTRIBUTING
-        Name
-               Contributing - instructions for contributing to the project
-
-        Synopsis
-               Mailing list, patches, lint & check, style guide, bug report=
-s,
-               and more.
-
-        Description
-               The main discussions regarding development of the project,
-               patches, bugs, news, doubts, etc. happen on the mailing list.
-               To send an email to the project, send it to Alejandro and CC=
- the
-               mailing list:
-
-                   To: Alejandro Colomar <alx@kernel.org>
-                   Cc: <linux-man@vger.kernel.org>
-
-        Files
-           CONTRIBUTING.d/git
-               Instructions for configuring git(1).
-
-           CONTRIBUTING.d/mail
-               Instructions for sending emails to the project
-
-           CONTRIBUTING.d/patches/
-               Instructions for contributing patches
-
-           CONTRIBUTING.d/bugs
-               Instructions for reporting bugs
-
-           CONTRIBUTING.d/lint
-               Instructions for linting manual pages
-
-           CONTRIBUTING.d/external_pages
-               Pages imported or generated from other projects
-
-           CONTRIBUTING.d/style
-               Preferred layout of manual pages and style guide notes
-
-        See also
-               <https://www.kernel.org/doc/man-pages/missing_pages.html>
-
-and
-
-        $ cat CONTRIBUTING.d/patches/patches
-        Name
-                patches/patches - instructions for contributing patches
-
-        Description
-                If you know how to fix a problem in a manual page (if not, =
-see
-                <CONTRIBUTING.d/bugs>), then send a patch in an email.
-
-                Configure git(1) for this project.  See <CONTRIBUTING.d/git=
->.
-
-                Send logically separate patches.  For logically-separate
-issues,
-                send separate emails.  For related issues, send a patch set
-with
-                a cover letter that gives an overview of all of the patches,
-and
-                each patch should be a reply to the cover-letter mail.  We
-                recommend using git-format-patch(1) for preparing the patch=
-es.
-
-                Patches should contain a description alongside the diff.  A
-diff
-                without a description is mostly useless.  See
-                <CONTRIBUTING.d/patches/description>.
+At the bottom of the email is the range-diff against the previous
+version.
 
 
 Have a lovely day!
 Alex
 
---=20
-You may reply to this email to add a comment.
+ man/man3/readdir.3      | 19 ++++++++++++++++++-
+ man/man3type/stat.3type | 20 +++++++++++++++++++-
+ 2 files changed, 37 insertions(+), 2 deletions(-)
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
+index e1c7d2a6a..220643795 100644
+--- a/man/man3/readdir.3
++++ b/man/man3/readdir.3
+@@ -58,7 +58,24 @@ .SH DESCRIPTION
+ structure are as follows:
+ .TP
+ .I .d_ino
+-This is the inode number of the file.
++This is the inode number of the file
++in the filesystem containing
++the directory on which
++.BR readdir ()
++was called.
++If the directory entry is the mount point,
++then
++.I .d_ino
++differs from
++.I .st_ino
++returned by
++.BR stat (2)
++on this file:
++.I .d_ino
++is the inode number of the mount point,
++while
++.I .st_ino
++is the inode number of the root directory of the mounted filesystem.
+ .TP
+ .I .d_off
+ The value returned in
+diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
+index 76ee3765d..ea9acc5ec 100644
+--- a/man/man3type/stat.3type
++++ b/man/man3type/stat.3type
+@@ -66,7 +66,25 @@ .SH DESCRIPTION
+ macros may be useful to decompose the device ID in this field.)
+ .TP
+ .I .st_ino
+-This field contains the file's inode number.
++This field contains the file's inode number
++in the filesystem on
++.IR .st_dev .
++If
++.BR stat (2)
++was called on the mount point,
++then
++.I .st_ino
++differs from
++.I .d_ino
++returned by
++.BR readdir (3)
++for the corresponding directory entry in the parent directory.
++In this case,
++.I .st_ino
++is the inode number of the root directory of the mounted filesystem,
++while
++.I .d_ino
++is the inode number of the mount point in the parent filesystem.
+ .TP
+ .I .st_mode
+ This field contains the file type and mode.
+
+Range-diff against v2:
+1:  d3eeebe81 ! 1:  bfa7e72ea man/man3/readdir.3, man/man3type/stat.3type: Improve documentation about .d_ino and .st_ino
+    @@ Commit message
+     
+         Suggested-by: Pali Rohár <pali@kernel.org>
+         Co-authored-by: Pali Rohár <pali@kernel.org>
+    +    Co-authored-by: Jan Kara <jack@suse.cz>
+         Cc: "G. Branden Robinson" <branden@debian.org>
+         Cc: <linux-fsdevel@vger.kernel.org>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    @@ man/man3/readdir.3: .SH DESCRIPTION
+      .TP
+      .I .d_ino
+     -This is the inode number of the file.
+    -+This is the inode number of the file,
+    -+which belongs to the filesystem
+    -+.I .st_dev
+    -+(see
+    -+.BR stat (3type))
+    -+of the directory on which
+    ++This is the inode number of the file
+    ++in the filesystem containing
+    ++the directory on which
+     +.BR readdir ()
+     +was called.
+     +If the directory entry is the mount point,
+     +then
+     +.I .d_ino
+     +differs from
+    -+.IR .st_ino :
+    ++.I .st_ino
+    ++returned by
+    ++.BR stat (2)
+    ++on this file:
+     +.I .d_ino
+    -+is the inode number of the underlying mount point,
+    ++is the inode number of the mount point,
+     +while
+     +.I .st_ino
+    -+is the inode number of the mounted file system.
+    -+According to POSIX,
+    -+this Linux behavior is considered to be a bug,
+    -+but is nevertheless conforming.
+    ++is the inode number of the root directory of the mounted filesystem.
+      .TP
+      .I .d_off
+      The value returned in
+    @@ man/man3type/stat.3type: .SH DESCRIPTION
+      .TP
+      .I .st_ino
+     -This field contains the file's inode number.
+    -+This field contains the file's inode number,
+    -+which belongs to the
+    ++This field contains the file's inode number
+    ++in the filesystem on
+     +.IR .st_dev .
+     +If
+     +.BR stat (2)
+     +was called on the mount point,
+     +then
+    -+.I .d_ino
+    -+differs from
+    -+.IR .st_ino :
+    -+.I .d_ino
+    -+is the inode number of the underlying mount point,
+    -+while
+     +.I .st_ino
+    -+is the inode number of the mounted file system.
+    ++differs from
+    ++.I .d_ino
+    ++returned by
+    ++.BR readdir (3)
+    ++for the corresponding directory entry in the parent directory.
+    ++In this case,
+    ++.I .st_ino
+    ++is the inode number of the root directory of the mounted filesystem,
+    ++while
+    ++.I .d_ino
+    ++is the inode number of the mount point in the parent filesystem.
+      .TP
+      .I .st_mode
+      This field contains the file type and mode.
+
+base-commit: f305f7647d5cf62e7e764fb7a25c4926160c594f
+-- 
+2.51.0
+
 
