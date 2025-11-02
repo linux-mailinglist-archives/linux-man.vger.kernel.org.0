@@ -1,146 +1,149 @@
-Return-Path: <linux-man+bounces-4243-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4244-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E199C29141
-	for <lists+linux-man@lfdr.de>; Sun, 02 Nov 2025 16:48:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7F59C29421
+	for <lists+linux-man@lfdr.de>; Sun, 02 Nov 2025 18:43:06 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id EAAF734614E
-	for <lists+linux-man@lfdr.de>; Sun,  2 Nov 2025 15:48:02 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 3C965347642
+	for <lists+linux-man@lfdr.de>; Sun,  2 Nov 2025 17:43:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A16D8635C;
-	Sun,  2 Nov 2025 15:47:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69C072DE70D;
+	Sun,  2 Nov 2025 17:43:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=rsiny.com header.i=@rsiny.com header.b="gBk8d6U1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rzyaXBYL"
 X-Original-To: linux-man@vger.kernel.org
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7B0EEBB
-	for <linux-man@vger.kernel.org>; Sun,  2 Nov 2025 15:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296391F4169
+	for <linux-man@vger.kernel.org>; Sun,  2 Nov 2025 17:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762098477; cv=none; b=sOu06ZAxSjAlQV63F8vcucDVqLGi+ySbD2CcEhnOUfqp81sSbp5yJLY6oUXYtHWdGojoU1X26YZ2hGN9/tJdprs0RAAtcw44nFDLIk0Q4RbeKhHNURcK4W1IWxNEoNQ4Gsdimd79oG/J5V4qEq9fBMTTRXkAJhj4hO2SIHfYf3E=
+	t=1762105381; cv=none; b=iNqjjOVPNoosD0U1E7VnWUzR13HWPy0xM4Hma794YYognYrQlL/CjRTVvtXWTLr69DupsEEc4NY44fNLOTTqZyeDiimBhlNXU83CktlzApUVCAVeYJc8/huayiE84RwwOonCECq+iiQ4zYDt57potZwqp5rxbvTrZpzpe8bO0Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762098477; c=relaxed/simple;
-	bh=fXGfIzMwP+oIJHas/m5VEfm/s830Zm7PZgAkrHdbGCA=;
-	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=G0LDGwN9kXEJz8haoeBsJeWsNjqugil3M3jzDIhPnjsphvuM5Ml9QZTjuDt4Z3RxAuvRWU3SbgLUMafVelbFTnyV7npb1HQ7K2nNmydy3Dm7VNOwedllr2PHXwtIgQX+cIvQqBZ+cKqjnizR6XOGEvL2iMcGsUzESFvPET1lMNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rsiny.com; spf=pass smtp.mailfrom=rsiny.com; dkim=pass (2048-bit key) header.d=rsiny.com header.i=@rsiny.com header.b=gBk8d6U1; arc=none smtp.client-ip=35.89.44.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rsiny.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsiny.com
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id FYLNvS4JcVCBNFaJ3vsv38; Sun, 02 Nov 2025 15:47:49 +0000
-Received: from gator3203.hostgator.com ([198.57.247.167])
-	by cmsmtp with ESMTPS
-	id FaJ3vvkzGEQP9FaJ3vcWWI; Sun, 02 Nov 2025 15:47:49 +0000
-X-Authority-Analysis: v=2.4 cv=MpNS63ae c=1 sm=1 tr=0 ts=69077d25
- a=vC5mKVSCNjYeKhnms5QpbA==:117 a=dZyYEhY6Uc3iFMkTI0LykA==:17
- a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=VLA-vofSqycA:10 a=GcyzOjIWAAAA:8
- a=-oPXOJOlAAAA:8 a=czg6k9X57LdCjare8Z4A:9 a=QEXdDO2ut3YA:10
- a=hQL3dl6oAZ8NdCsdz28n:22 a=uOPXFodjOu4k-i0eYj75:22 a=jd090qJjdgtkHixrxZjS:22
- a=YvEdvsDKhhPdmou8X6BG:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rsiny.com;
-	s=default; h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=ko7ecGZZoH0UkmwcCHY+2DsbnXKc8WOmlDaWMZfoS88=; b=gBk8d6U1m05veI9s4ViNNcXVCA
-	yW+SV3P9EyhYMPho+m/ymHavZBNtNv46bqOlqF+pO1RdwcXOYUxw1QUux4X7lFU3I2BRzc8QAgWDb
-	pQsLMqIERL9yd7FCEevvbE+G/C2nggy93V205Hur6x0QIZevqmFCg1n59fCNhQWHUF2HJG5BDVSF3
-	2rf+U4kPeBUm7lRfRsYm08BVETIf6EvkXJjQkQhUp8Qb3GZ0S904xMvzh9ww2bbgYEN6plzbo5I9Z
-	QksjoD83hGkh71UD11s56b36Q1CQMHjqwWUbvXfOFKdnYk7+gu+6SN4Xv4EdGuJfnQ61YmQ8coDAn
-	6h0AV8sA==;
-Received: from [72.68.184.91] (port=57052 helo=desk.fios-router.home)
-	by gator3203.hostgator.com with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.1)
-	(envelope-from <rstanley@rsiny.com>)
-	id 1vFaJ2-00000001jK3-37xf;
-	Sun, 02 Nov 2025 09:47:48 -0600
-Message-ID: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
-Subject: Errors in two Section 3 functions
-From: Rick Stanley <rstanley@rsiny.com>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1762105381; c=relaxed/simple;
+	bh=4sQn4YxuT6VYr2Ctb7QCbvB3dYpnSWJ4eMbJx8Hi7j0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bI9X/1GySGzU8gR+Zbfh/8AJuqIKN/GV+rXySCptZRMbM5fjksGIE3V/JDKtM7Q4xWFr7+FfZW3QdvU9ye/e9ulXjgvt3o7yO0U9n2cGiTRZmRh5zOYy0P0GvKSf16skhUpVbSTF2AK4fQSGa2QRPct9gUjg1/Nj6/cj1jndwP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rzyaXBYL; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046F7C4CEF7;
+	Sun,  2 Nov 2025 17:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1762105379;
+	bh=4sQn4YxuT6VYr2Ctb7QCbvB3dYpnSWJ4eMbJx8Hi7j0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rzyaXBYLK2O4s8XSG9kBMh3NbQAGs6db30FhWl76kaUbPuEBsRLGLZrB/Z47lgofO
+	 wzRMYl9ekNUaRutah9Nq41C7w8YB8/JYeN0V3SssHffzvb5qHrTvDWhMuipq0zJEgg
+	 s+tkeVtm+51+A8QBby+lQzfA68PW1dwmPoPQqSQlqH/OfMiBpklZEwXr3pEpRlsDVS
+	 Uk0r80FJqzJiIXuTV7IM2i1DRIc9+m2WXZXA6eByP+8Twq/iiCI0+RU1kzN97noTEQ
+	 5YveJ5ngxY3p00zQBGURGcf/gibz2hbStHxMecXFw9DpXT80Ad+25kHnFT16PqQrIR
+	 HvUqx9D4NgcWw==
+Date: Sun, 2 Nov 2025 18:42:56 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Rick Stanley <rstanley@rsiny.com>
 Cc: linux-man@vger.kernel.org
-Date: Sun, 02 Nov 2025 10:47:47 -0500
-Organization: RSI
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-5 
+Subject: Re: Errors in two Section 3 functions
+Message-ID: <zb5tsdfz4zvjclsxt2saroxrijoh5bzc72o3wnxacqmn7rcbnf@knjgxqt5jreg>
+References: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator3203.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - rsiny.com
-X-BWhitelist: no
-X-Source-IP: 72.68.184.91
-X-Source-L: No
-X-Exim-ID: 1vFaJ2-00000001jK3-37xf
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: (desk.fios-router.home) [72.68.184.91]:57052
-X-Source-Auth: rstanley@rsiny.com
-X-Email-Count: 1
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: cnN0YW5sZXk7cnN0YW5sZXk7Z2F0b3IzMjAzLmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfC16hxXKAiqf967S/kf3g4eZ00R+JBiN28BqLXukivaNGpu8S8wLpzyXEitP6HhnGYY9RuCWPGcQxkujZm9wIv7ba5vCpNvYl1kX0Y2E1GLaXrn+yRKB
- NfeCpP05zRV6iy5gFcWQ5sBZZ08s4I+nmaG376qLJ4jGYGPvl2gDfubd6lShTKBJpExjCEHvEa82vcRwnqhIUNxm+Zgcsr+1l7c=
-
-Hello!
-
-I have noticed two errors for memmove() and memcpy().
-
-memmove():
-
-man7.org:
-"void *memmove(size_t n;
-                     void dest[n], const void src[n], size_t n);"
-string.h:
-"extern void *memmove (void *__dest, const void *__src, size_t __n)"
-(Leaving off the __THROW text)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6pe3tsxxn34hwsy2"
+Content-Disposition: inline
+In-Reply-To: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
 
 
-memcpy()
+--6pe3tsxxn34hwsy2
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Rick Stanley <rstanley@rsiny.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Errors in two Section 3 functions
+Message-ID: <zb5tsdfz4zvjclsxt2saroxrijoh5bzc72o3wnxacqmn7rcbnf@knjgxqt5jreg>
+References: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
+MIME-Version: 1.0
+In-Reply-To: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
 
-man7.org:
-"void *memcpy(size_t n;
-                    void dest[restrict n], const void src[restrict n],
-                    size_t n);"
+Hi Rick,
 
-string.h:
-"extern void *memccpy (void *__restrict __dest, const void *__restrict
-__src, int __c, size_t __n)"
+On Sun, Nov 02, 2025 at 10:47:47AM -0500, Rick Stanley wrote:
+> Hello!
+>=20
+> I have noticed two errors for memmove() and memcpy().
+>=20
+> memmove():
+>=20
+> man7.org:
+> "void *memmove(size_t n;
+>                      void dest[n], const void src[n], size_t n);"
+> string.h:
+> "extern void *memmove (void *__dest, const void *__src, size_t __n)"
+> (Leaving off the __THROW text)
+>=20
+>=20
+> memcpy()
+>=20
+> man7.org:
+> "void *memcpy(size_t n;
+>                     void dest[restrict n], const void src[restrict n],
+>                     size_t n);"
+>=20
+> string.h:
+> "extern void *memccpy (void *__restrict __dest, const void *__restrict
+> __src, int __c, size_t __n)"
+>=20
+> The issue in both is:
+> "memmove(size_t n;"
+> "memcpy(size_t n;"
 
-The issue in both is:
-"memmove(size_t n;"
-"memcpy(size_t n;"
+That's not an error; it's valid GNU C.
 
-IMHO on man7.org, they should read:
+> IMHO on man7.org, they should read:
+>=20
+> "void *memmove(void dest[n], const void src[n], size_t n);"
+>=20
+> "void *memcpy(void dest[restrict n], const void src[restrict n],
+>  size_t n);"
 
-"void *memmove(void dest[n], const void src[n], size_t n);"
+That would be incorrect.  You can't use a variable before declaring it.
+See <https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html>.
 
-"void *memcpy(void dest[restrict n], const void src[restrict n],
- size_t n);"
 
-Thanks!
-
-Rick
+Have a lovely night!
+Alex
 
 --=20
-Rick Stanley
-(917) 822-7771
-www.rsiny.com
-IT =C2=A0Consulting
-Linux & Open Source Specialist
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--6pe3tsxxn34hwsy2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkHmBoACgkQ64mZXMKQ
+wqly9g/7BvarMQbzkYnzv1fG/LR1QXU0Myc8V1w8b+GeoVYpXKBGWlQR1jmqQFqK
+E0v+q2mCAhySqKA8qCYM6RFoXbShHXSa9Q7GO8GSNtTCBvrOrLkVt4r7EE07IKhZ
+liVIBwjl5QZy3YnhjjQelgACneWXvrw+74y1IGi+hW+20iN9ryPpA4oNb7rlAKrK
+KwV+z/gEIdii9hjNgcDDsHVTfaR+CG0tZ+vJwwqn+4ckmyOWanHSz7gueyqbx6Em
+kwCm5zuTzj8vLGnGu7jhhWVEjy+4NYlfdbtxVpWMioAUT05MvKz3qIVv1z6rbPoc
+mI4bYbOs4FyNnVoI4zx6wAIfOvpyJIgFx6n8SYnmwD3Q09xKJlFbYgxzMI/UwKlj
+4Uw+rznvJy6Rwn5/ujqme08muicOqVSFJ4NFXNjUs7ig9RQBP8aWSmbo+kjln0hE
+0uFPjN2O+tNzbDrIxV40c+JhRw892r8aLfPC+kJPiohNVxl20fZiYqfujKzJDc2z
+OTY/ceLjyA7TxoE2RpjykFqr3tN1or7hIhn1ZvKv51sj+VDKsiVJfkMKD4DIWmdi
+P4Q3eFXP5RCVmknUcuOhylFWC3CnhUFpSkIrlmNOwl6VMSiI13TZr0f5AS5WGXli
+JY8szcgEqQaYvul+OrltzwhMw959Rso3FoXLZaCCvM6oSVACBpM=
+=Q/IP
+-----END PGP SIGNATURE-----
+
+--6pe3tsxxn34hwsy2--
 
