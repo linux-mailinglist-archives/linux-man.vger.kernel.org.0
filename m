@@ -1,282 +1,136 @@
-Return-Path: <linux-man+bounces-4241-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4242-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06423C264CF
-	for <lists+linux-man@lfdr.de>; Fri, 31 Oct 2025 18:13:45 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id C914CC288D1
+	for <lists+linux-man@lfdr.de>; Sun, 02 Nov 2025 01:03:45 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id A0A0A1A64CA5
-	for <lists+linux-man@lfdr.de>; Fri, 31 Oct 2025 17:11:03 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 803FB3ACF34
+	for <lists+linux-man@lfdr.de>; Sun,  2 Nov 2025 00:03:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 765432FF659;
-	Fri, 31 Oct 2025 17:10:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B68DE17D2;
+	Sun,  2 Nov 2025 00:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A7bJCxaf"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D/QJypol"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f67.google.com (mail-qv1-f67.google.com [209.85.219.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304392FBDE7;
-	Fri, 31 Oct 2025 17:10:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED08110E0
+	for <linux-man@vger.kernel.org>; Sun,  2 Nov 2025 00:03:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761930633; cv=none; b=lHg3yNElAufslVUxpgyztHqd5pcQuv5QOlLs5I2VXtEN6LqyGA3vGOrnnyJkgU/p6QjtvRn0Fud9tQuBA2xBxfiJqrm14vUfSZwDb4tQ3kwhQLcSHUcPksVxFJXx9AJC19kmuR5BtKddcyQbIWHA5CpGAu8bJ2OebehBoPx4USI=
+	t=1762041822; cv=none; b=mUuuv6MR4QXUHjTD7o0LsqX5zyimTCVjzLz4uGsnJjKyXGx0lRYIT3ID3kDNcWBns8dKR90uSavQDbJGpp0kPOIM/FN0xKtQefFum8ugl81WaYiVOV5G7rL21bRWFwlKDK9f6jQPNPy8J9KzfsoEJ0W5NSEaaoz1ObC+twEQAwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761930633; c=relaxed/simple;
-	bh=kuhuOItW6uCdq+fz4WAGlCR/9/yrgL18hnM08e2tvT0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MtEqqw5E8tDpHP4jiXbRz4zceXCxw5UBGTiggViwJRzZof25BADHsMbPIoyELBdHz5ejjAMvj5TAa8HeNANuYe+NkVN79c+eF4DFPHAeaOOSdTf9uOlOMsIj7nH6CAhogchlJiFK2Ykj6yDsoCyY+g2J1+TLTspfHGlzv3XNvZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A7bJCxaf; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E087C4CEE7;
-	Fri, 31 Oct 2025 17:10:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761930632;
-	bh=kuhuOItW6uCdq+fz4WAGlCR/9/yrgL18hnM08e2tvT0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A7bJCxafB8yPUn2jVPwgovpqDrVyVDoHd1YNY1T80hnSeh8dB9VqjFtr3DrJsOMJU
-	 iJsOygh3GjzMbnxoVGB5JHsZsmehUrmuvZ205PFnK/yMZs1A305ZYYeZbTU5jAUmf4
-	 PKqc783tCN/gsomjhIpBF9hPdwuGlM1e7QgFQHERkU0SaQlluZ4StXkPX9aWXYw2E+
-	 cCzBHIVooqg1urkmH5S7bCyXJamyHb61jQ4RpJNuY/3QooEsgi75BNsCSUljrTx76S
-	 UIyEyoFu9S+Tz41de0e9ICA2Eu1b2z7obn7gy/Kzk14eu3lpQkgVh+99fUY+MluoCr
-	 vZx88QEfFlFcA==
-Received: by pali.im (Postfix)
-	id 2FF9677A; Fri, 31 Oct 2025 18:10:27 +0100 (CET)
-Date: Fri, 31 Oct 2025 18:10:27 +0100
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org,
-	"G. Branden Robinson" <branden@debian.org>,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v3] man/man3/readdir.3, man/man3type/stat.3type: Improve
- documentation about .d_ino and .st_ino
-Message-ID: <20251031171027.nhpwrm7ih4fdkfns@pali>
-References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
- <bfa7e72ea17ed369a1cf7589675c35728bb53ae4.1761907223.git.alx@kernel.org>
- <75ug4vsltx6tiwmt7m4rquh7uxsbpqqgopxjj7ethfkkdsmt7v@ycgd272ybqto>
- <grzxwjrxlneaus735jhwh2buo2nvmj2c4iospzmh7rcfs5czel@qjlb5czusc52>
+	s=arc-20240116; t=1762041822; c=relaxed/simple;
+	bh=46dI8HlBWIiDAUnsugZXFUmoCzOSumHATXE379htpc0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bxYZrYKZ1WSoTCnlrYaqR5V1ddr3Ev0mKjBCgaj2pxbbkDrXX2bb8tXeoh+x/VWz0hX5FGZwaJ+NUHD1MNvOT77pmFL5nngUomZtmhw3IXOVpR2G6/uFk0sHtnMDIvlUErrXar5mWKBug6f0dwhCQ71+jBXImhaytObJuNWjY4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D/QJypol; arc=none smtp.client-ip=209.85.219.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qv1-f67.google.com with SMTP id 6a1803df08f44-8804a4235edso5968056d6.1
+        for <linux-man@vger.kernel.org>; Sat, 01 Nov 2025 17:03:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1762041820; x=1762646620; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qTC/27hwdbcr+kmt5XP61JnWsv5bKnIN2M8tojqJLN4=;
+        b=D/QJypoleYQO/gwLDRLFpG7vzKVltWosDCAgR/xptLHiUjZ2jS7tybKTUlxHy6d6EP
+         z6eOMTP4Mc6cLuFZEyHh5ADqwJ4z+UBQEsxp/WcwVA0BquSQMhQ6YeGSYRpIARopxhiS
+         QmCwvfXzXRtTYZg0P56FNZ7Xxlee6mtMHJZMGx31GhXJf7gQU9u70eNaaJJoTp8UTStI
+         +rWx5E9Q9tgxtpDXgJjLe8khf0FWRJRQXUM3cLdpVuok/vu3M9wZf+vS9pUHW7IRTBI2
+         141WWeUjR0/Qkf9q38emiLFIIphIIutjffL9f/EbZQX/dbw0K4q05lvt/1SIpo9WIHwX
+         NUgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762041820; x=1762646620;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qTC/27hwdbcr+kmt5XP61JnWsv5bKnIN2M8tojqJLN4=;
+        b=ualh3PTP4fdFaFboX04oAnYsSVhVoqAmIojuDIj4InJA0HN5NKDoizTHuUCntxI7EA
+         SP6sbhdxaKIezTa20vLBGJWIvNJA9j43X/mZEqErT+jCJ+KPpWHWMkXP/M2VIgrXiwAF
+         2WZrEsv5R5mBsGnYkapVsaZswOBze+cCZbppS7OAhdodKhH0HvdqIfLlh2XIwBOc/aB7
+         tqNmmnYMgVX4Bcfp+mJ84ZrDUUmRftCezbAGAWUj32IOoI4MN128VN76wJbFpueZzXyo
+         HBZphWOMJkeaoTQmBRT63Oi0HMgUSvcqjo8N8gCmMYNDG7uDv030NBHn6hxtGBj4k8F6
+         +Qww==
+X-Gm-Message-State: AOJu0YzJgPeSPrUz7Cun4LDYcqy/Vq9CrX5P2BHpBZx6T4ateosmqasX
+	qOVGJionlFFNujioYOKpRN/e70XSe5AFjOjSXk5Dx9n5p4maZuQtgcqFMsz4FBpJrgD9NtJZ
+X-Gm-Gg: ASbGnctzhNNEUpO2JLeEcFb+8vaStHqkk+Ck2pUUbFy0q18J6dm2UhtX1QCXYot0sPq
+	Exokf4BWIP16EqGKMYIjI+0AHWhJvauWyHN92/gQmd86suRighhosGOXPfTAjqCcu+cjSn1qe27
+	X07jn+6a4pqyPk3GOI0qTbir7C+lc6r4u2lw3n0DjrDR571akFS+KNY47xlcg84XzIU37nq5GxN
+	XiX8xjhMmLbAjg+yh0WKIJ1jPfms31xpxMsZRU8R0DU6G26aXA/Sj7mTlK+Q/3f9BmMtLTStrLO
+	J3vvcnvPmMwO5cO9gTygurBlnkUaufYAtmNeO1RbEbDHWzr3To90jLvc2aESXthJKfhmk7nUL7c
+	DYiwxiPaW33nZO78tsMF0e+A/GBZR81ebz1qjnaL/5iPelQVOQhOMzNkoKkDj8G42CNJfqLy1Tf
+	jOQ71hlhhPOlXKYtWLtWxpBfo4hRh41Kt2meXHcNj2wCkLLOpGLUGHFvMUw/0yKDvHj+144g==
+X-Google-Smtp-Source: AGHT+IE4gxruA4np13u1k/cryo1STFZkJjiZIqX6OrYduRg2NV+xnFbby3+7t/PvdulVGXCw2OljJw==
+X-Received: by 2002:a05:6214:1d06:b0:880:2cec:3f6d with SMTP id 6a1803df08f44-8802f521e09mr117269466d6.60.1762041819696;
+        Sat, 01 Nov 2025 17:03:39 -0700 (PDT)
+Received: from secra.localdomain (pool-71-255-240-10.washdc.fios.verizon.net. [71.255.240.10])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8803631eb02sm36909536d6.40.2025.11.01.17.03.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Nov 2025 17:03:39 -0700 (PDT)
+Received: from secra.localdomain (localhost [127.0.0.1])
+	by secra.localdomain (8.18.1/8.18.1) with ESMTP id 5A203c0f155604;
+	Sat, 1 Nov 2025 20:03:39 -0400
+Received: (from secra@localhost)
+	by secra.localdomain (8.18.1/8.18.1/Submit) id 5A203cNI155603;
+	Sat, 1 Nov 2025 20:03:38 -0400
+From: Wes Gibbs <wg21908@gmail.com>
+To: linux-man@vger.kernel.org
+Cc: mtk.manpages@gmail.com, colomar.alejandro@gmail.com, bigeasy@linutronix.de,
+        Wes Gibbs <wg21908@gmail.com>
+Subject: [PATCH v3] Subject: [PATCH v3] copy_file_range.2: glibc no longer provides fallback after 2.30
+Date: Sat,  1 Nov 2025 20:03:30 -0400
+Message-ID: <20251102000330.155591-1-wg21908@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <grzxwjrxlneaus735jhwh2buo2nvmj2c4iospzmh7rcfs5czel@qjlb5czusc52>
-User-Agent: NeoMutt/20180716
 
-On Friday 31 October 2025 12:31:41 Alejandro Colomar wrote:
-> Hi Jan, Pali,
-> 
-> On Fri, Oct 31, 2025 at 11:56:19AM +0100, Jan Kara wrote:
-> > On Fri 31-10-25 11:44:14, Alejandro Colomar wrote:
-> > > Suggested-by: Pali Rohár <pali@kernel.org>
-> > > Co-authored-by: Pali Rohár <pali@kernel.org>
-> > > Co-authored-by: Jan Kara <jack@suse.cz>
-> > > Cc: "G. Branden Robinson" <branden@debian.org>
-> > > Cc: <linux-fsdevel@vger.kernel.org>
-> > > Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > > ---
-> > > 
-> > > Hi Jan,
-> > > 
-> > > I've put your suggestions into the patch.  I've also removed the
-> > > sentence about POSIX, as Pali discussed with Branden.
-> > > 
-> > > At the bottom of the email is the range-diff against the previous
-> > > version.
-> > 
-> > Thanks! The patch looks good. Feel free to add:
-> > 
-> > Reviewed-by: Jan Kara <jack@suse.cz>
-> 
-> Thanks!
-> 
-> Pali, would you mind signing the patch?  One you do, I'll merge.
+v3:
+- Modified Signed-off, Wes Gibbs <wg21908@gmail.com> is the author
+- Clarify that glibc wrapper was introduced in 2.27
+- Fixed commit link and ensured semantic newlines
+- Updated to correct URL in comment to avoid 404 - Unknown commit object
 
-Hello, yes, that this fine.
+Fixes: https://bugzilla.kernel.org/show_bug.cgi?id=220489
+Author: Wes Gibbs <wg21908@gmail.com>
+Signed-off-by: Wes Gibbs <wg21908@gmail.com>
+---
+ man/man2/copy_file_range.2 | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-Reviewed-by: Pali Rohár <pali@kernel.org>
+diff --git a/man/man2/copy_file_range.2 b/man/man2/copy_file_range.2
+index e9e9e9945..e1e36dd5e 100644
+--- a/man/man2/copy_file_range.2
++++ b/man/man2/copy_file_range.2
+@@ -202,10 +202,16 @@ that was also backported to earlier stable kernels.
+ .SH STANDARDS
+ Linux, GNU.
+ .SH HISTORY
+-Linux 4.5,
+-but glibc 2.27 provides a user-space
+-emulation when it is not available.
++Linux 4.5.
++Before glibc 2.30, starting with glibc 2.27, the glibc wrapper function
++provided a user-space fallback implementation when the kernel did not
++implement this system call.
++Since glibc 2.30, that fallback has been removed; the function now
++fails with ENOSYS if the kernel lacks support for .BR copy_file_range ().
++.\" Fallback introduced in glibc 2.27:
+ .\" https://sourceware.org/git/?p=glibc.git;a=commit;f=posix/unistd.h;h=bad7a0c81f501fbbcc79af9eaa4b8254441c4a1f
++.\" Fallback removed in glibc 2.30:
++.\" https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=5a659ccc0ec217ab02a4c273a1f6d346a359560a
+ .SH NOTES
+ If
+ .I fd_in
+-- 
+2.48.1
 
-
-For future improvements, it would be nice to adjust also other manpages
-which refers to inode numbers:
-
-  git grep -E '\<st_ino\>|\<stx_ino\>|\<d_ino\>'
-
-> 
-> Cheers,
-> Alex
-> 
-> > 
-> > 								Honza
-> > 
-> > > 
-> > > 
-> > > Have a lovely day!
-> > > Alex
-> > > 
-> > >  man/man3/readdir.3      | 19 ++++++++++++++++++-
-> > >  man/man3type/stat.3type | 20 +++++++++++++++++++-
-> > >  2 files changed, 37 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
-> > > index e1c7d2a6a..220643795 100644
-> > > --- a/man/man3/readdir.3
-> > > +++ b/man/man3/readdir.3
-> > > @@ -58,7 +58,24 @@ .SH DESCRIPTION
-> > >  structure are as follows:
-> > >  .TP
-> > >  .I .d_ino
-> > > -This is the inode number of the file.
-> > > +This is the inode number of the file
-> > > +in the filesystem containing
-> > > +the directory on which
-> > > +.BR readdir ()
-> > > +was called.
-> > > +If the directory entry is the mount point,
-> > > +then
-> > > +.I .d_ino
-> > > +differs from
-> > > +.I .st_ino
-> > > +returned by
-> > > +.BR stat (2)
-> > > +on this file:
-> > > +.I .d_ino
-> > > +is the inode number of the mount point,
-> > > +while
-> > > +.I .st_ino
-> > > +is the inode number of the root directory of the mounted filesystem.
-> > >  .TP
-> > >  .I .d_off
-> > >  The value returned in
-> > > diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
-> > > index 76ee3765d..ea9acc5ec 100644
-> > > --- a/man/man3type/stat.3type
-> > > +++ b/man/man3type/stat.3type
-> > > @@ -66,7 +66,25 @@ .SH DESCRIPTION
-> > >  macros may be useful to decompose the device ID in this field.)
-> > >  .TP
-> > >  .I .st_ino
-> > > -This field contains the file's inode number.
-> > > +This field contains the file's inode number
-> > > +in the filesystem on
-> > > +.IR .st_dev .
-> > > +If
-> > > +.BR stat (2)
-> > > +was called on the mount point,
-> > > +then
-> > > +.I .st_ino
-> > > +differs from
-> > > +.I .d_ino
-> > > +returned by
-> > > +.BR readdir (3)
-> > > +for the corresponding directory entry in the parent directory.
-> > > +In this case,
-> > > +.I .st_ino
-> > > +is the inode number of the root directory of the mounted filesystem,
-> > > +while
-> > > +.I .d_ino
-> > > +is the inode number of the mount point in the parent filesystem.
-> > >  .TP
-> > >  .I .st_mode
-> > >  This field contains the file type and mode.
-> > > 
-> > > Range-diff against v2:
-> > > 1:  d3eeebe81 ! 1:  bfa7e72ea man/man3/readdir.3, man/man3type/stat.3type: Improve documentation about .d_ino and .st_ino
-> > >     @@ Commit message
-> > >      
-> > >          Suggested-by: Pali Rohár <pali@kernel.org>
-> > >          Co-authored-by: Pali Rohár <pali@kernel.org>
-> > >     +    Co-authored-by: Jan Kara <jack@suse.cz>
-> > >          Cc: "G. Branden Robinson" <branden@debian.org>
-> > >          Cc: <linux-fsdevel@vger.kernel.org>
-> > >          Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > >     @@ man/man3/readdir.3: .SH DESCRIPTION
-> > >       .TP
-> > >       .I .d_ino
-> > >      -This is the inode number of the file.
-> > >     -+This is the inode number of the file,
-> > >     -+which belongs to the filesystem
-> > >     -+.I .st_dev
-> > >     -+(see
-> > >     -+.BR stat (3type))
-> > >     -+of the directory on which
-> > >     ++This is the inode number of the file
-> > >     ++in the filesystem containing
-> > >     ++the directory on which
-> > >      +.BR readdir ()
-> > >      +was called.
-> > >      +If the directory entry is the mount point,
-> > >      +then
-> > >      +.I .d_ino
-> > >      +differs from
-> > >     -+.IR .st_ino :
-> > >     ++.I .st_ino
-> > >     ++returned by
-> > >     ++.BR stat (2)
-> > >     ++on this file:
-> > >      +.I .d_ino
-> > >     -+is the inode number of the underlying mount point,
-> > >     ++is the inode number of the mount point,
-> > >      +while
-> > >      +.I .st_ino
-> > >     -+is the inode number of the mounted file system.
-> > >     -+According to POSIX,
-> > >     -+this Linux behavior is considered to be a bug,
-> > >     -+but is nevertheless conforming.
-> > >     ++is the inode number of the root directory of the mounted filesystem.
-> > >       .TP
-> > >       .I .d_off
-> > >       The value returned in
-> > >     @@ man/man3type/stat.3type: .SH DESCRIPTION
-> > >       .TP
-> > >       .I .st_ino
-> > >      -This field contains the file's inode number.
-> > >     -+This field contains the file's inode number,
-> > >     -+which belongs to the
-> > >     ++This field contains the file's inode number
-> > >     ++in the filesystem on
-> > >      +.IR .st_dev .
-> > >      +If
-> > >      +.BR stat (2)
-> > >      +was called on the mount point,
-> > >      +then
-> > >     -+.I .d_ino
-> > >     -+differs from
-> > >     -+.IR .st_ino :
-> > >     -+.I .d_ino
-> > >     -+is the inode number of the underlying mount point,
-> > >     -+while
-> > >      +.I .st_ino
-> > >     -+is the inode number of the mounted file system.
-> > >     ++differs from
-> > >     ++.I .d_ino
-> > >     ++returned by
-> > >     ++.BR readdir (3)
-> > >     ++for the corresponding directory entry in the parent directory.
-> > >     ++In this case,
-> > >     ++.I .st_ino
-> > >     ++is the inode number of the root directory of the mounted filesystem,
-> > >     ++while
-> > >     ++.I .d_ino
-> > >     ++is the inode number of the mount point in the parent filesystem.
-> > >       .TP
-> > >       .I .st_mode
-> > >       This field contains the file type and mode.
-> > > 
-> > > base-commit: f305f7647d5cf62e7e764fb7a25c4926160c594f
-> > > -- 
-> > > 2.51.0
-> > > 
-> > -- 
-> > Jan Kara <jack@suse.com>
-> > SUSE Labs, CR
-> 
-> -- 
-> <https://www.alejandro-colomar.es>
-> Use port 80 (that is, <...:80/>).
 
