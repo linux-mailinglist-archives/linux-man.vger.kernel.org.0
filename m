@@ -1,53 +1,58 @@
-Return-Path: <linux-man+bounces-4244-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4245-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F59C29421
-	for <lists+linux-man@lfdr.de>; Sun, 02 Nov 2025 18:43:06 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E343C2970C
+	for <lists+linux-man@lfdr.de>; Sun, 02 Nov 2025 22:17:33 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 3C965347642
-	for <lists+linux-man@lfdr.de>; Sun,  2 Nov 2025 17:43:06 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 248B04E4786
+	for <lists+linux-man@lfdr.de>; Sun,  2 Nov 2025 21:17:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69C072DE70D;
-	Sun,  2 Nov 2025 17:43:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CE8717A30A;
+	Sun,  2 Nov 2025 21:17:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rzyaXBYL"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gq0gfnAW"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296391F4169
-	for <linux-man@vger.kernel.org>; Sun,  2 Nov 2025 17:42:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE0DF9EC;
+	Sun,  2 Nov 2025 21:17:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762105381; cv=none; b=iNqjjOVPNoosD0U1E7VnWUzR13HWPy0xM4Hma794YYognYrQlL/CjRTVvtXWTLr69DupsEEc4NY44fNLOTTqZyeDiimBhlNXU83CktlzApUVCAVeYJc8/huayiE84RwwOonCECq+iiQ4zYDt57potZwqp5rxbvTrZpzpe8bO0Lk=
+	t=1762118230; cv=none; b=X1x8ibqXM62KKnjio0T79lIEn4dZzs5YgmyEPrrjEZ1MmmjjlzApqXVvsk/ed89Uf9m3cKKCkGcbhdgoCfdd+/3vyHoUgtTzIr7NI1HNGd7vH3BRJrlUggIka4OmYhadgel2MBl7Hw+kJ/8m1MfaSWhCJN/QgGgIIKA+AuiCaZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762105381; c=relaxed/simple;
-	bh=4sQn4YxuT6VYr2Ctb7QCbvB3dYpnSWJ4eMbJx8Hi7j0=;
+	s=arc-20240116; t=1762118230; c=relaxed/simple;
+	bh=BKCdI+ztTOKrqKa8UA0OoO1P2J4kXXR7fFaSPlcf35U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bI9X/1GySGzU8gR+Zbfh/8AJuqIKN/GV+rXySCptZRMbM5fjksGIE3V/JDKtM7Q4xWFr7+FfZW3QdvU9ye/e9ulXjgvt3o7yO0U9n2cGiTRZmRh5zOYy0P0GvKSf16skhUpVbSTF2AK4fQSGa2QRPct9gUjg1/Nj6/cj1jndwP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rzyaXBYL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046F7C4CEF7;
-	Sun,  2 Nov 2025 17:42:58 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=nbpdbQUJqbbxTHgUjToNYamiNSUedtJDMLzy6zR6vNQbYhVSJXjxndLFeXRefEMKQ30IRf+uvHg5uVIs+NhP/6B5MP4sDJF5klXd2QQBPugqOEHl6X+Sqs6z97XkESZ7+dkcsRuECi6AW9cUqUxjb2C9wrTAMMbpIalr55UfhEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gq0gfnAW; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E183EC4CEF7;
+	Sun,  2 Nov 2025 21:17:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1762105379;
-	bh=4sQn4YxuT6VYr2Ctb7QCbvB3dYpnSWJ4eMbJx8Hi7j0=;
+	s=k20201202; t=1762118230;
+	bh=BKCdI+ztTOKrqKa8UA0OoO1P2J4kXXR7fFaSPlcf35U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rzyaXBYLK2O4s8XSG9kBMh3NbQAGs6db30FhWl76kaUbPuEBsRLGLZrB/Z47lgofO
-	 wzRMYl9ekNUaRutah9Nq41C7w8YB8/JYeN0V3SssHffzvb5qHrTvDWhMuipq0zJEgg
-	 s+tkeVtm+51+A8QBby+lQzfA68PW1dwmPoPQqSQlqH/OfMiBpklZEwXr3pEpRlsDVS
-	 Uk0r80FJqzJiIXuTV7IM2i1DRIc9+m2WXZXA6eByP+8Twq/iiCI0+RU1kzN97noTEQ
-	 5YveJ5ngxY3p00zQBGURGcf/gibz2hbStHxMecXFw9DpXT80Ad+25kHnFT16PqQrIR
-	 HvUqx9D4NgcWw==
-Date: Sun, 2 Nov 2025 18:42:56 +0100
+	b=gq0gfnAW6IBETj0SpCCVkT57FYlT5l/XOEm/rDznJo5C3OMRiVT6DIqp+7c71lZA7
+	 l2yi4HQFFltOF0bMyFfUyr4nCdaO+VLBWL8r71LxZxtV6pkD7f9Z5+rqeBG+BicYzK
+	 fTL8Dc/IE8XXwdDLgvfiSHneAtK+Yo+KikzQP65jf4Nj5fs3yTPEPosLTCx40cd77y
+	 rDZr4i0pQMJs/p0W6p+PoCD585NioiwgtIgYD/ACTVbis6o01Oq0jbr6Qg6C4eq0ht
+	 zEWYYZoVj99BdwAuGkiQCKi8z6QWLKaywJ6Zs3MaRL3Ly6xS8yIgcF2zopiSoRBlfQ
+	 qxoslSDieZPHg==
+Date: Sun, 2 Nov 2025 22:17:06 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Rick Stanley <rstanley@rsiny.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Errors in two Section 3 functions
-Message-ID: <zb5tsdfz4zvjclsxt2saroxrijoh5bzc72o3wnxacqmn7rcbnf@knjgxqt5jreg>
-References: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: linux-man@vger.kernel.org, Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, 
+	Jan Kara <jack@suse.cz>, "G. Branden Robinson" <branden@debian.org>, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3] man/man3/readdir.3, man/man3type/stat.3type: Improve
+ documentation about .d_ino and .st_ino
+Message-ID: <rg6xzjm5vw2j5ercxiihm2pdedc4brdslngiih6eknvod66oqk@tz3gue33a7fe>
+References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
+ <bfa7e72ea17ed369a1cf7589675c35728bb53ae4.1761907223.git.alx@kernel.org>
+ <20251031152531.GP6174@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,95 +60,249 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6pe3tsxxn34hwsy2"
+	protocol="application/pgp-signature"; boundary="5uzgnrk5hx34kj4n"
 Content-Disposition: inline
-In-Reply-To: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
+In-Reply-To: <20251031152531.GP6174@frogsfrogsfrogs>
 
 
---6pe3tsxxn34hwsy2
+--5uzgnrk5hx34kj4n
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Rick Stanley <rstanley@rsiny.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Errors in two Section 3 functions
-Message-ID: <zb5tsdfz4zvjclsxt2saroxrijoh5bzc72o3wnxacqmn7rcbnf@knjgxqt5jreg>
-References: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: linux-man@vger.kernel.org, Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, 
+	Jan Kara <jack@suse.cz>, "G. Branden Robinson" <branden@debian.org>, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3] man/man3/readdir.3, man/man3type/stat.3type: Improve
+ documentation about .d_ino and .st_ino
+Message-ID: <rg6xzjm5vw2j5ercxiihm2pdedc4brdslngiih6eknvod66oqk@tz3gue33a7fe>
+References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
+ <bfa7e72ea17ed369a1cf7589675c35728bb53ae4.1761907223.git.alx@kernel.org>
+ <20251031152531.GP6174@frogsfrogsfrogs>
 MIME-Version: 1.0
-In-Reply-To: <d167e81b58255fb1e3bf068adc146e7a461981bb.camel@rsiny.com>
+In-Reply-To: <20251031152531.GP6174@frogsfrogsfrogs>
 
-Hi Rick,
+Hi Darrick,
 
-On Sun, Nov 02, 2025 at 10:47:47AM -0500, Rick Stanley wrote:
-> Hello!
+On Fri, Oct 31, 2025 at 08:25:31AM -0700, Darrick J. Wong wrote:
+> On Fri, Oct 31, 2025 at 11:44:14AM +0100, Alejandro Colomar wrote:
+> > Suggested-by: Pali Roh=C3=A1r <pali@kernel.org>
+> > Co-authored-by: Pali Roh=C3=A1r <pali@kernel.org>
+> > Co-authored-by: Jan Kara <jack@suse.cz>
+> > Cc: "G. Branden Robinson" <branden@debian.org>
+> > Cc: <linux-fsdevel@vger.kernel.org>
+> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> > ---
+> >=20
+> > Hi Jan,
+> >=20
+> > I've put your suggestions into the patch.  I've also removed the
+> > sentence about POSIX, as Pali discussed with Branden.
+> >=20
+> > At the bottom of the email is the range-diff against the previous
+> > version.
+> >=20
+> >=20
+> > Have a lovely day!
+> > Alex
+> >=20
+> >  man/man3/readdir.3      | 19 ++++++++++++++++++-
+> >  man/man3type/stat.3type | 20 +++++++++++++++++++-
+> >  2 files changed, 37 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
+> > index e1c7d2a6a..220643795 100644
+> > --- a/man/man3/readdir.3
+> > +++ b/man/man3/readdir.3
+> > @@ -58,7 +58,24 @@ .SH DESCRIPTION
+> >  structure are as follows:
+> >  .TP
+> >  .I .d_ino
+> > -This is the inode number of the file.
+> > +This is the inode number of the file
+> > +in the filesystem containing
+> > +the directory on which
+> > +.BR readdir ()
+> > +was called.
+> > +If the directory entry is the mount point,
 >=20
-> I have noticed two errors for memmove() and memcpy().
+> nitpicking english:
 >=20
-> memmove():
->=20
-> man7.org:
-> "void *memmove(size_t n;
->                      void dest[n], const void src[n], size_t n);"
-> string.h:
-> "extern void *memmove (void *__dest, const void *__src, size_t __n)"
-> (Leaving off the __THROW text)
->=20
->=20
-> memcpy()
->=20
-> man7.org:
-> "void *memcpy(size_t n;
->                     void dest[restrict n], const void src[restrict n],
->                     size_t n);"
->=20
-> string.h:
-> "extern void *memccpy (void *__restrict __dest, const void *__restrict
-> __src, int __c, size_t __n)"
->=20
-> The issue in both is:
-> "memmove(size_t n;"
-> "memcpy(size_t n;"
+> "...is a mount point," ?
 
-That's not an error; it's valid GNU C.
-
-> IMHO on man7.org, they should read:
->=20
-> "void *memmove(void dest[n], const void src[n], size_t n);"
->=20
-> "void *memcpy(void dest[restrict n], const void src[restrict n],
->  size_t n);"
-
-That would be incorrect.  You can't use a variable before declaring it.
-See <https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html>.
+I think you're right.  Unless Jan and Pali meant something more
+specific.  Jan, Pali, can you please confirm?
 
 
 Have a lovely night!
 Alex
 
+>=20
+> --D
+>=20
+> > +then
+> > +.I .d_ino
+> > +differs from
+> > +.I .st_ino
+> > +returned by
+> > +.BR stat (2)
+> > +on this file:
+> > +.I .d_ino
+> > +is the inode number of the mount point,
+> > +while
+> > +.I .st_ino
+> > +is the inode number of the root directory of the mounted filesystem.
+> >  .TP
+> >  .I .d_off
+> >  The value returned in
+> > diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
+> > index 76ee3765d..ea9acc5ec 100644
+> > --- a/man/man3type/stat.3type
+> > +++ b/man/man3type/stat.3type
+> > @@ -66,7 +66,25 @@ .SH DESCRIPTION
+> >  macros may be useful to decompose the device ID in this field.)
+> >  .TP
+> >  .I .st_ino
+> > -This field contains the file's inode number.
+> > +This field contains the file's inode number
+> > +in the filesystem on
+> > +.IR .st_dev .
+> > +If
+> > +.BR stat (2)
+> > +was called on the mount point,
+> > +then
+> > +.I .st_ino
+> > +differs from
+> > +.I .d_ino
+> > +returned by
+> > +.BR readdir (3)
+> > +for the corresponding directory entry in the parent directory.
+> > +In this case,
+> > +.I .st_ino
+> > +is the inode number of the root directory of the mounted filesystem,
+> > +while
+> > +.I .d_ino
+> > +is the inode number of the mount point in the parent filesystem.
+> >  .TP
+> >  .I .st_mode
+> >  This field contains the file type and mode.
+> >=20
+> > Range-diff against v2:
+> > 1:  d3eeebe81 ! 1:  bfa7e72ea man/man3/readdir.3, man/man3type/stat.3ty=
+pe: Improve documentation about .d_ino and .st_ino
+> >     @@ Commit message
+> >     =20
+> >          Suggested-by: Pali Roh=C3=A1r <pali@kernel.org>
+> >          Co-authored-by: Pali Roh=C3=A1r <pali@kernel.org>
+> >     +    Co-authored-by: Jan Kara <jack@suse.cz>
+> >          Cc: "G. Branden Robinson" <branden@debian.org>
+> >          Cc: <linux-fsdevel@vger.kernel.org>
+> >          Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> >     @@ man/man3/readdir.3: .SH DESCRIPTION
+> >       .TP
+> >       .I .d_ino
+> >      -This is the inode number of the file.
+> >     -+This is the inode number of the file,
+> >     -+which belongs to the filesystem
+> >     -+.I .st_dev
+> >     -+(see
+> >     -+.BR stat (3type))
+> >     -+of the directory on which
+> >     ++This is the inode number of the file
+> >     ++in the filesystem containing
+> >     ++the directory on which
+> >      +.BR readdir ()
+> >      +was called.
+> >      +If the directory entry is the mount point,
+> >      +then
+> >      +.I .d_ino
+> >      +differs from
+> >     -+.IR .st_ino :
+> >     ++.I .st_ino
+> >     ++returned by
+> >     ++.BR stat (2)
+> >     ++on this file:
+> >      +.I .d_ino
+> >     -+is the inode number of the underlying mount point,
+> >     ++is the inode number of the mount point,
+> >      +while
+> >      +.I .st_ino
+> >     -+is the inode number of the mounted file system.
+> >     -+According to POSIX,
+> >     -+this Linux behavior is considered to be a bug,
+> >     -+but is nevertheless conforming.
+> >     ++is the inode number of the root directory of the mounted filesyst=
+em.
+> >       .TP
+> >       .I .d_off
+> >       The value returned in
+> >     @@ man/man3type/stat.3type: .SH DESCRIPTION
+> >       .TP
+> >       .I .st_ino
+> >      -This field contains the file's inode number.
+> >     -+This field contains the file's inode number,
+> >     -+which belongs to the
+> >     ++This field contains the file's inode number
+> >     ++in the filesystem on
+> >      +.IR .st_dev .
+> >      +If
+> >      +.BR stat (2)
+> >      +was called on the mount point,
+> >      +then
+> >     -+.I .d_ino
+> >     -+differs from
+> >     -+.IR .st_ino :
+> >     -+.I .d_ino
+> >     -+is the inode number of the underlying mount point,
+> >     -+while
+> >      +.I .st_ino
+> >     -+is the inode number of the mounted file system.
+> >     ++differs from
+> >     ++.I .d_ino
+> >     ++returned by
+> >     ++.BR readdir (3)
+> >     ++for the corresponding directory entry in the parent directory.
+> >     ++In this case,
+> >     ++.I .st_ino
+> >     ++is the inode number of the root directory of the mounted filesyst=
+em,
+> >     ++while
+> >     ++.I .d_ino
+> >     ++is the inode number of the mount point in the parent filesystem.
+> >       .TP
+> >       .I .st_mode
+> >       This field contains the file type and mode.
+> >=20
+> > base-commit: f305f7647d5cf62e7e764fb7a25c4926160c594f
+> > --=20
+> > 2.51.0
+> >=20
+> >=20
+
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---6pe3tsxxn34hwsy2
+--5uzgnrk5hx34kj4n
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkHmBoACgkQ64mZXMKQ
-wqly9g/7BvarMQbzkYnzv1fG/LR1QXU0Myc8V1w8b+GeoVYpXKBGWlQR1jmqQFqK
-E0v+q2mCAhySqKA8qCYM6RFoXbShHXSa9Q7GO8GSNtTCBvrOrLkVt4r7EE07IKhZ
-liVIBwjl5QZy3YnhjjQelgACneWXvrw+74y1IGi+hW+20iN9ryPpA4oNb7rlAKrK
-KwV+z/gEIdii9hjNgcDDsHVTfaR+CG0tZ+vJwwqn+4ckmyOWanHSz7gueyqbx6Em
-kwCm5zuTzj8vLGnGu7jhhWVEjy+4NYlfdbtxVpWMioAUT05MvKz3qIVv1z6rbPoc
-mI4bYbOs4FyNnVoI4zx6wAIfOvpyJIgFx6n8SYnmwD3Q09xKJlFbYgxzMI/UwKlj
-4Uw+rznvJy6Rwn5/ujqme08muicOqVSFJ4NFXNjUs7ig9RQBP8aWSmbo+kjln0hE
-0uFPjN2O+tNzbDrIxV40c+JhRw892r8aLfPC+kJPiohNVxl20fZiYqfujKzJDc2z
-OTY/ceLjyA7TxoE2RpjykFqr3tN1or7hIhn1ZvKv51sj+VDKsiVJfkMKD4DIWmdi
-P4Q3eFXP5RCVmknUcuOhylFWC3CnhUFpSkIrlmNOwl6VMSiI13TZr0f5AS5WGXli
-JY8szcgEqQaYvul+OrltzwhMw959Rso3FoXLZaCCvM6oSVACBpM=
-=Q/IP
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkHykwACgkQ64mZXMKQ
+wqm5Yg/9FR4cDG97II4L0r6WDI3L37TyezmMozbxb482rBS0waeVo65b1Ky5DM4K
+OHIUQ+05v7K8Ww/ui4gzefDsRE5b369L/6L/iQW2QqLEWDw3pH1dlccLkwgKfiLq
+1adZLFtyHc4HjCMeRdtugb1O0WAYcf0dzLb/eeff8P2UozJW4m9gsp+qnhEXwEq6
+TvfKa163IbsoNXrcujHA2qrwC28fE5xd2vy56bAji5aPh50B/jIyXK/RID/J1Oms
+6TNE878wWg6I2j1lWq6mH93CueNVph4mRn5+dp3p6kZeD13MzFWRO2YWi1n9iXAk
+nKRJ2XW4+b4AK4sHgIUvsJh2WXXt93FvjQ6Qh3K4whrQ0FtftiTJmSNaSi2TQ5rJ
+t3zTV9gRXFL3oF5znRCZEfP6gsXKXN5s942WVypgfibbrn7FmA2ZPH/cpX1OOG6z
+K5BKuFcyncRKW9fuuvOz1ChTX7dip6zbxxkf+n4vUVml3TLvZ1G53ODHc/y/tMey
+SW/alSlLaUACF728edvrwojHs1qFC88LEGuGGkmYbN9/uyYWqZaI7GSJmtFsfQvc
+DmUebX3kfi8oO2//lZ7c3tIADxS8fu4XiZVYpvXWpq3/kNFbTwZ17jpzdHUBPyYq
+qkiLysHt/fvUAl/PpbPd7gHAJMgDahtSTAnq5tgespH9+v1/jiU=
+=xZ5p
 -----END PGP SIGNATURE-----
 
---6pe3tsxxn34hwsy2--
+--5uzgnrk5hx34kj4n--
 
