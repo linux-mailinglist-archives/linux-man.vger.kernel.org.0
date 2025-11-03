@@ -1,198 +1,108 @@
-Return-Path: <linux-man+bounces-4246-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4247-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98C44C2B737
-	for <lists+linux-man@lfdr.de>; Mon, 03 Nov 2025 12:40:43 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id F186CC2BD4E
+	for <lists+linux-man@lfdr.de>; Mon, 03 Nov 2025 13:51:48 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id D91754FB578
-	for <lists+linux-man@lfdr.de>; Mon,  3 Nov 2025 11:33:54 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 1D4453BF0AF
+	for <lists+linux-man@lfdr.de>; Mon,  3 Nov 2025 12:46:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C409B30214D;
-	Mon,  3 Nov 2025 11:28:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D5162DAFB8;
+	Mon,  3 Nov 2025 12:46:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="dzdCuqVO";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="h4rXZTUC";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="G0y8QvxQ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Vgu7/4Zn"
+	dkim=pass (4096-bit key) header.d=aegee.org header.i=dkim+MSA-tls@aegee.org header.b="n3Dz6y1s"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.aegee.org (mail.aegee.org [144.76.142.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FB126CE33
-	for <linux-man@vger.kernel.org>; Mon,  3 Nov 2025 11:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6E62DA756
+	for <linux-man@vger.kernel.org>; Mon,  3 Nov 2025 12:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.142.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762169306; cv=none; b=H6P9d6yAIH1dKTjJhybVgVvtD/CtVFSJ1PMHk/gU6C6pxw3wk/+TQtmdPCK7wbZguLiSxcNLsWGapaa8rcvKu401VPkoVSlK3od0W2F23xM9aNTz/Vuuvh99jtIkCIPq4sxm+xFA0FacpzB0dOQTv2H4yKrAG45qGi99CCIdHLc=
+	t=1762174008; cv=none; b=aaXIeTnUn+jjb01LfIfwRyTf3teKbo7q/dcq6W96e5TwnWo8u/B92ZCFxxDLbnv74w1/BlKm1NBBKAcikcer+GthqM2lvO86uzi6k4UGK9aUVxTQvahN6ww/TwQW/fXHFuZwm2SM05mNs+yPiqXjO2+EQfJ6exOtzKJo0IoUFt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762169306; c=relaxed/simple;
-	bh=clekFM+Rni6jPLM41ubLk5o1m+QsTetrFgKlWZuHCtw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EeKzFH42+K0fyBQe9j6GczbKTodkCJLoBBmzZ8AF5Y3gdSY7A+FB7avTEGyyW5wRi4otTgQSKt+jAtR9u5VnEeUyPcpLj0cPEFoKImAxSmmxokBZ3YuNwj9WxA6BlzjCeDNrNhUQ/1cIYyEHmaKdXjMZfdblU8sGIxpvVautNJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=dzdCuqVO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=h4rXZTUC; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=G0y8QvxQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Vgu7/4Zn; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2E14E1F7B5;
-	Mon,  3 Nov 2025 11:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1762169303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M0nMLISfTlDpC9mF/ux777mG7wY5ioiVj6t4+zB8BN0=;
-	b=dzdCuqVOVgp0qb+Knfv1xWKe48zo9X/646d0NWUHwehAgoEcL2JMYCwWGshyrg0dK/yrlZ
-	xxWHW6I1NqiaA7hAWZzRQ4h0K06dFvRsTcUniR97X+SfYQqaQKAW2qI+K2AP2InuCaab+4
-	2bPWLaM6wlgijpLqURLzajNJUmx3LS0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1762169303;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M0nMLISfTlDpC9mF/ux777mG7wY5ioiVj6t4+zB8BN0=;
-	b=h4rXZTUCjKyjo+6Cg9Um5bzH+pVj84K4N2VDoGIHoSMjTclzfHIZp4pzLwYqsg6Xfw2EmF
-	fHplovR32NJVjjAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1762169302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M0nMLISfTlDpC9mF/ux777mG7wY5ioiVj6t4+zB8BN0=;
-	b=G0y8QvxQRj4fyiNDUY1shJmIQqtRJERW0oFZLQ0CLe6NKlRQhkHtjdN7TFe2Y5tu9wzfP6
-	OfZASXoCOtQpt+jWxiDN/00em7psK9494KaKMjRh4kFEhd5ysOWFdh/Cs0AV2DsaJ1ZNER
-	2V6LbW1CkBTWtePCkEWgCebDennpHXk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1762169302;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M0nMLISfTlDpC9mF/ux777mG7wY5ioiVj6t4+zB8BN0=;
-	b=Vgu7/4ZnWHk6VlXwt1HMbIV31YlNUewE4bvBCJWHI2GtGaghyOqEnHhamCAFqHBklrG10t
-	JOgnVZul6Rh9QDCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E28FD1364F;
-	Mon,  3 Nov 2025 11:28:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id pQNAN9WRCGmhIgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 03 Nov 2025 11:28:21 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 32FB2A2812; Mon,  3 Nov 2025 12:28:21 +0100 (CET)
-Date: Mon, 3 Nov 2025 12:28:21 +0100
-From: Jan Kara <jack@suse.cz>
+	s=arc-20240116; t=1762174008; c=relaxed/simple;
+	bh=8LlY8MUol/gzW9v7jTfR24+wafVWS5BMh2kKz08K2ec=;
+	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=uob8UhonM7y8N3iFvBuEBO/lBbBJXLbQWS4fZUTP0UhVwcVO6Ua7MfJWubpAXsHqAjA0CJ/MS2SYQsWColBS+nN6vUco/64YnvpJ6WBJc4B9oo4tEcu1tfIMMydWV0GPHk4XB0P1dvxvYF8BsdFEftq9KT2bN4W+4rtsrBRiGY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aegee.org; spf=pass smtp.mailfrom=aegee.org; dkim=pass (4096-bit key) header.d=aegee.org header.i=dkim+MSA-tls@aegee.org header.b=n3Dz6y1s; arc=none smtp.client-ip=144.76.142.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aegee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aegee.org
+Authentication-Results: mail.aegee.org/5A3Cj7Pi997005; auth=pass (PLAIN) smtp.auth=didopalauzov@aegee.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aegee.org; s=k4096;
+	t=1762173907; i=dkim+MSA-tls@aegee.org;
+	bh=8LlY8MUol/gzW9v7jTfR24+wafVWS5BMh2kKz08K2ec=;
+	h=Subject:From:To:Cc:Date;
+	b=n3Dz6y1sxtC0aUj5CMLohYML8IBhmA0ivXM/aeXiV0witzW/gIAEFnImq9X5F/lLU
+	 /NQ/o8YSyt8wlWn5peoD78ShBj//m4gxGOEC2aTby6m+Jv4kN0XJbKisXVi9RCkRUW
+	 RMpDMHrYC9Fk7Fck5+1S1TvF4O4hFJA3Ra3xBM7BllDudYhphRQ5M3xsemyZHfN6Rt
+	 6mqfS5XWK7VBKnS+r53hFBM9RHoAI20jct2KeMRuViq+LlE6wjRQteZjW4aeqe5B2I
+	 xNq2JkpIq9d0i+90CeBortUT3+K4W2UftTdIWn7y0ManP2doNZCzLpddg8Fd47+iFu
+	 DkjiCkDxvOx4fLhelJZOd8wRH8NlKGobsp2SGj6btd8xQaa+8g1jAIzJ7gOuRBixem
+	 nesN0Ltfe3PkJe+FNzqPHtUkFRvUi8pOSE4QBVC3bZd+u5vWaajtQax6N51AIEnr6e
+	 /+Zrs51LHQLZ+wpNP/AFo4GtIuOeYwuJ5vglEhcYkW3tECDaDprCRP6Xjx8C4v1B0c
+	 6fEq6CBmkdE23bIdJAdELHqzOa4HBtkisRAbV3r2edve7xo+Pode2fxvunC6j3GlZr
+	 AOXLluSX8Lzn13anju+mpx0ky6eXwDX4+fkn6hTmRabksYjdrLvjz0zXt9hBUoFtkb
+	 CGZl2gqCCtkb1/SjRcLJSioQ=
+Authentication-Results: mail.aegee.org/5A3Cj7Pi997005; dkim=none
+Received: from [192.168.0.242] (95-43-114-153.ip.btc-net.bg [95.43.114.153])
+	(authenticated bits=0)
+	by mail.aegee.org (8.18.1/8.18.1) with ESMTPSA id 5A3Cj7Pi997005
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Mon, 3 Nov 2025 12:45:07 GMT
+Message-ID: <ebb992217f4a2ceca9a6d9868f50da73c68e8cdb.camel@aegee.org>
+Subject: tcgetattr() can set errno to 22 / EINVAL
+From: =?UTF-8?Q?=D0=94=D0=B8=D0=BB=D1=8F=D0=BD_?=
+ =?UTF-8?Q?=D0=9F=D0=B0=D0=BB=D0=B0=D1=83=D0=B7=D0=BE=D0=B2?=
+	 <dilyan.palauzov@aegee.org>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-man@vger.kernel.org, 
-	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, Jan Kara <jack@suse.cz>, 
-	"G. Branden Robinson" <branden@debian.org>, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v3] man/man3/readdir.3, man/man3type/stat.3type: Improve
- documentation about .d_ino and .st_ino
-Message-ID: <tkh3cbnxbixmeuprlfrpfbzm5l6y6ne3i424wswd7ymspuu6as@h2hzgun5moff>
-References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
- <bfa7e72ea17ed369a1cf7589675c35728bb53ae4.1761907223.git.alx@kernel.org>
- <20251031152531.GP6174@frogsfrogsfrogs>
- <rg6xzjm5vw2j5ercxiihm2pdedc4brdslngiih6eknvod66oqk@tz3gue33a7fe>
+Cc: linux-man@vger.kernel.org
+Date: Mon, 03 Nov 2025 14:45:06 +0200
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.59.1 
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <rg6xzjm5vw2j5ercxiihm2pdedc4brdslngiih6eknvod66oqk@tz3gue33a7fe>
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -3.80
 
-On Sun 02-11-25 22:17:06, Alejandro Colomar wrote:
-> Hi Darrick,
-> 
-> On Fri, Oct 31, 2025 at 08:25:31AM -0700, Darrick J. Wong wrote:
-> > On Fri, Oct 31, 2025 at 11:44:14AM +0100, Alejandro Colomar wrote:
-> > > Suggested-by: Pali Rohár <pali@kernel.org>
-> > > Co-authored-by: Pali Rohár <pali@kernel.org>
-> > > Co-authored-by: Jan Kara <jack@suse.cz>
-> > > Cc: "G. Branden Robinson" <branden@debian.org>
-> > > Cc: <linux-fsdevel@vger.kernel.org>
-> > > Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > > ---
-> > > 
-> > > Hi Jan,
-> > > 
-> > > I've put your suggestions into the patch.  I've also removed the
-> > > sentence about POSIX, as Pali discussed with Branden.
-> > > 
-> > > At the bottom of the email is the range-diff against the previous
-> > > version.
-> > > 
-> > > 
-> > > Have a lovely day!
-> > > Alex
-> > > 
-> > >  man/man3/readdir.3      | 19 ++++++++++++++++++-
-> > >  man/man3type/stat.3type | 20 +++++++++++++++++++-
-> > >  2 files changed, 37 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
-> > > index e1c7d2a6a..220643795 100644
-> > > --- a/man/man3/readdir.3
-> > > +++ b/man/man3/readdir.3
-> > > @@ -58,7 +58,24 @@ .SH DESCRIPTION
-> > >  structure are as follows:
-> > >  .TP
-> > >  .I .d_ino
-> > > -This is the inode number of the file.
-> > > +This is the inode number of the file
-> > > +in the filesystem containing
-> > > +the directory on which
-> > > +.BR readdir ()
-> > > +was called.
-> > > +If the directory entry is the mount point,
-> > 
-> > nitpicking english:
-> > 
-> > "...is a mount point," ?
-> 
-> I think you're right.  Unless Jan and Pali meant something more
-> specific.  Jan, Pali, can you please confirm?
+Hello,
 
-Yes, Darrick is right :).
+please amend the errors at https://man7.org/linux/man-pages/man3/tcgetattr.=
+3p.html that the function tcgetattr() can set errno to EINVAL 22 Invalid ar=
+gument for /dev/hidraw files.
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Using kernel 6.6.60 on armv7l and libc 2.36 (where tcgetattr is implemented=
+ in termios/tcgetattr.c as ioctl(fd, TCGETS, =E2=80=A6)), this program
+
+
+#include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <termios.h>
+
+void main() {
+  int fd =3D open("/dev/hidraw0", O_RDWR | O_NONBLOCK |O_NOCTTY);
+  struct termios s;
+  errno =3D 0;
+  int ret =3D tcgetattr(fd, &s);
+  printf("Returned fd is %i ret is %i errno is %i %m\n", fd, ret, errno);
+}
+
+
+puts:
+
+Returned fd is 3 ret is -1 errno is 22 Invalid argument
+
+Well at https://pubs.opengroup.org/onlinepubs/9799919799/functions/tcgetatt=
+r.html  Open Group Base Specifications Issue 8/year 2024 also says only EBA=
+DF and ENOTTY.
+
+
+Kind regards
+  =D0=94=D0=B8=D0=BB=D1=8F=D0=BD
 
