@@ -1,205 +1,147 @@
-Return-Path: <linux-man+bounces-4254-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4255-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B3CCC38250
-	for <lists+linux-man@lfdr.de>; Wed, 05 Nov 2025 23:09:06 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id C01B6C38299
+	for <lists+linux-man@lfdr.de>; Wed, 05 Nov 2025 23:17:33 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 90EC218C75D2
-	for <lists+linux-man@lfdr.de>; Wed,  5 Nov 2025 22:09:10 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 758F83A158A
+	for <lists+linux-man@lfdr.de>; Wed,  5 Nov 2025 22:17:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 331DE2EE5FE;
-	Wed,  5 Nov 2025 22:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 969DA2E7166;
+	Wed,  5 Nov 2025 22:17:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gouders.net header.i=@gouders.net header.b="WRrzXY/b"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rbHJREbT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mx10.gouders.net (mx10.gouders.net [202.61.206.94])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4962C2EF65C
-	for <linux-man@vger.kernel.org>; Wed,  5 Nov 2025 22:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.61.206.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D452C15B5
+	for <linux-man@vger.kernel.org>; Wed,  5 Nov 2025 22:17:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762380523; cv=none; b=qA1TE82ULry5urPATh7Z4RMEMG9g+q9Zq+R26oVICjBFalhT2JCD/1wysaqymJmr2QR5PqQH4nCA5aHPJBfSZrFXH10mYktNMowbbdNmPP+c1HCF7I/X5hWg8UBxSTWp1T6RSW5rKTzY9wnyWEvun4F/U4i6lUMEVO3iH3GpHCc=
+	t=1762381027; cv=none; b=P1fDMi1ZBNLxz6rRcJhUB6pO4yoWBXRjG5zO5s8LQlYhmuek5clhlN2YqDonEV70cTnbHxDbr3MLN/Z8E7jqM9RJzuxC+GA9W0OgDR6KXCdkeP616blDaHbncFaPu70m3oEWey6XkNDZs+dHJ+jPoqpTcR02A8AWzixxI5dTKVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762380523; c=relaxed/simple;
-	bh=H95ith4XQx7Bm10+iMpmnW8IVUj6lKD0eaz8qQPy24A=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=HfPIbggohh8BVQjExRh092iprBbKFtBnm9OA6WN8qLFB+PPUSr7DcFsC9GQhbOoSl555Bd0APoG3L8i0UHGtuVbcMjZf43ozKo5kyMLpDVg8JJnYnRA+s7t6mEtJjulQhQSPLm8Vez8iOB0Y0KyMQfdVyp/yrrwXb429zlcHXOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gouders.net; spf=pass smtp.mailfrom=gouders.net; dkim=pass (1024-bit key) header.d=gouders.net header.i=@gouders.net header.b=WRrzXY/b; arc=none smtp.client-ip=202.61.206.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gouders.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gouders.net
-Received: from localhost ([47.65.179.194])
-	(authenticated bits=0)
-	by mx10.gouders.net (8.18.1/8.17.1.9) with ESMTPSA id 5A5M8Wga003195
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Wed, 5 Nov 2025 23:08:33 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gouders.net; s=gnet;
-	t=1762380513; bh=H95ith4XQx7Bm10+iMpmnW8IVUj6lKD0eaz8qQPy24A=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=WRrzXY/bQzHmq1YS6rpl8R/azAd8Ln8O72yJyLo+wBJKhOeSzCmY1z5vs4GcuV9ZD
-	 Si8WpczWxQttUznIs/PxICign5TQejcpnrNDh6nFneltKqSU8fvwB4d4o/WpAhSmxg
-	 632at2g8OBc7W+ldpXeyY7K27FbxNMid0rcx7JXk=
-From: Dirk Gouders <dirk@gouders.net>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1762381027; c=relaxed/simple;
+	bh=j/u/x8cQx/yKfhrwpn5HJ0HPX9CWi/KwyXzfyLXsldk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g4AGQuZwmysa79Y702s/oVpME/Y5p1HbvVXyhe37cn1fxwYNO5Nc8ecuE2MdHIbinyoMv0k73uh/EjKGw9FujaKa+KNP9SeU2tcTaLeXFGuI+Mf8kRiNv1XYqeO136AFVnHwHJQjLBiHgF1xmAbngPG6Ham3cAdlfim8x8IkYb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rbHJREbT; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F0C2C4CEF5;
+	Wed,  5 Nov 2025 22:17:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1762381025;
+	bh=j/u/x8cQx/yKfhrwpn5HJ0HPX9CWi/KwyXzfyLXsldk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rbHJREbTN7CF+DXW3Cx6vc5LeRIWHwp8pfJFel+RmbCZWIWTLVSeEER1V4wkx17DF
+	 GOWaRjAJa5U5YAtDkrs5V/jnvP67BfFfiKH8PDJXsPDmeLDkQDJN9/o2INEXQwycxw
+	 A7ALSrdvKVXGZMItEYtqyC0mQOM4ByD+yWupqi7dpifcm9ova7gy176GLRQUnfLeYk
+	 NbZuXLKQcXOLI0KICq73+gRAYTSPHS4ic/hNbeZu9Xv9vReLVxp4SrDi8caX0889KC
+	 UKJqUJcMRmlJLhvffeuS7E2er0+60ZgZF1XFI3dtUpnvfSgJGvLrlcBCgUjuvyJLgS
+	 3uLjJFDaUR2iQ==
+Date: Wed, 5 Nov 2025 23:17:02 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Dirk Gouders <dirk@gouders.net>
 Cc: linux-man@vger.kernel.org
 Subject: Re: wcwidth(3): wrong #define?
-In-Reply-To: <km4jixjgoknyrfty7fdxxt72uyd76ilib62r7oqtjixmfvwucv@ca7rbihkf5ny>
-	(Alejandro Colomar's message of "Wed, 5 Nov 2025 22:12:48 +0100")
+Message-ID: <cdhrtmpp26jj6lsascn4mzak5zbztcplvccofhdkrhzqfaivpp@q5wkk5iuxxqu>
 References: <ghms50i7u0.fsf@gouders.net>
-	<km4jixjgoknyrfty7fdxxt72uyd76ilib62r7oqtjixmfvwucv@ca7rbihkf5ny>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-Date: Wed, 05 Nov 2025 23:08:32 +0100
-Message-ID: <ghecqci13z.fsf@gouders.net>
+ <km4jixjgoknyrfty7fdxxt72uyd76ilib62r7oqtjixmfvwucv@ca7rbihkf5ny>
+ <ghecqci13z.fsf@gouders.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ljxpd5y3i5jeehgr"
+Content-Disposition: inline
+In-Reply-To: <ghecqci13z.fsf@gouders.net>
+
+
+--ljxpd5y3i5jeehgr
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Dirk Gouders <dirk@gouders.net>
+Cc: linux-man@vger.kernel.org
+Subject: Re: wcwidth(3): wrong #define?
+Message-ID: <cdhrtmpp26jj6lsascn4mzak5zbztcplvccofhdkrhzqfaivpp@q5wkk5iuxxqu>
+References: <ghms50i7u0.fsf@gouders.net>
+ <km4jixjgoknyrfty7fdxxt72uyd76ilib62r7oqtjixmfvwucv@ca7rbihkf5ny>
+ <ghecqci13z.fsf@gouders.net>
+MIME-Version: 1.0
+In-Reply-To: <ghecqci13z.fsf@gouders.net>
 
-Hi Alex,
+Hi Dirk,
 
-> On Wed, Nov 05, 2025 at 08:43:19PM +0100, Dirk Gouders wrote:
->> Hi Alex,
->>=20
->> I'm playing with a program to calculate wide character widths and
->> gcc complains when I use wcwidth(3) according to the manpage:
->
-> What's the exact diagnostic you're seeing?  I'm not seeing any issues:
+On Wed, Nov 05, 2025 at 11:08:32PM +0100, Dirk Gouders wrote:
+> > On Wed, Nov 05, 2025 at 08:43:19PM +0100, Dirk Gouders wrote:
+> >> I'm playing with a program to calculate wide character widths and
+> >> gcc complains when I use wcwidth(3) according to the manpage:
+> >
+> > What's the exact diagnostic you're seeing?  I'm not seeing any issues:
+>=20
+> here's my program (meanwhile, I read that _XOPEN_SOURCE should appear
+> before _any_ header and that indeed would help):
 
-here's my program (meanwhile, I read that _XOPEN_SOURCE should appear
-before _any_ header and that indeed would help):
+Yup, it should be the first thing.  See feature_test_macros(7):
 
----------------------------------------------------------------------------=
------
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#define _XOPEN_SOURCE
-#include <wchar.h>
-#include <locale.h>
+$ MANWIDTH=3D72 man ftm | head -n20
+featur..._macros(7) Miscellaneous Information Manualfeatur..._macros(7)
 
-int main(int argc, char *argv[])
-{
-	size_t i =3D 0;
+NAME
+     feature_test_macros - feature test macros
 
-	char buffer[1024 * 1024];
+DESCRIPTION
+     Feature  test  macros  allow the programmer to control the defini=E2=
+=80=90
+     tions that are exposed by system header files when  a  program  is
+     compiled.
 
-	setlocale(LC_ALL, "");
-
-	ssize_t ret =3D read(STDIN_FILENO, buffer, 1024 * 1024);
-
-	if (ret < 0) {
-		perror("read(2): ");
-		exit(1);
-	}
-
-	printf("Read %ld bytes.\n", ret);
-
-	while (i < ret) {
-		wchar_t pwc[64];
-		size_t len =3D mbrtowc(pwc, buffer + i, ret - i, NULL);
-
-		printf("len =3D %ld\n", len);
-
-		if (buffer[i] =3D=3D '\0')
-			break;
-
-		if (len =3D=3D 0)
-			break;
-
-		if (len < 0) {
-			fprintf(stderr, "mbrtowc failure: %ld\n", len);
-			exit(1);
-		}
-
-		printf("Character %lc starting at %ld needs %d cols.\n",
-		       pwc[0], i, wcwidth(pwc[0]));
-
-		i +=3D len;
-	}
-
-	exit(0);
-}
----------------------------------------------------------------------------=
------
-
-And compiling it gives:
-
----------------------------------------------------------------------------=
------
-$ make
-gcc -o wchar-cols wchar-cols.c
-wchar-cols.c: In function =E2=80=98main=E2=80=99:
-wchar-cols.c:43:35: error: implicit declaration of function =E2=80=98wcwidt=
-h=E2=80=99 [-Wimplicit-function-declaration]
-   43 |                        pwc[0], i, wcwidth(pwc[0]));
-      |                                   ^~~~~~~
-make: *** [Makefile:2: wchar-cols] Error 1
----------------------------------------------------------------------------=
------
-
-Regards,
-
-Dirk
+     NOTE:  In  order to be effective, a feature test macro must be de=E2=
+=80=90
+     fined before including any header files.  This can be done  either
+     in  the  compilation command (cc -DMACRO=3Dvalue) or by defining the
+     macro within the source code before including  any  headers.   The
+     requirement  that  the  macro must be defined before including any
+     header file exists because header files may freely include one an=E2=
+=80=90
+     other.  Thus, for example, in the following  lines,  defining  the
+     _GNU_SOURCE  macro  may  have no effect because the header <abc.h>
+     itself includes <xyz.h> (POSIX explicitly allows this):
 
 
-> 	alx@devuan:~/tmp$ cat foo.c=20
-> 	#define _XOPEN_SOURCE
-> 	#include <wchar.h>
->
-> 	int
-> 	main(void)
-> 	{
-> 		wcwidth(0);
-> 		return 0;
-> 	}
-> 	alx@devuan:~/tmp$ gcc -Wall -Wextra -std=3Dc89 foo.c=20
-> 	alx@devuan:~/tmp$ gcc -Wall -Wextra foo.c=20
-> 	alx@devuan:~/tmp$=20
->
->> ------------------------------------------------------------------------
->> wcwidth(3)                  Library Functions Manual                 wcw=
-idth(3)
->>=20
->> NAME
->>        wcwidth - determine columns needed for a wide character
->>=20
->> LIBRARY
->>        Standard C library (libc, -lc)
->>=20
->> SYNOPSIS
->>        #define _XOPEN_SOURCE       /* See feature_test_macros(7) */
->>        #include <wchar.h>
->> ------------------------------------------------------------------------
->>=20
->> Looking at wchar.h explains the problem:
->>=20
->> ------------------------------------------------------------------------
->> /* The following functions are extensions found in X/Open CAE.  */
->> #ifdef __USE_XOPEN
->> /* Determine number of column positions required for C.  */
->> extern int wcwidth (wchar_t __c) __THROW;
->> ------------------------------------------------------------------------
->>=20
->> So, if I replace "#define _XOPEN_SOURE" with "#define _USE_XOPEN",
->> gcc stops complaining.
->
-> _USE_XOPEN is a glibc internal that users shouldn't set.
->
->>=20
->> I would have prepared a patch but somehow expect that there are
->> situations when "#include _XOPEN_SOURCE" might be correct...
->>=20
->> Regards,
->>=20
->> Dirk
->
-> Have a lovely night!
-> Alex
+Cheers,
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--ljxpd5y3i5jeehgr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkLzNgACgkQ64mZXMKQ
+wqmf0BAAiShDduIB96TTTSO8crmsZhQ5FQEgRco23x63U53TJHYl8GLbJvPdvdSh
+zweWhjLKym+vLOHwLkPCEVwkvhKf9nt8eW77FFpgV0a1h+LtcH8VQzqQuaw/XqRE
+muAzApU5JUsMUYS/re0SAevKNGfUuLV9BGUT3xAjRgyKR4pprE86pPf4UemkHrin
+KebP1UKuYgjDg1k6X5VCGwYQmdrniErRzOHH1M0H4Dup2zOaQHCjGpnJJFDO7tak
+k7QLPM3N5qk88uqTBoCdAPxm99yEOMj6Tq9qdOe5/iKSvVlnWXE88e9+4I3KnkAV
+DNpPcOE3FAYoUoVocsNZw76OYpir9Wj0lDucPXYNxRawczDxkhVQwtgAHGVbD9iM
+CwuMn8ugHaqpgkKAU+tVEd4XcUcmc/JyJrMaEhi4FPDBk9la+rt1UWkoycB1g0Qz
+BMOPXuAQazZJlBnS/OflSdlg5Qoy/hryiBHcIx4CqyUGioWUAQqMS89yPwJbPha/
+r13Od3L2dlKdtm68AG2CzDYyOZ1S/Mm8b3jOZ84h5rII2PU+JpXRkaCq+kcj9YiC
+mlpRS3BGLto0JNQ8t2Cpw6qTWgFlRpjDEwuittPeRDW+5fBrPTa1JZWiIwuhmQhf
+UuvW24SzQeowChnkXwFTRBNISs8FHWZ4vcFSPGcLK88+AQGN8H4=
+=oIUN
+-----END PGP SIGNATURE-----
+
+--ljxpd5y3i5jeehgr--
 
