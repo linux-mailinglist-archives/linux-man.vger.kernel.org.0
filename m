@@ -1,55 +1,54 @@
-Return-Path: <linux-man+bounces-4267-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4268-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8132C43D59
-	for <lists+linux-man@lfdr.de>; Sun, 09 Nov 2025 13:20:37 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 87482C43D5F
+	for <lists+linux-man@lfdr.de>; Sun, 09 Nov 2025 13:22:49 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 970D53A4539
-	for <lists+linux-man@lfdr.de>; Sun,  9 Nov 2025 12:20:36 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 2EFA24E06AE
+	for <lists+linux-man@lfdr.de>; Sun,  9 Nov 2025 12:22:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC8DF2EBDF0;
-	Sun,  9 Nov 2025 12:20:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27CF82EC088;
+	Sun,  9 Nov 2025 12:22:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tYbVgOxe"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZE2Bt0ZG"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BD32EBDCD;
-	Sun,  9 Nov 2025 12:20:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7C72EBDF2
+	for <linux-man@vger.kernel.org>; Sun,  9 Nov 2025 12:22:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762690833; cv=none; b=fpUYtgWYdD6iroeFN+aIjES3rYtXZKY+zHtK/dvWAsYEGNgKx8X57PAbUdhaEkF0yy9iH65GBaglc7c2reMIggxRCdhWPF4zfRvI6hoXlsG34unedbfGuQeupqcbCnZd1BS5Zh6S3pbJCW/FTjXl0gooIvq+vsC/Ml3EFFKrDIk=
+	t=1762690964; cv=none; b=PSqZ8bsN6Th6YKHd0Y7nc2j3W9DcNYUvy0eh7QZc7sjoZeIFbHTcwJ+0EqTtdMj6AnWNMyyc36tt0xdjG95j4i601wihXDQciZWO2krTrV070vNgXsYzUlrvaP47njnZ3QXHtJFaFPiu23QLAeZP6XqVh4HWfynT9DbUZQI5at4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762690833; c=relaxed/simple;
-	bh=MUl+dTqbZ7YKKKUJEy7a4BIZnRoQfskt2IlZrrF+h24=;
+	s=arc-20240116; t=1762690964; c=relaxed/simple;
+	bh=ZsMsnYO4lLJ2yqiucs98wgQh8f4AyBgnZ1tbfBdQfTo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lSNu9zu1qNE/SDwl0ntoNKTjYaE16wvNa0v8OO8pBmRq2JP5QNTynhBPtjgyjeL5K0u9BTdWPsy7QESXIcgsTP2fL72QAYqqDWdnwFLvTIBdI07AA+wC652wrc1HrLtXmw7WnEg9Qd6MxDtror6/WQujrQzBFlLF3TPiZDF/WTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tYbVgOxe; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18F39C19423;
-	Sun,  9 Nov 2025 12:20:31 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=mBDb2ed38djOYdBbUWExVfh/dTXQLVCvhAHPGnTNMPzTCkBkjgP5i0tWWawGto2TieQybKZH1/ygznDQnJ37seTeykYu6piEDvh3lvK8P+zO2UAXuPlZDHkq9TbPsJ+9uNh8Los3c5AWGlmLNDaNsH3EUfqpALcTTtHc5sc+iU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZE2Bt0ZG; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7CEC113D0;
+	Sun,  9 Nov 2025 12:22:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1762690833;
-	bh=MUl+dTqbZ7YKKKUJEy7a4BIZnRoQfskt2IlZrrF+h24=;
+	s=k20201202; t=1762690964;
+	bh=ZsMsnYO4lLJ2yqiucs98wgQh8f4AyBgnZ1tbfBdQfTo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tYbVgOxeR6H3AjeYrj/XMAsMU5/91mlBPu6I6I2Qhso2FiX/Jbxu/GvAcIQCG7l07
-	 H1oUelvYVzAjO0kAhurJh9DwXLnGZmR6TbAeZNaKZdcnUgSdssNHNJhzyT4z03ExX6
-	 uu6d8ocSA1FEBZNPsmxntlXkzpLc0NOUEoxPLPDprrkkqtccjt/ciHHD61yMaeLoON
-	 5r5vz7BE13Up8FleS/dpu6uztj8HhcBf5za9n2/jMNys2su0r269+a8A9rmjDqdOyS
-	 hE/8zhMxeBk6ogJVO1Xi1A1xECVerbjfJffslia3pPU/ufZ9vQX7B6gWtZrfeCGVut
-	 qGBO0Hj4DMiIg==
-Date: Sun, 9 Nov 2025 13:20:29 +0100
+	b=ZE2Bt0ZGsJDSu01x8KdKkvv2tB3yac5D1371GC6zLLipky0wS4MnUiCAn4qzy3SqW
+	 MLSaRS4PgHBgvBP3R0ZdTVa/VrJ+6zB7BM74isnpjwtHUT7jWT1reVO7/z0iYO2R5S
+	 EJAL34EtDVOCNbhmWLLUa2pJEpbWvuXzDQwNY+tT3guc+ooQrasSu0eeELtGWks0U1
+	 Qk+i5D5nOLeyUl5N+L7kAmY4TsFRDqFOaYzoZ5ngMoyQjJ+DLOd+N5RwpKAjhSGjQg
+	 ZT5UGeIJeochWMOzv8JHc2w6zxU9YJrrZr0LBTJ7EaCHd6MoaOpJlFuPcB7k7tjvBC
+	 GFZUNvgRw7S/A==
+Date: Sun, 9 Nov 2025 13:22:41 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Alexander Monakov <amonakov@ispras.ru>, linux-man@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v1] man/man2/flock.2: Mention non-atomicity w.r.t close
-Message-ID: <u3b2gz7gc4iwrwomngg2gioxscu6lwucwl4egdhovh52u7dakb@knipbilujfex>
-References: <181d561860e52955b29fe388ad089bde4f67241a.1760627023.git.amonakov@ispras.ru>
- <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
+To: bugzilla-daemon@kernel.org, Carlos O'Donell <carlos@redhat.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [Bug 220723] New: the man page seccomp(2) instructs the user to
+ include <linux/signal.h> and it causes conflicts
+Message-ID: <pomfcbpghajossneqm3ugdeb7suatmbvhw5hk4j5zcoztty6os@i24vk4bcwgal>
+References: <bug-220723-11311@https.bugzilla.kernel.org/>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,127 +56,142 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i2ksitioofyffpkb"
+	protocol="application/pgp-signature"; boundary="klnbl43duwcnyvna"
 Content-Disposition: inline
-In-Reply-To: <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
+In-Reply-To: <bug-220723-11311@https.bugzilla.kernel.org/>
 
 
---i2ksitioofyffpkb
+--klnbl43duwcnyvna
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Alexander Monakov <amonakov@ispras.ru>, linux-man@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v1] man/man2/flock.2: Mention non-atomicity w.r.t close
-Message-ID: <u3b2gz7gc4iwrwomngg2gioxscu6lwucwl4egdhovh52u7dakb@knipbilujfex>
-References: <181d561860e52955b29fe388ad089bde4f67241a.1760627023.git.amonakov@ispras.ru>
- <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
+To: bugzilla-daemon@kernel.org, Carlos O'Donell <carlos@redhat.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [Bug 220723] New: the man page seccomp(2) instructs the user to
+ include <linux/signal.h> and it causes conflicts
+Message-ID: <pomfcbpghajossneqm3ugdeb7suatmbvhw5hk4j5zcoztty6os@i24vk4bcwgal>
+References: <bug-220723-11311@https.bugzilla.kernel.org/>
 MIME-Version: 1.0
-In-Reply-To: <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
+In-Reply-To: <bug-220723-11311@https.bugzilla.kernel.org/>
 
-Hi Alexander, Jan,
+Hi Carlos,
 
-On Thu, Oct 30, 2025 at 10:21:30AM +0100, Jan Kara wrote:
-> On Thu 16-10-25 18:22:36, Alexander Monakov wrote:
-> > Ideally one should be able to use flock to synchronize with another
-> > process (or thread) closing that file, for instance before attempting
-> > to execve it (as execve of a file open for writing fails with ETXTBSY).
-> >=20
-> > Unfortunately, on Linux it is not reliable, because in the process of
-> > closing a file its locks are dropped before the refcounts of the file
-> > (as well as its underlying filesystem) are decremented, creating a race
-> > window where execve of the just-unlocked file sees it as if still open.
-> >=20
-> > Linux developers have indicated that it is not easy to fix, and the
-> > appropriate course of action for now is to document this limitation.
-> >=20
-> > Link: <https://lore.kernel.org/linux-fsdevel/68c99812-e933-ce93-17c0-3f=
-e3ab01afb8@ispras.ru/>
-> >=20
-> > Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
+On Wed, Oct 29, 2025 at 09:15:36PM +0000, bugzilla-daemon@kernel.org wrote:
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D220723
 >=20
-> The change looks good to me. Feel free to add:
+>             Bug ID: 220723
+>            Summary: the man page seccomp(2) instructs the user to include
+>                     <linux/signal.h> and it causes conflicts
+>            Product: Documentation
+>            Version: unspecified
+>           Hardware: All
+>                 OS: Linux
+>             Status: NEW
+>           Severity: normal
+>           Priority: P3
+>          Component: man-pages
+>           Assignee: documentation_man-pages@kernel-bugs.osdl.org
+>           Reporter: mpatocka@redhat.com
+>         Regression: No
 >=20
-> Reviewed-by: Jan Kara <jack@suse.cz>
+> The man page seccomp(2) instructs the user to include these files:
+>=20
+>        #include <linux/seccomp.h>  /* Definition of SECCOMP_* constants */
+>        #include <linux/filter.h>   /* Definition of struct sock_fprog */
+>        #include <linux/audit.h>    /* Definition of AUDIT_* constants */
+>        #include <linux/signal.h>   /* Definition of SIG* constants */
+>        #include <sys/ptrace.h>     /* Definition of PTRACE_* constants */
+>        #include <sys/syscall.h>    /* Definition of SYS_* constants */
+>        #include <unistd.h>
+>=20
+> However, the include file <linux/signal.h> defines sigset_t and struct ti=
+meval
+> and they clash with the glibc definition. <linux/signal.h> should be chan=
+ged to
+> <signal.h> in the man page.
 
-Thanks!  I've applied the patch, and appended the tag.
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3Da=
-fdd0a64c5bad49d6030ddc488951aeb50f0b88e>
+Would you mind reviewing this?
 
 
 Have a lovely day!
 Alex
 
 >=20
-> 								Honza
-> > ---
-> >  man/man2/flock.2 | 15 +++++++++++++++
-> >  1 file changed, 15 insertions(+)
-> >=20
-> > diff --git a/man/man2/flock.2 b/man/man2/flock.2
-> > index b424b3267..793eaa3bd 100644
-> > --- a/man/man2/flock.2
-> > +++ b/man/man2/flock.2
-> > @@ -245,6 +245,21 @@ .SH NOTES
-> >  and occurs on many other implementations.)
-> >  .\" Kernel 2.5.21 changed things a little: during lock conversion
-> >  .\" it is now the highest priority process that will get the lock -- m=
-tk
-> > +.P
-> > +Release of a lock when a file descriptor is closed
-> > +is not sequenced after all observable effects of
-> > +.BR close (2).
-> > +For example, if one process writes a file while holding an exclusive l=
-ock,
-> > +then closes that file, and another process blocks placing a shared lock
-> > +on that file to wait until it is closed, it may observe that subsequent
-> > +.BR execve (2)
-> > +of that file fails with
-> > +.BR ETXTBSY ,
-> > +and
-> > +.BR umount (2)
-> > +of its underlying filesystem fails with
-> > +.BR EBUSY ,
-> > +as if the file is still open in the first process.
-> >  .SH SEE ALSO
-> >  .BR flock (1),
-> >  .BR close (2),
-> >=20
-> > Range-diff against v0:
-> > -:  --------- > 1:  181d56186 man/man2/flock.2: Mention non-atomicity w=
-=2Er.t close
-> > --=20
-> > 2.49.1
-> >=20
+> How to reproduce: Try to compile this program:
+>=20
+> #include <linux/seccomp.h>
+> #include <linux/filter.h>
+> #include <linux/audit.h>
+> #include <linux/signal.h>
+> #include <sys/ptrace.h>
+> #include <sys/syscall.h>
+> #include <unistd.h>
+>=20
+> #include <stdlib.h>
+>=20
+> int main(void)
+> {
+>         return 0;
+> }
+>=20
+> You get these errors:
+> In file included from /usr/include/x86_64-linux-gnu/sys/select.h:33,
+>                  from /usr/include/x86_64-linux-gnu/sys/types.h:179,
+>                  from /usr/include/stdlib.h:395,
+>                  from seccomp.c:9:
+> /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:7:20: error: conflict=
+ing
+> types for =E2=80=98sigset_t=E2=80=99; have =E2=80=98__sigset_t=E2=80=99
+>     7 | typedef __sigset_t sigset_t;
+>       |                    ^~~~~~~~
+> In file included from /usr/include/linux/signal.h:5,
+>                  from seccomp.c:4:
+> /usr/include/x86_64-linux-gnu/asm/signal.h:16:23: note: previous declarat=
+ion of
+> =E2=80=98sigset_t=E2=80=99 with type =E2=80=98sigset_t=E2=80=99 {aka =E2=
+=80=98long unsigned int=E2=80=99}
+>    16 | typedef unsigned long sigset_t;
+>       |                       ^~~~~~~~
+> In file included from /usr/include/x86_64-linux-gnu/sys/select.h:37:
+> /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:8:8: error:
+> redefinition of =E2=80=98struct timeval=E2=80=99
+>     8 | struct timeval
+>       |        ^~~~~~~
+> In file included from /usr/include/x86_64-linux-gnu/asm/signal.h:7:
+> /usr/include/linux/time.h:16:8: note: originally defined here
+>    16 | struct timeval {
+>       |        ^~~~~~~
+>=20
 > --=20
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
+> You may reply to this email to add a comment.
+>=20
+> You are receiving this mail because:
+> You are watching the assignee of the bug.
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---i2ksitioofyffpkb
+--klnbl43duwcnyvna
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkQhw0ACgkQ64mZXMKQ
-wqnN2Q//Z+PbivK/qNOGipga3ohs3ymSdFjaFCTz75FjDtkXa8BVnRakTgnvr91x
-n3D1L3xy27OdjsplCQ529EhCvlrmpnQoPy0fH8qPDug8tqIEQYOvVt91UpfFbJG6
-Yov0RWAQSt4GxBKZ9g553wmJI3dZjKmN8oM8yDQUHxaKGVmBP/oWUi8l9U5KJpHK
-jmEvQ3pgEYHzh3k0G7S2gMp38WsTLFOvnEQUs6ekMOU+dqnzXTdc8ZjYM7GW3dEh
-P4YeCmfqOh0DZzebGrRRztcAeECiHfvIAfE7BNAR+D8lWGMeAYJOAmpaGIiFebsF
-+iGY6oes14hD7Jy1oRikaJJL+nDHtDNMXXSDS2v9wOR9BszdLj5iY0lpaH2F1WtX
-g0clG/R8JdHHPhHrHc1ukQqxO0DEJ6wuuD0ZYdbJVH49B3+M0phgu2JrGYxUqoIa
-ShEcESRg65ye6myq5rXbdHtdqr4ZJY44RSEsRKx64wOKgcmlHKzL7vNZ3xOTLJXM
-eBXroC6kiRPNzx/EJk3udl5vTMPGalhMmcTL8HEy8xmmaCRTShT7UY2Atg28MkLe
-qrm/Dxc6fipfeshjUjEIG2DfwVO1aKUDf/Hz5zAUtMuii8eu+FdoKuexZFc9zpoV
-R+B6DS4avQ8+2Vrl062zK0Sag/REMbfWnV657twuJvQhEidM9bM=
-=24qw
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkQh5EACgkQ64mZXMKQ
+wqn8Zw/+KRt3gDjomG+QtIMjtTcJ7aguAUdxNcGchN0+u9fhNJ8AU0lXz/+jNJcO
+Nhb9LFfyY4whC6y4lSVsnXC1b4TMJISaA37FyeC2dTwn7MxJL7K4yLybbU7uRe5Q
+8U7r8UnDRwv//U9B1/o2J8DC1k0cjw9T6v8b1HyflsjqtLf05+BshygIZ2/b2+nf
+83UX80INbhVcTrt+eOqYFKmsXZ6QmX1SL71FMHhtzGJ6VBb7vzrYc0QjHRiiQVSB
+CDusNcrTJAVljRhUTJcU/sE1VQyz+hyg+Gh7UpewT2XcNalKUte7pi3+nN6JX2G8
+qPjAe0vGsF1+JNQQ3HKSv+3omXnuG6Z3mirccfDIqFxD6b5awQQMzkJbuUbygzq4
+TCj16NT92y0aU+yK0z3pFtSM6mt5plY/9WqOM9RIzqb2Son38RM7Qpdmiv6Rzl+o
+ZGwTd6m4GJTdL1nLRwNX/0Mn5gtcjMZ0/z/xrBdaF4HlE8QOupnFadq7ZHOnAk0i
+PEclHXdTR4LcWoVPlzXWSM7866+c2oavkRaKxxXk4iNxMS7aE3HDm+gXkTuBjese
+5R8LVUZxtrGfuFT0EfC5jHvKAXIEUAIVqybwI5zr4/1jbAJM4JVaKxTS9P0e3HKq
+4lLzucUCkhPW0JQSE8H0GJr5nFhvDjFfUpIWDPjqGlt3MbJzkYs=
+=UXiz
 -----END PGP SIGNATURE-----
 
---i2ksitioofyffpkb--
+--klnbl43duwcnyvna--
 
