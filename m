@@ -1,53 +1,55 @@
-Return-Path: <linux-man+bounces-4262-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4263-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A4FBC43C3A
-	for <lists+linux-man@lfdr.de>; Sun, 09 Nov 2025 12:00:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1AA7C43CB9
+	for <lists+linux-man@lfdr.de>; Sun, 09 Nov 2025 12:32:32 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id DEE3E4E16F6
-	for <lists+linux-man@lfdr.de>; Sun,  9 Nov 2025 11:00:49 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 81C704E2058
+	for <lists+linux-man@lfdr.de>; Sun,  9 Nov 2025 11:32:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C66B423AE87;
-	Sun,  9 Nov 2025 11:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EFDA42DA76C;
+	Sun,  9 Nov 2025 11:32:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CUunqBc+"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBssfY1N"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFDA191
-	for <linux-man@vger.kernel.org>; Sun,  9 Nov 2025 11:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4F334D3B3
+	for <linux-man@vger.kernel.org>; Sun,  9 Nov 2025 11:32:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762686046; cv=none; b=uhkdLNGTbGy82egDvwtGZgv+E8HP08Kx28gFAKwEp1wTTrR9H4YjW0TPr2SPlCyLEJf/aby9XtSDK8R1grDAs620fN5khNr7VM4OzTw0fMDyJ/fuVBBOP5EfOlOeTQQLJzlB5/Bf+8mj7Qg6tirBshHzMts2lo4U0eQFQ0b2UAg=
+	t=1762687943; cv=none; b=u67rmYyMoRFk7YZHaV+JtfuAmTKCI4Burwxwpoigjttutx5oBIm3+PEFVTaINpUlhzxuNOtq4eHjkl0nabKhikrSpIF7l4yK/SVLd5+mSp3UvTDad2znWwPP2yT4BhkrRH/HhEyspuxUUclPiUsgy4eYASijxOcDLSvmSL4cuNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762686046; c=relaxed/simple;
-	bh=Tt9FHnMldfNm8u20VDCdPJdoOFjTE9PeHNqvFnVLp6U=;
+	s=arc-20240116; t=1762687943; c=relaxed/simple;
+	bh=59Uf/ozmAFPCSZwfTTpdFiOIwqmB4zPwoI3Z7Js26OM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LwNkjJsXAIcXh+vRMd8M7s/+u+3EwK3GGjYxsScqWVUS7leVw+2f8L+X+O+QbEdiXn11LVGR27KKdngPc8JVUhg/LrxxemtiSYo10gvDtzfNLFHgqTOaiYNMTL1hdSFZA80OorHoYgSZ7+hePdA4QvVxfiL7EIwdwXHvCo4yJ3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CUunqBc+; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E890C113D0;
-	Sun,  9 Nov 2025 11:00:45 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=lqi7qxVZV52ZdYwCzkUz9IzoqLZEwYlpAJ3X9/UR7xMbgU0jWfYU05bdzEc7jpLueGxyRq86xWN/XeI2yyBi+NwrjE9PlF/abni4ZV6F31TLnBTGjFlBdeK5c5i8bWxjdrtcbJ3GkQ4M6i5c3tbXFOj5m+WKWJgoOGZNHDYxiXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBssfY1N; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B80AC4CEF7;
+	Sun,  9 Nov 2025 11:32:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1762686046;
-	bh=Tt9FHnMldfNm8u20VDCdPJdoOFjTE9PeHNqvFnVLp6U=;
+	s=k20201202; t=1762687943;
+	bh=59Uf/ozmAFPCSZwfTTpdFiOIwqmB4zPwoI3Z7Js26OM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CUunqBc+CjJn/DpTHEbVsuKc7nv988Dp/sGJi4gYdSFURdkclrghoAqhGlQDcNakk
-	 KK9LMXCCSVUSQ6levtBw6r0vZCik8aZHFhiF5lG1nf4m+8PH6Vm5v2VydeQzchftM1
-	 TvQEdmgdRlL3E6pYF+yJbFCt6daqIrhkw5/VRRo6MnMRzRwuWZvwl7/w98poS92/9D
-	 zrVRTeL28F+0IgcUq29k1DnmXXzOUlERmNhC1X0w6rRvvkfO+huR54plMEh7fVaFFZ
-	 6BN9HmUWVEkDG5qZiVUqNn7IsQRn5yKM7hwWct6TjLY5abd/h+MEMc4jaNReG7MmPf
-	 3nyOtqDJO0TuA==
-Date: Sun, 9 Nov 2025 12:00:42 +0100
+	b=OBssfY1N50FOcUBZ3vF/V3CXlpS0gJcu+VTtMWjo3u+cX5JGPQY5JIrApUR6zq0v9
+	 bQ+GUccgfHYiGNK9ra9l4J8sak2vEF54RxKy3ECsw3U6LITxz0axpcHB6n3f7SeZaL
+	 YFfZymxq9l6Lny4Eg2p7ZYsymLn7MqQCeebuVyaDyxYqCS5/s9qL+MgoN8Mzg2JQ9p
+	 ZUP8+4pVat8CKCtWhismRd1cSISlp8klj7aPqWETpPhU4id9+ncL4zrrf/Yvhsw/7K
+	 uSm7ZnYPf5bLG2OH92HL5ZOjFMkv+OQP5vkH9q7SQCIFcSa8LkkWbgNc4XZFmIebwZ
+	 VTh8yPl4HdlWw==
+Date: Sun, 9 Nov 2025 12:32:19 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Mingye Wang <arthur200126@gmail.com>
-Cc: linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH] man/man2/swapon2: describe SWAP_FLAG_DISCARD_{ONCE,PAGES}
-Message-ID: <5z4d6w5uoljjji23k3dgjusdkcykkgqgvj7zravrd4jas7ltkj@n4wuwwx2cb46>
-References: <20251109030322.13538-1-arthur200126@gmail.com>
+Cc: linux-man <linux-man@vger.kernel.org>, 
+	Andy Lutomirski <luto@kernel.org>, Ted Ts'o <tytso@mit.edu>
+Subject: Re: [PATCH 1/3] random.{4,7}, getrandom.2: Adapt to Linux 5.6 changes
+Message-ID: <n2ajkqskaugqoqjtuxbuxrelepw2gskxzgyrrqsoybqgwtvqam@roe2jqcvnrab>
+References: <5xemaly36nplgnzgpjymwdq44phbg5d43apdb5r7jnxoffjjpp@xgbyo2cksjch>
+ <20251109023632.8515-2-arthur200126@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,126 +57,361 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pvxt5asjf3enuqvm"
+	protocol="application/pgp-signature"; boundary="3usjzyxtncfvkpkm"
 Content-Disposition: inline
-In-Reply-To: <20251109030322.13538-1-arthur200126@gmail.com>
+In-Reply-To: <20251109023632.8515-2-arthur200126@gmail.com>
 
 
---pvxt5asjf3enuqvm
+--3usjzyxtncfvkpkm
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Mingye Wang <arthur200126@gmail.com>
-Cc: linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH] man/man2/swapon2: describe SWAP_FLAG_DISCARD_{ONCE,PAGES}
-Message-ID: <5z4d6w5uoljjji23k3dgjusdkcykkgqgvj7zravrd4jas7ltkj@n4wuwwx2cb46>
-References: <20251109030322.13538-1-arthur200126@gmail.com>
+Cc: linux-man <linux-man@vger.kernel.org>, 
+	Andy Lutomirski <luto@kernel.org>, Ted Ts'o <tytso@mit.edu>
+Subject: Re: [PATCH 1/3] random.{4,7}, getrandom.2: Adapt to Linux 5.6 changes
+Message-ID: <n2ajkqskaugqoqjtuxbuxrelepw2gskxzgyrrqsoybqgwtvqam@roe2jqcvnrab>
+References: <5xemaly36nplgnzgpjymwdq44phbg5d43apdb5r7jnxoffjjpp@xgbyo2cksjch>
+ <20251109023632.8515-2-arthur200126@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20251109030322.13538-1-arthur200126@gmail.com>
+In-Reply-To: <20251109023632.8515-2-arthur200126@gmail.com>
+
+CC +=3D Andy, Ted
 
 Hi Mingye,
 
-On Sun, Nov 09, 2025 at 11:02:49AM +0800, Mingye Wang wrote:
-> There has been a TODO to describe these two new flags for a long
-> time now. This commit finishes it.
-
-This commit should remove the TODO, right?
-
-> ---
->  man/man2/swapon.2 | 26 ++++++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
+On Sun, Nov 09, 2025 at 10:36:00AM +0800, Mingye Wang wrote:
+> Linux kernel 5.6 no longer has a blocking random pool.  This commit
+> updates all relevant references to reflect this change.
 >=20
-> diff --git a/man/man2/swapon.2 b/man/man2/swapon.2
-> index df5e8d8..1d2db47 100644
-> --- a/man/man2/swapon.2
-> +++ b/man/man2/swapon.2
-> @@ -53,6 +53,32 @@ argument, freed swap pages will be discarded before th=
-ey are reused,
->  if the swap device supports the discard or trim operation.
->  (This may improve performance on some Solid State Devices,
->  but often it does not.)
+> * random.7: Remove references to the blocking pool in the table.  Add a
+>   note about the blocking pool.
+> * random.7: Revise "choice of random source" to remove any recommendation
+>   of the blocking pool.  Stop suggesting that the blocking pool is
+>   safer (it's not after initialization).
+> * random.7: Add table entry for GRND_INSECURE.
+> * getrandom.2: Add flag entry for GRND_INSECURE.
+> * getrandom.2: Add removal note to GRND_RANDOM.
+> * random.4: Split DESCRIPTION paragraph on /dev/random into two, one
+>   for the new behavior and the other for the old.
+> * random.4: Adjust size limits and /proc list for 5.6.
+> * random.4: Mention blocking resolution by high-precision timer entropy.
+>=20
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D214885
+> Signed-Off-By: Mingye Wang <arthur200126@gmail.com>
+> ---
+>  man/man2/getrandom.2 |  9 ++++++
+>  man/man4/random.4    | 30 ++++++++++++++-----
+>  man/man7/random.7    | 70 ++++++++++++++++++++++++++------------------
+>  3 files changed, 72 insertions(+), 37 deletions(-)
+>=20
+> diff --git a/man/man2/getrandom.2 b/man/man2/getrandom.2
+> index 9e782e6..5f0a2da 100644
+> --- a/man/man2/getrandom.2
+> +++ b/man/man2/getrandom.2
+> @@ -62,6 +62,8 @@ argument is a bit mask that can contain zero or more of=
+ the following values
+>  ORed together:
+>  .TP
+>  .B GRND_RANDOM
+> +.\" commit 48446f198f9adcb499b30332488dfd5bc3f176f6
+> +Ignored since Linux 5.6.
+>  If this bit is set, then random bytes are drawn from the
+>  .I random
+>  source
+> @@ -103,6 +105,13 @@ does not block in these cases, but instead immediate=
+ly returns \-1 with
+>  .I errno
+>  set to
+>  .BR EAGAIN .
+> +.TP GRND_INSECURE
+
+=2ETP should have the tag in the next line (see the hunk above, for
+example).
+
+	.TP
+	.B GRND_INSECURE
+
+> +.\" commit 75551dbf112c992bc6c99a972990b3f272247e23
+> +Added in Linux 5.6.
+
+We usually put this either in the HISTORY section, or in the same line
+as the tag:
+
+	.TP
+	.BR GRND_INSECURE " (since Linux 5.6)"
+
+> +Request best-effort, non-cryptographic-quality random bytes.
+> +If this bit is set, then
+> +.BR getrandom ()
+> +will never block or fail due to a lack of entropy.
+>  .SH RETURN VALUE
+>  On success,
+>  .BR getrandom ()
+> diff --git a/man/man4/random.4 b/man/man4/random.4
+> index 0a651b0..95200bc 100644
+> --- a/man/man4/random.4
+> +++ b/man/man4/random.4
+> @@ -56,17 +56,29 @@ or
+>  .I /dev/random
+>  instead.
+>  .P
+> -The
+> +.\" commit 30c08efec8884fb106b8e57094baa51bb4c44e32
+> +As of Linux 5.6,
+
+For consistency:
+
+	Since Linux 5.6,
+
+> +.I /dev/random
+> +is identical to
+> +.I /dev/urandom
+
+Missing comma:
+
+	.IR /dev/urandom ,
+
+> +except that it blocks during early boot.
+> +A jitter-based seeding technique added in Linux 5.4 should help reduce
+> +block time.
+> +.\" commit 50ee7529ec4500c88f8664560770a7a1b65db72b
 > +.P
-> +(Linux 3.11+) If either of the
+> +The pre-Linux 5.6
+>  .I /dev/random
+> -device is a legacy interface which dates back to
+> +device was a legacy interface which dates back to
+>  a time where the cryptographic primitives used in the implementation
+>  of
+>  .I /dev/urandom
+>  were not widely trusted.
+> -It will return random bytes only within the estimated number of
+> -bits of fresh noise in the entropy pool, blocking if necessary.
+> +It would return random bytes only within the estimated number of bits of=
+ fresh
+> +noise in the entropy pool, blocking until additional environmental noise=
+ is
+> +gathered.
+> +This old
+>  .I /dev/random
+> -is suitable for applications that need
+> +was suitable for applications that need
+>  high quality randomness, and can afford indeterminate delays.
+>  .P
+>  When the entropy pool is empty, reads from
+> @@ -121,7 +133,8 @@ A
+>  .BR read (2)
+>  from
+>  .I /dev/random
+> -will return at most 512 bytes
+> +has the same maximum size since Linux 5.6. Between Linux 3.16 and 5.5,
+> +the maximum size was 512 bytes. (340 bytes before Linux 2.6.12)
+>  .\" SEC_XFER_SIZE in drivers/char/random.c
+>  (340 bytes before Linux 2.6.12).
+>  .P
+> @@ -133,7 +146,7 @@ will update the
+>  entropy pool with the data written, but this will not result in a
+>  higher entropy count.
+>  This means that it will impact the contents
+> -read from both files, but it will not make reads from
+> +read from both files, but it will not make reads from a pre-Linux 5.6
+>  .I /dev/random
+>  faster.
+>  .SS Usage
+> @@ -158,7 +171,7 @@ soon as it is reloaded in the boot sequence, and perf=
+ectly adequate for
+>  network encryption session keys.
+>  (All major Linux distributions have saved the seed file across reboots
+>  since 2000 at least.)
+> -Since reads from
+> +Since reads from a pre-Linux 5.6
+>  .I /dev/random
+>  may block, users will usually want to open it in nonblocking mode
+>  (or perform a read with timeout),
+> @@ -262,6 +275,7 @@ It contains the value 4096.
+>  .RE
+>  .TP
+>  .I read_wakeup_threshold
+> +Removed in Linux 5.6.
+>  This file
+>  contains the number of bits of entropy required for waking up processes
+>  that sleep waiting for entropy from
+> diff --git a/man/man7/random.7 b/man/man7/random.7
+> index fda408d..c5e959f 100644
+> --- a/man/man7/random.7
+> +++ b/man/man7/random.7
+> @@ -54,17 +54,16 @@ The kernel collects bits of entropy from the environm=
+ent.
+>  When a sufficient number of random bits has been collected, the
+>  entropy pool is considered to be initialized.
+>  .SS Choice of random source
+> -Unless you are doing long-term key generation (and most likely not even
+> -then), you probably shouldn't be reading from the
+> +Unless your program may run at early-boot, before the entropy pool
+> +is initialized, there is no longer any palpable difference between
+>  .I /dev/random
+> -device or employing
+> -.BR getrandom (2)
+> -with the
+> -.B GRND_RANDOM
+> -flag.
+> -Instead, either read from the
+> +and
+> +.I /dev/urandom
+> +since Linux 5.6. (See the table below.)
+> +.PP.
+> +On older kernels, either read from the
+>  .I /dev/urandom
+> -device or employ
+> +device or (especially if you are concerned with early boot) employ
+>  .BR getrandom (2)
+>  without the
+>  .B GRND_RANDOM
+> @@ -117,9 +116,9 @@ T}
+>  T{
+>  .I /dev/random
+>  T}	T{
+> -Blocking pool
+> +CSPRNG output
+>  T}	T{
+> -If entropy too low, blocks until there is enough entropy again
+> +Never blocks
+>  T}	T{
+>  Blocks until enough entropy gathered
+>  T}
+> @@ -144,17 +143,6 @@ Blocks until pool ready
+>  T}
+>  T{
+>  .BR getrandom ()
+> -.B GRND_RANDOM
+> -T}	T{
+> -Same as
+> -.I /dev/random
+> -T}	T{
+> -If entropy too low, blocks until there is enough entropy again
+> -T}	T{
+> -Blocks until pool ready
+> -T}
+> -T{
+> -.BR getrandom ()
+>  .B GRND_NONBLOCK
+>  T}	T{
+>  Same as
+> @@ -166,21 +154,45 @@ T}	T{
+>  T}
+>  T{
+>  .BR getrandom ()
+> -.B GRND_RANDOM
+> -+
+> -.B GRND_NONBLOCK
+> +.B GRND_INSECURE
+>  T}	T{
+>  Same as
+> -.I /dev/random
+> +.I /dev/urandom
+>  T}	T{
+> -.B EAGAIN
+> -if not enough entropy available
+> +Never blocks
 
-Please use "Since Linux 3.11,", for consistency with other pages.
+Does /dev/urandom block when reading with read(2) before the pool is
+ready?  I assume it blocks.  This probably means the pool of
+GRND_INSECURE is the same as /dev/urandom only after the pool is ready,
+and before it uses a different pool.  And because this flag is intended
+to be used before the /dev/urandom pool is ready (IIUC), it would be
+important to document this difference.
 
-> +.B SWAP_FLAG_DISCARD_ONCE
-> +or
-> +.B SWAP_FLAG_DISCARD_PAGES
-> +flags are specified in the
-> +.BR swapon ()
-> +.I swapflags
-> +along with
-> +.BR SWAP_FLAG_DISCARD ,
-> +the discard of swap pages is controlled as follows:
-> +.RS 4n
-> +.IP SWAP_FLAG_DISCARD_ONCE 4n
+CC +=3D Andy, Ted
 
-This should use '.TP'.  See man-pages(7):
+>  T}	T{
+> -.B EAGAIN
+> +Returns output from uninitialized CSPRNG (may be low entropy and unsuita=
+ble for cryptography)
+>  T}
+>  .TE
+>  .ad
+>  .\"
+> +.SS The old blocking pool
+> +The above table describes the behavior of the interfaces since
+> +Linux 5.6.  In older kernels, the
 
-   Lists
-     There are different kinds of lists:
+Please use semantic newlines.  See man-pages(7):
 
-     Tagged paragraphs
-            These  are  used for a list of tags and their descriptions.
-            When the tags are constants (either macros or numbers) they
-            are in bold.  Use the .TP macro.
+$ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
+   Use semantic newlines
+     In the source of a manual page, new sentences should be started on
+     new lines, long sentences should be split  into  lines  at  clause
+     breaks  (commas,  semicolons, colons, and so on), and long clauses
+     should be split at phrase boundaries.  This convention,  sometimes
+     known as "semantic newlines", makes it easier to see the effect of
+     patches, which often operate at the level of individual sentences,
+     clauses, or phrases.
 
-            An example is this "Tagged paragraphs"  subsection  is  it=E2=
-=80=90
-            self.
+> +.I /dev/random
+> +used a separate blocking pool, and
+> +.BR getrandom ()
+> +had a
+> +.B GRND_RANDOM
+> +flag for reading from the blocking pool.
+> +.\"
+> +.PP
 
-(You can look at the source code of man-pages(7) to see an example.)
+Should be '.P'.
 
+> +The older blocking pool was a vestige of a time when the CSPRNG
+> +was not trusted.
+> +It assumed that entropy can run out by reading the CSPRNG.
+> +This has never been the case.
+> +Instead, programs using
+
+Instead of what?  I think it reads better if we just remove that word.
+
+> +.B GRND_RANDOM
+> +and
+> +.I /dev/random
+> +had to deal with operations blocking indefinitely.
+> +Furthermore, dealing with the partially fulfilled
+> +requests that can occur when using
+> +.B GRND_RANDOM
+> +or when reading from
+> +.I /dev/random
+> +increases code complexity.
+> +.\"
 
 Have a lovely day!
 Alex
 
-> +\- Discard only occurs when the swap area is first enabled
-> +with
-> +.BR swapon () .
-> +Minimum overhead is incurred for subsequent swap page frees.
-> +.IP SWAP_FLAG_DISCARD_PAGES 4n
-> +\- Discard occurs on every swap page free, asynchronously.
-> +This may incur significant overhead.
-> +.RE
-> +.P
-> +Setting both flags results in the behavior of
-> +.BR SWAP_FLAG_DISCARD_ONCE .
-> +Setting neither results in both types of discard being performed.
-> +.P
->  See also NOTES.
->  .P
->  These functions may be used only by a privileged process (one having the
+>  .SS Generating cryptographic keys
+>  The amount of seed material required to generate a cryptographic key
+>  equals the effective key size of the key.
 > --=20
 > 2.51.0
->=20
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---pvxt5asjf3enuqvm
+--3usjzyxtncfvkpkm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkQdFMACgkQ64mZXMKQ
-wqmiKw//c2t7w14d4IkCTyhcstDsBnShd3jmI1pzolGFuhBzCQ8rfudU82pcGkrU
-+eZejXvu4bGUoD6V0t7jF7Fqlr4zRJaKpoDbr1/ZQpm1WhuvROCVNEeHd/L0J5pN
-yhfYDQ9OIx7MSoNgYoUg2e/oKirN6rC9jc8tx4diNPEhUPSJL7ONqKHNKx2Shsb0
-CBA6q+3RbP/W9zCxnv5UTe/Hsl6QoUWXuPMG12xDsYM21LaHlikENdVGJDwOwz90
-tH7QjYdoDE2OIY3DqvL9vRbiYTKYZPeVwbVoABrT3v3LnCuMuAEcURcsFghlnUGM
-6ZkUyR0oN33i5BGMVpejX9s/UWKaBvQbkMrCBTS59nJNR9U270cmiRRSSLNCRFIW
-xbsp1L/ZYBTw4lbHdrnevenMlLqMPRM/tYsgNXK/JO8qtlTX+o4BZ58HoeQuUiXF
-meErYIkal6ueCV5rEdpnIfNG5o35/pvGY+gl1sooSSJrRhaIDvknHzBGZ0JonLSb
-EjjWKvhrTZTwaWDXdhz25WkcTJ5jCuyNpmD1fYaXXHcURoaW0qwIJv3t6cEDysIk
-ir3VfnOaic9KPaHO4G4UOvnq46zMqdOEUG2yjz8t0mwY4QvZ4F6DkA7b5XD9ttoL
-RXmPjggw+Jg1iAG8Psl/3QOzIfL5pd+MKWJnMzXngiNbns9Z5nY=
-=7/Xu
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkQe70ACgkQ64mZXMKQ
+wqkS1xAAqm+euBJS5iNghpRK/LTwd3FYv2I3ICxhAOkuPQ/sIV8Ht/iiYCb0MZZb
+fXHyHUY8wP+cAyMYu6p8yY5dJaqmsWnVuSqNRlyHyDipZrEPYPKUEMGE6vZN9qSI
+5BntTdWY9puqJeiKilCAgWVfcr9lw5VTqkTrVQSMllF+lOLzjvB2lpZ+/P0IY6oG
+xdB0H/08TGwmpK9/OrtYCwlqWsgRtGhwlwnN1n5G8raygeRm9PB6fHKqJJxRB1lu
+14Jw950PpOMzoEDpl1lrKx3K392Sep7+phQriRervINcEjYfZcWMSlrM6bwyt37e
+iRD+mwdEyW9KgLOYQ7rDzvQ7cmH5VsVLDAODQC16O/Ql5Uesvlz6+flROKrCdxW3
+z/lVoQJLUljXheu0jcvZb2GFYXPeYPrPRjEZssD8qyIs4pzaLdIripJTC60NX794
+T9Ua225KePap5vmLYr22Qh8K0jVB4P5mJYpRtlTzndUq9LjiXhySd4pTKdXCCiVH
+Q9OXBhHoVjC6I8Zg0cHJ7i7vTIQglwZtt5Epr17peTnVSo4F5P9y1Lqgg9Z1X/uK
+cNKa5XU9UghBiwhi+kfuJF+V4V8lETFs2E/O9UMLk1/cU1EnRkBl7c1JhKH1BL8e
+ne9l79KeW14bd9iesT6Fb4o07xprTjyU+y0B2fUJ2PP2fnT+cIA=
+=ViWf
 -----END PGP SIGNATURE-----
 
---pvxt5asjf3enuqvm--
+--3usjzyxtncfvkpkm--
 
