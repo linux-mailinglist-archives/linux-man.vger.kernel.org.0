@@ -1,80 +1,86 @@
-Return-Path: <linux-man+bounces-4268-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4269-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87482C43D5F
-	for <lists+linux-man@lfdr.de>; Sun, 09 Nov 2025 13:22:49 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B1C8C43D62
+	for <lists+linux-man@lfdr.de>; Sun, 09 Nov 2025 13:22:51 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 2EFA24E06AE
-	for <lists+linux-man@lfdr.de>; Sun,  9 Nov 2025 12:22:48 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 3859F4E13AC
+	for <lists+linux-man@lfdr.de>; Sun,  9 Nov 2025 12:22:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27CF82EC088;
-	Sun,  9 Nov 2025 12:22:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47A0B2EC08C;
+	Sun,  9 Nov 2025 12:22:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZE2Bt0ZG"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UwdBmri5"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7C72EBDF2
-	for <linux-man@vger.kernel.org>; Sun,  9 Nov 2025 12:22:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072C32EBDF2
+	for <linux-man@vger.kernel.org>; Sun,  9 Nov 2025 12:22:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762690964; cv=none; b=PSqZ8bsN6Th6YKHd0Y7nc2j3W9DcNYUvy0eh7QZc7sjoZeIFbHTcwJ+0EqTtdMj6AnWNMyyc36tt0xdjG95j4i601wihXDQciZWO2krTrV070vNgXsYzUlrvaP47njnZ3QXHtJFaFPiu23QLAeZP6XqVh4HWfynT9DbUZQI5at4=
+	t=1762690969; cv=none; b=gryZW0Gm749/gtGe5vr9r2W24fiqwQPFkGOQm3umH0fKPGOx9T1rUc6zKBlFHU3a9F93z6XvR4Dk+lQxSz5MRR5m0FzPBYeGGGHoyaFhrt7UDRlkDxF8N8yRVTsRolkXl00Da6RSg+XvQfjO5IK32lmRrcsSgrRGXb5McYdl5V8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762690964; c=relaxed/simple;
-	bh=ZsMsnYO4lLJ2yqiucs98wgQh8f4AyBgnZ1tbfBdQfTo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mBDb2ed38djOYdBbUWExVfh/dTXQLVCvhAHPGnTNMPzTCkBkjgP5i0tWWawGto2TieQybKZH1/ygznDQnJ37seTeykYu6piEDvh3lvK8P+zO2UAXuPlZDHkq9TbPsJ+9uNh8Los3c5AWGlmLNDaNsH3EUfqpALcTTtHc5sc+iU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZE2Bt0ZG; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7CEC113D0;
-	Sun,  9 Nov 2025 12:22:43 +0000 (UTC)
+	s=arc-20240116; t=1762690969; c=relaxed/simple;
+	bh=D0Qc9O0R0jvkN32s1ssNDHgVTw0GSP9+FgPCCTZ9Lio=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FWasvuBvxUEG4/GdDknKQtFuEMPNttjFEArHh33+CKtGOiaBMDJlW8nEEAtNUAJ77iSZnCH2BbF9fLMj2ixHXsK345rZNIBgtflxP2l8qn639oEeGf+PdaHDXr8LwrFK5dGPpz7ZACMNs7QXaLLMByj/5639F/mhNAECwfuirlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UwdBmri5; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D94AAC19423
+	for <linux-man@vger.kernel.org>; Sun,  9 Nov 2025 12:22:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1762690964;
-	bh=ZsMsnYO4lLJ2yqiucs98wgQh8f4AyBgnZ1tbfBdQfTo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZE2Bt0ZGsJDSu01x8KdKkvv2tB3yac5D1371GC6zLLipky0wS4MnUiCAn4qzy3SqW
-	 MLSaRS4PgHBgvBP3R0ZdTVa/VrJ+6zB7BM74isnpjwtHUT7jWT1reVO7/z0iYO2R5S
-	 EJAL34EtDVOCNbhmWLLUa2pJEpbWvuXzDQwNY+tT3guc+ooQrasSu0eeELtGWks0U1
-	 Qk+i5D5nOLeyUl5N+L7kAmY4TsFRDqFOaYzoZ5ngMoyQjJ+DLOd+N5RwpKAjhSGjQg
-	 ZT5UGeIJeochWMOzv8JHc2w6zxU9YJrrZr0LBTJ7EaCHd6MoaOpJlFuPcB7k7tjvBC
-	 GFZUNvgRw7S/A==
-Date: Sun, 9 Nov 2025 13:22:41 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: bugzilla-daemon@kernel.org, Carlos O'Donell <carlos@redhat.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [Bug 220723] New: the man page seccomp(2) instructs the user to
- include <linux/signal.h> and it causes conflicts
-Message-ID: <pomfcbpghajossneqm3ugdeb7suatmbvhw5hk4j5zcoztty6os@i24vk4bcwgal>
+	s=k20201202; t=1762690968;
+	bh=D0Qc9O0R0jvkN32s1ssNDHgVTw0GSP9+FgPCCTZ9Lio=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=UwdBmri5+5pSJnUP7mkk5Ez59hHLPlyka6xvuBcDZhtg6y6Czglz4ZfbhLT5X93Je
+	 wMJuZ9kU6N3VQ148H4nX1JC/o6x7/kjNAtwfdPFXXog3nvE/y5l7F11SiXRjsjBATp
+	 r4KIB5cLPJ9gWYhCB39rbaxYjmhbCDpeveqWdD9HWAK7YvTH57wOYctjY8VZ/Ykkta
+	 Yk+hVsXgqTAg6qkZ5PCDtFq+vOchF2KpCi+O//9J9ctgxy6YfSpIAclxm5A1BPoFYb
+	 I26FxUk/blRsRFij4kHzL6F4qMckmo446K/beAl9w4tIPEj0YsvoIEi3ivJtNvn6Xw
+	 N/bGd9ZT12oFw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id CC43EC53BC7; Sun,  9 Nov 2025 12:22:48 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 220723] the man page seccomp(2) instructs the user to include
+ <linux/signal.h> and it causes conflicts
+Date: Sun, 09 Nov 2025 12:22:47 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-220723-11311-9Gxd1kN0cA@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-220723-11311@https.bugzilla.kernel.org/>
 References: <bug-220723-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="klnbl43duwcnyvna"
-Content-Disposition: inline
-In-Reply-To: <bug-220723-11311@https.bugzilla.kernel.org/>
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D220723
 
---klnbl43duwcnyvna
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: bugzilla-daemon@kernel.org, Carlos O'Donell <carlos@redhat.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [Bug 220723] New: the man page seccomp(2) instructs the user to
- include <linux/signal.h> and it causes conflicts
-Message-ID: <pomfcbpghajossneqm3ugdeb7suatmbvhw5hk4j5zcoztty6os@i24vk4bcwgal>
-References: <bug-220723-11311@https.bugzilla.kernel.org/>
-MIME-Version: 1.0
-In-Reply-To: <bug-220723-11311@https.bugzilla.kernel.org/>
-
+--- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
 Hi Carlos,
 
 On Wed, Oct 29, 2025 at 09:15:36PM +0000, bugzilla-daemon@kernel.org wrote:
@@ -105,10 +111,11 @@ On Wed, Oct 29, 2025 at 09:15:36PM +0000, bugzilla-daemon@kernel.org wrote:
 >        #include <sys/syscall.h>    /* Definition of SYS_* constants */
 >        #include <unistd.h>
 >=20
-> However, the include file <linux/signal.h> defines sigset_t and struct ti=
-meval
+> However, the include file <linux/signal.h> defines sigset_t and struct
+> timeval
 > and they clash with the glibc definition. <linux/signal.h> should be chan=
-ged to
+ged
+> to
 > <signal.h> in the man page.
 
 Would you mind reviewing this?
@@ -148,7 +155,8 @@ ing
 > In file included from /usr/include/linux/signal.h:5,
 >                  from seccomp.c:4:
 > /usr/include/x86_64-linux-gnu/asm/signal.h:16:23: note: previous declarat=
-ion of
+ion
+> of
 > =E2=80=98sigset_t=E2=80=99 with type =E2=80=98sigset_t=E2=80=99 {aka =E2=
 =80=98long unsigned int=E2=80=99}
 >    16 | typedef unsigned long sigset_t;
@@ -170,28 +178,8 @@ ion of
 > You are watching the assignee of the bug.
 
 --=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
+You may reply to this email to add a comment.
 
---klnbl43duwcnyvna
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkQh5EACgkQ64mZXMKQ
-wqn8Zw/+KRt3gDjomG+QtIMjtTcJ7aguAUdxNcGchN0+u9fhNJ8AU0lXz/+jNJcO
-Nhb9LFfyY4whC6y4lSVsnXC1b4TMJISaA37FyeC2dTwn7MxJL7K4yLybbU7uRe5Q
-8U7r8UnDRwv//U9B1/o2J8DC1k0cjw9T6v8b1HyflsjqtLf05+BshygIZ2/b2+nf
-83UX80INbhVcTrt+eOqYFKmsXZ6QmX1SL71FMHhtzGJ6VBb7vzrYc0QjHRiiQVSB
-CDusNcrTJAVljRhUTJcU/sE1VQyz+hyg+Gh7UpewT2XcNalKUte7pi3+nN6JX2G8
-qPjAe0vGsF1+JNQQ3HKSv+3omXnuG6Z3mirccfDIqFxD6b5awQQMzkJbuUbygzq4
-TCj16NT92y0aU+yK0z3pFtSM6mt5plY/9WqOM9RIzqb2Son38RM7Qpdmiv6Rzl+o
-ZGwTd6m4GJTdL1nLRwNX/0Mn5gtcjMZ0/z/xrBdaF4HlE8QOupnFadq7ZHOnAk0i
-PEclHXdTR4LcWoVPlzXWSM7866+c2oavkRaKxxXk4iNxMS7aE3HDm+gXkTuBjese
-5R8LVUZxtrGfuFT0EfC5jHvKAXIEUAIVqybwI5zr4/1jbAJM4JVaKxTS9P0e3HKq
-4lLzucUCkhPW0JQSE8H0GJr5nFhvDjFfUpIWDPjqGlt3MbJzkYs=
-=UXiz
------END PGP SIGNATURE-----
-
---klnbl43duwcnyvna--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
