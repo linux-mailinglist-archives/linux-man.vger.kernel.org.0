@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-4266-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4267-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5092C43D37
-	for <lists+linux-man@lfdr.de>; Sun, 09 Nov 2025 13:15:59 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8132C43D59
+	for <lists+linux-man@lfdr.de>; Sun, 09 Nov 2025 13:20:37 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8717D1884BC5
-	for <lists+linux-man@lfdr.de>; Sun,  9 Nov 2025 12:16:24 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 970D53A4539
+	for <lists+linux-man@lfdr.de>; Sun,  9 Nov 2025 12:20:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDAEC2EB87E;
-	Sun,  9 Nov 2025 12:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC8DF2EBDF0;
+	Sun,  9 Nov 2025 12:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DAZVDea5"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tYbVgOxe"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2FD2C11EB
-	for <linux-man@vger.kernel.org>; Sun,  9 Nov 2025 12:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BD32EBDCD;
+	Sun,  9 Nov 2025 12:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762690555; cv=none; b=Y+gWckWInzl39QjUjHbWNJKjfT+Tcje/+dSP4vNvktS/Jx/3zT9hXxT3btCVFTn5f2h/w+PKt7Ggtb0jdV4kNOGUX1PT093z7qkQmfBszwxfmgFAuW4PebhdCvtjRldbHzcYTljn+IzkG0/lXfenvFm4wQcDlpncTeVRsOGAADc=
+	t=1762690833; cv=none; b=fpUYtgWYdD6iroeFN+aIjES3rYtXZKY+zHtK/dvWAsYEGNgKx8X57PAbUdhaEkF0yy9iH65GBaglc7c2reMIggxRCdhWPF4zfRvI6hoXlsG34unedbfGuQeupqcbCnZd1BS5Zh6S3pbJCW/FTjXl0gooIvq+vsC/Ml3EFFKrDIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762690555; c=relaxed/simple;
-	bh=4QKa4+SiQZJ7O7apVaOeGNYTnpWYK0CyyC6yHWFldds=;
+	s=arc-20240116; t=1762690833; c=relaxed/simple;
+	bh=MUl+dTqbZ7YKKKUJEy7a4BIZnRoQfskt2IlZrrF+h24=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zd0sPsrs797C6D42bsjKm6PhKmufmzpBtT58IceCBpwNCRUefOpsDNU6cmrDLBgW9nZmtnV79HBeCg/PlXVq7/kDMIR9v40jv7u0Dez3N95KbAcBN1nflUwIDXnnxFF0vRxA5FuNlzFD2ssnfEmVLxDOdCCypL8P+ji3gTne0+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DAZVDea5; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED06AC19421;
-	Sun,  9 Nov 2025 12:15:53 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=lSNu9zu1qNE/SDwl0ntoNKTjYaE16wvNa0v8OO8pBmRq2JP5QNTynhBPtjgyjeL5K0u9BTdWPsy7QESXIcgsTP2fL72QAYqqDWdnwFLvTIBdI07AA+wC652wrc1HrLtXmw7WnEg9Qd6MxDtror6/WQujrQzBFlLF3TPiZDF/WTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tYbVgOxe; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18F39C19423;
+	Sun,  9 Nov 2025 12:20:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1762690555;
-	bh=4QKa4+SiQZJ7O7apVaOeGNYTnpWYK0CyyC6yHWFldds=;
+	s=k20201202; t=1762690833;
+	bh=MUl+dTqbZ7YKKKUJEy7a4BIZnRoQfskt2IlZrrF+h24=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DAZVDea5P+EXqRaqeROspIf/JYQPX/bCz8gMlwZleHeVOvrJwcLOyy12mU1zhbWQs
-	 4hCwY8l3Snn75NdkFSdF5YiIM4jnhUwttU3arofyX+qv6wCGpkJFCfc0M9cSZ3AaRQ
-	 H3stTtbJFtR3CUgxtQeiP/wSGRzXdL99d96tSw5QixihhyS3ZXnoyNndYs/2NmL9sw
-	 5sDtjcwjzQ2LJodiKIBb3vubvaLyNLozCNT1EqwDKYjBdXun4HIaVc6HDhdySF+gs3
-	 CMQ3GxKDTiEJ5hE7mE0t5Z7R5NnoCnTTiID9A+/qMsJSnJzrVW1cmlejLy293B/t0x
-	 3Z2A+CSZeIziQ==
-Date: Sun, 9 Nov 2025 13:15:51 +0100
+	b=tYbVgOxeR6H3AjeYrj/XMAsMU5/91mlBPu6I6I2Qhso2FiX/Jbxu/GvAcIQCG7l07
+	 H1oUelvYVzAjO0kAhurJh9DwXLnGZmR6TbAeZNaKZdcnUgSdssNHNJhzyT4z03ExX6
+	 uu6d8ocSA1FEBZNPsmxntlXkzpLc0NOUEoxPLPDprrkkqtccjt/ciHHD61yMaeLoON
+	 5r5vz7BE13Up8FleS/dpu6uztj8HhcBf5za9n2/jMNys2su0r269+a8A9rmjDqdOyS
+	 hE/8zhMxeBk6ogJVO1Xi1A1xECVerbjfJffslia3pPU/ufZ9vQX7B6gWtZrfeCGVut
+	 qGBO0Hj4DMiIg==
+Date: Sun, 9 Nov 2025 13:20:29 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Wes Gibbs <wg21908@gmail.com>
-Cc: linux-man@vger.kernel.org, mtk.manpages@gmail.com, 
-	colomar.alejandro@gmail.com, bigeasy@linutronix.de
-Subject: Re: [PATCH v3] Subject: [PATCH v3] copy_file_range.2: glibc no
- longer provides fallback after 2.30
-Message-ID: <teoitueevahxy7n3iqmtmxjbzqgzczoct3gwhq2jomqjplfhge@byvm3zezcb2k>
-References: <20251102000330.155591-1-wg21908@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Alexander Monakov <amonakov@ispras.ru>, linux-man@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v1] man/man2/flock.2: Mention non-atomicity w.r.t close
+Message-ID: <u3b2gz7gc4iwrwomngg2gioxscu6lwucwl4egdhovh52u7dakb@knipbilujfex>
+References: <181d561860e52955b29fe388ad089bde4f67241a.1760627023.git.amonakov@ispras.ru>
+ <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,105 +57,127 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cntu7wxaiijlwphp"
+	protocol="application/pgp-signature"; boundary="i2ksitioofyffpkb"
 Content-Disposition: inline
-In-Reply-To: <20251102000330.155591-1-wg21908@gmail.com>
+In-Reply-To: <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
 
 
---cntu7wxaiijlwphp
+--i2ksitioofyffpkb
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Wes Gibbs <wg21908@gmail.com>
-Cc: linux-man@vger.kernel.org, mtk.manpages@gmail.com, 
-	colomar.alejandro@gmail.com, bigeasy@linutronix.de
-Subject: Re: [PATCH v3] Subject: [PATCH v3] copy_file_range.2: glibc no
- longer provides fallback after 2.30
-Message-ID: <teoitueevahxy7n3iqmtmxjbzqgzczoct3gwhq2jomqjplfhge@byvm3zezcb2k>
-References: <20251102000330.155591-1-wg21908@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Alexander Monakov <amonakov@ispras.ru>, linux-man@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v1] man/man2/flock.2: Mention non-atomicity w.r.t close
+Message-ID: <u3b2gz7gc4iwrwomngg2gioxscu6lwucwl4egdhovh52u7dakb@knipbilujfex>
+References: <181d561860e52955b29fe388ad089bde4f67241a.1760627023.git.amonakov@ispras.ru>
+ <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
 MIME-Version: 1.0
-In-Reply-To: <20251102000330.155591-1-wg21908@gmail.com>
+In-Reply-To: <xvwzokj7inyw4x2brbuprosk5i2w53p3qjerkcjfsy6lg43krm@gp65tt2tg4kw>
 
-Hi Wes,
+Hi Alexander, Jan,
 
-On Sat, Nov 01, 2025 at 08:03:30PM -0400, Wes Gibbs wrote:
-> v3:
-> - Modified Signed-off, Wes Gibbs <wg21908@gmail.com> is the author
-> - Clarify that glibc wrapper was introduced in 2.27
-> - Fixed commit link and ensured semantic newlines
-> - Updated to correct URL in comment to avoid 404 - Unknown commit object
+On Thu, Oct 30, 2025 at 10:21:30AM +0100, Jan Kara wrote:
+> On Thu 16-10-25 18:22:36, Alexander Monakov wrote:
+> > Ideally one should be able to use flock to synchronize with another
+> > process (or thread) closing that file, for instance before attempting
+> > to execve it (as execve of a file open for writing fails with ETXTBSY).
+> >=20
+> > Unfortunately, on Linux it is not reliable, because in the process of
+> > closing a file its locks are dropped before the refcounts of the file
+> > (as well as its underlying filesystem) are decremented, creating a race
+> > window where execve of the just-unlocked file sees it as if still open.
+> >=20
+> > Linux developers have indicated that it is not easy to fix, and the
+> > appropriate course of action for now is to document this limitation.
+> >=20
+> > Link: <https://lore.kernel.org/linux-fsdevel/68c99812-e933-ce93-17c0-3f=
+e3ab01afb8@ispras.ru/>
+> >=20
+> > Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
 >=20
-> Fixes: https://bugzilla.kernel.org/show_bug.cgi?id=3D220489
-> Author: Wes Gibbs <wg21908@gmail.com>
-> Signed-off-by: Wes Gibbs <wg21908@gmail.com>
-> ---
+> The change looks good to me. Feel free to add:
+>=20
+> Reviewed-by: Jan Kara <jack@suse.cz>
 
-Thanks!  I've applied the patch.
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3Db=
-983fe3aa92bf8713d214f599d487569b39ca818>
+Thanks!  I've applied the patch, and appended the tag.
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3Da=
+fdd0a64c5bad49d6030ddc488951aeb50f0b88e>
 
 
 Have a lovely day!
 Alex
 
->  man/man2/copy_file_range.2 | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
 >=20
-> diff --git a/man/man2/copy_file_range.2 b/man/man2/copy_file_range.2
-> index e9e9e9945..e1e36dd5e 100644
-> --- a/man/man2/copy_file_range.2
-> +++ b/man/man2/copy_file_range.2
-> @@ -202,10 +202,16 @@ that was also backported to earlier stable kernels.
->  .SH STANDARDS
->  Linux, GNU.
->  .SH HISTORY
-> -Linux 4.5,
-> -but glibc 2.27 provides a user-space
-> -emulation when it is not available.
-> +Linux 4.5.
-> +Before glibc 2.30, starting with glibc 2.27, the glibc wrapper function
-> +provided a user-space fallback implementation when the kernel did not
-> +implement this system call.
-> +Since glibc 2.30, that fallback has been removed; the function now
-> +fails with ENOSYS if the kernel lacks support for .BR copy_file_range ().
-> +.\" Fallback introduced in glibc 2.27:
->  .\" https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommit;f=3Dposix/unist=
-d.h;h=3Dbad7a0c81f501fbbcc79af9eaa4b8254441c4a1f
-> +.\" Fallback removed in glibc 2.30:
-> +.\" https://sourceware.org/git/gitweb.cgi?p=3Dglibc.git;h=3D5a659ccc0ec2=
-17ab02a4c273a1f6d346a359560a
->  .SH NOTES
->  If
->  .I fd_in
+> 								Honza
+> > ---
+> >  man/man2/flock.2 | 15 +++++++++++++++
+> >  1 file changed, 15 insertions(+)
+> >=20
+> > diff --git a/man/man2/flock.2 b/man/man2/flock.2
+> > index b424b3267..793eaa3bd 100644
+> > --- a/man/man2/flock.2
+> > +++ b/man/man2/flock.2
+> > @@ -245,6 +245,21 @@ .SH NOTES
+> >  and occurs on many other implementations.)
+> >  .\" Kernel 2.5.21 changed things a little: during lock conversion
+> >  .\" it is now the highest priority process that will get the lock -- m=
+tk
+> > +.P
+> > +Release of a lock when a file descriptor is closed
+> > +is not sequenced after all observable effects of
+> > +.BR close (2).
+> > +For example, if one process writes a file while holding an exclusive l=
+ock,
+> > +then closes that file, and another process blocks placing a shared lock
+> > +on that file to wait until it is closed, it may observe that subsequent
+> > +.BR execve (2)
+> > +of that file fails with
+> > +.BR ETXTBSY ,
+> > +and
+> > +.BR umount (2)
+> > +of its underlying filesystem fails with
+> > +.BR EBUSY ,
+> > +as if the file is still open in the first process.
+> >  .SH SEE ALSO
+> >  .BR flock (1),
+> >  .BR close (2),
+> >=20
+> > Range-diff against v0:
+> > -:  --------- > 1:  181d56186 man/man2/flock.2: Mention non-atomicity w=
+=2Er.t close
+> > --=20
+> > 2.49.1
+> >=20
 > --=20
-> 2.48.1
->=20
->=20
+> Jan Kara <jack@suse.com>
+> SUSE Labs, CR
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---cntu7wxaiijlwphp
+--i2ksitioofyffpkb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkQhfcACgkQ64mZXMKQ
-wqmMeRAAieDeRxmUm97XbPj1Q1zTIiLY/H9z1PD7np3R7uJVkmXtR+8veLN4bcV8
-+vRcFfBNzRkivW3e9mMI2EurHHI3H7bSEaH3CIF1V2OtUt7anans2BE/+nypP/TP
-MwgYJI3lV/+ooddOFgyZ9Au0Z+DOty5eGQIS8fxORWn0pwkBhMfLqHEs8q5p61DX
-NXqLSjXuiORy358BjgR4ekgzcgzbedDUVB36MExpP5CXk+QhTmfoQScJGFRKwQPu
-12vcQzeb5XLMwxW61tGoH50TKL27aQIP9OA4yiNE4Opup2FkCaVHIeOIsd5LZ8NB
-1JpWK6Utv3zmsziVgWFz2XioGABZb4xPnkhT6GGzs/ULrux3Uws9GduDiRBT9D/Y
-CN2myLjIymosveDh+cFXl+v6TT6LsipYjcz+FSZmpN3mOQvE7yOi7PTNWgajI2JF
-EYAwqYCGO0mHskopML2JZ+cT87RXrYku2nEC00XFmsA5D4TGa3eiifxhNn2mNzIB
-HoIpPT0zboAAlwsg3e19VS/y2YcT2kb5fxPoYgmTgogGIcX3aUA4v5CBg4+3yMvc
-C1JQ7Wndqtzy7qBkT+yu6pDC8rC9Z1aDVx/bmR05huR7gsNI3hChfy42Fv//zBRX
-YnekiWNWuaKOiXPn1fUz0p155tYbxnOy9nKpw6Ci6EAW+omIbjg=
-=eKme
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkQhw0ACgkQ64mZXMKQ
+wqnN2Q//Z+PbivK/qNOGipga3ohs3ymSdFjaFCTz75FjDtkXa8BVnRakTgnvr91x
+n3D1L3xy27OdjsplCQ529EhCvlrmpnQoPy0fH8qPDug8tqIEQYOvVt91UpfFbJG6
+Yov0RWAQSt4GxBKZ9g553wmJI3dZjKmN8oM8yDQUHxaKGVmBP/oWUi8l9U5KJpHK
+jmEvQ3pgEYHzh3k0G7S2gMp38WsTLFOvnEQUs6ekMOU+dqnzXTdc8ZjYM7GW3dEh
+P4YeCmfqOh0DZzebGrRRztcAeECiHfvIAfE7BNAR+D8lWGMeAYJOAmpaGIiFebsF
++iGY6oes14hD7Jy1oRikaJJL+nDHtDNMXXSDS2v9wOR9BszdLj5iY0lpaH2F1WtX
+g0clG/R8JdHHPhHrHc1ukQqxO0DEJ6wuuD0ZYdbJVH49B3+M0phgu2JrGYxUqoIa
+ShEcESRg65ye6myq5rXbdHtdqr4ZJY44RSEsRKx64wOKgcmlHKzL7vNZ3xOTLJXM
+eBXroC6kiRPNzx/EJk3udl5vTMPGalhMmcTL8HEy8xmmaCRTShT7UY2Atg28MkLe
+qrm/Dxc6fipfeshjUjEIG2DfwVO1aKUDf/Hz5zAUtMuii8eu+FdoKuexZFc9zpoV
+R+B6DS4avQ8+2Vrl062zK0Sag/REMbfWnV657twuJvQhEidM9bM=
+=24qw
 -----END PGP SIGNATURE-----
 
---cntu7wxaiijlwphp--
+--i2ksitioofyffpkb--
 
