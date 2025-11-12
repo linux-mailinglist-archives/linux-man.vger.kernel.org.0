@@ -1,113 +1,191 @@
-Return-Path: <linux-man+bounces-4290-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4291-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 978F1C5013B
-	for <lists+linux-man@lfdr.de>; Wed, 12 Nov 2025 00:39:26 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A5FFC52027
+	for <lists+linux-man@lfdr.de>; Wed, 12 Nov 2025 12:36:15 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 7A0FB1897316
-	for <lists+linux-man@lfdr.de>; Tue, 11 Nov 2025 23:39:51 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 40271503267
+	for <lists+linux-man@lfdr.de>; Wed, 12 Nov 2025 11:23:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5EE322F361F;
-	Tue, 11 Nov 2025 23:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F047830AD17;
+	Wed, 12 Nov 2025 11:23:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mightymoms-net.20230601.gappssmtp.com header.i=@mightymoms-net.20230601.gappssmtp.com header.b="POKeqhwv"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="caa79Mnz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817EE2E7167
-	for <linux-man@vger.kernel.org>; Tue, 11 Nov 2025 23:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0462F2914;
+	Wed, 12 Nov 2025 11:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762904361; cv=none; b=aOiGVDeFeuEKezpfXPdBugIVbTUiEIAskWqhs2D4H2mKDr5K03tFmQgX74v4485Gsdmzp1En6NAxW9csSOTrsfzVLpGrRHHUxYf1TnE6HTgCJKNsiHqV/z466QbilA+yRWHqHIC8puAKe+ti6NdsQgWtQmEm1NvMwwVE3UEpT94=
+	t=1762946596; cv=none; b=oiJaNR7RegK2xnOqtDKBFtR8F+3CzLtt7B85UrXX6YJxNP/ddjZCub1fCFJwKg8x3yCPtlCVc7HxZuYWVFfNBvwf8gO3Zkm2qM7tnwGaDbgOTFod5idkQ+p/cRkpg4FoCFPC7r83AnWYE+oYrHB+PWjt0o9I1+AH86HLcw0MI0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762904361; c=relaxed/simple;
-	bh=wDebVeSj+Z8firlwBeCFH+pZAoKVtIh0sQbECgRJi9w=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=AZvUTBwDP5YmwKnzB4Il1B8H2xpLlXA50JHtXIbJPS/1Bj6hHiOl1qiptbi/qr9vAuPD2Ddb7mwBB9B4cBkMRhgzPmI1TlFdlEJm2lUtuov6Ol4MEHh9fsyng5nVptBOwQQ+N6puxfzvfLO7g/CVfXNLX7qG4VrUJM8BLrXPD8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mightymoms.net; spf=pass smtp.mailfrom=mightymoms.net; dkim=pass (2048-bit key) header.d=mightymoms-net.20230601.gappssmtp.com header.i=@mightymoms-net.20230601.gappssmtp.com header.b=POKeqhwv; arc=none smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mightymoms.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mightymoms.net
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-71d71bcac45so2471487b3.0
-        for <linux-man@vger.kernel.org>; Tue, 11 Nov 2025 15:39:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mightymoms-net.20230601.gappssmtp.com; s=20230601; t=1762904358; x=1763509158; darn=vger.kernel.org;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=wDebVeSj+Z8firlwBeCFH+pZAoKVtIh0sQbECgRJi9w=;
-        b=POKeqhwvMuqSaBHsfCYg8Z8YnwvaCopzcyNUtn9EvzmlDu+o+rrveE913O2CjTxkF3
-         tbMwyv4t0vdk25wLabN+tDFaVCfEku0ysate6XwqtTgmC65k+cV3OUITjIIzXY9jz7b3
-         UZ54NFW8dpWPzVOyXikWhco0WG65gRmp7nzom423+RdJVSxMA8+7JL7GDi0353Kl7Zcz
-         GhWJ4oPnmBA/0ksLaYOL9uhgPqGjWwKqXVlzJqzo+U/+W5IicB5YB1m2QNWVeIbxiUH3
-         0hUf+ByCBj4zVEBsdzWtLNJ5kH8qu9aqCQoEPvPm5CI6AjoKQNBi9pDcNtlOo8ez/WZV
-         W9eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762904358; x=1763509158;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wDebVeSj+Z8firlwBeCFH+pZAoKVtIh0sQbECgRJi9w=;
-        b=wlwEr1dVLro45nNKHk/OYpm59j8IHWTHnRKhwGLMnziwUrjLSqAiEhwu63CmIqSbL2
-         RwVp3CYu4Q2R6iqfKk7OEZ12/vT61MjtMfvRJp6MuELd3UK9rPNUua3fU96i8mEJfvGf
-         AXnKJb0HoWKVkZR6F3sYYI9bI+8kEeUmyjvCCb4xsZVzOeaLidupK6nWt2tAH/Njj/m+
-         dIVbQdnQqUVmsW3BAM1RW0H0he8l5NYu7Oo69UY1C+4KlHjdgVROiYU6t+u/75AY17vk
-         VBAtUYZKtthlWBjONa9WNU2KtRaj6eOdWRvnB8rF9UoeODn8RL/sKdHYuqjhEtixVm7O
-         8d7A==
-X-Gm-Message-State: AOJu0YxRvqMkvyeFrYyd9mTIRZtmCye2tnx7Y0kNw/LiORKPJnr8sSZV
-	T3PKk6XjYlbJolmZJXdd6B1mMWrMC+W3mUHDF1GSuxqOb3nmbp6NpsdX49I+65E/v79rLdfm46U
-	ZYkS7Q1V5g6cWAjJrefa1RwbTngzALpC2G6V8AKjZWpYRRQKqRmy1
-X-Gm-Gg: ASbGnct+sP4NCa06tDuUdCra5N0awBNmAOD5fe/1KuR9Fla9G5oxtg85CHOKuRTPB+X
-	oKRn3LFldg2Umrj7uMI5zEF4nnqTecj+JBqrznBpYqEqTIu9fD8r38s4bD5c/HF6d4VwhxBTFZh
-	UPf9T5eAxmq4Q4Px5lVLOe+SYbxW8a+R0dN+L9GoceU+FD9NSruK944y47Sf04ayL65MKbBoZL3
-	WzfCIZLuzdzhQRs4C+2FA+uAGJ2Ms7iTvi7MqjiJSADtIq4Ka0YAFBNcH7v
-X-Google-Smtp-Source: AGHT+IEQC/3NEHEDzU6hIr1hTH2sZY1hu83BrKnYo3l8IEed2GzYIuWBKNdDjg/Proan6m8wqpsJgkM0+sLWwYAz1Zo=
-X-Received: by 2002:a05:690c:67c2:b0:786:802b:d7ff with SMTP id
- 00721157ae682-788136df7e1mr9258907b3.59.1762904358077; Tue, 11 Nov 2025
- 15:39:18 -0800 (PST)
-Received: from 316179279012 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 11 Nov 2025 17:39:17 -0600
-Received: from 316179279012 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 11 Nov 2025 17:39:17 -0600
+	s=arc-20240116; t=1762946596; c=relaxed/simple;
+	bh=bSNcyT/ZtZVDvtc9REjktWiRGmnKOUu4x5Vw7X2+x3A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=coHrKH/NZugzLA/NvhSfET7illMv+g9gNd4XWbgMKblZV1ij21KuCqr4EzxcBy2ct98HeegXDrjhmvEF75wd8Xf4+UZLNeXAjYxirI29f17Gl+JJ5taE0/SxJtuT8jZvFcFdhoMSGWVmUeuSAjlFdsc8qhGeDudQ/kriiNaDIKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=caa79Mnz; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C795C4CEF7;
+	Wed, 12 Nov 2025 11:23:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1762946595;
+	bh=bSNcyT/ZtZVDvtc9REjktWiRGmnKOUu4x5Vw7X2+x3A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=caa79MnzuRCB47I8wqlrl03jC+Hbhy8QHYueZXVJl0bTyq64v8ZKdtX9+6ccoT/IM
+	 U2Myw/tqVsnhGNj8Kxg7tkQqEEyV1Y1lQ6O5OqV0LpdYAwMuQVQp3JWsxqeflYRxYQ
+	 aThy3Qix973opKDLCqInCLbixE/SJImorED2TqxLbKKcDmi8FyqvIHKNIQWU+p8lBl
+	 G/e6RuLDug/40CEBdEBGM7v5t7Kd16k1M2XFRrCpXMajgWFGOwlFM5lvxtclzLVyiS
+	 KkvdFqwwu6Mj9g5UhNBE20X3zpmq2iVKVgrmUV25inERSCcIWU//5ym/9OF9cagzT1
+	 339GznedmOOMg==
+Date: Wed, 12 Nov 2025 12:23:11 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: hoodit dev <devhoodit@gmail.com>
+Cc: Carlos O'Donell <carlos@redhat.com>, linux-man@vger.kernel.org, 
+	linux-api@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH] man/man2/clone.2: Document CLONE_NEWPID and
+ CLONE_NEWUSER flag
+Message-ID: <frpbzpltwr34qs3v4mluajb2czznm3ebog34uhuj4a4qi7yft3@h6rj3y7c32qu>
+References: <b959eedd02cbc0066e4375c9e1ca2855b6daeeca.1745176438.git.devhoodit@gmail.com>
+ <e2wxznnsnew5vrlhbvvpc5gbjlfd5nimnlwhsgnh6qanyjhpjo@2hxdsmag3rsk>
+ <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Emily Graham <emily.graham@mightymoms.net>
-Date: Tue, 11 Nov 2025 17:39:17 -0600
-X-Gm-Features: AWmQ_bknX8Y-boA-FV_cTu03P24C-Zb0FSLSwrl5nvSj5VYGiQLpjRTNf62Ug3c
-Message-ID: <CAJWoR_cROBJAkcwrPfs+VOU6MAiJ0nQDV+K9ycZwNh0vXkEfnQ@mail.gmail.com>
-Subject: Pitching an idea for your platform
-To: linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tejtrw63odgt3jwm"
+Content-Disposition: inline
+In-Reply-To: <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
+
+
+--tejtrw63odgt3jwm
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: hoodit dev <devhoodit@gmail.com>
+Cc: Carlos O'Donell <carlos@redhat.com>, linux-man@vger.kernel.org, 
+	linux-api@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH] man/man2/clone.2: Document CLONE_NEWPID and
+ CLONE_NEWUSER flag
+Message-ID: <frpbzpltwr34qs3v4mluajb2czznm3ebog34uhuj4a4qi7yft3@h6rj3y7c32qu>
+References: <b959eedd02cbc0066e4375c9e1ca2855b6daeeca.1745176438.git.devhoodit@gmail.com>
+ <e2wxznnsnew5vrlhbvvpc5gbjlfd5nimnlwhsgnh6qanyjhpjo@2hxdsmag3rsk>
+ <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
 
-Hi there,
+Hi,
 
-Adolescent anxiety can be tough on both kids and parents, but it also
-presents an opportunity to strengthen family connections. With the
-right approach, families can turn these challenges into moments of
-growth and resilience.
+On Wed, Oct 29, 2025 at 06:00:50PM +0900, hoodit dev wrote:
+> Hi, Alejandro Colomar and Carlos
+>=20
+> Just a friendly ping to check if you had a chance to review this patch.
 
-I=E2=80=99d love to contribute a guest article to your website, offering
-strategies for parents and teens to navigate anxiety together. From
-encouraging open conversations to developing effective coping skills,
-this piece aims to help families support each other through difficult
-times.
-
-Would you be open to featuring this article? Let me know, and I=E2=80=99ll
-send it your way!
-
-Take care,
-Emily Graham of Mightymoms.net
+I don't know enough of clone(2) to review this.  I'll wait for Carlos's
+review.
 
 
-=EF=BD=9EInterested in my guest post proposal, just not on the topic I
-mentioned? That=E2=80=99s not a problem! Kindly reply to let me know and we
-can come up with an alternative topic. I put effort into making
-content that people actually want to read and that smart tools can
-easily surface.
+Have a lovely day!
+Alex
+
+>=20
+> Thanks
+>=20
+> 2025=EB=85=84 5=EC=9B=94 2=EC=9D=BC (=EA=B8=88) =EC=98=A4=EC=A0=84 6:30, =
+Alejandro Colomar <alx@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+> >
+> > Hi Carlos,
+> >
+> > On Mon, Apr 21, 2025 at 04:16:03AM +0900, devhoodit wrote:
+> > > CLONE_NEWPID and CLONE_PARENT can be used together, but not CLONE_THR=
+EAD.  Similarly, CLONE_NEWUSER and CLONE_PARENT can be used together, but n=
+ot CLONE_THREAD.
+> > > This was discussed here: <https://lore.kernel.org/linux-man/06febfb3-=
+e2e2-4363-bc34-83a07692144f@redhat.com/T/>
+> > > Relevant code: <https://github.com/torvalds/linux/blob/219d54332a09e8=
+d8741c1e1982f5eae56099de85/kernel/fork.c#L1815>
+> > >
+> > > Cc: Carlos O'Donell <carlos@redhat.com>
+> > > Cc: Andrew Morton <akpm@linux-foundation.org>
+> > > Signed-off-by: devhoodit <devhoodit@gmail.com>
+> >
+> > Could you please review this patch?
+> >
+> >
+> > Have a lovely night!
+> > Alex
+> >
+> > > ---
+> > >  man/man2/clone.2 | 9 +++------
+> > >  1 file changed, 3 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/man/man2/clone.2 b/man/man2/clone.2
+> > > index 1b74e4c92..b9561125a 100644
+> > > --- a/man/man2/clone.2
+> > > +++ b/man/man2/clone.2
+> > > @@ -776,9 +776,7 @@ .SS The flags mask
+> > >  no privileges are needed to create a user namespace.
+> > >  .IP
+> > >  This flag can't be specified in conjunction with
+> > > -.B CLONE_THREAD
+> > > -or
+> > > -.BR CLONE_PARENT .
+> > > +.BR CLONE_THREAD .
+> > >  For security reasons,
+> > >  .\" commit e66eded8309ebf679d3d3c1f5820d1f2ca332c71
+> > >  .\" https://lwn.net/Articles/543273/
+> > > @@ -1319,11 +1317,10 @@ .SH ERRORS
+> > >  mask.
+> > >  .TP
+> > >  .B EINVAL
+> > > +Both
+> > >  .B CLONE_NEWPID
+> > > -and one (or both) of
+> > > +and
+> > >  .B CLONE_THREAD
+> > > -or
+> > > -.B CLONE_PARENT
+> > >  were specified in the
+> > >  .I flags
+> > >  mask.
+> > > --
+> > > 2.49.0
+> > >
+> >
+> > --
+> > <https://www.alejandro-colomar.es/>
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--tejtrw63odgt3jwm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkUbh8ACgkQ64mZXMKQ
+wqlTCg/+JmoIKjs77NkyQp7jilf4VOeJBblO7jx8yjgz9nHCUQQO/X3T8jkEbyx/
+FxuVUDX5TmoWkez/3LXyKHoqHEYtxmca9ZlMgHkhMPYrwbQAkGTw43Q2OTUxDqcM
+I4bVAZfkxCWZKoti+RcquAdwVNtBuC9aIvmXQxtqh6h9F6gpMlv3kIiseG9fYzIr
+p/JmwBzyzylpwnFVvpt5kMb9pCUpx2jd2hRAjtmJWOSL17VmMEJH1aU0o/3s4Ldi
+YMEErB7MF42Q3llCLfstFpCVWRwGs5PirxpGYb3MqLxckTvXEFpOoVP6ryenkZOV
+xhlW3Tcd3NoSZI0PWK7F2q0XhxId0ik0MYvOW0kWQI9xM46li1YmM9GnQzkELjpc
+kdSCecuw0NFfinJzmlLkpzjEaMtAWrizBEXB5xWHTjUcZ9swZbsqGZNAfwoDyS2w
+A+fAF7pgu9LrspoxaEYaZshCklL9Q6/E89YTZcHgwlBIr/L6C8+iGGHth1NBeuEK
+x65TLlSObO2B6I4iDksA8zOdkw8mmOwP5gPgaSu+HQhbMFwjoEycJJadzofwRI0c
+QW3fVNm/J2N8gCJoZEAeXPouBMdiu7FQhoe7Wdvbhh2Lz8xEFCX00lJJcwb0Kgrd
+ne0U8hwdwZA0nuKVbqUIqGR2HBRbdeOxdcLWV1U3d2jSibfO2gE=
+=2lMw
+-----END PGP SIGNATURE-----
+
+--tejtrw63odgt3jwm--
 
