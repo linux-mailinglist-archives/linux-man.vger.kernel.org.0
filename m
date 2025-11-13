@@ -1,191 +1,93 @@
-Return-Path: <linux-man+bounces-4291-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4292-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A5FFC52027
-	for <lists+linux-man@lfdr.de>; Wed, 12 Nov 2025 12:36:15 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id CED15C5A0B0
+	for <lists+linux-man@lfdr.de>; Thu, 13 Nov 2025 22:03:33 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 40271503267
-	for <lists+linux-man@lfdr.de>; Wed, 12 Nov 2025 11:23:44 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7A9903ABD00
+	for <lists+linux-man@lfdr.de>; Thu, 13 Nov 2025 21:03:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F047830AD17;
-	Wed, 12 Nov 2025 11:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F3FA3246F9;
+	Thu, 13 Nov 2025 21:03:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="caa79Mnz"
+	dkim=pass (2048-bit key) header.d=jwilk.net header.i=@jwilk.net header.b="fK2Q6WDc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from 5.mo534.mail-out.ovh.net (5.mo534.mail-out.ovh.net [54.36.140.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0462F2914;
-	Wed, 12 Nov 2025 11:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F2B2C0287
+	for <linux-man@vger.kernel.org>; Thu, 13 Nov 2025 21:02:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.36.140.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762946596; cv=none; b=oiJaNR7RegK2xnOqtDKBFtR8F+3CzLtt7B85UrXX6YJxNP/ddjZCub1fCFJwKg8x3yCPtlCVc7HxZuYWVFfNBvwf8gO3Zkm2qM7tnwGaDbgOTFod5idkQ+p/cRkpg4FoCFPC7r83AnWYE+oYrHB+PWjt0o9I1+AH86HLcw0MI0k=
+	t=1763067778; cv=none; b=RBiicLrGmlEyr0m2o0O0k0MT1OUQvN9OhfNfgwIwhlDWbPKyacgq7wPTF7HbSmjau+jU48W0Mjdlw4QUaysl/pZnbs1iuqUuxC71dSKwY4qCSgvomcmUwHCZbKBM0jWa+N/AmLHiSm6H8DAG+nbx75zwYHbwnMypVhu3IWUm7gs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762946596; c=relaxed/simple;
-	bh=bSNcyT/ZtZVDvtc9REjktWiRGmnKOUu4x5Vw7X2+x3A=;
+	s=arc-20240116; t=1763067778; c=relaxed/simple;
+	bh=vTNq6PpQiXbsTVuoXLh7LLbk+YkTJJ2ci+NObKQ9LIg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=coHrKH/NZugzLA/NvhSfET7illMv+g9gNd4XWbgMKblZV1ij21KuCqr4EzxcBy2ct98HeegXDrjhmvEF75wd8Xf4+UZLNeXAjYxirI29f17Gl+JJ5taE0/SxJtuT8jZvFcFdhoMSGWVmUeuSAjlFdsc8qhGeDudQ/kriiNaDIKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=caa79Mnz; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C795C4CEF7;
-	Wed, 12 Nov 2025 11:23:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1762946595;
-	bh=bSNcyT/ZtZVDvtc9REjktWiRGmnKOUu4x5Vw7X2+x3A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=caa79MnzuRCB47I8wqlrl03jC+Hbhy8QHYueZXVJl0bTyq64v8ZKdtX9+6ccoT/IM
-	 U2Myw/tqVsnhGNj8Kxg7tkQqEEyV1Y1lQ6O5OqV0LpdYAwMuQVQp3JWsxqeflYRxYQ
-	 aThy3Qix973opKDLCqInCLbixE/SJImorED2TqxLbKKcDmi8FyqvIHKNIQWU+p8lBl
-	 G/e6RuLDug/40CEBdEBGM7v5t7Kd16k1M2XFRrCpXMajgWFGOwlFM5lvxtclzLVyiS
-	 KkvdFqwwu6Mj9g5UhNBE20X3zpmq2iVKVgrmUV25inERSCcIWU//5ym/9OF9cagzT1
-	 339GznedmOOMg==
-Date: Wed, 12 Nov 2025 12:23:11 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: hoodit dev <devhoodit@gmail.com>
-Cc: Carlos O'Donell <carlos@redhat.com>, linux-man@vger.kernel.org, 
-	linux-api@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] man/man2/clone.2: Document CLONE_NEWPID and
- CLONE_NEWUSER flag
-Message-ID: <frpbzpltwr34qs3v4mluajb2czznm3ebog34uhuj4a4qi7yft3@h6rj3y7c32qu>
-References: <b959eedd02cbc0066e4375c9e1ca2855b6daeeca.1745176438.git.devhoodit@gmail.com>
- <e2wxznnsnew5vrlhbvvpc5gbjlfd5nimnlwhsgnh6qanyjhpjo@2hxdsmag3rsk>
- <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vm4kzVhRmbSpi/JyAliisOW6gJDlq6XDNgvKRc6xRe1Gv9AEWYZqufOvvbRim/IgDKXUdDlKg/R8si30L7GrnW8HvroFy0ndP+3bJKedNCLx9zapl5cBldAfpAqJeb5W7ngdl2dmtnXFPelyo3njYECgEIfXI7EE/Z5CPvOMJrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jwilk.net; spf=pass smtp.mailfrom=jwilk.net; dkim=pass (2048-bit key) header.d=jwilk.net header.i=@jwilk.net header.b=fK2Q6WDc; arc=none smtp.client-ip=54.36.140.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jwilk.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jwilk.net
+Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net [152.228.215.222])
+	by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4d6sk22r4Vz5xM5;
+	Thu, 13 Nov 2025 20:46:02 +0000 (UTC)
+Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net. [127.0.0.1])
+        by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <teika@gmx.com>; Thu, 13 Nov 2025 20:46:02 +0000 (UTC)
+Received: from mta11.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.37.22])
+	by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4d6sk21CGWz5vZM;
+	Thu, 13 Nov 2025 20:46:02 +0000 (UTC)
+Received: from jwilk.net (unknown [10.1.6.7])
+	(Authenticated sender: jwilk@jwilk.net)
+	by mta11.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 5DA679A0E2E;
+	Thu, 13 Nov 2025 20:46:01 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-106R006afd6db38-1b09-416d-bcd6-f27841686176,
+                    D0F59F159A378895B575DB2C9ED70526E450B906) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp:37.248.226.83
+Date: Thu, 13 Nov 2025 21:45:58 +0100
+From: Jakub Wilk <jwilk@jwilk.net>
+To: Teika Kazura <teika@gmx.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Subject: Re: [Patch v2 1/1] man/man2/ioctl_vt.2: Various improvements.
+Message-ID: <20251113204558.zbdxpkuiy5xh2ynf@jwilk.net>
+References: <20251110.165618.2111633615163528521.teika@gmx.com>
+ <20251110.165924.79799750417985084.teika@gmx.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tejtrw63odgt3jwm"
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
+In-Reply-To: <20251110.165924.79799750417985084.teika@gmx.com>
+X-Ovh-Tracer-Id: 4866702349628812393
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTFmnerHjWakTKFA0EHZXxDE6I1ocuSbsc3kp6Ebz2xjRsvUgFFGmROESLGPa3aUBsAS71f8rK1hfXh2Hg6ZQLEEDEGIn9g0MjTx71Ti+JL2WZTRP/iML6OTCBaK+hW7XDuVL8hRoPIl5lc5UlJLr+1YaqB+lxjz/FRbDyBH/Hsf5CWNHLiRrkgwB6cSB314TJI7nxaBsEj0mQjbaoYW+U6O3HyHrv28487SZ5LE8+RUYfzhmx2QoE8WuPzOEpFwBwpCMm/n5wSvOdrIOkB6VpfnmM2nxJ96RsxsBWdihXhLG9W7zHj7m63urhWoFq7MflZJYxag0r1gMdTlSRCk5JmGF8IEQspc91W8eLZOzNepMJGV4w7H0h8YH1d06wQBP4EqyeTrePubpb/1Aet5Bhwkh1hW+caPhwgVAiTL5NCB4ECg/lc8+w46OLy7BUq7PZHbSYTiMcrCayBR20yqHBX6SKn6CBZvJAYrilbIs0F7oQD3LkLGYHmQ2mGiK4UPy3k0VHG1IdtHVCtwGCVUvkBXOCLIZTXlRZeriQIc9SkLHXya7dt1KE5udOp8R//3S9G9YKjfJvfcTUB8dqNBOqKq8iowFQQzxsFPGp/ohiXBiajGaD3w7qoUxPosmzbO7dpFrJ5TwcYydt0NNeIGYOrElA925T/VwbtNyXJp/tkJgQ
+DKIM-Signature: a=rsa-sha256; bh=o1y8XzJpueZUsBHr7V5lyKy/rQ9hH3VSlzfurB9KP74=;
+ c=relaxed/relaxed; d=jwilk.net; h=From; s=ovhmo917968-selector1;
+ t=1763066762; v=1;
+ b=fK2Q6WDc3+7F4OaxrdxpKJaMlzUbdEdPjuL4IeFBbM0QbeFbCjyg06xkqODof5vNulAz0ejU
+ B5xOTuO6v02x+46zy/hnqvHhWWvk8WHjp4wP7LggvwhaBW7vQMYNyfX/nc2boAizfBErHTEyyme
+ bT2RBXYmw5tH8tVNQ0MsBC2ykEBheF9W6yMihrZ9ZEJbtgPpsYrkEI3Z6STLdEQf8FioP3zymRg
+ JzbtvDAD5WfvO7DCidOftX+uBzE4YLDJ2tarDb8MQO9hdKPBU5TmpdnLG78Gd1qEOWv7q+uc6Ds
+ B5YaX48XZZdqd6CdjUOgP6oh0OfFH1J1NqcN/X9OAaUjA==
 
+* Teika Kazura <teika@gmx.com>, 2025-11-10 16:59:
+>+.B VT_GETHIFONTMASK
+[...]
+>+These are implemented but not documented.
 
---tejtrw63odgt3jwm
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: hoodit dev <devhoodit@gmail.com>
-Cc: Carlos O'Donell <carlos@redhat.com>, linux-man@vger.kernel.org, 
-	linux-api@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] man/man2/clone.2: Document CLONE_NEWPID and
- CLONE_NEWUSER flag
-Message-ID: <frpbzpltwr34qs3v4mluajb2czznm3ebog34uhuj4a4qi7yft3@h6rj3y7c32qu>
-References: <b959eedd02cbc0066e4375c9e1ca2855b6daeeca.1745176438.git.devhoodit@gmail.com>
- <e2wxznnsnew5vrlhbvvpc5gbjlfd5nimnlwhsgnh6qanyjhpjo@2hxdsmag3rsk>
- <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAFvyz33t9gYOi2HtNFNC_YAPS-_0QHiqJQwatc7YsGppstiZ7A@mail.gmail.com>
+VT_GETHIFONTMASK is documented in vcs(4).
 
-Hi,
+>+A python exapmle
 
-On Wed, Oct 29, 2025 at 06:00:50PM +0900, hoodit dev wrote:
-> Hi, Alejandro Colomar and Carlos
->=20
-> Just a friendly ping to check if you had a chance to review this patch.
+s/exapmle/example/
 
-I don't know enough of clone(2) to review this.  I'll wait for Carlos's
-review.
-
-
-Have a lovely day!
-Alex
-
->=20
-> Thanks
->=20
-> 2025=EB=85=84 5=EC=9B=94 2=EC=9D=BC (=EA=B8=88) =EC=98=A4=EC=A0=84 6:30, =
-Alejandro Colomar <alx@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
-> >
-> > Hi Carlos,
-> >
-> > On Mon, Apr 21, 2025 at 04:16:03AM +0900, devhoodit wrote:
-> > > CLONE_NEWPID and CLONE_PARENT can be used together, but not CLONE_THR=
-EAD.  Similarly, CLONE_NEWUSER and CLONE_PARENT can be used together, but n=
-ot CLONE_THREAD.
-> > > This was discussed here: <https://lore.kernel.org/linux-man/06febfb3-=
-e2e2-4363-bc34-83a07692144f@redhat.com/T/>
-> > > Relevant code: <https://github.com/torvalds/linux/blob/219d54332a09e8=
-d8741c1e1982f5eae56099de85/kernel/fork.c#L1815>
-> > >
-> > > Cc: Carlos O'Donell <carlos@redhat.com>
-> > > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > > Signed-off-by: devhoodit <devhoodit@gmail.com>
-> >
-> > Could you please review this patch?
-> >
-> >
-> > Have a lovely night!
-> > Alex
-> >
-> > > ---
-> > >  man/man2/clone.2 | 9 +++------
-> > >  1 file changed, 3 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/man/man2/clone.2 b/man/man2/clone.2
-> > > index 1b74e4c92..b9561125a 100644
-> > > --- a/man/man2/clone.2
-> > > +++ b/man/man2/clone.2
-> > > @@ -776,9 +776,7 @@ .SS The flags mask
-> > >  no privileges are needed to create a user namespace.
-> > >  .IP
-> > >  This flag can't be specified in conjunction with
-> > > -.B CLONE_THREAD
-> > > -or
-> > > -.BR CLONE_PARENT .
-> > > +.BR CLONE_THREAD .
-> > >  For security reasons,
-> > >  .\" commit e66eded8309ebf679d3d3c1f5820d1f2ca332c71
-> > >  .\" https://lwn.net/Articles/543273/
-> > > @@ -1319,11 +1317,10 @@ .SH ERRORS
-> > >  mask.
-> > >  .TP
-> > >  .B EINVAL
-> > > +Both
-> > >  .B CLONE_NEWPID
-> > > -and one (or both) of
-> > > +and
-> > >  .B CLONE_THREAD
-> > > -or
-> > > -.B CLONE_PARENT
-> > >  were specified in the
-> > >  .I flags
-> > >  mask.
-> > > --
-> > > 2.49.0
-> > >
-> >
-> > --
-> > <https://www.alejandro-colomar.es/>
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---tejtrw63odgt3jwm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkUbh8ACgkQ64mZXMKQ
-wqlTCg/+JmoIKjs77NkyQp7jilf4VOeJBblO7jx8yjgz9nHCUQQO/X3T8jkEbyx/
-FxuVUDX5TmoWkez/3LXyKHoqHEYtxmca9ZlMgHkhMPYrwbQAkGTw43Q2OTUxDqcM
-I4bVAZfkxCWZKoti+RcquAdwVNtBuC9aIvmXQxtqh6h9F6gpMlv3kIiseG9fYzIr
-p/JmwBzyzylpwnFVvpt5kMb9pCUpx2jd2hRAjtmJWOSL17VmMEJH1aU0o/3s4Ldi
-YMEErB7MF42Q3llCLfstFpCVWRwGs5PirxpGYb3MqLxckTvXEFpOoVP6ryenkZOV
-xhlW3Tcd3NoSZI0PWK7F2q0XhxId0ik0MYvOW0kWQI9xM46li1YmM9GnQzkELjpc
-kdSCecuw0NFfinJzmlLkpzjEaMtAWrizBEXB5xWHTjUcZ9swZbsqGZNAfwoDyS2w
-A+fAF7pgu9LrspoxaEYaZshCklL9Q6/E89YTZcHgwlBIr/L6C8+iGGHth1NBeuEK
-x65TLlSObO2B6I4iDksA8zOdkw8mmOwP5gPgaSu+HQhbMFwjoEycJJadzofwRI0c
-QW3fVNm/J2N8gCJoZEAeXPouBMdiu7FQhoe7Wdvbhh2Lz8xEFCX00lJJcwb0Kgrd
-ne0U8hwdwZA0nuKVbqUIqGR2HBRbdeOxdcLWV1U3d2jSibfO2gE=
-=2lMw
------END PGP SIGNATURE-----
-
---tejtrw63odgt3jwm--
+-- 
+Jakub Wilk
 
