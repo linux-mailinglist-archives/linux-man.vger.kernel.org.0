@@ -1,60 +1,53 @@
-Return-Path: <linux-man+bounces-4296-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4297-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FBC5C5DE56
-	for <lists+linux-man@lfdr.de>; Fri, 14 Nov 2025 16:34:17 +0100 (CET)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D7A3C69BA8
+	for <lists+linux-man@lfdr.de>; Tue, 18 Nov 2025 14:54:22 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id C856C5042DA
-	for <lists+linux-man@lfdr.de>; Fri, 14 Nov 2025 15:06:35 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 5F5A53874E7
+	for <lists+linux-man@lfdr.de>; Tue, 18 Nov 2025 13:52:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6644132ED55;
-	Fri, 14 Nov 2025 14:57:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2172135970A;
+	Tue, 18 Nov 2025 13:51:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dzwdz.net header.i=@dzwdz.net header.b="efW28XaQ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDdd6+k8"
 X-Original-To: linux-man@vger.kernel.org
-Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF7132ED24
-	for <linux-man@vger.kernel.org>; Fri, 14 Nov 2025 14:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32A83587D2;
+	Tue, 18 Nov 2025 13:51:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1763132233; cv=none; b=n3+9bVmdckPaXtGiaWnK//2mVz19qY7Gt0Ro/avjquV59GtUjg5lsdPUWyW34Z6FBMJ++i/px7D+Mgjp0du5bEHgCGgaLuZSvqB/k9MIFGmzRaV9wnefonmSW0vzNkwI0bMgII+ncpVz6kqMG4pl41c3jO9uljOREWoqOK0zfGc=
+	t=1763473886; cv=none; b=DLK/KtqayiXcQfIpl0QvqpzT7AXiSAAuekEergwxBb3PykyKouzinTLfaDvxRUr47We8T+8CzIbbhiFZAxNiKUlm+zEiuKCK0Fs5TIqGBsww/xrvXDNycVeqHnuWOwMnZmXDE+khpogwkc+vBGK50ngxOLVUo8z90OhFzbQWKcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1763132233; c=relaxed/simple;
-	bh=W2Gcv0qFNa2nw3WotZuVReW5CUB2KVmI6C0Q/QkZuzE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bVwaWpYItM3CHQdfWaggPYDpN430d69gZm0rnOuAL6F44xXdY7pIF7fkoYj4/pNyNiBFSo4D2mMHs9+p+gMyim9WQlek8c8B/F0nxLgkzwyX8/TPYyPC27VeGRO+2wY0WX95DETpim3QL9V/ZLy+Rkibkk+JWfyA3gkDRQSqflU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dzwdz.net; spf=pass smtp.mailfrom=dzwdz.net; dkim=pass (2048-bit key) header.d=dzwdz.net header.i=@dzwdz.net header.b=efW28XaQ; arc=none smtp.client-ip=95.215.58.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dzwdz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dzwdz.net
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dzwdz.net; s=key1;
-	t=1763132229;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bfJpda/GGjCKTqmdx5tIqUG7cVkIF4M2WisIV8rj7eg=;
-	b=efW28XaQn8IGCIkFrIM+a6O7ao0/VLNlpBw1wAwafzWc++KLFVtGR9qmVEMIn8jFYqNdsj
-	Di9s9pACROiVBRJZuUNLu49IatpWr9Q7xuLMQbYTzJ+1qbykd6GCilY74EGKzxqH1OAwsb
-	NzxsrogZuaJYE9rWgDMpQYbitA7FAtKTX4g5sAyIj/EJtRLjPw86abBBlu72rXej5oabtV
-	WHUBwUQ6GUq/CazE3arVCq0JZdDwngq/Tj5ioGpDqtFx3/eHGnyRkjSj2e/4CZ8HLIhKHH
-	eIRVKOtJxQwLGF/a6n0EannOwL5ij7zeDzkhhgljDPNzM/PZoo43+NULJ7LAOg==
-From: =?UTF-8?q?Jakub=20G=C5=82ogowski?= <not@dzwdz.net>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: =?UTF-8?q?Jakub=20G=C5=82ogowski?= <not@dzwdz.net>,
-	linux-man@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	Linux API <linux-api@vger.kernel.org>,
-	ej@inai.de
-Subject: [PATCH 2/2] man/man7/ip.7: Reword IP_PKTINFO's description
-Date: Fri, 14 Nov 2025 15:29:31 +0100
-Message-ID: <38cfae87620d99ab0fa15f1970ef18d4ab5ff5a5.1763130571.git.not@dzwdz.net>
-In-Reply-To: <cover.1763130571.git.not@dzwdz.net>
+	s=arc-20240116; t=1763473886; c=relaxed/simple;
+	bh=xAU9zpvqzPcvtEu2/LCN92HQeLPzmiIprKa2GpmFbog=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YOLKZBQizogQpwBovhewgaaHQo0HYgz1ElLj02mFda9QUOgKbsGKsH0/HHce0t1BLqWwLol7SFknjJoYd3lGZPy4NxxAlAVMsTBUaqaLlCr8pl+KvUhQe7QS+stxg99Hc3/xuLhFmtxNxBs/bq0sWMS5XMue2nlklxzg2u/VKQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDdd6+k8; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD34DC19422;
+	Tue, 18 Nov 2025 13:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1763473886;
+	bh=xAU9zpvqzPcvtEu2/LCN92HQeLPzmiIprKa2GpmFbog=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hDdd6+k80HFqFpMUWqlf/vIu0hqmIEm286G4WhqZTYVw3qdgFooXsIZBPGNmjHaaq
+	 BJVt0Za6wLDNazh0lduri8U+j6hNM5+fk+zqZFaY4JYFrPTL03rFwkRI6vDSepyXoX
+	 kU+Mii84A09avKtT70HQP8R5VWIz+/04CFk2Lo6TlRm/XSA9AZNeoumEf68rTYHgl+
+	 PaX57wXooZp2f3+KHdDZKldX/rKx9qEa4tBOkHPlCJ4wFEr2+qxOycoqNtIAFIi+H5
+	 CHTQ1k6eK7egBav3kvV2Z48t3eNmoWBg0216++z+bsTGU4luhU6oBFOpsLfYHe2tSt
+	 0TDtUZ+qJfM3w==
+Date: Tue, 18 Nov 2025 14:51:22 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jakub =?utf-8?Q?G=C5=82ogowski?= <not@dzwdz.net>
+Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+	Linux API <linux-api@vger.kernel.org>, ej@inai.de
+Subject: Re: [PATCH 0/2] man7/ip.7: Clarify PKTINFO's docs
+Message-ID: <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
 References: <cover.1763130571.git.not@dzwdz.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -62,133 +55,98 @@ List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kexlxzcjisnkdles"
+Content-Disposition: inline
+In-Reply-To: <cover.1763130571.git.not@dzwdz.net>
 
-I've heavily cut down the first paragraph (which wasn't really saying
-anything), and emphasized the difference between how recvmsg(2) and
-sendmsg(2) treat this struct.
 
-"This works only for datagram oriented sockets" is redundant with
-"Not supported for SOCK_STREAM", and the mention of sendmsg(2) was moved
-down.
+--kexlxzcjisnkdles
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jakub =?utf-8?Q?G=C5=82ogowski?= <not@dzwdz.net>
+Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+	Linux API <linux-api@vger.kernel.org>, ej@inai.de
+Subject: Re: [PATCH 0/2] man7/ip.7: Clarify PKTINFO's docs
+Message-ID: <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
+References: <cover.1763130571.git.not@dzwdz.net>
+MIME-Version: 1.0
+In-Reply-To: <cover.1763130571.git.not@dzwdz.net>
 
-I called it a boolean option because that's how these were introduced at
-the start of the section.
+Hi Jakub,
 
-I've tried rewording ipi_spec_dst's effect on sendmsg to be a bit more
-clear.
+On Fri, Nov 14, 2025 at 03:29:29PM +0100, Jakub G=C5=82ogowski wrote:
+> I found the PKTINFO docs pretty confusing, so I tried clarifying them:
+> - being more specific about each field in the struct
+>   (e.g. "local address of the packet" for a received packet could've
+>   been interpreted in myriad ways),
+> - making the differences between sendmsg(2)'s and recvmsg(2)'s handling
+>   of that struct more explicit,
+> - and some other slight rewording to make it (IMO) more readable - I cut
+>   out most of a paragraph that wasn't really saying anything, etc.
+>=20
+> I'm not sure if this should even be documented in ip(7) together with
+> the other sockopts, though?  sendmsg(2)'s handling of in_pktinfo is
+> completely unrelated to the IP_PKTINFO sockopt.  Documenting it in its
+> own manual page would also give us more room for subsection headings and
+> other formatting, examples, etc - instead of trying to cram it into
+> what's already an enormous manpage.
+>=20
+> Same goes for some of the other more complex sockopts, I guess.
 
-The only piece of new information which this adds is that you can use
-the structure returned by recvmsg with sendmsg, which directly follows
-from the preceding text.
+Do you suggest moving each socket option to a manual page under
+man2const/?  I think I agree with that.  There's precedent, and it makes
+the pages more readable.
 
-RFC 3542, Section 6, directly calls out this usecase for in6_pktinfo:
+I'll try to do that soon.  I'll ping you when I've finished, in case you
+want to apply further changes.
 
-> Some UDP servers want to respond to client
-> requests by sending their reply out the same interface on which the
-> request was received and with the source IPv6 address of the reply
-> equal to the destination IPv6 address of the request.  To do this the
-> application can enable just the IPV6_RECVPKTINFO socket option and
-> then use the received control information from recvmsg() as the
-> outgoing control information for sendmsg().  The application need not
-> examine or modify the in6_pktinfo structure at all.
+> PS. sorry for not signing this email, but neomutt didn't want to
+> cooperate :/  I'll try to figure it out for any followup patches.
 
-I'm not sure if this is the best place to document this, as the sendmsg
-behavior is unrelated to the IP_PKTINFO sockopt at all.  Maybe some of
-the control messages should be broken out to another manpage?
+Ok.
 
-Signed-off-by: Jakub Głogowski <not@dzwdz.net>
----
- man/man7/ip.7 | 49 +++++++++++++++++++++----------------------------
- 1 file changed, 21 insertions(+), 28 deletions(-)
 
-diff --git a/man/man7/ip.7 b/man/man7/ip.7
-index a7f118b42..aa2508bc7 100644
---- a/man/man7/ip.7
-+++ b/man/man7/ip.7
-@@ -783,20 +783,13 @@ .SS Socket options
- .TP
- .BR IP_PKTINFO " (since Linux 2.2)"
- .\" Precisely: since Linux 2.1.68
--Pass an
--.B IP_PKTINFO
--ancillary message that contains a
--.I pktinfo
--structure that supplies some information about the incoming packet.
--This works only for datagram oriented sockets.
--The argument is a flag that tells the socket whether the
--.B IP_PKTINFO
--message should be passed or not.
--The message itself can be sent/retrieved
--only as a control message with a packet using
-+If this boolean option is enabled,
- .BR recvmsg (2)
--or
--.BR sendmsg (2).
-+outputs an
-+.B IP_PKTINFO
-+ancillary message containing an
-+.I in_pktinfo
-+structure.
- .IP
- .in +4n
- .EX
-@@ -809,37 +802,37 @@ .SS Socket options
- .EE
- .in
- .IP
--When returned by
--.BR recvmsg (2) ,
-+In this context,
- .I ipi_ifindex
- is the unique index of the interface the packet was received on.
- .I ipi_spec_dst
- is the preferred source address for replies to the given packet, and
- .I ipi_addr
--is the destination address in the packet header.
-+is the destination address from the packet header.
- These addresses are usually the same,
- but can differ for broadcast or multicast packets.
- Note that, depending on the configured routes,
- .I ipi_spec_dst
- might belong to a different interface from the one that received the packet.
- .IP
--If
--.B IP_PKTINFO
--is passed to
--.BR sendmsg (2)
--and
-+This structure can also be passed as an ancillary message to
-+.BR sendmsg (2) .
-+In that case,
- .\" This field is grossly misnamed
- .I ipi_spec_dst
--is not zero, then it is used as the local source address, for the routing
--table lookup, and for setting up IP source route options.
--When
-+is used as the local source address
-+(if non-zero),
-+including for the purposes of setting up IP source route options.
-+It's also used for the routing table lookup, unless
- .I ipi_ifindex
--is not zero, the primary local address of the interface specified by the
--index overwrites
--.I ipi_spec_dst
--for the routing table lookup.
-+is non-zero \(en
-+then the primary local address of that interface is used there instead.
- .I ipi_addr
- is ignored.
-+The structure returned by
-+.BR recvmsg (2)
-+can be reused,
-+which effectively sends a reply to the original packet.
- .IP
- Not supported for
- .B SOCK_STREAM
--- 
-2.47.3
+Have a lovely day!
+Alex
 
+> Jakub G=C5=82ogowski (2):
+>   man/man7/ip.7: Clarify PKTINFO's semantics depending on packet
+>     direction
+>   man/man7/ip.7: Reword IP_PKTINFO's description
+>=20
+>  man/man7/ip.7 | 57 +++++++++++++++++++++++++++------------------------
+>  1 file changed, 30 insertions(+), 27 deletions(-)
+>=20
+> --=20
+> 2.47.3
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--kexlxzcjisnkdles
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkcedMACgkQ64mZXMKQ
+wqknWw/+N9pmp/N2ul5Ix4kzgwy3ILw6Y5RdWIGE/uvQpMV0uIv2sC7xjcvZf66X
+A6nsfbW0Ihz6PyeNA16ByfUu8CZNXd658WPwDqwQU8coQ21PRk43XfpLLSULzfYB
+Pk2fHv5Br/HlTWMTUfRD80EzsTFQ2NaWnyCxnW83tB2LW7hSe07Pi7vayb1cptxe
+3Ev9X4JpzWX9pzgMW53AdQQfvQ9Yxw7lMdT6v/sgvzAxkbLyPSGu0QWFoa60ZEt9
+/i/UM8rnvWcnJwC6A029w6+dQEXZN96xCMhS8clE3W83dG2qaIY/NkEYK4VE6rC0
+vSZ1j1wS5S1G48cVEwDK0hHRZle18zv4vi4iedyljWzVM765MJRm/ZiZOzsEnsjb
+7aeFtGB8viq7Tn5JQi2W7nSIvz0Qa9A7keiCEoVlzQv/amWD86/X1VkkwRO+oJ36
+pJbkQGn+WQVZ1zH7OopCyymQOQcTFyy0RCv3K7Ufq35VG+nraxPuFDKIBRoUIbJP
+iIDA2sqhNzwrX7USFidChJLeyAjo4N+rVBk16YZw3G8+Erw6fZtzuzLpFLaaSlO9
+iRu3NsW0aD6qExMVzk43rlOXC+TWgIdYWFBpA1Po7rMgUEYK1kMLjET7k3TIML7+
+2I4/WRSeuhVVWgdKUrtH48qsz+JksNL7M4VAjYC2YVGW42IJhh4=
+=iy8z
+-----END PGP SIGNATURE-----
+
+--kexlxzcjisnkdles--
 
