@@ -1,57 +1,55 @@
-Return-Path: <linux-man+bounces-4310-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4311-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97051C817DB
-	for <lists+linux-man@lfdr.de>; Mon, 24 Nov 2025 17:09:00 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id D81D2C817F9
+	for <lists+linux-man@lfdr.de>; Mon, 24 Nov 2025 17:11:30 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 4D9853A7F70
-	for <lists+linux-man@lfdr.de>; Mon, 24 Nov 2025 16:08:59 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 3674F4E370E
+	for <lists+linux-man@lfdr.de>; Mon, 24 Nov 2025 16:11:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37D67314D0D;
-	Mon, 24 Nov 2025 16:08:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07623314D12;
+	Mon, 24 Nov 2025 16:11:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VALS34IF"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lme/2IKI"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A10314B76;
-	Mon, 24 Nov 2025 16:08:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1318314D07;
+	Mon, 24 Nov 2025 16:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764000537; cv=none; b=T29CpvaX3xH7jpbj9XeJa5BgPVYc4sKccXuw2tBmFU3cDH0O8RTpmcTRcfPNrfntWRvK/5KmXb/zk70dZcmqniDipnX8pO3qiwesU+x5wRKRhFoHNDD3bQNmeHL2OLGd4Tpo5lQL7vueQ8/fTCZUPFJ2iDl6yLe0kDaYfG9Cihs=
+	t=1764000686; cv=none; b=NPSjSew2w7B4HmGUhlioYcQ4qb8zXgvv1VgJaEfwe1Oe3jPaZeOLWC05T32zKoPhV4lriwFEpDodkEN6V4PkDE50e1VDtqk3tTD7+OdwcXf/58YUxUJBbBinfeWhUWwBgkfLcZWq1+3ZRHIy9to2+L1iO4XjaASfOw8e+7gZ0fI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764000537; c=relaxed/simple;
-	bh=2BS6q8sZUqbRQw+PypR81r2K3Iad19CiwoNjOq57AjI=;
+	s=arc-20240116; t=1764000686; c=relaxed/simple;
+	bh=y1Hh3Of624Exdqe/Ee178JADFctmMfim1WsfeKLKLYY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jje1NlUCFbHs6h7eOpT6iw5R/mbx21bnC6UAU8LlcQIquJu1Fl40Y4oaqiyR2LHZ3zNN9PR9hk6wH7LDD6QR8ZFx4fg3TNVOSqfPEq6yklj2lFmSPxgTiNkEphfWlpgE5E5+rgcNOW6XNmjOIXCBW+nAO34FGpbqbRtqgiIr+Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VALS34IF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BEDC4CEF1;
-	Mon, 24 Nov 2025 16:08:54 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=rH9KIcu9Rgy1Zc6H1bwcub9eZ/24BsbrThOvUMiQsI0j3f+3hKF/Kms/yhwI4gIOOOSIaQ9pnbUWk5R1ExXCBcDZZP5gB04GXKURbfp1v/Yt0RJjNKToUMpKEQd2XlJacNMAjcmhe+6CHLIS52uGFeAiFdOgnvcLxUmVWBF2StQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lme/2IKI; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F63AC4CEF1;
+	Mon, 24 Nov 2025 16:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1764000536;
-	bh=2BS6q8sZUqbRQw+PypR81r2K3Iad19CiwoNjOq57AjI=;
+	s=k20201202; t=1764000685;
+	bh=y1Hh3Of624Exdqe/Ee178JADFctmMfim1WsfeKLKLYY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VALS34IFSLGOWzKE86Cz+sq9UEoIbMnxZQq4h9tfr4CJIeWiHQ64hsMoVXWxbvc8U
-	 00Xc44eBXLhsL6x7EFH8vOa14frtzrX7vHlruquxOIDCIgL+2VqkKK+qRjQFeh5CGy
-	 O7D8mXQugoT+sSfQ8SgGYWGo3dZfeeb3QYOlmC4rUd2dTQHKG5fLpEiakhxeUeXNOM
-	 ISlxlNvbvQGmb7/RUfmXXHVHnVOdwuisdsBKpn0PNaVang3tEmj7z5UpgBZXgrVPi/
-	 EX5ZCy0Kh2NKo8GqmhrfdOAkrJLvVJzDdgTbd8yTUtgqHTP24hJXiBN6iRhnH8AK9Z
-	 N5KwNyZnIKqjA==
-Date: Mon, 24 Nov 2025 17:08:52 +0100
+	b=lme/2IKIbY9Enz6YwuakL1UwN9T8jsMR2iZ/9clkIZ0cxioC/KeTWIeEyHC+V0yy8
+	 aoXmjmfX++0dQTL0adX6PdKJrSdFGSSBZR7nYPfUP81UMYv5p9rgh4Nvq/3rumkeKV
+	 SWaIAJe1Quu1o7GxpaIcVnEVtD+WqBHNV1BOUuE5j3vM+w11U/dlcXjHdWxN6d0m/y
+	 VyjDARpsvVVeu1rYjQ92ERiUYhPAeNVhZANH9EGVh2vLeBVCZ94JVaFT3H6QR1qTJo
+	 aB5jKAJygbkHtw4W2Cus5n5Syxz+pdl4wR+16d2KvQqgSr+SCANCBLEz/iRMCEFajW
+	 44BbPZv6wo2VQ==
+Date: Mon, 24 Nov 2025 17:11:21 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-man@vger.kernel.org, 
-	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] man/man2/mremap.2: fix incorrect reference to VM_MIXEDMAP
-Message-ID: <qxqyvoxrtv57wo6honuz765fe2ffjny3k2zpbo3w32wqgm3eeh@shgzoq6dy7ei>
-References: <20251121081609.52462-1-lorenzo.stoakes@oracle.com>
- <0a072ec0-6d9d-4cd3-82e2-9df55ecb9aa7@lucifer.local>
+To: Jakub =?utf-8?Q?G=C5=82ogowski?= <not@dzwdz.net>
+Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+	Linux API <linux-api@vger.kernel.org>, ej@inai.de
+Subject: Re: [PATCH 2/2] man/man7/ip.7: Reword IP_PKTINFO's description
+Message-ID: <im2kp5dhyoqac7fs46zh2xmxcahkfy3a4qafeufakwrbezfv6j@ubfts6zwryx4>
+References: <cover.1763130571.git.not@dzwdz.net>
+ <38cfae87620d99ab0fa15f1970ef18d4ab5ff5a5.1763130571.git.not@dzwdz.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,102 +57,187 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="suhmvda3b27n3t6q"
+	protocol="application/pgp-signature"; boundary="rwhdvxucbx4sa4mm"
 Content-Disposition: inline
-In-Reply-To: <0a072ec0-6d9d-4cd3-82e2-9df55ecb9aa7@lucifer.local>
+In-Reply-To: <38cfae87620d99ab0fa15f1970ef18d4ab5ff5a5.1763130571.git.not@dzwdz.net>
 
 
---suhmvda3b27n3t6q
+--rwhdvxucbx4sa4mm
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-man@vger.kernel.org, 
-	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] man/man2/mremap.2: fix incorrect reference to VM_MIXEDMAP
-Message-ID: <qxqyvoxrtv57wo6honuz765fe2ffjny3k2zpbo3w32wqgm3eeh@shgzoq6dy7ei>
-References: <20251121081609.52462-1-lorenzo.stoakes@oracle.com>
- <0a072ec0-6d9d-4cd3-82e2-9df55ecb9aa7@lucifer.local>
+To: Jakub =?utf-8?Q?G=C5=82ogowski?= <not@dzwdz.net>
+Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+	Linux API <linux-api@vger.kernel.org>, ej@inai.de
+Subject: Re: [PATCH 2/2] man/man7/ip.7: Reword IP_PKTINFO's description
+Message-ID: <im2kp5dhyoqac7fs46zh2xmxcahkfy3a4qafeufakwrbezfv6j@ubfts6zwryx4>
+References: <cover.1763130571.git.not@dzwdz.net>
+ <38cfae87620d99ab0fa15f1970ef18d4ab5ff5a5.1763130571.git.not@dzwdz.net>
 MIME-Version: 1.0
-In-Reply-To: <0a072ec0-6d9d-4cd3-82e2-9df55ecb9aa7@lucifer.local>
+In-Reply-To: <38cfae87620d99ab0fa15f1970ef18d4ab5ff5a5.1763130571.git.not@dzwdz.net>
 
-Hi Lorenzo,
+Hi Jakub,
 
-On Fri, Nov 21, 2025 at 08:20:12AM +0000, Lorenzo Stoakes wrote:
-> On Fri, Nov 21, 2025 at 08:16:09AM +0000, Lorenzo Stoakes wrote:
-> > We actually disallow VM_DONTEXPAND and VM_PFNMAP for VM_DONTUNMAP, the
-> > manpage incorrectly references VM_MIXEDMAP. Correct this.
+On Fri, Nov 14, 2025 at 03:29:31PM +0100, Jakub G=C5=82ogowski wrote:
+> I've heavily cut down the first paragraph (which wasn't really saying
+> anything), and emphasized the difference between how recvmsg(2) and
+> sendmsg(2) treat this struct.
 >=20
-> Of course I ironically typo'd here :)
+> "This works only for datagram oriented sockets" is redundant with
+> "Not supported for SOCK_STREAM", and the mention of sendmsg(2) was moved
+> down.
 >=20
-> VM_DONTUNMAP -> MREMAP_DONTUNMAP
+> I called it a boolean option because that's how these were introduced at
+> the start of the section.
 >=20
-> :P
+> I've tried rewording ipi_spec_dst's effect on sendmsg to be a bit more
+> clear.
+>=20
+> The only piece of new information which this adds is that you can use
+> the structure returned by recvmsg with sendmsg, which directly follows
+> from the preceding text.
+>=20
+> RFC 3542, Section 6, directly calls out this usecase for in6_pktinfo:
+>=20
+> > Some UDP servers want to respond to client
+> > requests by sending their reply out the same interface on which the
+> > request was received and with the source IPv6 address of the reply
+> > equal to the destination IPv6 address of the request.  To do this the
+> > application can enable just the IPV6_RECVPKTINFO socket option and
+> > then use the received control information from recvmsg() as the
+> > outgoing control information for sendmsg().  The application need not
+> > examine or modify the in6_pktinfo structure at all.
+>=20
+> I'm not sure if this is the best place to document this, as the sendmsg
+> behavior is unrelated to the IP_PKTINFO sockopt at all.  Maybe some of
+> the control messages should be broken out to another manpage?
+>=20
+> Signed-off-by: Jakub G=C5=82ogowski <not@dzwdz.net>
 
-:P
-
-> >
-> > Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-
-Thanks!  I've applied the patch, with the amendment.  I've also added CC
-tags for all the people in CC.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D466c43360f3874a890e910610d4d01ea135d020c>
-(use port 80)
+This patch doesn't apply anymore.  I guess it's some of the amendments
+I applied in patch 1/2.  Would you mind rebasing and sending v2?
 
 
 Have a lovely day!
 Alex
 
-> > ---
-> >  man/man2/mremap.2 | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/man/man2/mremap.2 b/man/man2/mremap.2
-> > index 6a6df8601..cbe960f77 100644
-> > --- a/man/man2/mremap.2
-> > +++ b/man/man2/mremap.2
-> > @@ -206,7 +206,7 @@ The
-> >  flag can be used only with mappings that are not
-> >  .B VM_DONTEXPAND
-> >  or
-> > -.BR VM_MIXEDMAP .
-> > +.BR VM_PFNMAP .
-> >  Before Linux 5.13, the
-> >  .B MREMAP_DONTUNMAP
-> >  flag could be used only with private anonymous mappings
-> > --
-> > 2.51.2
-> >
+> ---
+>  man/man7/ip.7 | 49 +++++++++++++++++++++----------------------------
+>  1 file changed, 21 insertions(+), 28 deletions(-)
 >=20
-> Cheers, Lorenzo
+> diff --git a/man/man7/ip.7 b/man/man7/ip.7
+> index a7f118b42..aa2508bc7 100644
+> --- a/man/man7/ip.7
+> +++ b/man/man7/ip.7
+> @@ -783,20 +783,13 @@ .SS Socket options
+>  .TP
+>  .BR IP_PKTINFO " (since Linux 2.2)"
+>  .\" Precisely: since Linux 2.1.68
+> -Pass an
+> -.B IP_PKTINFO
+> -ancillary message that contains a
+> -.I pktinfo
+> -structure that supplies some information about the incoming packet.
+> -This works only for datagram oriented sockets.
+> -The argument is a flag that tells the socket whether the
+> -.B IP_PKTINFO
+> -message should be passed or not.
+> -The message itself can be sent/retrieved
+> -only as a control message with a packet using
+> +If this boolean option is enabled,
+>  .BR recvmsg (2)
+> -or
+> -.BR sendmsg (2).
+> +outputs an
+> +.B IP_PKTINFO
+> +ancillary message containing an
+> +.I in_pktinfo
+> +structure.
+>  .IP
+>  .in +4n
+>  .EX
+> @@ -809,37 +802,37 @@ .SS Socket options
+>  .EE
+>  .in
+>  .IP
+> -When returned by
+> -.BR recvmsg (2) ,
+> +In this context,
+>  .I ipi_ifindex
+>  is the unique index of the interface the packet was received on.
+>  .I ipi_spec_dst
+>  is the preferred source address for replies to the given packet, and
+>  .I ipi_addr
+> -is the destination address in the packet header.
+> +is the destination address from the packet header.
+>  These addresses are usually the same,
+>  but can differ for broadcast or multicast packets.
+>  Note that, depending on the configured routes,
+>  .I ipi_spec_dst
+>  might belong to a different interface from the one that received the pac=
+ket.
+>  .IP
+> -If
+> -.B IP_PKTINFO
+> -is passed to
+> -.BR sendmsg (2)
+> -and
+> +This structure can also be passed as an ancillary message to
+> +.BR sendmsg (2) .
+> +In that case,
+>  .\" This field is grossly misnamed
+>  .I ipi_spec_dst
+> -is not zero, then it is used as the local source address, for the routing
+> -table lookup, and for setting up IP source route options.
+> -When
+> +is used as the local source address
+> +(if non-zero),
+> +including for the purposes of setting up IP source route options.
+> +It's also used for the routing table lookup, unless
+>  .I ipi_ifindex
+> -is not zero, the primary local address of the interface specified by the
+> -index overwrites
+> -.I ipi_spec_dst
+> -for the routing table lookup.
+> +is non-zero \(en
+> +then the primary local address of that interface is used there instead.
+>  .I ipi_addr
+>  is ignored.
+> +The structure returned by
+> +.BR recvmsg (2)
+> +can be reused,
+> +which effectively sends a reply to the original packet.
+>  .IP
+>  Not supported for
+>  .B SOCK_STREAM
+> --=20
+> 2.47.3
+>=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---suhmvda3b27n3t6q
+--rwhdvxucbx4sa4mm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkkgxQACgkQ64mZXMKQ
-wqlUZQ/9G8bz0/Tk9TsQUt2t30n9mdcLfS4up17YIY9gkiX5QOpFzYwQhDnb/2/l
-NFDJhdYmZRFMWXZTlTGjWm+QuFgJob20bC0nlaxmc5jutrJ88iaLsG8ROfOUG2z2
-zptzKOSQHCzpQLfOQbfcnTuo1dUCOflhML3ddH+Qyxq1+fGx2/BA//kePrz3FuKv
-bDOCVMI+Jgaf57aX7+UvgfHa9y7NL7O3EK5YLdHYetbQQiCb2+tkK8ZMKWRfjgAX
-QmKaxJg4zxaoOn2FsSVv1oc9f+mYwrrd55IQJFKJdR0UKz43KCtk5vX7WI2jMCpq
-oXZugSKohCAvPTHZ91E3EkmckRBpB4ushPvc0DulWslWfSMyEBMmFZpWEI1E0uss
-Shu+HRi9Vr1DJLOyGu1TTSYKlsc5FrjfLW5oUGfEkJlmjkxpnbO58vNLHTKs03C3
-JsedzI4LioADh3d/rAl/QVJjzh0IPz9SS+ptfrd6Ivs0/DcdaOPakqUs0hVKeAta
-VinIgeDKzOMBClqW6uqiegp7lPf9xxHkJWcWKHoehde8qLvR7QyEwmTcDgRatIEk
-LPGl/gHCZ/rBiBqB2Dp40y8lpk0xZWN/MKlqogMJi/InqBasHcdCLSmwbp1ZYRFF
-vqfebiU6TO54ToQT2EJ8DGfuQU/1htsj6FyIFuSGZ11hyXU24Kc=
-=AiEG
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkkg6kACgkQ64mZXMKQ
+wqliRA//a7JMh0mXd0jbsTfdvUVr3wNR+4blM7J1e/9B6jZRT1CZB/CX0siEO9qy
+ZwR2XUIz7AU7hrUiCQuuHeioVlaeSzIrSxO7G37qBo/ZEAYU+dNNJJwL6+ARypgB
+3Ilz5s0E6XLEOjL44Zbrpr21rDtpsfVKjb8EcEKh4F7KbbjemFchodnFb7AKY478
+Sir8nE45B/rio36UXcmwfmp8T1nfqrqHCnQ5UuEsJezxbTURXShL5DMsSzNwGj9Z
+5C+snFBMOT85Fu0xEhYL+3TyaqibktRiTbIdahgxBMKlxC3kOgPM0H8BMnUTR9ko
+4bAz8qq6Xh4F+L3LXbwfMgSPdtSdKlERpXwS0erLpQC+w+fKNkzOmoSedlsh3LX1
+MoDyIf+R/nmKMe75pX6X9hOBMUWBUGQQJVHIEOuu43HgD01yIw8tUxdpRPpvyGnc
+uSRVtUgTnxtumglYyz+V/fJJRMIyCISKZGirEpsKxVhgNL9lb6lzia42vPvmUIR6
+SUFlVmuAt6e1GFBTFiBg8ZNKLzW4VUhncUJuiRxDZhGj7iJUlu049q4e73kIuXkl
+b7CK3GZcj60Q6vtK+H7kmS4OD3uW9W8GqSlwX5LOoZwk7J06dd4H16QOGmVL/26H
+nit6Abzoxor3p9FRx/Qjm55h+Zs4vfsgJiAIfH2/nVbolZx4FSk=
+=MA9K
 -----END PGP SIGNATURE-----
 
---suhmvda3b27n3t6q--
+--rwhdvxucbx4sa4mm--
 
