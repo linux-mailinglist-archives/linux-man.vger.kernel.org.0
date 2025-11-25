@@ -1,150 +1,135 @@
-Return-Path: <linux-man+bounces-4322-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4323-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD611C81E30
-	for <lists+linux-man@lfdr.de>; Mon, 24 Nov 2025 18:26:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 397FBC830CD
+	for <lists+linux-man@lfdr.de>; Tue, 25 Nov 2025 02:51:04 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8C3323A318E
-	for <lists+linux-man@lfdr.de>; Mon, 24 Nov 2025 17:26:47 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D3B623AE807
+	for <lists+linux-man@lfdr.de>; Tue, 25 Nov 2025 01:51:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7AD2A2343C0;
-	Mon, 24 Nov 2025 17:26:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F36C2481B1;
+	Tue, 25 Nov 2025 01:50:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SG9+fMpk"
+	dkim=pass (2048-bit key) header.d=dzwdz.net header.i=@dzwdz.net header.b="C8hdvPtl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FCD22B5A5
-	for <linux-man@vger.kernel.org>; Mon, 24 Nov 2025 17:26:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A3019AD5C
+	for <linux-man@vger.kernel.org>; Tue, 25 Nov 2025 01:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764005205; cv=none; b=Da9rHBsATL6eM9F1v/8hMVS3iw3c/nqwk6UljXG5uNIrRLqeKZWOQQPMXEuSM1FCtcw3SE/xWoFijhAOTPFKpreLgNF7UrB4mM7p82WAj2lER/MgChR5mf27olFjSvowxdEKCb3mDYIqPNImTiXUHwP7TsOkw4AT/VnIn69Oldg=
+	t=1764035438; cv=none; b=fEEQnzV8UCHY1gf7YZKBT+dCZQ6AnSbys8RZ7AIHkBYNZ4wEcZ36ToVL/kJcQNgnnZOddta8VsikwXfJXOnPyYeXZ0j0xhNZMfCMxep9cFUE//6thQIpLkNcvXL4U6M8QeZmqk4yTUqWWtLAvOM/xx+0ZS9Bgze3lYQCRkhrG1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764005205; c=relaxed/simple;
-	bh=bjzkIvCKKAc7vFoLOubdeim+5MQje9lbi/t4vaKZt/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e24+ov9uThOC5EA3O7jfBakuVmRLu416IxRYcKoNuKxDmxf5XQ6rT075MLB0+bgHH7d2QQLyAMSE4yw1SXcKKkF5rHzyfDVVuXPqEGo3hzRPLIuIqBCcVzX1WV7IXNP/GL7fiuElC2uqdkYPPz/vBbPmt8PkxGEVx2rDL57+osM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SG9+fMpk; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D03C6C4CEF1;
-	Mon, 24 Nov 2025 17:26:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1764005205;
-	bh=bjzkIvCKKAc7vFoLOubdeim+5MQje9lbi/t4vaKZt/8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SG9+fMpkTKNF8l9kKUvW8g8CC/qZpyLPRP0bNGH2bBrrxbhX79naWrGb+T40753L9
-	 lVS73Ipqzvsqbmi28UZnxc0FRCVl/DUgFWaGvFzdU2SySbHXNKETEXmDxEo+HJvg3j
-	 0q3tWlpk3Gu54eXRAbfAix+2MVC23G22vU4AanXixwSJAlNvBRd53CE7xfPWe+9KaR
-	 fyv9rxSm+n7CN5pj4h4lx27R6s2aCwcJm1m/7j9KPgjyCDFexE/2F7Abj6LZGoLedI
-	 nTmIxtzhuwCDvLZWsFFkvA5QR4djxZd2c81OaXMjSsQFz5+imIniQVqErbSJdHtS4Q
-	 2aYWPcw/XgXIw==
-Date: Mon, 24 Nov 2025 18:26:41 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: Mark Naughton <mnaughto@redhat.com>, Mark Harris <mark.hsj@gmail.com>, 
-	linux-man@vger.kernel.org, Joseph Myers <josmyers@redhat.com>
-Subject: Re: strncmp(3) in the SYNOPSIS
-Message-ID: <5jrxq3yr63xlimg3ohs7dnttk76ovag5igwnpa3uionhyez4nl@oyum2thxolke>
-References: <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
- <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
- <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
- <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
- <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
- <movtjbigtmqu5qwwijxng7pc62bvfxhqf5fhf36rd5wq67c4yy@wnpjvmfuti2i>
- <87a56mxmsx.fsf@oldenburg.str.redhat.com>
- <hkyvvyqkhbseev7cyqkdjvknur6tghu6xt7ekjfhjsfyicwsm2@awrjajnvugz5>
- <874iwuxl60.fsf@oldenburg.str.redhat.com>
- <5mfvvwtthfzgjb3m7d4bzwcn3vc4jmpsktk43vjcfjg5vkeyug@7aqiiz5fwgfn>
+	s=arc-20240116; t=1764035438; c=relaxed/simple;
+	bh=tA1EEPB5g8EbWUBOe9hcES3yi9cVRI6Dk1dzCgOHBzE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ozz9+thKzeUI40yA6T18t1j75ZYxOC7nRBOjPEpMHc+i8VTtFp3YzyMehcgeLYKm/1i5ExmMwjbt8/jYbtB/xYdMgdktSMbXpm9UW7ysmM4/H30qT6maztET2ePpuxxrcwL3x6zxxLOqM8o4yzo85b3aExBgvIA6Og8H2X3Lnuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dzwdz.net; spf=pass smtp.mailfrom=dzwdz.net; dkim=pass (2048-bit key) header.d=dzwdz.net header.i=@dzwdz.net header.b=C8hdvPtl; arc=none smtp.client-ip=91.218.175.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dzwdz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dzwdz.net
+Message-ID: <b89c3f75-0b70-4620-b525-b264adb74c7b@dzwdz.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dzwdz.net; s=key1;
+	t=1764035423;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=tA1EEPB5g8EbWUBOe9hcES3yi9cVRI6Dk1dzCgOHBzE=;
+	b=C8hdvPtlWDGBOasebEMxzjFIyQVXKUgl4ZWE+X+WA1kBiq79zWJMwPDXkjfcQRRYWYOpbl
+	BvIAYM/P0qL4HyUfU4f8xQs8LreC50fIODrqPJ6Ix3czg5YPThi6nt38XMa7deTRHW7rtM
+	cno45kPlZMQ07hWbLCR5arP1ll4O2Ygoy+nylhuUWfCxdm/PjTyRDQ5b8sFd7gd3z8Oh+v
+	jYUBN+vA+mJCVF9xWNw1UcyR/QSV7hwlZ6jXlwpAjwEZ/1ejWBz6+SDqcTbnyg7JF9vtqZ
+	TsBAczVnZ0jTJUhWBgFUSP+kS5A7eHw8HqC/16VUt6YN7DnYApSt+2vzo8FFnQ==
+Date: Tue, 25 Nov 2025 02:50:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lj5ulogxr5k7j6ci"
-Content-Disposition: inline
-In-Reply-To: <5mfvvwtthfzgjb3m7d4bzwcn3vc4jmpsktk43vjcfjg5vkeyug@7aqiiz5fwgfn>
+Subject: Re: [PATCH 0/2] man7/ip.7: Clarify PKTINFO's docs
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Linux API <linux-api@vger.kernel.org>, ej@inai.de
+References: <cover.1763130571.git.not@dzwdz.net>
+ <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
+Content-Language: en-US, pl
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: dzwdz <not@dzwdz.net>
+Autocrypt: addr=not@dzwdz.net; keydata=
+ xjMEaLoI3BYJKwYBBAHaRw8BAQdAz9aX/esCy0Q9BudRG1rXdo+DCQJDFADFKNaYyZnRk/DN
+ FWR6d2R6IDxub3RAZHp3ZHoubmV0PsLBPwQTFgoBpwIbAwUJAO1OAAULCQgHAwUVCgkICwUW
+ AgMBAAIeAQIXgBYhBOsX9f4IFOdcieO1LSjiaiZRZQv2BQJoujc2QBSAAAAAABAAJ3Byb29m
+ QGFyaWFkbmUuaWRodHRwczovL2dpdC5zci5odC9+ZHp3ZHova2V5b3hpZGVfcHJvb2Y0FIAA
+ AAAAEAAbcHJvb2ZAYXJpYWRuZS5pZGlyYzovL2lyYy5oYWNraW50Lm9yZy9kendkelcUgAAA
+ AAAQAD5wcm9vZkBhcmlhZG5lLmlkaHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vZHp3ZHovMGIx
+ N2M2ZDk0ZjM2OGJlZDJhM2M2NTk4OTMxNDhlM2UzFIAAAAAAEAAacHJvb2ZAYXJpYWRuZS5p
+ ZGRuczpub3QuZHp3ZHoubmV0P3R5cGU9VFhUNBSAAAAAABAAG3Byb29mQGFyaWFkbmUuaWRp
+ cmM6Ly9pcmMubGliZXJhLmNoYXQvZHp3ZHoxFIAAAAAAEAAYcHJvb2ZAYXJpYWRuZS5pZGh0
+ dHBzOi8vbG9ic3RlLnJzL35kendkegAKCRAo4momUWUL9gZ7AP92NUwydt7PvXE3nJxrzc8z
+ zXy7932PUcqWi0EyyL0g6gEA92OwaOXjsJEj9SQT6L2rVs48M6NLTsTWBYeULHt7SQvOOARo
+ ugkYEgorBgEEAZdVAQUBAQdAKREKv3RUs0sVu41DJHmRm2BWii+JVkscG4l9YlrL/mkDAQgH
+ wn4EGBYKACYWIQTrF/X+CBTnXInjtS0o4momUWUL9gUCaLoJGAIbDAUJAO1OAAAKCRAo4mom
+ UWUL9tKpAP4hrnUCmd/w22Huur8UIr1ipOPUbnKOEbNEEroYL4JmJwD+IijYhfW2lQurN3VD
+ 16zziWtajA+YA/n+hMg9izVgXwc=
+In-Reply-To: <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------BMTVIp0f79s511iRogKGtTVJ"
+X-Migadu-Flow: FLOW_OUT
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------BMTVIp0f79s511iRogKGtTVJ
+Content-Type: multipart/mixed; boundary="------------c9LgEiEL390hwNGdBfjqf2xe";
+ protected-headers="v1"
+From: dzwdz <not@dzwdz.net>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Linux API <linux-api@vger.kernel.org>, ej@inai.de
+Message-ID: <b89c3f75-0b70-4620-b525-b264adb74c7b@dzwdz.net>
+Subject: Re: [PATCH 0/2] man7/ip.7: Clarify PKTINFO's docs
+References: <cover.1763130571.git.not@dzwdz.net>
+ <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
+In-Reply-To: <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
+
+--------------c9LgEiEL390hwNGdBfjqf2xe
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMTEvMTgvMjUgMTQ6NTEsIEFsZWphbmRybyBDb2xvbWFyIHdyb3RlOg0KPiBEbyB5b3Ug
+c3VnZ2VzdCBtb3ZpbmcgZWFjaCBzb2NrZXQgb3B0aW9uIHRvIGEgbWFudWFsIHBhZ2UgdW5k
+ZXINCj4gbWFuMmNvbnN0Lz8gIEkgdGhpbmsgSSBhZ3JlZSB3aXRoIHRoYXQuICBUaGVyZSdz
+IHByZWNlZGVudCwgYW5kIGl0IG1ha2VzDQo+IHRoZSBwYWdlcyBtb3JlIHJlYWRhYmxlLg0K
+DQpJbiBnZW5lcmFsIC0geWVzLCBkZWZpbml0ZWx5IQ0KDQpIb3dldmVyLCBzdHJ1Y3QgaW5f
+cGt0aW5mbyBjYW4gYmUgcGFzc2VkIHRvIHNlbmRtc2cgZXZlbiBpZiBJUF9QS1RJTkZPIA0K
+aXNuJ3Qgc2V0LCBzbyBJIGRvbid0IHRoaW5rIGl0IHdvdWxkIG1ha2Ugc2Vuc2UgdG8gZG9j
+dW1lbnQgaXQgaW4gZS5nLiANCklQX1BLVElORk8oMmNvbnN0KSAtIGl0IHNob3VsZCBwcm9i
+YWJseSBnZXQgaXRzIG93biBtYW5wYWdlIGluIG1hbjJ0eXBlLg0KVGhhdCBvcHRpb24sIGlu
+IHR1cm4sIG9ubHkgbWFrZXMgc2Vuc2UgaW4gdGhlIGNvbnRleHQgb2YgdGhhdCBzdHJ1Y3Qs
+IHNvIA0KSSB0aGluayBpdCBzaG91bGQgcHJvYmFibHkgYmUgZG9jdW1lbnRlZCBpbiBpbl9w
+a3RpbmZvKDJ0eXBlKS4NCg0KVGhpcyB3b3VsZCAva2luZGEvIGJlIGxpa2UgaG93IGUuZy4g
+UEFfSU5UKDNjb25zdCkgcG9pbnRzIHRvIA0KcHJpbnRmLmgoM2hlYWQpLCBJIGd1ZXNzPw0K
+DQpJJ2QgYmUgaGFwcHkgdG8gdHJ5IHdyaXRpbmcgdGhhdCBtYW5wYWdlIGlmIHlvdSB0aGlu
+ayB0aGlzIGFwcHJvYWNoIA0KbWFrZXMgc2Vuc2UgOikNCg0KVGhhbmtzLA0KZHp3ZHoNCg==
 
 
---lj5ulogxr5k7j6ci
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: Mark Naughton <mnaughto@redhat.com>, Mark Harris <mark.hsj@gmail.com>, 
-	linux-man@vger.kernel.org, Joseph Myers <josmyers@redhat.com>
-Subject: Re: strncmp(3) in the SYNOPSIS
-Message-ID: <5jrxq3yr63xlimg3ohs7dnttk76ovag5igwnpa3uionhyez4nl@oyum2thxolke>
-References: <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
- <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
- <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
- <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
- <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
- <movtjbigtmqu5qwwijxng7pc62bvfxhqf5fhf36rd5wq67c4yy@wnpjvmfuti2i>
- <87a56mxmsx.fsf@oldenburg.str.redhat.com>
- <hkyvvyqkhbseev7cyqkdjvknur6tghu6xt7ekjfhjsfyicwsm2@awrjajnvugz5>
- <874iwuxl60.fsf@oldenburg.str.redhat.com>
- <5mfvvwtthfzgjb3m7d4bzwcn3vc4jmpsktk43vjcfjg5vkeyug@7aqiiz5fwgfn>
-MIME-Version: 1.0
-In-Reply-To: <5mfvvwtthfzgjb3m7d4bzwcn3vc4jmpsktk43vjcfjg5vkeyug@7aqiiz5fwgfn>
+--------------c9LgEiEL390hwNGdBfjqf2xe--
 
-Hi Florian,
-
-On Thu, Jun 05, 2025 at 05:33:31PM +0200, Alejandro Colomar wrote:
-> Hi Florian,
->=20
-> On Thu, Jun 05, 2025 at 05:28:23PM +0200, Florian Weimer wrote:
-> > My point is that *if* it is a string, it can be arbitrary long.  It does
-> > not have to contain at least five characters, it can be shorter.  These
-> > two choices are valid:
-> >=20
-> >   subject is a string
-> >   subject is an array that is at least six bytes long
-> >=20
-> > They overlap, but both options are needed.  For example, "?" is not an
-> > array that is at least six bytes long.
->=20
-> Yep, that's correct.  Hmmm, I don't know; maybe for consistency I could
-> remove those [n] and just use [].  We'll see.  Please remind me in a
-> month or so; possibly with a patch, if you want.
-
-I've applied a patch fixing this misuse of [n].  Thanks!
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3De11a82a6f7098b94bcd00fb767a1db269e3a83db>
-(use port 80).
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---lj5ulogxr5k7j6ci
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------BMTVIp0f79s511iRogKGtTVJ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkklVEACgkQ64mZXMKQ
-wqkhzw//WhtVDY+tPhxduEckSkM3jiPwRmBpk51a+ns+G6EnMDGFOfkIDzno/cL+
-Xb586vjWqB4cjhCf9dtWC2ogHReDdUjs9rkaY1PbTGF8eL1cnjhUqyASW2BBwRFo
-TeyQhlEIOnU1cm5zt/Ek24p0ddGiZvtm+wVuv/jWV+ERvotMhEBcAsNb0ZtdXASR
-0oQrE5C5j/vd3gR7HFpvF6Kltf2fI31tZLcQXNTzdzS864VGCBhw98KVhkuQ7AFg
-KwPDBQqynwsXySGVLTrECcyAzUPqzptlyjXMWIo6mVl+4V28glLgMJqwaf7uxo5T
-0wyJZWnkyplVFcEOj6qcGAsaqUmIh3PJ51fNL+bqF9PD4rzcArAXNDDtrdAbAgmS
-LF6v8TZlVN5a/fJweGJhswzYO38S/nssqr+kb2MYOR62FdsPzsYBUbzWwttkylK2
-FeBYcliBEWmpZa4whBzpAoGMrcusyg6pVtSMtWKKW2+NodjNusjZrnWH0qkTEhRU
-wVxknVyq9zowGoXLAOlvCxYDlpsjnq96fiOtndeCKSb/nfFgyD2FPuo+4MJfiHIL
-Of8Uw9bJ/ENEQAYibvXBkpgJtw+U1OWK0o6R8JdT7dkJIWBY2vnYE7B0S1xzP1UU
-cDg5u80CUFaV4BQB4mnrRpVeu1KpgWPrPWfJl/bvaHiqX/jsN48=
-=ssTi
+wnsEABYIACMWIQS3V6hRlZD1kB2FLDBjtssx7Ny7DgUCaSULWwUDAAAAAAAKCRBjtssx7Ny7Djd6
+AQDxA5T2+kSltw+aQgN4rQO/TPabZivm+CFgOFoLCG9xGgEA9akeqON+TFwT+dEW45DwQL4rvAlf
+v+ljgXKbqNf1Ogc=
+=SSPn
 -----END PGP SIGNATURE-----
 
---lj5ulogxr5k7j6ci--
+--------------BMTVIp0f79s511iRogKGtTVJ--
 
