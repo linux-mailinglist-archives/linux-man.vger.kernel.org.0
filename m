@@ -1,135 +1,120 @@
-Return-Path: <linux-man+bounces-4323-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4324-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 397FBC830CD
-	for <lists+linux-man@lfdr.de>; Tue, 25 Nov 2025 02:51:04 +0100 (CET)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E333C83166
+	for <lists+linux-man@lfdr.de>; Tue, 25 Nov 2025 03:26:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D3B623AE807
-	for <lists+linux-man@lfdr.de>; Tue, 25 Nov 2025 01:51:02 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 0502F34B573
+	for <lists+linux-man@lfdr.de>; Tue, 25 Nov 2025 02:26:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F36C2481B1;
-	Tue, 25 Nov 2025 01:50:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F200919B5A7;
+	Tue, 25 Nov 2025 02:26:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dzwdz.net header.i=@dzwdz.net header.b="C8hdvPtl"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="U2x5JRV+"
 X-Original-To: linux-man@vger.kernel.org
-Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A3019AD5C
-	for <linux-man@vger.kernel.org>; Tue, 25 Nov 2025 01:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163D549659
+	for <linux-man@vger.kernel.org>; Tue, 25 Nov 2025 02:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764035438; cv=none; b=fEEQnzV8UCHY1gf7YZKBT+dCZQ6AnSbys8RZ7AIHkBYNZ4wEcZ36ToVL/kJcQNgnnZOddta8VsikwXfJXOnPyYeXZ0j0xhNZMfCMxep9cFUE//6thQIpLkNcvXL4U6M8QeZmqk4yTUqWWtLAvOM/xx+0ZS9Bgze3lYQCRkhrG1U=
+	t=1764037565; cv=none; b=SENHsBj2aT13kQ4AM5Y5KC5G5ydMv4X5Qq6nYE12VBgc6/eHGjJNTf0EHaeGvWrvL+gE2ZB+znx/9n/OKFiTg3/hzKTb3cuQZGonS6ztk+cexCc56OEGUMH5xcjXXtuK5dxrZAQUC6UfkwPPwytzXtNrq464f+GW1/8wwWsMtFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764035438; c=relaxed/simple;
-	bh=tA1EEPB5g8EbWUBOe9hcES3yi9cVRI6Dk1dzCgOHBzE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ozz9+thKzeUI40yA6T18t1j75ZYxOC7nRBOjPEpMHc+i8VTtFp3YzyMehcgeLYKm/1i5ExmMwjbt8/jYbtB/xYdMgdktSMbXpm9UW7ysmM4/H30qT6maztET2ePpuxxrcwL3x6zxxLOqM8o4yzo85b3aExBgvIA6Og8H2X3Lnuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dzwdz.net; spf=pass smtp.mailfrom=dzwdz.net; dkim=pass (2048-bit key) header.d=dzwdz.net header.i=@dzwdz.net header.b=C8hdvPtl; arc=none smtp.client-ip=91.218.175.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dzwdz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dzwdz.net
-Message-ID: <b89c3f75-0b70-4620-b525-b264adb74c7b@dzwdz.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dzwdz.net; s=key1;
-	t=1764035423;
+	s=arc-20240116; t=1764037565; c=relaxed/simple;
+	bh=5fFadGNastdo6M4mM1r/Njzp+ANsF4Vky4T/LM7hqoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hGLaD8J4frBJwTRUHy5CkS5FQX1h79KRx/DUTA8PIfGuwfoT9s6JDp8zFOeeQgnNuVkyjyXQTQ88DZ8Gr/ls4e7uWe7zs/hR4iYcqt9H5NLm48f4WNkku++hbne/geKVaXDU2SvXG4q3kPBqCS15itGuU6y9zTtegGzALOjbOsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=U2x5JRV+; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1764037561;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=tA1EEPB5g8EbWUBOe9hcES3yi9cVRI6Dk1dzCgOHBzE=;
-	b=C8hdvPtlWDGBOasebEMxzjFIyQVXKUgl4ZWE+X+WA1kBiq79zWJMwPDXkjfcQRRYWYOpbl
-	BvIAYM/P0qL4HyUfU4f8xQs8LreC50fIODrqPJ6Ix3czg5YPThi6nt38XMa7deTRHW7rtM
-	cno45kPlZMQ07hWbLCR5arP1ll4O2Ygoy+nylhuUWfCxdm/PjTyRDQ5b8sFd7gd3z8Oh+v
-	jYUBN+vA+mJCVF9xWNw1UcyR/QSV7hwlZ6jXlwpAjwEZ/1ejWBz6+SDqcTbnyg7JF9vtqZ
-	TsBAczVnZ0jTJUhWBgFUSP+kS5A7eHw8HqC/16VUt6YN7DnYApSt+2vzo8FFnQ==
-Date: Tue, 25 Nov 2025 02:50:19 +0100
+	 in-reply-to:in-reply-to:references:references;
+	bh=ojjqqdKTW7eYrTv//vSZ4OcF/GXhkbr0suhwouqydXY=;
+	b=U2x5JRV+2yelmBgse3IL5pDo4JI8SXOgSoENj16LaAI8X3wKtBcEtHr0yodXVxmZeWgzrZ
+	mGac+XHnTh/+oO9qFoChJaMw+VDMNTD3rzOxgKeP8FK0er6eFZOpYntNv/LgfLO0vk/HFz
+	+mLzY6MBXriPanCNJK6NSrE44FcvsQs=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-26-4VrEPvoNNDaARZBqPD-q5w-1; Mon,
+ 24 Nov 2025 21:25:55 -0500
+X-MC-Unique: 4VrEPvoNNDaARZBqPD-q5w-1
+X-Mimecast-MFC-AGG-ID: 4VrEPvoNNDaARZBqPD-q5w_1764037554
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3A4E2180047F;
+	Tue, 25 Nov 2025 02:25:54 +0000 (UTC)
+Received: from localhost (unknown [10.72.112.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1DDE51956056;
+	Tue, 25 Nov 2025 02:25:52 +0000 (UTC)
+Date: Tue, 25 Nov 2025 10:25:49 +0800
+From: Baoquan He <bhe@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, chrisl@kernel.org, baohua@kernel.org
+Subject: Re: [PATCH v2] iman/man2/swapon.2: update priority section
+Message-ID: <aSUTrQFzmGwheWgz@MiWiFi-R3L-srv>
+References: <20251017123110.321638-1-bhe@redhat.com>
+ <wepvktnkiofwnp2xyifkr3mcs4gjdqafvvydyelv5wurmedrnv@zqn7e5g6ksmj>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/2] man7/ip.7: Clarify PKTINFO's docs
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- Linux API <linux-api@vger.kernel.org>, ej@inai.de
-References: <cover.1763130571.git.not@dzwdz.net>
- <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
-Content-Language: en-US, pl
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: dzwdz <not@dzwdz.net>
-Autocrypt: addr=not@dzwdz.net; keydata=
- xjMEaLoI3BYJKwYBBAHaRw8BAQdAz9aX/esCy0Q9BudRG1rXdo+DCQJDFADFKNaYyZnRk/DN
- FWR6d2R6IDxub3RAZHp3ZHoubmV0PsLBPwQTFgoBpwIbAwUJAO1OAAULCQgHAwUVCgkICwUW
- AgMBAAIeAQIXgBYhBOsX9f4IFOdcieO1LSjiaiZRZQv2BQJoujc2QBSAAAAAABAAJ3Byb29m
- QGFyaWFkbmUuaWRodHRwczovL2dpdC5zci5odC9+ZHp3ZHova2V5b3hpZGVfcHJvb2Y0FIAA
- AAAAEAAbcHJvb2ZAYXJpYWRuZS5pZGlyYzovL2lyYy5oYWNraW50Lm9yZy9kendkelcUgAAA
- AAAQAD5wcm9vZkBhcmlhZG5lLmlkaHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vZHp3ZHovMGIx
- N2M2ZDk0ZjM2OGJlZDJhM2M2NTk4OTMxNDhlM2UzFIAAAAAAEAAacHJvb2ZAYXJpYWRuZS5p
- ZGRuczpub3QuZHp3ZHoubmV0P3R5cGU9VFhUNBSAAAAAABAAG3Byb29mQGFyaWFkbmUuaWRp
- cmM6Ly9pcmMubGliZXJhLmNoYXQvZHp3ZHoxFIAAAAAAEAAYcHJvb2ZAYXJpYWRuZS5pZGh0
- dHBzOi8vbG9ic3RlLnJzL35kendkegAKCRAo4momUWUL9gZ7AP92NUwydt7PvXE3nJxrzc8z
- zXy7932PUcqWi0EyyL0g6gEA92OwaOXjsJEj9SQT6L2rVs48M6NLTsTWBYeULHt7SQvOOARo
- ugkYEgorBgEEAZdVAQUBAQdAKREKv3RUs0sVu41DJHmRm2BWii+JVkscG4l9YlrL/mkDAQgH
- wn4EGBYKACYWIQTrF/X+CBTnXInjtS0o4momUWUL9gUCaLoJGAIbDAUJAO1OAAAKCRAo4mom
- UWUL9tKpAP4hrnUCmd/w22Huur8UIr1ipOPUbnKOEbNEEroYL4JmJwD+IijYhfW2lQurN3VD
- 16zziWtajA+YA/n+hMg9izVgXwc=
-In-Reply-To: <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------BMTVIp0f79s511iRogKGtTVJ"
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <wepvktnkiofwnp2xyifkr3mcs4gjdqafvvydyelv5wurmedrnv@zqn7e5g6ksmj>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------BMTVIp0f79s511iRogKGtTVJ
-Content-Type: multipart/mixed; boundary="------------c9LgEiEL390hwNGdBfjqf2xe";
- protected-headers="v1"
-From: dzwdz <not@dzwdz.net>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- Linux API <linux-api@vger.kernel.org>, ej@inai.de
-Message-ID: <b89c3f75-0b70-4620-b525-b264adb74c7b@dzwdz.net>
-Subject: Re: [PATCH 0/2] man7/ip.7: Clarify PKTINFO's docs
-References: <cover.1763130571.git.not@dzwdz.net>
- <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
-In-Reply-To: <vbdfw7ecw4mw4jlvcv4evtj7ngeqbxenr5wzxl56sn5d6ducw3@yomryb4vbtr5>
+On 11/24/25 at 05:56pm, Alejandro Colomar wrote:
+> Hi Baoquan,
+> 
+> On Fri, Oct 17, 2025 at 08:31:10PM +0800, Baoquan He wrote:
+> > This update the description about default priority value which is
+> > changed in kernel.
+> > 
+> > Link: https://lore.kernel.org/all/20251011081624.224202-1-bhe@redhat.com/
+> > Signed-off-by: Baoquan He <bhe@redhat.com>
+> > Cc: chrisl@kernel.org
+> > Cc: baohua@kernel.org
+> > Cc: alx@kernel.org
+> > ---
+> >  man/man2/swapon.2 | 5 ++---
+> >  1 file changed, 2 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/man/man2/swapon.2 b/man/man2/swapon.2
+> > index df5e8d8c7ec6..20e213827733 100644
+> > --- a/man/man2/swapon.2
+> > +++ b/man/man2/swapon.2
+> > @@ -60,9 +60,8 @@ These functions may be used only by a privileged process (one having the
+> >  capability).
+> >  .SS Priority
+> >  Each swap area has a priority, either high or low.
+> > -The default priority is low.
+> > -Within the low-priority areas,
+> > -newer areas are even lower priority than older areas.
+> > +The default priority is the lowest,
+> > +and all default areas share the same priority value, -1.
+> 
+> Please document the old behavior in the HISTORY section.
 
---------------c9LgEiEL390hwNGdBfjqf2xe
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Sure, I will send a new version once the relevant kernel patches are
+merged into linus's mainline kernel. Now, it's in Andrew Mortan's MM
+tree, the commits are temporary.
 
-T24gMTEvMTgvMjUgMTQ6NTEsIEFsZWphbmRybyBDb2xvbWFyIHdyb3RlOg0KPiBEbyB5b3Ug
-c3VnZ2VzdCBtb3ZpbmcgZWFjaCBzb2NrZXQgb3B0aW9uIHRvIGEgbWFudWFsIHBhZ2UgdW5k
-ZXINCj4gbWFuMmNvbnN0Lz8gIEkgdGhpbmsgSSBhZ3JlZSB3aXRoIHRoYXQuICBUaGVyZSdz
-IHByZWNlZGVudCwgYW5kIGl0IG1ha2VzDQo+IHRoZSBwYWdlcyBtb3JlIHJlYWRhYmxlLg0K
-DQpJbiBnZW5lcmFsIC0geWVzLCBkZWZpbml0ZWx5IQ0KDQpIb3dldmVyLCBzdHJ1Y3QgaW5f
-cGt0aW5mbyBjYW4gYmUgcGFzc2VkIHRvIHNlbmRtc2cgZXZlbiBpZiBJUF9QS1RJTkZPIA0K
-aXNuJ3Qgc2V0LCBzbyBJIGRvbid0IHRoaW5rIGl0IHdvdWxkIG1ha2Ugc2Vuc2UgdG8gZG9j
-dW1lbnQgaXQgaW4gZS5nLiANCklQX1BLVElORk8oMmNvbnN0KSAtIGl0IHNob3VsZCBwcm9i
-YWJseSBnZXQgaXRzIG93biBtYW5wYWdlIGluIG1hbjJ0eXBlLg0KVGhhdCBvcHRpb24sIGlu
-IHR1cm4sIG9ubHkgbWFrZXMgc2Vuc2UgaW4gdGhlIGNvbnRleHQgb2YgdGhhdCBzdHJ1Y3Qs
-IHNvIA0KSSB0aGluayBpdCBzaG91bGQgcHJvYmFibHkgYmUgZG9jdW1lbnRlZCBpbiBpbl9w
-a3RpbmZvKDJ0eXBlKS4NCg0KVGhpcyB3b3VsZCAva2luZGEvIGJlIGxpa2UgaG93IGUuZy4g
-UEFfSU5UKDNjb25zdCkgcG9pbnRzIHRvIA0KcHJpbnRmLmgoM2hlYWQpLCBJIGd1ZXNzPw0K
-DQpJJ2QgYmUgaGFwcHkgdG8gdHJ5IHdyaXRpbmcgdGhhdCBtYW5wYWdlIGlmIHlvdSB0aGlu
-ayB0aGlzIGFwcHJvYWNoIA0KbWFrZXMgc2Vuc2UgOikNCg0KVGhhbmtzLA0KZHp3ZHoNCg==
+Will add the old behaviour as you suggested in v3. Thanks a lot for your
+suggestion.
 
+Thanks
+Baoquan
 
---------------c9LgEiEL390hwNGdBfjqf2xe--
-
---------------BMTVIp0f79s511iRogKGtTVJ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQS3V6hRlZD1kB2FLDBjtssx7Ny7DgUCaSULWwUDAAAAAAAKCRBjtssx7Ny7Djd6
-AQDxA5T2+kSltw+aQgN4rQO/TPabZivm+CFgOFoLCG9xGgEA9akeqON+TFwT+dEW45DwQL4rvAlf
-v+ljgXKbqNf1Ogc=
-=SSPn
------END PGP SIGNATURE-----
-
---------------BMTVIp0f79s511iRogKGtTVJ--
 
