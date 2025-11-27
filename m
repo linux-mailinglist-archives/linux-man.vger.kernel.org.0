@@ -1,54 +1,56 @@
-Return-Path: <linux-man+bounces-4335-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4336-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F912C8DEAC
-	for <lists+linux-man@lfdr.de>; Thu, 27 Nov 2025 12:14:45 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CA60C8E2D2
+	for <lists+linux-man@lfdr.de>; Thu, 27 Nov 2025 13:03:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 5C5AE3B0579
-	for <lists+linux-man@lfdr.de>; Thu, 27 Nov 2025 11:14:44 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 19D6D4E3A7B
+	for <lists+linux-man@lfdr.de>; Thu, 27 Nov 2025 12:03:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA44D32AADA;
-	Thu, 27 Nov 2025 11:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2496832D421;
+	Thu, 27 Nov 2025 12:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2FtUAWk"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PDEsWYeo"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98182E7BAA
-	for <linux-man@vger.kernel.org>; Thu, 27 Nov 2025 11:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A55301718
+	for <linux-man@vger.kernel.org>; Thu, 27 Nov 2025 12:03:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764242082; cv=none; b=YqAujSbALqask4UdXbH5TlEU0nU86t2QyJNH+pue6x9bXm2Qn0//2Rzat9lnLWqi9cdv1Ody3o6IPn2eE4ShCF0AgbO/DKIooIJWDu7jMb0fxs6+fRSk22jfv5Uz7N9HzPKNVeP0kkJe9E1VkPNeYHklG7zN8OfyCvC5gnbwKhU=
+	t=1764245018; cv=none; b=SmiZJqtYvbSmxCCg/Va1XCCzGIbcWfb9tAyYTKMlzAc/X88mjxwtCaorO//9b3/ags+tZMu+1Tp2JwT+UhImtmWcGQdtMI8ecc7BE3Wchw0k2DxQlhprmgL0abZuiVPDJMTOZKOgP9JjzYotf8FDsKRzvhZRa1k2csVpmyzltAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764242082; c=relaxed/simple;
-	bh=WidrzGIJuwX3tCK6e1dSnGjZxaUwx3pg59Hms5qSkX4=;
+	s=arc-20240116; t=1764245018; c=relaxed/simple;
+	bh=523Fefl21kbxL5mE2x8SAWJ6nNam0YQwlFfAq1cGL8k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N4vwlw0/bXil8MZQt///bqdrMXpw1zyfEmIZ8K6icYlyBLzpZgwqbfJO5ThOkJYA4jmjeyaeWCOULx2hcmRMRgXHgQi9yeZOBbs2Bg8SsXtjfMiqtkhDxNOoDlGRt4x7qMYv7rCXXzr2nyLlmEOKBSZZ1Ka+fJY25B0ZGpPNBgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2FtUAWk; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD20C4CEF8;
-	Thu, 27 Nov 2025 11:14:41 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=NP89/IQPWIXMhqCSm/2lfVTcChkfMOzp09RRK0+BhZIbohRfVXJle1rKe4LmjrgjYwK9BZuh7ve1mswKohZ8FxbcXMqrqerjhfuukspqGtteg4GKrWlUxZTqFYSPBcSIW+EuOC93vDhR7sD6ub7xgDYd5C67m7CFBDwpe/FMzpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PDEsWYeo; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF16CC4CEF8;
+	Thu, 27 Nov 2025 12:03:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1764242082;
-	bh=WidrzGIJuwX3tCK6e1dSnGjZxaUwx3pg59Hms5qSkX4=;
+	s=k20201202; t=1764245018;
+	bh=523Fefl21kbxL5mE2x8SAWJ6nNam0YQwlFfAq1cGL8k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m2FtUAWkED/xXUW2q8CLPgI1fsBEIu3tUvQPfJYLHK6hDnTx/FXyAbhatgwKZgun+
-	 dkU1fWGTfvqXPxV9H3bwx8cAGX9IDMVWJWd2kboCc7+fguLSRECpHlVRlwWtN2Tafn
-	 iGOwCOfqN2UdMkd431XNvOQuHttg223GfVSYNlzkiK9PZuBkFLoIhFOWgd7JP+93jb
-	 oMWiLRnQheXuA4bRBs8xt4k1OL/vclPSSkSp9ggK0IfEannJv/mpmZvZk9Rnan8XMR
-	 TGwvmx/nQw7/u3QuXBl2P11epBK7gazmwJb7seA5wNhSRzS9AsJcB7L7x+Uq28iRjc
-	 P+waGCwAc1qyQ==
-Date: Thu, 27 Nov 2025 12:14:38 +0100
+	b=PDEsWYeol/i5hmiUU3/UG1UaI6KRG0b5uD7rWw3WtZAwvgsr1ZCMIVnCvrp9rVdFa
+	 6n3YAW7gN9eCTEI6Rog/kVTciz6vBv3tO/4GsUvvwCojhrCtOW4yQ1LoWEVRlOEwj+
+	 +kF81KFJqjebNYGmP7/0eL2btO+YIIa6Xn0Taar1NIn0xjRHuBWZg5y7sxkW6crHLO
+	 Xa0G0GefuaeV4tZ/ilALm4GjUQZ5il6dPK+utv6zj6EO8FHI0DtN5C7ZlRNv4BbEj5
+	 6CYK9niV7PVyp+Qn6G6J5uCWFhk+xuiHZJ7FI3ttATUX+/RZeTdyuci62yCwnWhjIy
+	 CIcKjL4DBwuqw==
+Date: Thu, 27 Nov 2025 13:03:35 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Simon Essien <champbreed1@gmail.com>
+To: Yedidyah Bar David <didi@redhat.com>
 Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: Re: [PATCH 0/2] man3/getgrnam: fixes for ATTRIBUTES and ERRORS
- sections
-Message-ID: <ztyzlpiog3ktw56namipeewkcahegfal2by2mrzsroinwu2lew@fkoopdecfivx>
-References: <BYAPR10MB33665B84E703359D38E21F84AEDFA@BYAPR10MB3366.namprd10.prod.outlook.com>
+Subject: Re: [PATCH] man3/getgrnam: clarify possible errno values when entry
+ not found
+Message-ID: <o4ifxxealq5qkvj4k6jwkswiob5yaswxufk7gnoxx4lda3bryd@52dt72skwfyv>
+References: <BYAPR10MB33664883B12034BFE939B74EAEDFA@BYAPR10MB3366.namprd10.prod.outlook.com>
+ <qidkusrnwxbco2sqc6i2bxlh2teegyy73wyfrxgp2f2ifaot5y@sfupwcfhkonz>
+ <CAHRwYXuJf=ZFFED=5ras5L+eH_L4tjdBcyxgwHkXMApQNVieLw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,79 +58,112 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ygnm4aezikobddvr"
+	protocol="application/pgp-signature"; boundary="pdnudfqhysgvh6cb"
 Content-Disposition: inline
-In-Reply-To: <BYAPR10MB33665B84E703359D38E21F84AEDFA@BYAPR10MB3366.namprd10.prod.outlook.com>
+In-Reply-To: <CAHRwYXuJf=ZFFED=5ras5L+eH_L4tjdBcyxgwHkXMApQNVieLw@mail.gmail.com>
 
 
---ygnm4aezikobddvr
+--pdnudfqhysgvh6cb
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Simon Essien <champbreed1@gmail.com>
+To: Yedidyah Bar David <didi@redhat.com>
 Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: Re: [PATCH 0/2] man3/getgrnam: fixes for ATTRIBUTES and ERRORS
- sections
-Message-ID: <ztyzlpiog3ktw56namipeewkcahegfal2by2mrzsroinwu2lew@fkoopdecfivx>
-References: <BYAPR10MB33665B84E703359D38E21F84AEDFA@BYAPR10MB3366.namprd10.prod.outlook.com>
+Subject: Re: [PATCH] man3/getgrnam: clarify possible errno values when entry
+ not found
+Message-ID: <o4ifxxealq5qkvj4k6jwkswiob5yaswxufk7gnoxx4lda3bryd@52dt72skwfyv>
+References: <BYAPR10MB33664883B12034BFE939B74EAEDFA@BYAPR10MB3366.namprd10.prod.outlook.com>
+ <qidkusrnwxbco2sqc6i2bxlh2teegyy73wyfrxgp2f2ifaot5y@sfupwcfhkonz>
+ <CAHRwYXuJf=ZFFED=5ras5L+eH_L4tjdBcyxgwHkXMApQNVieLw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <BYAPR10MB33665B84E703359D38E21F84AEDFA@BYAPR10MB3366.namprd10.prod.outlook.com>
+In-Reply-To: <CAHRwYXuJf=ZFFED=5ras5L+eH_L4tjdBcyxgwHkXMApQNVieLw@mail.gmail.com>
 
-Hi Simon,
+Hi Yedidyah,
 
-On Thu, Nov 27, 2025 at 01:12:15AM +0000, Simon Essien wrote:
-> Sir,
+On Thu, Nov 27, 2025 at 08:34:20AM +0200, Yedidyah Bar David wrote:
+> On Thu, Nov 27, 2025 at 2:28=E2=80=AFAM Alejandro Colomar <alx@kernel.org=
+> wrote:
 >=20
->   These two patches implement the requested documentation fixes for the g=
-etgrnam(3) man page.
->  1. The first patch updates the ATTRIBUTES table to correctly include the=
- thread safety status of the getgrnam_r() and getgrgid_r() functions (MT-Sa=
-fe locale).
-> 2. The second patch clarifies the ERRORS section for the non-reentrant fu=
-nctions (getgrnam and getgrgid) to explain the different errno values (0, E=
-NOENT, ESRCH, etc.) that may be returned when a matching group entry is not=
- found, referencing POSIX behavior.
->  Please let me know if any further changes are required.
->  Thank you,
+> > Hi Simon,
+> >
+> > On Thu, Nov 27, 2025 at 12:19:20AM +0000, Simon Essien wrote:
+> > > man3/getgrnam: clarify possible errno values when entry not found
+> > >
+> > > Update ERRORS section to clearly separate the POSIX-mandated '0' retu=
+rn
+> > for 'not found' from the various non-POSIX errno values encountered in
+> > different UNIX implementations.
+> >
+> > The patch does much more than this.  Please send separate patches for
+> > logically separate changes.
+> >
+> >
+> > Have a lovely night!
+> > Alex
+> >
+>=20
+> My gmail account classified the original message in this thread as SPAM, =
+as
+> well
+> as the other message from this sender.
+>=20
+> I looked at one of them, thought that gmail got it wrong and pressed
+> "report not spam".
+>=20
+> Then I looked at the other message and started suspecting more. Searching
+> the net
+> for the email address strengthens my suspicion.
 
-Please revise the patches.  They include a lot of bogus whitespace
-changes.
+Thanks!
+
+> I suppose the recent discussion about preventing use of AI for submissions
+> didn't
+> help much so far in actually preventing these, and stronger means will be
+> needed :-(.
+
+Yup, I'm suspecting, especially after v2 is also crap.
+I've also seen a patch from someone else containing an example program
+containing weird UTF space characters that don't even compile.
+I suspect that was pasted from some AI chat.  We'll have to be careful
+about it.
+
+About stronger means, I'm not sure we can enforce much.  I'm open to
+suggestions.  For now, I'll remain careful and skeptic about anything
+that looks suspicious.
 
 
 Have a lovely day!
 Alex
 
 >=20
-> Simon Essien
->=20
-
-
-
+> Best regards,
+> --=20
+> Didi
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---ygnm4aezikobddvr
+--pdnudfqhysgvh6cb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkoMp4ACgkQ64mZXMKQ
-wqkNtg//SUwak+SKY+hdBwjRhfni44OcXmkcKwrgaD3ZTcXWA6pv8p+8vZr9+jRc
-0mQxhLWEMRLenDxw2FFZyHTTGylUi8uJI5o0nTm/TVJeV9/v7v4lWTTGBOsGPyY/
-/3S0iL33PiB6Z7Rg+BnsliOdy58lRGn47QvmGsmC9HMRWAC7CcY3WIPhwvl1klzk
-NqdlMLLARWOcYpT5iTfOyKemKuNDTpC1vMwQHz0Bc7+GY1E5ciM1CQqfodTlc0+E
-q6tGh7kwmfX5NSTLvFhUkPkB7xbYagMybdjmR5QjFOaTsF5LQFAzSrR/10aQzp0P
-yzs4+9d+6RHdeU2HVyOYAAzzyKTZALsq4NSWQMeAId+d22TQirwTTlMm/QR/o+gj
-Ef+X5RF/eHC7ItLj6dVsKu3BtwDZ2rPQpPM3sLkMMwiBaGcktNH3866E9/TbeJk7
-kPDPw9o2mD7VAs1BzJ9Fmit2o+PAFK99jW96gPN6e2k04tBdsiBiTwKKAuoQCm4u
-QCZOpn1WnMGj4O3LJS3vdn/WFbpRt9XURZ60YFM3h3q7H2isj0fFZJKNZAYmcwXA
-/c0PswnlAVjFgrJbRKQTOlRpZzhBIb+c63tKCvHrmNsIuaxOy2G2kjE9l+TfOjQj
-6r38nK6bkgT8sO5u8CH0wt3Wo8g2RGIvb19ibZ7b6VUSuJLJV7A=
-=9dve
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmkoPhYACgkQ64mZXMKQ
+wqlrgg/+PpmBFmQWcnM7SKE4NbZ2Kd3/w7x0ZcZwhGA+IKEuuwFBqQ3DE5skz5c5
+IY1MYjnPHZOoYl5ke7ZY/6M2jVfqxMRYnE6zLS/ItOUJwEnyIHQHOUFoh3dIy+/M
+vgmCLDliwKyoJAJpw8XQe8jS3S/XAqK7Ia9isyGZD7DqsKus6JegvVGU8IiZlumI
++EXe1lZDwsBuoT0wf6K3AyCWMm8j7aN9u9t6nqpWN8Qlljh9i0jNtct3//pyNcA9
+9xqyNGyEWeqVZ1uI60woLohUgnh/OPQMfEM2u7E1QUKZ5kUslxpPhI/DSl8D0cMm
+myLA+TqTTwYgf9OyPHFhLuo29zpzNvK844SIL0sovTvCMCfOOyyjYEc/i27VJbMP
+odUM/FT3CjgohZbWmWMBNXJttYtLsoWkw0xhnO8xF5In0TLNDm3FJn2iapnfMZ8w
+FKEQXNHVQV2uIaMju1v/O0MUivqXssBcRO63pKbgi8aNcv/A5RhSZIxyRcrfpBD6
+anXeizWIcr0vLvPk5usQyXNEKXwxbBRZ2QCQM2EZxKWbrqI/cuz+uPGOp9NLvTq8
+07FdO7afvcsFjGwsYO2eon9P2d7JULxn1DHCbk7KYUKr4aM3jmi/tF8UOwIkk5On
+HmaC3gi6+Tv+PEID7AdLGpmlviq93rmYLjm5X9w1BvMFSgXQsjg=
+=d2e1
 -----END PGP SIGNATURE-----
 
---ygnm4aezikobddvr--
+--pdnudfqhysgvh6cb--
 
