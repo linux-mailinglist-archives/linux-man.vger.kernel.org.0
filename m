@@ -1,177 +1,177 @@
-Return-Path: <linux-man+bounces-4354-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4355-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AFAEC98EE2
-	for <lists+linux-man@lfdr.de>; Mon, 01 Dec 2025 20:57:59 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B1C5C999BA
+	for <lists+linux-man@lfdr.de>; Tue, 02 Dec 2025 00:41:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 00EFB3A2622
-	for <lists+linux-man@lfdr.de>; Mon,  1 Dec 2025 19:57:57 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id D38584E10DB
+	for <lists+linux-man@lfdr.de>; Mon,  1 Dec 2025 23:41:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77ADE260578;
-	Mon,  1 Dec 2025 19:57:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E9212877E8;
+	Mon,  1 Dec 2025 23:41:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bernat.ch header.i=@bernat.ch header.b="SJkyGOYB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hPq7YqZ0"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WLuaBXEN";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ocIF3PdS"
 X-Original-To: linux-man@vger.kernel.org
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9B925EFBB
-	for <linux-man@vger.kernel.org>; Mon,  1 Dec 2025 19:57:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A69192B75
+	for <linux-man@vger.kernel.org>; Mon,  1 Dec 2025 23:41:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764619064; cv=none; b=W84FWMwmpqJuDGaveyBV6kTKNQuBUa2vTNFTL6mDUyX4RABhIRdDxwEqgNb0eiQ+AOcsmFF8fisNd97sxN8sngEJ2bFzQiO9jkfusTyRa2g9gGvMowF8PzWtPkBDY54WZrnhPyU3V4+JWqBzUaETcdEV9Mvp2i6weyG86jnjZgY=
+	t=1764632469; cv=none; b=Hr9BBlAJ8irmSHzfGPT3VoweVpE4IEtETiK4UbVBtmQWNlks7sz+5L91qXnsSDpJ+hT6e/hFH7ilBNoQC54VMK+q0XOsT7h68Jr3c5mJA7115wtNTmTUqwmcPEOuUMM/HLkmaZSOTno2+zogVuysJw8G8JulXqDDoFH8LZIuVIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764619064; c=relaxed/simple;
-	bh=43K83QTUXPV8nZCAdOBfQqLpeDHpiazl4sGznH5Q1y0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JQ6895HUlMVfR4IgbOQ/3Z/5iHJW/0jmAMuBmcUp9E/12U5+xfnxOipZhH7TrXqk71SoT1mJVsy63xm9WjUK8slp18SJi3jtLpm+Dy8+aTJZLGIuXJSkARm3RP//bOFNlYrtS7WvMCeUPN0CaBLDnfjdihvjsBxsVgVX3uiS3s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bernat.ch; spf=pass smtp.mailfrom=luffy.cx; dkim=pass (2048-bit key) header.d=bernat.ch header.i=@bernat.ch header.b=SJkyGOYB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hPq7YqZ0; arc=none smtp.client-ip=202.12.124.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bernat.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luffy.cx
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 010C07A01CE;
-	Mon,  1 Dec 2025 14:57:40 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 01 Dec 2025 14:57:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bernat.ch; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1764619060; x=
-	1764705460; bh=6fTcc3P42UdS7RFYh8Fj45c7AROggpT65XwolsnQBlg=; b=S
-	JkyGOYBIKYG1ZjcVzcbX0+s5+Asxu04LvCMuavglzwnv4U2DejL0+WE2IU2u4/pj
-	+JrL/21Ju1BKKDTz5uGOIzz7/TV6cba6qiGNZ9xPcDlPlTQNl8F2bZS45MEl/H3i
-	MQZ1KdoongrAg+KBdk5+febobYEm+V/j7GC8Q/Q+mQc216fXHgMLQbbbf/m3c+bp
-	tYryQTN92RKJW7hGNkKUDuj0Y+Nz41tLjW2XkxCkqQusowyeWCu8r4nprqybj5AY
-	XgvzrsziCkb06CgSdXUgA9DZ/2wU+KKFKk5fdj+EIcoad4faE6PNFIzD7ODDy0iw
-	cDXgueB+4ji0F3HebIDyg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1764619060; x=1764705460; bh=6
-	fTcc3P42UdS7RFYh8Fj45c7AROggpT65XwolsnQBlg=; b=hPq7YqZ0AoIhhjeeT
-	GNzRPVC/5QJt2wZ93V84DioLnCGsPvdE5BmiPgdjLs98ZAnHnDiHtACyMWHxlymQ
-	bxZ4fOMXcJ4qU9mATtLuzZKM2kO94VvEksLAzkppAsOsAXiWCJp/pPrS9G3P/WrN
-	sCIMjTshgM9cyUTsIJm6ryxlzRw5Nt88CGvo8ZOf4xJ4QqX4ktavKTx924h9hzom
-	V3GCkF+BcEhSn9ad8lly8+iFMSjCWChHluRXhlS56zMMEbzxGCZ8h3Veajdl7/ov
-	/gFT8OVArfrOP5p8q8AY6IPkb6X/OtBREjeKsxD0xcW3K9mpIQp5UfwWuCwUn8nX
-	6DO2Q==
-X-ME-Sender: <xms:NPMtaaXyQQy6iMINZX9CY73wHAHNyBhoknsBKk6HqlLuzHd4KXYMwQ>
-    <xme:NPMtadd0XVlBJMGHd_ZA-ksL9sfyUaZQZLHZc-BsrXaazD0lLfFH9dpheB_kjBMoY
-    ymMwUMU69Ob3S_elZ04icOQNmZ313bP6ZTkFziL--0LFqa3Kc4woQ>
-X-ME-Received: <xmr:NPMtaWt8Cs-MPqMrhLFHm6-8dDYz4wxLx17Lhxk2KisbpRqTnMP2D4O7Afuo3Xz6kF0ZKZZGiOFTyKtZdBcjEWAKACyZ_qrQGMTTL68H>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvheekieduucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepgghinhgtvghn
-    thcuuegvrhhnrghtuceovhhinhgtvghnthessggvrhhnrghtrdgthheqnecuggftrfgrth
-    htvghrnhepfedvgeegledtvdegiefftdetheffleehteethfefvdeguedvleeljeduleej
-    tddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepsg
-    gvrhhnrghtsehluhhffhihrdgtgidpnhgspghrtghpthhtohephedpmhhouggvpehsmhht
-    phhouhhtpdhrtghpthhtohepvhhinhgtvghnthessggvrhhnrghtrdgthhdprhgtphhtth
-    hopehkrghfrghisehfsgdrtghomhdprhgtphhtthhopehkrhgrihhgsehgohhoghhlvgdr
-    tghomhdprhgtphhtthhopegrlhigsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehlih
-    hnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:NPMtac9FhJU_Kh1vLC_r2H-f3fagZFWqg0WHspvgicw-JeHvHOSi_g>
-    <xmx:NPMtaR1w85HlGYdDKOsMfCIOUHZjFRuH4wMB8etTGVvOJ0STaMebVw>
-    <xmx:NPMtaRAkGWBw0rjpqADw_VsSMKDV0UJEeFFlcjTLTtaBdnK8bim27g>
-    <xmx:NPMtadcCFPaGXw65CtyTTRA1KgaWSUo8NRPfXZscebhxsjFn2vOG4w>
-    <xmx:NPMtaZUhj_1zMp84VF9fUi-XB0jvktsEk3VPd3OEYMKpWXQJr5NRH-H9>
-Feedback-ID: id69944f0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 1 Dec 2025 14:57:40 -0500 (EST)
-Received: by neo.luffy.cx (Postfix, from userid 500)
-	id 1B8FD3D7; Mon, 01 Dec 2025 20:57:38 +0100 (CET)
-From: Vincent Bernat <vincent@bernat.ch>
-To: Alejandro Colomar <alx@kernel.org>,
-	linux-man@vger.kernel.org,
-	Martin KaFai Lau <kafai@fb.com>
-Cc: Vincent Bernat <vincent@bernat.ch>,
-	Craig Gallek <kraig@google.com>
-Subject: [PATCH v3] man/man7/socket.7: fix documentation for SO_ATTACH_REUSEPORT_EBPF
-Date: Mon,  1 Dec 2025 20:57:15 +0100
-Message-ID: <20251201195726.3669864-1-vincent@bernat.ch>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251027131711.186482-1-vincent@bernat.ch>
-References: <20251027131711.186482-1-vincent@bernat.ch>
+	s=arc-20240116; t=1764632469; c=relaxed/simple;
+	bh=csGZSp7h4xOSBiuTK/IyKzY4ps2XB3yaoslB/16XKtk=;
+	h=Message-ID:Date:MIME-Version:From:To:Subject:Content-Type; b=HH8uL4VWM7ahBQu+COnUSjxVA415wY3h0AOQGekzchONdOKxPr+YYVxx3/dUnPimAGw/DWJwvqqYEGsUMN72xKJ4JFzomBUa+pjZX51adY7MBqqwUKqCAmViddMa0TfVXr5o997/Hlh6Na18nIu/zk673eh/FbXmU8K1OI87P6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WLuaBXEN; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ocIF3PdS; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1764632462;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
+	bh=/HQV/TX5pndgsR1eSAoYa3UUoWB1fizbnoDJJft3/Uw=;
+	b=WLuaBXENrWIFDs1AEVJ1IJzKVaSpM226p3kyjyC6d+QHaV/b/lQwK9aU/gCJV9JPTIErWH
+	EkrQhkJj8wt/x8Hb4n5j/pOGD3EhoQzOyvsQYwNKVb9p20FLQlOkzXyajYxHjKXSHBZ3vm
+	SShux2aSDG/molY1UtFH0pxZ7wGVlzs=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-677-DyW_J8rcNOiuI8ZjyXuDGA-1; Mon, 01 Dec 2025 18:41:00 -0500
+X-MC-Unique: DyW_J8rcNOiuI8ZjyXuDGA-1
+X-Mimecast-MFC-AGG-ID: DyW_J8rcNOiuI8ZjyXuDGA_1764632460
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-4edad69b4e8so73757531cf.1
+        for <linux-man@vger.kernel.org>; Mon, 01 Dec 2025 15:41:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1764632459; x=1765237259; darn=vger.kernel.org;
+        h=content-transfer-encoding:organization:autocrypt:subject:to
+         :content-language:from:user-agent:mime-version:date:message-id:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/HQV/TX5pndgsR1eSAoYa3UUoWB1fizbnoDJJft3/Uw=;
+        b=ocIF3PdSxui+ZBFOIsfWLM8QRC8D+BBnz2gyzvnxqSFDctPHe2+7UW0SZntId4prqC
+         OnnfGUKfkLRdy3bc0BSK0nWOCSQnXCyF0hCg8HSJodc8p68tU2f5f5tx6wU3fdPEMGb1
+         GXxgmrsPM8qw72jxswg2orbtaFIWliWclpOZcCTQWfi9VvosK1nKumTR+ZKX3ItyzY8A
+         puknUMY7xTazMC7Ylv6gEbouLJbshjMUAv+1CxDZ1yO4RmDbITmlaznMAx6npYbzyAUY
+         C5JTk4ZsfKIuTTpttMjZWFLS2JUWTJaEi5fVzQb8qBui6oGlkmKXGia1jM/ouw5ElxcZ
+         fxxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764632459; x=1765237259;
+        h=content-transfer-encoding:organization:autocrypt:subject:to
+         :content-language:from:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/HQV/TX5pndgsR1eSAoYa3UUoWB1fizbnoDJJft3/Uw=;
+        b=TWgverrZGnCWAD7QKh69D4ws/IRA9HhmERyad4xwMCZLijf7xBK9qHw6lGZKnZDNan
+         Kz8GvTlTz3G/ANWAUc/DR9KQW6NlzD/CB8NTdj39RF3GR7Er5+/ELAYRVpWuGWHcC+c7
+         8Je6G/0Jt1rnxmk2U9xi4Hm74xufWgHEDjSzIcKFUNlf1m3d1x17lnzT+OJZS+Q1Smsv
+         zpT3hMXNEzk6XnhtxVGfg9OieQpo5cqUfAQYtJaZi4grz+Axf5es9pZTXjTCdNh4nHOF
+         IymXe4FwVgxXm1tBm6bl2pZF2Rrt+7NEsZBoHFJ9rc22cAYYBnxV/CSBanU45lRjmQ4V
+         FTUA==
+X-Gm-Message-State: AOJu0YxCfwf+8PGaAEAyyYLDbmV9oxdli2WGZb32Gji0qwkXkR8fp3l+
+	SdGo4Vn7LuTkqmFKYnuUh46w9G8gORHyFh/Ta9QPArswAW+fEugjWo/3iuQSDw9Iz6zY0U+ImqU
+	6UIy/iTXjY/HwBXk5FOYe+w8mnjr/Zxq6ULGfhYpsYng56UKzfvc0b4mfvjylI7H9skkuM+7oX3
+	XTgvWS8FONhKUMj98tzc2qGhzWeSTpgZsU1egJnzULw7M=
+X-Gm-Gg: ASbGncsbAsk7/1TmjPLLarkA2H2NAw6SHjzkLD28BD9KCN070CQLgDcxOg+QOVzXtDJ
+	x8FC2l5xHXneDayw2nm4XVzs93yKGtC9XDtetwSle6K0olBeD4WS62vGGetvzhz3iDVxLtfkVH0
+	JxQJq80LJ+IXAfjDn7LPuDd1IC+PtEiVQbo/YCmC8TYsv/Q0lWAFAmuGIaXqhUdvH1YSbnv605F
+	T3tdvS2Kcd1AEBCQS2ylsgbMZd6dmwIN3Ix0wJ6lYUjuLSCyA98DGUKt5XVd6fnRmEOp+vzCwq0
+	i2dgU3cf2GFlhU9kt6b1Au46z3ZgS5YRyYI6amD68/N/odsmNmIjikTMvvyO+3hmCzyVQrdxeiw
+	/fySeA8EF16g=
+X-Received: by 2002:a05:622a:1454:b0:4ee:24ae:a84 with SMTP id d75a77b69052e-4f00894e978mr7564151cf.21.1764632459471;
+        Mon, 01 Dec 2025 15:40:59 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF4zEQ5CKHOLk1VwDAMqTQHZ1DJ6/IO6XT7c2LE7QxoPnT/3yb640NjkWylb0cVTvyaa6z6Qg==
+X-Received: by 2002:a05:622a:1454:b0:4ee:24ae:a84 with SMTP id d75a77b69052e-4f00894e978mr7563791cf.21.1764632459040;
+        Mon, 01 Dec 2025 15:40:59 -0800 (PST)
+Received: from [192.168.0.241] ([198.48.244.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4efd2f9a3b5sm84409471cf.1.2025.12.01.15.40.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 01 Dec 2025 15:40:58 -0800 (PST)
+Message-ID: <b28be8a6-0026-4911-80ea-e39d56cf2234@redhat.com>
+Date: Mon, 1 Dec 2025 18:40:57 -0500
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Carlos O'Donell <carlos@redhat.com>
+Content-Language: en-US
+To: linux-man <linux-man@vger.kernel.org>, Alejandro Colomar <alx@kernel.org>
+Subject: Downstream Fedora user request for additional see-also in "man 5
+ proc"
+Autocrypt: addr=carlos@redhat.com; keydata=
+ xsFNBFef5BoBEACvJ15QMMZh4stKHbz0rs78XsOdxuug37dumTx6ngrDCwZ61k7nHQ+uxLuo
+ QvLSc6YJGBEfiNFbs1hvhRFNR7xJbzRYmin7kJZZ/06fH2cgTkQhN0mRBP8KsKKT+7SvvBL7
+ 85ZfAhArWf5m5Tl0CktZ8yoG8g9dM4SgdvdSdzZUaWBVHc6TjdAb9YEQ1/jpyfHsQp+PWLuQ
+ ZI8nZUm+I3IBDLkbbuJVQklKzpT1b8yxVSsHCyIPFRqDDUjPL5G4WnUVy529OzfrciBvHdxG
+ sYYDV8FX7fv6V/S3eL6qmZbObivIbLD2NbeDqw6vNpr+aehEwgwNbMVuVfH1PVHJV8Qkgxg4
+ PqPgQC7GbIhxxYroGbLJCQ41j25M+oqCO/XW/FUu/9x0vY5w0RsZFhlmSP5lBDcaiy3SUgp3
+ MSTePGuxpPlLVMePxKvabSS7EErLKlrAEmDgnUYYdPqGCefA+5N9Rn2JPfP7SoQEp2pHhEyM
+ 6Xg9x7TJ+JNuDowQCgwussmeDt2ZUeMl3s1f6/XePfTd3l8c8Yn5Fc8reRa28dFANU6oXiZf
+ 7/h3iQXPg81BsLMJK3aA/nyajRrNxL8dHIx7BjKX0/gxpOozlUHZHl73KhAvrBRaqLrr2tIP
+ LkKrf3d7wdz4llg4NAGIU4ERdTTne1QAwS6x2tNa9GO9tXGPawARAQABzSpDYXJsb3MgTydE
+ b25lbGwgKFdvcmspIDxjYXJsb3NAcmVkaGF0LmNvbT7CwZUEEwEIAD8CGwMGCwkIBwMCBhUI
+ AgkKCwQWAgMBAh4BAheAFiEEcnNUKzmWLfeymZMUFnkrTqJTQPgFAmiCl2sFCRLD5s0ACgkQ
+ FnkrTqJTQPjADA/9EtX1AuwVtpdGqaAqaW3lrOPSqJk5NiI3LiZQFpgVOrMs9VF1BEOGpv2h
+ Cy54VjgUGYX4YnnoocC9FCmUkVqUPPkNJr3iElNJF3oAU/MtLCZCDxeJQY8vRRh4idpc61CO
+ EnE4bl7nFnPiK1YzZhN1nvdIqvKXkzfFPdHUyejoFso3qX1eMfBf7GciPwT9gjIDovUwHN6n
+ 0qsYPxl/eFKleN2hPLDfrucfs/398zAbL5N0EVwrmtG4OZeV6SyN6HiSy7knLW9bg7TMvN8P
+ vvEAJ5CbpgEW90JMGAqb10VAjs2vZehXh+gEqVSAfEjT6rVWZBzUzYCl89eaN+usMDIi7NN0
+ CqIVv6NKH0dIswYC8J5hPeeV2q52d2s1g8NzJHL/3s7Hc+ot10DsOeoJA2bXhuH3LCveQHzs
+ 7Pi0Pm9olLEVVfoo0E2K+oYzb1t1qHBPiR9zcccW7sCFZhDjVtBbFdXXp+bQ+3tqiveMttUB
+ NPKl5AFDoa/0Uc2L7piGQ0fqUaHT24BmOGmlEUUWueqFbln0033t1L02i8lPAMo4Fu1k1akP
+ 3s0x/e/TOaKY9qJb7h5rFe130HrNQS2TzOSKCjaKmCvRxlDRz8xYdVnEmlTvIeG38apgTNJ+
+ moD6aE3qj81BqD1LaR7Dfw07F1TPKbtzswaB+al/iWsK8uOl6P7OwU0EV5/kGgEQAKvTJke+
+ QSjATmz11ALKle/SSEpUwL5QOpt3xomEATcYAamww0HADfGTKdUR+aWgOK3vqu6Sicr1zbuZ
+ jHCs2GaIgRoqh1HKVgCmaJYjizvidHluqrox6qqc9PG0bWb0f5xGQw+X2z+bEinzv4qaep1G
+ 1OuYgvG49OpHTgZMiJq9ncHCxkD2VEJKgMywGJ4Agdl+NWVn0T7w6J+/5QmBIE8hh4NzpYfr
+ xzWCJ9iZ3skG4zBGB4YEacc3+oeEoybc10h6tqhQNrtIiSRJH+SUJvOiNH8oMXPLAjfFVy3d
+ 4BOgyxJhE0UhmQIQHMJxCBw81fQD10d0dcru0rAIEldEpt2UXqOr0rOALDievMF/2BKQiOA7
+ PbMC3/dwuNHDlClQzdjil8O7UsIgf3IMFaIbQoUEvjlgf5cm9a94gWABcfI1xadAq9vcIB5v
+ +9fM71xDgdELnZThTd8LByrG99ExVMcG2PZYXJllVDQDZqYA1PjD9e0yHq5whJi3BrZgwDaL
+ 5vYZEb1EMyH+BQLO3Zw/Caj8W6mooGHgNveRQ1g9FYn3NUp7UvS22Zt/KW4pCpbgkQZefxup
+ KO6QVNwwggV44cTQ37z5onGbNPD8+2k2mmC0OEtGBkj+VH39tRk+uLOcuXlGNSVk3xOyxni0
+ Nk9M0GvTvPKoah9gkvL/+AofN/31ABEBAAHCwXwEGAEIACYCGwwWIQRyc1QrOZYt97KZkxQW
+ eStOolNA+AUCaIKXfAUJEsPm4gAKCRAWeStOolNA+B0WEACEIb+2+irwJzvzwVKha7oB5Dub
+ GCvnHLvvXShYDoHzvajTnLTULWAepp05NiAxI8cP9QNpmj8PPzh1eJ4A53vXogWftATT9N7V
+ WEAqVLo3wYAILfnzIOxr5qro148eY++pLMVxHhqrbol4D0CBG+WSAUZdAhK3hKeuA91sUjGa
+ iSpwnihXhegHzeFcRgyaC+NhQsj8EoUpdSQtlmea5FxcV0jxiAdPS/8TvBsalMHNQTqOBr+Q
+ eyGauXNrS3wT7qVbwNRVdRPHC61qR6RH1TPHAPorZ5p/XQisuxyLXDOJZR0yCsxvqoRWDTJu
+ fb8xLrfLxy/LqtE5JNzG1OJL1Bbu9wwiXTkTyj82Zg1KmrDSdSZUvGa3Q7kk5dG38Iel8LEF
+ a/Ri/cYKhk7XjJ8xHBMB6KCJueItjyv2qG7vokhxm8ep0XQNVR+rIKVJH60TKIKonLXNYfK/
+ znfxUttwFIjjLso6WPHxRjPr1ot1AbgDbuFspRbG7mR2H20ZLjgLPWWAsiHfjyktQ7Dk0hjv
+ r0uSJR1R7X5Cdh3uJCl02Rp1jTZNBDWGVdxA8MSY1ej0yOO+VI8OukA75K0u72wvJD4Dg+Sq
+ 6mzR3XVZmF7FAZNTSV+1GCekJlnCSp4M8HItrojuEtrdH8Ba4WWxK+cIKejqzhwKFpQYBLg9
+ m/A+1AHg4g==
+Organization: Red Hat
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When using eBPF, there are two possible cases depending on the program
-type. Only the first case was described. In the second case, the program
-should not return an index, but a decision (SK_PASS/SK_DROP). The socket
-should be selected using the sk_select_reuseport helper.
+Alejandro,
 
-Cc: Craig Gallek <kraig@google.com>
-Signed-off-by: Vincent Bernat <vincent@bernat.ch>
----
- man/man7/socket.7 | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
+Forwarding here for discussion.
 
-diff --git a/man/man7/socket.7 b/man/man7/socket.7
-index b4d58a23d5da..e4e85dc9345d 100644
---- a/man/man7/socket.7
-+++ b/man/man7/socket.7
-@@ -354,20 +354,34 @@ the sockets in the reuseport group (that is, all sockets which have
- .B SO_REUSEPORT
- set and are using the same local address to receive packets).
- .IP
--The BPF program must return an index between 0 and N\-1 representing
-+The classic BPF program must return an index between 0 and N\-1 representing
- the socket which should receive the packet
- (where N is the number of sockets in the group).
- If the BPF program returns an invalid index,
- socket selection will fall back to the plain
- .B SO_REUSEPORT
- mechanism.
--.IP
- Sockets are numbered in the order in which they are added to the group
- (that is, the order of
- .BR bind (2)
- calls for UDP sockets or the order of
- .BR listen (2)
- calls for TCP sockets).
-+.IP
-+The extended BPF program can be of two types:
-+.B BPF_PROG_TYPE_SOCKET_FILTER
-+or
-+.BR BPF_PROG_TYPE_SK_REUSEPORT .
-+In the first case, the extended BPF program must return an index between 0 and N\-1,
-+like a classic BPF program.
-+In the second case, it must return an action
-+.RB ( SK_PASS
-+or
-+.BR SK_DROP )
-+and the
-+.B bpf_sk_select_reuseport
-+helper can be used to select the socket which should receive the packet.
-+.IP
- New sockets added to a reuseport group will inherit the BPF program.
- When a socket is removed from a reuseport group (via
- .BR close (2)),
-@@ -386,7 +400,10 @@ takes the same argument type as
- .BR SO_ATTACH_BPF .
- .IP
- UDP support for this feature is available since Linux 4.5;
--TCP support is available since Linux 4.6.
-+TCP support is available since Linux 4.6;
-+support for
-+.B BPF_PROG_TYPE_SK_REUSEPORT
-+program type is available since Linux 4.19.
- .TP
- .B SO_BINDTODEVICE
- Bind this socket to a particular device like \[lq]eth0\[rq],
+After the split-up of the proc information into various pages
+we fielded a downstream Fedora question about where the
+information went.
+
+You can see the request here:
+https://bugzilla.redhat.com/show_bug.cgi?id=2405343
+
+The request for enhancement is basically that the "see also"
+should reference all the pages that were split and moved.
+
+Thoughts?
+
 -- 
-2.51.0
+Cheers,
+Carlos.
 
 
