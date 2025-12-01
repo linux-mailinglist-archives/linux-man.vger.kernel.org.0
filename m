@@ -1,54 +1,56 @@
-Return-Path: <linux-man+bounces-4349-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4350-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id A73CBC97BC7
-	for <lists+linux-man@lfdr.de>; Mon, 01 Dec 2025 14:55:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09037C97C27
+	for <lists+linux-man@lfdr.de>; Mon, 01 Dec 2025 15:03:13 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 61E593A2179
-	for <lists+linux-man@lfdr.de>; Mon,  1 Dec 2025 13:55:20 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B050E3A270E
+	for <lists+linux-man@lfdr.de>; Mon,  1 Dec 2025 14:03:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3EF730C36C;
-	Mon,  1 Dec 2025 13:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8A2803054EB;
+	Mon,  1 Dec 2025 14:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NTybISaV"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSzu0lw5"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04E42F6587
-	for <linux-man@vger.kernel.org>; Mon,  1 Dec 2025 13:55:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC4D36D4F7
+	for <linux-man@vger.kernel.org>; Mon,  1 Dec 2025 14:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764597319; cv=none; b=A2OzDPyEGt6mvJHYH+sZDORNB6zEDIUP6jayKV5EqHVva2CFVsx6y3bdG3vQvkKJfiuxLGoucRuLXFgfEyuBKu5Xsb9yPCjqdVxsRuCeqp8AO0Y3Vn27813B4kKomUbH9byLLMXdG0ZBhhseM7c/JwutYgduZIK4lVhZacgufws=
+	t=1764597787; cv=none; b=oaRlkSsBRW5oZ/MRSJ9Ztu5R31vGqFqblZAxn7B6cE8TOVAHnTuPBeSUB3ZZTFy+IU0liYwB1jI7iYiSOSwQJeh4wMlXVwIC0BpCi5NZpjQwjO02jaS9rTXz9Z1u2cfgY3GoEfbz8NAnwgyMOrfW3t3J5kXEM1v8TwyOps1xszA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764597319; c=relaxed/simple;
-	bh=Q1DK3Ab0M92aZPGRvGZUla4mn/LODtbYVbGS96gj0D0=;
+	s=arc-20240116; t=1764597787; c=relaxed/simple;
+	bh=iHRBc5f2y/yeJyh7V8Ib91SdR2hM73+bUdB+z8XOE2c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uHXrsEYejP5cACfIFWUSHhdSXAEMhe64d7/OY3+Pyix6J17S1JEse8z2U5hoGU04clxjo98fB6yzrM+c3Ggbu+NZLbnR1aZfJxjAq6SwYA2X8W6znlHF2h7rMXistP8zdQlZDbh8wuKVijySFgz4xQYfQ1QIf/IMr7DRJ51vrs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NTybISaV; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B63C116D0;
-	Mon,  1 Dec 2025 13:55:15 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=EzVP7wucEMXtESS3uM0D/eK/slwSciQdM0XgcSsBn52sFjWj1NFK2wT9PiJ3qB8l7FWKPt3pohI+Y66Pt3v1vTe7G9s30zxIYCsyWIdUKmDT8eu1griLnpZInjt/mKdIhKyJUakHVqqIhLfJj7Zwe+XRYDKlGwqc8nu1MIqbN1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSzu0lw5; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3BDC4CEF1;
+	Mon,  1 Dec 2025 14:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1764597317;
-	bh=Q1DK3Ab0M92aZPGRvGZUla4mn/LODtbYVbGS96gj0D0=;
+	s=k20201202; t=1764597786;
+	bh=iHRBc5f2y/yeJyh7V8Ib91SdR2hM73+bUdB+z8XOE2c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NTybISaVzYH+x1Vs+gF05r60zwvD2FgkmV+ajkaDwq3kB0h0aqdKO9otiBg8RzqWh
-	 IJuufF38qkbMFMOc8mOCRBbO02Ppto3NPRV1H5Zr4j1VSUDktnQmjb37CWpROVtK8Z
-	 AAqR2wVg9JLlSNLqZfIMzvg9n4QAGMSyiS7nFCr6nUMABuaYbJ+7i/7XzufzWIsbwS
-	 MEG80Ec8tu22kBbs414w88EBqm8OSvbKGd53NMPIKvrFw3JoRTsGMvfZQ7p/1L9TiC
-	 PLyDELKk0o+h/f/1JbYq1q4NneD0RA7BDr0BDL/Q+CZF5DzdT+kO2cUY83Ge8Sj8Sq
-	 SiippadKXbStg==
-Date: Mon, 1 Dec 2025 14:55:12 +0100
+	b=DSzu0lw58QgbRBM1rMx4+PvLEeKg2zXoDbKYTpse1SsC4teMvODAWylu+ErKOGRgZ
+	 MLv/qUq2AB/4+gCxDQ1shgLYxnMH2vgxxZ360SwmGbKwQIzYT6xl00BhVqvS5FtlGX
+	 MMtDLhKoxI6J7K/NDr4Kpk1LCUawFAxQL/ioNs5OCCJPlug95lzpY+c8lcmkBHCmJo
+	 h5lArFtCCq9Rg95mTfRvlT9mke4YB+qvmaTGmXWmUOmO9YlXMAYcmOIe7vqduSl8RB
+	 5xfz9g5hooCKW6ezmnsEsvEbC6by41POMj56GYC0Q6HML5OoWhLqE+ADg3dk/f7MZ8
+	 FVnDP2YTJNrpA==
+Date: Mon, 1 Dec 2025 15:03:02 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Florian Weimer <fweimer@redhat.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] sscanf.3: Document exact matching for %c
-Message-ID: <fjngev3kbf7d7gi7jj33lam3xq55j2hf7yjzq5pfjj3u7oncc6@6cpxcxdtnfys>
-References: <lhu1pli6tsj.fsf@oldenburg.str.redhat.com>
- <1189e99e-897c-4245-9ece-f9f6ec4360b4@redhat.com>
+To: Vincent Bernat <vincent@bernat.ch>
+Cc: Craig Gallek <kraig@google.com>, linux-man@vger.kernel.org, 
+	Martin KaFai Lau <kafai@fb.com>
+Subject: Re: [PATCH v2] man/man7/socket.7: fix documentation for
+ SO_ATTACH_REUSEPORT_EBPF
+Message-ID: <kyhlvia5lyrpu2tk4eqosoeubrkjxynfnpjvvdpgqyphgx3lbq@rltbxdluiflj>
+References: <20251027131711.186482-1-vincent@bernat.ch>
+ <20251201054800.3652822-1-vincent@bernat.ch>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,91 +58,117 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p23uvw2lo3ditou4"
+	protocol="application/pgp-signature"; boundary="l5qgdu7cgsvc5hui"
 Content-Disposition: inline
-In-Reply-To: <1189e99e-897c-4245-9ece-f9f6ec4360b4@redhat.com>
+In-Reply-To: <20251201054800.3652822-1-vincent@bernat.ch>
 
 
---p23uvw2lo3ditou4
+--l5qgdu7cgsvc5hui
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Florian Weimer <fweimer@redhat.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] sscanf.3: Document exact matching for %c
-Message-ID: <fjngev3kbf7d7gi7jj33lam3xq55j2hf7yjzq5pfjj3u7oncc6@6cpxcxdtnfys>
-References: <lhu1pli6tsj.fsf@oldenburg.str.redhat.com>
- <1189e99e-897c-4245-9ece-f9f6ec4360b4@redhat.com>
+To: Vincent Bernat <vincent@bernat.ch>
+Cc: Craig Gallek <kraig@google.com>, linux-man@vger.kernel.org, 
+	Martin KaFai Lau <kafai@fb.com>
+Subject: Re: [PATCH v2] man/man7/socket.7: fix documentation for
+ SO_ATTACH_REUSEPORT_EBPF
+Message-ID: <kyhlvia5lyrpu2tk4eqosoeubrkjxynfnpjvvdpgqyphgx3lbq@rltbxdluiflj>
+References: <20251027131711.186482-1-vincent@bernat.ch>
+ <20251201054800.3652822-1-vincent@bernat.ch>
 MIME-Version: 1.0
-In-Reply-To: <1189e99e-897c-4245-9ece-f9f6ec4360b4@redhat.com>
+In-Reply-To: <20251201054800.3652822-1-vincent@bernat.ch>
 
-Hi Florian, Carlos,
+Hi Vincent,
 
-On Mon, Dec 01, 2025 at 08:32:18AM -0500, Carlos O'Donell wrote:
-> On 11/28/25 10:50 AM, Florian Weimer wrote:
-> > The glibc manual has always documented this behavior, but the
-> > implementation differed, treating the field width as an upper limit.
-> >=20
-> > Signed-off-by: Florian Weimer <fweimer@redhat.com>
+On Mon, Dec 01, 2025 at 06:44:23AM +0100, Vincent Bernat wrote:
+> When using eBPF, there are two possible cases depending on the program
+> type. Only the first case was described. In the second case, the program
+> should not return an index, but a decision (SK_PASS/SK_DROP). The socket
+> should be selected using the sk_select_reuseport helper.
 >=20
-> LGTM and is better than before.
+> Cc: Craig Gallek <kraig@google.com>
+> Signed-off-by: Vincent Bernat <vincent@bernat.ch>
+> ---
+>  man/man7/socket.7 | 34 ++++++++++++++++++++++++----------
+>  1 file changed, 24 insertions(+), 10 deletions(-)
 >=20
-> Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+> diff --git a/man/man7/socket.7 b/man/man7/socket.7
+> index b4d58a23d5da..426cf63a7d0b 100644
+> --- a/man/man7/socket.7
+> +++ b/man/man7/socket.7
+> @@ -354,20 +354,32 @@ the sockets in the reuseport group (that is, all so=
+ckets which have
+>  .B SO_REUSEPORT
+>  set and are using the same local address to receive packets).
+>  .IP
+> -The BPF program must return an index between 0 and N\-1 representing
+> -the socket which should receive the packet
+> -(where N is the number of sockets in the group).
+> -If the BPF program returns an invalid index,
+> -socket selection will fall back to the plain
+> +The classic BPF program must return an index between 0 and N\-1
+> +representing the socket which should receive the packet (where N is the
+> +number of sockets in the group). If the BPF program returns an invalid
+> +index, socket selection will fall back to the plain
+>  .B SO_REUSEPORT
+> -mechanism.
+> -.IP
+> -Sockets are numbered in the order in which they are added to the group
+> -(that is, the order of
+> +mechanism. Sockets are numbered in the order in which they are added to
 
-Thanks!  I've applied the patch, and appended the tag.
+Please use semantic newlines.  See man-pages(7):
+
+$ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
+   Use semantic newlines
+     In the source of a manual page, new sentences should be started on
+     new lines, long sentences should be split  into  lines  at  clause
+     breaks  (commas,  semicolons, colons, and so on), and long clauses
+     should be split at phrase boundaries.  This convention,  sometimes
+     known as "semantic newlines", makes it easier to see the effect of
+     patches, which often operate at the level of individual sentences,
+     clauses, or phrases.
 
 Have a lovely day!
 Alex
 
->=20
-> > ---
-> >   man/man3/sscanf.3 | 7 +++++++
-> >   1 file changed, 7 insertions(+)
-> >=20
-> > diff --git a/man/man3/sscanf.3 b/man/man3/sscanf.3
-> > index f0b248518..fa4cd0db7 100644
-> > --- a/man/man3/sscanf.3
-> > +++ b/man/man3/sscanf.3
-> > @@ -172,6 +172,9 @@ and these discarded characters don't count toward t=
-he maximum field width.
-> >   String input conversions store a terminating null byte (\[aq]\[rs]0\[=
-aq])
-> >   to mark the end of the input;
-> >   the maximum field width does not include this terminator.
-> > +Some conversions require exactly
-> > +the number of characters specified in the maximum field width,
-> > +or they fail.
->=20
-> OK. Correct, in particular "%c" operates this way.
->=20
-> >   .TP
-> >   \[bu]
-> >   An optional
-> > @@ -480,6 +483,10 @@ and there must be enough room for all the characte=
-rs
-> >   (no terminating null byte is added).
-> >   The usual skip of leading white space is suppressed.
-> >   To skip white space first, use an explicit space in the format.
-> > +.\" glibc commit 2b16c76609350ec887d49afd4447743da38f7fab
-> > +This conversion only succeeds
-> > +if the number of characters specified by the maximum field
-> > +can be matched.
->=20
-> OK. Adds clarifying text to the "c" specificer text later in the page.
->=20
-> >   .TP
-> >   .B \&[
-> >   Matches a nonempty sequence of characters from the specified set of
-> >=20
-> > base-commit: 081d4f6779ac39da0265cac6e67d1c9a281e6990
-> >=20
-> >=20
->=20
->=20
+> +the group (that is, the order of
+>  .BR bind (2)
+>  calls for UDP sockets or the order of
+>  .BR listen (2)
+>  calls for TCP sockets).
+> +.IP
+> +The extended BPF program can be of two types:
+> +.B BPF_PROG_TYPE_SOCKET_FILTER
+> +or
+> +.BR BPF_PROG_TYPE_SK_REUSEPORT .
+> +In the first case, the extended BPF program must return an index between
+> +0 and N\-1, like a classic BPF program. In the second case, it must
+> +return an action
+> +.RB ( SK_PASS
+> +or
+> +.BR SK_DROP )
+> +and the
+> +.B bpf_sk_select_reuseport
+> +helper can be used to select the socket which should receive the packet.
+> +.IP
+>  New sockets added to a reuseport group will inherit the BPF program.
+>  When a socket is removed from a reuseport group (via
+>  .BR close (2)),
+> @@ -386,7 +398,9 @@ takes the same argument type as
+>  .BR SO_ATTACH_BPF .
+>  .IP
+>  UDP support for this feature is available since Linux 4.5;
+> -TCP support is available since Linux 4.6.
+> +TCP support is available since Linux 4.6; support for
+> +.B BPF_PROG_TYPE_SK_REUSEPORT
+> +program type is available since Linux 4.19.
+>  .TP
+>  .B SO_BINDTODEVICE
+>  Bind this socket to a particular device like \[lq]eth0\[rq],
 > --=20
-> Cheers,
-> Carlos.
+> 2.51.0
 >=20
 >=20
 
@@ -148,25 +176,25 @@ rs
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---p23uvw2lo3ditou4
+--l5qgdu7cgsvc5hui
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmktnkAACgkQ64mZXMKQ
-wqnrgBAAmj8OB/nFtXHIvDYWJwwsFE7mWqGqzNt0lTbYC3b8YoUzUw9DqcxwkrsW
-+u/hu0YsCkIw1fTmras0rQMUMJCWhlPlyM3h0OBCGC2tWaceL9lHXM8ONkTCmBFg
-k0dekh0XImIBEeZeSehqCwJEUKWXqAqT16nDbcnUS4H2exntFRZaPlavReUclLqp
-zQT9IGb2SczZUSsnTXB28cGEgOKR2cSlHTEm5cLnY3+a3a2PByWpXXVbK9Li9xrN
-z3lkM6ZWPgR5DAJnjgDWKDX+1FOcvMdEv95Q5ikXTbw0xbXC0Qq074/vK+JrrCok
-w99hb1MUn0zd+0mqhCL+kYPsX/1LY6TqKHpfNRO/yo70xLoPtxCwb8dOLu2i2v5t
-wyN71MZvbxjddl1yb5EKBVNWDGQdP984fAN147Mp04Oy1ER8hogLE6F6yMo7JZub
-YJqU6h/fSk5jrH5WvGyxC1OR3LP+NtUDWAApjfwl5EVuDYp7Qn9Xh2bOOuB/dgzt
-wAHptv1GjhAA/vUtRR8XjYKWeozZnwhvkhYj5+xzMkl6jR7qXOyqkxUjMRC45VSg
-rKCsb0bIb3E31glFxWC8kabWBS1m6YfFyVXn5ev6bANK9ocfuf2nC92oFvKHTDve
-xBUGDaenRHiuK/iZrysarL9ccf9s6hAm5CcTxGdnQenbm9Zi+0Y=
-=HO7i
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmktoBUACgkQ64mZXMKQ
+wqmCmw//bNhAkbNdhBl4n0GYxzSQpGz5rCAGYQoMXh4BJ1uZLqHC2Py15lpVrmXs
+x/BWkeplm5BtMu+WCAhpqPhutBKNFT/rdDIVcFyBQmgDTtF/dQ0Ik9rFzsxhRyPV
+asFqyYtiJDtnzfhDTjCWgh+D+TXBU/MDNoDOT/CohMhqyq9fL8CnQ2QwsKyY22pL
+sYpQ8Ag6vgs4X3Sc5yMwbeZkx05pyE4Ri/51/r4eUlAPb9rcInHxTdBsZ7Ae0LFD
+7zYAxDS+lxopuWgMYVZRml5tUu/hp5nKqDHLflcQbNJCC4yVbtBGnab0s8K7J1aL
+H0vb6ldx6/oqcwtYSO3iLt1TWonQ+067HxJ9s/7iqqqtmIhxWSTWwLVeQbKtLLLD
+FT/PqtfUrSFov1eyKgBAK/VnsktepuBUI1/m+pjsh/+MkeXiLVwqwj15MIysUaPN
+13Frs+8f+2PzyOfPUW0Rdd9tQtBRa/wyX0IXXOqjjrct/ZchOZQ/CQhY8Cer9maI
+4es9XO4CxXkq3W2S6XCO3KYdd8H1BHZryPAk4C8CokJ2dIt75x73rcWk6gflj03Z
+r7BkAQ6EqfPGG9pPs1cbVRlvtl9nP00JqYB4yZlxk4AHL/fHxP0uYkJVF90ExBO2
+eYRNV5j+ExKDr8ZPtTPJfGY6lxwDfrk2+CUMFuihXgCVI9ylGwM=
+=wPaD
 -----END PGP SIGNATURE-----
 
---p23uvw2lo3ditou4--
+--l5qgdu7cgsvc5hui--
 
