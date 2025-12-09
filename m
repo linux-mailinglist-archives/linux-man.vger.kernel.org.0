@@ -1,158 +1,207 @@
-Return-Path: <linux-man+bounces-4376-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4377-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6E7ECB13ED
-	for <lists+linux-man@lfdr.de>; Tue, 09 Dec 2025 22:54:28 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FB58CB16BB
+	for <lists+linux-man@lfdr.de>; Wed, 10 Dec 2025 00:20:00 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 26AE8318E773
-	for <lists+linux-man@lfdr.de>; Tue,  9 Dec 2025 21:52:01 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id E2B303005FFF
+	for <lists+linux-man@lfdr.de>; Tue,  9 Dec 2025 23:18:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57AAD2DCBE3;
-	Tue,  9 Dec 2025 21:51:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 96E743090C1;
+	Tue,  9 Dec 2025 23:18:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bUmF4IET"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HUDAJ7oB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972D22DC783
-	for <linux-man@vger.kernel.org>; Tue,  9 Dec 2025 21:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EE22FFDC2
+	for <linux-man@vger.kernel.org>; Tue,  9 Dec 2025 23:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1765317115; cv=none; b=fx9aNXO+U6QqhhPbtnlv3I9EUe5Kra1eaGWNeDuRX0pJ1/S/Sa1q3biB0vpfvKykPwdE4OZXwuWWIgPvwb0gCKPkXV24J5FiZbS/34YLh1TKntxXoCVz/3pRCM28P56u7YjfaCYwQGHOR3wOjEUWabUhWEakb84xTjDJYWWrlr8=
+	t=1765322317; cv=none; b=uXgQlBgReTkQTPMWuFX3D+AOnBADHLbXDV0e19nHFlrQjC3PSifev/IqPlDZTa8ErbrmtyN8vuu6EalqoBS4veQtEd015pEtK3cOHMb2sdzoloGeh8ICR2m4M/JeeMQs/I78r9zqUcRcx/AKYTBRn6sTz2OXsUc7RtLjwlzqayI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1765317115; c=relaxed/simple;
-	bh=WbYfm9Y+F+PQh7H4qxs8H33WCF6bWZm3r8xCoeQ2l20=;
+	s=arc-20240116; t=1765322317; c=relaxed/simple;
+	bh=SNTiouCfDklxhsNO2RONtwHx6BrB1CcFCJmFDKRVBl8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XRyKVnPspKp9cvYMR2gchHnPHzdzDbOfkOXc2QH8PLX8fdlLYbfE+cJE01wkt5NVn1wzP9kpQLqfRoXB1Pq5kgHz52IscX2Sw08ir3VkNjEzil17Sc/Ymp0iImmoJn1r5ZMPh8oHxHuRwmk2m8spiKPZUuBChEm7VMSkYhSOmr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bUmF4IET; arc=none smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-644458ec093so3690987d50.1
-        for <linux-man@vger.kernel.org>; Tue, 09 Dec 2025 13:51:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765317112; x=1765921912; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=cnrJ/2ayLZ/y+H+tm/GP2GkYEt5BU6d172Mx8K5Ys8M=;
-        b=bUmF4IETuuIH4ojZDd7LRI54qpiFPSOyiTWkzEYcpqqbTsOYK89PCAVFKVWzH95It+
-         Jl+earGB6CJrK6LW5KVjMrAjdZGNxy7qqATj1HwUOJXU+14+UU//EygjpSrROTTf51Xw
-         /i2goG84p6BJpVTIWkZ/cLEFPRKUHLxDxDd+CU9w3i6aPvI5z07FSD/zleum4LjgXUZx
-         jyZqAbZ/D+1fF+KYDjWuwPQluoWEmiztOsdbpjrjlujJUc3+5AFKYCn5olGMyevxCN7l
-         6VU6ymDgdAEqnUif3X5UYFCtX9sbg+645mTSS8Qd9xSgKaYu8ej2qdpdr7U8SA23oBK2
-         tUNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765317112; x=1765921912;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cnrJ/2ayLZ/y+H+tm/GP2GkYEt5BU6d172Mx8K5Ys8M=;
-        b=mkai8wwWXrtes3tMXbG8u0O5uwRumvuEaQU1g0NjJqENtecCKA1xrEpo87ys0zWc3B
-         HUUZXJdXqbsOc/6tpqIrvCpaGlUg1ED/BYjMsyr0v3mhScjtxMNYairSqSaPwrvUk0RE
-         iduxJ1zzVVwXzCp8cCrVmSXrsMWOBjzQqjO1ax3lfTSFL+TjddBzqfjfMlqm4Q7H/Ixs
-         YO9VSKgCQ7lFTAsE4KQRup2cnv9kmIjTRCjJLMcU2nKW6MOJZhjFzgizv73fF2QsjMn4
-         IAyOhYwWm5dlgWvan95Zcw9VKoLa557ta3h0mKwl/HtNRXn9vfYd7GN8eyVW/rn+3X44
-         LRIg==
-X-Forwarded-Encrypted: i=1; AJvYcCWcNdid7xxMHZ3Ew6aKrlwps9GgaWtmOaccL9m+/GjPnYkQ07lLFml+UYZcPBlZeAdYj2Yn1lYOvH0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsMvpgzlxKdogPSCsoKob5WmlQH5LLCx94nFcJYz3Pc4MNI6q4
-	q27DD1eddwM1j/8XxRGCpuaGoT2K60Zbfju84GGlQ7wXU9lE8ucHT6a6uFJhBA==
-X-Gm-Gg: AY/fxX5I5OX3cS1+6JkkzGHnxujsSgbv9msXAi0VWdBTGZkau8gZW2UUw6Xt//M/itr
-	n0rLdrNzMzBV8pgwiRXUZfTC50E1pr6Zu+yQHj3VxXTzUpJBlOs2P727QhgMbvCBiPFOBBFk+Em
-	iJ77tF5Pltcv2e9sIPBbPFbJgJkqSdtHrszLbRN3KPZfvcJmEqNkyUb5gheicfaZE4yVzOq3uTm
-	hMw4yx2XrbRjXMuyeY+RhzaaGK1/Y8ndCJQcsaVOgw7w0rbopfG9GfO05FXirqELA2DUwFTjAfD
-	og2YUIk+HE87qUOq9dG54mTQoZ+a4fy/w+PJZ6HQ83l/TtSu9ypsZX6vudFtAsVCo9N9th68w4c
-	Vo8bQh8chOToPp7F6LHdIHBJxCkUg1mcWFp54KvS5lDBN/Eq8ytAEjo4DHgyQ9RejePoZTbN0fo
-	Kp
-X-Google-Smtp-Source: AGHT+IFUVIu2gMixMjpKY/p6m2rNtMWQmyKAA+JID8u4kkGtTjjMtQ00/bBlBuhsr8VXoAHfYB9wNA==
-X-Received: by 2002:a05:690e:885:b0:63e:17d8:d985 with SMTP id 956f58d0204a3-6446eb4de47mr281811d50.53.1765317112372;
-        Tue, 09 Dec 2025 13:51:52 -0800 (PST)
-Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6443f5bca83sm6826619d50.25.2025.12.09.13.51.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Dec 2025 13:51:51 -0800 (PST)
-Date: Tue, 9 Dec 2025 15:51:49 -0600
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Ash Holland <x-hv2j5m@keysmash.solutions>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yc/0K7rgnmS8FHUS+J09lDIoFeIzb+0Mk8UX/6d98ZiqqCMoFR8CfWvmadbOXw5EE7kuxo9uxrLci8oa2LjnXSRb+kH06mSlV0GaFfTKlSufQ91H8sTkBJDvKlYvvWwieBihxUgJFm137BCH+lkqFHl2SOHEtwHjw+ekCpF0MNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HUDAJ7oB; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C25C4CEF5;
+	Tue,  9 Dec 2025 23:18:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1765322316;
+	bh=SNTiouCfDklxhsNO2RONtwHx6BrB1CcFCJmFDKRVBl8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HUDAJ7oBUPr3fVZI6ouBz+0aYM1ou/JtKTFXu3JdB/W07ivyXT/Z2m+AHTHouxM7v
+	 CZydWyt3xIfIuLlgfX9lrBlXo8QBQK2yHWFYrLO/TWAOT0og4jUWIiG4SM37Ct9RNL
+	 9mvl8LvHejRTGYSUNeKR8BVvOGQZeArkmgi2uZFSrJxZEEa09HGqzsz0g3+O1Y0Je2
+	 Ot053QGpm3HeLKoVjEqv4PDtVs9X/mEqD4OwwcvFxFSzMrTG4k6ybovwAQcnUiFx77
+	 +rUy/eCU8w2chg2cG9gYrlgGmiRmIcXvY1mc6ohUzvZZMLMSoL9EZfW6/G1q48CpOt
+	 2F0VXjY8VQhtg==
+Date: Wed, 10 Dec 2025 00:18:32 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Ash Holland <x-hv2j5m@keysmash.solutions>, linux-man@vger.kernel.org, 
+	Colin Watson <cjwatson@debian.org>
 Subject: Re: [PATCH] man/man7/man.7: Don't warn if groff_man.7 is not
  installed
-Message-ID: <20251209215149.6ah577ddtqabyypi@illithid>
+Message-ID: <k6mao7t24tzvr32ixz3o6scqfx4wdm7ffnsdibeb3kpfrn4gtv@iwticjuplith>
 References: <03f1e33dd6200c05afaff1f116f5b254cebd45dc.1765314181.git.x-hv2j5m@keysmash.solutions>
+ <20251209215149.6ah577ddtqabyypi@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="m3vtszz5hy6s36wb"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hhmhy4i5w2bjfbca"
 Content-Disposition: inline
-In-Reply-To: <03f1e33dd6200c05afaff1f116f5b254cebd45dc.1765314181.git.x-hv2j5m@keysmash.solutions>
+In-Reply-To: <20251209215149.6ah577ddtqabyypi@illithid>
 
 
---m3vtszz5hy6s36wb
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--hhmhy4i5w2bjfbca
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Ash Holland <x-hv2j5m@keysmash.solutions>, linux-man@vger.kernel.org, 
+	Colin Watson <cjwatson@debian.org>
 Subject: Re: [PATCH] man/man7/man.7: Don't warn if groff_man.7 is not
  installed
+Message-ID: <k6mao7t24tzvr32ixz3o6scqfx4wdm7ffnsdibeb3kpfrn4gtv@iwticjuplith>
+References: <03f1e33dd6200c05afaff1f116f5b254cebd45dc.1765314181.git.x-hv2j5m@keysmash.solutions>
+ <20251209215149.6ah577ddtqabyypi@illithid>
 MIME-Version: 1.0
+In-Reply-To: <20251209215149.6ah577ddtqabyypi@illithid>
 
-Hi Ash,
+[CC +=3D Collin]
 
-At 2025-12-09T21:38:00+0000, Ash Holland wrote:
-> When I invoke e.g. `man man`, I see a warning:
+Hi Ash, Branden, Collin,
+
+On Tue, Dec 09, 2025 at 03:51:49PM -0600, G. Branden Robinson wrote:
+> Hi Ash,
 >=20
->     /home/ash/.nix-profile/bin/man: can't resolve man7/groff_man.7
+> At 2025-12-09T21:38:00+0000, Ash Holland wrote:
+> > When I invoke e.g. `man man`, I see a warning:
+> >=20
+> >     /home/ash/.nix-profile/bin/man: can't resolve man7/groff_man.7
+> >=20
+> > This is observed by others too: <https://askubuntu.com/q/1521258/478436>
+
+Interesting:
+
+	alx@devuan:~$ man man
+	man: can't resolve man7/groff_man.7
+	alx@devuan:~$ man -w man
+	man: can't resolve man7/groff_man.7
+	/usr/share/man/man1/man.1.gz
+	alx@devuan:~$ man -aw man
+	man: can't resolve man7/groff_man.7
+	/usr/share/man/man1/man.1.gz
+	/usr/share/man/man1/man.1posix.gz
+	/usr/share/man/man7/groff_man.7.gz
+	alx@devuan:~$ man -aw groff_man
+	/usr/share/man/man7/groff_man.7.gz
+	alx@devuan:~$ man 7 man | head -n1
+	man: can't resolve man7/groff_man.7
+	groff_man(7)            Miscellaneous Information Manual           groff_m=
+an(7)
+
+Why does man(1) resolve the .so directives for listing files?  Shouldn't
+it just list the file I asked for?  If the file is a .so page, I want to
+see the file that contains the .so, and not the file it sources.  It's
+my problem to follow the .so link later myself, I think.
+
+That would remove the diagnostic when reading man(1), because unless you
+try to read the page man(7), there's no reason why man(1) would even try
+to resolve it.
+
+I'd qualify this as a bug (or at least dubious feature) of man-db.
+
+mandoc's man(1) doesn't have this bug:
+
+	alx@devuan:~$ mman -aw man
+	mman: outdated mandoc.db lacks man(1) entry, run makewhatis /usr/share/man
+	mman: outdated mandoc.db lacks man(7) entry, run makewhatis /usr/share/man
+	mman: outdated mandoc.db lacks man(7) entry, run makewhatis /usr/local/sha=
+re/man
+	/usr/share/man/man1/man.1.gz
+	/usr/share/man/man1/man.1posix.gz
+	/usr/share/man/man7/man.7.gz
+	/usr/local/share/man/man7/man.7
+
+> >=20
+> > To avoid this, we can simply ask troff not to emit this message:
+> > <https://www.gnu.org/software/groff/manual/groff.html#index-_002esoquie=
+t>
 >=20
-> This is observed by others too: <https://askubuntu.com/q/1521258/478436>
+> I'm the GNU maintainer of groff and the author (instigator?) of the
+> `soquiet` request.  Your patch isn't wrong, but I must point out that
+> the `soquiet` request is new to groff 1.23.0 (which isn't that new
+> anymore--it was released in July 2023).
 >=20
-> To avoid this, we can simply ask troff not to emit this message:
-> <https://www.gnu.org/software/groff/manual/groff.html#index-_002esoquiet>
+> > -.so man7/groff_man.7
+> > +.soquiet man7/groff_man.7
 
-I'm the GNU maintainer of groff and the author (instigator?) of the
-`soquiet` request.  Your patch isn't wrong, but I must point out that
-the `soquiet` request is new to groff 1.23.0 (which isn't that new
-anymore--it was released in July 2023).
+I'm not yet convinced that this is beneficial.  I'd like to first hear
+Collin's opinion of my proposal of not following .so in man(1)
+unnecessaily.
 
-> -.so man7/groff_man.7
-> +.soquiet man7/groff_man.7
+> If Alex applies this, it means the page redirection[1] will stop working
+> _where it had been before_ for any systems using groff 1.22.4 or older.
 
-If Alex applies this, it means the page redirection[1] will stop working
-_where it had been before_ for any systems using groff 1.22.4 or older.
+Would it be possible to implement a .soquiet fallback as you did with
+=2EMR in Debian?
 
-If Alex wants to make the Linux man-pages require groff 1.23.0 or later
-(there's been no subsequent release, but I'm working on it[2]), that's
-fine with me, but such a decision should be announced so that
-distributors of man-pages packages can judge whether they need/want to
-increment the versioning of their package dependencies accordingly.
+> If Alex wants to make the Linux man-pages require groff 1.23.0 or later
+> (there's been no subsequent release, but I'm working on it[2]), that's
+> fine with me, but such a decision should be announced so that
+> distributors of man-pages packages can judge whether they need/want to
+> increment the versioning of their package dependencies accordingly.
 
-Regards,
-Branden
+Actually, this will happen sooner or later, and the exact date depends
+more on you than me.  MR.sed is coming eventually.  :)
 
-[1] that's not really what it is, but let's pretend
-[2] https://savannah.gnu.org/bugs/?65099
+I'd prefer if Ingo would release a new version of mandoc(1) before that
+happens, but I'm not going to wait forever.  He told me he might release
+around the end of 2025 or begining of 2026, but that it wasn't certain.
+We'll see.
 
---m3vtszz5hy6s36wb
+
+Have a lovely night!
+Alex
+
+> Regards,
+> Branden
+>=20
+> [1] that's not really what it is, but let's pretend
+> [2] https://savannah.gnu.org/bugs/?65099
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--hhmhy4i5w2bjfbca
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmk4me8ACgkQ0Z6cfXEm
-bc4ing//bbuvi3Wy3qPKOVpSqv0UnnqQP0aAEIA8yWyPB26MI7ZSYfxdcDAEU3ru
-WB/YrVr2sXyEjwcKnvehuzfZipLZv9I+/5+RUM/XpukHrw+hCMrM4eKwu67zM3kl
-XY5P5pY216qhBBopE0bDapaJT0bT+j6Sie4RfN5/oMAUCj8+J8m6xj+XXgjFgg8v
-vTvxoJ6RtFHLheosQyajwmpE/S5w+hsd13eTffD6D9dYWJag09MH9dQD9TBW8JqC
-4qh+ZEDLMFwedoq5BwEjJecxesXN16EwZKRiM7BWpGA5kglfC714Iu5KNkP5Xems
-0EyU43dPKONpM4TFYBfuLpgC3JmUFyr0XqHqB2JsirMb8/E63VFMS92AYw9hCPsc
-9UbK//+WGE+0XCHWKSARsA17AAB0T4V62EnPjW4BebYNV/xS2zKb4YmB37h1X56I
-PRLJORJKZhGAxC6XEDauzaBRS+AXmMxHmyKrLhhpMxScSpobF0DGG1zPWsE8m0hA
-xh+/Xu2HOPeYM8MGbhs1T7WN3lb6kQ4v8F8ZDCzpqZIVTR3rH0bdQaWV5yszqd9O
-oINtGywxiYRNhpDS03sy1IBaMi5T+ITQZeOQF5c5vKDzn6Nn5a6ITZaHMY/jtNkP
-VynnzuXE5SV83CrFiTFMBeAVsSPY0hadlTbVfIlnXSUBdmysDOw=
-=ZqXq
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmk4rkIACgkQ64mZXMKQ
+wqmUjQ/+M8xxVlLBDn77GlLUdXL1G1CVrrYCqQ/0rWhXSu/ZHa2sx4aY/98xRaOt
+gpGiRYo+g7M1IOK44tazrKn/JQRGc6x341AA5judjuKIz8/rs4IDYSK9mI3nGRmy
+o7bzofnalAqTsO2yFqqG9yzBvMR7adK0Z1MujOE1veRR6DrLa9Cu8WxHLAzggRiC
+63Y2RC2dRymouRlvKr2rbFJ1+kO9/wES7hXy1VPJ+7OcuOyjkMiSrMbg1lRsHtSu
+0Aa2NQYLH0CD/UXA/Aplkwh5ASSM/dveQdVoJBzRf1YfpVZEdE3y88s80Dk1+2y8
+E1MySex9knqcwtDsGShPuUWyxwESoYEqxfv5YmjByH7DzWYtlFaDf7TYMhWFljtu
+7GUdRtRZe3Rh7W721LJMCNlOmgT0a6c84B4B2qb+WON+bkk4SZ93AiZH9DhUtVYT
+AjIe6jh+Hx5N73xgIOFLmV0x1tadT55UQHgCc/z6n5rkxUZ6+YYsXo6kPIYcs3SZ
+0FY1C5VWW0JD/SbUWK3QJ4+BViPHBYMrz3CKY0fbXHFOACzivGL328qQE1Iz72/J
+RyPVr1QWmna5yHoV0003qdGRgawsuM4nJfIbWD3T6TaLfPqxRV1nSRnpMsxTgWAG
+Yz4eztPsZ2ONMXhIyTPv8zmbKcOlr0XP8U8It21iPaPg+iQc1Vw=
+=xowR
 -----END PGP SIGNATURE-----
 
---m3vtszz5hy6s36wb--
+--hhmhy4i5w2bjfbca--
 
