@@ -1,50 +1,50 @@
-Return-Path: <linux-man+bounces-4403-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4404-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id C963ACBB0EF
-	for <lists+linux-man@lfdr.de>; Sat, 13 Dec 2025 16:37:42 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E530CBB0F5
+	for <lists+linux-man@lfdr.de>; Sat, 13 Dec 2025 16:41:38 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 7B56F304FB84
-	for <lists+linux-man@lfdr.de>; Sat, 13 Dec 2025 15:37:41 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 27CFD301B59B
+	for <lists+linux-man@lfdr.de>; Sat, 13 Dec 2025 15:41:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A5E37298CDC;
-	Sat, 13 Dec 2025 15:37:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 92259289824;
+	Sat, 13 Dec 2025 15:41:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RpN6uZ5W"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f/ubK5w5"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CB5298CA5
-	for <linux-man@vger.kernel.org>; Sat, 13 Dec 2025 15:37:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5A2AD24
+	for <linux-man@vger.kernel.org>; Sat, 13 Dec 2025 15:41:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1765640260; cv=none; b=axKthMiPnfnKk+8e5gkQ8nEv/ZmLp5bAuqTo1sZxyYJVTurLsRZh2dL86OPa3RvVdS0NWx9X5IeI80mLYHbv5yrC2O0BH8yNNlaD/zKrmZ+coTTx7WSvhNX3etm21/O4+WyiV+z/nQ0/GCNUTHS0h4K3aT3Z3iHPgWX79uv3zqQ=
+	t=1765640487; cv=none; b=bxPBURk8zgST4vVQR7fGtQ5iMAGz1j+GyjLFujft+5AOZKqKnq/BhNixN0JrfjQaOiLQnvwrYZfOSHwUp//NSc3VScchA9Fdcx9949XTrLwmk9KWcai2MwGNcSUor9hfjf4N6C0Tlp0wqCpwv0xBtYyEDtULWdl0uZqRUwjU660=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1765640260; c=relaxed/simple;
-	bh=vDei0Ep6nKBaH0bBVUgewODRIC8LJy8zhGtdvKlHTK4=;
+	s=arc-20240116; t=1765640487; c=relaxed/simple;
+	bh=2L8qg8b0lm+1iEfsUK8tWnPgLoHns9D24Loq0XHEiy0=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gpnTVSdRgeIMpEJoxCj2g5wbE6mqhHOh6pG4NSYGJb9lxlxCF+3Z14oTNwu5pRvgZ4PC3iJ7iq9VciI+BEMeSgMs/7a5GVhmbXsV7+1r+dMQGoQZHQQ1yoQoywMUh3wOhWcZj0gsg7fgAq4qhcLrxk6RbArl4vYcqm+pgX64awc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RpN6uZ5W; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E85F4C19423
-	for <linux-man@vger.kernel.org>; Sat, 13 Dec 2025 15:37:39 +0000 (UTC)
+	 Content-Type:MIME-Version; b=mrlRqJYQhPzzKF5HVZmVj5Zz2ZHVzb51OD/70vi6QjsU6tpuDU6HieT93gchISrjI63kd+Cj8PZsZHrvJawLLXOb1D0GDO/HSNo+Hpt8mNFTHoueO7DqpqHxV3ep5I8rPcLlqY93Ne4B1oFB4W70otZ01r9O3Am5CUjMgrWpeng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f/ubK5w5; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DAA21C116B1
+	for <linux-man@vger.kernel.org>; Sat, 13 Dec 2025 15:41:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765640259;
-	bh=vDei0Ep6nKBaH0bBVUgewODRIC8LJy8zhGtdvKlHTK4=;
+	s=k20201202; t=1765640486;
+	bh=2L8qg8b0lm+1iEfsUK8tWnPgLoHns9D24Loq0XHEiy0=;
 	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=RpN6uZ5WJEOpd2jo0Ms6/bpW1gsbxN+PSzMITyByWgbumFWJq1zqSG5+Hy4RjKEHb
-	 fDpnu3NzhcBG3xbVytqSLJZcbBCJJUQNunQU7KghvHaSHmlQq/vAfhbW+zSUnfLppm
-	 UaGNCTfBwobQkkvvM0M9fvsDGQf3aH1vUsZxd6302dpzrhBIxzWzmCC6I4wLXGwyDG
-	 eVkZvLhWgnDegoRlrgVbaC4Jn8oeZQPaciiDUEY00H+7H0+bha4iD7y88LEEDcf8qH
-	 VaJyDYudaYGESy7fO2fj4YymJYSGYnPHeW7Oe+z/fHiLdHhiGABC69VIBgfLTed3yp
-	 /swhtaGR+E97w==
+	b=f/ubK5w5Lqvpv7BO0nTvdRQBYfeErauS5U8wvZ9+ffCmVZoa9DFILcmm0NfIYRtrY
+	 naakhFjHrNY7PgiZZlesvIAxDXyGgsg410PZFwpnQvWt4oWf4CY2y4k1CKuuRizdLp
+	 TooJ9G/je8WFxFy8kpYvrGCv+1Xe94X9YQnI16Hbk/R+41bgltbFDYKIIKcf0bD5ZR
+	 96F0wNF2+Lep4Y84OJ9+8EWMUQHnnkWcDE8EFW7mKBYTupbG3ZKNpMg+SxKrEKMs1W
+	 vpdXIr05YpqIFBAEFZ7axKpJtXvAsSeOegUVyLmFcKw8q9JTOr/Ss0FAuB87muGQT7
+	 rFhPTH/ut4/+Q==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id DF258C4160E; Sat, 13 Dec 2025 15:37:39 +0000 (UTC)
+	id D07F3CAB780; Sat, 13 Dec 2025 15:41:26 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: linux-man@vger.kernel.org
 Subject: [Bug 220726] Patch of ioctl_vt (2), small clarification.
-Date: Sat, 13 Dec 2025 15:37:39 +0000
+Date: Sat, 13 Dec 2025 15:41:26 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
@@ -60,8 +60,8 @@ X-Bugzilla-Resolution: INVALID
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: longdescs.isprivate
-Message-ID: <bug-220726-11311-5VulGWhdGQ@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-220726-11311-7VQ8DFQKuZ@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-220726-11311@https.bugzilla.kernel.org/>
 References: <bug-220726-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -77,12 +77,57 @@ MIME-Version: 1.0
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D220726
 
-Alejandro Colomar (alx@kernel.org) changed:
+--- Comment #7 from Alejandro Colomar (alx@kernel.org) ---
+Hi Teika,
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-      Comment #6 is|1                           |0
-            private|                            |
+On Sat, Dec 13, 2025 at 08:00:04AM +0000, bugzilla-daemon@kernel.org wrote:
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D220726
+>=20
+> teika kazura (teika@gmx.com) changed:
+>=20
+>            What    |Removed                     |Added
+> -------------------------------------------------------------------------=
+---
+>  Attachment #308874|0                           |1
+>         is obsolete|                            |
+>=20
+> --- Comment #6 from teika kazura (teika@gmx.com) ---
+> Created attachment 309016
+>   --> https://bugzilla.kernel.org/attachment.cgi?id=3D309016&action=3Dedit
+> My version of vt_ioctl.2
+>=20
+> This is the third version of vt_ioctl.2. Unlike preceding versions this is
+> not
+> a patch, but the entire file. The second version was posted to the mailing
+> list:
+>
+> <https://lore.kernel.org/linux-man/20251110.165618.2111633615163528521.te=
+ika@gmx.com/T/#u>.
+> The accuracy was justified in the post cited above (and follow up emails.)
+>=20
+> My contribution is released to the public domain. I don't post the
+> corresponding patch, but it is based on the git HEAD as of today, i.e.
+>
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/man/m=
+an2/ioctl_vt.2?id=3D9fbe82>.
+>=20
+> The project refuses my work to merge because of not complying with its po=
+licy
+> about the use of AIs. I believe my improvement helps, so hereby post for =
+the
+> community's sake.
+
+We don't refuse to take your work.  You seem to refuse to follow our
+policies.  You're welcome to do work that is clean of AI, and we'll
+consider it.  But AI-derived code will not be accepted anywhere in this
+project, including the bugzilla.  I've marked the attachment as private.
+
+
+Have a lovely day!
+Alex
+
+>=20
+> Best regards.
 
 --=20
 You may reply to this email to add a comment.
