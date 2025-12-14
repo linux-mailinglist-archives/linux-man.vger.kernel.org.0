@@ -1,142 +1,148 @@
-Return-Path: <linux-man+bounces-4408-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4409-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id D40F7CBB2C2
-	for <lists+linux-man@lfdr.de>; Sat, 13 Dec 2025 20:37:46 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BC9ACBB5D4
+	for <lists+linux-man@lfdr.de>; Sun, 14 Dec 2025 02:38:04 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 7B4613009805
-	for <lists+linux-man@lfdr.de>; Sat, 13 Dec 2025 19:37:43 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 749FD300BBAD
+	for <lists+linux-man@lfdr.de>; Sun, 14 Dec 2025 01:38:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59B4F26E6F2;
-	Sat, 13 Dec 2025 19:37:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4AEEE165F16;
+	Sun, 14 Dec 2025 01:38:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SU8nkM0v"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CVIXnaBk"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107DC22A7F9;
-	Sat, 13 Dec 2025 19:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CD13597B
+	for <linux-man@vger.kernel.org>; Sun, 14 Dec 2025 01:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1765654662; cv=none; b=eSq2B/ZA7yoQ3ZA9LTfUgc3KPgi3p0qHWhM4t8N0IU5yt1eAqJBuWX7SVg8Xg5IHYg5f37dUWb2yykaMSNEaDl5VkBirnBYNl025xV7fut7bGnnJ6yENP0hxRu18pwSIr5EfEKfNswpl78YX2UMsfm1mFppMFSLeCk5VEAUoU84=
+	t=1765676281; cv=none; b=nBmkXv/cfqyV0IzVSKslGhNoGHb85uAo5WJYOzCwnppa9nleMxhrqCvjAoTi0kDEMJ37hVZuFd/iGzn89iRQ++hgzd1/zljlYptFmfjLnRf6AZGI31hqntcKFnY2AkRssMjFewR4hCkXxevdXSxg2fH2+4AHgRsD15HhBylnX5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1765654662; c=relaxed/simple;
-	bh=jCKnDFXAT9ztcqBLIB4qFkyf3PCWVVSwY4yI/nlE+Dc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S0xgnvelCiikP1qeIuQ9Wh1NfzNFHsgJTMtUSCAcAfDAVO4hD64o5ff9ea95iN1ziWLy89i9T0UmUjxTv2sFgA1tUzUIt8NajZ/rSK62W+PzwL+ITW0pFZvbgLsop3C+hrLZv6GXlbtSiGWPeFmJqiYQN7Sgvte6/eKhIm9zTqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SU8nkM0v; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B58EC4CEF7;
-	Sat, 13 Dec 2025 19:37:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765654661;
-	bh=jCKnDFXAT9ztcqBLIB4qFkyf3PCWVVSwY4yI/nlE+Dc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SU8nkM0vSzDa77l8Lgbg+aEpR/rliu4Qz+mWanNuyxsPz2jRDHlTdFwokTdA2Qilc
-	 NySC4zPHrQ7Ds+iwFZl8DaEymtFbdv2jhdLqi7pSI3z/pTRRMg6VEb+KSJN/w4gNSs
-	 XeROXESVd49iJygxeBr0DrDnf4yBqGd43Cts4xnvexB0wLTeu6xq1LSGDPZ9eZjIgb
-	 k43f2XsDkP6DFU3441TiirG6pG+D10iBsAqJuE3tqr+SateuIVIjjtuCIURs0+D3Zi
-	 VP7+r2AwN8F15SCI6iBE9CuU6OZh+YovDFhEKJp8HIO8c1r4hZTS8IIp+XyHTXu5Yx
-	 CtDibGJxt0QWw==
-Date: Sat, 13 Dec 2025 20:37:37 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Alyssa Ross <hi@alyssa.is>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/setns.2: clarify type of nsfs fd required
-Message-ID: <viwd2c53bnfyflny7sdmumawimwjy2mcmoigk5shhkmiabtbm5@3vcv3a3664cc>
-References: <20251213175853.555517-1-hi@alyssa.is>
- <iddnfcdrppivtq53zrajuiidfmg6sw6bxdg57j2ielnnor4mlk@i7ddvvhfu7dm>
- <87qzsy5htz.fsf@alyssa.is>
+	s=arc-20240116; t=1765676281; c=relaxed/simple;
+	bh=JByHRi9AJtukSjn4dAMYFYR97TYd2zgi2HdgbA8OG+g=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=YHiYMIFjkiq+Oe1eRUkP0yORYiIMuLAqMG2PRZlNHV7zqOpz3KFpQxlJMOmflW+EZxu7RlLGkp7rlUs05Z7W7x5JXuc/8joKtaXGOxDGOiS2jlVezasfZqDEym5tDfwNuOEuNivShcN+y48pqfYpGHkqFijeHioOVR31MyQPAYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CVIXnaBk; arc=none smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-787da30c53dso23040777b3.0
+        for <linux-man@vger.kernel.org>; Sat, 13 Dec 2025 17:37:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1765676277; x=1766281077; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=JByHRi9AJtukSjn4dAMYFYR97TYd2zgi2HdgbA8OG+g=;
+        b=CVIXnaBkmy6Eif9mec8WB1eftwL25y0CjLD8kR9iCMp0VT74EbMjk/FrVttjChSBSy
+         fJ51N25xWZHZFksJHBz0/NqrUoHi4sz8I3qK2ussUKotytelC5lcXTOyDO4s4SrcUAwa
+         YJnAJp5z01S/6BSzNYBEV3aaZ1LkSdW7rrL5PygCvp4kep5bIUMGcVzn4eqyt1Bn4SNp
+         oR9mHpzajI6KPm83herq/MR3wPXSlp1JBWLS8GO84coEWv22aK14o13bYkgObwfRWVev
+         7ks2llbY7mSyQ26Vir2bvNIsue4wjAz4j6bUOSrtP8jGLwHrUWHQFTHhwLLTYCWsOcOm
+         32KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765676277; x=1766281077;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JByHRi9AJtukSjn4dAMYFYR97TYd2zgi2HdgbA8OG+g=;
+        b=NvXqvNq11/xk5Pg4W8AgkgV+uXi5L+8xwyMjkGJdQHxAcjBfnlGbsrj2WyRGijexnv
+         0WLkRzC+8QMMlY2xs2gqqFWYEFTUsrPWuAcRVTzWj9f4VmoLMBq1KXTuzC4Z9OVm7WQY
+         uNRpbMU4Oh2GzLRTQHwpqw/J52oegYbI3D1ws9+MbnEYwjLcNypJLCyacClCuW3Ajik9
+         PlN/+NgmWGGsd6aqdFgH+NeJNkXiQZQGcbPJ4HI5vbxuvIKLb7tpUTASxjVMigaKt29v
+         mVdieuZz56Zs9hoUtl9uPptNP7atyMaMJZZ/1HkMhltZbbpa0i99fCLUJ7Q2wbs96gdn
+         kLJA==
+X-Gm-Message-State: AOJu0YxXpARdFFodWmP9zPLvFVPtqOxHQopNcV8AGjL5nJYHsyJCupfb
+	m+QO0rPlojk2AexJ+8KRNx/+VwKftgpNT2OJdvh8OJXXQOskIyo9YDhJdiktsg==
+X-Gm-Gg: AY/fxX4QryagjkLRYHd/DfHqYVLPh/svgQB3bMlwZTZNxWAXd4X02ehpXpq0soVX/6w
+	M7Ah+RSle39kZb9uX21GuwY7Dmd4pZK1Mgv8hGpZxP2IitrUvas1Zsc6RbClVQkicc2dLA3OvM4
+	602yuUNEj/TK6tIS8Ob8gJ0Sq1ilXrkjEYsM8Frtb7sazO4y8kwO15GpE60OhrHidIey7l8pZgH
+	XQd4hU21Ja041MMMPaZO1M5ySQKeOg3mcXMhvn8TtcW2CJUmdCKNvntN1Zx0XofNDugyIkZdcJ5
+	cVueY6wH7jrPNxGuqmyPvYraUjbJIxGIiCiKc18JzR8oz6Wru3VRZCiC58+7hdKB/Fi6M1xvrBV
+	SqYiUjsKgb/g0E4zSJXJDNgTgqFO/LFWjKeiX49WX0tcysCH9b4MYKcOrVdPZOOd4QVjk7EFZUr
+	xu
+X-Google-Smtp-Source: AGHT+IH6g9sUb+ab2Lp/qs3cmb/cc0qU46kfTW+xAOiQlv8KN0fLPnypzaLZhAuUazKDroSCoZyhmw==
+X-Received: by 2002:a05:690c:dd3:b0:788:1cde:cad0 with SMTP id 00721157ae682-78e66ce46bbmr64929487b3.2.1765676277372;
+        Sat, 13 Dec 2025 17:37:57 -0800 (PST)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-78e74a4327dsm13320507b3.54.2025.12.13.17.37.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 13 Dec 2025 17:37:56 -0800 (PST)
+Date: Sat, 13 Dec 2025 19:37:54 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH v2] man/man3/getopt_long.3: Assist users
+Message-ID: <20251214013754.hvrmeblfbr3cb4he@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="arhazmjudhburdss"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="mv6ynguhivbdkh64"
 Content-Disposition: inline
-In-Reply-To: <87qzsy5htz.fsf@alyssa.is>
 
 
---arhazmjudhburdss
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--mv6ynguhivbdkh64
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Alyssa Ross <hi@alyssa.is>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/setns.2: clarify type of nsfs fd required
-Message-ID: <viwd2c53bnfyflny7sdmumawimwjy2mcmoigk5shhkmiabtbm5@3vcv3a3664cc>
-References: <20251213175853.555517-1-hi@alyssa.is>
- <iddnfcdrppivtq53zrajuiidfmg6sw6bxdg57j2ielnnor4mlk@i7ddvvhfu7dm>
- <87qzsy5htz.fsf@alyssa.is>
+Subject: [PATCH v2] man/man3/getopt_long.3: Assist users
 MIME-Version: 1.0
-In-Reply-To: <87qzsy5htz.fsf@alyssa.is>
 
-Hi Alyssa, Christian, Al,
+Throw a bone to users of this function who need to report (in a
+diagnostic message, for instance) the identity of an invalid long option
+name.
 
-On Sat, Dec 13, 2025 at 07:59:04PM +0100, Alyssa Ross wrote:
-> Alejandro Colomar <alx@kernel.org> writes:
->=20
-> > Hi Alyssa,
-> >
-> > On Sat, Dec 13, 2025 at 06:58:53PM +0100, Alyssa Ross wrote:
-> >> I was surprised to discover than an O_PATH file descriptor was
-> >> insufficient.
-> >
-> > How did you discover it?  Could you please link to relevant information
-> > (or kernel sources)?
->=20
-> By trying it!
->=20
-> Presumably it's the fd_empty() check at the beginning of the syscall
-> implementation in nsproxy.c.
+Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+---
+ man/man3/getopt_long.3 | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Hmm, thanks!  I don't see any documentation about this, neither in the
-kernel Documentation/, nor in the commit messages that introduced this
-code.  Christian, Al, would you mind checking if this is intended?  If
-so, it would be useful to document why O_PATH is not accepted.  Is it
-a security problem?
-
-> >> Since the mode of nsfs files is always 0444, tell
-> >> callers to always a file descriptor opened for reading.
-> >
-> > Missing 'use'?
->=20
-> Yes.  Feel free to add it.
-
-Thanks!
-
-
-Cheers,
-Alex
-
+diff --git a/man/man3/getopt_long.3 b/man/man3/getopt_long.3
+index 73e8f3e6f..a464349fe 100644
+--- a/man/man3/getopt_long.3
++++ b/man/man3/getopt_long.3
+@@ -102,6 +102,12 @@ .SH DESCRIPTION
+ is not NULL, it
+ points to a variable which is set to the index of the long option relative=
+ to
+ .IR longopts .
++.P
++Its analogue to
++.BR getopt (3)'s
++.I optopt
++is
++.RI \[lq] "argv[(optind \- 1)]" \[rq].
+ .SH RETURN VALUE
+ See
+ .BR getopt (3).
 --=20
-<https://www.alejandro-colomar.es>
+2.30.2
 
---arhazmjudhburdss
+--mv6ynguhivbdkh64
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmk9wHwACgkQ64mZXMKQ
-wqlbEA//fiiugEWMyzP7pX4xHojnoA5VF2IhLPSknBRNHOGWjTt7hhuLQZqUrK3y
-zWNgp2EEP29880601mub4Fa5Tn0x/Evt0PMpT8+9NxyZQcnARVjxCwWLODXJi9C6
-0sm3qtmAfJ3vmFCFOboGypVRi0yiNAZXl8gIH6TQp64Eie+/Di7k1ItjzSdncdvv
-z/Qwy25xq3TdSWyPb9+EAn15BwDX5NsL+TThwrBh0whU9/WMBeQkbxHHaKLiGg02
-yLO1pWAQ4ZrYsMI7urYhaKZjIMfdNs36RGfdSF31nO0YGVQfO3IqjkXgOw2ahpnk
-Ga9rtVTsb5ZuvVjkx/pOQYgGpKOyzkIqu3jTn19QJ4n4xnQ7Rb4mb8GyC2ilBAch
-WnzDvRvr/Oms/xgxOiifF+e85OUB1290IBFjsHFCYjg/Ku4jeClZa18tf/QjiEOl
-nRQ36XBNG3tEHRxfv1nhEXTg1HohH5dSR0bGt6sNRwkdGaXRIjjTSTJeIkXz7/eG
-c6zWwqhSJiK2KZlj8Fpgpyh2d9GgPKeyxHwUDAk9HSwBaKLxM+gXTDpp2vIXMtIY
-QfmcZRRusGejNCVCh68cKlGmNkc5uGhx+cMOmEoMVFoW44aUXFuoCxAqxSLsD9Kg
-CnYHg1KQV5ttk+mlBIKdxFa8CqHnAs6UWNdBk5CvhqQ4pEx2YKs=
-=azf8
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmk+FOsACgkQ0Z6cfXEm
+bc4a7xAAorGhU+XATImgWLMI9buZHohYSr9sQ5VGak93i3s3Z0TdoNBt+UzIyEme
+zc+nTfBiTZKQFGnEoS+Q/X8FehABeQOx4IotF2ff+DpZzDIzS7TOMnCoUOb4Jf6d
+05KHVi2VBhly+IE+NJ84I7OShL1YnzB5jrP5Tatnlc5SufqALwGY+PvucxWfGCFz
+A/NXl+m6LPK9P8lXDDF3RqJ0RMhjYiu+0RmwJr4SxPJN5q5cAX7PqVzSDc5tu2X0
+yIWuJRQ35kgsr0xIh8v3C7IHHqv3f96eDAUFlmePXk7KCi7Yb8tn5Em1ntPJ1u6d
+3b2wGzXDsa2YJBMD6lZxBDt9pjhai5qsQb8ljBE8Cqrsw0h7xyFt2xfOfcM4kB5Y
+Ynj4/PUV3X+UHpSQLS0lrzrzRSgMNwf3Bo3F4IbZ2Ph/lcEU10hUwV+qFxxI04Xb
+8ZkJGBscVDlOB7ekiAhTFy7zo0UUuvs8F4c/Qg4nMSxBASNYAghImmiyoTtB5brY
+nAKPAEtA/GL97cf100TrKSOs6NnuPjF/b+QrJn6381J2qIC6P+pJj4poqw1/Td/J
+kjFX6MGW84y5n/w1OU25g6N2CbsuQmzKpzEKzL/pVpSke1BHDT/YpJTnijN2DW2S
+fhL0WVgA/yKGFdae6UCmnIUG2VBSWBuNJAIo4uOiQT1c+glpYek=
+=obYf
 -----END PGP SIGNATURE-----
 
---arhazmjudhburdss--
+--mv6ynguhivbdkh64--
 
