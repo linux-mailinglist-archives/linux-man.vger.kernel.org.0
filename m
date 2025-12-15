@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-4423-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4424-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91CB9CBE695
-	for <lists+linux-man@lfdr.de>; Mon, 15 Dec 2025 15:53:35 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id E30B1CBE672
+	for <lists+linux-man@lfdr.de>; Mon, 15 Dec 2025 15:51:48 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 9E36330358CF
-	for <lists+linux-man@lfdr.de>; Mon, 15 Dec 2025 14:50:50 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 61E18301FA5F
+	for <lists+linux-man@lfdr.de>; Mon, 15 Dec 2025 14:51:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58731309EFC;
-	Mon, 15 Dec 2025 14:41:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 641E0309EE7;
+	Mon, 15 Dec 2025 14:41:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwbhAVlP"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crB1R7ju"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42942F0C68
-	for <linux-man@vger.kernel.org>; Mon, 15 Dec 2025 14:41:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73D71FBC92
+	for <linux-man@vger.kernel.org>; Mon, 15 Dec 2025 14:41:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1765809713; cv=none; b=TjNifG6+huF27sxPxPrq6VRPgLmLdm5ShopvzDB3rZ6/M0dluGYsQkqoKCi5SatnHMtZ80MZPD3VysR/JiVw+NVhdSf1iMkf3SjH+ofNlQkuoUIgYlMvYtNtqGIYqI51gtB0t9CKUmSeqXBe/SGfor5YPNPqv5VtGPQb7CtzVxI=
+	t=1765809717; cv=none; b=kjpqykQUscEPGjrQZfPNT26vPDLYNNZG2tFDbN2pJ7mhDfdlMJx9zbeQK9RjYfqgeU2w1KQBDaj8vZ+wrutQd6G4sf1RTITNaLCNhGANw9onzTaFSsaK7eDydvlrDd4YrfqFCVHf2hkC19SI2kiZ3fUAiRI9XZp1h7DkYSdGM48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1765809713; c=relaxed/simple;
-	bh=pyHaZzZcHOqYRFesamY4HDQnFXFzrhW/+/9ni5yVP/I=;
+	s=arc-20240116; t=1765809717; c=relaxed/simple;
+	bh=GDTHXMj71DshOowI/wudSrUwkgSQIQCK0NfrTwQt2sY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RXZbFIfDfCl7U8MC44oqBUJp96lLZxYSAYSxcH8CR/rpIjZnjXYenqHPNCBVamzhV5k/cKXFL32+SUBIoO6XlfOpYeQXb8dMV7gUwJR66ugSmhUjk3QHRFEbh3/ekdS+nasJZUvLaNoFr84xNQfe6qSD21lw//ea68bRlUXlp9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwbhAVlP; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB41C4CEF5;
-	Mon, 15 Dec 2025 14:41:51 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=nJSYZby8uUuGZex/QOsKeNaT/NQQ0NbKWdPAfrUojtvAQF8UEA7bH5JW6aFkzJVdlnznmL8W0oIaYEljAV81oHH/ZHo3xRGcUV7W3vt3jEx54pXJnEZKWVirJm5AcqFTIga3oq6qU21lldvuBwj8ACWu/bOYnadse1OgQhjwTRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crB1R7ju; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A737C4CEF5;
+	Mon, 15 Dec 2025 14:41:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765809713;
-	bh=pyHaZzZcHOqYRFesamY4HDQnFXFzrhW/+/9ni5yVP/I=;
+	s=k20201202; t=1765809716;
+	bh=GDTHXMj71DshOowI/wudSrUwkgSQIQCK0NfrTwQt2sY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZwbhAVlP9ttIHbPy3ibNa9XnbTNruHnHaxPh+hoxt+nRqgH7W3yxJB1eFg1/hqjEJ
-	 RJ4yvM9A9nHXiPlD+smi47osgbyRjvHLM4+SzFavF8oJFtSj7i/Lu7TjDvwFbitxAj
-	 f/n5c85YjHchn//EFwSfi6GYqrvR2xkbQZodvXJj2o68LZEdNktl+Ywo/a2JRfGeWl
-	 NtQdzZMZ9q6wYpJy0jnKzviMdQADSK1AtsR2pG4GgKgWvmhSGmRQOpoMn78B5bph3Q
-	 C13uwEAK4pCXY7O8UqKTa9ihJjP6A5GQgvKstvPaw+58W4p4Ft7eIofxFipHeL28x9
-	 SLgCBf9o/S17g==
-Date: Mon, 15 Dec 2025 15:41:49 +0100
+	b=crB1R7ju80w83i2rgL7dOowS3N+zHSZQ++PyHp8WZJaAAvGi7Q89202aL8DantST4
+	 OipOuVa3Z3U9roHLaku+DmhtCJh/mgWR+e+HxSbXnzKNPMq4BpFl9MSbqvCQ5LgDHW
+	 MpxJUlrCW81/U5xajloGkH3Mip0bbfGH3FbVgIuIbWeQm3piXWBzPcOZAjE+8wmIcm
+	 7JNW/Q5VsK7Uf+9inBr+0W0JcBj1YnF9sJhfqOETg4DLYd0u4TtohVdS/fXOiquhS6
+	 hJ0aOw+YjuVtZBX9/AJjnRRH+dfX/LCyUbA9NHSzpM5X4A0qM0G6HW0O0TMYIRAgPU
+	 C1WtShi31RL9Q==
+Date: Mon, 15 Dec 2025 15:41:53 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>, Seth McDonald <sethmcmail@pm.me>, 
 	Eugene Syromyatnikov <evgsyr@gmail.com>, Ingo Schwarze <schwarze@openbsd.org>, DJ Delorie <dj@redhat.com>, 
 	Paul Floyd <pjfloyd@wanadoo.fr>, John Scott <jscott@posteo.net>, misc@openbsd.org
-Subject: [PATCH v2 07/14] man/man3/{posix_memalign,pvalloc}.3: Split
- pvalloc() from posix_memalign(3)
-Message-ID: <a60d6283f21c7f080ba064cb3153103f740a5c79.1765809415.git.alx@kernel.org>
+Subject: [PATCH v2 08/14] man/man3/{posix_memalign,valloc}.3: Split valloc()
+ from posix_memalign(3)
+Message-ID: <126c39d0fb79014d489f5d47ec4268662abb9b72.1765809415.git.alx@kernel.org>
 X-Mailer: git-send-email 2.51.0
 References: <cover.1765370035.git.alx@kernel.org>
  <cover.1765809415.git.alx@kernel.org>
@@ -63,117 +63,192 @@ In-Reply-To: <cover.1765809415.git.alx@kernel.org>
 
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
- man/man3/posix_memalign.3 | 26 ++++-----------------
- man/man3/pvalloc.3        | 49 ++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 52 insertions(+), 23 deletions(-)
+ man/man3/posix_memalign.3 | 64 ++--------------------------
+ man/man3/valloc.3         | 89 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 91 insertions(+), 62 deletions(-)
 
 diff --git a/man/man3/posix_memalign.3 b/man/man3/posix_memalign.3
-index 3271292b7..b3b27e5bb 100644
+index b3b27e5bb..2f664eb4e 100644
 --- a/man/man3/posix_memalign.3
 +++ b/man/man3/posix_memalign.3
-@@ -5,7 +5,8 @@
+@@ -5,7 +5,7 @@
  .\"
  .TH posix_memalign 3 (date) "Linux man-pages (unreleased)"
  .SH NAME
--posix_memalign, aligned_alloc, valloc, pvalloc \-
-+posix_memalign, aligned_alloc, valloc
-+\-
+-posix_memalign, aligned_alloc, valloc
++posix_memalign, aligned_alloc
+ \-
  allocate aligned memory
  .SH LIBRARY
- Standard C library
-@@ -17,10 +18,6 @@ .SH SYNOPSIS
+@@ -17,7 +17,6 @@ .SH SYNOPSIS
+ .P
  .BI "int posix_memalign(void **" memptr ", size_t " alignment ", size_t " size );
  .BI "void *aligned_alloc(size_t " alignment ", size_t " size );
- .BI "[[deprecated]] void *valloc(size_t " size );
--.P
--.B #include <malloc.h>
--.P
--.BI "[[deprecated]] void *pvalloc(size_t " size );
+-.BI "[[deprecated]] void *valloc(size_t " size );
  .fi
  .P
  .RS -4
-@@ -86,19 +83,11 @@ .SH DESCRIPTION
- It is equivalent to
- .IR "memalign(sysconf(_SC_PAGESIZE),size)" .
+@@ -34,17 +33,6 @@ .SH SYNOPSIS
+ .nf
+     _ISOC11_SOURCE
+ .fi
+-.P
+-.BR valloc ():
+-.nf
+-    Since glibc 2.12:
+-        (_XOPEN_SOURCE >= 500) && !(_POSIX_C_SOURCE >= 200112L)
+-            || /* glibc >= 2.19: */ _DEFAULT_SOURCE
+-            || /* glibc <= 2.19: */ _SVID_SOURCE || _BSD_SOURCE
+-    Before glibc 2.12:
+-        _BSD_SOURCE || _XOPEN_SOURCE >= 500
+-.\"    || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED
+-.fi
+ .SH DESCRIPTION
+ .BR posix_memalign ()
+ allocates
+@@ -74,21 +62,10 @@ .SH DESCRIPTION
+ .IR alignment ,
+ which must be a power of two.
  .P
 -The obsolete function
--.BR pvalloc ()
--is similar to
--.BR valloc (),
--but rounds the size of the allocation up to
--the next multiple of the system page size.
+-.BR valloc ()
+-allocates
+-.I size
+-bytes and returns a pointer to the allocated memory.
+-The memory address will be a multiple of the page size.
+-It is equivalent to
+-.IR "memalign(sysconf(_SC_PAGESIZE),size)" .
 -.P
  For all of these functions, the memory is not zeroed.
  .SH RETURN VALUE
- .BR aligned_alloc (),
--.BR valloc (),
- and
--.BR pvalloc ()
-+.BR valloc ()
- return a pointer to the allocated memory on success.
+-.BR aligned_alloc (),
+-and
+-.BR valloc ()
+-return a pointer to the allocated memory on success.
++.BR aligned_alloc ()
++returns a pointer to the allocated memory on success.
  On error, NULL is returned, and
  .I errno
-@@ -145,8 +134,7 @@ .SH ATTRIBUTES
- T{
- .na
- .nh
--.BR valloc (),
--.BR pvalloc ()
-+.BR valloc ()
- T}	Thread safety	MT-Unsafe init
+ is set
+@@ -131,11 +108,6 @@ .SH ATTRIBUTES
+ .BR aligned_alloc (),
+ .BR posix_memalign ()
+ T}	Thread safety	MT-Safe
+-T{
+-.na
+-.nh
+-.BR valloc ()
+-T}	Thread safety	MT-Unsafe init
  .TE
  .SH STANDARDS
-@@ -160,9 +148,6 @@ .SH STANDARDS
  .TP
- .BR valloc ()
- None.
+@@ -145,9 +117,6 @@ .SH STANDARDS
+ .TP
+ .BR posix_memalign ()
+ POSIX.1-2024.
 -.TP
--.BR pvalloc ()
--GNU.
+-.BR valloc ()
+-None.
  .SH HISTORY
  .TP
  .BR aligned_alloc ()
-@@ -179,9 +164,6 @@ .SH HISTORY
- 3.0BSD.
- Documented as obsolete in 4.3BSD,
- and as legacy in SUSv2.
+@@ -158,29 +127,12 @@ .SH HISTORY
+ .BR posix_memalign ()
+ glibc 2.1.91.
+ POSIX.1d, POSIX.1-2001.
 -.TP
--.BR pvalloc ()
+-.BR valloc ()
 -glibc 2.0.
+-3.0BSD.
+-Documented as obsolete in 4.3BSD,
+-and as legacy in SUSv2.
  .\"
  .SS Headers
  Everybody agrees that
-diff --git a/man/man3/pvalloc.3 b/man/man3/pvalloc.3
-index 791d4c801..2f6e21813 100644
---- a/man/man3/pvalloc.3
-+++ b/man/man3/pvalloc.3
-@@ -1 +1,48 @@
+ .BR posix_memalign ()
+ is declared in
+ .IR <stdlib.h> .
+-.P
+-According to SUSv2,
+-.BR valloc ()
+-is declared in
+-.IR <stdlib.h> .
+-.\" Libc4,5 and
+-glibc declares it in
+-.IR <malloc.h> ,
+-and also in
+-.I <stdlib.h>
+-if suitable feature test macros are defined (see above).
+ .SH NOTES
+ On many systems there are alignment restrictions, for example, on buffers
+ used for direct block device I/O.
+@@ -200,16 +152,6 @@ .SH NOTES
+ .BR posix_memalign ()
+ can be freed using
+ .BR free (3).
+-Some systems provide no way to reclaim memory allocated with
+-.BR valloc ()
+-(see
+-.BR memalign (3)).
+-.\" Other systems allow passing the result of
+-.\" .IR valloc ()
+-.\" to
+-.\" .IR free (3),
+-.\" but not to
+-.\" .IR realloc (3).
+ .P
+ The glibc
+ .BR malloc (3)
+diff --git a/man/man3/valloc.3 b/man/man3/valloc.3
+index 791d4c801..cc3543612 100644
+--- a/man/man3/valloc.3
++++ b/man/man3/valloc.3
+@@ -1 +1,88 @@
 -.so man3/posix_memalign.3
 +'\" t
 +.\" Copyright, the authors of the Linux man-pages project
 +.\"
 +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
 +.\"
-+.TH pvalloc 3 (date) "Linux man-pages (unreleased)"
++.TH valloc 3 (date) "Linux man-pages (unreleased)"
 +.SH NAME
-+pvalloc
++valloc
 +\-
-+page-sized page-aligned memory allocation
++page-aligned memory allocation
 +.SH LIBRARY
 +Standard C library
 +.RI ( libc ,\~ \-lc )
 +.SH SYNOPSIS
 +.nf
-+.B #include <malloc.h>
++.B #include <stdlib.h>
 +.P
-+.BI "[[deprecated]] void *pvalloc(size_t " size );
++.BI "[[deprecated]] void *valloc(size_t " size );
++.fi
++.P
++.RS -4
++Feature Test Macro Requirements for glibc (see
++.BR feature_test_macros (7)):
++.RE
++.P
++.BR valloc ():
++.nf
++    Since glibc 2.12:
++        (_XOPEN_SOURCE >= 500) && !(_POSIX_C_SOURCE >= 200112L)
++            || /* glibc >= 2.19: */ _DEFAULT_SOURCE
++            || /* glibc <= 2.19: */ _SVID_SOURCE || _BSD_SOURCE
++    Before glibc 2.12:
++        _BSD_SOURCE || _XOPEN_SOURCE >= 500
++.\"    || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED
 +.fi
 +.SH DESCRIPTION
-+.BR pvalloc ()
-+is similar to
-+.BR valloc (),
-+but rounds the size of the allocation up to
-+the next multiple of the system page size.
++.BR valloc ()
++allocates
++.I size
++bytes and returns a pointer to the allocated memory.
++The memory address will be a multiple of the page size.
++.P
++It is equivalent to
++.IR "memalign(sysconf(_SC_PAGESIZE),size)" .
 +.SH ATTRIBUTES
 +For an explanation of the terms used in this section, see
 +.BR attributes (7).
@@ -185,18 +260,39 @@ index 791d4c801..2f6e21813 100644
 +T{
 +.na
 +.nh
-+.BR pvalloc ()
++.BR valloc ()
 +T}	Thread safety	MT-Unsafe init
 +.TE
++.SH VERSIONS
++According to SUSv2,
++.BR valloc ()
++is declared in
++.IR <stdlib.h> .
++.\" Libc4,5 and
++glibc declares it in
++.IR <malloc.h> ,
++and also in
++.I <stdlib.h>
++if suitable feature test macros are defined (see above).
 +.SH STANDARDS
-+GNU.
++BSD, GNU.
 +.SH HISTORY
 +glibc 2.0.
++3.0BSD.
++Documented as obsolete in 4.3BSD,
++and as legacy in SUSv2.
++.\"
 +.SH CAVEATS
 +See
-+.BR valloc (3).
++.BR memalign (3).
++.\" Other systems allow passing the result of
++.\" .IR valloc ()
++.\" to
++.\" .IR free (3),
++.\" but not to
++.\" .IR realloc (3).
 +.SH SEE ALSO
-+.BR valloc (3)
++.BR memalign (3)
 -- 
 2.51.0
 
