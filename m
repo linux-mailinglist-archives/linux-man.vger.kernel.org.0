@@ -1,115 +1,104 @@
-Return-Path: <linux-man+bounces-4411-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4412-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id 235A7CBD590
-	for <lists+linux-man@lfdr.de>; Mon, 15 Dec 2025 11:20:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CBF0CBD5EA
+	for <lists+linux-man@lfdr.de>; Mon, 15 Dec 2025 11:34:45 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id BFB2B300D00E
-	for <lists+linux-man@lfdr.de>; Mon, 15 Dec 2025 10:20:25 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 3CF58300D54B
+	for <lists+linux-man@lfdr.de>; Mon, 15 Dec 2025 10:34:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4547C329384;
-	Mon, 15 Dec 2025 10:20:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E70AB3164AD;
+	Mon, 15 Dec 2025 10:34:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKauUsBv"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QboZ0jhg"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040CD3168F8
-	for <linux-man@vger.kernel.org>; Mon, 15 Dec 2025 10:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277A32D879E
+	for <linux-man@vger.kernel.org>; Mon, 15 Dec 2025 10:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1765794024; cv=none; b=mrxGDvYYkcP/BEvxoytItWjpKlolVkcu5e4jKR+avbt6fJq19uQdxzERMNOe1529GdZubW/WDW97Vqxy1y9oVVUaeN+S0RqkD4/AAAHW52B61IVWM3Jo5vbCforv5vl7pldfGLSViuq35epOI2jmKEBQfpMTiVguV97U6B2OBDY=
+	t=1765794880; cv=none; b=JTbOzm9mUJ+sIMrAQzu0cOIm76gjyWap6xsqfIlOBj9aILZ+g5EYYWC4ABvaAcOrXsTz+508mjS6gG3CMDhM/KULSNQzZCX7Y/OS2csx1dOVVigI96lheoBDtJPnUMLcJB+BC8IzmAfvrAyP66YBZ9ILtQrRJXK0wS36fEkAFhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1765794024; c=relaxed/simple;
-	bh=YIxKGmrlnVS8F4e/Nrs4dB92c8GPNBiXeQps9iVeEtc=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nk+I7MQ1ulN3VLuNcQ3mruOJibcDd65RfuoZmyF1/KyYNlgg4mmOY1A3LkiPrRFuO+rACXT/FmvShuzgeTIdxwSz/TgXSdmxocVOWCKmcyvNMAamKsUClMV6JEwPbTe/a3XiRxuut6/DFsTVl7AfWbXDKt4kqS2WukpnVS3SQfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKauUsBv; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8769EC4CEFB
-	for <linux-man@vger.kernel.org>; Mon, 15 Dec 2025 10:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765794023;
-	bh=YIxKGmrlnVS8F4e/Nrs4dB92c8GPNBiXeQps9iVeEtc=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=fKauUsBv7fJTe2dOGHNZ1+Iz/LxKnvLseqYqaQ13gU91rHajUTUuSoP15em+k4wl8
-	 EKOvmNVvMvIdCzYcmQVg//4TdCkT+SS5JUnbCTW9LkgJBMjz+3mZw3lUPVqI0D9mdd
-	 O4l8vfYZoGjYQWKpYlo5Ti+omSpFyqMtw/Txu4JgQAHNmvT02eCt0iWOCoyIxFza9e
-	 N1+5X1O/CJvnoNWNZu2k1eITPGYM6+mnUw9ZbJK0Jrj6/GDZFEKitgDW5MHujtbisG
-	 mW5ur4mW22ua/33gTtg7CbuqzLvNedoynYbr23zyqRazLFtxAIYiZ9Ut9nH9q6BK5i
-	 GG71N2n7kNtIQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 7C08BC53BC9; Mon, 15 Dec 2025 10:20:23 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: linux-man@vger.kernel.org
-Subject: [Bug 220726] Patch of ioctl_vt (2), small clarification.
-Date: Mon, 15 Dec 2025 10:20:23 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alx@kernel.org
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: INVALID
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-220726-11311-AAgaFy6qKr@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-220726-11311@https.bugzilla.kernel.org/>
-References: <bug-220726-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+	s=arc-20240116; t=1765794880; c=relaxed/simple;
+	bh=SN184tYnJui8SdTar7dwAm7hVBf+y/+8HWKT5663Cfs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jxH3N+x/W/U8+kGoz8ETQw0NcFEY55SPskZb5dQzLWRELM5gg90iE5w9r1AEC9G587EHrKBCrHQOweLXYrMMQWgEG8uGMdTc8tnI9VbpAOXm0pPCFJeNYN3Xb5ZgbS7QydwHUCb1jPfRFyPUiFKFF5NKcbE7Hz9TBGZJrNYvwN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QboZ0jhg; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1765794877;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=SN184tYnJui8SdTar7dwAm7hVBf+y/+8HWKT5663Cfs=;
+	b=QboZ0jhgrwMp0nbHcdYw0j3v6rpYo1TBQxmSrw5QWlTdCtif+vdgV4Cb4PjErOQJk6VmHO
+	AwR/hh06VOXkzMFeSvOjMfWp3XbtuNllaJYESwBPTMxRaxk+D0JQGL8DSQZ0gnLWnT0e3U
+	csAOlQDOfSiEpL9aLDyA+q1NghMVELQ=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-556-r6szmhsIPKyv7_iy6ZC1sA-1; Mon,
+ 15 Dec 2025 05:34:34 -0500
+X-MC-Unique: r6szmhsIPKyv7_iy6ZC1sA-1
+X-Mimecast-MFC-AGG-ID: r6szmhsIPKyv7_iy6ZC1sA_1765794873
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7021A18002F9;
+	Mon, 15 Dec 2025 10:34:33 +0000 (UTC)
+Received: from fweimer-oldenburg.csb.redhat.com (unknown [10.44.32.8])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7D6E83000218;
+	Mon, 15 Dec 2025 10:34:32 +0000 (UTC)
+From: Florian Weimer <fweimer@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH] man/man2/clone.2: Document E2BIG-based extension handshake
+Date: Mon, 15 Dec 2025 11:34:29 +0100
+Message-ID: <lhua4zkxccq.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D220726
+The clone3 system call uses copy_struct_from_user and the E2BIG
+error code to handle changes to the struct clone_args size.
 
---- Comment #9 from Alejandro Colomar (alx@kernel.org) ---
-(In reply to teika kazura from comment #8)
-> Hi. Hiding my last post here is wrong, because mine was done outside the
-> man-pages project.
+Signed-off-by: Florian Weimer <fweimer@redhat.com>
 
-This is part of the Linux man-pages project.  Look at "component" up.
+---
+ man/man2/clone.2 | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-> Manual pages are GPL'd and anyone can do anything as long
-> as they obey the license.
+diff --git a/man/man2/clone.2 b/man/man2/clone.2
+index 74c5a59be..1d62a5df1 100644
+--- a/man/man2/clone.2
++++ b/man/man2/clone.2
+@@ -1188,6 +1188,16 @@ in the caller's context, no child process is created, and
+ is set to indicate the error.
+ .SH ERRORS
+ .TP
++.BR E2BIG " (" clone3 "() only)"
++The kernel does not support some functionality requested in this
++.BR clone3 ()
++call:
++The size argument is larger than what the kernel supports,
++and there are non-zero values in the struct after the kernel-supported size.
++.TP
++.BR E2BIG " (" clone3 "() only)"
++The size argument is larger than the page size.
++.TP
+ .BR EACCES " (" clone3 "() only)"
+ .B CLONE_INTO_CGROUP
+ was specified in
 
-You're of course free to do anything in your website.  But that license doe=
-sn't
-give you a right to publish anything in the project infrastructure.
+base-commit: 46950a0845de91c422efe6c639091ace42cb92f8
 
-> You don't have the right to do it. Everyone
-> mistakes and that's ok, but lift it.
-
-No.
-
->=20
-> Also remember kernel bugzilla is not only for man-pages, and at least the
-> kernel itself does not have any policy about the AI use.
-
-
-> I know my post does
-> not directly help any projects hosted here right now, but I'm not spamming
-> either.
-
-That's why I've hidden your manual page, and not your messages.
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
 
