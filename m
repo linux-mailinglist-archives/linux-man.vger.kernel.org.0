@@ -1,158 +1,131 @@
-Return-Path: <linux-man+bounces-4435-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4436-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id D200ECC804D
-	for <lists+linux-man@lfdr.de>; Wed, 17 Dec 2025 14:58:06 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DE92CC84A8
+	for <lists+linux-man@lfdr.de>; Wed, 17 Dec 2025 15:51:34 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 6CCE430BF83A
-	for <lists+linux-man@lfdr.de>; Wed, 17 Dec 2025 13:54:18 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 7775E3003FD9
+	for <lists+linux-man@lfdr.de>; Wed, 17 Dec 2025 14:51:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 746ED382D35;
-	Wed, 17 Dec 2025 13:54:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6AE34382D53;
+	Wed, 17 Dec 2025 14:42:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9kNu7LL"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5mRXhqR"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3377E382D31
-	for <linux-man@vger.kernel.org>; Wed, 17 Dec 2025 13:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1533845B1
+	for <linux-man@vger.kernel.org>; Wed, 17 Dec 2025 14:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1765979641; cv=none; b=B5TKTvWUQqSNK5way2iYYgIhboY6M82Afu0BZ3wTF1Xz4LK6KSmph7QfodBXPp11uSx96hWM4iei8ZfUvEzK3bBUiKpmPUPQItY5K0cXIDnHsENhInc1v5HkCO/EqXu6L8bJy7gVj4qaHISOFfKH//gxcgfOHXFCrVP7tW9fQVc=
+	t=1765982571; cv=none; b=lbohv9EGnOYZzFQ7sksqNcbaztbf8quAjjlN6br3Yc4e3URa0f6czcOBFBhORqPUeiT3Me3OpamioctGFhuDKT1Ur3HreQzcx7oo/ch1kBvnHwWOqfOySHhxqYjjY/RIarJVDjplsVW7KTUxo80YTs3HbE2CKHxde8VX/90JYF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1765979641; c=relaxed/simple;
-	bh=95BYeCamCo8RGE3h3REzFL22JW1VUh+jmiauXDXbS6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZsXxeFbAnMPaxPwsgRYcL9LwInp9FPgk7p+m1D6l4sqGOYcVyJbBRzjGuwc7bfcEhinsZsuSfavxoKa1w/As4LL4Vf0I8+Dc2uFe3hK8HtEcmobNGxwCP/KG18vSlpad1gCRrtUM+MEDfD41K0BJjjnPa3HkQEX7iFWUjGllzFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9kNu7LL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C961C4CEF5;
-	Wed, 17 Dec 2025 13:53:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765979639;
-	bh=95BYeCamCo8RGE3h3REzFL22JW1VUh+jmiauXDXbS6o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c9kNu7LL5NEw21JV64pIG187hH/ViGBl/VwQ9dSmoK0bfuKOFUvqhuex1vHZSlzN5
-	 XRQaL6lm5sCra0Adc+3r72fBwGdc26ZJTuP5qY50BhupcPZUaz0A+SX+u5SFFx4gbE
-	 At12PNfv3vebrMqyVfDf7Amfkxzvp+eOVEXMk8Ma+mzgX6MWeJTxbfNTUjp1NsdPhl
-	 SyIaNU0LYS6NLxV2leSEpLhJyUVaxVRdN3N2DssoseqCGdHitLtLqkSALzzNdGmGHq
-	 imEvtWSjV10h/6VDEGlGiwY99cRbp849cPYfELn/dVTnHgiC+hIwz/Kwh+5mdL/qdx
-	 wtj3/Pqv0RUhQ==
-Date: Wed, 17 Dec 2025 14:53:55 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Seth McDonald <sethmcmail@pm.me>, 
-	Eugene Syromyatnikov <evgsyr@gmail.com>, Ingo Schwarze <schwarze@openbsd.org>, DJ Delorie <dj@redhat.com>, 
-	Paul Floyd <pjfloyd@wanadoo.fr>, John Scott <jscott@posteo.net>, misc@openbsd.org
-Subject: Re: [PATCH v3 1/1] man/man3/aligned_alloc.3: HISTORY: Document bogus
- specification from C11
-Message-ID: <u2652qyf3dbfmg6kswfb3brmztz7fa654nvrix7zqcrhbixxzq@exp7y32mu72v>
-References: <cover.1765370035.git.alx@kernel.org>
- <cover.1765979316.git.alx@kernel.org>
- <6ed874153c52cc3f44e37a7c42ba4c69555e04f4.1765979316.git.alx@kernel.org>
+	s=arc-20240116; t=1765982571; c=relaxed/simple;
+	bh=gt5Mism+f4Lpz1MRmrFplQR+6rpNC21EIo28IiMrVJc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tCjOpVrTJ9RrkTJe1Orx/65doidIFnsOpt/wqBdZbHLNDmkdmPEyN30JHdhdbyIndESuRpj2FXzl5J53+BazYsOpDLp9Nx9JaOKYAvuG70JabPgDrPFjidsnTcMq/uaimA1jd0k8u2zNde7sx55eCLajr78rCMgQRYmybzedfrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L5mRXhqR; arc=none smtp.client-ip=209.85.221.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-55b4dafb425so437296e0c.1
+        for <linux-man@vger.kernel.org>; Wed, 17 Dec 2025 06:42:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1765982566; x=1766587366; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gt5Mism+f4Lpz1MRmrFplQR+6rpNC21EIo28IiMrVJc=;
+        b=L5mRXhqRKe0kW0EKeTidd+Mzq+FpHGwSER4AqFMPxNV0lgum6QZXt+qUvCJWM7LZdN
+         WqcchlRfwGl5lCScpoPauA+Z64uSJKDsw6WFEeqt/Genc487VpJo1ziPxqFGoJyx4NWB
+         Akqhi56mfMEZ9TE0JxukSQbl9KSYnvAuJb8optqMDuH3HS0uEwoL9CVZpFABsdJenie7
+         u+f7MWMkU9b4wPwsw4ie6mIJr+3qwsKzOmrtu7t3+yctoH7J1YwtWctAygVI7hz2x7/h
+         oxzrCq0f+xgGxZPOL1HXQO/MzbFRHCSV5avpFmbcSGziJU7hs5PAjS1zZdJnjE++QNRF
+         4w9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765982566; x=1766587366;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=gt5Mism+f4Lpz1MRmrFplQR+6rpNC21EIo28IiMrVJc=;
+        b=GP0ZciROWD8oN0CwQNhrCXAftyxkD9tf8qT7x/jfQjVag1Zln6jrFrOLaTC8rZB/T6
+         nwB/D+04Q/hFZYtMSGDnEKSa7KIkML3M4GsdrXCqOrYeKKwwmdrQjiQPVPao8lE/mEAN
+         AffTyzApuAiGQGrzLzSl2+JGWkHwwRA4K1sgzfozg+s/KWmYg6m/vjlr1u6nK51fwUB4
+         OxaCA7TjFVWZwZVcYHCGxgDY+AAC0JD8r4m7i/+Ky/mTPJjaO78jPacS5ZtpkQsi2x62
+         uE7UBZkaTvrqioRFbBSIS+4DeGp0b6RhsjGmvTp46kNyPDWTmUOKjjZZL4t60Nw1SXkS
+         nNEQ==
+X-Gm-Message-State: AOJu0YwzL3aAwts2iGzC4jom8iLZrRGHrx/Z3+2aFEcnVAiELJrlN/KP
+	Tu5FEXbMRucwKMljQFeAOAwXA0NK/QDH0ZoKySNTPbwbr/R7K19p7AIwjwFzcKFdGrq6f+8s07u
+	VswjtlhSNDRiancpkxTbc0vwd6puJWeU=
+X-Gm-Gg: AY/fxX748y/ORTMyk1IzyvFq6jAG67eXXauPUtspHoylr1LA+zdS/nLQGyOEcLooe+C
+	lC2dzOLcvbGsS0olYlzQ6xLw3XrS6Vi6puz+6Qe6g3jtAavInGf8cU1LgHKmJd+fVGaLpxzsska
+	ZLZQU7rTXYKM9N0Gzh+hp1AWfd2w/9iqabLGzcaVQhDVX53Sw09cId8ck6sauP9uCc3qw/1gslO
+	9VawldLiv8VZSI0AAWJpR46OoVdoF7L9m9uw/mk82bN0c8o5fvzfYSqH4bXbl5WB21dPrH0VqrR
+	iGeSZzGuMeIm8HqwDh+ISjnRuQ==
+X-Google-Smtp-Source: AGHT+IFmRyA0IBYuOltszsG0XpYo/QN+ZK5Lf1Dxhzie2AYQNxuF7A8Q1wZapGzpgH5lye+HbtTk1J3FDXnLxES0jSI=
+X-Received: by 2002:a05:6102:1610:b0:5dd:a08e:5bac with SMTP id
+ ada2fe7eead31-5e8115bf064mr8609554137.6.1765982566306; Wed, 17 Dec 2025
+ 06:42:46 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lm62or43fijqikp5"
-Content-Disposition: inline
+References: <cover.1765370035.git.alx@kernel.org> <cover.1765979316.git.alx@kernel.org>
+ <6ed874153c52cc3f44e37a7c42ba4c69555e04f4.1765979316.git.alx@kernel.org>
 In-Reply-To: <6ed874153c52cc3f44e37a7c42ba4c69555e04f4.1765979316.git.alx@kernel.org>
-
-
---lm62or43fijqikp5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Seth McDonald <sethmcmail@pm.me>, 
-	Eugene Syromyatnikov <evgsyr@gmail.com>, Ingo Schwarze <schwarze@openbsd.org>, DJ Delorie <dj@redhat.com>, 
-	Paul Floyd <pjfloyd@wanadoo.fr>, John Scott <jscott@posteo.net>, misc@openbsd.org
+From: Eugene Syromyatnikov <evgsyr@gmail.com>
+Date: Wed, 17 Dec 2025 15:42:28 +0100
+X-Gm-Features: AQt7F2q281kWUn-KYJyU9psV5rE1Ogs_sCM1mJ1ECKDXHjWVMGawf6vtDGjL1BI
+Message-ID: <CACGkJdtOfDcJ=xLu==7FBav8o0TMgRNwNVx3CZQA7H5wgsaEjA@mail.gmail.com>
 Subject: Re: [PATCH v3 1/1] man/man3/aligned_alloc.3: HISTORY: Document bogus
  specification from C11
-Message-ID: <u2652qyf3dbfmg6kswfb3brmztz7fa654nvrix7zqcrhbixxzq@exp7y32mu72v>
-References: <cover.1765370035.git.alx@kernel.org>
- <cover.1765979316.git.alx@kernel.org>
- <6ed874153c52cc3f44e37a7c42ba4c69555e04f4.1765979316.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <6ed874153c52cc3f44e37a7c42ba4c69555e04f4.1765979316.git.alx@kernel.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Seth McDonald <sethmcmail@pm.me>, 
+	Ingo Schwarze <schwarze@openbsd.org>, DJ Delorie <dj@redhat.com>, Paul Floyd <pjfloyd@wanadoo.fr>, 
+	John Scott <jscott@posteo.net>, misc@openbsd.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Here's how this patch looks like when reading the manual page:
-
-	$ MANWIDTH=3D64 diffman-git HEAD^=20
-	--- HEAD^^:man/man3/aligned_alloc.3
-	+++ HEAD^:man/man3/aligned_alloc.3
-	@@ -52,6 +52,39 @@ STANDARDS
-	 HISTORY
-	      glibc 2.16.  C11, POSIX.1=E2=80=902024.
-	=20
-	+   C11
-	+     In C11, the specification of this function had several is=E2=80=90
-	+     sues.
-	+
-	+     =E2=80=A2  size had to be a multiple of alignment.  Otherwise, the
-	+        behavior was undefined.
-	+
-	+        Some implementations still implement that restriction,
-	+        or claim to have it.
-	+
-	+        OpenBSD
-	+               The function reports an error if this restric=E2=80=90
-	+               tion is violated, without exploiting the UB.
-	+
-	+        FreeBSD
-	+        jemalloc
-	+               The documentation claims to have this restric=E2=80=90
-	+               tion, but the implementation works correctly if
-	+               it is violated.
-	+
-	+        It was only a theoretical UB.  No known implementation
-	+        has ever exploited this UB.
-	+
-	+        This restriction was removed in C17.
-	+
-	+     =E2=80=A2  If alignment was not a power of two, the behavior was
-	+        undefined.
-	+
-	+        No implementations ever exploited this UB.  It was only
-	+        a theoretical UB.
-	+
-	+        This UB was removed in C17.
-	+
-	 NOTES
-	      On many systems there are alignment restrictions, for ex=E2=80=90
-	      ample, on buffers used for direct block device I/O.  POSIX
+On Wed, Dec 17, 2025 at 2:51=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
+wrote:
 
 
-Cheers,
-Alex
+> +Otherwise,
+> +the behavior was undefined.
 
---=20
-<https://www.alejandro-colomar.es>
+I think this statement is incorrect, or at least misleading, because
+the current reading (that includes DR460) of ISO 9899:2011 explicitly
+states that the function must fail when the condition is not satisfied
+(and that is what OpenBSD has implemented), and that also makes any
+permissive specification non-conforming wrt C11 as it is now. But that
+is also true that C11 _used to_ specify a failure to conform to this
+onerous restriction as UB, which rendered the programs malformed, but,
+on the other hand, kept libcs that implemented it permissively
+standard-conformant.
 
---lm62or43fijqikp5
-Content-Type: application/pgp-signature; name="signature.asc"
+I understand that I am unnecessarily conscientious here, but I think
+it is important to articulate what the standard both says and used to
+say, as it is the reference point for the language implementations,
+the totality of which an application developer can neither observe nor
+inspect, and relying on a couple of anecdotes in terms of
+implementations may lead to issues down the road. I guess the outcome
+of my rants is "don't use aligned_alloc and C11 together", or
+something along those lines.
 
------BEGIN PGP SIGNATURE-----
+> +.IP \[bu]
+> +If
+> +.I alignment
+> +was not a power of two,
+> +the behavior was undefined.
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlCtfMACgkQ64mZXMKQ
-wqkPvQ/5AeqoZG9ZjRo1vIXPScQhBVN4Yzv810COa+Ak8a/+ontII7Ef21sSblug
-4g2WlBv1PsF6QKqvIVZuFuNXtsIs0ww79qJIkJDV67lQHCCiYhac65KrAigUWB/j
-wz5YMZ7uSdNyQuMsNCzF7lHvca5Db2SUfv8Ah95Hbe1BwlD47uqVzZErhj0jZOZx
-sYSa7+P+O0HDqqnRDKegIIMO8sNs/t6cM4WX4IDNEnsKiA36d1BaBK7d9oW99KJx
-m/BMU5alNeeqUOFPPOqOYKCxeojcMSoravbOkvbwhlaxhtmQiGvsN1qd0M/3UxG4
-oaZHZQAAaWqVMRSzNPxbwGbEBsZrS5m0XWVj3jGW/bOsh4MrBA/aJG+CAS8br7J2
-1SctRieH5Zr3R79/jE7ywya2832XvH2YImeyYxPpZu19qXZoXIJtnJBMg6uhbFo8
-RwyEG6FrtS+tJEXtphwM5XYu8wRfSodZB+VYmfrjI3NQ1pwln6+gSepTTVEzjR+2
-1IlbfH+ikeiY4zLd9ecKseGn2VMvvoF0osCziHd6B3uh809nURup/CAB5k6X+CdA
-3QDs6srozu1ikVuwCaEZOp7bo4MrJy+QVP8yROwGAQcNvFgeDwoIqCVRJ6pF2Zug
-P7I7+ZSI/2VHVGCqX9T4qnHxvZQNRMbTGWjy9dP07CVr+RQSGHQ=
-=gdXD
------END PGP SIGNATURE-----
+I can't find a version of the standard that mentions the power-of-two
+restriction, it pertains only posix_memalign.
 
---lm62or43fijqikp5--
+--
+Eugene Syromyatnikov
+mailto:evgsyr@gmail.com
+xmpp:esyr@jabber.{ru|org}
 
