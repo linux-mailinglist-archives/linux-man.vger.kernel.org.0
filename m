@@ -1,52 +1,51 @@
-Return-Path: <linux-man+bounces-4442-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4443-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E007CC9C5E
-	for <lists+linux-man@lfdr.de>; Thu, 18 Dec 2025 00:12:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 896A4CC9C6D
+	for <lists+linux-man@lfdr.de>; Thu, 18 Dec 2025 00:15:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id B2526302BD25
-	for <lists+linux-man@lfdr.de>; Wed, 17 Dec 2025 23:12:34 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 32A03302BD3E
+	for <lists+linux-man@lfdr.de>; Wed, 17 Dec 2025 23:15:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE53D2ED17C;
-	Wed, 17 Dec 2025 23:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 851FC2EB5D4;
+	Wed, 17 Dec 2025 23:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T/S5aaaO"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqiUZydF"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D62325DB0D
-	for <linux-man@vger.kernel.org>; Wed, 17 Dec 2025 23:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329F227FB3C
+	for <linux-man@vger.kernel.org>; Wed, 17 Dec 2025 23:15:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766013153; cv=none; b=p8Jarf6YnUGTYCWZNwbAEC6XqqGSs1KeQm578zWP/cdo71iEi7PsDG9ExJJTGxy+EhduJbfGkU8DFoLg1nPNuXjYFq5q0pxyK0zeSkXrEJ/uoAvTtJhkkVAu+2oqulF6wW/IxJNPabl7Ta7nIrdsIlXIaHeLdyBai4A9Ueq+FtY=
+	t=1766013325; cv=none; b=iXFUm688syuSxHfWv+JD92toBsFb+O56qShBNpyzEudHgKLQt97LafKovvghEUwa/vXcEIjVIxThNlUg5MB/ovVHl+XFFF5swi0uWz7TA2i6l+Dxp2hAyVz+TFJNKOktxrCLdgl1bD71iw7urcGTRflI6WmhMRSxA5PRJ6VtuZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766013153; c=relaxed/simple;
-	bh=x5qdN6V29JMin8YZSb5SboBDyEtqVUOARbwUDPHoPC8=;
+	s=arc-20240116; t=1766013325; c=relaxed/simple;
+	bh=Yll+GSLRK51XQxAX3UttqhcvgipYnR/vbEJhlqD8YiU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cYx4K4a0I9QWE2SIgtRMQcrRXbp0MvDppEnksitcm/xKdnKoplnnBL+gBXaxRlz2KoFK5b/a/aYMofBzt3JUtE+nwB5RWaYSv1EcSbOG9cGVGvKmDXuPZlnevnWiD5UK3CKzOAXQjFBNFuwpH37G3d6xTl+sJun6NvZqYv20af0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T/S5aaaO; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB2BC4CEF5;
-	Wed, 17 Dec 2025 23:12:32 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=NoE9AUs57CV12G4SXXrQQY7U13sZCzAuSbUQFCJZH10ST+dzEn+FAs3sUecRQ1bx8nJ9j8Gb2mDpwOaxdHG9oPv4w9uO27qgOM4p7lBarbibh+zeSnaXVAjd/rbUb7xGi4SPPQyYGqSMH95LZixv9V3Jg3Zqd99PrMBe3Dv5xgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqiUZydF; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20CFAC4CEF5;
+	Wed, 17 Dec 2025 23:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766013153;
-	bh=x5qdN6V29JMin8YZSb5SboBDyEtqVUOARbwUDPHoPC8=;
+	s=k20201202; t=1766013324;
+	bh=Yll+GSLRK51XQxAX3UttqhcvgipYnR/vbEJhlqD8YiU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T/S5aaaOl4CtvuD8FaTMw9i/1zwQLokbyGEAU+jOs2FlOjfq7RZbdEfY5FlG6NpCw
-	 ZqyUGdCbs8/Mq4NiTpH/kZPBZQmKgnbAMRJ3/zvlTWNYnBa/m1Kj/kq+FvhK9IPXaw
-	 GPb5B+C7j0E0UpMoGzeRv0GRP6ofOjqC8WayIzoiMReILw6NyCsorHm3EsXGqWG7US
-	 TFOvRqPND2hjEX3Obk7NxE6E8nilOjHOkYv24MpCvqzotfjGKNRdMrmxgC/9Pj9JAJ
-	 sog7BO+yBJ9uuQ+pEWB9Boydiwm1oV/lcR0j4ptykofuRC+ltU18IMleUwIfZ/zgpI
-	 QWTX0sYwx3rEA==
-Date: Thu, 18 Dec 2025 00:12:29 +0100
+	b=fqiUZydFDeL9sjQIFBVxUMNN4Yne5iWXQEOIuZTJC5OZVE7xknvg2JQxWcyje0Bv0
+	 NCYENcDQDGlLxW1fqWr8ZZ98hR+njixmvTO/JrAdXws2r3MJGmrLfre4S2nJ6a8kPG
+	 JU2MIxgODXx4XJoA0HcVG+QHETvTt8Lyp5thrloW85x0BsdZmHvQdgUBLo18ys8rzJ
+	 rTrWHf7XcYm4ur1MvZCD1FZxTOIMr7mXcJJettK5q/zsBDiZ4hhgwa3qyY61MoDQF8
+	 EfbiiwbrypZyx0MxnYo0faNizyPHGEyJ2XVt1s+SjasiGK9m3ZzY+ceYuhykOX4Kur
+	 eMcKnPpD7vmAQ==
+Date: Thu, 18 Dec 2025 00:15:21 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/clone.2: Document E2BIG-based extension
- handshake
-Message-ID: <p2w4gsy2rdt2r6m6gpqz2oi6tn3raannxtqyfrucu7rctep6hk@p35sbzzdqeqq>
-References: <lhua4zkxccq.fsf@oldenburg.str.redhat.com>
+Subject: Re: [PATCH v2] man/man3/getopt_long.3: Assist users
+Message-ID: <dfezdrhg7wupodwha53d7yzymf43poxonxhelekituha7yuma6@rklvqpo5fwfa>
+References: <20251214013754.hvrmeblfbr3cb4he@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -54,94 +53,88 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t6u5wlhislkl5q2b"
+	protocol="application/pgp-signature"; boundary="jr76ig7kwj77tbu3"
 Content-Disposition: inline
-In-Reply-To: <lhua4zkxccq.fsf@oldenburg.str.redhat.com>
+In-Reply-To: <20251214013754.hvrmeblfbr3cb4he@illithid>
 
 
---t6u5wlhislkl5q2b
+--jr76ig7kwj77tbu3
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/clone.2: Document E2BIG-based extension
- handshake
-Message-ID: <p2w4gsy2rdt2r6m6gpqz2oi6tn3raannxtqyfrucu7rctep6hk@p35sbzzdqeqq>
-References: <lhua4zkxccq.fsf@oldenburg.str.redhat.com>
+Subject: Re: [PATCH v2] man/man3/getopt_long.3: Assist users
+Message-ID: <dfezdrhg7wupodwha53d7yzymf43poxonxhelekituha7yuma6@rklvqpo5fwfa>
+References: <20251214013754.hvrmeblfbr3cb4he@illithid>
 MIME-Version: 1.0
-In-Reply-To: <lhua4zkxccq.fsf@oldenburg.str.redhat.com>
+In-Reply-To: <20251214013754.hvrmeblfbr3cb4he@illithid>
 
-Hi Florian,
+Hi Branden,
 
-On Mon, Dec 15, 2025 at 11:34:29AM +0100, Florian Weimer wrote:
-> The clone3 system call uses copy_struct_from_user and the E2BIG
-> error code to handle changes to the struct clone_args size.
+On Sat, Dec 13, 2025 at 07:37:54PM -0600, G. Branden Robinson wrote:
+> Throw a bone to users of this function who need to report (in a
+> diagnostic message, for instance) the identity of an invalid long option
+> name.
 >=20
-> Signed-off-by: Florian Weimer <fweimer@redhat.com>
->=20
+> Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 > ---
+>  man/man3/getopt_long.3 | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/man/man3/getopt_long.3 b/man/man3/getopt_long.3
+> index 73e8f3e6f..a464349fe 100644
+> --- a/man/man3/getopt_long.3
+> +++ b/man/man3/getopt_long.3
+> @@ -102,6 +102,12 @@ .SH DESCRIPTION
+>  is not NULL, it
+>  points to a variable which is set to the index of the long option relati=
+ve to
+>  .IR longopts .
+> +.P
+> +Its analogue to
+> +.BR getopt (3)'s
+> +.I optopt
+> +is
+> +.RI \[lq] "argv[(optind \- 1)]" \[rq].
 
-Thanks!  I've applied the patch.
+Would you mind adding \% to the entire expression?
 
 
 Have a lovely night!
 Alex
 
->  man/man2/clone.2 | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->=20
-> diff --git a/man/man2/clone.2 b/man/man2/clone.2
-> index 74c5a59be..1d62a5df1 100644
-> --- a/man/man2/clone.2
-> +++ b/man/man2/clone.2
-> @@ -1188,6 +1188,16 @@ in the caller's context, no child process is creat=
-ed, and
->  is set to indicate the error.
->  .SH ERRORS
->  .TP
-> +.BR E2BIG " (" clone3 "() only)"
-> +The kernel does not support some functionality requested in this
-> +.BR clone3 ()
-> +call:
-> +The size argument is larger than what the kernel supports,
-> +and there are non-zero values in the struct after the kernel-supported s=
-ize.
-> +.TP
-> +.BR E2BIG " (" clone3 "() only)"
-> +The size argument is larger than the page size.
-> +.TP
->  .BR EACCES " (" clone3 "() only)"
->  .B CLONE_INTO_CGROUP
->  was specified in
->=20
-> base-commit: 46950a0845de91c422efe6c639091ace42cb92f8
->=20
->=20
+>  .SH RETURN VALUE
+>  See
+>  .BR getopt (3).
+> --=20
+> 2.30.2
+
+
 
 --=20
 <https://www.alejandro-colomar.es>
 
---t6u5wlhislkl5q2b
+--jr76ig7kwj77tbu3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlDON0ACgkQ64mZXMKQ
-wqmR0Q/9Eto5vnUmUr5E4fpWaDTxekkEs7YpRaFc3pRSXNQrIFyV7dQHdhwV60r9
-AHHgnXqO41bJR9sGUpjf8eJrlnLWAQDOPzh6k0YcIJn+GsWImE3QcFPeGsELIRmS
-O2ysGiKw8ts3PVYpduYZjXKkgCG2BFgTwrUyMBf7HL0TsRqnZBYfG0r7WjhwH/9A
-EL/f8POpkOGBR+Ck3TODKX6xPPk9gxowu6HLDLgTvCwC2YQ4RM5QeGfgWS8fSaMw
-Kc9xPL3dapHFDHeWUMNs9d5CPx+mv97xxwvcl2G2wM8z3/xGpA/qUwYQ7vkimWP6
-5fQRjmtuoANaoysZwAIP5YXU6tEiezS7lJANtYXix1+quWT5VKtAChvUe3sZgwUN
-TRFrXrDkJihMjdt5jhoS/mUXuuOEfyPFtAuGbV/v94IYAgga510106of2wNv7FOh
-P48YO/aitI4ACYejxpdU8pkp/i8AgOVc+5jVgrMEJaY6s9U7qZ8B2DjyN9jaodIR
-FVibbcWDILpKKpFg8CtYoX6TdvUCrDj1IzpOpP/ujTHAMvr5XzKBs9Ckc/0NQH6V
-Sbd3w229Npa2bSKrL6XD4ZrOBFxO7z02vfJyJ7UO8/cPvnpjuImDutlyg+TpSiKz
-Nv16CtPpipXq0CuS+4xwAIjFbOCwRj3WJP4m500mfti2yHWYKKE=
-=wIJC
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlDOYkACgkQ64mZXMKQ
+wqlXXA//RS4+kZeMIhNeTMKREGbVl4D+7PNyLt2Bdp1AjoR81+kWf+mIyspIrsyv
+pMb4+abxZ5QyvrY8cATrHAe6cW0qYd/jUA0U/RIryOMT4/yqW8Xt0L/0kC0bcS//
+MHfdwPPdVevi1Fe8UEL5mfZOHz2W+DdUreYx0cPCDkIi0gOs6uqknnX7XGcwUsXI
+AMfKN+qhm+mawL0s0r3VP/Up4prdWmf4sb9Dsm7xwhHy3IOSvJFCVkhNJMeMppAk
+l1jyxmJ95v+LSuDmJc6IdxXDRW3TwvPJlG1HNqOvwY/yoWLTvhnQhu2QKDtrB7+B
+f/trAlOXxl5z9bUhZgNdISnVAWebkmLcJtytyBI52N1tgb0cv3/ej+wW1yaMoUgp
+57TI1vXz/fSXVsG1kFQ5vUi1H5CH35xgteAtEoA3Mvf/TBDrS13zKYFgsAn3zrg8
+gb5TaYgfIoC+E9xBJjpCcWHBhsudQoe1U3o4cjxhfKakxP6W6TUZAB7ybQG/LBAV
+nLMWM1jFeAnClK6YAM/1g2NZS/uPIXDUJ1KT3Ig4smkP3Pd3lwvTdEmYLvt5Injl
+gYBO9JmVFJO8kvgkQmCuwv7NmBHUTFl4XfG++uUoJv2b8OOrCY4iUX633eV+nhOf
+xx03VWdTK6ZLfwtg8/ErzQm2SR+kk4nKdnmfTOG/HV0ruuOu5og=
+=q3RP
 -----END PGP SIGNATURE-----
 
---t6u5wlhislkl5q2b--
+--jr76ig7kwj77tbu3--
 
