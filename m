@@ -1,201 +1,140 @@
-Return-Path: <linux-man+bounces-4458-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4459-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCB96CD0F89
-	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 17:49:15 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D41CD103D
+	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 17:57:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 81023300B90B
-	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 16:49:12 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 4EE8C302517F
+	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 16:53:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1ADB366557;
-	Fri, 19 Dec 2025 16:49:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B900A1A5BB4;
+	Fri, 19 Dec 2025 16:53:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eK087shm"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Um4A2dVk"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE65350D52
-	for <linux-man@vger.kernel.org>; Fri, 19 Dec 2025 16:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA6C182B8
+	for <linux-man@vger.kernel.org>; Fri, 19 Dec 2025 16:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766162948; cv=none; b=eXW49m2eZwjd4X5/S+mncF3b1+TnZCuF+mKtsLjvf7Hc1duj9wMe28NX+K8nuiinosSY7YDfhOBD2W6APJ+zGf30YVEZRNgAHldO8XYrTUjavtqNEQza1YGxIy/3IZDTpn25F8LIW+GOasceCBQB7GKScIC1OnXFmNeNtElgNhk=
+	t=1766163225; cv=none; b=UgE4NkscU4/0Qb7Jj/R3tD6uCpv00wglF1ryjz5Ez6HByMhSyUtEI6kn+P35ncQH8FgtI4fqx7jkBJGEJmHcHLRD337caJtZSIEjvLxcdw/lNmJRGq5xDb4EnqneoTdzD/Hc71sRu12GErX3EGBgi0Vpq10S201URQyVyfiXHE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766162948; c=relaxed/simple;
-	bh=yuv4kRVWmcmXPJQQSyjmkZQJbjeNM5R8xu1mdz84Tfg=;
+	s=arc-20240116; t=1766163225; c=relaxed/simple;
+	bh=oai9vdoNx/ZT1tY1GQ8R2vLhvjYVWwLuNVjLx2d9OpI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lKXNOyAKHpVLnG6Kc/TTGpXmXf0a/ZYKp8q0jhqF92ua94JDKi5cK3Eqtt4x3Yqj5bndrebuvdi1y6M0pCsjgHxAiM0/IDUYkOnUTCcgPfhrcEBK3bs8I+LvI0SZzw0X5ziYnM/s6C1ueljZnm81Vcr/6MCGypHacqwlXgGyD3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eK087shm; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EAA5C116C6;
-	Fri, 19 Dec 2025 16:49:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766162947;
-	bh=yuv4kRVWmcmXPJQQSyjmkZQJbjeNM5R8xu1mdz84Tfg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eK087shmgteAImzl3EycojLzEXr03FitMtpcODlJRwNkhtyodj1Or+fBpmVDaOiAm
-	 rYKu5rd8x8f66hgSiCKV9KIE3/hfhCg8RlIsyCAeghG9ZWlXQXyOsF6Z/tVz6mqY+M
-	 zbqiKCKaK2E49k9vda+mDOPs+PVtDTRVHXj0jFu04xV5Ej6xYX9RB9TqraaCTQr+gX
-	 hChXm9GeCHucrNMpHEq/XiqXh6pkHlQOrhVJ5i5NHgRzjhl7jwLPcy6Lkp4xlxbqVG
-	 K95M0esZv/Vunpeb4nEwHOXwfRxvstuuDYrZW0iCJ3ZaUEXWiNXefuNd4Rxt7co1ks
-	 p4wOGdE8AU7+Q==
-Date: Fri, 19 Dec 2025 17:49:04 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=jDCLtgm7KQR7xj3CrlquERMbGoCqVTFKKB/XrV3jtlWILcrnycaTjHTWN1d8MRLdKqiTpsTXLaZ99Cxxxfl5+DKklqM7U+1V6MQz3P3RQYiAWk7iL0FjVL0fNSlv0nzElaNWURvHtdSfiyIbR2k395l5Vbi/OBe5COAAamazXgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Um4A2dVk; arc=none smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-64669a2ecb5so1424077d50.1
+        for <linux-man@vger.kernel.org>; Fri, 19 Dec 2025 08:53:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1766163223; x=1766768023; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=XEkONxcK4nmj1xSsJJ0jf8pKFcAWcwWOSGKUIfSHGyg=;
+        b=Um4A2dVkDlg3Qs7cGax6Zvp6DwdoAEk4LocHtnAUovcZ0Kmzh9Abt7+C1+Y1DImJ0v
+         FnN2rpNmy3rLrsAMzbymiOSauDZ6w9lY5ZI0921/zvbMC1f1+alo6XYlVtpMgc4HIRvm
+         Ql9yFkB39iS5Z5i3El3myyUlXYQUUhonbP/9TqlrhVbxhr53NihONswlOm+0U//TJp/n
+         3ch5KlkUnTa9EP4uuE2RTZtLNqaW/0yXzzPRbuJakTzp/j9WU3Tixu1SZj8jolGHt3xO
+         SsCAaJgV6/MchlLJZWvsfx5IeqNWm4ZqL8RDSG1/70r5fhwynIe0YY2PVgVBoG7e+Ecb
+         BhMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766163223; x=1766768023;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=XEkONxcK4nmj1xSsJJ0jf8pKFcAWcwWOSGKUIfSHGyg=;
+        b=OicLFigt/x+kCm/pBlG5eXw6wcEedBLxcIrgh8e2ucV/BWeIDClaBIX//ZDO9BNxeC
+         8Bwztbxuf+V6yuHSgTakwjfQbhJ3mCAHVWFhbfCNa03UMdQAJ6A0ayEehjeiW40AHO13
+         Dfb2ihLl7+1NCrPvBIF8ixOfCaG3vLWhX3Ja+z8h3GeYxSid9XZ8IHVQm6WMB7AfrFqU
+         n6hv4qlGJY2gkjA+fV2uiTV/7VvXQh+Pfx9wpgqeK5Zl3MgS4XCRmAGdQza+Ff20NIEB
+         9xnzWyv+eafC5IPGaMB7X9LLnteX4FfF3r4Uqh/VqC8VeWeBg/PeWqQX9akhkMAjJVc5
+         wDlw==
+X-Gm-Message-State: AOJu0YzGpbCj3unjp8Z2oo40mN1COtDJgFhr7Y7Ex8+0IQoTkWpkUID0
+	GbIKZM5aCzuH/NMWwHFIkOTXvwRlnhDwV0YMeMosHCFxkyfU6JHvrKJJ
+X-Gm-Gg: AY/fxX54+c7cr/E3PuRLMJ0RwND5rBszgQ+mqa46/0RXdQp6EaUWpUmH+Kr9T8HEajk
+	vRBBDNFx+1vysPQH3ZOOF//UvTnn82BhZu81R7smgIvA5pPetI+Bi6wWrKmvFq+vuAqZL0FJBJm
+	zek7TCx5tjfr9oe6O4MD+C7Qz7D5234CmIGZfaOcXPe9n1t4+6jYeTwR5oytUu/6Dy+3RkObsqC
+	hu9/sKRJmRrZRQ3MYEd3T/ZW2CDgNn5NQ/8mwQzPiuaFYdDcIkCqgChBDCRwGB9QuRMCRtrznWw
+	p28yDixepGlQ6GBMpI/SqktgWQqnovxBM42rBp27YpmtnOnE9EXlK5y5/8Od2LGmyJ96I5YwxNT
+	5XCdyPdkgYd2OVSDTwdDmrofp2u/mM7IORWAAK4oJ7IZ310ZgpxvGXEOgvMLJu7/O7aK40UE/86
+	8M
+X-Google-Smtp-Source: AGHT+IHxRi/lB+5BSbnUiyRNXIqSsK4zbbJNtqvcGt92R7x6fyvanc/rWXzFLQl8+N+mNtstGPV9CA==
+X-Received: by 2002:a05:690e:168a:b0:646:44ef:cee0 with SMTP id 956f58d0204a3-6466323e084mr5443795d50.16.1766163222943;
+        Fri, 19 Dec 2025 08:53:42 -0800 (PST)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6466a8bcc06sm1382569d50.7.2025.12.19.08.53.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Dec 2025 08:53:42 -0800 (PST)
+Date: Fri, 19 Dec 2025 10:53:40 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH] man/man3/getopt.3: ffix
-Message-ID: <aUWBtnnKpp_Rx7wn@devuan>
+Message-ID: <20251219165340.sudogmvxvpc2vwef@illithid>
 References: <20251219163144.hrycalv44yxxzevq@illithid>
+ <aUWBtnnKpp_Rx7wn@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="murulx4turmpkl6j"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="pjg26rvd6x3aktfu"
 Content-Disposition: inline
-In-Reply-To: <20251219163144.hrycalv44yxxzevq@illithid>
+In-Reply-To: <aUWBtnnKpp_Rx7wn@devuan>
 
 
---murulx4turmpkl6j
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--pjg26rvd6x3aktfu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH] man/man3/getopt.3: ffix
-Message-ID: <aUWBtnnKpp_Rx7wn@devuan>
-References: <20251219163144.hrycalv44yxxzevq@illithid>
 MIME-Version: 1.0
-In-Reply-To: <20251219163144.hrycalv44yxxzevq@illithid>
 
-Hi Branden,
-
-On Fri, Dec 19, 2025 at 10:31:44AM -0600, G. Branden Robinson wrote:
-> Protect literals from hyphenation.
+At 2025-12-19T17:49:04+0100, Alejandro Colomar wrote:
+> > diff --git a/man/man3/getopt.3 b/man/man3/getopt.3
+> > index e7518192d..2ed7c7080 100644
+> > --- a/man/man3/getopt.3
+> > +++ b/man/man3/getopt.3
+> > @@ -91,7 +91,7 @@ .SH DESCRIPTION
+> >  A legitimate option character is any visible one byte
+> >  .BR ascii (7)
+> >  character (for which
+> > -.BR isgraph (3)
+> > +.BR \%isgraph (3)
 >=20
-> Such explicit protection of man page cross references will be
-> unnecessary when the Linux man-pages migrate to the `MR` macro of groff
-> 1.23.0 man(7); that macro disables hyphenation of its first argument.
->=20
-> Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-> ---
->  man/man3/getopt.3 | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->=20
-> diff --git a/man/man3/getopt.3 b/man/man3/getopt.3
-> index e7518192d..2ed7c7080 100644
-> --- a/man/man3/getopt.3
-> +++ b/man/man3/getopt.3
-> @@ -91,7 +91,7 @@ .SH DESCRIPTION
->  A legitimate option character is any visible one byte
->  .BR ascii (7)
->  character (for which
-> -.BR isgraph (3)
-> +.BR \%isgraph (3)
+> Please don't include those that will be unnecessary with MR.
 
-Please don't include those that will be unnecessary with MR.
+My satanic seddery would have no trouble with removing them, but okay.
 
+Regards,
+Branden
 
-Cheers,
-Alex
-
->  would return nonzero) that is not \[aq]\-\[aq], \[aq]:\[aq], or \[aq];\[=
-aq].
->  If such a
->  character is followed by a colon, the option requires an argument, so
-> @@ -137,14 +137,14 @@ .SH DESCRIPTION
->  If the first character of
->  .I optstring
->  is \[aq]+\[aq] or the environment variable
-> -.B POSIXLY_CORRECT
-> +.B \%POSIXLY_CORRECT
->  is set, then option processing stops as soon as a nonoption argument is
->  encountered.
->  If \[aq]+\[aq] is not the first character of
->  .IR optstring ,
->  it is treated as a normal option.
->  If
-> -.B POSIXLY_CORRECT
-> +.B \%POSIXLY_CORRECT
->  behaviour is required in this case
->  .I optstring
->  will contain two \[aq]+\[aq] symbols.
-> @@ -221,7 +221,7 @@ .SH RETURN VALUE
->  otherwise \[aq]?\[aq] is returned.
->  .SH ENVIRONMENT
->  .TP
-> -.B POSIXLY_CORRECT
-> +.B \%POSIXLY_CORRECT
->  If this is set, then option processing stops as soon as a nonoption
->  argument is encountered.
->  .SH ATTRIBUTES
-> @@ -249,7 +249,7 @@ .SH VERSIONS
->  .IR const ,
->  but these functions permute its elements
->  unless the environment variable
-> -.B POSIXLY_CORRECT
-> +.B \%POSIXLY_CORRECT
->  is set.
->  .I const
->  is used in the actual prototype to be compatible with other systems;
-> @@ -284,7 +284,7 @@ .SH HISTORY
->  .P
->  Very old versions of glibc were affected by a
->  .UR https://\:sourceware.org/\:git/\:?p=3Dglibc.git;a=3Dcommitdiff;h=3Db=
-f079e19f50d64aa5e05
-> -.BI _ PID _GNU_nonoption_argv_flags_
-> +.BI \%_ PID _GNU_nonoption_argv_flags_
->  environment variable
->  .UE .
->  .SH NOTES
-> @@ -294,7 +294,7 @@ .SH NOTES
->  and \[aq]\-\[aq] at the start of
->  .IR optstring ,
->  or changes the value of
-> -.B POSIXLY_CORRECT
-> +.B \%POSIXLY_CORRECT
->  between scans,
->  must reinitialize
->  .BR getopt ()
-> @@ -303,7 +303,7 @@ .SH NOTES
->  to 0, rather than the traditional value of 1.
->  (Resetting to 0 forces the invocation of an internal initialization
->  routine that rechecks
-> -.B POSIXLY_CORRECT
-> +.B \%POSIXLY_CORRECT
->  and checks for GNU extensions in
->  .IR optstring .)
->  .P
-> --=20
-> 2.30.2
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-
---murulx4turmpkl6j
+--pjg26rvd6x3aktfu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlFgfoACgkQ64mZXMKQ
-wqm2Kg/9ELIgmbWPORI+dgvOAkgx/HBz9NhQMa8hqewrhdHKpU+GqbvhbcJ4RioE
-7EWhptK03Pnfge3oI3/kfSetrBHGisoTpSU7dv1wDQLVWOgub566RU7ltKsbauPf
-ZyIiEJciGZj3H482YH0ffyCYCjPIC93g5NHoG2GMcMND6q+NQP1zEHOTkEbkdkDK
-QMLDH1SG09woe59VMDm52eips7WY0FFjdyMXzNMhu3tX8mNpxtGh3OE/6G3wEav2
-oY8SAXp1EfpK6D67eum6KyFoJ5OCwZd1RT/9Lj4Z+jINiQx5FyEMzh13wCaFHiL5
-D07ewZeHDT2ZLYvOkcwVF9cniMm3gsXJCg3NeYt/0RkkefOtnRNopdQJOuZj8yro
-mUTqyHiwHui3Uc/jFJftUeD/cfJiRxTv2pJ9aXLWI97BxZzoGvADOFAhcJzmML3q
-VxTsT3d1INPglA0oIs+CrGxyxTCNpP0V3NydAje71dPopP2Y2KwwP2tgMeOHRuUu
-ozB/Py5uByj1onURFNOpR5f91z+2fKeLDRCU9+2spprk7xxuUuSiUA4B8erC4pv4
-P78lyPo2fgzVBgIlLzQAo6CmSMLZ5ofjWWNWDKindvNo9y0vOjmAsw008fytTvwh
-UAag9g99Zb7u8JwYygOVLwyWTMcvQ+KwP+c8LjNCUWGOoY2yxUk=
-=1Cwc
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmlFgwwACgkQ0Z6cfXEm
+bc49XxAAoq5OD6K9mwW74b9w9eWQGxIx8tRRCvExYsc31IDnFEWdGUmZv2vB7dTq
+zmbHX6R8ZMaU/Eyk46hSwXkbzcd3ndeK+44OCb8vsLGn8gi1fHssMyVmwPhl55OY
+eh8iWjSGFcTfcNbj4VAjZZWPuveKYLmsLJvu+UUObwHSRX4zNc7SXbW+CuD7Lbxi
+PM0JMJZiZ6PywgVAOnsV1bWEC0qSFWcnM90TAjX+MGfmEzyMwttEnFPKf3ncfiMo
+iTpLkP6kssvo9X7yvy5GhrOHmvqhvX2jM3ZK5327nm0OJDxkFsuFdY70DCUZekGu
+9yLrAIBTwlvKNbA3ShUu/Tpqlasj+9MzJDzIhnGmpo728MgsRgUKRWEEbQvaKXFQ
+ZLA/64KcO655V7/QhV0V0BYxXlrbQfRCX6509GR3O2AwWauwMPS7m3s3yNBtmAge
+5axhr4mmLtRxJXcKhufTFlVPWT+omz0JHDbuXimOe+TVijKsoLZW3QSWYXo+/0/a
+Sa+8hzB36lBsWbqc5OVUa5D1UzHN0M2ri6/LltjEPPNYr5Vh1Cq/Z08/RekYwBJ6
+ocIZRt7hWakJ8DkugI1ktxIaq198wsXi67NmmckzFc98QfIztnpzqr7N/TuU4ySj
+yIQ1VBbyzaKtz3y2guMboJkDehoGRstPMjlUTqeJbOfW+uWVEJc=
+=w26M
 -----END PGP SIGNATURE-----
 
---murulx4turmpkl6j--
+--pjg26rvd6x3aktfu--
 
