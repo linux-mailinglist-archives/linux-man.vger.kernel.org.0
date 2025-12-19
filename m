@@ -1,144 +1,126 @@
-Return-Path: <linux-man+bounces-4453-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4454-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A64DCCE007
-	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 00:50:31 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id B29EACCE806
+	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 06:18:44 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 7516F301F261
-	for <lists+linux-man@lfdr.de>; Thu, 18 Dec 2025 23:50:22 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 7352230221AE
+	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 05:18:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9DF13064A2;
-	Thu, 18 Dec 2025 23:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGhlHB8U"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5761222584;
+	Fri, 19 Dec 2025 05:18:41 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from r9220.ps.combzmail.jp (r9220.ps.combzmail.jp [160.16.65.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4562D7DE9;
-	Thu, 18 Dec 2025 23:50:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCE3153BE9
+	for <linux-man@vger.kernel.org>; Fri, 19 Dec 2025 05:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.16.65.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766101820; cv=none; b=LNz/7LkYJM+BfB0Wi76ndi7pT/qCtkBUZqBwj0BiGib1fvOfFmYMyVD0y2ngBW3O1je98lzdpuOabX3o+g3He8WIw5JX53JMLko5R7Y6sMdi3yScos+ZJf0uFSPR91QL+Z7uLqBLivZQqpzEJAj3Io0ofnYPs7G2fNdynuVF7qQ=
+	t=1766121521; cv=none; b=fBzc+bEHVOYkpo2qyk/k7EBgiGr0ZOMXV02UqGCEXKKVByOlYNjN0BCz6+vsKANsUl1FjW2pCy03wxlz7C183m9IRJjH3LpgA5lzFlaBu0zu0dqZDZEJ6ly2IM/FzWC7vLx4uFw5cEUjKUuhbwt7jJhe46QBUyNj5rHINeHCI0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766101820; c=relaxed/simple;
-	bh=TVA+9B1Nko+1t8FR0Py8aHGwvKA195Xcos+KzqHzQrM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B17x15qyJz2KCPFs85n9w5Jt42VAhyDRmgeeFt3zklQqyNzP/WQNvPL8zamCRoRo4XaTZksNCYpauyrL6L9SIo286g9cx9Iw1JvtOzATIGpR4hDjXnNGb+En00qhQAZ2/ZYmpzXXKyWaDaGS60/27uZR8/Y3P1XFn1wulwN37/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGhlHB8U; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028CEC4CEFB;
-	Thu, 18 Dec 2025 23:50:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766101819;
-	bh=TVA+9B1Nko+1t8FR0Py8aHGwvKA195Xcos+KzqHzQrM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WGhlHB8UbaP7XIjiKFAi5J9sh4fsorNlaSaxyxKKf/8n//OIXjYeciE3x2e0XZMNK
-	 V8Rt0sdD6yA72CdiMiHuhjE60WTAvm21gt4pNHMIJzRFcjRNZhXkziJuodRjDTobGP
-	 KZGCSedZHyaappJxXzuVZiRAO07R6fvE8+6zAPz/QAuMNKjUEntL5rfZcjIf3x4NVt
-	 nwJqgbzrabv6slne7gyO/yPXQCkWnAEFyno2t3nCOzLIqnB8FZsNVjTj24zr5xp3nP
-	 DlJM/raRsUxjGUmk62rcYAB0C0gzlmwjvpJBPUZCAvjEvOxzV267HLYyHWPy+GhoNg
-	 bZizDLKZlwnhw==
-Date: Fri, 19 Dec 2025 00:50:15 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Alyssa Ross <hi@alyssa.is>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, linux-man@vger.kernel.org, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>
-Subject: Re: [PATCH] man/man2/statmount.2: document flags argument
-Message-ID: <lphsqrquupbreqi2jl7nddryhuj6p3gmrdujihnxmr4z2f5lgz@spr4mq5dek6e>
-References: <20251218230517.244704-1-hi@alyssa.is>
+	s=arc-20240116; t=1766121521; c=relaxed/simple;
+	bh=kW4zwnkEGaSUa356qJniLyOVS9CzKNoZST6k+KV8fNo=;
+	h=To:From:Subject:Mime-Version:Content-Type:Message-Id:Date; b=T594Ch55ATZgdASdN0AqdL+sI3Wh/XY7Zpyls+3PrDx7h/PMxTkMVb+N8fIMs2TkFdTVT4bSbQWFUY7BhfzHsnzliwiGFA+92+LnrL+LMGyOUcJIMglMlUnA4LRiLACO9wQvwW3tFXwFgi2FzhuBAfQZdYyNd7PYRJd54YiTZlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ibj-marriage.jp; spf=pass smtp.mailfrom=magerr.combzmail.jp; arc=none smtp.client-ip=160.16.65.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ibj-marriage.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=magerr.combzmail.jp
+Received: by r9220.ps.combzmail.jp (Postfix, from userid 99)
+	id 06A48C0A85; Fri, 19 Dec 2025 14:18:34 +0900 (JST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 r9220.ps.combzmail.jp 06A48C0A85
+To: linux-man@vger.kernel.org
+From: IBJ =?ISO-2022-JP?B?GyRCJVUlaSVzJUElYyUkJTo7dkwzNkkbKEI=?= <info@ibj-marriage.jp>
+X-Ip: 63504797233581
+X-Ip-source: k85gj74o48dnsa48u0p6gd
+Precedence: bulk
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: =?ISO-2022-JP?B?GyRCQF9Id0VqO3ElPCVtISM3czZIJEckLSRrGyhC?=
+ =?ISO-2022-JP?B?GyRCOiczaCVTJTglTSU5GyhC?=
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5q2lvqctxhlxiirg"
-Content-Disposition: inline
-In-Reply-To: <20251218230517.244704-1-hi@alyssa.is>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: 7bit
+X-MagazineId: 4o48
+X-uId: 6763335742485968724551721037
+X-Sender: CombzMailSender
+X-Url: http://www.combzmail.jp/
+Message-Id: <20251219051837.06A48C0A85@r9220.ps.combzmail.jp>
+Date: Fri, 19 Dec 2025 14:18:34 +0900 (JST)
+
+　―　婚活ビジネス オンライン説明会　―
+
+　いつもお世話になります。
 
 
---5q2lvqctxhlxiirg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Alyssa Ross <hi@alyssa.is>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, linux-man@vger.kernel.org, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>
-Subject: Re: [PATCH] man/man2/statmount.2: document flags argument
-Message-ID: <lphsqrquupbreqi2jl7nddryhuj6p3gmrdujihnxmr4z2f5lgz@spr4mq5dek6e>
-References: <20251218230517.244704-1-hi@alyssa.is>
-MIME-Version: 1.0
-In-Reply-To: <20251218230517.244704-1-hi@alyssa.is>
-
-Hi Alyssa,
-
-On Fri, Dec 19, 2025 at 12:05:17AM +0100, Alyssa Ross wrote:
-> Reading the man page for the first time, I assumed the lack of
-> mentioned flags meant that there weren't any, but I had to check the
-> kernel source to be sure.  Sure enough:
->=20
-> 	if (flags)
-> 		return -EINVAL;
->=20
-> Signed-off-by: Alyssa Ross <hi@alyssa.is>
-
-Thanks!  Patch applied.
+　新規事業として低リスクでスタートできる
+　“　結婚相談所ビジネス　”
+　の説明会ご案内につきご連絡差し上げました。
 
 
-Have a lovely night!
-Alex
+　設備投資もいらず、本業のスタッフが兼務も
+　できるので、個人の独立開業だけでなく
+　新規事業として取り組む企業も増えています。
 
-> ---
->  man/man2/statmount.2 | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/man/man2/statmount.2 b/man/man2/statmount.2
-> index 8a83d5e34..cdc96da92 100644
-> --- a/man/man2/statmount.2
-> +++ b/man/man2/statmount.2
-> @@ -68,6 +68,8 @@ The returned buffer is a
->  which is of size
->  .I bufsize
->  with the fields filled in as described below.
-> +.I flags
-> +must be 0.
->  .P
->  (Note that reserved space and padding is omitted.)
->  .SS The mnt_id_req structure
->=20
-> base-commit: a5342ef55f0a96790bf279a98c9d2a30b19fc9eb
-> --=20
-> 2.51.0
->=20
->=20
+　説明会では詳しいビジネスモデルや
+　収益性などをお伝えします。
 
---=20
-<https://www.alejandro-colomar.es>
+　新たな事業をお考えの方は
+　この機会に是非ご参加ください。
 
---5q2lvqctxhlxiirg
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+　>> セミナー詳細情報＆申込はこちら
+　　 https://ibj-online.biz/25online/
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlEkzcACgkQ64mZXMKQ
-wqmcMA/7B/Or2/oR4Zk7f9HH0RFOl7yCsv+z5RM6FbyaZUm8fwcoI3YgnM7pCMLm
-KHjMgFSEGFvZFnlKT3m8B1SKYD6aHEu/KAjFSQCjED0SINsnTs+EKAWCmx6GewV0
-DxpXRX7GMaGO30z8/M95uYfvt/PqVHczYXbzeCdcJ9Uhynxb4oeLA6ZjmQ19qQy0
-tlxl1LATJySjYeOvusaRA8tu/6h5tlc3CXaEnSJGM9GJ4mK1UY+y7j2hLmHMmY8h
-PJLTA2cNVjP0v62dDGytYFBuvJcwbDdn9jJ+JfNbTCJNJ51wm9kjJLSye2NK/wni
-PUnN5jenHvK+5IO5Ox6ZNm7TuW8m89BzK/3vT8LGRCV8PydCac6dmobZ2O68X9wh
-7Q6sHa+YAnN5mroiEhIX5dA53T4jz2MNecnX0mSMmFqYJ2U251myEWtFr0l7Vc0O
-qYwuVpOjRkv043+37oVENrfzHruFt00RsSenQ2RFi1CKkPIW8uW9FEYCKUas1ktw
-Kel/J5z1o03Zoc9dhp/piQesb7yVPQIkPme0d2mUaxYNpa59rbFz2xas/HEFbRCj
-6IAq/ONrTzm8wT+AiWBgS69hQxfOR6NONqemJLXB8uUvHnQPxLgtu6iJgwA57W8R
-x5Me9qKRHPeQ1cX3jHS9gIz/C+h0UFeecMSyEyI+ypSeOrc8OVg=
-=LLN/
------END PGP SIGNATURE-----
 
---5q2lvqctxhlxiirg--
+　オンライン開催
+　―――――――――――――――――――――
+
+
+　◇　婚活ビジネス　説明会
+　設備投資ゼロ／本業スタッフ兼務
+　ミニマムスタートできる「 結婚相談所 」
+
+
+　◇　主催
+　株式会社IBJ
+　(加盟相談所数:4,500社超／登録会員数:約100,000名)
+
+
+　◇　開催方式　オンラインにて実施
+　　　　お申込み後、開催日までに視聴方法をご案内します
+
+
+　◇　日程※
+　　　　12月20日（土）14:00〜15:00
+　　　　12月25日（木）14:00〜15:00
+　　　　12月27日（土）10:00〜11:00
+　　　※全日程内容は同じです
+
+
+　>> セミナー詳細情報＆申込はこちら
+　　 https://ibj-online.biz/25online/
+
+　―――――――――――――――――――――
+　 参加費：　無料
+　 対　象：　法人／個人　どちらでも可能です
+　―――――――――――――――――――――
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+　株式会社IBJ　セミナー事務局
+　東京都新宿区西新宿1-23-7
+　新宿ファーストウエスト 12F
+
+‥‥‥‥‥‥‥‥‥‥‥‥‥‥‥‥‥‥‥‥‥‥
+　メールが不要な方には大変ご迷惑をおかけいたしました。
+　今後、不必要な方は、お手数ですが
+　下記URLより手続きをお願いいたします。
+　　https://ibj-online.biz/mail/
+
+━━━━━━━━━━━━━━━━━━━━━━
 
