@@ -1,87 +1,81 @@
-Return-Path: <linux-man+bounces-4455-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4456-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9F77CD0E27
-	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 17:33:26 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id C1347CD0E31
+	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 17:34:08 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id F06D5303BEB0
-	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 16:32:12 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id D3717305BEC5
+	for <lists+linux-man@lfdr.de>; Fri, 19 Dec 2025 16:32:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 907FC339873;
-	Fri, 19 Dec 2025 16:25:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 679C911CAF;
+	Fri, 19 Dec 2025 16:31:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bW08g+WV"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="asLANkR2"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8FC32826F
-	for <linux-man@vger.kernel.org>; Fri, 19 Dec 2025 16:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A205C4C92
+	for <linux-man@vger.kernel.org>; Fri, 19 Dec 2025 16:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766161516; cv=none; b=ZTLmewmK4u2ZnM5q93T0DwQJ2fadIkpIR5m7bwngX9PJHjogudjzf1qsoUlwJ1HrNYtFDDabJpeofk4JWRw6TnYG322rFwLTLCEZ+ecYK95gk9jrpknsgA4Gb1ZdNPWfDcpEIRFTjZS6+XmWkCnmG0mHzQAlKJkZPHLYpWVjHGc=
+	t=1766161911; cv=none; b=XucSvLcTR6BU4Zb3yosPVD0Zv1bFKrQUuJZkfw/gu5gSTF9KYDxXQUvT5V9SQ/IX9ICLnLVA8/n5Ti+TEYiieYi5VLy+M1VtMR5KWt8gl/+q9MI9X1c6XLfDaPJ30/LitB/Gdu522HEbWkpw9lBTLlvCOes7x4OsaDH4OBrp19o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766161516; c=relaxed/simple;
-	bh=pd4hoOqJ17WhE0A8GKehyDUkHC6P9p8qIiNRuI6alkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PaV1BXNTJIYOjiKlDJKPGRONethrDFmeJcuvy8o9YQ/XulYoZWts+eCbu/Q1ntZudEREM6+n5dQJHvFehFxi0q5WGCrvM1UMO3sdNqkB7kIRtSA1BSMwBWh1JNflVAqd4TlLrO2vVHvZYe3CXWOjhnj3K2w0irIIBoMdpExfUoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bW08g+WV; arc=none smtp.client-ip=74.125.224.51
+	s=arc-20240116; t=1766161911; c=relaxed/simple;
+	bh=8LEz1PI02NvjzlHhfjgkNkL8gznzc1I2AKDiAAZpCek=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Rp9oRDgFzdY8GAfRicCp7DjbNHiusDiFP3X0C+re+trHZO6qQE6E9PHE1uzWuoIQ1JfLvndsI9m17LjpM8Xl26gtgnHhDlgA2QOxdYWnBEIQgSi/s42u2bzPHvCFxHijJxotV9lmgFYUhDWD1qjLj9clLdYRRRqFW76XDL06Lpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=asLANkR2; arc=none smtp.client-ip=209.85.128.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-644715aad1aso2334780d50.0
-        for <linux-man@vger.kernel.org>; Fri, 19 Dec 2025 08:25:08 -0800 (PST)
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-78c64370309so15645497b3.2
+        for <linux-man@vger.kernel.org>; Fri, 19 Dec 2025 08:31:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1766161506; x=1766766306; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=lJJoyrtXjuAjlcGPCsdu+J5TQf6qPVJJWp8UvaTS2ek=;
-        b=bW08g+WV+2kRe2DOHLq4fPR7IKt7rbEJwrb8ZYsHOi1mkL9Pk8EISur/Sf/uC4xhX8
-         n0cHAMJdQlmUQv4UQ+Qj+lSY1Wve+yBsi+qFIysn2kdwNtSulkHuPp1TqwWsiVhQZk/+
-         o1auEFG6nvdHnCnf35CmjyY0jf8bUs/9qRXAVy3cfdoVNvpgn+vAhzgLVtSSCCvg/kBu
-         /jyz0w5FdBEhnu7vsT2tv27X3EbGK6DiiiQC8/1aRTCtRjM7k/+TvVfjUvPISVxdzrfU
-         sg1rJJtVEjUJrYsBsM1mcj8EA+jYkjURevAAVUFl0E9GHo0c8x0fD7A8QgIf2eZgEVkA
-         VEtA==
+        d=gmail.com; s=20230601; t=1766161907; x=1766766707; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8LEz1PI02NvjzlHhfjgkNkL8gznzc1I2AKDiAAZpCek=;
+        b=asLANkR2ut/amrnPqrmnV1aAjwLL9OoHY9idwDfP5nfAqHOT8m+RhM3WhPb8mvyH9b
+         p0ozktiltSP6diLDKa82YZSbJQ5n0DdfzfgRpzdmlIVQCFjzGYyzxrrtMKcRijIOxSTP
+         fKF079mLFXIMZLc0r6MoP+5ZJ+32+Ps8CrEI+p5NBVNRY0HzR7mr0CHZDSDgl40PYqA0
+         6sfexQFRCiHx4iVc3BcctFWtbhwnu6JqcqNbdAf38ZWFYp9d3rC4lhP3wjjLa38skIG0
+         ctq9IYRT878zf/Sls3vBB3Qw+YW0IIEJzU5n6WBS8JDzvGpT4iUUa9Ymv6GcVcqnnKEr
+         Jnig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766161506; x=1766766306;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lJJoyrtXjuAjlcGPCsdu+J5TQf6qPVJJWp8UvaTS2ek=;
-        b=biXVmPYrW38HeTYH67thghF5T3jQAu5s6Tx9IuQdGepaTiRDUTtJFjyfycdhVx2taq
-         doVczAaCLLbSrsfTgipV2Gpgqv2cNY733hCPg4g/oChz+IKr/jdYyl1GjWA47p+gVfC/
-         TIwscghFywGyskuG9v/cvuq6QOXdJscfR/q0Nx0VvsAjhezrS3LQ0S+lqB6mziQKoSH/
-         yXQcWhxdGzzqTMSy/YbxmKqmWi10GgYxI3eVdaT07bOa4IZDPlNafbaXsbHwZdiUfNMu
-         MJIqLheW+c9UX8NVq/E/6XFDwREYDnKpLvpnZHbhUznBy4SVGH5qXPieK7TCxTNK6A/d
-         m50g==
-X-Forwarded-Encrypted: i=1; AJvYcCXAr6715QIh4jVQmROSZA8gAEEOxqFYqJA7uOdM7DI3+vv7q3RuMtWDizAMYhRY1ZhkYwFKNOgBvWY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyYqEtBgwMAgkqEkLE3tUinrN/fEtbSXhLjw/U1OecI81rfPl8m
-	J1V1C6HpVZaxNX+ZubuqhvWg1Jy7RGaxFLHDpsdgv9ehEJMOKDGzFtio9YkJng==
-X-Gm-Gg: AY/fxX7KZqcDNgJ+VlgN7aCdlVuaJmMAsTYm86X7SxJpRo+hGU2nrW1Ak82vyg2C4A/
-	sh8xrcLop0c3rIlVp1G/GZ/LlQjx+ldJdY7D3of1dU1OrUKtB5UZTTUF9MOPyGdSwRG5EqhuVUA
-	fiNOh/HfgYhA6J+5Dw0nbDjDw43CU40U/4xwzORP7rFMSzr75FmDiYUCw1wOdYIuciPYWm9Fnu9
-	4tp7QzzULeXOcgvhyjvtG97U1nWEL5HbevLfsISH/2wkt66u+o/l+CQ87kV/VVgQRTvv7Ix2wC8
-	C9nDEXqi19nOicRyc/aID3loXFnBeTDIikMlTyhkegoo8Y1YFRc5hN7E+DrGwvvmSRGOZFjyy0u
-	ySJHJ3z5pBLrwW5zhbvxq0HkEKb0XpTBbsbran7b+fGPXgoVtgNq/02xhSAn2NSHeXzh2o6Wruw
-	yv
-X-Google-Smtp-Source: AGHT+IGCsZjgsWxVk6kR76luXCGrqY+r5dtMGBStBiiVyUaBxY6G9M3+aq+F0RF7xBbUVFqoEV4XrA==
-X-Received: by 2002:a05:690e:1593:20b0:641:f5bc:692b with SMTP id 956f58d0204a3-646632c4990mr4275796d50.36.1766161506233;
-        Fri, 19 Dec 2025 08:25:06 -0800 (PST)
+        d=1e100.net; s=20230601; t=1766161907; x=1766766707;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8LEz1PI02NvjzlHhfjgkNkL8gznzc1I2AKDiAAZpCek=;
+        b=dTOePvKz+bD2rmtGJD6ybo8xmAO5xFmPX6VKxDm0Bme8QmQH9YjLpfhXxeLt3zu/c2
+         ENBPVCctTw0aY5dIWunuNzLiSGQOgbiO8FLrfaK+1IRqkqwLB+rs1bD0ijPdH7U0KQ2/
+         CVVX6vrwPsP+g7hq+r85949XESC3Ki9PAorwGTrbOx4qA/BHXEpzj3qIOzXKQv8UZOr1
+         md2hy99hshRHFflPwhlKgHa/nBzyxYrMd59D/q25/5oS87gAKGjULUtPtejuJpiV0EWM
+         QtjNHZ7yFEll3fbpMET6TyLJ/oLdrKlEe3AGsT6jMIcdiBAeSDHvBVeIzVKuzQGyN5cz
+         elyQ==
+X-Gm-Message-State: AOJu0YzmcOUlKaDm81IUOcCArDToOadMnHNMDRS06xW3CT0iB44l0mG8
+	G1UqPnB01LGCz82wsYbbYCVvLgaJMALQU12nBIunUhQaw/og8LZSWhM0
+X-Gm-Gg: AY/fxX7N1NjuEZrhO7wqio/yfUxeqT84BS8kOGOMQlUuWwKQFs4xk1DhTjOhG0O1xAy
+	v5nDnucCaowDgIdnTjf5msqi6+LUVx3l2ppnN6rdkVFmaQwAFCaj3BbltMFxNpsuRlVCrESvdXe
+	uhe1gXAFwLjsNFaEmWk9WdZOctlhf5jOnP60Y8JCB8Dk3F+th9wHbx7EnMICEWBA2Pr5PQHrtL7
+	FD0hpJWJDVITE8U39fiZF7eSnSmiBH88eaNZWwNwLTH19N4Mc0z1QH7lsyhUYIku7jhImNSoW3/
+	pMfKU3WWREiN4wNhxv946rjaFHmwTFjOrGgtIlvbqBocjpy4DikvNDjclCgcbpYCUMR4QZjXkRb
+	7xs8HoouWKbEjslpzd8ukUbvjwLuxYXL1cdBTqznSl8sGJaM4CfDYtaxBEERNtW+KIw+UvjHpfI
+	acUg7qlOmuB5E=
+X-Google-Smtp-Source: AGHT+IGEZ7ExFVc95TBedJOVyNc/+P81xhpdY/97qC9lyEoBFQpz5WFD4fDgRTztZgmOGG+7FBNoqA==
+X-Received: by 2002:a05:690c:6311:b0:78c:5c75:c4a4 with SMTP id 00721157ae682-78fb400f4abmr30984687b3.4.1766161907251;
+        Fri, 19 Dec 2025 08:31:47 -0800 (PST)
 Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-78fb43766basm11422127b3.1.2025.12.19.08.25.04
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-78fb437380esm11635767b3.4.2025.12.19.08.31.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Dec 2025 08:25:05 -0800 (PST)
-Date: Fri, 19 Dec 2025 10:25:03 -0600
+        Fri, 19 Dec 2025 08:31:46 -0800 (PST)
+Date: Fri, 19 Dec 2025 10:31:44 -0600
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Collin Funk <collin.funk1@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/getopt.3: Restore angle brackets.
-Message-ID: <20251219162503.gg7k3fbfgsie7muq@illithid>
-References: <a719bf4893291d95db164329b2c6add4e4a0e3e7.1764119717.git.collin.funk1@gmail.com>
- <20251126020524.cq7alectskkzbjh5@illithid>
- <i526ocx5oztrostv55e77cq4fjsdet3g6hf4hej5q5wyyheyrt@eyz2knpjir55>
- <87h5ughsn0.fsf@gmail.com>
- <rwtjhwhcdo5x7sxqdktcfrvljjak2uwh5jh4hgoewdhramlnx7@eiqkvvluszla>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH] man/man3/getopt.3: ffix
+Message-ID: <20251219163144.hrycalv44yxxzevq@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -89,86 +83,127 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5cvvtapouki34u6c"
+	protocol="application/pgp-signature"; boundary="wc63nezgcfwz4cg2"
 Content-Disposition: inline
-In-Reply-To: <rwtjhwhcdo5x7sxqdktcfrvljjak2uwh5jh4hgoewdhramlnx7@eiqkvvluszla>
 
 
---5cvvtapouki34u6c
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--wc63nezgcfwz4cg2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] man/man3/getopt.3: Restore angle brackets.
+Subject: [PATCH] man/man3/getopt.3: ffix
 MIME-Version: 1.0
 
-Hi Alex,
+Protect literals from hyphenation.
 
-At 2025-11-27T13:12:26+0100, Alejandro Colomar wrote:
-> On Wed, Nov 26, 2025 at 10:54:59PM -0800, Collin Funk wrote:
-> > Alejandro Colomar <alx@kernel.org> writes:
-> > > On Tue, Nov 25, 2025 at 08:05:24PM -0600, G. Branden Robinson wrote:
-> > >> At 2025-11-25T17:15:39-0800, Collin Funk wrote:
-> > >> > While looking at 'man -S 3 getopt' the underlining under PID
-> > >> > looked strange to me.
-> > >
-> > > The underlining under 'PID' means that it's a variable part.  We
-> > > use that syntax in many pages.  This is documented in
-> > > groff_man(3), as Branden said.
-> > >
-> > > However, you might have also noticed some dotted underline that
-> > > extends until the end of the line.  I think that's a bug somewhere
-> > > --might be in the terminal emulator, because I see it in
-> > > xfce4-terminal(1) but not in xterm(1)--.
-> >=20
-> > I was using Gnome terminal and Emacs '(man "getopt.3")'.
->=20
-> Hmmm, I can reproduce the dotted underline in gnome-terminal(1) too.
-> I don't know where's the bug.  It might be in both.  Branden, can you
-> have a look at it?  I guess you'll know better than me about these
-> issues.
+Such explicit protection of man page cross references will be
+unnecessary when the Linux man-pages migrate to the `MR` macro of groff
+1.23.0 man(7); that macro disables hyphenation of its first argument.
 
-The dotted underline is how gnome-terminal(1) marks a hyperlink.  The
-man page source explicitly formats this text as a hyperlink.
+Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+---
+ man/man3/getopt.3 | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-MP> .P
-MP> Very old versions of glibc were affected by a
-MP> .UR https://\:sourceware.org/\:git/\:?p=3Dglibc.git;a=3Dcommitdiff;h=3D=
-bf079e19f50d64aa5e05
-MP> .BI _ PID _GNU_nonoption_argv_flags_
-MP> environment variable
-MP> .UE .
+diff --git a/man/man3/getopt.3 b/man/man3/getopt.3
+index e7518192d..2ed7c7080 100644
+--- a/man/man3/getopt.3
++++ b/man/man3/getopt.3
+@@ -91,7 +91,7 @@ .SH DESCRIPTION
+ A legitimate option character is any visible one byte
+ .BR ascii (7)
+ character (for which
+-.BR isgraph (3)
++.BR \%isgraph (3)
+ would return nonzero) that is not \[aq]\-\[aq], \[aq]:\[aq], or \[aq];\[aq=
+].
+ If such a
+ character is followed by a colon, the option requires an argument, so
+@@ -137,14 +137,14 @@ .SH DESCRIPTION
+ If the first character of
+ .I optstring
+ is \[aq]+\[aq] or the environment variable
+-.B POSIXLY_CORRECT
++.B \%POSIXLY_CORRECT
+ is set, then option processing stops as soon as a nonoption argument is
+ encountered.
+ If \[aq]+\[aq] is not the first character of
+ .IR optstring ,
+ it is treated as a normal option.
+ If
+-.B POSIXLY_CORRECT
++.B \%POSIXLY_CORRECT
+ behaviour is required in this case
+ .I optstring
+ will contain two \[aq]+\[aq] symbols.
+@@ -221,7 +221,7 @@ .SH RETURN VALUE
+ otherwise \[aq]?\[aq] is returned.
+ .SH ENVIRONMENT
+ .TP
+-.B POSIXLY_CORRECT
++.B \%POSIXLY_CORRECT
+ If this is set, then option processing stops as soon as a nonoption
+ argument is encountered.
+ .SH ATTRIBUTES
+@@ -249,7 +249,7 @@ .SH VERSIONS
+ .IR const ,
+ but these functions permute its elements
+ unless the environment variable
+-.B POSIXLY_CORRECT
++.B \%POSIXLY_CORRECT
+ is set.
+ .I const
+ is used in the actual prototype to be compatible with other systems;
+@@ -284,7 +284,7 @@ .SH HISTORY
+ .P
+ Very old versions of glibc were affected by a
+ .UR https://\:sourceware.org/\:git/\:?p=3Dglibc.git;a=3Dcommitdiff;h=3Dbf0=
+79e19f50d64aa5e05
+-.BI _ PID _GNU_nonoption_argv_flags_
++.BI \%_ PID _GNU_nonoption_argv_flags_
+ environment variable
+ .UE .
+ .SH NOTES
+@@ -294,7 +294,7 @@ .SH NOTES
+ and \[aq]\-\[aq] at the start of
+ .IR optstring ,
+ or changes the value of
+-.B POSIXLY_CORRECT
++.B \%POSIXLY_CORRECT
+ between scans,
+ must reinitialize
+ .BR getopt ()
+@@ -303,7 +303,7 @@ .SH NOTES
+ to 0, rather than the traditional value of 1.
+ (Resetting to 0 forces the invocation of an internal initialization
+ routine that rechecks
+-.B POSIXLY_CORRECT
++.B \%POSIXLY_CORRECT
+ and checks for GNU extensions in
+ .IR optstring .)
+ .P
+--=20
+2.30.2
 
-I observe a few cases of failure to protect literals from hyphenation in
-this page, include the aforementioned literal.
-
-       Very  old  versions  of  glibc  were  affected   by   a   _PID_GNU_n=
-onop=E2=80=90
-       tion_argv_flags_ environment variable.
-
-I'll prepare a patch.
-
-Regards,
-Branden
-
---5cvvtapouki34u6c
+--wc63nezgcfwz4cg2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmlFfFcACgkQ0Z6cfXEm
-bc6WQQ/9HQRt7oh2wvs4ojDRFIznHu97llwSVmBFBT/rZ8p6uYY7xbxv7FvhoeUH
-qTDVLj41ZJbqz7AR/ryAY0Cs+wDzzAW0gSb5FdXoGeeH2c0xbDTrsxA6sGQAKHng
-Nubcfb6EoTEQU8JWhVRM6y1Svi7uukK8wktlHm+vwZD7qdCcjZFE3LMskuGAlqCp
-pTj1qeSAWqh4V2BYXoINtt6R8Cbd2SrxkZjr+AzGG9keF/9G5+cnAL9mR6z2jz7z
-zdQJDlMZ2EVROOdlLfU4URj5hZ+BSZkxxnsb0YEvlm1Lg897xxpWtiqwKKSlPncT
-Nrpdyi4oVq1ZmFz00k+U1IHkMahmUQ6zvd9SXxafcNlCrWPy0qsLWcTJAx98j5N1
-Z8Wnn+mfwL3KnC9akEveVM9WyCYkyR/Lpncy34bPetRGbAxQw2vzjtp24B08mgob
-SvMGiPVGQ7eQd7FqhT31noOnOVaYTl7F1Fd29nbm+19TtwVQ+HCe1eeopvA+jGW5
-KMxN04lxHvewUUhuBnodAjofrAANkHthQQWEPz+6SdP/PFCQGYJ6u/PbUFSd5ygO
-pq2QGrefys02I07G4MANzJEGYRLT9nArBK2b9f/aaeHBACSvRJmL7CpQbTc8002c
-TlNOHqfWVi81EghgxaVGnUHlNztCllFrdcWcJDspWV8A6hDgLd0=
-=dxEN
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmlFffAACgkQ0Z6cfXEm
+bc6Bog/6AtFw7gfvQ59kBLrm6CM+UyLPcFPzK868TLSAsA4cjfoMMwMvHwHcRVsV
+eXKKUHGLMC57a0s+XPKkEuzoqFvHLXq9FM+psmj45UhzMY4ZwEuifyzvr6Chtedr
++PevyMF+vfB+vRtP4fGk3MAAIKReMODTrIySCGeAF304jwO/Yy7Wft1L5R/g95RF
+V4bXHNP4F+nxxka6vKqLAVG83D9VEj9kMAewPjbce3+BgwbUjnfqTKFx/iqkJCO/
+/P88iiOqIl5thS3KbRbA6oANBjO5eNqa7oIshWSTzx1SsW2r5r6wtRljnfc3ezHl
+LzASUZ4qc+tVnPGr7LpAHeR5e4F0m1QNcfMvPwwoNh32Ad/abeUlPer9Vn67DTsI
+t4mxQR+PueKQ2wcZ5BdUo0KdjRTvk3QM3ym1izD9sU6xqhnAovCNjlMWw0FrC49j
+/GNTJtNuiBty1NTFdwxopllDQm+78H5EEj08EuPmQll2K/FmUQTQ7bOVFyhn4ykj
+zCn7BVQVqAESpZJGz1a4hJsz9M2zrP7bDjFNY5/Nth15Z5qHEbD/lZrJkWLLAb8i
+EkmBQcZEjOwhUx/3kBnoEkA279+1buaaM39HpGvP8+BGr7pjXkiaO69lLgMqkpD6
+KSQ1Dqd54HgYyaciFof4dcbL5d+ioTBpVl+w3GLEsiHN73M9l18=
+=BnA0
 -----END PGP SIGNATURE-----
 
---5cvvtapouki34u6c--
+--wc63nezgcfwz4cg2--
 
