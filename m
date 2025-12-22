@@ -1,145 +1,194 @@
-Return-Path: <linux-man+bounces-4465-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4466-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35478CD4810
-	for <lists+linux-man@lfdr.de>; Mon, 22 Dec 2025 01:58:15 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4901ECD7347
+	for <lists+linux-man@lfdr.de>; Mon, 22 Dec 2025 22:33:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 0355530057E5
-	for <lists+linux-man@lfdr.de>; Mon, 22 Dec 2025 00:58:14 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 02CE53017846
+	for <lists+linux-man@lfdr.de>; Mon, 22 Dec 2025 21:33:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7299322068A;
-	Mon, 22 Dec 2025 00:58:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 17B2E30EF98;
+	Mon, 22 Dec 2025 21:33:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lrQztax9"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSv7FmK6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E714B1F5821
-	for <linux-man@vger.kernel.org>; Mon, 22 Dec 2025 00:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB06D30EF6B
+	for <linux-man@vger.kernel.org>; Mon, 22 Dec 2025 21:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766365093; cv=none; b=jWy8dp71uJ4iCQ0ZRhN+E1AXGWzLXnuc0QKeVfzEb3RTUOSKUL+5CLpDuVrJ7njTh+4ic5pVtBQ42UJSEm9fI9m2LizPwnutXwlPmVUXuXW7SmduVXekxfMq6poLFmhe0s+XcUAThlT+q/LuHmqNbsnx0hOfWqbZvn1vvLoNUuY=
+	t=1766439194; cv=none; b=EX1Hu3U87l+UoXtl8fLHWibxoW09nClFc0mHFElFUHUDPl88VIqG78RVDzMJTB+Zfq67HFfvCJhWk5Sx2b3So3uPENzPenQClz4o+FARBZtOwlFAySZq0YGd00rQ2McqVdop8ttUyO2aiOAo3mDwYvmaaGyNhn7ZePcrF7bRjso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766365093; c=relaxed/simple;
-	bh=MyLPGVeIV4L8YYHUwxrIGyvQjw+vft+/TKOAiz30UtU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=QkQ9/Fn8df/3+A6ibRMz06pAZGCzo9byKY3mj1Ub9fsLtxEEuk79eVd9u4G8iRbtym/EKsA6QtJEFfZuNVrDKOmnqIRnawh+iRjBj9VakHdN58Jxrbxzosb7eMH2equ9a9XNepYKnyBAbQ717q/WfO29UH+KfPyFNtRsfmZYOFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lrQztax9; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-29efd139227so46033725ad.1
-        for <linux-man@vger.kernel.org>; Sun, 21 Dec 2025 16:58:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1766365091; x=1766969891; darn=vger.kernel.org;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MyLPGVeIV4L8YYHUwxrIGyvQjw+vft+/TKOAiz30UtU=;
-        b=lrQztax9CSTrb30WjTylKXVjplXVzpEO6p8og7nqsUxdtFM5SZXzkWSnbNeVA+I4aA
-         CIdsqUIzARj0prLnMBCUW+sUmPgUUL+eb8ufKGV1AsTTjsD6abplI2wDbaG/siyzoNEj
-         0s5U7WRqvLJrj4uN8ODiamFeETSKywx/U3MtOf6uS8ixEIJRytewqxVrxXAS3H7F+8JU
-         9k6+GNEq/kOLOM85+e/rvx+CjNgMVhhI9EWcK7/Skz/6Q1JED/QSsva6QYnPaLKfguAT
-         tmjSzfXowLOlfYab27QjrFKturxquXxtIfPVRe2uQw7HJ9YlJMEZ4sTqAh0gFGEbfxvF
-         nxsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766365091; x=1766969891;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=MyLPGVeIV4L8YYHUwxrIGyvQjw+vft+/TKOAiz30UtU=;
-        b=QGzA3doXpeaSd7DV2ZTDYSMktV5wKIN9kuaIk+XeCyZ11D+Pa2IRjWEJflu56KbTau
-         uv2vjPMgMfzspIECfBd5yzT/e5qlzvsJpWBqGHM8A8Pl5i6LaRhkRUpFX7Ueyc2tX4Tg
-         dhMdYthhEf82EgiFfDKyjkfbRCVINrLU+T6oCSItXuXZ2+hsNKszC9J3xNsLFIecvNpm
-         wqKvXPg+2gUrnCHqjc7JJc01CnQD2hWwQjU3qVnNI0VFi9wHKncZrUxOmLxoqc7qmYJd
-         pSvRBYlC9IMRrD86TRbuTtIgCtbUxeNmIzGTeLEIosspoX4vsAQWrNJmKKUMxxvWkOJi
-         i5kA==
-X-Forwarded-Encrypted: i=1; AJvYcCV0G8/AHqhPlHrToGUfvRrlC+Z81gZXhY3oWJhVKxdSQFornyVjRVkqGySCCEkVUb9W5uiuf4aO0hE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcdlhO7n8jboNX0kuHCCzYDx/6UoZ+NJgEhIrtcU/Ejd0fvlst
-	96lSB6JPf44hQdAQromowJHZzdy8LACOFrBBASnlmObUqpaoCowYFLfxzvTL1g==
-X-Gm-Gg: AY/fxX7alCODAeUzyIFzHcm2LZVI+tjEe38Csn+BuDE0+c9oss4IyGFpkSXpf2VTo81
-	ey/0t0VavNz9Md/EvSrov6dt1UK+ZJNuEa6FLorjvAxk4rwW5ewYHM2hHiPv9q6QCWACcLCbXG2
-	uiXS0lbEIK6s9gzfQ+foBQYDYm3f7DXjXmrQvbdRM/F+5hh3CmCcqspqjLZ3vJNKLIm49BdViJT
-	ZK8hGM/rEexS9euxOA871By6e2Vk+gRo+hXHN7qcpI6hen8v0z3MkVWqgeCyDjmE7H08uqoKRQp
-	EsECxg+hxLh0sY1m934CUrz96Ykh8lK/y/gMqQXKwiBENzs66TbFlqUzjcvTzJa8EQTLPAGL6yw
-	YrKe2f69aRJlLwYocCL2aX6cpriCGSmF+1DQJ+8D7P2HLEGnCOqD+46dGACXuUTemj51z
-X-Google-Smtp-Source: AGHT+IGUSW2Yqeppyi8fRjvX1c1x5QJZ6nvotRmP4GMQ1PJQYnnKb4AuZtsEXUzVWB/yJmcj9OxvQw==
-X-Received: by 2002:a05:7022:6199:b0:11f:1e59:4c2d with SMTP id a92af1059eb24-121721acb6dmr9356932c88.7.1766365090974;
-        Sun, 21 Dec 2025 16:58:10 -0800 (PST)
-Received: from fedora ([2601:646:8081:3770::fde9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1217253bfe2sm28767466c88.10.2025.12.21.16.58.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Dec 2025 16:58:10 -0800 (PST)
-From: Collin Funk <collin.funk1@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Seth McDonald <sethmcmail@pm.me>,  "linux-man@vger.kernel.org"
- <linux-man@vger.kernel.org>
-Subject: Re: Early POSIX versions seldom included in history sections
-In-Reply-To: <aUfsE7Yt45BVO56T@devuan>
-References: <Wd9QASP6rczMWW9o5HQVSOFmDMpmWqmUDTl5T1WrPshq-HU7DB41CGYaLMx7bHyEK5GOjtZ1EIV7GJgbXZlQyjS2DxLIuxWdMFYqPsoNJEI=@pm.me>
-	<aUbf39o2ce0WhJoA@devuan>
-	<nBJHItg3tSnUmbXVk7-VufAS9V8JckVOUAzwYGrGW59ireGiPGb3ppy40QL3bgZhJbheep4RVQ8owzThk4LFmFWV5kohm8s6FbGoqAxchp4=@pm.me>
-	<aUfsE7Yt45BVO56T@devuan>
-Date: Sun, 21 Dec 2025 16:58:06 -0800
-Message-ID: <87bjjrbae9.fsf@gmail.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=arc-20240116; t=1766439194; c=relaxed/simple;
+	bh=2YKlZn9tk4IZrtFEfA1POTuGBypH16TZ9YuPzTfMAek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZJkO0YnhPlfGIOGLEt6niiRq2i7iure7lGz70eyzq8B6WeUR7IIJkWdfBeGzsH/h0LzLS+J2hBrHxIUfs8zWPADQlrtKjTpJDFytpBV6SEkyN0h12nhLpEiHmfAKklUyrBg/oOOnBHpX/Rr6CAurpxr0uowuNbohgbXUbv+ymsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSv7FmK6; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C34C4CEF1;
+	Mon, 22 Dec 2025 21:33:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1766439193;
+	bh=2YKlZn9tk4IZrtFEfA1POTuGBypH16TZ9YuPzTfMAek=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YSv7FmK6cPmZOTyaUf48bqcdRustIjSySr1B3upKkIZgOJYuQwYZn10+DQR8y+UVP
+	 0hsi+ojUuRxzDdWAOpcxieByFAxPoJ+UMrdz7vr84To7sJ/vHjJMcnRELYeEp1pvdg
+	 3snitKgTQScF1EzNMlsiuOf41dcu03CFWITgBJidDvb2/ljwEJjXJ7W7KRJw2iTyyh
+	 KGHJLcG07Dvvb6dFEwwFX+p/cDfBIgXOoyEiiBQ5sxX1Ir72YCsehi0Bg9WY9qqXSv
+	 lCIGdy08pFDrGP0vRQoGIGHMG2gbzddijLJwzZL2pWLSsrdFU6BaTXsoHq07ien9J3
+	 R+ok2FiIVhtfg==
+Date: Mon, 22 Dec 2025 22:33:09 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, Seth McDonald <sethmcmail@pm.me>, 
+	Eugene Syromyatnikov <evgsyr@gmail.com>, Ingo Schwarze <schwarze@openbsd.org>, DJ Delorie <dj@redhat.com>, 
+	Paul Floyd <pjfloyd@wanadoo.fr>, John Scott <jscott@posteo.net>, misc@openbsd.org
+Subject: [PATCH v4 0/1] man/man3/aligned_alloc.3: HISTORY: Document bogus
+ specification from C11
+Message-ID: <cover.1766439016.git.alx@kernel.org>
+X-Mailer: git-send-email 2.51.0
+References: <cover.1765370035.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1765370035.git.alx@kernel.org>
 
---=-=-=
-Content-Type: text/plain
+Hi,
 
-Hi Seth and Alex,
+I've rewritten the entire subsection from scratch, similar to the email
+I wrote detailing the history of the specification.  I think this is
+explains the turbulent history of this API better, and allows
+programmers to decide if they want to trust this API or not.
 
-Alejandro Colomar <alx@kernel.org> writes:
-
->> Suppose instead a function was first introduced in SUSv2, included in
->> POSIX.1-2001 as an XSI extension, then in POSIX.1-2008 it was moved to
->> Base. Should its history section include POSIX.1-2001 or POSIX.1-2008 as
->> its first POSIX appearance (since XSI is SUS)?
->
-> I think you could do this:
->
-> SUSv2.
-> POSIX.1-2001 (XSI).
-> POSIX.1-2008.
-
-Just want to mention that I find all of these document names confusing.
-Maybe because some of them predate me, or predate me using a computer, I
-do not know.
-
-Therefore, I thought I should mention the names are described in
-standards(7) along with the full documents they correspond to. I would
-stick to the names listed there for consistency. That is what I have
-done when making changes to the glibc and gnulib manuals.
-
-Collin
+Does this look good?
 
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
+Have a lovely night!
+Alex
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEI3EYVQjRMXvVeOXMjOZJGuMNfXUFAmlIl54ACgkQjOZJGuMN
-fXWNlBAAqDWvN/4iVfiDQsWxSGWD3zItGVEpY2iC9c+Ats5QLMtyRiaO8kTAdfYN
-k4HZX0OquKV305zB/elbz89p7gRYa4KYNwZHeXSBX4oCj20xaK1tFcSrLPLT/7eF
-DmN/+sGsnVHvrqkEZ2ZZQrfm23zUvpewugu7xlkuAZ78navNSxYMfj6FdAjusVEJ
-9XvShpcVBVqNK8/YE/QxsDwy7niQvUJgi17liYrAbv182EQKwMeHpb8xONEmPAmH
-+bFgJ5fZxT7Z6sv9z3eZ6bj9VK22Bv2UMs4KjnRJr8ZhpZErd2ub3yO/SN9rpq5Y
-e+hioW9t3I1fn/BIMYkIiw3YGEVZTuEzRvpXJl4FF95WS5e9HwTSuu6+QPhMwA7v
-BhhiIeWPebF+TnJe2dPhEJ6bTolpCCN+RLrQMc9a+kWTSefe14FidquMUIrXMsq+
-JTAQhRyFg/XKZfELN0T+6x8D5LHdgE1sv7hSYRWJziA37jiUgFEruwmVwedQhEtp
-JrfwAuV+OgeG10tBHW3d15i5grJ/Y/6Ue7hnmMoj+TNbnxXjqAUwkbjgTuLuCnqV
-DsoQOI5sIEKMLKkAX9GE3Hjpwq5WgppBvjujvPJv1JCWJ3kMg85a++9F8RsXX25b
-1YfsDzvJmeDl2QxCJnTdXP7dyDbJatFh11ohGFNncKPzTXwugo0=
-=Fe9I
------END PGP SIGNATURE-----
---=-=-=--
+Alejandro Colomar (1):
+  man/man3/aligned_alloc.3: HISTORY: Document bogus specification from
+    C11
+
+ man/man3/aligned_alloc.3 | 60 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
+
+Range-diff against v3:
+1:  6ed874153 ! 1:  f19bb100f man/man3/aligned_alloc.3: HISTORY: Document bogus specification from C11
+    @@ Metadata
+      ## Commit message ##
+         man/man3/aligned_alloc.3: HISTORY: Document bogus specification from C11
+     
+    -    And document that OpenBSD still implements the C11 specification (but
+    -    without the UB).
+    +    Document the turbulent past of aligned_alloc(), and how libraries have
+    +    actually implemented it.
+     
+         Fixes: 7fd1e0f2be21 (2023-05-20; "posix_memalign.3: Update aligned_alloc(3) to match C17")
+         Reported-by: Eugene Syromyatnikov <evgsyr@gmail.com>
+    @@ man/man3/aligned_alloc.3: .SH HISTORY
+      POSIX.1-2024.
+     +.SS C11
+     +In C11,
+    -+the specification of this function had several issues.
+    ++the specification of this function had
+    ++.UR https://port70.net/~nsz/c/c11/n1570.html#7.22.3.1p2
+    ++several issues
+    ++.UE .
+     +.IP \[bu] 3
+     +.I size
+     +had to be a multiple of
+     +.IR alignment .
+     +Otherwise,
+     +the behavior was undefined.
+    -+.IP
+    -+Some implementations still implement that restriction,
+    -+or claim to have it.
+    -+.RS
+    -+.TP
+    -+OpenBSD
+    -+The function reports an error
+    -+if this restriction is violated,
+    -+without exploiting the UB.
+    -+.TP
+    -+FreeBSD
+    -+.TQ
+    -+jemalloc
+    -+The documentation claims to have this restriction,
+    -+but the implementation works correctly if it is violated.
+    -+.RE
+    -+.IP
+    -+It was only a theoretical UB.
+    -+No known implementation has ever exploited this UB.
+    -+.IP
+    -+This restriction was removed in C17.
+     +.IP \[bu]
+     +If
+     +.I alignment
+     +was not a power of two,
+     +the behavior was undefined.
+    -+.IP
+    -+No implementations ever exploited this UB.
+    -+It was only a theoretical UB.
+    -+.IP
+    -+This UB was removed in C17.
+    ++.P
+    ++.UR https://www.open-std.org/jtc1/sc22/wg14/www/docs/summary.htm#dr_460
+    ++DR460
+    ++.UE
+    ++reported both cases of UB as unnecessarily dangerous,
+    ++and fixed them with a Technical Corrigendum
+    ++that transformed them into errors.
+    ++.P
+    ++.UR https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2072.htm
+    ++N2072
+    ++.UE
+    ++reported that the requirement
+    ++that
+    ++.I size
+    ++is a multiple of
+    ++.I alignment
+    ++is superfluous,
+    ++and removed it with a Technical Corrigendum.
+    ++.P
+    ++C17 incorporates both technical corrigenda.
+    ++The API has been stable since C17.
+    ++.P
+    ++glibc originally implemented it as silently aligning as
+    ++.I stdc_bit_ceil(alignment)
+    ++instead of
+    ++.IR alignment .
+    ++Since glibc 2.38,
+    ++it implements the C17 specification.
+    ++.P
+    ++Some implementations,
+    ++such as FreeBSD/jemalloc,
+    ++implement the C17 specification,
+    ++even though their documentation claims the C11 specification.
+    ++.P
+    ++Some implementations,
+    ++such as OpenBSD,
+    ++implement C11 amended with DR460,
+    ++even though their documentation claims having undefined behavior.
+    ++.P
+    ++No known implementations
+    ++have exploited the undefined behavior
+    ++in a more dangerous way.
+    ++This function should be safe to use.
+      .SH NOTES
+      On many systems there are alignment restrictions, for example, on buffers
+      used for direct block device I/O.
+
+base-commit: a5342ef55f0a96790bf279a98c9d2a30b19fc9eb
+-- 
+2.51.0
+
 
