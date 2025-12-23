@@ -1,212 +1,177 @@
-Return-Path: <linux-man+bounces-4470-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4471-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5545ACD77D9
-	for <lists+linux-man@lfdr.de>; Tue, 23 Dec 2025 01:35:26 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2BD4CD8044
+	for <lists+linux-man@lfdr.de>; Tue, 23 Dec 2025 05:02:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 9058830019C1
-	for <lists+linux-man@lfdr.de>; Tue, 23 Dec 2025 00:35:25 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 7DCAF3029B52
+	for <lists+linux-man@lfdr.de>; Tue, 23 Dec 2025 04:02:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B35B01F03D7;
-	Tue, 23 Dec 2025 00:35:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 393222FFDCB;
+	Tue, 23 Dec 2025 03:56:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlCtJxK3"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Asvwq3Iz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE2A1DF736
-	for <linux-man@vger.kernel.org>; Tue, 23 Dec 2025 00:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD792FD1A1
+	for <linux-man@vger.kernel.org>; Tue, 23 Dec 2025 03:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766450123; cv=none; b=CIETnT3haeMJlyhmQvSVxdn0d8QaVE/vyXKmyWu3cDKz5U8gKupG7Fnbv4UfnB6ks42lWDimeQYoBRVs0OXfHpEIEcrmb/gxv2jd5FC15frcVGXZZQjHiFYtRaziv3WaUchC0L6R927i8bhlYLn1STXEa3oqrkjX2YYSotLoRVU=
+	t=1766462191; cv=none; b=Ll9+hIdso6hCp9pbpMfVBflg+mJ+tKGYQXUFthj4OoRo5bxScncIauplm6IvvIAlDQCzKuOPalXRXf7CTAFxd/L10AZglCGDzAcRfLVd4lhFaCa9lv3x5LFu0a/mDNzQtSvyoVBvlhVobvIIJ0GP/Xyz7qACrgc7KEbrXATrNhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766450123; c=relaxed/simple;
-	bh=Y0BeKHxvjU1E/dDKwWBxcoWneWNJeP0LrFvi2fBPwiM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rjO5m6upyMgOkFbCr/QJxlxVv0ThVk5g0wT3eiusp6v/KmGtjrkf+JnFaDW967Zv0rYZkfiO7/NUb8TFby5pl/WPkOOupV2/kyIfCheXeWJzwYrGAEgbr2nbA0mUiC2g6e5nEwIlUV6eSVy67zKVePOjBB7DnauuZ7t+tEyRi+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AlCtJxK3; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E07C4CEF1;
-	Tue, 23 Dec 2025 00:35:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766450123;
-	bh=Y0BeKHxvjU1E/dDKwWBxcoWneWNJeP0LrFvi2fBPwiM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AlCtJxK3oCWZkGUQj1S6/LDB/aKFzwxs+BVUfkALPbrartuAzLQZ5Wl0e5yUvV5qZ
-	 4550BzxBYxSRbStGjgAJmODXkd5f2+VSwLhcJ0lWoaQ16kA4ZLsNchJCvmvW49vzVQ
-	 6uM732RBgELMRlhILCTSbdJ4irBMcc38x8swazjQDivX8hFHbBrshRbxaO/mVrZUDw
-	 5dp/QDMkNeNpCgQiSeOkb0KQ64XgYIKLVzx4j8wNnTItoDD+o1xwuhIBjzVHtzDXDY
-	 56jykSbzfTbPRJKAfnoWexgTxQggIlb4/1N3JvQ6C8LrmNP7cI6TUnpUzJuy0cESL5
-	 ZHfQaDyWzUIiQ==
-Date: Tue, 23 Dec 2025 01:35:18 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Seth McDonald <sethmcmail@pm.me>, 
-	Eugene Syromyatnikov <evgsyr@gmail.com>, Ingo Schwarze <schwarze@openbsd.org>, DJ Delorie <dj@redhat.com>, 
-	Paul Floyd <pjfloyd@wanadoo.fr>, John Scott <jscott@posteo.net>, misc@openbsd.org
-Subject: Re: [PATCH v4 1/1] man/man3/aligned_alloc.3: HISTORY: Document bogus
- specification from C11
-Message-ID: <aUnjliwquUfEXp31@devuan>
-References: <f19bb100f31e5c5b9f0edaf1807ef66d99627316.1766439016.git.alx@kernel.org>
- <cover.1766439016.git.alx@kernel.org>
- <20251223001524.fkzuimnouq4537rd@illithid>
+	s=arc-20240116; t=1766462191; c=relaxed/simple;
+	bh=5+aAqmqoemUHZskZakW+Rwtj+t7nNNwx1cWO/RA6uIc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XMJtVmps+XCc76fI30hioPWFbJyyv9CF0wPGdIqNgNu/G7OlZBt6J0i746Kaw9cDarQgyg6BOEZAvk5Ke/PYgOu3cEZ3P2bQh32/maNxGDtbH8pQAPXQHtcDJxNx2LtgAK83wRsvf853oBPoW2MUy9q0CJceALqvooPj/AuGp1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Asvwq3Iz; arc=none smtp.client-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1766462186; x=1766721386;
+	bh=dJUU8NUc0KSd/WGDFrjXkB21kRPeaDRSec/56YOAn8I=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Asvwq3IzKzYTPt16XAUKeyJjCoOVsNl9uL6dY3Qty/q93G665UKzcUlB1gC6OKtmw
+	 G2A2A0jZYtqOw0ufU0hiPj+Op2UIp78jz8QBRWbPwpE1dvoy6xNabhDpKYSGCCYvV/
+	 YD5D7rfOIQp9aeCEjo3iX1A+gKavq5MityHCldTdD5Sh/CUaNMaDK8XUZnmT+v8PdU
+	 3vLrxwlKnyYW1WgFX5dglf1O72/8ZeCV0ZPCewrKkL8X/3Kpi1qu3K+Rd/E+naBkWo
+	 UvRreuFMAUBqqxYK6d6Zkxvtg1dJyIX4VJJIOdkVIe+PSO5lb5rI+ExstSuXhwTpyf
+	 y3lb11G3M6Vdg==
+Date: Tue, 23 Dec 2025 03:56:23 +0000
+To: Collin Funk <collin.funk1@gmail.com>
+From: Seth McDonald <sethmcmail@pm.me>
+Cc: Alejandro Colomar <alx@kernel.org>, "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Re: Early POSIX versions seldom included in history sections
+Message-ID: <SsdGy_ZRyWESN5bZIDs6LXPW-oM7QbWpFa6AWUcX700C7u81iGXJPEatWc0ilPwOHnh4Dq8edSz_D7i-2Ti0iLi0ttFY2BoaYyw6yUjdmTU=@pm.me>
+In-Reply-To: <87bjjrbae9.fsf@gmail.com>
+References: <Wd9QASP6rczMWW9o5HQVSOFmDMpmWqmUDTl5T1WrPshq-HU7DB41CGYaLMx7bHyEK5GOjtZ1EIV7GJgbXZlQyjS2DxLIuxWdMFYqPsoNJEI=@pm.me> <aUbf39o2ce0WhJoA@devuan> <nBJHItg3tSnUmbXVk7-VufAS9V8JckVOUAzwYGrGW59ireGiPGb3ppy40QL3bgZhJbheep4RVQ8owzThk4LFmFWV5kohm8s6FbGoqAxchp4=@pm.me> <aUfsE7Yt45BVO56T@devuan> <87bjjrbae9.fsf@gmail.com>
+Feedback-ID: 171233811:user:proton
+X-Pm-Message-ID: b95a91cb38922ba0fe220c393e7df4707da0d1c8
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="k4fj77hxm3gnsqhj"
-Content-Disposition: inline
-In-Reply-To: <20251223001524.fkzuimnouq4537rd@illithid>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------0808c530de3e2ad0b4b6ca47c8edb5a93327124dd902aeae2ad1db248de77fd2"; charset=utf-8
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------0808c530de3e2ad0b4b6ca47c8edb5a93327124dd902aeae2ad1db248de77fd2
+Content-Type: multipart/mixed;boundary=---------------------cfcdb5b13e803c6cd247ea440f6dbc84
 
---k4fj77hxm3gnsqhj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+-----------------------cfcdb5b13e803c6cd247ea440f6dbc84
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Seth McDonald <sethmcmail@pm.me>, 
-	Eugene Syromyatnikov <evgsyr@gmail.com>, Ingo Schwarze <schwarze@openbsd.org>, DJ Delorie <dj@redhat.com>, 
-	Paul Floyd <pjfloyd@wanadoo.fr>, John Scott <jscott@posteo.net>, misc@openbsd.org
-Subject: Re: [PATCH v4 1/1] man/man3/aligned_alloc.3: HISTORY: Document bogus
- specification from C11
-Message-ID: <aUnjliwquUfEXp31@devuan>
-References: <f19bb100f31e5c5b9f0edaf1807ef66d99627316.1766439016.git.alx@kernel.org>
- <cover.1766439016.git.alx@kernel.org>
- <20251223001524.fkzuimnouq4537rd@illithid>
-MIME-Version: 1.0
-In-Reply-To: <20251223001524.fkzuimnouq4537rd@illithid>
+Content-Type: text/plain;charset=utf-8
 
-Hi Branden,
+G'day Collin,
 
-On Mon, Dec 22, 2025 at 06:15:24PM -0600, G. Branden Robinson wrote:
-> Hi Alex,
->=20
-> Content looks great; as you've likely guessed, I have commentary only on
-> man(7) markup.
->=20
-> At 2025-12-22T22:33:09+0100, Alejandro Colomar wrote:
-> > I've rewritten the entire subsection from scratch, similar to the
-> > email I wrote detailing the history of the specification.  I think
-> > this is explains the turbulent history of this API better, and allows
-> > programmers to decide if they want to trust this API or not.
-> >=20
-> > Does this look good?
->=20
-> At 2025-12-22T22:33:13+0100, Alejandro Colomar wrote:
-> > Document the turbulent past of aligned_alloc(), and how libraries have
-> > actually implemented it.
->=20
-> Nice summary!
-
-Thanks! :-)
-
-> [...]
-> > +the specification of this function had
-> > +.UR https://port70.net/~nsz/c/c11/n1570.html#7.22.3.1p2
-> > +several issues
-> > +.UE .
-> [...]
-> > +.UR https://www.open-std.org/jtc1/sc22/wg14/www/docs/summary.htm#dr_460
-> > +DR460
-> > +.UE
-> [...]
-> > +.UR https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2072.htm
-> > +N2072
-> > +.UE
->=20
-> I'd put hyphenless break points after each sequence of slashes in these
-> URLs, and before each dot.
->=20
-> I`d spell these `-`s as `\-` so that they appear as hyphen-minuses when
-> printed, not as hyphens.
-
-Yup; thanks for the reminder!  Also fixed the \[ti].
+On Monday, 22 December 2025 at 10:58, Collin Funk <collin.funk1@gmail.com>=
+ wrote:
+> Hi Seth and Alex,
+> =
 
 
-Have a lovely night!
-Alex
-
->=20
-> groff_man_style(7):
->    Hyperlink macros
-> ...
->      Prepare arguments to MR, MT, and UR for typesetting; they can
->      appear in the output.  Use special character escape sequences to
->      encode Unicode basic Latin characters where necessary, particularly
->      the hyphen=E2=80=90minus.  (See subsection =E2=80=9CPortability=E2=
-=80=9D below.)  URIs can
->      be lengthy; rendering them can result in jarring adjustment or
->      variations in line length, or troff warnings when one is longer
->      than an output line.  The application of non=E2=80=90printing break =
-point
->      escape sequences \: after each slash (or series thereof), and
->      before each dot (or series thereof) is recommended as a rule of
->      thumb.  The former practice avoids forcing a trailing slash in a
->      URI onto a separate output line, and the latter helps the reader to
->      avoid mistakenly interpreting a dot at the end of a line as a
->      period (or multiple dots as an ellipsis).  Thus,
->             .UR http://\:example\:.com/\:fb8afcfbaebc74e\:.cc
->      has several potential break points in the URI shown.  Consider
->      adding break points before or after at signs in email addresses,
->      and question marks, ampersands, and number signs in HTTP(S) URIs.
-> ...
-> Portability
-> ...
->      \-     Minus sign.  \- produces the basic Latin hyphen=E2=80=90minus
->             (U+002D) specifying Unix command=E2=80=90line options and fre=
-quently
->             used in file names.  =E2=80=9C-=E2=80=9D is a hyphen in roff;=
- some output
->             devices format it as U+2010 (hyphen).
->=20
-> I recently noticed someone on StackExchange opining that "man" (they
-> weren't clear on whether they meant the man(1) librarian or the man(7)
-> macro language) doesn't support URLS: "unlike man, at least [lynx(1)]
-> supports links!".
->=20
-> That claim is a combination of falsehood, misleading implication, and
-> out-of-dateness.  It's not man(1) that needs to support hyperlinks in a
-> terminal, but the pager[1], and less(1) does, since version 661 (June
-> 2024).  grotty(1) has offered OSC 8 links since groff 1.23.0, July 2023.
->=20
-> Regards,
-> Branden
->=20
-> [1] ...or the terminal emulator, in the event one uses cat(1) as the
->     pager or runs "nroff -man" directly, like a hard-bitten,
->     two-fisted-drinking, shirtless veteran of the Unix Wars.
->=20
->     (You can leave Australia, but 'Straya never truly leaves you.)
+> Alejandro Colomar alx@kernel.org writes:
+> =
 
 
+> > > Suppose instead a function was first introduced in SUSv2, included i=
+n
+> > > POSIX.1-2001 as an XSI extension, then in POSIX.1-2008 it was moved =
+to
+> > > Base. Should its history section include POSIX.1-2001 or POSIX.1-200=
+8 as
+> > > its first POSIX appearance (since XSI is SUS)?
+> > =
 
---=20
-<https://www.alejandro-colomar.es>
 
---k4fj77hxm3gnsqhj
+> > I think you could do this:
+> > =
+
+
+> > SUSv2.
+> > POSIX.1-2001 (XSI).
+> > POSIX.1-2008.
+> =
+
+
+> =
+
+
+> Just want to mention that I find all of these document names confusing.
+> Maybe because some of them predate me, or predate me using a computer, I
+> do not know.
+> =
+
+
+> Therefore, I thought I should mention the names are described in
+> standards(7) along with the full documents they correspond to. I would
+> stick to the names listed there for consistency. That is what I have
+> done when making changes to the glibc and gnulib manuals.
+> =
+
+
+> Collin
+
+I do believe the standards(7) man page does describe these standards,
+including XSI. From the POSIX.1-2001/SUSv3 section:
+
+'The standard defines two levels of conformance: POSIX conformance,
+which is a baseline set of interfaces required of a conforming system;
+and XSI Conformance, which additionally mandates a set of interfaces
+(the "XSI extension") which are only optional for POSIX conformance.
+XSI-conformant systems can be branded UNIX 03.'
+
+That said, I can certainly understand how just listing a bunch of
+acronyms and numbers (SUSv2, POSIX.1-2001 XSI, POSIX.1-2008) would be
+confusing for many not familiar with these standards. I can briefly
+describe such a function's progression through the standards with a
+short paragraph, if that would help. Using the function fchdir(2) as an
+example, let me know how this sounds:
+
+HISTORY
+       fchdir()
+              SUSv1, POSIX.1-2001.
+
+   SUSv1
+       fchdir(2)  was first introduced in SUSv1.  The function was then
+       included in POSIX.1-2001, but as an XSI extension.   Finally  in
+       POSIX.1-2008, it was moved to the base specification.
+
+By the way, I too find these documents confusing as hell! I only have a
+grasp of them because I happened study them due to a recent
+hyperfixation on portable standards (my autism be like). So I certainly
+get where you're coming from here. I just don't know how much more I can
+describe in the added paragraph before intruding on the job of the
+standards(7) man page.
+
+----
+Seth McDonald.
+sethmcmail at pm dot me (mailing lists)
+2336 E8D2 FEB1 5300 692C=C2=A0 62A9 5839 6AD8 9243 D369
+-----------------------cfcdb5b13e803c6cd247ea440f6dbc84--
+
+--------0808c530de3e2ad0b4b6ca47c8edb5a93327124dd902aeae2ad1db248de77fd2
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlJ48AACgkQ64mZXMKQ
-wqmkVA//eZW3e0UKvUfBUI0WVFrYhtXAQ/qnW8IlPF26h5ZWJuad+1DSWTxm86w8
-9lz5E6R+6As6ojE14IUhmdWFzKa7sCsPJdQn0ierEvRwTWBNhU7n6kBH0XtSXOEw
-tmCRoAaHtLjMeN7Nc0sp3DhCr9tXf0/DHEampo7vNJ891AslQUi4f0jOozL5mCtD
-kjCgeUYMr6ECa/IPT807desrgK+n2eRbDlIrSgfprbuN/9wdK5FNnOK2uk2Vn+qG
-uGDUGqpBA+P1WLoVOtTL8HmKKE8MRxrVBuqKzd8dozy1trWozzebAIYkwG7q+7Vv
-ZZwj/eBvFwi/hAVukqUgVPaIb+i+5w69xq/zN/5YWYsfxn74UnM65dQmB9KxyIvk
-cTOVX3+VPBD779IiwgJr78pAskJbG2XKVKMvPpyAG4BP+xqi7S/I40gLXMt1aXev
-T7tEe9MQQuwI2ZRr4VT7d5itMo74w4fmZExTUopg2PonJVTwgK1G0eTQy6Rvv1Fw
-6ft3CHeFpnszMlsGfbgy4AknS5LUuN5bEL5b6FUO/NnDRW2EqCxS9I1HOlvFJcex
-1nCJUb/3nW0FOOSW6VIkb36dXvXbVz5OHabNCUtupiIOoA/evT6z59lJnkcqatfI
-ponp5AWK2wJpNXVs4iR7nYtjddWsKxsaKNi0epSAVpNnIRb0wFM=
-=kaR9
+wrsEARYKAG0FgmlKEuUJEFg5atiSQ9NpRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcme/ZhUAxOpSJTyD3QsDtA90YkI56hQTFCMrK0J0
+kSMhYhYhBCM26NL+sVMAaSxiqVg5atiSQ9NpAAD9sQD/S9tS0gp8nctZWhPR
+qFClzryKF1tE96gKFOLei6wOYQsBAMe8wD2slahvF1gerJuQ5eRFYmcgAuv7
+0UDu2eEdtS0I
+=XYKe
 -----END PGP SIGNATURE-----
 
---k4fj77hxm3gnsqhj--
+
+--------0808c530de3e2ad0b4b6ca47c8edb5a93327124dd902aeae2ad1db248de77fd2--
+
 
