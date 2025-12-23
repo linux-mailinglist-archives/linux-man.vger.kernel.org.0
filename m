@@ -1,51 +1,53 @@
-Return-Path: <linux-man+bounces-4474-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4475-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31024CD95D6
-	for <lists+linux-man@lfdr.de>; Tue, 23 Dec 2025 13:51:58 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 049B2CD97CF
+	for <lists+linux-man@lfdr.de>; Tue, 23 Dec 2025 14:50:01 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 22B8530217A6
-	for <lists+linux-man@lfdr.de>; Tue, 23 Dec 2025 12:51:49 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id B3CA63015854
+	for <lists+linux-man@lfdr.de>; Tue, 23 Dec 2025 13:49:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A6EB340A4A;
-	Tue, 23 Dec 2025 12:45:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDE85258EDE;
+	Tue, 23 Dec 2025 13:49:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmv4FNr/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZtpMARsN"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A52E340285
-	for <linux-man@vger.kernel.org>; Tue, 23 Dec 2025 12:44:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFD522A813
+	for <linux-man@vger.kernel.org>; Tue, 23 Dec 2025 13:49:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766493900; cv=none; b=JtnT3SyDwTSjcS2nY6Efg79OWKFcNQTQ0dN9kyI0mXzc8iJWcbLqpcmVOrnfbFigaF+UeXWJ1Otgge6Yh9dWsb/LKU1v1TkPqzIPSV4QYpQE63CkLOiL8It9j6Mhju76H8brLF4i+2osW/Y2hLfcanAmODby13VGEzfl4QVEI3w=
+	t=1766497780; cv=none; b=LYJdLMRsPm3jDKBbAmu7HEHo0855dQjxNUW9U2oMX07OXP1MTmpnrIiXnpleL+yGUEEDNAgOJjX8A6+zy7VM44417K7cidUn6X4JDYU+jcIZyMmaECRv9fCIsl2STYtcwbII3L54p5iYvbsn8yPeuKErv/nnInNRDm072IwBk7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766493900; c=relaxed/simple;
-	bh=yDVXI4YnQ8z5ot/NzD0m8pbhCtU5V5DB4SjaKtzeLi8=;
+	s=arc-20240116; t=1766497780; c=relaxed/simple;
+	bh=Qt+AClzln/07WhbiY52mmDR67S4EyfhqJBoEFf/EQnA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tht/7Ynp6VGezhd+jSwksV9a5IZquM84olRyNZoumfCSHMpvZikGd6RTvRfpgyClILHkvtCQYDRCKAKv4sQnhSjWBfA4ZkA+CT//cFDJgQfemHvtg9HNgfYOjLsGIFBrbGpErKv2XOUZpWdfir+vKttbDqPsdX0T6q7AE+qsLW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hmv4FNr/; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C13C113D0;
-	Tue, 23 Dec 2025 12:44:58 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=MQmbPoeGvye0YkY+mTLESnfwM4OEpnbccnMmX6tTAe2+tOCPhXOIvJnIX5TYlW0KQUY4uga+hYF6XWXO44JsNeFz01/GThqWXjiTBxKkzpEGwamJG5roAAN8XoOE9ZMzp3CfmoVgkl+HOCHifmNXAnBYGiwQk6Zc6wMLc5rnHks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZtpMARsN; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A855C113D0;
+	Tue, 23 Dec 2025 13:49:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766493899;
-	bh=yDVXI4YnQ8z5ot/NzD0m8pbhCtU5V5DB4SjaKtzeLi8=;
+	s=k20201202; t=1766497780;
+	bh=Qt+AClzln/07WhbiY52mmDR67S4EyfhqJBoEFf/EQnA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hmv4FNr/exJJA8I7l+rjApvNEWQhMI7gsLZEpupnvi1gSkOKK2FU94hyISMVzwcGG
-	 WgjJK1S1/5FOKFr8EqBFTIZLUVyDZZFeRlOpmWQoeGX+WoDmgO9gUWSvl2j+NeJ0fr
-	 t+fLGo2n5vK9eS6m/cU14NfNo52GllduWL8vfwgY/JhxgeoOj0sRQUcNRx0Vb4leMp
-	 5b+wXFQy0AlVa1lpAPityDrJcdG4IK7rFkojIeF0RnuF0sCYEdwcb0ggp65UtTNzn/
-	 Iwj2UvIW1FUVNXACCkX+0TQQFYRR11EBhbtrPf/f4b8mMo8OLJ8fTXqcpLlICq1SXm
-	 i37xJhjCdLAPQ==
-Date: Tue, 23 Dec 2025 13:44:56 +0100
+	b=ZtpMARsNEdq1tDb7dvw3KKYXEJPEz54HdGtCU7iZ8sb7+WQIwr4wWwjw/hRwc+RHC
+	 /Y2qIJW1sCuAEBxGzq3uHAXQKx2dCZRYCDEl+alPH6ajIfIXd8jNb+nk7tJ+JhAns9
+	 pxFAw65Uy1TsPq15HdkpZSoAP6DQciSNuijTE5UEyxKEUSqm7mtx0gE/iwfMzqb41B
+	 977xufagoh92AQ4cvLus3eofgfxrcnMY8w8havNYH0RTGNYFVBWl0SqXOoIXEB5uht
+	 pyzIfp2FOZ3Q+QmvTMo96qlLhK+p++wdGk28IF8gUePGRp65HL4BwTYtMDONwd8m+O
+	 hGbSbzcpo3bpA==
+Date: Tue, 23 Dec 2025 14:49:37 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
-	"collin.funk1@gmail.com" <collin.funk1@gmail.com>
-Subject: Re: Outdated standards(7) page
-Message-ID: <aUqOqhkw45_MrglL@devuan>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Collin Funk <collin.funk1@gmail.com>, Seth McDonald <sethmcmail@pm.me>
+Subject: [PATCH v1] man/man7/standards.7: Document C27, C23, POSIX.1-2004,
+ POSIX.1-2013, POSIX.1-2024, SUSv5
+Message-ID: <4d36afef1c657d5f9ed4a0d121648b330d62ce2c.1766497736.git.alx@kernel.org>
+X-Mailer: git-send-email 2.51.0
 References: <I8K8HXS7TxdvIdzhsS5M03Fz5hnQp28BkAR-9d82UTEMdcPpNA767OxJ0_VRN3dHo8GBgGnprip2EsvlRAAKWC8NAzTn6A-ZMD2Eeci24ls=@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -53,69 +55,90 @@ List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x3xx5wgu5kb2oftn"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 In-Reply-To: <I8K8HXS7TxdvIdzhsS5M03Fz5hnQp28BkAR-9d82UTEMdcPpNA767OxJ0_VRN3dHo8GBgGnprip2EsvlRAAKWC8NAzTn6A-ZMD2Eeci24ls=@pm.me>
 
-
---x3xx5wgu5kb2oftn
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
-	"collin.funk1@gmail.com" <collin.funk1@gmail.com>
-Subject: Re: Outdated standards(7) page
-Message-ID: <aUqOqhkw45_MrglL@devuan>
-References: <I8K8HXS7TxdvIdzhsS5M03Fz5hnQp28BkAR-9d82UTEMdcPpNA767OxJ0_VRN3dHo8GBgGnprip2EsvlRAAKWC8NAzTn6A-ZMD2Eeci24ls=@pm.me>
-MIME-Version: 1.0
-In-Reply-To: <I8K8HXS7TxdvIdzhsS5M03Fz5hnQp28BkAR-9d82UTEMdcPpNA767OxJ0_VRN3dHo8GBgGnprip2EsvlRAAKWC8NAzTn6A-ZMD2Eeci24ls=@pm.me>
+Cc: Collin Funk <collin.funk1@gmail.com>
+Reported-by: Seth McDonald <sethmcmail@pm.me>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
 Hi Seth,
 
-On Tue, Dec 23, 2025 at 04:23:45AM +0000, Seth McDonald wrote:
-> Hi Alex,
->=20
-> After reading Collin's reply, I realised the standards(7) man page does
-> not yet include the C17, C23, POSIX.1-2024, or SUSv5 standards. And
-> given that the man pages are currently being updated to specify
-> conformance to these newer standards, they should certainly be included
-> in standards(7) for reference.
->=20
-> I'm busy going through the functions' history sections, so just consider
-> this a bug report for standards(7). I've also CC'd Collin since they
-> prompted this find.
-
-Thanks!  I'll have a look at that page.
+I've expanded standards(7) to include several standards that were
+undocumented.  Thanks for the report!
 
 
 Have a lovely day!
 Alex
 
---=20
-<https://www.alejandro-colomar.es>
+ man/man7/standards.7 | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
---x3xx5wgu5kb2oftn
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/man/man7/standards.7 b/man/man7/standards.7
+index a3ab6e219..1b685d213 100644
+--- a/man/man7/standards.7
++++ b/man/man7/standards.7
+@@ -102,6 +102,14 @@ .SH DESCRIPTION
+ This revision of the C language standard was ratified by ISO in 2011
+ .RI ( "ISO/IEC 9899:2011" ).
+ .TP
++.B C17
++This revision of the C language standard was ratified by ISO in 2018
++.RI ( "ISO/IEC 9899:2018" ).
++.TP
++.B C23
++This revision of the C language standard was ratified by ISO in 2024
++.RI ( "ISO/IEC 9899:2024" ).
++.TP
+ .B LFS
+ The Large File Summit specification, completed in 1996.
+ This specification defined mechanisms that allowed 32-bit systems
+@@ -235,6 +243,10 @@ .SH DESCRIPTION
+ TC1 in 2003
+ and TC2 in 2004.
+ .TP
++.B POSIX.1-2004
++This revision of POSIX is technically identical to POSIX.1-2001 with
++Technical Corrigenda 1 and 2 applied.
++.TP
+ .B POSIX.1-2008
+ .TQ
+ .B SUSv4
+@@ -279,6 +291,10 @@ .SH DESCRIPTION
+ .UR http://www.opengroup.org\:/austin/
+ .UE .
+ .TP
++.B POSIX.1-2013
++This revision of POSIX is technically identical to POSIX.1-2008 with
++Technical Corrigendum 1 applied.
++.TP
+ .B SUSv4 2016 edition
+ This is equivalent to POSIX.1-2008, with the addition of
+ Technical Corrigenda 1 and 2 and the XCurses specification.
+@@ -295,6 +311,17 @@ .SH DESCRIPTION
+ manual pages under sections 0p (header files), 1p (commands),
+ and 3p (functions);
+ thus one can write "man 3p open".
++.TP
++.B POSIX.1-2024
++.TQ
++.B SUSv5
++Work on the next revision of POSIX.1/SUS
++was completed and ratified in 2024.
++.IP
++Further information can be found on the
++.UR http://www.opengroup.org/\:austin/
++Austin Group web site
++.UE .
+ .SH SEE ALSO
+ .BR getconf (1),
+ .BR confstr (3),
 
------BEGIN PGP SIGNATURE-----
+Range-diff against v0:
+-:  --------- > 1:  4d36afef1 man/man7/standards.7: Document C27, C23, POSIX.1-2004, POSIX.1-2013, POSIX.1-2024, SUSv5
+-- 
+2.51.0
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlKjsgACgkQ64mZXMKQ
-wqlC7w/9HW2gCA61a6lU6MeKdwjyCFGRaJqFvVRKf288rHcC8bgUdYkcXNoWoB3y
-FpZqzx6aEz4zHP+GV5iRdrP0ifbBWz7GZQJdvyBJyPVsMrP5O8RYslHl487GYTNa
-Fzu0YRVJnL4lObJ6nhxCGoFow1mVypy0bneSYqYDgfMhJUHhcKrPmhUsjcFZJvMO
-ufp+B7TubVKNdKzzxrx8t4cDLoiRAbUEHYKwAr5g/8vcs1YRh9a05TUDndUleGR3
-gtmL5GaMxFR0WD6IyKhyFbIVtv7THqGDGmJ114rSHz9z3rfiez4NOqJrxK4dplbp
-29IZU4bgdYekeSo+gFZESq+r3wHPHzCieQJbMsrBctXcyZH/38bRzFZk/GJmAcko
-0nrmyLLIpzrm8bnNK+rNK8s9dXtmh8XfzDR8pXdb1CZXJrglRuzL392hEQEipv42
-d1wsRIeAb2LC8x8a2yBzQvvYTeY6msXNAH84alEE2XVdQ36DVDQk//sg6cyQIfvK
-jBnj9ThNgzaDqNguAXSNmnd27ZCM1o8jaMryK5z3/xKQSfjAkBITgx6DoPhV6IcN
-WiB+aL5pKFbH8KsMQ6MuLGyZShSr00E224JggpgO27ablzmJWrMG9UPGLQm656Sy
-ySmOhVIYWbN8QQUqZuA8Yp/siMQlGOiL8P1KxbnaTM7IX66B3g8=
-=b6PE
------END PGP SIGNATURE-----
-
---x3xx5wgu5kb2oftn--
 
