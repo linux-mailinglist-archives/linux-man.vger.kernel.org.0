@@ -1,57 +1,57 @@
-Return-Path: <linux-man+bounces-4494-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4495-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BD68CDC8AD
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id A989ECDC8AE
 	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 15:40:51 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 475AF3049B23
+	by sea.lore.kernel.org (Postfix) with ESMTP id 697A3304A8F7
 	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 14:39:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72C323587CA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9BE05357A4B;
 	Wed, 24 Dec 2025 14:38:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="Rcn1RPKa"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="pgI1Hc0q"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB41357A4B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92543587CB
 	for <linux-man@vger.kernel.org>; Wed, 24 Dec 2025 14:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766587111; cv=none; b=S2Q7INqjZfZhIcoK77xKC7JYBaHbO94hzfX9dbhB6TfcPj4tCcLFgys+wqwwNxbgI+mRH72ZQezX16CRBWiN4VhxRks71tMRKG7PGaeiknDO8GvOckSJzuOC1p11n6vGouIUyI/BcSN7F04bRoT+Be4CeO2WVGWJNJcxwMgz76g=
+	t=1766587111; cv=none; b=Q1MpaEfk+k92uezTaNGmBjuFLZL/JjduUXg3WlJgAwmVq+xmXTvNsbI6yFjWtNXMZmaHohlw9OOaBBgHgAi3noQdPjqkTLFKCcZ+qxdMMJyjEqmmcvqtA3VQMQ/ckD8FBxJWwrCGKCkooVl2MJM8UxdPeIajUl0TqBRSUvjsFcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1766587111; c=relaxed/simple;
-	bh=Jb+RqIeTkux7oqreGlgXYFWxhURBxHMtaMfE5U9WFnM=;
+	bh=PYKaoafzsWtAczs7AWIdackXoGxZjKaS1mQ+/dGK/+E=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=MAcEDrjTL73Ija8SSX8b5p5wcDz8KzGcJTdMUDodSfws/vjqxWmQjsojX66VLvCfUddTTAGDpPfflOjGAvLCizLUE4nG24JDtRiSD1Em7gkPJ2Pfm+q9/voVYRbB0f6LeSGzLsIFk7bQlvF98YI7kJcc+zL1P9BMYzIqTWIdRo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=Rcn1RPKa; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=URfKjZ2d5YaimKH3PEnKUQMk9sO3vIuG/45I+eVkHeFbVzEp/fcRVQQLddIA1qz55NYKsjvTBOnGvuE0ch9TRnZlah3aQ3ISDSVYzscNwep6eFvaqHInkskjzMlykSNQLpwbAVGVv3g/nT6Xji8xV2qW5owAPqSwTUzA6VA+HLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=pgI1Hc0q; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1766587102;
-	bh=qdIKgWiG/A32/X/xJ0hLSPIM8ELqr1tNnwUklK1mps4=;
+	bh=sj61/ElbgWJv60TjM08EzYrKqkm1kep1EeDd5eIefoY=;
 	h=Date:From:To:Cc:Subject;
-	b=Rcn1RPKaJhlWOYectFFgGQpvBOTrWviviiLDquDpBvRJxvTfGETIr29cc1pZFa5PD
-	 1Wj2NmrdQUca+odF1yojheM96iaQGjQix6QgtvJa4TKvJzOySAE7EkqdMGLGSkrmHH
-	 PlV3eEA+LjUZF45inKqxJE3k6cEKgu2XDAfLnJ/qrEX3rcZs8mo2OrJEgMOpAJAwyi
-	 qS0dssX7ud/J87XInG64JGdchOuR06s4nUPfpFssZGo/qxPzVmSV9wbkTIdJs76eJd
-	 QcdVR8MTHlweqv0ZdnP4yCxlJSZWW6u+VlSs7qaOi1bt9wg6icaYelHwwB7aTGsz8H
-	 4jAHtpIs9xgNw==
+	b=pgI1Hc0qACJASN9LCBBfrsOcvZPe9DxJ7+XClJScrHl4g1PCZLkwkt5s1wF6KGg8c
+	 kuH9b6m05AOcW9EAeB7pbAo6oWJFXFO6rIl4kxPqjHVTQvVNgjR1PbHdr4J5BJNJ4E
+	 0CvfaCuSq6qYjB2ancmA2dH1ZvNsiEfSxd2cYFvJhZYH1hOw5EdaX92U8jWRpIwALs
+	 jZTtpSK3i/L0L/Z4toGWSgnOMRWvZrIXnylqQMvmDSyYIDAVBoQIAqINJ8pgHl9q88
+	 XKBCC9ICCXoVNKyqUewbBf9XdRMosqxH+Dtha0wMjXBhAj2UBHLoh8TLh6lNz5Teni
+	 7OqWeNO/ZfOjQ==
 Original-Subject: Issue in man page  PR_RISCV_SET_ICACHE_FLUSH_CTX.2const
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000207EF.00000000694BFADE.003197DF; Wed, 24 Dec 2025 14:38:22 +0000
+  id 000000000002086D.00000000694BFADE.00319811; Wed, 24 Dec 2025 14:38:22 +0000
 Date: Wed, 24 Dec 2025 14:38:22 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Issue in man page  PR_RISCV_SET_ICACHE_FLUSH_CTX.2const
-Message-ID: <aUv63hoo4aRlLwV1@meinfjell.helgefjelltest.de>
+Message-ID: <aUv63rxcdLJxONzG@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -66,10 +66,7 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:     eg. → e.g., but I think i.e. is correct?
+Issue:     cmodx.c → I<cmodx.c>
 
-"In per-thread context (eg., scope is set to B<PR_RISCV_SCOPE_PER_THREAD>)  "
-"only the thread calling this function is permitted to emit icache flushing "
-"instructions.  When the thread is migrated, the corresponding hart's icache "
-"will be guaranteed to be consistent with instruction storage."
+"Program source: cmodx.c"
 
