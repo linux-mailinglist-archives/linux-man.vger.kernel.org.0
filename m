@@ -1,51 +1,51 @@
-Return-Path: <linux-man+bounces-4526-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4527-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE7EACDCBA2
-	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 16:39:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A1FCDCBA8
+	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 16:39:13 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id C4011305D12D
-	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 15:37:08 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 8439C30505B5
+	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 15:37:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1BED524DD15;
-	Wed, 24 Dec 2025 15:35:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41FDC2DE6F1;
+	Wed, 24 Dec 2025 15:37:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WA/nk5k1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvPu19Dw"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD3E156CA
-	for <linux-man@vger.kernel.org>; Wed, 24 Dec 2025 15:35:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC57242D6A
+	for <linux-man@vger.kernel.org>; Wed, 24 Dec 2025 15:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766590542; cv=none; b=uIjSAmjlqfsS7NCBHmsOPrfuAgWmC35EGzycP2QBUzBFeGWMTUshxu0UOvlDle74lHE7V/Nl8Gs6nXKD9eKOXbY+TjzCma3HccVRHY/Sr8xEkbIbxP+H5J3CJ+OqmWBkojrLaERiCJy+t9W5/uwxnzMMjRgUw3WW4YKL2pllc+Q=
+	t=1766590643; cv=none; b=JFVrfk8GM/Vcek8xCG8HPTU7S0w0UDyHGq7dfBaqMqxDFLWk2410GJXCmklK1Y85OFfjpOtr1si5q/+tQWjbquyCXSvLxmI0A+vklnMrKk2ojuNfThlo8u3TFuWEsgrzLPArMQMhvI1z72ffftRT0OyCqV9iDEkfhE+z2Gvv/hI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766590542; c=relaxed/simple;
-	bh=FiXIhH3cCS8iHZgya+N2bTUFhBV9BdyObWw/M7O7RFo=;
+	s=arc-20240116; t=1766590643; c=relaxed/simple;
+	bh=QznMMSiUhkWanr7IPu+SnjAj14/+x8bbk74Vs/ENadg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qZQHLy+w4QYBVenViRLj3zzYBjVo6TYrlKxriZBf2ZOn6dqxhD7IB5fnG2lqSXc7AY62TamX7Bu1SJt2suWpFZ57Qn9TU6l/+/DjA7N3JZRtTzqtdiNIWTjaSPAoLVdwUj/9gk1fZa0ZFTe430LsKhNGY+QN+eQ0eXf2hoF1r0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WA/nk5k1; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A229C4CEF7;
-	Wed, 24 Dec 2025 15:35:41 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=WBu7rUPjk+njm4b0xAXBUMsBUCkFz7bXo+Fob/DMFtFSmQqA2cR9gDjJGjE4KH3GO+hO7qtzqcSZhgYNUmEwQa5k/vHwM7HBo2FUC7Hz0e7z3S50ynC+VRxbuG/E9wjOTx4QCUE6ZZIhhn50Ivwt2hxa2GatByV7t1OxHDHAvhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvPu19Dw; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0243C16AAE;
+	Wed, 24 Dec 2025 15:37:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766590542;
-	bh=FiXIhH3cCS8iHZgya+N2bTUFhBV9BdyObWw/M7O7RFo=;
+	s=k20201202; t=1766590642;
+	bh=QznMMSiUhkWanr7IPu+SnjAj14/+x8bbk74Vs/ENadg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WA/nk5k1Oa5kmXjE2om1DawXhAV79j525XEj+ha9OMdwFnqg60cWfOJohtrgSFHQz
-	 Uc647Pmf2dhQ/fVIT8colzsmoDo1kjvlBILtIcXjagzTyvZ1C0G15sAdAvxYq0Arrd
-	 e0CZiUZ4EVn3sjg8hH5emR4PygJDaFEwwtXPdf3P8SjuyuiSSAGr2K3KGYIoxBqOaG
-	 kAP5tbr+3gO0FYm4xDo4M6GNcl/PsP2AdpasSHJ51CbzxnIk8SPB9griKRLUss6ZI1
-	 F1C30TNIUSIfqtfox8fUqGaRODuTSdTsQo9ecPv6hPSHBSD/rruAlildjNSFvIozLz
-	 Wyb7WUAOyz88g==
-Date: Wed, 24 Dec 2025 16:35:38 +0100
+	b=lvPu19Dwmef0ge6N/UTw7fGwQ2YTlWn2ldnPvTKX3S77OP2L3lp3dea1k/j5KDFHX
+	 EQJ9b4KS34cLqWOTiT2b8AhqdfCMOTa7OVe1MO2EQl6yGMzT3OJPiay4Pzt22f6ZXp
+	 QyCvkS0Thkzx2jU3cIkq7dJseBImQaELwythXuiQboQtKPLknTtG/POahuIRg4oX6f
+	 dQpmjMm4ScJQMJzDr4hQHBecAhvBR3qNEZtxBm7pO4Rf3YcrEzW6OjgBGjdhqbJ6Md
+	 cFiFS0A4UsBlCZ2hsKV9MdoDW4ygKbfSjthoJUiov6MOvTcEbarSQYiPwtxssXwYeU
+	 VIYZYkJA6/9LQ==
+Date: Wed, 24 Dec 2025 16:37:19 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page mremap.2
-Message-ID: <aUwIMCY0ckw5QXT7@devuan>
-References: <aUv63blJVbEyCqOs@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page PR_CAPBSET_DROP.2const
+Message-ID: <aUwIpK0YjUsvfSKk@devuan>
+References: <aUv63R0KGppYAaZx@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -53,65 +53,84 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="h7xqezdxlc3fv6yu"
+	protocol="application/pgp-signature"; boundary="khp7gzwbjm75b7w2"
 Content-Disposition: inline
-In-Reply-To: <aUv63blJVbEyCqOs@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv63R0KGppYAaZx@meinfjell.helgefjelltest.de>
 
 
---h7xqezdxlc3fv6yu
+--khp7gzwbjm75b7w2
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page mremap.2
-Message-ID: <aUwIMCY0ckw5QXT7@devuan>
-References: <aUv63blJVbEyCqOs@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page PR_CAPBSET_DROP.2const
+Message-ID: <aUwIpK0YjUsvfSKk@devuan>
+References: <aUv63R0KGppYAaZx@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aUv63blJVbEyCqOs@meinfjell.helgefjelltest.de>
-
-Hi Helge,
+In-Reply-To: <aUv63R0KGppYAaZx@meinfjell.helgefjelltest.de>
 
 On Wed, Dec 24, 2025 at 02:38:21PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    Why is the comma bold?
+> Issue:    B<PR_CAPBSET_READ>(2const)  B<libcap>(3), =E2=86=92 B<PR_CAPBSE=
+T_READ>(2const), B<libcap>(3),
 
-Thanks!  It was a typo.  I've fixed it.
+Already fixed in
 
+	commit f16c1222ff1541fda69e45aab81e537a6cd76ff6
+	Author:     Alejandro Colomar <alx@kernel.org>
+	AuthorDate: Sun Aug 24 22:05:06 2025 +0200
+	Commit:     Alejandro Colomar <alx@kernel.org>
+	CommitDate: Sun Aug 24 22:21:14 2025 +0200
 
-Have a lovely day!
-Alex
+	    man/man2const/PR_CAPBSET_DROP.2const: pfix
+	   =20
+	    Reported-by: Helge Kreutzmann <debian@helgefjell.de>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+	diff --git a/man/man2const/PR_CAPBSET_DROP.2const b/man/man2const/PR_CAPBS=
+ET_DROP.2const
+	index da4e67b94..38aa11677 100644
+	--- a/man/man2const/PR_CAPBSET_DROP.2const
+	+++ b/man/man2const/PR_CAPBSET_DROP.2const
+	@@ -53,6 +53,6 @@ .SH HISTORY
+	 Linux 2.6.25.
+	 .SH SEE ALSO
+	 .BR prctl (2),
+	-.BR PR_CAPBSET_READ (2const)
+	+.BR PR_CAPBSET_READ (2const),
+	 .BR libcap (3),
+	 .BR cap_drop_bound (3)
 
 >=20
-> "Moving multiple mappings is not permitted if any of those mappings have "
-> "either been registered with B<userfaultfd>(2)B<,> or map drivers that "
-> "specify their own custom address mapping logic."
+> "B<prctl>(2), B<PR_CAPBSET_READ>(2const)  B<libcap>(3), B<cap_drop_bound>=
+(3)"
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---h7xqezdxlc3fv6yu
+--khp7gzwbjm75b7w2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlMCEoACgkQ64mZXMKQ
-wqmHRxAAkMa97E2RvdQJF9U8E9J/GLpRwptip/GKT6NXG8bCZq2w2KuKMRMl5SaR
-vczporZlZBFToZKjBvdU3hPp2ds9JwSWeaBgnIzr1tM0mQahfwdZaA2xhMYXZRl/
-HB3gbc+NlFeqsf2nO3XZbX7rQ13FuZtonzTMQkyU4rG+UD/esTD8BbvN9LtQaPbx
-+0sFzZ8bEu6KEsZAI0C4uB6RB1uBoHX1RsgFWq5cmyfl5Tv7Y+tSfxlIGw5mucuW
-gNv6Hy/yxP/IZ7vmPyq7vW/uxtLmgj6JtdejPZyChfe1kQSw9Pk8SRjKEYYgE1Vl
-7jm8G/dVVUatnY/j4m75RuqGTlWzTBacFvfWehU/D6miftIhijGCsZ+DSGDsr3Pf
-96LZ2iHKZ/BQNmyaPpYbOq3HCm57rY2rdLQTNmQrJzZJ53C/uoow5pQcg/wQ7Xee
-q3VyVEv+LghFWYoai/my6aH/SJBUigzwOGrT6f6b8GSjqI1R1Cs2TbU8DxnQhEMR
-Dw1v0+Zjls2TckxqaO2YFKNcAYTSywOJA+GJWHgmn0cnXxP/k1/MfdXKDIHvmojF
-86N2Iq/msQ2/VBD62q2LTOq81BTd9IMAZyUYXcu2BDHhg+QpYg4cGa98mhX1pwMa
-/EZsOAEsUAyL8LPKL03dbgyXDUEegzfnD2GJyfdRCeETBGUfyek=
-=kIsA
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlMCK8ACgkQ64mZXMKQ
+wqlJlw//QJnZR5Kvfu65LMpkSxvisD8sRRVD/ZEWvlU2Avv2s+ViWnIA9jiGDV4f
+NGgC1aQYp0Tz1/i+IqMDcpgmfszbFj75u2HXD5pmUUr2a/3qgscfa7qhfZJLtzF4
+9OI9Lw3sHT7Ws56sKyKMmFwSSCENw3M9iuXrHx/ZZhpeXnYAcZgcMmx+2BJaPGAl
+sd0PNM8wOk35X7YCEbpNqY5ds50JQw01JY7TxTA+k/mdFUiU4kvyFlH4is4foElK
+FrjVG23OhVA0juFHB+6XyR8WOI3jP4Egc0nNXg9VA1AH7VvX+N8h3hTXknbmcp4Y
+392hU367SMjRnTTPxLob70Tr9hTfyPVO0HvOz3Xix3C6yR1y99qxo+UgydqUVkay
+BJP5lOrtQD7qc3XhnjRVw9f6lJLDeI0rMaFgnwapI0u46EM3J28C4w2OPU88Sn1l
+LooBJXQTNUKgDM92EjHCv8TGrIiRLNc2NCnJuYdu03u3qYl5cMmjcfuMrCdkFe9C
+OyiwZdxH8FbAJvFbmg8ZNg4KccvzDNkCvgvSIqWZpvPtZ2miZJpR+i6eQ/FV8pt9
+txnN+ZKpzQiYINVXtKMPzausfnoyO20JwMkHE4px4+ljgaM/vd/SfZAAAp6pzArq
+8a1/hGCaMGsnvzQMDR58wmxLK9qLLO7WhgOkHIHo7zKUNSElBc0=
+=M48w
 -----END PGP SIGNATURE-----
 
---h7xqezdxlc3fv6yu--
+--khp7gzwbjm75b7w2--
 
