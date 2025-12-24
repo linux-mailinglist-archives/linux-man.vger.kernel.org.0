@@ -1,57 +1,57 @@
-Return-Path: <linux-man+bounces-4492-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4493-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F3E1CDC870
-	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 15:39:55 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A3FCDC8AA
+	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 15:40:50 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 0D648300EA24
+	by sea.lore.kernel.org (Postfix) with ESMTP id 1D4CF304840F
 	for <lists+linux-man@lfdr.de>; Wed, 24 Dec 2025 14:39:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A91B358D10;
-	Wed, 24 Dec 2025 14:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 503D5358D12;
+	Wed, 24 Dec 2025 14:38:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="M82Cgc2f"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="PT4lIQol"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B8C357A54
-	for <linux-man@vger.kernel.org>; Wed, 24 Dec 2025 14:38:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927F93587CA
+	for <linux-man@vger.kernel.org>; Wed, 24 Dec 2025 14:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766587109; cv=none; b=XLr7tErjyAeMImp1s6vXEOuM0wpZsSNB7oO7+Y4XprLTGPOEOrvfuSJlKsV89oAHYhuViFumL9V9y7+1IoclbWU4g1y8LKs1LXZqDt6U7MYSm6MKzBRN9tvywLjBJPTZAYolP53v0hyt+0QRErRcvFZPmeUjP0FafB+b3K+YMuE=
+	t=1766587111; cv=none; b=ToM0waNW7Gq5y4vlzFdjMnka+V6PoZknz+fTYkp08v0bwKHA9NV4M6M0QUJnEqVkeVHOTFDZj9omzwkAUMP1s5/v7pqPJm2ST1yAktzXHqU97Lwn9Z4D29wixnzbZJPecuoao2AP/PtBEnuvZxG21In0mISfuxUFUComW5GHgjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766587109; c=relaxed/simple;
-	bh=l7JG2DsI91M5AxYYK6V5tPuq94hy2OWdjWHCMlH7tbo=;
+	s=arc-20240116; t=1766587111; c=relaxed/simple;
+	bh=mA0BcRaRu1hJuWfORC4dSK5HMr0dcVxu1FMoiMU1UTs=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=u3Ujxg1a08yAyEWlETmt34NqMHdo75OGOwWS6GsNZpwuvi44kzlJl8MOH5mK3Q9SUJn1FQwJvwSmrY5l8RaA+m71+sJqosNTIcdDScfM3VDlhPW+vDjezMM7xuXZ+57I23eB0JpEirRdD/wbUuc3mC0j8xrCLnqNNUvhyqBEqBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=M82Cgc2f; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=MzlGz5KGun97NiR04oryCJkViOerwqbieejKN6Nrp4LgU6rOJaQlRt2WCHUShNaisZzpAyO1DG8+/WY+X40UY8EJe9efw1S0i0ntLLe1c5iaHdJcwn+gssqweAuTFKyY9Pfq3ZbRyKZNnvpxeZUldjBVxgpz0/mRTPRXDpo+v9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=PT4lIQol; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1766587102;
-	bh=HUptiKZ47dzT7YiEeLSP62bIEPuPjJU80aPp7/QaL1E=;
+	bh=yUf1ex6c4qvfgwv2vJB/99rlQ60KUSWDknV3PH+V7hE=;
 	h=Date:From:To:Cc:Subject;
-	b=M82Cgc2fXn+HqxV0obU82krRd4BTxuYD8TH7LE3cQS+AF3lQeWxhVWAUxeGs03TMn
-	 12DdY0SGhg3sDxmBUfZvSO7HJ3ePI7xtyOJGFjTSeAJg3gZg0AMu1H4ypQIImgCRJS
-	 FitRtDCJOCfOx4U4tjy4KBtgQHZGVhe02/EiOZ30u9olh4fElLe2/3nP5v8pIzIL5n
-	 ludoE72u273bbjZt8rOCpXrrgA1olNn1ql4Bdhm6LiysKEFdNe3Ns7nqCjP0OmqDJZ
-	 bq3D7s7jXQhGjUVrm5zBelZHinfqAT6CXKSHeTZGocAYrYF7YBCc43tOhkwnrcM5Z2
-	 uQjYGR2xK4D5Q==
+	b=PT4lIQolWYFZRPlj72HHEb0pQrwwRj0fdOFcZRilol1S6UQLH4onT2WIqG8Fin/Zu
+	 6xbF7co8WWRXr8phyO8X6KgTwChouSi4US6jvI+6R2RJLrM6WDqsBSLJHxrV6pXTLx
+	 glpvXhdhgptbL4it4T4wO4lQQGODUw6CDCfXtVy36/t83hlRr7c3+tu2ohrZB2yF7I
+	 WlVjzxqsDt9XzB0gF1GfmpljuIScMy3Q6s01hg+GO/AH1Cyps3aAyxtbmikC9q+zyA
+	 kc/Q0f4L5ZpXgqXTPGJKzFrXID08XtsdEw/KyO62Zdt+VFNuQFntryfUbPucNvj4Ea
+	 FM8x3QiCTqGiA==
 Original-Subject: Issue in man page  PR_RISCV_SET_ICACHE_FLUSH_CTX.2const
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000207C6.00000000694BFADE.003197C6; Wed, 24 Dec 2025 14:38:22 +0000
+  id 000000000002081F.00000000694BFADE.003197F8; Wed, 24 Dec 2025 14:38:22 +0000
 Date: Wed, 24 Dec 2025 14:38:22 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Issue in man page  PR_RISCV_SET_ICACHE_FLUSH_CTX.2const
-Message-ID: <aUv63u9zgsyD78QB@meinfjell.helgefjelltest.de>
+Message-ID: <aUv63mfzFe9WIr4z@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -66,14 +66,11 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:     scope → I<scope>
+Issue 1:   modify_instruction() → B<modify_instruction()>
+Issue 2:   get_value() → B<get_value()>
 
-"When scope is set to B<PR_RISCV_SCOPE_PER_PROCESS> all threads in the "
-"process are permitted to emit icache flushing instructions.  Whenever any "
-"thread in the process is migrated, the corresponding hart's icache will be "
-"guaranteed to be consistent with instruction storage.  This does not enforce "
-"any guarantees outside of migration.  If a thread modifies an instruction "
-"that another thread may attempt to execute, the other thread must still emit "
-"an icache flushing instruction before attempting to execute the potentially "
-"modified instruction.  This must be performed by the user-space program."
+"The following files are meant to be compiled and linked with each other.  "
+"The modify_instruction() function replaces an add with zero with an add with "
+"one, causing the instruction sequence in get_value() to change from "
+"returning a zero to returning a one."
 
