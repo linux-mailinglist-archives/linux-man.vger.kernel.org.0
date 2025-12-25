@@ -1,53 +1,51 @@
-Return-Path: <linux-man+bounces-4544-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4545-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EA11CDDCEF
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 14:24:18 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 746F4CDDCF5
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 14:24:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 42EF4300769A
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 13:24:17 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id AA34330210FC
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 13:24:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9009B31AAA9;
-	Thu, 25 Dec 2025 13:22:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A617F217648;
+	Thu, 25 Dec 2025 13:24:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ki9SQuNi"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQYlFajn"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12824207A38
-	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 13:22:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6412BA55
+	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 13:24:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766668978; cv=none; b=FkoTO0ll0UmqVlohfPpQlziJizIgAnubTu0MGzO8r8ar2tFGA5iGhPLhvDIEwBrynj3smsNfjXulxmzbXURMRdAn5bvztOyh1LUlW3gdqn33My1B9Iz6QUSTl3Bab6azKDAQCLVOuq2fzEKkpoOhvpqsQXNS5YdWBBxx8gWfnZM=
+	t=1766669065; cv=none; b=jkjpAiVr6SyqQuM3JVn0zaflGRcM8zMFC2yEmZZy6yZA8Rx69Jvx2kFHseEBzlBFYbA0ARTrD3dyEREn6OZnDvpXSEACc7cCTbouMgq0QqtakvQ87FGXi1BwXxDq6pAWIEAuAtSJHq+VrGNg3GbVdt4ZmZ0KyqeG6ttRjYS6EeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766668978; c=relaxed/simple;
-	bh=MmEYSxCChEW0WQXoEZmbM8rD22GHlLIQWLvORuqhB9c=;
+	s=arc-20240116; t=1766669065; c=relaxed/simple;
+	bh=3gvLPKwpJYv442T/b5YwbZ4/UntIcNv3P/4s+7Rz344=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HbiUZjXm87uRanzwNOeVLbMAzZDCTdU5CsH/YraDE4wT3jcWXUepFOASVbrL98cJYRxgdT1KS6W4ljDU1CFBSzHU1uLQeNHTI6if/Tb7eMe8sxM+NiBd3SPwU+278AVniH0IJZyo2ms1/ZTDJjgNeJ83UsvOBqpn6diy7EsFY4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ki9SQuNi; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EB3DC4CEF1;
-	Thu, 25 Dec 2025 13:22:56 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=P4YgBtqqWvCt4dKRgtZIrFuuCuODzNYaMDlM0FznDVYVFyNanYR51FtnXIup3vvdRuwNqeESd9+oxOjolcvsw1qBU7c3A6UL0tvNtZnWawGD8ptlG6ifrRPf9zij6n8K+Dw6QPOqtI4riVEuCpiPgXT3QhE2rFY3Kn7Al13iKW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQYlFajn; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283ACC4CEF1;
+	Thu, 25 Dec 2025 13:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766668977;
-	bh=MmEYSxCChEW0WQXoEZmbM8rD22GHlLIQWLvORuqhB9c=;
+	s=k20201202; t=1766669065;
+	bh=3gvLPKwpJYv442T/b5YwbZ4/UntIcNv3P/4s+7Rz344=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ki9SQuNipqGWVueXAj3Exzhz4311f+u6ROoGKhRMje5ggfqAR+V5jbGRN5XBRw6z5
-	 tqXNr07y8zf3820aHuSJbEzxajG+yclA4VafIWc01bgRcfGzKKY3OToKoMhN7w6ksW
-	 rb/1LrmdifhdmmG8BPNX9B+voMUzLlVLe1ur8fDFC5jQAElNv5x7vjEHrUK8kcnEuJ
-	 SZoPP2nphjONhSkN8A2lxItHagua0g6x/sf96TD26xjg7jT5Bb2bU3XcekL7UIkzek
-	 df2zqnFk+7NltuJ6VQS0tD7fwv/t27mI9tqT8fD5C1iwVoeZU1dbjZRprWUCTvoiZm
-	 Glescp/S/CgMA==
-Date: Thu, 25 Dec 2025 14:22:54 +0100
+	b=TQYlFajnufn/v+CJJMXdHQ4gDESx5J3g0Zi7OApJK5ly8uY4uSw2eAtg+06yXBKL0
+	 eSAv8GI2ygMdjlEOkQb3cqW9yr+UdhR6fHs5uVvRCz3bEH59e1Zy0UQGmgnkFo03OW
+	 BSqG2b42DTsNJHUE4T8urGTcuhZFP7zdojfk6mO6dUrTp7D3atZLZkb8YJu4u/x62t
+	 QJx/eo4xXyAKzeBwez3lahZginOJlWh5ZQDK45Dn6wT7fC6BBRXfiC5QeaP1dKs0Xv
+	 UeJ6E8NZVetqHuwQXHSiu6ZDektVs6XZSB/yufdnVblJRV2suD5l0SKAtQ62FU50lb
+	 yXXbmIG0xPDSw==
+Date: Thu, 25 Dec 2025 14:24:21 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org, 
-	branden@debian.org
-Subject: Re: Issue in man page getpt.3
-Message-ID: <aU06lfjIZExCr8ti@devuan>
-References: <aUv64tskHbjzCiMI@meinfjell.helgefjelltest.de>
- <aU05v_HKTPPwb71k@devuan>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page  wint_t.3type
+Message-ID: <aU06_1vpjdVIBjjg@devuan>
+References: <aUv64ae65sznmeE7@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,90 +53,55 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wzv4bfpoenstuc4i"
+	protocol="application/pgp-signature"; boundary="udj6jls6lfiaq5ci"
 Content-Disposition: inline
-In-Reply-To: <aU05v_HKTPPwb71k@devuan>
+In-Reply-To: <aUv64ae65sznmeE7@meinfjell.helgefjelltest.de>
 
 
---wzv4bfpoenstuc4i
+--udj6jls6lfiaq5ci
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org, 
-	branden@debian.org
-Subject: Re: Issue in man page getpt.3
-Message-ID: <aU06lfjIZExCr8ti@devuan>
-References: <aUv64tskHbjzCiMI@meinfjell.helgefjelltest.de>
- <aU05v_HKTPPwb71k@devuan>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page  wint_t.3type
+Message-ID: <aU06_1vpjdVIBjjg@devuan>
+References: <aUv64ae65sznmeE7@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aU05v_HKTPPwb71k@devuan>
+In-Reply-To: <aUv64ae65sznmeE7@meinfjell.helgefjelltest.de>
 
-On Thu, Dec 25, 2025 at 02:20:39PM +0100, Alejandro Colomar wrote:
-> Hi Helge,
+On Wed, Dec 24, 2025 at 02:38:25PM +0000, Helge Kreutzmann wrote:
+> Without further ado, the following was found:
 >=20
-> On Wed, Dec 24, 2025 at 02:38:26PM +0000, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
-> >=20
-> > Issue:    multiplexor =E2=86=92 multiplexer
+> Issue:     of =E2=86=92 or
 >=20
-> I see both used:
->=20
-> 	$ grep -rho multiplex.r man/ | sort| uniq -c
-> 	      4 multiplexer
-> 	      4 multiplexor
->=20
-> Which one should we prefer, and why?
+> "wint_t, WEOF - integer type capable of storing any wchar_t of WEOF"
 
-A reason for 'e' is that __NR_multiplexer uses 'e'.
-
->=20
-> I don't know if any one is more correct than the other, as I'm not
-> a native English speaker.
->=20
->=20
-> Have a lovely day!
-> Alex
->=20
-> >=20
-> > "B<getpt>()  opens a new pseudoterminal device and returns a file descr=
-iptor "
-> > "that refers to that device.  It is equivalent to opening the pseudoter=
-minal "
-> > "multiplexor device"
-> >=20
-> > "on Linux systems, though the pseudoterminal multiplexor device is loca=
-ted "
-> > "elsewhere on some systems that use the GNU C library."
->=20
-> --=20
-> <https://www.alejandro-colomar.es>
-
-
+Thanks!  Fixed.
 
 --=20
 <https://www.alejandro-colomar.es>
 
---wzv4bfpoenstuc4i
+--udj6jls6lfiaq5ci
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNOq0ACgkQ64mZXMKQ
-wqnR0xAAhV/b0ATOwvCVEsMQR/fq8UhiLEUW4hU7hdMCRgtfG4G1eUeQKvtl7fle
-0PLQLMNls0eJeIqw4EfJlyuI9GcufdbitdyQd4mkowOV76aqR34mv7xB7eYNIp3x
-mvaBX2065xdNFkLMorXY/+grmnT2NLVu1mekV2qLIXIH5nnj4ZZW9ySy7U3GC8gF
-Ved05jILbs3aNlPUNxPP06pAk0bQHZa6ii3zq1txZ688PYWEkomJPaB6nIy6D/Va
-zQ9t/+hZNmcFJznCQD/M1MTAx+E2CMN9vh/kMt1s595UuToW19yvEshlXq/eI2+b
-XKUASvLLRLd9PMoUhapVUJvTRatcslinQ1jYFbmc7g7/RIh1h+H65xH5BZmNLCO0
-oOJuDGz0X2QgLivFNfLAkexJMBxcV/ZX/RO+5er6TrzQONKG1M/6gS4xxxs1fSGC
-ceCOVkzo1HLxJvXvdHCC7hi5bZgd2T3b3p4az0ZRX8VRfJj1iZy+AqayQQBchb/h
-kZ5u9C270b8P+oBoGdQe5AUs7vwuvTmgYjFJBN07sQ7m8m02/1T8IYysqek21eQm
-tlMHy+o6jHrBvIl5ppOusnq2bFQaMvhbnT6vqw5IwirKUHYNNbTj8xWtEMpVwXwt
-lssNE+1Yw1SdpRdiZ0G0HZIAFdumoZ6yKC5a/3h1IXmK9/5CLOs=
-=BvU0
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNOwUACgkQ64mZXMKQ
+wqkCmg//QStt6Vh8EXVIYPSLPemuJ2pRpi9BJyMXwf+mos1K7DM5QzLBTyHX0tAj
+qSD+8rGzsoWRRtRCoO5g/WNhamIOcEBvqrvpVDo7kehoorUHu12KUKqZ0JISfOul
+jJBgUvxR/ObYTMCyj5qkjFLAsmck3pKEOEj3XMVR0twE9mLQjKS9W7uLlUfIWrP4
++OE+A8jJMH5sW46oZiTqZRZ/ePsL6sIjBjWsbK46fcOcGZ8j0Dfu8YwDQWDkKosv
+69CfDnQBfbEFdFxtHD7L4aoDwXgA//sWTYmYPZtu2uQE9c7ekh4EIv5GvSsJO2gB
+00EzZlPtmUKcuv48QShAWhnrRUAC5hCUZA9Hacohs7y9KuzkBNrlbzsnSwfsKJ4T
+gYK31rV79ZQwN40E7Rlwhi88HXmzwBVjRcT6+ROzWHabiz2gSw/dY207AssnjmC/
+zSuDdiGQjYcCc/LcNjzzDqaCUBGblUdsBU0JkkjS5opLAutpzwDi74As6F4gi8MP
+cG/pU6iirasjoVVg+vW7HsKyrrSdSGzZtbOZUe5uKxWI/0aKlnv2wrJwkzyXd7Rw
+Ua5zhccX5cV7Cof6nmDao7Y7m/DfwEDZrFyOGixz7tBOyZoS/Gi93eOOi4N4ii97
+EYAf0sJedUmHyvFfKf/EhdMCLeWePdVcAfS3FdaFiX6lebO6DPM=
+=mtCd
 -----END PGP SIGNATURE-----
 
---wzv4bfpoenstuc4i--
+--udj6jls6lfiaq5ci--
 
