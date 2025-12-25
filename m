@@ -1,51 +1,52 @@
-Return-Path: <linux-man+bounces-4561-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4562-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B8BCDE173
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 21:45:21 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A99CDE188
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 21:54:56 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 564393004F15
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 20:45:20 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 54F493000F8E
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 20:54:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 856CD23EA8B;
-	Thu, 25 Dec 2025 20:45:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BCEB028D850;
+	Thu, 25 Dec 2025 20:54:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rPxyEpZ0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pIdWcLiy"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EFB18BBAE
-	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 20:45:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799AF28C864
+	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 20:54:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766695519; cv=none; b=JTiD0LM3QPVccgczi1psVWGoMRzpvqCr3ENbX1zuq+AoHhQyBtlyn2bmu/nfGLz97IdjM7iWrBLhCbf4OEwRlK14otmoFDO+Bn8SiLunMWtGro+oLpsDeXzD3uMlDbal2WYeDUE6PsBUnD5CkSk24Ph3yNVKNHruxtHpkUHLcTA=
+	t=1766696090; cv=none; b=nV6Bi5FJOI+C3fxFqi5uHGEDo58FntVwmgvEoQ2UT/l0nBJb+zPDQMc94EMWkkYzED+CJGvw7wJTc1XoxpJddMs+XTkkOAlnw0yrNcCtwkwgeNY2H/Lturd3zOQ54qmqs/Q1BibGIRb8fTvH0zCve0QR7rWcc2+41d1OQaF4Km8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766695519; c=relaxed/simple;
-	bh=iXyHtsRPy6Io2D5KRhTwR6eY6/reDqdQV29Wh6CIK9A=;
+	s=arc-20240116; t=1766696090; c=relaxed/simple;
+	bh=OMu92FazqYjznkMo8sAjQyxK6FaWu/LOwAY74kdUKZE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MvnqunhciqXlvJTbVxJat/CEWiSRqFMQblS9Mz8K7dleZxvP1u/dtlfFgYiakUXhPiAa5cEfw6OTytW1ZcZ8NGTvmX0NUODuDQFAOAY2rSzJ4/diHQXyc+L7/FEEJiTH3yKyTORLXGdypNO9GwoDBqr9jkhmVwpbQY31/KNiqsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rPxyEpZ0; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F146C4CEF1;
-	Thu, 25 Dec 2025 20:45:18 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=UITZdydYt/8cbixpaZ48TATKD7kP8YyXH0xCTb/SNHMqYzV/4NYdaomskdVX5HmXk4DSRPVZNGS2wUNpd+YWzd7I20EaeUXE4d1pj/+GLuypdzYDSuca97OypiVsBtYSpRtL6cosqafpBnNb3CUv5sI5CWubP7Fp9AqoKMmTKik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pIdWcLiy; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0D0C4CEF1;
+	Thu, 25 Dec 2025 20:54:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766695519;
-	bh=iXyHtsRPy6Io2D5KRhTwR6eY6/reDqdQV29Wh6CIK9A=;
+	s=k20201202; t=1766696090;
+	bh=OMu92FazqYjznkMo8sAjQyxK6FaWu/LOwAY74kdUKZE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rPxyEpZ0QstG5Sv7hM8f+uHnhvNuC28jK20oeSApb7zU8LHD6Y/xJ5WzhsotA2J4T
-	 /MLLCB1Jq/xnkCTdWapntfQwTvFUL6mmsOAAaScnD/Z2Z29B7UinLk2Yd7rJ/FU/SE
-	 T+OxdwjSzihrQcavo1Fj4LUHi2eR6Pnn1IGl3Sa1B1yY/GmLeCH4PgushnfqM5O45u
-	 2fiqb1ZdslJO1Aw30s75w1HKNM6PxzDBWNoJoUwLVvaAUlfrxmnWxRv9qc1ui6sFrE
-	 lvzQ9HH9BlmxPTLOYzwIOjcTZw9CKDhMh7FmMJNRcsb3jV3IdbHsLtTN+7zIVIf8x6
-	 aaGCS1yHZ5gjg==
-Date: Thu, 25 Dec 2025 21:45:15 +0100
+	b=pIdWcLiy+kc6FKQqVnmTF/UmIDQXDJWsZiF68fsEMCysxQ50vrLROPMnd0kPk0t5I
+	 M7X6w6IBbocuo0jyGW3rVACoZQjrxrrqxlkxKM+A1+S1QhgxV/fmc+TT/0MPmXZqw6
+	 tsWV6Kc1sN/D5/Gon4grta7eSOlMbaUWEZBYgUJdlFeaMXK8/MY7722gRNMAyLPHhZ
+	 /H098Axio/aoOSwntqhGQzprUMLr6A8nR97GnmC55QHiajEbAA8tddX9/7z/5esTq3
+	 /ip6VNGiNjGVUxVC4VpY35v2gYA9x6jU3ct5gUsTCccDQDo4WvbV0bq+fs6uBq42s4
+	 3yMKXWbfMou0Q==
+Date: Thu, 25 Dec 2025 21:54:46 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
+To: Florent Revest <revest@chromium.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page  PR_SET_TIMERSLACK.2const
-Message-ID: <aU2iPS6cGLMTex_T@devuan>
-References: <aUv636Ne0XcB5LYQ@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page  PR_SET_MDWE.2const
+Message-ID: <aU2jhFY0ueqVHUJQ@devuan>
+References: <aUv631UU4y9H1x90@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -53,72 +54,107 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e72uf2ctjdviefvm"
+	protocol="application/pgp-signature"; boundary="jjiwsfnheqnqc6mk"
 Content-Disposition: inline
-In-Reply-To: <aUv636Ne0XcB5LYQ@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv631UU4y9H1x90@meinfjell.helgefjelltest.de>
 
 
---e72uf2ctjdviefvm
+--jjiwsfnheqnqc6mk
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
+To: Florent Revest <revest@chromium.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page  PR_SET_TIMERSLACK.2const
-Message-ID: <aU2iPS6cGLMTex_T@devuan>
-References: <aUv636Ne0XcB5LYQ@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page  PR_SET_MDWE.2const
+Message-ID: <aU2jhFY0ueqVHUJQ@devuan>
+References: <aUv631UU4y9H1x90@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aUv636Ne0XcB5LYQ@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv631UU4y9H1x90@meinfjell.helgefjelltest.de>
 
-Hi Helge,
+Hi Helge, Florent, Catalin,
 
 On Wed, Dec 24, 2025 at 02:38:23PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:     I<init> =E2=86=92 B<init>
-
-I've documented it as B<init>(1).  Thanks!
-
-
-Cheers,
-Alex
-
+> Issue:     mapping protections =E2=86=92 mapping ?
 >=20
-> "When a new thread is created, the two timer slack values are made the sa=
-me "
-> "as the \"current\" value of the creating thread.  Thereafter, a thread c=
-an "
-> "adjust its \"current\" timer slack value via B<PR_SET_TIMERSLACK>.  The "
-> "\"default\" value can't be changed.  The timer slack values of I<init> (=
-PID "
-> "1), the ancestor of all processes, are 50,000 nanoseconds (50 "
-> "microseconds).  The timer slack value is inherited by a child created vi=
-a "
-> "B<fork>(2), and is preserved across B<execve>(2)."
+> "New memory mapping protections can't be writable and executable.  Non-"
+> "executable mappings can't become executable."
+
+That text was added in
+
+	commit 457ca4a9ae3eae9835a5c011851c4eb88b49d322
+	Author: Florent Revest <revest@chromium.org>
+	Date:   Wed Oct 11 13:47:44 2023 +0200
+
+	    prctl.2: Document PR_SET_MDWE and PR_GET_MDWE
+	   =20
+	    Memory-Deny-Write-Execute is a W^X process control originally introduc=
+ed
+	    by Joey Gouly.  I'm the author of the PR_MDWE_NO_INHERIT flag.
+	   =20
+	    Signed-off-by: Florent Revest <revest@chromium.org>
+	    Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+So let's ask the author and reviewer.  The manual page says:
+
+	$ mansect DESCRIPTION man/man2const/PR_SET_MDWE.2const \
+	| MANWIDTH=3D64 man /dev/stdin \
+	| cat;
+	PR_SET_MDWE(2const)                         PR_SET_MDWE(2const)
+
+	DESCRIPTION
+	     Set the calling process=E2=80=99 Memory=E2=80=90Deny=E2=80=90Write=E2=
+=80=90Execute protec=E2=80=90
+	     tion  mask.  Once protection bits are set, they can not be
+	     changed.
+
+	     mask must be a bit mask of:
+
+	     PR_MDWE_REFUSE_EXEC_GAIN
+		    New memory mapping protections  can=E2=80=99t  be  writable
+		    and  executable.  Non=E2=80=90executable mappings can=E2=80=99t be=E2=
+=80=90
+		    come executable.
+
+	     PR_MDWE_NO_INHERIT  (since Linux 6.6)
+		    Do not propagate MDWE protection to child processes
+		    on fork(2).   Setting  this  bit  requires  setting
+		    PR_MDWE_REFUSE_EXEC_GAIN too.
+
+	Linux man=E2=80=90pages (unreleased) (date)         PR_SET_MDWE(2const)
+
+Do you agree with the wording fix proposal?
+
+
+Have a lovely night!
+Alex
 
 --=20
 <https://www.alejandro-colomar.es>
 
---e72uf2ctjdviefvm
+--jjiwsfnheqnqc6mk
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNolsACgkQ64mZXMKQ
-wql6jg//ap5D9jNt1E+tFc1dvz+JMMvQE2uS5tAGF4dYMpBYwekP9vfL7qkrY4HO
-THjk/vM30koiuIi3OOGYJKe6ikDgaKD95OZd/4C53Qhb5FSWuHGY/x7wdVBdmjBd
-UP8Hk2NFid9R8UZ28bdPUUKn7VZStnYWx4l+gR/5y9O1DwpOO3Y475mh+ZUs7lHl
-LcyBBD90NuD+CffX+oJp28/mg59EE0GVzh9J+RTar40g+KLTPmKk4bhLTJF8tW8d
-nAvfflXmZEG3I03TXNngg/x6pFEB3F5npkfqJtfJs4EVG8GT7GzMDvYq3D2A+HVG
-ksZcWmLzDqn3KT0knFcX3fA/LI+L5QLegokPIpmbSqGyu164/tfQ53yHs6O7XOMG
-3YjQ8CXSaXeSSg0VCRfjIC8FDBK9zrHxCg6g6+FudLx8546mDEUjHfWTnfHN2W9h
-NgDUgp7hdHzSKlY8n0Z9Gvb5Cyvkqz67SLbDl/on1p9L8FZjhQv9zfj1H4pTx+Z3
-WZ1UJL87mXRBXmNx51433nT2gnOnDrDsEFfuhdzfhdM0KrW44Kh6M+t1+tGCs0sr
-HNw/eL+k+o/3snMZdVINNhBcg3qprB+nEK3LUwXJTNG5KDH+q9DlQJLsjqqLNL0c
-oNsP8LUJPkGeIgWWsOSC8n94sOPlVaYCl6X1U88SqOsKJjn11/U=
-=YNXc
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNpJYACgkQ64mZXMKQ
+wqke/Q//aXxvlkba0pvdkBysPk/U8VWuV+eLeLcPjwR8AKSHHhE8JOxuvJjO7Jke
+L0HEqvrUYnRiEAH0sAs3WC36CrZ48dOY7rc9WyE8TKWRz85+x50UX7rMRC4zqzzM
+pEipEEjN2cIKBmt0V9raAytcSqKdfddxmcyTMHQNrHHBrAuFcrXZDcbqiQdEu7wV
+fNei+cIg3KE5CpYdTS5Qbla6fD6E6rBnGdYyCF0kV5pifaFyOuUPiWZzQb927mMW
+QT3hGXo+5ybM+nJiLYkDEVO7TnePHYY1h73qs5qzCEpT6Wu2nraqT/BU0VwRPmu8
+iHAUPH+gduHGD25v19D2rtiPOwNvvpSAp03TGZ63kO/Rtg+lc659ChSwfis6GHkY
+8QPFfDzXB/U46IlmoOGmMsLe4YahLKlI++bwhva2Aw/0gdJZ3Biy9wpZaHBY46tR
+GUutfHwMpggiyPNRy8214hdQN4F+ALEs3KhykAYX2hQaiMbEAq50xrOq7lZ/zDmz
+vOLkVl2dAXaY2AEmMVFSQQG7fn8D4DH1A6nEziXcPP/+0jmzHbhzLzun2cFkWgRS
+6Wyc73BduU5jODmvPhste3o5k5ZAYmWAYzVef/YdCuKCO4qDTqSD6W+5uSlABO1P
+/OCCXJ0xiNIT8cB6hSlpLqQWTgjXJnHn5OgP5L6lO0lv0Hw6WpQ=
+=8CvF
 -----END PGP SIGNATURE-----
 
---e72uf2ctjdviefvm--
+--jjiwsfnheqnqc6mk--
 
