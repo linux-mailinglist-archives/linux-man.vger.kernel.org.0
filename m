@@ -1,51 +1,51 @@
-Return-Path: <linux-man+bounces-4563-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4564-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D6A9CDE191
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 21:57:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA378CDE194
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 21:58:06 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id A4FC83008F83
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 20:56:58 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 9FC453008EB0
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 20:58:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE86128D850;
-	Thu, 25 Dec 2025 20:56:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3B0328C864;
+	Thu, 25 Dec 2025 20:58:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVbOWRgr"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5gHYyXE"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1E028C864
-	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 20:56:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20072BAF7
+	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 20:58:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766696217; cv=none; b=uMnPy3zr379rYWkrz+dtE9nPvT9R2Bj9rYFkcxpKBqCgiPu8TGBLzNs0/v5rwy0XQeVajcc8RsEqA7CgmCUxwUpi9AhiMLCnbFkCr66I53buhf/u5se8TS53HIqG8thxF7Ut/9WwPn6MBC9xYoOAtACqX5TiHgI2VuH/8LhlYfA=
+	t=1766696284; cv=none; b=GFhOrxdx4TK+6MaSMmd+25dpJ94t42Mnz7gpyi194IW/ZpGDlKbwHMIiKIBftQiEmXP4N3VtjVII7MwLSXsErnZ7Yep1W7WRh4AaZicQh2we9FNoPPmTrzdk6JBYwgS+ehR8d5mRLvR9lfUHZUss3fxby6tLGsgNO+u+2gXFD+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766696217; c=relaxed/simple;
-	bh=D5LjB8yFlE2ucTqd3LyQ0qju9TjdHPyer5/wf2RfKUk=;
+	s=arc-20240116; t=1766696284; c=relaxed/simple;
+	bh=ybuE3l7YfC73GV3vDwO6Td74B3j1FCzl3EkoLl9XxpI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nvu1lIWNFPdTTE4PlPLgLDqT7nnIo1NSaBdtLvpPW7SNCuljdelzOZY9w85cWnbNkViEPu+1ChBiGujxK5aEyNiaymFvmh6SS2NSsdA/LE84qPgjMi9nK/dGs3Vp0nmZ8RW2Kvm9mp3EbxYnWIvbJruQmWX0Aqyxq4v3lDq0+GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVbOWRgr; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273C6C4CEF1;
-	Thu, 25 Dec 2025 20:56:55 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=EjlaER6y9fxjV//P8Gq47iE76e1qKiiK9QT2AUW63sdL06Gyiv7ciuSNFJbkr89IoUhk/LlpkKX/sBYborC13q5YB4/I7Ci0znswi+GYxFdcODk06hzLWHaqNBTF9bUfn03rC+QKW37iaWutx43QV3mGMCd+9IsC4BbxHSAjUvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5gHYyXE; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627E3C4CEF1;
+	Thu, 25 Dec 2025 20:58:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766696217;
-	bh=D5LjB8yFlE2ucTqd3LyQ0qju9TjdHPyer5/wf2RfKUk=;
+	s=k20201202; t=1766696284;
+	bh=ybuE3l7YfC73GV3vDwO6Td74B3j1FCzl3EkoLl9XxpI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HVbOWRgrx46gthjUV8X9oojzL1Cbarr8G9pHxoTIq6s7rzFerGpqp6S3dbozCSZey
-	 mFwclMtQ/TgNCsccTdcspw/c8VV8ZQHWNIV8Uks/kwwJDUlHAA/Cpci8/02VRTCSMM
-	 SLhUPtvS/l5nB2qqqO9fJF5JbK4hc2RaFKkolM4yGJqamyhAl1FKl6qTFIpmaMeEXS
-	 GOJYiIuR2en6D/x/rQ1grbzdGYERKN8UViwewvmD77tJfLkh4rUCVB5i45xKqaawZq
-	 DVPtPRaqnkGQ11bFXb6fPNAmBvcLr2BtJJnTEa5ido43n1n+YTAxW9PWYjex4XIrhr
-	 AmGOSkgwfhySQ==
-Date: Thu, 25 Dec 2025 21:56:53 +0100
+	b=m5gHYyXEtaHjNqbcOIltKqS35RKFY3PbNVLJTMXrwoDoQXOSmYDscN0dPvfJDVZGk
+	 U/+x02cxV8tpgX9mSe6p71GIpBtiXBYfDu0jjn7CS4zVDxH4aj2gNP4F8rfbSjWU1g
+	 bSMnUrIlgB7fVeNPreLu/It+z6LOCBC4IB8byZ9kKv7AmRL7VzCjyPv2TG7aN3CXSP
+	 /YJJ5YRO5djK2Oj5e8H7IE8MwLeX36gLino7rID4JvL4uNbff6dG+AaiF5lIocpyaq
+	 iy4mPQY+aoUzfrtV5RzU0nsCp5Tqm9U+8m2+VMLGTorF/Y/AtsHFwXypQ9kMLHasJ4
+	 czfXcAKrAYHzw==
+Date: Thu, 25 Dec 2025 21:58:01 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Re: Issue in man page  PR_SET_FPEXC.2const
-Message-ID: <aU2k4yUr_qRrB7CW@devuan>
-References: <aUv63xJI6tagZGQB@meinfjell.helgefjelltest.de>
+Message-ID: <aU2lJNrTjvAPGF7c@devuan>
+References: <aUv633JB452XrwIU@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -53,12 +53,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3h53w3kzjh2ya5zb"
+	protocol="application/pgp-signature"; boundary="7hjbazxluvd7pvuc"
 Content-Disposition: inline
-In-Reply-To: <aUv63xJI6tagZGQB@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv633JB452XrwIU@meinfjell.helgefjelltest.de>
 
 
---3h53w3kzjh2ya5zb
+--7hjbazxluvd7pvuc
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -66,51 +66,51 @@ From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Re: Issue in man page  PR_SET_FPEXC.2const
-Message-ID: <aU2k4yUr_qRrB7CW@devuan>
-References: <aUv63xJI6tagZGQB@meinfjell.helgefjelltest.de>
+Message-ID: <aU2lJNrTjvAPGF7c@devuan>
+References: <aUv633JB452XrwIU@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aUv63xJI6tagZGQB@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv633JB452XrwIU@meinfjell.helgefjelltest.de>
 
 Hi Helge,
 
 On Wed, Dec 24, 2025 at 02:38:23PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:     Is this the opposite to "enables" above? This is past tense, o=
-n purpose?
+> Issue:     "enables" sounds strange here? Maybe activation?
 >=20
-> "Use FPEXC for FP exceptions disabled."
+> "Use FPEXC for FP exception enables."
 
-I have no idea.  Some FP expert should come and review this text.
-I don't know any.  If anyone is an FP expert and is reading this, please
-review.
+I don't know what it wants to mean.
+
+If anyone knows about FP and is reading this, please let us know what
+this meant, so that we can reword it.
 
 
-Have a lovely night!
+Cheers,
 Alex
 
 --=20
 <https://www.alejandro-colomar.es>
 
---3h53w3kzjh2ya5zb
+--7hjbazxluvd7pvuc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNpRUACgkQ64mZXMKQ
-wqkPEg/8CNl46hPTtCwynWJOleoqkY4cVDJVgusWkCwEDyn2HAynGxrOrVWONaI+
-gkbl+Spxu1CDS8/i1g4xdMT9MebFsKCItJ8Z7NKPk0xlXpWqs9aSNLWzO+ruAwVH
-YzIrdHyc9rQEP+ziFZIGhrSNa5+GDIAJDxPb5Fxndiitn3EOhQzUemM5F5tufI2q
-7xgs8LwSH4D32hGgsnuQD0SgOrDNpe2N94rSEV6RfG+OLujvwD7fsHj0Aj4DPZwN
-z/Q+GQzwyL2BliK3TKtwaIJBTST8cHiioGg6gceV1Us2xZk5mGjJZdWjQMdGuEWx
-p3EdChxOWkh+PAGx1/FCMVbe//zux++2ITCeH2H6FLyKTnKYsvVaTBShnTBkDo4k
-TL2FBFJioxaWMPm6hjTs7c2WED3QjZ17wUMccHLQwacs6LUTO/f/iktyn2alIuL4
-5IWWLYcFRHyWnLE1+SS/fPpvO386kLWExv1SOn4cEfEM6wjcIP994syaurAdAw63
-qGo/U5WgcyvlbiUNT9VE3924fGOL+6pwvu+3ZI/ZNb2FhlJwPfxLzw0e/LVKOhTY
-W6m0l2hfxsHzT0H0nInZXwCAsCLrIIp9o8gXBzdevLvPQ7rYe3jaF8QWfSJxa2Z7
-IyPhOoPFLTKdKOgs0Rw7ePtrLj5GQL2Q+0jn5TTVfKC3uTeffQU=
-=xaUc
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNpVgACgkQ64mZXMKQ
+wqlbgQ/+OWocawi1gzuvJuhzLzWpIOl1awsSJR9e3BQ9XevfjQllH3AX/sQeo6cZ
+3nyW/JP35JjK0IW9kvz6B18I88h2+N+njCczw138vCO7ZYXhTQxKEhjoZ5Yd2JO+
+7RrKwyeKzjOuVIQXDs4JHdZUQNvxfE+rmUAGv2fulD2xpSblreiNee2SCYczRQGd
+eiTq83WiwKNjU6O9ZZuylswX31dCDXxr+gzwtG3w4wdVbsUCMrZQ4xK+WcQPaPDB
+domIf0UXKkoeHbrB9eErj9xcZyXgfANwlcBo8R3C/x0YFEvoTglIP8A/MpxHik1h
+OEPAR1VSIJlLM05t+3VzU/0yyr7kaZTh/tH+DgbPdF5TD96qsxJ1YIUJMGqt5av0
+9fLsjJDwYMNKTzNsidIOKjTOxoke6b0YGu181dnEjiqxoqUWYZZPIfIqNnqGH2RX
+ghrzPNNM0eptXGOzUqwM8FQzV3RT6ce7sbeHqCrHQUwjybge2/qtRN8Ka6oMaD7q
+MJI86XigGaJZhQusZQr5HJur/ndt10gub/heoGIbYGUNLesqf80VYTFkP0Uf/TC8
+bRhPvd3cAMJn2UVZJufHFvjqFcgf7+WtfQWKMLUXgRxj3YQIhzEg56Fn0zNUQVa5
+AkV5/JS8tUHtsbbsfr/m35ZmKACn+g9ewod4dWlOoKYPqknUz7s=
+=egJP
 -----END PGP SIGNATURE-----
 
---3h53w3kzjh2ya5zb--
+--7hjbazxluvd7pvuc--
 
