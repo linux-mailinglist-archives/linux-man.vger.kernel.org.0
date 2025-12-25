@@ -1,51 +1,51 @@
-Return-Path: <linux-man+bounces-4552-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4553-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id A196ECDDD55
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 14:46:08 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id 757BBCDDD58
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 14:48:18 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 3F37530010D4
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 13:46:05 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id DA38B3008CC4
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 13:48:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7BA3156237;
-	Thu, 25 Dec 2025 13:46:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3A961E5B94;
+	Thu, 25 Dec 2025 13:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FUITYiNE"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iw+WHeot"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7629EEEAB
-	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 13:46:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E797E110
+	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 13:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766670363; cv=none; b=qkSCkjvCcgKMR7Ks6mjpYivRiUCE0s6vH2O3IbBPldgh/FehxsRgJiNuIvYAWZ9pfhQx/n4BtQkCaQZqQ0APtPJt1zyT/9tgvjZ1gnk8wptRuWxcNM5Z7g1aDvnriyDd4dHpDy/LUYkF9bwE1dZ22zbEB3TJdp6+U4A8AE+G6qI=
+	t=1766670496; cv=none; b=qHdmLRVeyytGOT+3+YhfoL54y1K3g3dzYi1SzsDC3WKRC6zGvt2ojsyvNZC/09EFxQnb5o4XAAjXlPrRDLLss08gNiGNQi71DjPLObM5QYYRuqMlevGRId0MR4u53ds0S/+VQzUGDpZKpElmTeAcCyfXjJWC21g26F4wFFa7aOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766670363; c=relaxed/simple;
-	bh=azHGZy3UBhBDiL3e/20S9F5h6+8mi91VQTKWtEtyXkI=;
+	s=arc-20240116; t=1766670496; c=relaxed/simple;
+	bh=WXrOsoXV71x09N0acgNXrzFnyPKfI7Bb0correTRAgw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pWhPbUu/gl8ShtdZGEVtGicNNIzix62jNMtnpsPcxoIuve61dPWdkOqiqrZhKA+5jngU9WsJMiTuWrkaVqRKV2JimPGi4f2u+Egd/iHVtV7gZm5QUFTC55AUlxVVEtVih5KMgsX+oW+FW8+R3DdQ5XhPq/s8WAr+b5RP9DXFFNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FUITYiNE; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B49C4CEF1;
-	Thu, 25 Dec 2025 13:46:01 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dh/WoFeF8MNWU18BdTrf4YzeLd20ftPbUQX6J7BpapGB9GREOwX59VpY4ZBABS/qHziCX6fnfJ3iJ6qUu8g0Rbq5f7KypoYyrLywfFblfwJ4j05MyX0c1TyYptO+lYjKaawtleDw818gvE6Kze8qpZRoJgKRRPkNhz+vFZnQ/c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iw+WHeot; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD58C4CEF1;
+	Thu, 25 Dec 2025 13:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766670363;
-	bh=azHGZy3UBhBDiL3e/20S9F5h6+8mi91VQTKWtEtyXkI=;
+	s=k20201202; t=1766670495;
+	bh=WXrOsoXV71x09N0acgNXrzFnyPKfI7Bb0correTRAgw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FUITYiNEUOjHRiZdkfJs3YLOsHE/cI2fO34plQ8Y1xjAySzKx+vFaJKlncY1s39e+
-	 KdrJSTRnSaNu7PqBitnmLl3DFkjK+yqeg374pfTyHYa5PLx9lWNTurkQlQhdxnY55q
-	 RJfwaAnsxI95wIgO8PmdcEoNBZh15Qczu6xCAuYbTucYIlsDOwlpbNybGANTIxAoqb
-	 xg/FmYHfR/MM814WSZODWYRaInzgKv+3cRURBbRA5F7oSD0RBnLMDlvSZ+VHuNHg2H
-	 2vWWNsdE0gzcyWg9RjhYTG3LGrO1D1EaGxaxvkhSKV2yk03X4O4Gk4Oz93P+xNHgxj
-	 Dn632B/WztrlA==
-Date: Thu, 25 Dec 2025 14:45:59 +0100
+	b=Iw+WHeotgUrCaBl+BhB8opUJ5Gmp3N9MDkcVBC20GBhBQ+vS4dWMtkQMwswYALr9Z
+	 GXho9w27GwuVELcLtFDuFcO8DW3dKjC7kgWgi4FwddM++rlx8wfmlsh9L7kO/9F1wd
+	 /wXZRWJsQ/NYpf+wZYK6+GI/LjUS5mD2qmAL8+UcUw8lI06lDAcolxA4TzgmjqcdtM
+	 +wwKvj+s0v6lhU4qirLgUgmvUQTl95shqgS8N9dI9tXpY3RoP35So1uG7as0ndqBTF
+	 0QM+YpV5vl1TxdKnbtKnWe2S0QNd8zNFQ2iBlAe28D2HkgNKVo7aO9/n23lfje76o6
+	 C9ejdb/ebmOHg==
+Date: Thu, 25 Dec 2025 14:48:13 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page  PR_SET_MM_EXE_FILE.2const
-Message-ID: <aU1AELF4sdrkaqu-@devuan>
-References: <aUv634z31AeeWkuI@meinfjell.helgefjelltest.de>
+Subject: Re: your mail
+Message-ID: <aU1AVrV5umYVs7CT@devuan>
+References: <aUv635HpEQKac8rI@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -53,56 +53,94 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n5drw2tdrtttnf57"
+	protocol="application/pgp-signature"; boundary="col7edbh3luevrmj"
 Content-Disposition: inline
-In-Reply-To: <aUv634z31AeeWkuI@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv635HpEQKac8rI@meinfjell.helgefjelltest.de>
 
 
---n5drw2tdrtttnf57
+--col7edbh3luevrmj
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page  PR_SET_MM_EXE_FILE.2const
-Message-ID: <aU1AELF4sdrkaqu-@devuan>
-References: <aUv634z31AeeWkuI@meinfjell.helgefjelltest.de>
+Subject: Re: your mail
+Message-ID: <aU1AVrV5umYVs7CT@devuan>
+References: <aUv635HpEQKac8rI@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aUv634z31AeeWkuI@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv635HpEQKac8rI@meinfjell.helgefjelltest.de>
+
+Hi Helge,
 
 On Wed, Dec 24, 2025 at 02:38:23PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:     This the =E2=86=92 This is the
+> Man page: console_codes.4
+> Issue:    Why hard word wraps?
 
-Thanks!  Fixed.
+This looks like an issue in the software that produces the files you're
+reading.  The hard word wraps are not present in the source code, and
+the manual page reads just fine when formatted.
+
+
+Cheers,
+Alex
 
 >=20
-> "This the second attempt to change the I</proc/>pidI</exe> symbolic link."
+> "Set palette, with parameter given in 7 hexadecimal digits\n"
+> "I<nrrggbb>\n"
+> "after the final P.\n"
+> "Here\n"
+> "I<n>\n"
+> "is the color (0\\[en]15),\n"
+> "and\n"
+> "I<rrggbb>\n"
+> "indicates\n"
+> "the red/green/blue values (0\\[en]255)."
+>=20
+> "Set screen blank timeout to\n"
+> "I<n>\n"
+> "minutes."
+>=20
+> "Set icon name and window title to\n"
+> "I<txt>."
+>=20
+> #. type: tbl table
+> #: archlinux debian-unstable mageia-cauldron opensuse-tumbleweed
+> #, no-wrap
+> "Change log file to\n"
+> "I<name>\n"
+> "(normally disabled by a compile-time option)."
+>=20
+> "Cursor to lower left corner of screen (if enabled\n"
+> "by\n"
+> "B<xterm>(1)'s\n"
+> "B<hpLowerleftBugCompat>\n"
+> "resource)."
 
 --=20
 <https://www.alejandro-colomar.es>
 
---n5drw2tdrtttnf57
+--col7edbh3luevrmj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNQBcACgkQ64mZXMKQ
-wqmanQ//cg4dKCKX8hfYPoqwL3PGyRRLZVEOy8tAJugqywWl0nlqwZmFbDUtaicc
-idJZPzKeqP67fni496W/kcWUQBzsG6LBEOYTgWr7lGZhJCd9UQ7voUMITp5d/NAV
-D2s1OBx4m6M4UWFBamVvITTPCWu8LXIh8o1+QrxN9s/77IlHHSLor6RXXYh7SPfk
-pdXS9HdoH4KQ42moxmliEsmm9FIJlS5KCc/ra1gA5UJwZjGP07ngsnGRpag/Hbas
-cPqcn34X+1msScpe9CV8djV32TaX9rriQboT0+ylcYVNe+zzRM9es37ncLJIGB7W
-p/en9PQmKSCXaxd98lm5OsE7M6XUIFxfgfjPpJBkTAUWv+iPZfs3VbZuK0be1xPM
-b12Zlggs+7cMhJbF4TG4fasEJpXzEXF9DjLMLeBkkD24k9wjpbK2iFaWQ4p9Yg0I
-xXgF0r9X7agnq726BNyEwaWgqfxXl5OA6q+BXPJYZv+M/9ASHQu7npYqQDDTLI4g
-f6d5WLb/4Ch6cJHgmgpnxtz/tYbMZdVJAV+DNnp+2hKHPutAvT6Rey0aEjVuTO26
-JMROJku/47gqtBIlYij3k98FmEYRLd6Jad24LIxjqPgGxrICCZ2fqtHQdr0JReMp
-AwtnkI0My4sIVb5sKziTRvp9P0I4MgLEhz3HTJc+DfzxmX8K7Rw=
-=dpK3
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNQJwACgkQ64mZXMKQ
+wqnHjw/+IptgKetrxQRxvT6DEIswltiEDJdcEjhMrG3JGzsBEmYaS3NDrsZaHC5W
+qBR/bFtsQOCx0MI0Y/bJaSayZXk/QvQ06lU4jgI5d8Plv1BLj3KRxL5UyqEdT52L
+woC2oHP2teYUXbzav29AjDimbLPA1Cvw4FGLQROQeViL49eqcLhfgeQs8G8OYNeX
+v+XopQUTYhhfm9MURLM+iOSQKwJgVTCDTSeXnxEVhoscJnMAjIQZ9oq4SVNdJMIj
+NfkO2gYuVWSSeuR0TJccKQ0yxEdiNOTk2L1pdgu+z4yTvNiRXdSkEICX7dEhMd8b
+4SFp7DFjVEZE9IqINp26cDD3JBInqRFCHimOtJd3xcGo+OKYMJ/VhNy9KAMvWgv8
+1t8sbWWfZQvNptrdny6QNdnNLx7LPUpNHvSxvDWxIkcVX9N0/kMkmdZa/64/v7va
+r41uingwjH1KC+STvFqR9UOiQJQ8o0wseo6BuOrLZ3X9lPFbxTfmGOuGjcWE4NVq
+RHPF1fuZcM1VaDxqt0vmXdt1FZBeDusb56avQck7praSMbSe2qTrun9DfssYkl6Z
+JyVutLbWWtRHXwJWxuGJdwFbNfN4NVSBaWx+frFZgz7Xa22qVyZMpT3xnaams4qm
+lf3W/WYwjFB4895Q6KjrbzyKnTU+5MhxjPKrjzK4j0HU7bEZFk0=
+=pgap
 -----END PGP SIGNATURE-----
 
---n5drw2tdrtttnf57--
+--col7edbh3luevrmj--
 
