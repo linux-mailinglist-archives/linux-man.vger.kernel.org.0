@@ -1,51 +1,51 @@
-Return-Path: <linux-man+bounces-4560-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4561-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AFFDCDE170
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 21:42:58 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84B8BCDE173
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 21:45:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 953263000FAA
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 20:42:55 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 564393004F15
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 20:45:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 24A8C2874E3;
-	Thu, 25 Dec 2025 20:42:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 856CD23EA8B;
+	Thu, 25 Dec 2025 20:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8wytMRe"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rPxyEpZ0"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51FD2868A9
-	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 20:42:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EFB18BBAE
+	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 20:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766695373; cv=none; b=g5li7IZ9kt2CnF+l0pIWGAWiuRHrLyoMu7JBYMtJnY0+G5M4ErUy2mFWCyaf1RwASM+fSLwxAa5HMBRdKQoLiANL27JM+hDvneEXx5wnO3BDkLf36uXu9I0wpBi03fatZHvXaJRXBHE1otsm5clD+WiYeNbRiK3MyabJpX5EJgc=
+	t=1766695519; cv=none; b=JTiD0LM3QPVccgczi1psVWGoMRzpvqCr3ENbX1zuq+AoHhQyBtlyn2bmu/nfGLz97IdjM7iWrBLhCbf4OEwRlK14otmoFDO+Bn8SiLunMWtGro+oLpsDeXzD3uMlDbal2WYeDUE6PsBUnD5CkSk24Ph3yNVKNHruxtHpkUHLcTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766695373; c=relaxed/simple;
-	bh=dbxavZ3yOk6gg/GkkJGlu99eOnz2OAxzv8YSoHROiaw=;
+	s=arc-20240116; t=1766695519; c=relaxed/simple;
+	bh=iXyHtsRPy6Io2D5KRhTwR6eY6/reDqdQV29Wh6CIK9A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ry/EHo7t1R8wZO5/DiqPZ76bmB0ef9809HJTb8stPp6X2wKUD+RhvnKx87RH0qnRBIxTbLkCD+bP9fp4kk/rGygYxIrz6JyGoIcOaz+xjmoN6lSewbmGmJxegqnqXz3r2e23xerfAIoSJMo3l3M9t76vcurCtgN0rKIv6jdOz94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8wytMRe; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7703EC4CEF1;
-	Thu, 25 Dec 2025 20:42:52 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=MvnqunhciqXlvJTbVxJat/CEWiSRqFMQblS9Mz8K7dleZxvP1u/dtlfFgYiakUXhPiAa5cEfw6OTytW1ZcZ8NGTvmX0NUODuDQFAOAY2rSzJ4/diHQXyc+L7/FEEJiTH3yKyTORLXGdypNO9GwoDBqr9jkhmVwpbQY31/KNiqsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rPxyEpZ0; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F146C4CEF1;
+	Thu, 25 Dec 2025 20:45:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766695373;
-	bh=dbxavZ3yOk6gg/GkkJGlu99eOnz2OAxzv8YSoHROiaw=;
+	s=k20201202; t=1766695519;
+	bh=iXyHtsRPy6Io2D5KRhTwR6eY6/reDqdQV29Wh6CIK9A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=N8wytMReRPiCFcp+TJI15l2wcO3+vMlt+OmShvFGQX7UsiqY5ykrc4xtAqocy/qq5
-	 7GsEDyKxYf3kKSU3ts+mV23hxxVkUgxduAB7sCGWcw742ZjOJyBlyheiskkEeroksW
-	 tOlkliDlHIYDfoXJuKtN5dvD+7BFGmfQ5+OHaqvsRi1aJL6Q47/s1IbGEcc8oTXYTZ
-	 WJcVUs2ige7+KRXyxU90g2CUi/ZJwl8C05kHIej6WHb9TnwvoCG0uPC9b3IMNuJ7Y1
-	 ga/dEgNbG3XRzJZpIjPKhyg29JT1GmCs9V14KmTTvGgklAfQdVxPhTcHuRMO/mZ3WL
-	 tGyAcURk4nNDQ==
-Date: Thu, 25 Dec 2025 21:42:50 +0100
+	b=rPxyEpZ0QstG5Sv7hM8f+uHnhvNuC28jK20oeSApb7zU8LHD6Y/xJ5WzhsotA2J4T
+	 /MLLCB1Jq/xnkCTdWapntfQwTvFUL6mmsOAAaScnD/Z2Z29B7UinLk2Yd7rJ/FU/SE
+	 T+OxdwjSzihrQcavo1Fj4LUHi2eR6Pnn1IGl3Sa1B1yY/GmLeCH4PgushnfqM5O45u
+	 2fiqb1ZdslJO1Aw30s75w1HKNM6PxzDBWNoJoUwLVvaAUlfrxmnWxRv9qc1ui6sFrE
+	 lvzQ9HH9BlmxPTLOYzwIOjcTZw9CKDhMh7FmMJNRcsb3jV3IdbHsLtTN+7zIVIf8x6
+	 aaGCS1yHZ5gjg==
+Date: Thu, 25 Dec 2025 21:45:15 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page  random_r.3
-Message-ID: <aU2hgOai2eRKQ9_F@devuan>
-References: <aUv64Cad8HHPpIyt@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page  PR_SET_TIMERSLACK.2const
+Message-ID: <aU2iPS6cGLMTex_T@devuan>
+References: <aUv636Ne0XcB5LYQ@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -53,69 +53,72 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wdjdfadbchoakvkw"
+	protocol="application/pgp-signature"; boundary="e72uf2ctjdviefvm"
 Content-Disposition: inline
-In-Reply-To: <aUv64Cad8HHPpIyt@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv636Ne0XcB5LYQ@meinfjell.helgefjelltest.de>
 
 
---wdjdfadbchoakvkw
+--e72uf2ctjdviefvm
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page  random_r.3
-Message-ID: <aU2hgOai2eRKQ9_F@devuan>
-References: <aUv64Cad8HHPpIyt@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page  PR_SET_TIMERSLACK.2const
+Message-ID: <aU2iPS6cGLMTex_T@devuan>
+References: <aUv636Ne0XcB5LYQ@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aUv64Cad8HHPpIyt@meinfjell.helgefjelltest.de>
+In-Reply-To: <aUv636Ne0XcB5LYQ@meinfjell.helgefjelltest.de>
 
 Hi Helge,
 
-On Wed, Dec 24, 2025 at 02:38:24PM +0000, Helge Kreutzmann wrote:
+On Wed, Dec 24, 2025 at 02:38:23PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:     The function prototype above do not mention I<state>?
->=20
-> "The B<setstate_r>()  function is like B<setstate>(3), except that it "
-> "modifies the state in the object pointed to by I<buf>, rather than modif=
-ying "
-> "the global state variable.  I<state> must first have been initialized us=
-ing "
-> "B<initstate_r>()  or be the result of a previous call of B<setstate_r>()=
-=2E"
+> Issue:     I<init> =E2=86=92 B<init>
 
-I still have no clue of what that means.  We'll have to continue living
-in ignorance until someone who knows this set of APIs comes and fixes
-the documentation.  I've never used random_r(3) myself, so I can't help.
+I've documented it as B<init>(1).  Thanks!
 
 
-Have a lovely night!
+Cheers,
 Alex
+
+>=20
+> "When a new thread is created, the two timer slack values are made the sa=
+me "
+> "as the \"current\" value of the creating thread.  Thereafter, a thread c=
+an "
+> "adjust its \"current\" timer slack value via B<PR_SET_TIMERSLACK>.  The "
+> "\"default\" value can't be changed.  The timer slack values of I<init> (=
+PID "
+> "1), the ancestor of all processes, are 50,000 nanoseconds (50 "
+> "microseconds).  The timer slack value is inherited by a child created vi=
+a "
+> "B<fork>(2), and is preserved across B<execve>(2)."
 
 --=20
 <https://www.alejandro-colomar.es>
 
---wdjdfadbchoakvkw
+--e72uf2ctjdviefvm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNockACgkQ64mZXMKQ
-wql3KBAAgh5xLQGW5edMmUBxWfq7oFhj2x5ar5ThTuGao16D/1VxMi62tPZ0UALi
-TSoEDo4XJNsbUfkkQKKCOZnwj6ZFGJAHem6uP9pzUgRCZjfkCVVPiPLlCorM3EGp
-I6cD6gL5u2mIemgJIgdxgWanNEjegTuwPdPupLhz6RGlpCN0r8fpY/MK+qN4bVee
-hfnSEDM9wN8zrILrEyyIx31uPJF8T2EY3AW5PPbJHfVpgsXRGKJoj4mI97JNQ0SA
-/x288cVOfdha8nLbOnBYEwJVBM3EmmTx0562je7kQcEoHu/v4Q0Hl9/r4+Ee2WNL
-ScYbqp0GBW8U1+a20Zppd2A9VvZ0HfxYdmBbwaSDndKaK82GMfYC9h8ihlgFOidV
-uya1QQfYpo1aNfETlM6fjrW2F/MDJM9leCL9mnzBXkuAlZXTf35aiQFD4rIK3byZ
-65v2ae7yQz6Utj4Tr9L9dv+0CQ7dLhA6DPUGb2FKUesTXulPuD+hDyRT2NgmJiDO
-Cue3Vc2zTb+fOHz4RjG5ossQK69bvOrthwRK6wqQshINT9lz0PnQBFcerceZR6oR
-KXtzbcsEXLQKkWZyU9ly12uZ9Ci+NOfcVrnHsrAhCDU+r29vEvqUScuy/9IlEXun
-4G2hFj4KAHD7QWGgaDHNJFQJVJZPFW2rhI9nxqKvDfu4+//WFj8=
-=MU/m
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNolsACgkQ64mZXMKQ
+wql6jg//ap5D9jNt1E+tFc1dvz+JMMvQE2uS5tAGF4dYMpBYwekP9vfL7qkrY4HO
+THjk/vM30koiuIi3OOGYJKe6ikDgaKD95OZd/4C53Qhb5FSWuHGY/x7wdVBdmjBd
+UP8Hk2NFid9R8UZ28bdPUUKn7VZStnYWx4l+gR/5y9O1DwpOO3Y475mh+ZUs7lHl
+LcyBBD90NuD+CffX+oJp28/mg59EE0GVzh9J+RTar40g+KLTPmKk4bhLTJF8tW8d
+nAvfflXmZEG3I03TXNngg/x6pFEB3F5npkfqJtfJs4EVG8GT7GzMDvYq3D2A+HVG
+ksZcWmLzDqn3KT0knFcX3fA/LI+L5QLegokPIpmbSqGyu164/tfQ53yHs6O7XOMG
+3YjQ8CXSaXeSSg0VCRfjIC8FDBK9zrHxCg6g6+FudLx8546mDEUjHfWTnfHN2W9h
+NgDUgp7hdHzSKlY8n0Z9Gvb5Cyvkqz67SLbDl/on1p9L8FZjhQv9zfj1H4pTx+Z3
+WZ1UJL87mXRBXmNx51433nT2gnOnDrDsEFfuhdzfhdM0KrW44Kh6M+t1+tGCs0sr
+HNw/eL+k+o/3snMZdVINNhBcg3qprB+nEK3LUwXJTNG5KDH+q9DlQJLsjqqLNL0c
+oNsP8LUJPkGeIgWWsOSC8n94sOPlVaYCl6X1U88SqOsKJjn11/U=
+=YNXc
 -----END PGP SIGNATURE-----
 
---wdjdfadbchoakvkw--
+--e72uf2ctjdviefvm--
 
