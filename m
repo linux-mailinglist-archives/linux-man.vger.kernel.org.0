@@ -1,64 +1,64 @@
-Return-Path: <linux-man+bounces-4534-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4535-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5D53CDD672
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 08:12:00 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA9D3CDD681
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 08:13:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 41D4E30014D3
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 07:11:52 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id A7D723009F56
+	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 07:13:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 029BB2E5D17;
-	Thu, 25 Dec 2025 07:11:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0FE42E6CCD;
+	Thu, 25 Dec 2025 07:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="CkZFUkS4"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="EcjCQX9u"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA3C2E543B
-	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 07:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD1229ACFD
+	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 07:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766646710; cv=none; b=eRioLuh0udWBei6YoD/mPUMMp5WlHVpPWsU5ot+8KCXsRA80usF5RVZ9npA+oY+MpFdvpqNmFd0yMbLoc5js14HPUd1Ox7t83WvWRrq1PBJeIswIf8KhoqSOsRZlruaEdnQOCEzgvDXVQV1YQw0Q3+aYqiD0fP9xPSoArKk4bGs=
+	t=1766646801; cv=none; b=SucmHFI+Wxk0dWfsDS/WygEcN9kyB6dhks9xwhcKm48okbb1DK0g0iVrjhDBxz5b2mE3aAARL2QigwJNFvLtHtseve0+jUb+plMpYzxvaUvlvS8N3PtnWSpn69y9gMvX8MBIMhevaG/GgGXngh4h2I52DVZ//Q2DoPUAO9Z12vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766646710; c=relaxed/simple;
-	bh=yWD+U1yc/ij5LwfHQBIfPv+ExLKRXERKGZzmNvUgGVo=;
+	s=arc-20240116; t=1766646801; c=relaxed/simple;
+	bh=0DlIu8+rFghPJ5GEyL7U66znaq4GRC3G8EYTvZAAEgI=;
 	h=Date:From:To:Cc:Subject:Message-ID:Mime-Version:Content-Type:
-	 Content-Disposition; b=JPT+GrJJUuq3phFVmbkIiElbk4wDSLF1KbqlOx4ivuQcy1y4C7eRjHWL8sBIG+5cgEZ3IGc/55z9bFZENgOACyKcxUpg2YzgTvZgU71C/FZ9ySNl9Gp4p6WAiG6oJNjbTVRRuSYyMPV7YknzLDKra54ukeAGW1WAJ5dmAHHaSeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=CkZFUkS4; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=ISf5N9GBMEF3ppgKSt6OYhm0kLfKRyTUeT/vanIcPK4WAW57WwDaDSKzWCCYLiYdZiIJ9L8mrd2VXJvW2WOMy15QgfYlKW4gy86EzcUxmm6H/CtPxNa9hl6rZoB1RaF9NbnLetu50kjsZ3Mi8B+L+l/Q9Hrq/aQM733zbRwOGAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=EcjCQX9u; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1766646706;
-	bh=z/QuyiKSYEJB1/X+E/YQwVLRG44BMJ9CGCb8GV+nmL4=;
+	s=selector.helgefjell; t=1766646798;
+	bh=UBZCluyLyjRBG+bkJj0xwuDfJhQ0j1hS4egk4DbOuM0=;
 	h=Date:From:To:Cc:Subject;
-	b=CkZFUkS47FgbK/7gRfiHKsLkeZBsAvGnqeLBAFbdGGdjdrJDev+3EodrVGUh+iAGA
-	 r97ALD/DUVNYfRtqGJanaDEP3a6FQiirS+VXX9CoxMWP54q5mBmHTUFUHdXL+YFRGm
-	 kIj3WmR23e8r/jwicKVwtrQEbgAM1vZB5xSAISoJoyngjSAgrvgmFVXDfHJElxMiRl
-	 YkQwP/6CRHW+6tnL0qGw+aQW8dtvgnV98GbeOWTxw29MTpMLdJndkulWooHt2139Dr
-	 1qw7sdxIfvYmeRFCH+2NDoDLU2r+LYqh0mKKPcawzDZOFjx38was7rpbtYx6D7BegN
-	 rrS5L8eix27hg==
+	b=EcjCQX9uV1UuMo3udMSkA/bB139eUkMuaeHZII4g8pFqJxsud/MpRRMwO1Bdps3Pg
+	 ovJlUwYrF8/foLqX+HvsBL+B7v8xQEzaI2UaO5Mvl5uV89njGRao0RJsqbeXPaqtS7
+	 8Nq3nDs61cH8F1MkSrTuJKrUA1SPZFAqwNL9kDgKdJSBkbwKlC9UVka0OqkT1QvYTZ
+	 s20piHAudobQWDaQeiQ3APjuivGzBJCEACsQV91ku9JtosmWS/zkGge5fwiW8lyqLT
+	 8REcTwODnlEgZFQVKfmbNb26VEbx24HkRkOgkrjyCZEq6zumuMF2TKYZZuNWbNZ/gl
+	 LTsEl6Lj5icQQ==
 Original-Subject: Issue in man page  sysfs.5
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000020010.00000000694CE3B2.0012CF38; Thu, 25 Dec 2025 07:11:46 +0000
-Date: Thu, 25 Dec 2025 07:11:46 +0000
+  id 0000000000020010.00000000694CE40E.0012CF5C; Thu, 25 Dec 2025 07:13:18 +0000
+Date: Thu, 25 Dec 2025 07:13:18 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Issue in man page  sysfs.5
-Message-ID: <aUzjslUS92HiUBEI@meinfjell.helgefjelltest.de>
+Message-ID: <aUzkDrEHd4qo-3rG@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-1232696-1766646706-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-1232732-1766646798-0001-2"
 Content-Disposition: inline
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
@@ -66,19 +66,21 @@ X-homepage: http://www.helgefjell.de/debian
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_meinfjell-1232696-1766646706-0001-2
-Content-Type: text/plain; charset=us-ascii
+--=_meinfjell-1232732-1766646798-0001-2
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Without further ado, the following was found:
 
-Issue:     The 2nd sentence is incomplete
+Issue 1:  Documentation/filesystems/sysfs.txt =E2=86=92 Documentation/files=
+ystems/sysfs.rst
+Issue 2:  these are only under ./Documentation/translations, so I assume: I=
+<Documentation/*/sysfs.txt> =E2=86=92 I<Documentation/*/sysfs.rst>
+Iusse 3:  Missing full stop
 
-"This directory contains one file for each module parameter, with each file=
- "
-"containing the value of the corresponding parameter.  Some of these files "
-"are writable, allowing the"
+"The kernel source file I<Documentation/filesystems/sysfs.txt> and various "
+"other files in I<Documentation/ABI> and I<Documentation/*/sysfs.txt>"
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -86,26 +88,26 @@ Issue:     The 2nd sentence is incomplete
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_meinfjell-1232696-1766646706-0001-2
+--=_meinfjell-1232732-1766646798-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmlM47IACgkQQbqlJmgq
-5nDedBAAiwcoKBHsYQ5BstJ8rYHsZaCoWLbUmEpOoUm8r6VZF5LbUfmLqe64f6U7
-rcM/Xf7WxcUEXCJssw2/M4UEaJ24UZ8ICJ6u5T89yJ3qAjop1ojNgmHSnFdCBbmj
-IGbJkA4Mq3Ivvk1SZxpajKvuvw0xqZ8TEF+/SDM4fdwOYvwLTOqX7ysoZzO/sQCV
-XhKi7h6BRivjmwcYIaAiHihN6Mz2Tl3xJBzS4TpuDXGBY9DGg8HdIt77Tpg0kYV6
-JzOGxa6SDmbGOiF7SADskybhDnjFYrE7R4B4iCbx2TJ0njlmAegN4UojZ9RYhzew
-16rGR8ulTwKWKBeqWkGSqX2wfxWRjLG+wFbjD0uePc04fuGZRW5t6dl3nBq3AFyS
-dDHfFvfX0E9qjseYKRcK5fXsSLVI48i3YHUxGiBskcNxmoGtS7kHST6OnUa8mj0N
-H6pbKGwvguJuo0y+cCCwgSRHOVG19Q3ZI1LiCSoAi2s85BYygBDsF1Gg0T4dRK+x
-I84pd6gCIHgOReupFuf7wvthUCc1cGlckg4n3HVPaUtYDAGBVfpA/0gs5Rs3XZSY
-KpB76jRIeZqYOXoHTFaZ6NJX95WELY4LYFYbdZGNLF8mLCJ7Q0Sw9+JuebaxRXDg
-LcGf1vuUmL4PH+prWW1yDqFcLgU4kHcqIX64ViGzR7MAMC8RdUk=
-=Ay0W
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmlM5A4ACgkQQbqlJmgq
+5nDpghAAkh0dOSaydXj75vnsBMVgFSkZdrpBnDLyTwE00URqxzOQvu8vOjkRD3/h
+/lt/ZdydZg3vzyGkheZGWD56NAhHTD6lK48t9QaJPWNDWBaxvho+Taq3nBxoapAs
+t58Wa3gwLUC0/sHAO8RxAhMA+0kilo+5zxGu4fsKVKsNaNLrz81133fh5gK7I4Yc
+resiUD6Vz47235F9MwcivOBsqukEQclaunskpeiRHD9Qn8+XwscmbVA1nfSnyHfh
+hzaLVYiY+Mc4Dwqk53Nseh/AxdjtnwXSJqPTF7WRIl//cQmyTGo3+NAVrcfymfUt
+RGIZjszoIzJOezBfUdWImgzJlK1UlG54+HVGNpsYaSSigYJ0fut7k2kcVQD6vn09
+ZcxKYvVYico06iBN+BoIvKW/jmeKxyAgI+xIVjw6g38DhnBi/UAdk+TsichLYL8s
+d9E9cbSzBvqkaX+ohVbn7ML6OC3YOOLWEPjFkBlWaeZ+HwkD0/SJr8Y1+oegJK4+
+FtFCmx3wr9If8lkh4l0cYBdiVrJFOuExAeqftxJ5TvAJ0L11Hl/i8bTHZLZmPduf
+Je1rpIjTaknKxpsYuICwYEKTo3gpJX3P8fOF5j0a+q/yjXf+uK1qRwE34M4D9okG
+NWe+92IJ2Jg+hMw6EEl4YItVFf6t7OLzOJFgqXYfgU6xdd41GKA=
+=zXJC
 -----END PGP SIGNATURE-----
 
---=_meinfjell-1232696-1766646706-0001-2--
+--=_meinfjell-1232732-1766646798-0001-2--
 
