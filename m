@@ -1,174 +1,171 @@
-Return-Path: <linux-man+bounces-4569-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4570-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1A41CDE1EB
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 22:20:23 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id 71258CDE459
+	for <lists+linux-man@lfdr.de>; Fri, 26 Dec 2025 04:08:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 4E7713008EAC
-	for <lists+linux-man@lfdr.de>; Thu, 25 Dec 2025 21:20:22 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id DF6943000B1F
+	for <lists+linux-man@lfdr.de>; Fri, 26 Dec 2025 03:08:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 86B1D2741C0;
-	Thu, 25 Dec 2025 21:20:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A0F01EEA5F;
+	Fri, 26 Dec 2025 03:08:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pzTQOYiw"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iylD1gyL"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453872AE90
-	for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 21:20:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902E522578A
+	for <linux-man@vger.kernel.org>; Fri, 26 Dec 2025 03:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766697621; cv=none; b=ZrTeDzQKIcxupB3rPhHj6ZK+AJw5mVmb9GTtWbaMx5WniCNGCfvHTQrSvc3k1PDn/uVLeRHvI43b3JrmGOiD+EnRBIdFe+rieDWQ5gw7AqsZy2ovFjKTuvGjx5C/stKnyb/O99Ulek4TD6jXNNAYfDgqk/WP8yNiaG+uYsLrLhI=
+	t=1766718498; cv=none; b=Y+8g622FrrRtGaRKvdoalkWbMJ67gblJD80nhNMHV9TWMcY6PncOkkEEhT5cfL3wqocSQvYZDB9Eyjtomj9A8ci5/jBulC6+wg+C/97c3E9+espVAaR6kAjUkZT4PEbTu7SNiN9NnLjvkiOoo7sd4e9JurobaVhjFWacH0hTWEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766697621; c=relaxed/simple;
-	bh=XjNHrs9EXxhRzFFJMsnlrMTFOdDa+D/dLqVSr8PTgYI=;
+	s=arc-20240116; t=1766718498; c=relaxed/simple;
+	bh=/778n3zllNSqDHhLiMkuJnIV2VruRcSKUXp8g3PF4ms=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QYDc2j9/wFNpDaN/6uspLbGNL/ZWJxxULbPZOHeMp55hYEQNUJ7wKBupQ4/cYtqV8H2E2Nsi28GXWda90xM76rW/3edTlUNW6AZk0jAIbHtIddYvmS9Q33XiQMHFIK1DOwpa0Yp1kAQ6NyYdw8HULohLD3grPq3POiaBxRo6FJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pzTQOYiw; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8311BC4CEF7;
-	Thu, 25 Dec 2025 21:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766697620;
-	bh=XjNHrs9EXxhRzFFJMsnlrMTFOdDa+D/dLqVSr8PTgYI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pzTQOYiw1CBOZyg1n/TJz5nJYbuNymEMSUnxffOd96nJVrl5peD72W65whej4oHHJ
-	 liEylJFX/wgi4HVVNTdVeb1NCo0kCs5MgBcXO9LR8EfSAD8e3vTFwFlrG6caHY3FoS
-	 reJkd+XZC885xzhkElVcWhRnXzbPdYW9fLZCdNKJA/UlyYVjufiHi41otWsMjcolNu
-	 Xg+OkOGvP4dKhQ0BfjdQRWJCxRDLaGPtz1yAQpjJCNScB2ufwD6PuZgld7366Ru5fY
-	 wCD8dRLD2dqEoHgfgsUkavjCrCN5OGkV4nmMRbkjQZfoZNdIB5+TDgAqWiDG5rHpkd
-	 bK7pULAXMIhZA==
-Date: Thu, 25 Dec 2025 22:20:17 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
-	linux-man@vger.kernel.org, branden@debian.org
-Subject: Re: Issue in man page getpt.3
-Message-ID: <aU2ptq23PUlRC8d5@devuan>
-References: <aUv64tskHbjzCiMI@meinfjell.helgefjelltest.de>
- <aU05v_HKTPPwb71k@devuan>
- <aU06lfjIZExCr8ti@devuan>
- <20251225210533.3xqjtrwkwsl27zbg@illithid>
+	 Content-Type:Content-Disposition:In-Reply-To; b=M2OCGNSWpAu5rF/of1EYrVNMyiRKDlHm8vDXs4qs7DA0FEOwCmSo1ZBY8lFiFJGPogA1G9+qXbv8aSOWZWO6Gn9mOR5ytVSkddJ9oOwmvqQ7TgTboksJyqwirFxgdJ2EVKf1aXqIPQDSauR8ZdOkvRiOv4UAcrc7izjJHvs5dcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iylD1gyL; arc=none smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-78fc0f33998so41587257b3.0
+        for <linux-man@vger.kernel.org>; Thu, 25 Dec 2025 19:08:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1766718495; x=1767323295; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=aEDR9MFyC3ScP/br759mQubyy8/0p+P0YvtfxEZzQcw=;
+        b=iylD1gyLj0GL7xtbMGie5DJ9sH3Mzzz/WmSYt0MtHJEbNrc+g7XWN6mQ37y2ICSv3y
+         YU47wDdeRIXmcJpPUlHt4S/k22sg+JM72GPuBaOE3nsqq1e2gDlbKNxZyR70byhlliH0
+         VPZvHt8SfaLb1LicFCj/DlN7uE4hw6pHLFN/WBWyhZJTo1I3urwL6/Z7oxl0lW2AzE14
+         UZQBshj3FNhSEmHo7SETmri0dF9ooIgQZd7J3mQqTSezy1dudPIypY8zavt2V9sHkEP8
+         KtyRT+jJ1m5Tn3suHf4wY1WdCFNO/KdxiI/o7Ll92Wq91k9fgwj4cwUTohbApd0HG2pz
+         jFsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766718495; x=1767323295;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aEDR9MFyC3ScP/br759mQubyy8/0p+P0YvtfxEZzQcw=;
+        b=WOftwDqk4mkXMkaQV75wBm+Wo5jPrGxKG4YAUlKqdJ3eS+vPjdAn6Vse1mJ/uAJ1WW
+         JBmSEA7ANusk5/gcrPKQGS73b1Ey+Y9kEWh8zDSeMrid+Y4EdYivlrPsdnSKboPp0jhF
+         +J/OM/5COdkPnugJlTAmlTrOM/BT26wC9W0qVwXkUZqRbDQrIC/rhowcoe3E+Sa7udbU
+         Dy9jXScHiP6tbD/DJEFv6Jbr0E1QGNmVr1efEQrol3FoGRzVRQfeGhd2/3bvBq+ViXLi
+         dAbpJf2aOklMtCzWT7F4pIYHr4jTX9vXSepXXQE14GvgQfCvaiaIZd4+tyZr6cOBRR7x
+         qRUw==
+X-Forwarded-Encrypted: i=1; AJvYcCX492fPDQAswmdVSwq0nI8DvkWM/OCYTbBqNXi4xmbtv+C6VFvigAzYG7SjR4AUi0Ahar/QIQuNRNA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxt7d2hxTAnuG8LkB0kSQrHK9SN1J+FQCvaueIsJdycuBLnNemM
+	4axkIYE0zMuoHi2fRfxcoiY5r8HFTOwjScbD1ZprI1IHHiZvvwI+r5Xv
+X-Gm-Gg: AY/fxX4qtuAKVcUfBVc+fg5qJQYmAP6X5WarmgRdBTP9x97jSFRqsV1GRzl0pVJ/c4f
+	BME0kGCADvmAS+rJw+xY1JXUn6wtfjLLciAWP/vJZwe3t6z8z/jdQe962+O2wkR+ku+j6V7TDdq
+	zMOKuR7IHt8da5BdQXtn027UStcsqcGJDnzD+adyoKujtZPUP0P88oTFbAZYApBa/hscDro9B0a
+	o43IqNNb+lHDEEvs3FK1Re6+NxXTFUDpOxLobI2b4rqyHI+Ih2ctc+4TI4bLFhI6QAMVZtQj55Z
+	cTnLK98/nrqlbdcKsYyby1wxq9QBJhKl7mvt3UtF6WFujENLiSNrrnME1/mFpeg50431mo4syHv
+	k08Jxkww0so5jn18VzOC0jRa0Jxh5Edaa7VfffPkfsTztcq+sdhGBYjdPFQgDevUmQLK7ZU/2C+
+	UM
+X-Google-Smtp-Source: AGHT+IHlbGqtHw6D4yfUEV5NOna5Dea5sjNtuQNRDEwqo9eI4/yJloBbF6V31W6icSGJ1P5CBk++tg==
+X-Received: by 2002:a05:690c:4507:b0:78c:655d:f7ba with SMTP id 00721157ae682-78fb403c3dcmr374065957b3.38.1766718495466;
+        Thu, 25 Dec 2025 19:08:15 -0800 (PST)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-78fb43782bfsm81154387b3.5.2025.12.25.19.08.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Dec 2025 19:08:13 -0800 (PST)
+Date: Thu, 25 Dec 2025 21:08:11 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Russ Allbery <rra@debian.org>
+Cc: Alejandro Colomar <alx@kernel.org>, debian-policy@lists.debian.org,
+	"Dr. Tobias Quathamer" <toddy@debian.org>,
+	linux-man@vger.kernel.org, Helge Kreutzmann <debian@helgefjell.de>,
+	Colin Watson <cjwatson@debian.org>
+Subject: Re: Stop compressing manual pages
+Message-ID: <20251226030811.6pwpbmgp434l6pd5@illithid>
+References: <aUzUvdZEJpDHb3QX@meinfjell.helgefjelltest.de>
+ <aUzUvdZEJpDHb3QX@meinfjell.helgefjelltest.de>
+ <aU0WjfHED1esOwPy@devuan>
+ <fec615b5-af5b-46cd-ae09-d9343db6da77@debian.org>
+ <aU1D0aL00gy1V-NX@devuan>
+ <87ms364c05.fsf@hope.eyrie.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="liex5k53yqgwr7fe"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="go2mtq5oxkuj7ntm"
 Content-Disposition: inline
-In-Reply-To: <20251225210533.3xqjtrwkwsl27zbg@illithid>
+In-Reply-To: <87ms364c05.fsf@hope.eyrie.org>
 
 
---liex5k53yqgwr7fe
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--go2mtq5oxkuj7ntm
+Content-Type: text/plain; charset=us-ascii; protected-headers=v1
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
-	linux-man@vger.kernel.org, branden@debian.org
-Subject: Re: Issue in man page getpt.3
-Message-ID: <aU2ptq23PUlRC8d5@devuan>
-References: <aUv64tskHbjzCiMI@meinfjell.helgefjelltest.de>
- <aU05v_HKTPPwb71k@devuan>
- <aU06lfjIZExCr8ti@devuan>
- <20251225210533.3xqjtrwkwsl27zbg@illithid>
+Subject: Re: Stop compressing manual pages
 MIME-Version: 1.0
-In-Reply-To: <20251225210533.3xqjtrwkwsl27zbg@illithid>
 
-Hi Branden,
+At 2025-12-25T11:06:34-0800, Russ Allbery wrote:
+> > Yup, I'd like that policy to change.  I've added debian-policy@ to
+> > this mail (and also linux-man@).
+>
+> The rationale in Debian for compressing documentation in general is
+> for embedded systems and other small installations, and it applies to
+> just about anything that can be safely compressed (manual pages are
+> only one example).  But this rule also predates such facilities as the
+> nodoc build profile, and is several decades old and thus predates the
+> growth in storage size even in small embedded environments that has
+> significantly outpaced the size of text-adjacent documents.  I would
+> definitely want to get feedback from embedded folks before changing
+> this rule, but at least at first glance it sounds like a reasonable
+> request worth considering.
 
-On Thu, Dec 25, 2025 at 03:05:33PM -0600, G. Branden Robinson wrote:
-> Hi Alex,
->=20
-> At 2025-12-25T14:22:54+0100, Alejandro Colomar wrote:
-> > On Thu, Dec 25, 2025 at 02:20:39PM +0100, Alejandro Colomar wrote:
-> > > On Wed, Dec 24, 2025 at 02:38:26PM +0000, Helge Kreutzmann wrote:
-> > > > Without further ado, the following was found:
-> > > >=20
-> > > > Issue:    multiplexor =E2=86=92 multiplexer
-> > >=20
-> > > I see both used:
-> > >=20
-> > > 	$ grep -rho multiplex.r man/ | sort| uniq -c
-> > > 	      4 multiplexer
-> > > 	      4 multiplexor
-> > >=20
-> > > Which one should we prefer, and why?
-> >=20
-> > A reason for 'e' is that __NR_multiplexer uses 'e'.
->=20
-> That's the best reason to choose 'e', and the one I'd select.
+I'd add that, in contrast to the mid-1990s when Debian's man page
+compression policy was promulgated--my recollection is that it was an
+early, early decision, already in place when I started using Debian in
+January 1996--transparent compression is now an oft-implemented feature
+of file systems, including some that are popular in embedded systems,
+such as JFFS2, where it's been the case for at least 19 years.[1]
 
-Agree.  Thanks!
+Further, the selection of compression algorithm and container format has
+become a popular site for partisan battles over the same.[2][3][4][5][6]
+Since Debian already generates sufficient partisan battles over issues
+specific to our practices, it might be advantageous to abandon this one.
+(Speaking for myself, I find deflate/gzip satisfactory, and I intend to
+release groff 1.24.0 as a gzipped tape archive.)
 
-	commit 011bcb9c453cbf6490f7678e8d2f880acf2026f7 (HEAD -> contrib)
-	Author: Alejandro Colomar <alx@kernel.org>
-	Date:   Thu Dec 25 22:15:32 2025 +0100
+Adopting this change would enable man-db man(1) to discard the
+zsoelim(1) tool, simplifying the code base and logic depending on this
+tool--but I defer to Colin's judgment of how advantageous that'd be.
 
-	    man/: Unify spelling of 'multiplexer'
-	   =20
-	    Both 'o' and 'e' are used in the manual pages:
-	   =20
-		    $ grep -rho multiplex.r man/ | sort| uniq -c
-			  4 multiplexer
-			  4 multiplexor
-	   =20
-	    Let's stick to 'e', for consistency with __NR_multiplexer.
-	   =20
-	    Reported-by: Helge Kreutzmann <debian@helgefjell.de>
-	    Acked-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+Regards,
+Branden
 
->=20
-> The question of usage of -or or -er is a messy one in English, whether
-> in Commonwealth or Yankee forms.[1][2]
->=20
-> (If we're being even more picky, -trix further spices the mix.[3])
+[1] https://lwn.net/Articles/219827/
+[2] https://linuxreviews.org/Comparison_of_Compression_Algorithms
+[3] https://www.nongnu.org/lzip/xz_inadequate.html
+[4] https://engineering.fb.com/2016/08/31/core-infra/smaller-and-faster-data-compression-with-zstandard/
+[5] https://www.reddit.com/r/archlinux/comments/eiia99/zst_packages_consistently_larger_than_xz/
+[6] https://sysdfree.wordpress.com/2020/01/04/293/
 
-:-)
-
->=20
-> Regards,
-> Branden
->=20
-> [1] https://separatedbyacommonlanguage.blogspot.com/2007/10/agentive-suff=
-ixes-er-and-or-and-little.html
-> [2] https://ianjamesparsley.wordpress.com/2023/02/17/the-weirdness-of-age=
-nt-nouns/
-> [3] https://www.cjr.org/language_corner/womens_suffixes.php
-
-Thanks!
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---liex5k53yqgwr7fe
+--go2mtq5oxkuj7ntm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlNqpEACgkQ64mZXMKQ
-wqmtKRAAqHLCPHXBw73zKlv1CiBzu7NiDJyuWkKFvYQz0qAPieaTbFkZ2UzGmWlC
-rpCwRKd+V0bUGRqx+O/TfmHthK1dUdbyVipcuiS96QrHQDPT1/43HP6aZZVlTA/9
-ICDnPAq2xk/OFD4fmlVS4NFBGWvJbH4xSHE3ApCDn1yDoqThXN/V+vvZbm3SbIuB
-Bi+ZJCJh0bnpi+0vzcO/io5tBliX4EdV4seIu3wV5img1ac1Rsq3sfJdfJ6jrIb0
-BYQJszNckQZdActb5x5TCE9jmPzSc5vlGJREzPO+NccrT+4JHGS8U9hP60bK4Dqg
-IoQJerCQZSWzXF2H+TQq4MLuGyJggl4FOSHR/94aNAWtbVUwpVF9bbqBkv7eAK1P
-7uksIlfjskjRoSJj9xNtfgnyxoPFDhZh4yW4BQgSkqSXkWvNSbiBgYIKxckQLgYe
-Kdyy6Hrow4b7pc2d139hUQzm6wobFXJ3lK/hrEMJAzdtunPZLkXM4NdZbU7wYbKM
-NYjPZEYPQ8XCaH3v8LkZ9jcPv+aH2lvgJKYOSJbH0NC4w51fDALbq+LKULSNgEH1
-dcOC3dXNVrzQD+ZWDrRFLmcC7MPDlwp5ruwVqNwVDaWRvOa2lvt3pJLopQ3cWRBw
-bG1fF4C80kNZC8FuRPG6IwhfM+2ct4Tp/tIhuispoqXKJRnzYWQ=
-=pJcd
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmlN/BEACgkQ0Z6cfXEm
+bc6UXA/6AonpoLrnALyh/OMlJ1N4u4oOlOOds4w2F7qdZxlHXaPgkPVhOKh2jSuL
+Lh5R0sh98qDRvOmzfDS7YnRE2R2v4eAPWwRtwI/yrCzQNtz0gZ2FBO8ZAC3csSHW
+g3e3zB5KrDmj7X3/IeF5SmTwtfDJ8SyZU/+NIRbPjn10o5WPxyzKuFWGKEONPsmF
+DPzuKMOcfTMGZYuPR9OrNMtMoJ8qFF/rdyJAPo2vcD7JFN38DwF5Y1vPTtfM+u69
+yDFdBSRwGF9L7p6FyRT3i7Q3A+ZsEDYg1XmHYoekV6OqTb/Of+/E8VrfZNuu3K7P
+PFeBSCBMak6dYl2Hwn+HFBLGJQPkVA+o2ip8Hs5GcHZkgm4d1oZ6RTYYoBhJXo4p
+AXJ7cTrW8Rb1Bo8O6tJOP50bRs7gkgOcMvIxZ8aVVh1rDdMI+f6CvB1Pw2j2h9Tm
+BVZqOPvCVBbGspqroyPkXmMHR4YVdYA4ATLbyeD8SNQBBsRaAASNsqM72EO7LEtE
+xildhEA/PF7MbwrJhu8Sf21ixDSLIukg2n+056nEHzf9i7XOPH2FzfB53MYMGtPE
+sDEK0Uy0wvnlvW2BspM4Q6x3dHeZgas0ve4bzamWjVrNf8Mlh9KyBw2vAd1eGtwg
+O1kL5Zbyj+BnOAdebi1uGkAawYslqf6USmavGRFrbemPSIBUEn4=
+=fb40
 -----END PGP SIGNATURE-----
 
---liex5k53yqgwr7fe--
+--go2mtq5oxkuj7ntm--
 
