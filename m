@@ -1,93 +1,133 @@
-Return-Path: <linux-man+bounces-4580-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4581-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34170CDEC76
-	for <lists+linux-man@lfdr.de>; Fri, 26 Dec 2025 15:53:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D53ACE8C43
+	for <lists+linux-man@lfdr.de>; Tue, 30 Dec 2025 07:10:26 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 967043007957
-	for <lists+linux-man@lfdr.de>; Fri, 26 Dec 2025 14:52:41 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 67E6B300F598
+	for <lists+linux-man@lfdr.de>; Tue, 30 Dec 2025 06:10:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B03923507C;
-	Fri, 26 Dec 2025 14:52:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B94B2DAFCB;
+	Tue, 30 Dec 2025 06:10:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="TRCSL2w3"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="pa4z2Wgy"
 X-Original-To: linux-man@vger.kernel.org
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215E4142E83
-	for <linux-man@vger.kernel.org>; Fri, 26 Dec 2025 14:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038AD29B8EF
+	for <linux-man@vger.kernel.org>; Tue, 30 Dec 2025 06:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766760760; cv=none; b=J/KqU0qH7fNTghRifSHWNr7SvpMILm5Bw6k3N6U6GsERRAkG4BMgGiZncWv+Sk+tPsMdNTHRplEkWFltkRSEodB5HN765CDhd/j4ff6Mq7JyjGAdXygo2lw+ky5TsqwbozUsznrUtr5pOBSg2q7C/sOW60qoRbPQzE5dd7bhaCs=
+	t=1767075023; cv=none; b=HuQCAwmaWGDazcy22fqCh568F9RVT44xOXd62YSdeZAL/uV3LndATuXiPWFiwUg+aLbylGNQg2OvQUL4W2CACgyucQ6cDOv2FFTdHhRZaHEigyhz4LceIOEPdPcrnsmVhQRryc4X6wnFNWLV/1Kh5/39tvA4p4nvv5NAJ8OelPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766760760; c=relaxed/simple;
-	bh=in4oaFGe+e9ZNO4eqJUhqsmpJ76hcf8Ii0yh14KVeg8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BW1R7Fnn6Pwauwirmh0OGLSs8kkraktUlmz5zaCT+9xXN8wPfRwEGMh1C6GYJOTM+ccLLpQG0ijak4Y3vqF35oTp/dWnqZB2swdyRkd6rmjcLdPVtvXFRjiAC9zZqWwfypz18bHi+IuW9nSvUPzZMF/fRbfflfOaSeG/CpNB3QQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=TRCSL2w3; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=n/TNgfgB7edv3XW6lxpNRs0IOHBYepdlMPZh/5leD5U=; b=TRCSL2w3nCtsgqmVkp1fgvd9xw
-	b7DrBwebxjHk+2Mzo9Mv0BGi74TH6r9LGfPecAbD6S5AJUsCDz9lBvstgeQjqbECBfowF88AHpRVk
-	mNy/gE+PyUbydCs5glK/bJwNU5mq2mH4d8PqbVwWpY3k4rUjnKrdhogWA5eejH97423j0Jo4UIJbe
-	e2jmOUlnOADCgKXvlWZW7vRxfwW05DkLpZ/ISfu4QJHZelmUpRxxrUU6OSGFiuSr/C/bp2NUIyjsc
-	v1/3HZnN+MlMklg6T4cbx6j9RoUojVQg64WA3cUkVcWQi4vRTzQySDuKP0Y7zfDc6AZpCaGTXXQiq
-	niBy+JWg==;
-Received: from authenticated user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.94.2)
-	(envelope-from <smcv@debian.org>)
-	id 1vZ9B2-008vIW-CZ; Fri, 26 Dec 2025 14:52:24 +0000
-Date: Fri, 26 Dec 2025 14:52:22 +0000
-From: Simon McVittie <smcv@debian.org>
-To: Marc Haber <mh+debian-bugs@zugschlus.de>
-Cc: Russ Allbery <rra@debian.org>, Alejandro Colomar <alx@kernel.org>,
-	debian-policy@lists.debian.org,
-	"Dr. Tobias Quathamer" <toddy@debian.org>,
-	linux-man@vger.kernel.org, Helge Kreutzmann <debian@helgefjell.de>,
-	"G. Branden Robinson" <branden@debian.org>,
-	Colin Watson <cjwatson@debian.org>
-Subject: Re: Stop compressing manual pages
-Message-ID: <aU6hJsCVLgzpY9Ve@remnant.pseudorandom.co.uk>
-References: <aUzUvdZEJpDHb3QX@meinfjell.helgefjelltest.de>
- <aUzUvdZEJpDHb3QX@meinfjell.helgefjelltest.de>
- <aU0WjfHED1esOwPy@devuan>
- <fec615b5-af5b-46cd-ae09-d9343db6da77@debian.org>
- <aU1D0aL00gy1V-NX@devuan>
- <87ms364c05.fsf@hope.eyrie.org>
- <aU5ovCzIf7t3ie_x@torres.zugschlus.de>
+	s=arc-20240116; t=1767075023; c=relaxed/simple;
+	bh=dJK+Jk0c0l0hAz6n26I/70tELAAPS9/lexti2UqeaxQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=r5GuYucqmJL7fWY/UhYBwyXGl0JmQgAPrWToSk+OHYxOUhWMNjjBmqAltjYgrphaVlxzrkutRj6hYMTwN6aoo9ESrWUivH1K9XPHb/lVbkRjC/9slrV5GJXtPQnnaGjCEMTA1RuCMfUuIUb3tLruPNqMbc6/YXlbGUhm2xs1abY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=pa4z2Wgy; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1767075013; x=1767334213;
+	bh=dJK+Jk0c0l0hAz6n26I/70tELAAPS9/lexti2UqeaxQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=pa4z2WgyLUGwoMaxtYagfkY0WapbNquLQciIEO0WsLvOI309yY3Qzdt2ONgFV9g/Y
+	 M3dO93doVd3/12dMMcNHNCbKRu8wVC1mzpORtw6J29YoRj16PkimJxCYbj+h26l05z
+	 fjMZCn0I+CzGAVE1J8TKVR39TZ3em6IJpuvMlnc8s3FKGpTyEw0HZn58YMxESWOrv5
+	 wClH4NivunnMHkpt89oW41EbvCG8pS8eGkbFyutTkZh0U4oOhb1vS+YSbRSoWJFZr7
+	 wHnY2xkkrzTlsHvAJLackUmLTrO36E0fMOR4tLXCQUCvJlRoXoXgyzzzz7uDU5m/GK
+	 53Kmm5JA2Pjaw==
+Date: Tue, 30 Dec 2025 06:10:07 +0000
+To: Alejandro Colomar <alx@kernel.org>
+From: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 0/1] man/man2/semop.2: Fix VERSIONS and HISTORY mix-up
+Message-ID: <u33OQavsJAzFqMdjX1UUpw41OiiZ2HM-b2CQX02-lnKEQ4211ITmLq0Ou-ehYrj5mqRDrr-Vc7iWsM5miRJ05w9yR1pgEHu1N1eHcwYdNOQ=@pm.me>
+In-Reply-To: <aU0gVLxNMAtp6HYh@devuan>
+References: <cover.1766641592.git.sethmcmail@pm.me> <aU0gVLxNMAtp6HYh@devuan>
+Feedback-ID: 171233811:user:proton
+X-Pm-Message-ID: 5abedd2ecd1a3bccf3ef311f62eb99bfbed3180b
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <aU5ovCzIf7t3ie_x@torres.zugschlus.de>
-X-Debian-User: smcv
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------96f900abb789b7159227f8b8fe1794751b012f27bdbc83f7455ca8fabf70c618"; charset=utf-8
 
-On Fri, 26 Dec 2025 at 11:51:40 +0100, Marc Haber wrote:
->In embedded and other small installations, I'd prefer everyting under 
->/usr/share/man just excluded from installations on the package manager 
->level, but I never have been able to find out how to rub dpkg 
->--path-exclude the right way to do that. While we're at it, exclude 
->everything under /usr/share/doc with the exception of 
->/usr/share/doc/*/copyright*
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------96f900abb789b7159227f8b8fe1794751b012f27bdbc83f7455ca8fabf70c618
+Content-Type: multipart/mixed;boundary=---------------------aec9a433a21ac3448193d8d5120bcb3d
 
-Here's how the semi-official debian:sid-slim, etc. Docker images do it:
+-----------------------aec9a433a21ac3448193d8d5120bcb3d
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-https://github.com/debuerreotype/debuerreotype/blob/master/scripts/debuerreotype-slimify
-https://github.com/debuerreotype/debuerreotype/blob/master/scripts/.slimify-excludes
-(each non-comment line $x becomes "path-exclude $x" in /etc/dpkg.cfg.d/docker)
-https://github.com/debuerreotype/debuerreotype/blob/master/scripts/.slimify-includes
-(each non-comment line $x becomes "path-include $x" in /etc/dpkg.cfg.d/docker)
+Hi Alex,
 
-     smcv
+On Thursday, 25 December 2025 at 21:36, Alejandro Colomar <alx@kernel.org>=
+ wrote:
+> Hi Seth,
+> =
+
+
+> [...]
+> =
+
+
+> Regarding git & email, the patch was corrupt. It has this:
+> =
+
+
+> Linux 2.5.52 (backported into Linux 2.4.22)
+> ,
+> =
+
+
+> which was breaking a line from the patch. Thus, the patch didn't apply;
+> but I fixed the patch manually, since it was easy. I guess protonmail
+> did something bad to the mail. I wonder why it decided to break that
+> line and only that one. :|
+
+That is both curious and unfortunate. I had encountered reports of such
+patch-breakage by Proton Mail when configuring git-send-email, but had
+hoped that it was fixed by now. I'm not an email expert; I have no clue
+what could be happening or how to fix it.
+
+However, looking at git-send-email's docs, I may be able to prevent this
+by formatting the patches and emails as usual, but actually sending them
+with Gmail (via the --envelope-sender option). It's not exactly
+desirable, but as a temporary fix it'll do.
+
+I'll send a few minor patches soon to test if this will work.
+
+----
+Seth McDonald.
+sethmcmail at pm dot me (mailing lists)
+2336 E8D2 FEB1 5300 692C=C2=A0 62A9 5839 6AD8 9243 D369
+-----------------------aec9a433a21ac3448193d8d5120bcb3d--
+
+--------96f900abb789b7159227f8b8fe1794751b012f27bdbc83f7455ca8fabf70c618
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmlTbL4JEFg5atiSQ9NpRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmczOBatScE8SigIysZnb0TZ4ZLt+1VlBZi0UQal
+UJGrGRYhBCM26NL+sVMAaSxiqVg5atiSQ9NpAACyqAD8D+nr8fY84Eh547xT
+Jc6joO4qiz1izHCZwoxm5al+ar0BAMNiEtKs5SvGRK+uMus0/fJzH0JZ1wna
+xMBoeD7f7xMD
+=Z0P/
+-----END PGP SIGNATURE-----
+
+
+--------96f900abb789b7159227f8b8fe1794751b012f27bdbc83f7455ca8fabf70c618--
+
 
