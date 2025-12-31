@@ -1,52 +1,51 @@
-Return-Path: <linux-man+bounces-4598-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4599-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id A07EBCEC09D
-	for <lists+linux-man@lfdr.de>; Wed, 31 Dec 2025 14:48:01 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CB34CEC0A9
+	for <lists+linux-man@lfdr.de>; Wed, 31 Dec 2025 14:48:47 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id D5F533001622
-	for <lists+linux-man@lfdr.de>; Wed, 31 Dec 2025 13:47:58 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id EE70A30078AE
+	for <lists+linux-man@lfdr.de>; Wed, 31 Dec 2025 13:48:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A3D43246EC;
-	Wed, 31 Dec 2025 13:47:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F01A13233E8;
+	Wed, 31 Dec 2025 13:48:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SpGI/yLH"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKwvzUXL"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B7C3233E8
-	for <linux-man@vger.kernel.org>; Wed, 31 Dec 2025 13:47:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02AA263F5E
+	for <linux-man@vger.kernel.org>; Wed, 31 Dec 2025 13:48:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767188877; cv=none; b=mJwXoKCeVKEryBuKrFh8m+EnSFLDBjLOJzcdQ25b42JqQy4HhAaTj2QqaNEZQ474wzXeGJNOovmWT/s4ZV2GoUAQ9sd24eQbrply12fb3IUXui/1JN+OrZ/OOQCvk368m8Y+NO8/mwH1Y/R9BN2t30dxZu98EzgawAl6xt8sqzc=
+	t=1767188924; cv=none; b=h7GfeqG+jSEpbgTS9Jt/stHO5z+hu8YjZ0xt3mMCgsHhM5dp+ELfTaI5/UXrmKys7VkHXcMMk1Uxu5t/ae6QklaSzLa4Iv7HYIeZwyvuEMQ7wvEbTPdW9dvakvbjb4kJsEJK5fQ/crm9G45Yo/IbuTpG6OjZQph6Hdim6gcAN70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767188877; c=relaxed/simple;
-	bh=lL/Wq8g+8ynp8A4ulB5ikivSWitP9R7BOIKKQOniBrk=;
+	s=arc-20240116; t=1767188924; c=relaxed/simple;
+	bh=znfU0KuZ7D3tq/mxOlpTf3vlBz0mxkCQc1ouQCNwZdI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MhOD76gJhsVWGkBi24pY4xOsN9KTHkiWJZ9UDrlkp5gDIpmJuzxAaO6/qJLD5exCEyOt1GvQn+CuWHcX/QBsyC4xGQtSAo67AEDwhww4QhElt8YZGjdWdY0561AAVEZe9vJqTY6/hgfNIWi/KuWZWfMDveWYGLUJgS+479Cy/4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SpGI/yLH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBA3DC113D0;
-	Wed, 31 Dec 2025 13:47:55 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=dBa/8VwkcII1HI5sq+rs69YxsAsUX/yyK8zYMvTKl/5U3zorGCGL9QNQ+XBC/iM9jImajbGkK086Mwn6rpizUfmld7+ci0iBlkUSt8xHyPny5quKN4paAx6UdDoKFTZRw2MqaG1nErsIwTUORU9kPvV2+UJHy85qb3c+CBQbHeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKwvzUXL; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85123C113D0;
+	Wed, 31 Dec 2025 13:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767188876;
-	bh=lL/Wq8g+8ynp8A4ulB5ikivSWitP9R7BOIKKQOniBrk=;
+	s=k20201202; t=1767188924;
+	bh=znfU0KuZ7D3tq/mxOlpTf3vlBz0mxkCQc1ouQCNwZdI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SpGI/yLHprPqKi0pRH3Q1oaYh4Ckg7BUrsV6+tq+f0f+bKCKbl3cZv7z6bn1Q6fVF
-	 sevoxQphcw9wxNIZSonBfpmF4dvY+3IIwuQQpYMxK4KDIDhrB+MuMS/sHpkaSeOta5
-	 CEfqCDKyapvP7WROQInENWQ98sOlW8TnHIjoyKN7vsw9jb6a4ZneboXqgjcXlCXtUb
-	 9eiE3alzcyvrSUlZnf27Z0MW7TwfxPFmYVdglcMtA8IWZ48/pnDKO6BJuOlCl057Ge
-	 OTI3HWUHx3OhoFt5HP+WiFafMCRtRUbrMOIaugVGV8hzfksaxt8rQjgMp2/Z6aOcnj
-	 C//ZSaDOos9vg==
-Date: Wed, 31 Dec 2025 14:47:53 +0100
+	b=aKwvzUXL/QTv5EClnTw1q51TpPxhdcG1RNVU748Se2oR+1HLyvzNpXOBMGGm8P6AQ
+	 LdjhrwceTyQKsvrMgQ5QnYjV3BRIDhiPFXTtx/IEXPy9bsxM8xqWWLcI7Z7wGiPskY
+	 4guZQPh1FXjapjMHQEdlgDvFidPUgX7CAmBhzt04tqeq4Wsn8+X12yiiKdfYNYf7Wb
+	 aKvlJwjKWIn9w2XE4/j6NXYadhG9SZ6Yc1E4N2UUTfQYDYwYf49khDSYY1jQ4Enfwm
+	 4/hpaoshMk8d0zYf1V2hPDVIfwoeZna+PKnCWwe6JwTFI4mfuMbM2zBgCb2DRz4B09
+	 ZJcRINKmzzMjA==
+Date: Wed, 31 Dec 2025 14:48:41 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: seth.i.mcdonald@gmail.com
 Cc: Seth McDonald <sethmcmail@pm.me>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 4/4] man/man2const/F_GETSIG.2const: HISTORY: tfix
-Message-ID: <aVUpfZ2ot0w-7wkl@devuan>
+Subject: Re: [PATCH v1 0/4] Miscellaneous fixes
+Message-ID: <aVUpk01CrHZSsze1@devuan>
 References: <cover.1767072049.git.sethmcmail@pm.me>
- <2f33ba3b5bd29ebd931bd213fb8f9a7b19ed9ce6.1767072049.git.sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -54,62 +53,64 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uutapxbiagaooegi"
+	protocol="application/pgp-signature"; boundary="at7ivfkyncldbqoz"
 Content-Disposition: inline
-In-Reply-To: <2f33ba3b5bd29ebd931bd213fb8f9a7b19ed9ce6.1767072049.git.sethmcmail@pm.me>
+In-Reply-To: <cover.1767072049.git.sethmcmail@pm.me>
 
 
---uutapxbiagaooegi
+--at7ivfkyncldbqoz
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: seth.i.mcdonald@gmail.com
 Cc: Seth McDonald <sethmcmail@pm.me>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 4/4] man/man2const/F_GETSIG.2const: HISTORY: tfix
-Message-ID: <aVUpfZ2ot0w-7wkl@devuan>
+Subject: Re: [PATCH v1 0/4] Miscellaneous fixes
+Message-ID: <aVUpk01CrHZSsze1@devuan>
 References: <cover.1767072049.git.sethmcmail@pm.me>
- <2f33ba3b5bd29ebd931bd213fb8f9a7b19ed9ce6.1767072049.git.sethmcmail@pm.me>
 MIME-Version: 1.0
-In-Reply-To: <2f33ba3b5bd29ebd931bd213fb8f9a7b19ed9ce6.1767072049.git.sethmcmail@pm.me>
+In-Reply-To: <cover.1767072049.git.sethmcmail@pm.me>
 
-On Tue, Dec 30, 2025 at 04:42:03PM +1000, seth.i.mcdonald@gmail.com wrote:
+On Tue, Dec 30, 2025 at 04:41:59PM +1000, seth.i.mcdonald@gmail.com wrote:
 > From: Seth McDonald <sethmcmail@pm.me>
 >=20
-> The G and S do look surprisingly similar...
->=20
-> Signed-off-by: Seth McDonald <sethmcmail@pm.me>
-> ---
+> Hello,
 
-Thanks!  Patch applied.
+Hi!
+
+>=20
+> Here's just a few minor fixes I came across.
+>=20
+> Hopefully (fingers crossed) the patches will remain intact this time. If
+> so, I may be able to begin sending out some patches for the updated
+> HISTORY sections (currently at 109).
+
+Yep, they all worked fine.  I rejected one patch, and applied the
+others.  Thanks!
 
 
 Cheers,
 Alex
 
->  man/man2const/F_GETSIG.2const | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/man/man2const/F_GETSIG.2const b/man/man2const/F_GETSIG.2const
-> index 3964cb7fd1..cd99611666 100644
-> --- a/man/man2const/F_GETSIG.2const
-> +++ b/man/man2const/F_GETSIG.2const
-> @@ -458,13 +458,13 @@ .SH HISTORY
->  .TP
->  .B F_GETOWN_EX
->  .TQ
-> -.B F_GETOWN_EX
-> +.B F_SETOWN_EX
->  POSIX.1-2024.
->  Linux 2.6.32.
->  .TP
->  .B F_GETSIG
->  .TQ
-> -.B F_GETSIG
-> +.B F_SETSIG
->  Linux.
->  .SH BUGS
->  .SS F_GETOWN
+> Seth McDonald (4):
+>   man/man2/syscall.2: Add HISTORY section
+>   sys/man2/sysctl.2: HISTORY: wfix
+>   man/man2/utime.2: SYNOPSIS: ffix
+>   man/man2const/F_GETSIG.2const: HISTORY: tfix
+>=20
+>  man/man2/syscall.2            | 3 ++-
+>  man/man2/sysctl.2             | 3 +--
+>  man/man2/utime.2              | 2 +-
+>  man/man2const/F_GETSIG.2const | 4 ++--
+>  4 files changed, 6 insertions(+), 6 deletions(-)
+>=20
+> Range-diff against v0:
+> -:  ---------- > 1:  a2a2a51ede man/man2/syscall.2: Add HISTORY section
+> -:  ---------- > 2:  1477de655f sys/man2/sysctl.2: HISTORY: wfix
+> -:  ---------- > 3:  fad6d60041 man/man2/utime.2: SYNOPSIS: ffix
+> -:  ---------- > 4:  2f33ba3b5b man/man2const/F_GETSIG.2const: HISTORY: t=
+fix
 > --=20
 > 2.47.3
 >=20
@@ -117,25 +118,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es>
 
---uutapxbiagaooegi
+--at7ivfkyncldbqoz
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlVKYkACgkQ64mZXMKQ
-wqn6vhAAuqZlv0bxoCSP5rgtk4Cya0yFcQnGlBlxzdAwHRRlBFlTE0daw59n+pOr
-bS36hHipKL1tsnNM7bFK5RMpxJ4upqnZ8xvHvMJ9O7VvU+LL6ylnaczdDfAirTDa
-OfKHm3L4kReFbLdcKL6jAkWrisYHEajDMejbcxHNQ4UBRBkE2jxv3aNL1dFCCNSf
-43jXGoxqgLJi35T/uImdnfMJ3dT0KiF+9ra1JnBp74VL7iIh8btRRtZmfVK2nIqN
-+nDDClcqCDzHlVumN6kiGFPAmQBk6rRxghCtui+YY+Nxz37AVeY4KFeHYKuagesl
-tpbZiiugN3LDHfh1f1RtNTvhkXVL2tm4bYCBROvCI4VR8V6qacKAAfyNlwH99RqE
-lKSuNNmC3jR2KoafMOxx4Wn1Ojhrmc29tlcVSYhsgpGL3yQrYZALPYt85tWR+yKE
-Vxhx6Tyrb/K+RnPArKDp7gxX6ki/lxgZCBZei4OHOHRvxbYpQYrDIC+eZn5hJwuH
-Gjyk/UA5LZhURMRDFWRNSTjYhpuEoNdYL58UxjB7Jm3bEnIJ8FhcLagnT2Kfyap5
-uibQtjctWFp9TzVNPwHJVWA+Gy34Vk7g8MFuJiZhPNPpGRy8uXoFvRL80EOvPGvR
-/3M2yjy4xBFYz+LKl+bBHwr0g6eLMR096jkOjugl74ylCB2ngJ8=
-=ZLAe
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlVKbkACgkQ64mZXMKQ
+wqmt8A//b2RaGT1g2N1ph+5RYxGMCGg5dFjeiG1MbWGSrTXytomE1kkyiRtNfovN
+19eIvlG4x1Dvta8fk2KTsxzLo7QWkqHstdY5ATluwcbELYW/KMAarcz79txsT5MQ
+TgrRn4KA6i/gL2U0P1WzHSrxP6s1c6EpCFRCCPSuypE+XQMiBppObiImbvT4Q7nc
+P1kiRGBjRFOCA+xt5Wf7c+ZSb+9EuQmLo/DCElApYWexZIgL/21hnnDlw4mG3wJD
+ADt1c3zCJRqRdymsqM0fyvLvX89StsWmqWs3SjlwvsBkdMAawXsV/WKRPT1QQYAT
+PdpGVgoQTUo/NxUwlT0Wm6PhzcvHMs0lxiHa4qP8DExt+lVYdwN8/dSjmLR7uruK
+kAUWFKh8hj61Q+REfB/iQzRX6D8/DzSazSjivdYAJapXv5Gad7FVYDRmfJBBDNwS
+WeuaODfr9wHLLxiV65Q+Sqes5Gm9jvcVHiAZ6g2diyGDnQze7P4zv48XOoWDBhtb
+FjPIYgkmdv8BDNspwK+A61mAc4PQP4YEpFVbcroe4usnpShekEOTEYZYfYmevSr5
+sTn7L8Z/9nPOSpxdzaw7WKyOLjCm898xJ8xPBmizhS93N8oHC7I7+YpBjJoVcBp1
+Y8JIg3MdiIpbdufeZ/BElzibN9UkVlAzA1c8UZakKBTl2iDAUkA=
+=apY8
 -----END PGP SIGNATURE-----
 
---uutapxbiagaooegi--
+--at7ivfkyncldbqoz--
 
