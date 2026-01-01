@@ -1,198 +1,116 @@
-Return-Path: <linux-man+bounces-4600-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4601-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA873CEC35A
-	for <lists+linux-man@lfdr.de>; Wed, 31 Dec 2025 17:00:29 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F90CECCF0
+	for <lists+linux-man@lfdr.de>; Thu, 01 Jan 2026 05:45:46 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 117DF300C5D2
-	for <lists+linux-man@lfdr.de>; Wed, 31 Dec 2025 16:00:28 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id D538E300295C
+	for <lists+linux-man@lfdr.de>; Thu,  1 Jan 2026 04:45:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D4A61C2324;
-	Wed, 31 Dec 2025 16:00:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6E7F3FBF0;
+	Thu,  1 Jan 2026 04:45:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D74wRPFg"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ZyASwDUk"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1231D6BB
-	for <linux-man@vger.kernel.org>; Wed, 31 Dec 2025 16:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3370B2C9D
+	for <linux-man@vger.kernel.org>; Thu,  1 Jan 2026 04:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767196827; cv=none; b=KfjbqfFrs9eALbx5xJj20qeMXfmnvunsSEEDVNmCRRPc0PC4tZrXX53fvJlI4b6tezN5P74XPvDQJ5yznVgMRsaWwRSMZKggd4gvs/Yq9jdQWEEkIZ43PiUtOOeuPzvyt2Jvjs7TDKRgMfk1nQIN1uv66IS7W0UComO0G4RUnUM=
+	t=1767242740; cv=none; b=RPmqII8OKw76JxM33cq61rgjLnkKun//0JDGStrcCyGlQRx8jDRdsIlaxF0/TnXzchb4Dvk33wSJTorRNECTkdCwC7MgeW+6pxmLUfAnKg9fmjLDE7KLWHZSxSVNMYithI2LKG1TelOghxnJaE/2ACFIbO3dTEQCf+FDAVAOfWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767196827; c=relaxed/simple;
-	bh=t7lNgHxAKZBwHRXhhOheq1ojdqWST4gZGe0ZObGTKbs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l6Qowv7yeFRZLHxoQRssM9lJQAKpFhjsQUvurtNHrKFerkk1RfQLG9fKg66kUc5nQXIX1OvybYOyyr+0SEFp5Qnn7DmGWMDjHEjvjDEg2TlYfLUxEM4eu4k7RPJ/uWY3rs8KyXNedfkxDo/xCe2KXvsol/iX4Of1DpXbU7XVf+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D74wRPFg; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE8DC113D0;
-	Wed, 31 Dec 2025 16:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767196826;
-	bh=t7lNgHxAKZBwHRXhhOheq1ojdqWST4gZGe0ZObGTKbs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=D74wRPFgxEHmDQGB4cOEcJWPN0eeNYop+Wqk5GuieDSpxdCQAnEqAE9XRbAy7Unof
-	 40nzp7UuT5ndVGLnvExeLKoEOlof7r3cjLXJXf4dDuZL3lRBApWZeE9w1PYp3mK9ZN
-	 TT6zzz88awyQ5HmJ3SncdVyYvIi5tQqMyhYTHf7IBvPoStKx5Oljetj5VmtfSrmu/0
-	 TDGHc2Yr/e/xRjKS2QAsk+iOwsSG2mXLNAgkLVZgg26gvajes9eqLznskpYkuhS/bZ
-	 NquqLgZE8Z8A7gJSldevyeZlOJsqCM3uRao3YDyU1VNQpUKTw75PvwQhXkyCxVrn6Q
-	 Waw1S6V9EJALg==
-Date: Wed, 31 Dec 2025 17:00:23 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Craig Gallek <kraig@google.com>
-Cc: Vincent Bernat <vincent@bernat.ch>, linux-man@vger.kernel.org, 
-	Martin KaFai Lau <kafai@fb.com>
-Subject: Re: [PATCH v3] man/man7/socket.7: fix documentation for
- SO_ATTACH_REUSEPORT_EBPF
-Message-ID: <aVVH5RBYHnDb1s5E@devuan>
-References: <20251027131711.186482-1-vincent@bernat.ch>
- <20251201195726.3669864-1-vincent@bernat.ch>
- <CAEfhGiwbaAuvZ=aVQoRw8+ZQPmMQnwp3WFO5ELCMPJOOa3FnWQ@mail.gmail.com>
+	s=arc-20240116; t=1767242740; c=relaxed/simple;
+	bh=ih19qqc13GXRATF6jZ3r/xp5MK4lWwA91dP2toBFMAw=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=MbPUqitH5FMvFhY7SGZu9z5e6V4Nvw/Vr72PFbUzUmXEaBRqxvbMI0fobgUFDfn4JJJ/ancsMqqnEE+0207x/Qtmpya0RZO3/hGWRDD4NqWYFSj0osjHZcPV41xW/A+ZbCPvJr6OWz2NX+6dov+96ua68WAGhzBSC/XMJK9Ea3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ZyASwDUk; arc=none smtp.client-ip=79.135.106.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1767242735; x=1767501935;
+	bh=fcECCuj3i2CLw9RzEFGocVMtU2NvP+KPqbJ9yQSXJaI=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ZyASwDUkI4Ya8YBvfcDFIsaAUJkRrFBi7Hu5bvNO6wJAElIvodSQwAS6tfbl8UFZV
+	 DntKf1dKUZP10n8niSCeWh0LsQcEcYa6hswLWgBqlpfkQOp7md+/aGEZ2TROSEc2F2
+	 BvTxcDVgA0qu5cFRfWwYOqyCwJ9FGduh04Iy6hov7zWz8jfYsEelo7rZ5/rHOipyVz
+	 +5bMm0YPJnkAlU3IDnAkAIxMezg0aNxqty+jfiE+H1xzNFGspqnQyk4GPApzLEiDcg
+	 3ihqBxK8DKFtJlM2lyOqgGv82jU6C5qKzcH2Ji02vHKZZkx1GvkewE6F8+H+Pz2jtl
+	 johUGOW208wgw==
+Date: Thu, 01 Jan 2026 04:45:28 +0000
+To: Alejandro Colomar <alx@kernel.org>
+From: Seth McDonald <sethmcmail@pm.me>
+Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Undocumented systems/standards PWB and 32V
+Message-ID: <X3QWJqINtunXWTcIKK7kRI2gFd3BBPWYjv9huP8DxYmLvSiBqE1vpMvBLvkmJXYi3dzHsRhn1FxwWgwv6ZN_W6SX2o21xKsFAupnFV-i9ek=@pm.me>
+Feedback-ID: 171233811:user:proton
+X-Pm-Message-ID: 14632d149c37c5c381753dfb1ffe2d86d97648d7
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ta54i55kqgggrrqc"
-Content-Disposition: inline
-In-Reply-To: <CAEfhGiwbaAuvZ=aVQoRw8+ZQPmMQnwp3WFO5ELCMPJOOa3FnWQ@mail.gmail.com>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------e4a27284dcd6ff6006e2cab6ff078e3678041d4c14a9b41a5ad4d84e17783c8d"; charset=utf-8
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------e4a27284dcd6ff6006e2cab6ff078e3678041d4c14a9b41a5ad4d84e17783c8d
+Content-Type: multipart/mixed;boundary=---------------------63e7ae7764398026295597e63f3a6151
 
---ta54i55kqgggrrqc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+-----------------------63e7ae7764398026295597e63f3a6151
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Craig Gallek <kraig@google.com>
-Cc: Vincent Bernat <vincent@bernat.ch>, linux-man@vger.kernel.org, 
-	Martin KaFai Lau <kafai@fb.com>
-Subject: Re: [PATCH v3] man/man7/socket.7: fix documentation for
- SO_ATTACH_REUSEPORT_EBPF
-Message-ID: <aVVH5RBYHnDb1s5E@devuan>
-References: <20251027131711.186482-1-vincent@bernat.ch>
- <20251201195726.3669864-1-vincent@bernat.ch>
- <CAEfhGiwbaAuvZ=aVQoRw8+ZQPmMQnwp3WFO5ELCMPJOOa3FnWQ@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAEfhGiwbaAuvZ=aVQoRw8+ZQPmMQnwp3WFO5ELCMPJOOa3FnWQ@mail.gmail.com>
+Content-Type: text/plain;charset=utf-8
 
-Hi Vincent, Craig,
+Happy 2026!
 
-On Tue, Dec 02, 2025 at 10:49:03AM -0500, Craig Gallek wrote:
-> On Mon, Dec 1, 2025 at 2:57=E2=80=AFPM Vincent Bernat <vincent@bernat.ch>=
- wrote:
-> >
-> > When using eBPF, there are two possible cases depending on the program
-> > type. Only the first case was described. In the second case, the program
-> > should not return an index, but a decision (SK_PASS/SK_DROP). The socket
-> > should be selected using the sk_select_reuseport helper.
-> >
-> > Cc: Craig Gallek <kraig@google.com>
-> > Signed-off-by: Vincent Bernat <vincent@bernat.ch>
-> > ---
+Starting the year off strong, here's a classic bug report.  The man page
+for alloca(3) lists two systems/standards in its HISTORY: PWB and 32V.
 
-I have applied the patch, with some important reorganization of the
-text.
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D4=
-1788bdd42312828532c4ddbadc0a4d28426d4fd>
-
-> >  man/man7/socket.7 | 23 ++++++++++++++++++++---
-> >  1 file changed, 20 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/man/man7/socket.7 b/man/man7/socket.7
-> > index b4d58a23d5da..e4e85dc9345d 100644
-> > --- a/man/man7/socket.7
-> > +++ b/man/man7/socket.7
-> > @@ -354,20 +354,34 @@ the sockets in the reuseport group (that is, all =
-sockets which have
-> >  .B SO_REUSEPORT
-> >  set and are using the same local address to receive packets).
-> >  .IP
-> > -The BPF program must return an index between 0 and N\-1 representing
-> > +The classic BPF program must return an index between 0 and N\-1 repres=
-enting
-> >  the socket which should receive the packet
-> >  (where N is the number of sockets in the group).
-> >  If the BPF program returns an invalid index,
-> >  socket selection will fall back to the plain
-> >  .B SO_REUSEPORT
-> >  mechanism.
-> > -.IP
-> >  Sockets are numbered in the order in which they are added to the group
-> >  (that is, the order of
-> >  .BR bind (2)
-> >  calls for UDP sockets or the order of
-> >  .BR listen (2)
-> >  calls for TCP sockets).
-> > +.IP
-> > +The extended BPF program can be of two types:
-> > +.B BPF_PROG_TYPE_SOCKET_FILTER
-> > +or
-> > +.BR BPF_PROG_TYPE_SK_REUSEPORT .
-> > +In the first case, the extended BPF program must return an index betwe=
-en 0 and N\-1,
-> > +like a classic BPF program.
-> > +In the second case, it must return an action
-> > +.RB ( SK_PASS
-> > +or
-> > +.BR SK_DROP )
-> > +and the
-> > +.B bpf_sk_select_reuseport
-> > +helper can be used to select the socket which should receive the packe=
-t.
-> > +.IP
-> >  New sockets added to a reuseport group will inherit the BPF program.
-> >  When a socket is removed from a reuseport group (via
-> >  .BR close (2)),
-> > @@ -386,7 +400,10 @@ takes the same argument type as
-> >  .BR SO_ATTACH_BPF .
-> >  .IP
-> >  UDP support for this feature is available since Linux 4.5;
-> > -TCP support is available since Linux 4.6.
-> > +TCP support is available since Linux 4.6;
-> > +support for
-> > +.B BPF_PROG_TYPE_SK_REUSEPORT
-> > +program type is available since Linux 4.19.
-> >  .TP
-> >  .B SO_BINDTODEVICE
-> >  Bind this socket to a particular device like \[lq]eth0\[rq],
-> > --
-> > 2.51.0
->=20
-> Looks good to me, thank you for the clean up!
-
-Thanks!  I took this as an Acked-by.  (I prefer them to be explicitly
-stated, though.)
+$ man ./man3/alloca.3 | sed -n '/HISTORY/,/^$/p'
+HISTORY
+       PWB, 32V.
 
 
-Have a lovely day!
-Alex
+After some Googling, I assume these are referring to the PWB/UNIX and
+UNIX/32V operating systems, respectively.  However, they aren't listed
+in the standards(7) man page nor anywhere else in the docs.
 
---=20
-<https://www.alejandro-colomar.es>
+$ grep -F -wr -e PWB -e 32V man
+man/man3/alloca.3:PWB, 32V.
 
---ta54i55kqgggrrqc
+As such, the two systems should likely either be added to standards(7)
+so they can be referenced, or be removed from the HISTORY of alloca(3)
+and replaced with another system/standard.  I would think they should be
+added to standards(7), but perhaps they're too old be notable enough.
+Wikipedia says they were released in 1977 & 1979, while the oldest
+standards listed in standards(7) are K&R C (1978) and V7 (1979).
+
+----
+Seth McDonald.
+sethmcmail at pm dot me (mailing lists)
+2336 E8D2 FEB1 5300 692C=C2=A0 62A9 5839 6AD8 9243 D369
+
+-----------------------63e7ae7764398026295597e63f3a6151--
+
+--------e4a27284dcd6ff6006e2cab6ff078e3678041d4c14a9b41a5ad4d84e17783c8d
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlVSJcACgkQ64mZXMKQ
-wqkClRAApby/2rEIGKSqnuyiI44iwBPiICNhI4bSTUTsbEfu5+TLaiVQoNbhoEBK
-Kn8NAonlHc71UaypntXma4qd+r0CQwOolhuunVTbbSMTsyGbxZKiolaALNuCfQLl
-xkjBV8watZMYGgd1f5VaNt9M7zxgrjh9+JO1hEOcYxEgP12ZW14e4Z7AP/xPDp9L
-MwncxiINuU6GMrZ2lokekLOuSE7le/4Ar9JmsvNTmS3JznbG6iWUZB1FjhepahjF
-EkC1cll4u30CzSjcAd4vdo6RHy15s0VA7qz2MdLP6u5F57/XGYixsfBOBeIBAkwH
-Qi5T1bRro3ATV1exLcCb7blKU1zJl5VbrMLDjiDhawT74iqOaxODFGhZZVuF/BzV
-e051AnmMyNBLpj6uM2DS7fb8cIUlRxskgntRjgYLXVG48mEM88zYbdL2fTkHXrN+
-pOogvkEx087/Fcl0p/j/B2mvCa0xPsHJ7L/a5+osyjJzBDZ8ZznCsorv63pnfP/F
-X8OfKp8hMskukH5Cx/09HQKdjU0G0k+h/2EqQAR7295UbFJQQGjyF7datmI8M3uI
-u4yVf8GHQTBLO5IWDTdcdyMDs/rrGBzItu1/NVre+LLoP7Z1KibNRBo5Q0JfKruQ
-z6q83RABO4sPpIgwthq2HdEPF6kSZ4Vr0b7So0x0KnmI6NtCKGs=
-=W6YY
+wrsEARYKAG0FgmlV++cJEFg5atiSQ9NpRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdbTgeac1fhvDjzuzKwuiKVp5t78FLHfkSYiiop
+gzo41BYhBCM26NL+sVMAaSxiqVg5atiSQ9NpAAAo0wD/RGXeHyVvc+heRgm5
+0ByWjmZwM4dSmLv8uN5DcfbJda8A/0VHiDjbFi606zS3YsH92RjPMNrZfcqr
+Yt3cHt50hs8H
+=oKwr
 -----END PGP SIGNATURE-----
 
---ta54i55kqgggrrqc--
+
+--------e4a27284dcd6ff6006e2cab6ff078e3678041d4c14a9b41a5ad4d84e17783c8d--
+
 
