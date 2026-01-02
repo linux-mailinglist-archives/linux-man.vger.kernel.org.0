@@ -1,54 +1,56 @@
-Return-Path: <linux-man+bounces-4605-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4606-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C84CED930
-	for <lists+linux-man@lfdr.de>; Fri, 02 Jan 2026 01:24:12 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F174CED933
+	for <lists+linux-man@lfdr.de>; Fri, 02 Jan 2026 01:27:10 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 91C49300A36A
-	for <lists+linux-man@lfdr.de>; Fri,  2 Jan 2026 00:24:10 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 8992D300A1CA
+	for <lists+linux-man@lfdr.de>; Fri,  2 Jan 2026 00:27:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8B3D14A60F;
-	Fri,  2 Jan 2026 00:24:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD22114A60F;
+	Fri,  2 Jan 2026 00:27:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dl02CwKX"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nNzoobcc"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B3C28DC4
-	for <linux-man@vger.kernel.org>; Fri,  2 Jan 2026 00:24:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB0628DC4
+	for <linux-man@vger.kernel.org>; Fri,  2 Jan 2026 00:27:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767313449; cv=none; b=jAdc0EPRu3nhRKa0KKeXcwbST5VfUhq9iWaVsraWsG3tGaei9cZQUf13wu9N40CV5+Q1KqZzPjkJ5euQ8r/85WrkzC/TMo7p4CSPk4OfoLFwBfrpMX7CQ9gyDHi81IAVrhe6m1IhHCcLupbWFgB89Hj9JraQgZBv9Ad6QruFLnY=
+	t=1767313627; cv=none; b=WdRMmYfkw867IFnzf7ZImEntzJza60Ps505aVNTSL1rqiRXItCPYVam2phntA8QARWY5vh9HVHFm6XOfzE4sw8P0lGaEh2J63c4pfxbxDzAMaQ0x0NZSowA9ML6coJO9JJvr5rJRgEJoLXmhQDXw0bNs+KEOnpHKJrqOoUsd4p0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767313449; c=relaxed/simple;
-	bh=ZSEnV2ziZ6TioOxRBnNnI/SSNrnLT/9zFdbOvjIidfg=;
+	s=arc-20240116; t=1767313627; c=relaxed/simple;
+	bh=PdDt/dQP+6Cvj7XIsLX4NQSbDvP60saiMZW2xzAzPGI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DXnHUgNdDcRD0R21gTHMWXACqN/ncdI9QGRgl5eghXcgIbuVntewFwoQBp9AGs7eAWS8hOMwwcv3rg5fOHq7VgWKtw2qP8mjEBz0vmrLubDiUg73U8+x50ot3podxLZXrVFdazyR9mbyNTPOdhgfI4synT2wWolWkWpWFY/9RZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dl02CwKX; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3073AC4CEF7;
-	Fri,  2 Jan 2026 00:24:08 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=CSC9PDwIL1AzNGy5u5xl4a9tLuBTwvvIK6jij+WOWESYgVxJd5vzFUclw07b9W+8pzJw54lX+zuG7Mvq8xrC/TLfcZ4ptRrXsKEtvfJ2j/n8CdJfXZ8V05+luvlUKcSJIW5IDFjW9X4QO6tKNlPZrZNvR/0Q+HmAHaKFFMs+OB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nNzoobcc; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25E67C4CEF7;
+	Fri,  2 Jan 2026 00:27:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767313449;
-	bh=ZSEnV2ziZ6TioOxRBnNnI/SSNrnLT/9zFdbOvjIidfg=;
+	s=k20201202; t=1767313627;
+	bh=PdDt/dQP+6Cvj7XIsLX4NQSbDvP60saiMZW2xzAzPGI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dl02CwKXRXtn8XEH3pxhYbxZIy9q0Qn4K3rTwNiu1M/qo655H79ipeN6Dr6HQ4Rp5
-	 LZ1EFlVP+k6NIOXoWlfoWiJ/fufVPxaU2qlrxnJEZdIbJ2tO5aKR/oPdHCo1wg/0A+
-	 EOJcb21HJJP8ia4YlablKrYfjHBsXe6fszB1Im9/ionBi2tHbdfOKRF1Rd9hrh41wm
-	 DsfR70i2OmbIlKw/nMsWdT7h2QaVe/KvsTePBdXQIqigw9kJeh+96vuy57wpjfLLv0
-	 yL793cP4/kJE4SW3uUeBjTPq0lz/PprUQaZPQMPmJPibXjUhvOYlf4aea8zJBi8MgF
-	 H2aAjmnoCPOHw==
-Date: Fri, 2 Jan 2026 01:24:05 +0100
+	b=nNzoobccfzdVEfSmIBVpwbKkzr/kABK98gWHa6QhQohcwDRfJ5AUKVtK6dMYh6Xom
+	 eTEQzehftGSboLF6Pmgfa+a2p7tDnX0pJB8coGcE3BhPqmP7wmI31cpVIju2TphlyH
+	 LbjDZ5sfsaM7AoAKSOXkbq2P/Gs1TpcV/4dDlWHhb1O3xf0CiY3k6aL6KL4rGgjZvR
+	 zpFXvsCaxzVndUYNwsQdK8X0sSrnaQTwC2JFiKicfSMSrMxYd6a/4/DK0KyoGfwQLE
+	 0cU1rr/jVIj65T3gIaiGZ3XO9iBOTOCUkwg+afzviJ0wy3VJ3ZHViuuvB+FyQ7BF1w
+	 AsV+m5+d1PKxg==
+Date: Fri, 2 Jan 2026 01:27:03 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: Seth McDonald <sethmcmail@pm.me>, 
 	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: Re: Undocumented systems/standards PWB and 32V
-Message-ID: <aVcOqlDaflXT9HPJ@devuan>
+Subject: Re: origin of alloca(3) (was: Undocumented systems/standards PWB and
+ 32V)
+Message-ID: <aVcQo73f4mT4NT_-@devuan>
 References: <X3QWJqINtunXWTcIKK7kRI2gFd3BBPWYjv9huP8DxYmLvSiBqE1vpMvBLvkmJXYi3dzHsRhn1FxwWgwv6ZN_W6SX2o21xKsFAupnFV-i9ek=@pm.me>
  <20260101054632.pw4fyjijp2hmrerb@illithid>
  <aVZwLk0RWoyRjL8N@devuan>
+ <20260101235310.fejv4d7uvft7unzt@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,12 +58,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5z4vego32247qrhp"
+	protocol="application/pgp-signature"; boundary="nh6yg4zcwmfzd3vs"
 Content-Disposition: inline
-In-Reply-To: <aVZwLk0RWoyRjL8N@devuan>
+In-Reply-To: <20260101235310.fejv4d7uvft7unzt@illithid>
 
 
---5z4vego32247qrhp
+--nh6yg4zcwmfzd3vs
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -69,56 +71,79 @@ From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: Seth McDonald <sethmcmail@pm.me>, 
 	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: Re: Undocumented systems/standards PWB and 32V
-Message-ID: <aVcOqlDaflXT9HPJ@devuan>
+Subject: Re: origin of alloca(3) (was: Undocumented systems/standards PWB and
+ 32V)
+Message-ID: <aVcQo73f4mT4NT_-@devuan>
 References: <X3QWJqINtunXWTcIKK7kRI2gFd3BBPWYjv9huP8DxYmLvSiBqE1vpMvBLvkmJXYi3dzHsRhn1FxwWgwv6ZN_W6SX2o21xKsFAupnFV-i9ek=@pm.me>
  <20260101054632.pw4fyjijp2hmrerb@illithid>
  <aVZwLk0RWoyRjL8N@devuan>
+ <20260101235310.fejv4d7uvft7unzt@illithid>
 MIME-Version: 1.0
-In-Reply-To: <aVZwLk0RWoyRjL8N@devuan>
+In-Reply-To: <20260101235310.fejv4d7uvft7unzt@illithid>
 
-On Thu, Jan 01, 2026 at 02:17:38PM +0100, Alejandro Colomar wrote:
-> In manual pages, I'd keep everything under STANDARDS.
+Hi Branden,
+
+On Thu, Jan 01, 2026 at 05:53:10PM -0600, G. Branden Robinson wrote:
+> > It would be good to check in which one alloca(3) was present.
 >=20
-> In standards(7), we could have subsections for Standard C, POSIX, and
-> Unix systems.
+> There's _an_ `alloca()` in PWB/Unix 1.0.
+>=20
+> https://minnie.tuhs.org/cgi-bin/utree.pl?file=3DPWB1/sys/source/s4/util/a=
+lloca.s
+>=20
+> It's not declared in any header file I can find, and as you can see it's
+> written in PDP-11 assembly, but it's there, and appears to do what a
+> modern C programmer would expect of it.[1]
+>=20
+> It appeared to get stuck into a library called "libpw.a".
+>=20
+> Static, of course, because there were no shared libraries back then.
+>=20
+> https://minnie.tuhs.org/cgi-bin/utree.pl?file=3DPWB1/sys/source/s4/util/m=
+akefile
+>=20
+> Close enough?  :)
 
-Self-correction:
+Yup; I guess we could change PWB to PWB1 in the HISTORY of alloca(3).
 
-The only current formal standards are C23 and POSIX.1-2024, and those
-are the only formal standards that should appear in STANDARDS.
-
-I also consider standards GNU and the BSDs, and they appear in standards
-for APIs not specified by either C23 nor POSIX.1-2024.
-
-Old systems or standards, such as K&R C and V7 Unix belong in HISTORY.
+Thanks!
 
 
-Have a lovely night!
+Cheers,
 Alex
+
+>=20
+> Regards,
+> Branden
+>=20
+> [1] I see some other familiar stuff here...
+>=20
+> https://minnie.tuhs.org/cgi-bin/utree.pl?file=3DPWB1/sys/source/s4/stdio
+
+
 
 --=20
 <https://www.alejandro-colomar.es>
 
---5z4vego32247qrhp
+--nh6yg4zcwmfzd3vs
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlXEB8ACgkQ64mZXMKQ
-wqlnKA/+L09dc0gnlRkf22hk2Nd0rwp2OADINgiV50losQRBcyxr9e5l7bCejohb
-rsSCXn2+lVUcvP3mSAT9W1K+Pni3aSLoL44HGJQQAUE/YaFyd51vbkWGoNzuNEXs
-oF22N2BtcLtqHl+JbLi0LTUKlcr7TAyTvPD0St9LhgYJRFOpgCQ0VzhMBhXFpoQx
-pYP3yw+I+omitt3T/UxlH8hf874zBZ+74eqJjxPk1WBPX8jI10fTLsO/jO/9V5Y5
-+UnsKaACwntTLIZtvt9Ss96aOYMJ8TWHG7LL0kxSN9BLVvS2mkJpsp10qGYZbz29
-MA81sbMBw9hnorWTyUeflYbspWFHW3aq4752oaYDB1YIqlxQyUEmT7HgYO2Wa99e
-ZxkQZy84q8jhdXYkKIGKc9yeJpeH5S4RmwsRbiLn6EyCXn25FXEk0Zppb1PDepZo
-5GjEAXx0k0sdskJf5tuKdStRqs8MaZrTTWIMAX20JIf7qeffJ32lvwcxqib3tA0b
-8FSjUIBiHO/11s9tBKKzLoCNPFAviFwIgSNVbNFS1q6gaxkkzTisjSz7h6bBcdzC
-QZHH7PeGtuMwKyaM15d3pIo/erBUUfzqTphUNtg3B38i3P02TC9M9KPj+oww2xYN
-QvejlM7AAcLmi4JTpcgsT9EMTkTpoU0NbWm1MNA35Ysr2vk04ic=
-=Ee7W
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlXENcACgkQ64mZXMKQ
+wqkU0Q//bEbKxLJhg2N2PqGEQU7uPYiV1EOajvhCANy8l0en7ntUlbDf5JtwWz0U
+CKXvbgWC4JzmMU1LSwk4GLOKEnXaAkxIEjahSMejiP1mw960VCLnB+k74SQ+j9+J
+7KCF0Q/UE8VdVdJ4/EXMF09Aa5CfAsNeJ7jeu7+4Ep+OBybRgi9dPcyOX2aiDwaf
+xDx2pKtZxVyuI+qbVu39pO6G+AXl490QUSuADwWPaTBdiZcJmERa3leVTlmvt3e+
+fWvtiP/2tYQoxTVZIbAIvoGw0aiZBydm+vfjjB8VSV1aV3nVfmX1WeqyWKsoFL4h
+LEOfQcPYWwKqaWEDavfpxEvQRFDNXSzz2Np2edkuB2Mq4bLwUmD/MkmguozCSdmF
+LWOLUFV+7nZrO8PLAXwlVYqnapPQ79/k3x37tRRurvPdZq2lmuloPQDsReaBgP3t
+3n7Y67qpVu9CaVmg3B+4l0smo57vxnB9HXifS0e8xKEsuFnbc1F89KS3SqdKB+AA
+oqj43AzuCfbn8YS4Gg1+krYvwx/TeVa05GjThxa4vBDsdOd3h6uMB1OvMdnCH1T5
+oSJ5PMGnVIl7R9vFK6kCbOtM/PavTJMAMd9QCf8Z7Dahoe4fiVPxoCsLSvwaeBbK
+eqt3r//7hHyyRxZsAV0ma8cmXiDePGMKOmMGjBzoPDLmBqhLYjQ=
+=3eI6
 -----END PGP SIGNATURE-----
 
---5z4vego32247qrhp--
+--nh6yg4zcwmfzd3vs--
 
