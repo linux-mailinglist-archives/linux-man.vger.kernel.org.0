@@ -1,97 +1,88 @@
-Return-Path: <linux-man+bounces-4608-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4609-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96155CF12F3
-	for <lists+linux-man@lfdr.de>; Sun, 04 Jan 2026 19:18:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 430A7CF1628
+	for <lists+linux-man@lfdr.de>; Sun, 04 Jan 2026 22:50:28 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id EE801300C29C
-	for <lists+linux-man@lfdr.de>; Sun,  4 Jan 2026 18:18:41 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id AE4CA3010CC1
+	for <lists+linux-man@lfdr.de>; Sun,  4 Jan 2026 21:50:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 681792BEFE5;
-	Sun,  4 Jan 2026 18:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E27AE31A542;
+	Sun,  4 Jan 2026 21:50:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flPtOvmj"
+	dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b="M4XQicL7"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A342797B5
-	for <linux-man@vger.kernel.org>; Sun,  4 Jan 2026 18:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90192749E6
+	for <linux-man@vger.kernel.org>; Sun,  4 Jan 2026 21:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.229.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767550720; cv=none; b=pFVyg6A9A3DXhJ7Z5Whz6OJasroKbS6+vuKawi12zumycj/Wc8GQkTlemqYb3ozVbMF6b3AfrtLacwpuqZRCsC+7yn1vUHi55RzjHpA0YXTPSEHfFHXiSbUHdOlZ1M1Fuc8574DZrs7OXicxa9Nvqlf8Kv/IV+z8T+SJY94UrOc=
+	t=1767563414; cv=none; b=MSaantNge/mu7lkdLZlSNnEWv4PG5d//SPhU2AMchBryD+N4JViTaFfICqiBh6LeEuPZ3xtdLQxgfz57n+rvIGvoJjihzwGcn6xcmuBfUGZTLZih4YrejYkDXU199q+YzKHRewws3c9TFv30f4h5Zx1IW4zDyxnpgVKo7ZQ+9As=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767550720; c=relaxed/simple;
-	bh=rh8+pFKYKjGjzG8ZhygnGXn8AcaIVuCDRoPqQfMzDBI=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=h4bG7bjUaG2FH0+xlr3aWNgX+liKqRVDED+n9OGVbVRpckifGPr4swOr/pLqYQBHEZUpkVOqvYT1IPZ9HGtO1Fb3etAUiD029HCNG7pUYhmc2X581P7nmaRTvvNR+Q5OV+sxMqRcePXfa0Gwg8o2efrsBvDBxpTJv8vMh+oPxUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flPtOvmj; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 87CD1C4CEF7
-	for <linux-man@vger.kernel.org>; Sun,  4 Jan 2026 18:18:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767550719;
-	bh=rh8+pFKYKjGjzG8ZhygnGXn8AcaIVuCDRoPqQfMzDBI=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=flPtOvmjSRtjg/5l/dl6niZrEfjoxcp2wWWFT+EsHSBP8OdLgOJHKR7jVwpa5vMcD
-	 LRRMHHdBRnjBkL5/dUVsrv/Il4Q1cqM0VkeZbJcqYtxOGzNWbY7sJiIPQZuvlUP1wq
-	 ntCpmHqqYP06xzljoKIidIuVPyJT8FpFVU5lq7ooQXsIj55em84CSSQvwiPO1i2Ucx
-	 IeCmHHahkRFdZD62mEiG8pOi618Ntci+ILo1d+mLmYqXrk1lRXPg3+tsRhEmBvwbsl
-	 Q1TKaOJScejLC1u6lO7ypCQkkfyBPj7EjhIGeoelhP9Svzzvo5+7Nm94l8yuLZcCRP
-	 41/9NUXcETUpw==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 7E27DC41612; Sun,  4 Jan 2026 18:18:39 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: linux-man@vger.kernel.org
-Subject: [Bug 208879] gai.conf(5) doesnt mention ip addrlabel configuration
-Date: Sun, 04 Jan 2026 18:18:39 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: linux@treblig.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: cc
-Message-ID: <bug-208879-11311-mizP1stP6a@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-208879-11311@https.bugzilla.kernel.org/>
-References: <bug-208879-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+	s=arc-20240116; t=1767563414; c=relaxed/simple;
+	bh=fbcGVepb5Woqj/sGiehXkZSoGv5dE3UO54VedK6lVYA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OOvCuEvcN/NwnTLCr6kEO1UcUY2kPP2qHVh5ZpaJFOcXgy1v9iAdvn1N30Y+NywP94bcAv+DexgcFyU43qGlE9IGU5uC9P7W/FWhqKWH8TfC0NIK8ppYXJQ9b0XgOaCbdjC5A3CIAaFlRnubqcimo2kCReRuRuy+sIomgako/Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org; spf=pass smtp.mailfrom=treblig.org; dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b=M4XQicL7; arc=none smtp.client-ip=46.235.229.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+	; s=bytemarkmx; h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+	:Subject; bh=LbcBiFy44kU6aCab9kuxb9dnNuejFIyu+tZ3DIW20xI=; b=M4XQicL72AhawMuO
+	kb3l3kkQQ6Qzi4IxCUDXB+jd8Tk63fB7e8KqNQPRzi9NlUnRoWxcc70MoWcnlH79Fd7KbKFe/7XMH
+	4CqT+kad65jqiR0rV9oZT/Zva23muwLDL7ZSeLjZJ7IRSBz1Pe3tci65VNUih4ruiD9LnZdM2+4GO
+	jlThWbdLfHhxVG5JvBj/iTQLCGmQ3gEZ+3aE4P3qAOb0Wf0PudXkH/ir9hRUVUXUWtC/6QWGdmuTs
+	EyBP1M8DuITAE9WONtWiQfKvLwq2eCNQ76CjmDeSod507cVfcmY38pYkU3Ri1tIy0qFTM8m9SIoF1
+	4cC7fKajD2dvHRisng==;
+Received: from localhost ([127.0.0.1] helo=dalek)
+	by mx.treblig.org with esmtp (Exim 4.98.2)
+	(envelope-from <dg@treblig.org>)
+	id 1vcVzA-0000000CJgv-1k5Y;
+	Sun, 04 Jan 2026 21:50:04 +0000
+From: dg@treblig.org
+To: alx@kernel.org,
+	linux-man@vger.kernel.org
+Cc: "Dr. David Alan Gilbert" <dave@treblig.org>
+Subject: [PATCH] man/man5/gai.conf: Fix RFC reference
+Date: Sun,  4 Jan 2026 21:49:56 +0000
+Message-ID: <20260104214956.258199-1-dg@treblig.org>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D208879
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
 
-Dr. David Alan Gilbert (linux@treblig.org) changed:
+Most of the RFC references correctly reference 3484, but the entry
+in scopev4 points to 3438 instead.  It references section 3.2,
+which 3438 doesn't have, but 3484 does have and talks about IPv4
+addresses so looks right.
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-                 CC|                            |linux@treblig.org
+Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
+---
+ man/man5/gai.conf.5 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- Comment #1 from Dr. David Alan Gilbert (linux@treblig.org) ---
-I'm using the labels in gai.conf succesfully (since I use ULA IPv6 addresses
-internally and NAT, so mark fc00::/7 the same as ::/0 ).
-Note gai.conf only influences only getaddrinfo name lookup (in glibc?),
-I'm told 'ip addrlabel' is used by some kernel routing code.
+diff --git a/man/man5/gai.conf.5 b/man/man5/gai.conf.5
+index d80c23311..4aff0b0b9 100644
+--- a/man/man5/gai.conf.5
++++ b/man/man5/gai.conf.5
+@@ -61,7 +61,7 @@ .SH DESCRIPTION
+ .TP
+ .BI scopev4\~ mask\~value
+ Add another rule to the RFC\ 3484 scope table for IPv4 address.
+-By default, the scope IDs described in section 3.2 in RFC\ 3438 are used.
++By default, the scope IDs described in section 3.2 in RFC\ 3484 are used.
+ Changing these defaults should hardly ever be necessary.
+ .SH FILES
+ .I /etc/gai.conf
+-- 
+2.52.0
 
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
 
