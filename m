@@ -1,122 +1,132 @@
-Return-Path: <linux-man+bounces-4628-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4629-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD4C6CF2B2D
-	for <lists+linux-man@lfdr.de>; Mon, 05 Jan 2026 10:20:40 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id E766ACF3D1C
+	for <lists+linux-man@lfdr.de>; Mon, 05 Jan 2026 14:32:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id BC18A30047A6
-	for <lists+linux-man@lfdr.de>; Mon,  5 Jan 2026 09:20:39 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 6E6933145685
+	for <lists+linux-man@lfdr.de>; Mon,  5 Jan 2026 13:26:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09BF432FA28;
-	Mon,  5 Jan 2026 09:20:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF571280CD5;
+	Mon,  5 Jan 2026 13:19:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sw/Zvoqk"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z1pnRS0x"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com [209.85.214.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FB432FA3D
-	for <linux-man@vger.kernel.org>; Mon,  5 Jan 2026 09:20:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC4F2857D2
+	for <linux-man@vger.kernel.org>; Mon,  5 Jan 2026 13:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767604838; cv=none; b=OwpzzBy8QTVOvKYqRr888xF+6tWjYsvhSqshJCk7GP45KEXejjB0UKYgBAknRMLYOOBUlSKrdUAGd1tzTtOEnUcGTh2XiS5JsygQct7ex5xzgEU9KtqBUsoqAbG18O32+PE76I+TrPjUW+w3OZSQWX14fgVnWMmgNRcuLgkof9Y=
+	t=1767619144; cv=none; b=mepGwnAH8+vys0ZJPx8wwv58JXYAEpTy9Yq+kqIQ5TWFLGo0VbUnyJHLsg3Y51o4PzpYzX6RaR5yRs5Z7nMvtIxFsK6X6D7xKyHs6ZVGb47Arny7Dl1fZmF/bN9q9Gj9s0vWENc9dg0GQbzW/9N8U6fIVUqMGCatA2338PXcq7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767604838; c=relaxed/simple;
-	bh=nB0bTsgYoeY+O/eCrhxCr4WrrdNmGqZtaXCJ4ieJhR8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nQ/JAhtHzxX6la8ddFpPMj6+AAJyk6BcO+I+miUBYqetjee05/+w3wrxWMX7rEjcqjRQf7phg9EvjyiuzAe2NPS7Ysl9qGSnEw9YH4j0ft0TNoIATfVaC3ZzUAhr8iTcuGcqAS+dukA43Nl1cFNI8HYHf/72wxmohi0EeHQefrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sw/Zvoqk; arc=none smtp.client-ip=209.85.214.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f195.google.com with SMTP id d9443c01a7336-2a0834769f0so135848215ad.2
-        for <linux-man@vger.kernel.org>; Mon, 05 Jan 2026 01:20:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767604836; x=1768209636; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=mjmi8Gr3l7/67rskNq85mMeak6AkWgt16gBYle2ODAo=;
-        b=Sw/ZvoqkXt0xIUfdYe5eUeo0Q87rGv1R7RlsprBY1YKnvzO+zznV+XZ7bBJ8OEKTD5
-         yDf/rxjXrBWpdEzR9g1xwKArmcjwiJ9e3gvT2Z+xXILyL103T0XSP9ka0QBBZBNFM25H
-         JLktGU++iEyzWOvBM+zYNeKsfqSYnACM2MyhOUkaBcikiwQJcqnb6nNbt0AaOVYOj6Fi
-         R8gqJwmVlOWNcIZVCS0NzM8BloslfINfv5dWtQrl6kIoGIUjSzRnZ2rJeFl9VUsAKDux
-         ORzpRfeuooLpRehQcWIhgzbdyKbsAACmABH58tMF4dUh5geWuVa9pkW/UT4jf9nstM6P
-         diNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767604836; x=1768209636;
-        h=content-transfer-encoding:mime-version:reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mjmi8Gr3l7/67rskNq85mMeak6AkWgt16gBYle2ODAo=;
-        b=rdBcXrv0JNOa8ZLNGXeh2QbbUwczGU8SbVRcYL7+ZtuDlOnUc0vNsSp/yb56KVqbI0
-         ICDwRCoDNlJZu27NyNtT+kRG/QGvzM5OgkUrSKih7ljjIctUyINNplda403/R3zCxZSX
-         yLz7hfQgIO0YxQiuXs6T2gK1qJFaBpVS20tW2kBEIG4dRj79wD2qpStJyRLIUAJCY8oZ
-         225O0Mmg+IT3GiTYTiy+mFiBoy4YOOh8XBNJFwXgHgUZMh8euEN8BNrmnYuFhVpR7x7g
-         N3VE6HdGyNWqDhAZsAawqyRh3Gu9VOZj2HpzONaE0h7hcmo6aFtkp86sbcZzufBgs2K3
-         1eRg==
-X-Forwarded-Encrypted: i=1; AJvYcCUtyx58V/4EixFcCno258UF4VZFKqo8ZQDhcOrHsSvskw7n0K9eb+PcjQN6h4rFVQkq2YQAZQk4UQU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YylygRNUybApAplH/kcGxJ3ONlBpcHhX3S2P6OaDDj0DOIohqey
-	WdfENXdHWM4jyIKJLgQB2oEF32IXrFSbz7pwj+Vna5x7QHWv2CR7RXvIO2RI3w8B
-X-Gm-Gg: AY/fxX6pRjqylr9kgnYvxQib7UdyBqgWGreFihZ02gx8Uh9id2XLPzp5ffcp09vfDVN
-	t6w0i4RPbCKwUKu736qWrdjfdl0QOsplK8oeiO+5tg+ir0qFtyIjz4U0IaFYH4Q8ueQwjhSj6oI
-	+ehf1xAsrLH5wjXI8XFPFkxZJMUfX8UgIT3B6SIYiVcYxKN/PIEF60nr9VcfMCV2+ZGz1Gt2+/D
-	XC1XxVS6pKccpijC8+dhAeqf1p1PfFhTg148t9/7cHl49pWdHOl0GUw1PSzPpp4m4owkg3u8e6O
-	4yWEMAEF9VP05DGNNXHygC8d+77GArYhDTVLteX6MqWkt2johgJKsMhzVq0/4o1Ann7G+1w1Wh2
-	uqq67XApW8kgq/YsU6op0y9czULiQ0gwoOocXIbvOkaTvyVS9/e1KbiWBYKbydyHJKxo6JAqjAC
-	uuMzJCAtiQiF//Mur+cRv6XiWD34JKMXCd+DYlPunv+UXsnhEXAUzQtVq/J8o9iyLtNUAS8uoqD
-	9Xq92qJqTFtj1I1SUKi58V2uUs=
-X-Google-Smtp-Source: AGHT+IFoAa86b7c/BVxKq8S/Do3pY7rhu2NGU7c8g38imOWs4S+63ZtgTqKw2InWmbL7D/qrhM5MnA==
-X-Received: by 2002:a17:903:2f81:b0:2a0:c58b:ed6 with SMTP id d9443c01a7336-2a2f2735103mr437407085ad.29.1767604836535;
-        Mon, 05 Jan 2026 01:20:36 -0800 (PST)
-Received: from McDaDebianPC.local (2403-580b-5de8-0-a8d1-55e9-3280-2b25.ip6.aussiebb.net. [2403:580b:5de8:0:a8d1:55e9:3280:2b25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2a2f3d776b2sm446173565ad.98.2026.01.05.01.20.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Jan 2026 01:20:36 -0800 (PST)
-From: Seth McDonald <seth.i.mcdonald@gmail.com>
-X-Google-Original-From: Seth McDonald <sethmcmail@pm.me>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Seth McDonald <sethmcmail@pm.me>,
-	linux-man@vger.kernel.org
-Subject: [PATCH v1 12/12] man/man3const/NULL.3const: HISTORY: Update first POSIX appearance of NULL(3const)
-Date: Mon,  5 Jan 2026 19:18:48 +1000
-Message-ID: <bbd81741f75936d964554b7c460a0a55070a9ff2.1767599119.git.sethmcmail@pm.me>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1767599119.git.sethmcmail@pm.me>
-References: <cover.1767599119.git.sethmcmail@pm.me>
-Reply-To: Seth McDonald <sethmcmail@pm.me>
+	s=arc-20240116; t=1767619144; c=relaxed/simple;
+	bh=MBfktryWSoovniv7DB6nI09WvmzVnLC4v31xaAGgJr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LUIKy4jSxNHTalBvvYPr5lUiLEv1NWzoPc+uw71k+dOHmvCU7vFWUjPHCV6iTZoBF4FU1Q4iqUR+7UACDpP830JV0zyjKmvYPbjIceIBPf67z1PskMm6uw9frFwjOTZU13CRK1lYS4T+9GZ0p+UcqjRdQXpst17Oxdfp1XJ/qzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z1pnRS0x; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1A8C116D0;
+	Mon,  5 Jan 2026 13:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1767619143;
+	bh=MBfktryWSoovniv7DB6nI09WvmzVnLC4v31xaAGgJr8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Z1pnRS0xvZddhkr1+dqYnxyzjNhdbosKs/U14S+0k8k4JA9l2vyLZG4K5qjhK4oSk
+	 ZnUltDIQQiGOUaxJ2EykCkg+AINp8oMz3wNxBxveDQ5Jhan7UwXDyMa0ojtj9z3g7x
+	 OW+hlYsCrXlpKmuq5CKKusfrt5PQt3JfvOVeChQoloEFQq0NwD+llHLxVVVGDHmr18
+	 ef9G7oNy6RJYiRAD+qPCxW0ZoPYMp0vgbR+C0JKlGIcFBFngXzWiepZWA8RtgvIoek
+	 Icip7TPMiTfB+4bK9A40LUgQ2M8I1+03OhmVRzZYHzj4WELfP0jLGkg1g6zrHiKmDM
+	 w6yxJmCryagag==
+Date: Mon, 5 Jan 2026 14:19:01 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "Dr. David Alan Gilbert" <dave@treblig.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: gai.conf(5): Example table
+Message-ID: <aVu5_QZHJAjYFKA7@devuan>
+References: <aVr_-WDqRyRBL_G_@gallifrey>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yccqfddqh573bujn"
+Content-Disposition: inline
+In-Reply-To: <aVr_-WDqRyRBL_G_@gallifrey>
 
-NULL(3const) first appeared in POSIX.1-1988.[1]
 
-[1] IEEE Std 1003.1-1988, Section 2.8.1 "Symbols From The C Standard".
+--yccqfddqh573bujn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "Dr. David Alan Gilbert" <dave@treblig.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: gai.conf(5): Example table
+Message-ID: <aVu5_QZHJAjYFKA7@devuan>
+References: <aVr_-WDqRyRBL_G_@gallifrey>
+MIME-Version: 1.0
+In-Reply-To: <aVr_-WDqRyRBL_G_@gallifrey>
 
-Signed-off-by: Seth McDonald <sethmcmail@pm.me>
----
- man/man3const/NULL.3const | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Hi Dave,
 
-diff --git a/man/man3const/NULL.3const b/man/man3const/NULL.3const
-index e8fed0848938..12953db18d17 100644
---- a/man/man3const/NULL.3const
-+++ b/man/man3const/NULL.3const
-@@ -22,7 +22,8 @@ .SH DESCRIPTION
- .SH STANDARDS
- C11, POSIX.1-2024.
- .SH HISTORY
--C89, POSIX.1-2001.
-+C89,
-+POSIX.1-1988.
- .SH NOTES
- The following headers also provide
- .BR NULL :
--- 
-2.47.3
+On Mon, Jan 05, 2026 at 12:04:09AM +0000, Dr. David Alan Gilbert wrote:
+> Hi,
+>   The 'EXAMPLES' section in gai.conf(5) has a table that matches
+> RFC 3484; however that's not what glibc's default label table is;
+> it's table has three extra entries:
+>=20
+> https://sourceware.org/git/?p=3Dglibc.git;a=3Dblob;f=3Dnss/getaddrinfo.c;=
+h=3Dc0f496f96c752220e68bf0257d9ff1ffc624ebe6;hb=3DHEAD#l1341
+>=20
+> and partially in the more readable:
+> https://sourceware.org/git/?p=3Dglibc.git;a=3Dblob;f=3Dposix/gai.conf;h=
+=3D4616ed005b2e064175c88609b6d6022a6da4d5d8;hb=3DHEAD#l31
+>=20
+> I wonder if it makes sense to document glibc's default rather than the
+> RFC default?
 
+Yup; feel free to send patches documenting the glibc behavior.  It would
+also be good to note that those differences are specific to glibc.
+
+
+Have a lovely New Year!
+Alex
+
+>=20
+> Dave
+> --=20
+>  -----Open up your eyes, open up your mind, open up your code -------  =
+=20
+> / Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \=20
+> \        dave @ treblig.org |                               | In Hex /
+>  \ _________________________|_____ http://www.treblig.org   |_______/
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--yccqfddqh573bujn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlbukQACgkQ64mZXMKQ
+wqkPERAAnKuJ5sSNHtq17vELWBM7PEZY9uEZHpk+w6eJl4TAcd1h4YyC9gT76Q0Q
+jtOO6vRppk2G5NRg/HjwvDIekjAduTxV8MpTL4ODrRhRxh1ipE4ZLtbIwdIi6p8M
+FmAvPMbyrbTN6EYOloPYdvriICVeTDX8YdFPvMNw6t/OuGC80nmI3/9gHwlBJofl
+50/fP3fRFKUGDXvtUi9NwswDje/DGdy0HHgryov3uJ+R9wTYZqrcpkMsGk0hdKl5
+FeZ9SKC02LmF8Bp846/BbKeLCdsbJ8z/B5PgAV1XMwT4MEke0nVP5b/4DHD+8Ijp
+aeQWWdZBmg0cOVy4F4k18TdnKLmvw1BlOd1WljwOVdn3hkju3UFZHeUYswBVPXji
+X10W/GAH1JyuMc74v+0LEwNf9t+qX5cSqMbRdys81Ouo5SVb4Lgam9ppLiJi0oHz
+DSZDgZdxlgzjse4/C0xCC+ZYU0Jv7xjDbq3f47vn3P1jJVvTyxSFz8FEauww9AKz
+b1uoAUVIMnP6WtWZsEjf8u9cmdg9oZu/z8L+ObFTgsHj3dESpAiufBz/h+hsRK23
+WVjP+Y/ErodisezPgBh9OnlRNaaDIUEMJf0gxXjjDuckiGJrOs2aAqdShy7ullg8
+pnFaT7SPlMoG0b8kNedbaIqAK/RxrxQeUWIlo+PAzmA3j/bGksk=
+=pma1
+-----END PGP SIGNATURE-----
+
+--yccqfddqh573bujn--
 
