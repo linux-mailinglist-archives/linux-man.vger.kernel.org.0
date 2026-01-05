@@ -1,165 +1,147 @@
-Return-Path: <linux-man+bounces-4631-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4632-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EBDBCF4767
-	for <lists+linux-man@lfdr.de>; Mon, 05 Jan 2026 16:43:04 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id D6E35CF4839
+	for <lists+linux-man@lfdr.de>; Mon, 05 Jan 2026 16:52:01 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id AC3E33005028
-	for <lists+linux-man@lfdr.de>; Mon,  5 Jan 2026 15:43:00 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id D73F7302BB82
+	for <lists+linux-man@lfdr.de>; Mon,  5 Jan 2026 15:51:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5FC17309EF2;
-	Mon,  5 Jan 2026 15:32:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F7EF30DEC1;
+	Mon,  5 Jan 2026 15:44:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DEjtA1bz"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iT0/dYNI"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3452DF131
-	for <linux-man@vger.kernel.org>; Mon,  5 Jan 2026 15:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E403230BCC
+	for <linux-man@vger.kernel.org>; Mon,  5 Jan 2026 15:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767627153; cv=none; b=Cr3Fyih9LJ7naB8VZP06O/zTvHAM8L4GkPTOqNxQBSuc1ZJYtF4w14hROemZbKtaOdGqx8wKl42NJRfKQ7sxMZhdT2xFcuUGMy9IZqsMTbQnvzGQNTCifYtP5i00Qvg6fXENwp2kAigRoaYMAkgbbxVhblT5gqDwq3NHSJXmu50=
+	t=1767627884; cv=none; b=jbMWrEOq4OYR7XKnZ9e6GCrfCGH94T8/8cTBBY1xJIB8UAyhPZ1MVg5aHKak1arHC0WOwjX3iZYtEV6vW1WszSM5f2AYzw4Afx/G4aGecTmMWU8Gn41gD4yJAzD2FdQYbGr32biVUcUIUkAkTqnjzeeDY/n7t7UQf1lzzBa3DEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767627153; c=relaxed/simple;
-	bh=NUOpyob1L9RbIogp2qpgLsz3N0/lCFuLFdlIAfC5Qe8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=HIOuQB4C3l/Mm36fH8v8VuY5RPBADwe02pcFspVaKOq+Tyuw1SYX9yLV9gyvDabtBcKEAc6hWfcmgD2uGv+yBp1nzD/PUIT4HivCVLzpQm6c0sO5DaojpugAvKXMiPwGHkTFfZ75AGPrcnLnAn88ELaqCA1GemAQfekwHYP1jvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DEjtA1bz; arc=none smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-7904a401d5cso774687b3.3
-        for <linux-man@vger.kernel.org>; Mon, 05 Jan 2026 07:32:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767627150; x=1768231950; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=2+B0pw6OIjyBE3ZxdWDT1m67PcaklYbJ6MYfMb+uSk8=;
-        b=DEjtA1bz7iq69WJvyi15wfVHz344QWzH35QjHyJXinin0UJUe9rdVWgbayKmzMTEke
-         EELncdFnaA9PkYjPlLHK8j/CqiEah9NWUWBJL4rdlDw7hZektUGliNPcWMWqBtLbKads
-         elhILXCplgRxBFeyOCc8dmxRXGkWaXCKoL2YpDPtIplyxt9iFEH+tTGO/GEjoZSLSi6o
-         yTJQc3nMMh2Xyc8LIWogtMDZh3ompJGte14U42TVG0jgjwGzAm8mUbePuH3tg5U/RG2p
-         30dRF6I8kNERWdd15oCWii6IX8+eTG1i9TcI5szoymWp8051xBZrrPnTOKAV6jbWJUUB
-         CIsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767627150; x=1768231950;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2+B0pw6OIjyBE3ZxdWDT1m67PcaklYbJ6MYfMb+uSk8=;
-        b=ZX+Yww0waxi/sHS9LGNQMXqbqyeBJVF3iVCV+f3CJIArBLaL590E46PpBCxTwidFxS
-         Xz61tLxAygMXtXAGgkzC0AhWBgCEusKfA8qnw4pya37IEOItDqMTNK0ggbBI45RhUhpl
-         rBTbuMwpaX0OHWzS0qKB4AanS0rpFV2uPy6ebIsRzUy+fkibfgmMPPEZZCissf4v5wPE
-         Gw03WcsdSydUGJRysm35LSY0AgkDFUgrXMTaswbsLPDyKsR+ugZS2bU2p2AxsMJO2611
-         BUqAzD0vwCLGWHft8nt1yoV4WXPubN6vAJraT0mv/0oCpj6MfYZm0d+A2Gr39b/hTQ9c
-         19cQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVomd1vCheuaOLCEbaR8ghgwy3gxTYzEcWtpHWzUfxLRBhMT6Gi7LcWH5JvR+A4yjeqsgW/ylrTXcg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzok+n+F5+wJqTjVHU786ZeKFnrEaRMv12GlnhHnm7F3eJ3vKZf
-	IUWygQO53m3+b+hDtMBNB9J/ljcfcEJyu6hEOtaBrlctllkoXu605tYk6GsZwA==
-X-Gm-Gg: AY/fxX7rmE5lc44d1UTTv/a1IiC8KJjLeVoenE1Jdh7laZz1xkcWXK3cA19KOo3G7y/
-	qmbuaoP8sd8yejpXTgtcNMpxpk6HnzR/Z46AgpCL6hNqor6c1bwkVSMH5D79WdIzxeF5HxyxOfB
-	YmLFJQ740wA9inVijWjjgsqAZYgsuXbXXTh7r9hxofpQGVipq0CgrjQKVvxQIJUEFvjykCpj0wY
-	a9GKIAQjqAPGge86Drn0VgxGU1yfqhM7duhqX0zpRRdtrf0pOmNT65/lqDHByuP2uCVbH3ZXf5f
-	zgm9Be8SEOt1DFHVZIxJtbA1mO0YrJTZdSYcQ7Txgl5HknN5dIjDR45cz46Ldku5A3lt5VlpAhv
-	q9k714J5zfCGJFbif9Bx4ZwQCJCBbr1mFaJwqJvQu5MOV0yY1aKnEkr+BsxbZBWpB/RRMPsU8O7
-	h0
-X-Google-Smtp-Source: AGHT+IEMt9I2bhAi6dilxVCkeqkuXg8LHtt6mqyl3LIQSvXAdr10Sskz5jT0B7fqNAth2kDO0Yh7bg==
-X-Received: by 2002:a05:690c:fc2:b0:78f:bceb:e565 with SMTP id 00721157ae682-78fbcebea8cmr541564467b3.50.1767627150195;
-        Mon, 05 Jan 2026 07:32:30 -0800 (PST)
-Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-78fb452c44esm187071497b3.47.2026.01.05.07.32.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Jan 2026 07:32:29 -0800 (PST)
-Date: Mon, 5 Jan 2026 09:32:27 -0600
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+	s=arc-20240116; t=1767627884; c=relaxed/simple;
+	bh=RKVpdH/Yoxy0Pf73TBYNFOa3xslGV52v7mt97TNtibo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OHeFRw1QqJCe5epXcKfqmOyHD6xzc9seTuqiqSimlXyaqHHhuoXhlppm5vtE1zluWEn+S6JU6rEDGXzmHwfEVxtP9iIu+v+lQngy2D51DM1tQJ/GeI+DHDrE8YFe6O+b2f4mIrrdBq89L4nvYqIy3g8IvBJ+v9+iZYf48kgzwr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iT0/dYNI; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F10C116D0;
+	Mon,  5 Jan 2026 15:44:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1767627884;
+	bh=RKVpdH/Yoxy0Pf73TBYNFOa3xslGV52v7mt97TNtibo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iT0/dYNIWtUaIuKnEy/DrjKax/0quyVTctKvBs+infi9NY2qmprEKSngi7aOaDhYW
+	 OqocnaMtYcFZ1K6Y8Y461qG+oGbDkb/iA5KXzBaBciFCLQxA9JTgWVs3JQmj58/YVn
+	 gahhviKnLce0zx3UwnMbYrNb81j1hQIMBYquFz6tb+rnYjPNK+0dbm/eabQDJU5ymi
+	 gWpb+Yg8vUx41DZiIjH5F6YHpVKC4MOJVRsLPlPvQTye3dChCVHZlEn/KXFk2jogq6
+	 RnQbKZbjljItddCA118EPayfAR+g8r2QtwhBFKk1VfDkjSpkSObo0HqNfkfdBdQMxO
+	 gwNSdSHsB6GWg==
+Date: Mon, 5 Jan 2026 16:44:40 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Seth McDonald <sethmcmail@pm.me>, linux-man@vger.kernel.org
 Subject: Re: [PATCH v1 01/12] man/man2const/F_DUPFD.2const: HISTORY: Update
  first POSIX appearance of F_DUPFD(2const)
-Message-ID: <20260105153227.6tm44wrjaonclphz@illithid>
+Message-ID: <aVvbr9qBMV9Eohwh@devuan>
+References: <24e850c16b1a16da197c3e86ec756a7f585ef732.1767599119.git.sethmcmail@pm.me>
+ <2ebaafd230336d02405815949315e1b0bdf2685f.1767599119.git.sethmcmail@pm.me>
+ <318b6e1e5d8a89b28ecfafc42794efd8a8ef32d4.1767599119.git.sethmcmail@pm.me>
+ <20260105153227.6tm44wrjaonclphz@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="6cgx5cyztun5t6hn"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tbxfwmyefcivctne"
 Content-Disposition: inline
-In-Reply-To: <24e850c16b1a16da197c3e86ec756a7f585ef732.1767599119.git.sethmcmail@pm.me>
- <2ebaafd230336d02405815949315e1b0bdf2685f.1767599119.git.sethmcmail@pm.me>
- <318b6e1e5d8a89b28ecfafc42794efd8a8ef32d4.1767599119.git.sethmcmail@pm.me>
+In-Reply-To: <20260105153227.6tm44wrjaonclphz@illithid>
 
 
---6cgx5cyztun5t6hn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--tbxfwmyefcivctne
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Seth McDonald <sethmcmail@pm.me>, linux-man@vger.kernel.org
 Subject: Re: [PATCH v1 01/12] man/man2const/F_DUPFD.2const: HISTORY: Update
  first POSIX appearance of F_DUPFD(2const)
+Message-ID: <aVvbr9qBMV9Eohwh@devuan>
+References: <24e850c16b1a16da197c3e86ec756a7f585ef732.1767599119.git.sethmcmail@pm.me>
+ <2ebaafd230336d02405815949315e1b0bdf2685f.1767599119.git.sethmcmail@pm.me>
+ <318b6e1e5d8a89b28ecfafc42794efd8a8ef32d4.1767599119.git.sethmcmail@pm.me>
+ <20260105153227.6tm44wrjaonclphz@illithid>
 MIME-Version: 1.0
+In-Reply-To: <20260105153227.6tm44wrjaonclphz@illithid>
 
-Hi Seth & Alex,
+Hi Branden,
 
-At 2026-01-05T19:18:37+1000, Seth McDonald wrote:
-> F_DUPFD(2const) first appeared in POSIX.1-1988.[1]
-[...]
-> -SVr4, 4.3BSD, POSIX.1-2001.
-> +SVr4,
-> +4.3BSD,
-> +POSIX.1-1988.
+On Mon, Jan 05, 2026 at 09:32:27AM -0600, G. Branden Robinson wrote:
+> At 2026-01-05T19:18:39+1000, Seth McDonald wrote:
+> > F_GETFL(2const) and F_SETFL(2const) first appeared in POSIX.1-1988.[1]
+> > -SVr4, 4.3BSD, POSIX.1-2001.
+> > +SVr4,
+> > +4.3BSD,
+> > +POSIX.1-1988.
+>=20
+> What ordering is used for these?
 
-At 2026-01-05T19:18:38+1000, Seth McDonald wrote:
-> F_GETFD(2const) and F_SETFD(2const) first appeared in POSIX.1-1988.[1]
-[...]
-> -SVr4, 4.3BSD, POSIX.1-2001.
-> +SVr4,
-> +4.3BSD,
-> +POSIX.1-1988.
+Ideally, I would like it to be in chronologic order.
 
-At 2026-01-05T19:18:39+1000, Seth McDonald wrote:
-> F_GETFL(2const) and F_SETFL(2const) first appeared in POSIX.1-1988.[1]
-> -SVr4, 4.3BSD, POSIX.1-2001.
-> +SVr4,
-> +4.3BSD,
-> +POSIX.1-1988.
+> 4.3BSD was 1986.[1]
+>=20
+> POSIX.1-1988 was, nominally, 1988 but we all know how standards
+> sometimes lag.  It seems the record is murky in this case.[2]
+>=20
+> I've seen dates of 1988 applied SVr4, but no reports that it was
+> publicly available until 1989.[3]
 
-What ordering is used for these?
+If anyone wants to do research and improve those --as Seth is doing--,
+I'll welcome patches.  :)
 
-4.3BSD was 1986.[1]
 
-POSIX.1-1988 was, nominally, 1988 but we all know how standards
-sometimes lag.  It seems the record is murky in this case.[2]
+Have a lovely New Year!
+Alex
 
-I've seen dates of 1988 applied SVr4, but no reports that it was
-publicly available until 1989.[3]
+>=20
+> Regards,
+> Branden
+>=20
+> [1] https://www.oreilly.com/openbook/opensources/book/kirkmck.html
+> [2] https://luplab.cs.ucdavis.edu/2021/11/04/the-hunt-for-posix-1-1988.ht=
+ml
+> [3] http://ps-2.retropc.se/sites/unixarchive/Documentation/AUUGN/AUUGN-V0=
+9.6.pdf
 
-Regards,
-Branden
 
-[1] https://www.oreilly.com/openbook/opensources/book/kirkmck.html
-[2] https://luplab.cs.ucdavis.edu/2021/11/04/the-hunt-for-posix-1-1988.html
-[3] http://ps-2.retropc.se/sites/unixarchive/Documentation/AUUGN/AUUGN-V09.6.pdf
 
---6cgx5cyztun5t6hn
+--=20
+<https://www.alejandro-colomar.es>
+
+--tbxfwmyefcivctne
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmlb2YQACgkQ0Z6cfXEm
-bc5Tzw//UN1Izm9+s182O0uDIodcGx//50r9SEtZH0mVBGLd1hKmzD3hHoHiwMNZ
-O8VNPWPgsPQX87nmfvO76r1xv7cSnZM1ZxJs80p3aC7cxd7jkyZNLOHVtV3sHH12
-Dy/9Z6AR5v8BhDK3cno6wetIafy/YT5kb+vmiYrKErgqatIYIUCQY4u7JqPE/rrR
-cVqUJFCKphb7RJpQTDVUDSkdlV9gkz2valJogI3cVRlxnhQeQI4G7kmrqXp1GtLd
-FSST4+KXRLqsumvRgCFiI/e4SA4U+VzqhBz/0Qdfi89rdqsJts6uTby29E4+D4BB
-am89sUp93BGMEQKaeB1ZfPlUatgE7vjWPTlj0mLOP7dRhMiQEGp7IRxBbWwZLSXU
-o/ngia6LhrDdmFaxCu8Ma5cA6o3wRCGsBHr9woMMxh8pShzAVWkD3DxNkBRMxmiy
-hqoBvumgprFIDL1VXIwQIAUu9qLzEnSKfxAiYSt3l9/0lpe8+kyVLYKHk8Rg3xz0
-7TRJSZHqRT6YiPduTr8cs0JRWZu2MOYI2tDkOjcm9wMzH/N8MC2ITfp8bT2ldPUJ
-iokL4pdht41gTqeWhRf35U/SWEWCPT3G64CN5fZBcAKhGk9L4sJJsoGrlp66miGD
-dp1Fw9yxeVFJfwyupgUbCoCOWBQNFZJAQssMZl4SyYA2K3MmKcA=
-=bnQy
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlb3FoACgkQ64mZXMKQ
+wqnzuxAAq1LaUzu+4brwyMZCUovj8Auw58JL9mib1OEcUYEOurx6pu//yxoWQyt0
+d/9xpdGI1Nzzsc7gEikBwFNj/XKAunl0baOIukUiETM4P3/6R0XRVmGfPDRInzEH
+dY8iIARBGixF6ZDm3w/4PvRDGhFwXVM8KypC+a0HMXiQpWTkNnXeEILUligMXJLM
+zcKkaIc9lXI/QH3uiNqakN8350OAjZWT0KnYWz+agpmk0bfv8YKpJYulH3YvXSuD
+aFPQDAxnG9+7g39WxZSqKuUSSJ3t4VVSusmUajSQRMdivBnig5S2w0IepIH7Fe9A
+BxBvZ9l3wi6NB7NGduG5mZS8ZaRhMIlmOjeNozAW/uEaRqIXfgf18o3tXwvPKEih
+yfMWl+VeH3yuSJvAgGj6ck4ayDTOvJtKrUw5lXo24tLw7/eu3w/Jt1nNlZDosF3X
+f9SzIALtj1Uq6ksat/v7v1bi97SvpUL+gezjJCiRQpsE/xOQFDE4YtfxlHxwUxwO
+CcX0XXktLKTW0wGLLE8AnlVSs8xT6abw/KJ6WU5FAQWXD0TGo/2U7nqtXQwnGKjI
+Qq8pZ/sc2b2368qVycfrqOfGGBTvJ0rLvUr5Xj28UcPJByZQiZv/2ryW/OdnDacm
+YJewKfLRIokzX417roAsc+aplKuw2llj5z9iX3cahEMcIS9TQIc=
+=f9yI
 -----END PGP SIGNATURE-----
 
---6cgx5cyztun5t6hn--
+--tbxfwmyefcivctne--
 
