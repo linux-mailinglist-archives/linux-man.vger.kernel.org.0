@@ -1,202 +1,165 @@
-Return-Path: <linux-man+bounces-4630-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4631-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 567A3CF4416
-	for <lists+linux-man@lfdr.de>; Mon, 05 Jan 2026 15:56:41 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EBDBCF4767
+	for <lists+linux-man@lfdr.de>; Mon, 05 Jan 2026 16:43:04 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id B04FA303ADFB
-	for <lists+linux-man@lfdr.de>; Mon,  5 Jan 2026 14:51:36 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id AC3E33005028
+	for <lists+linux-man@lfdr.de>; Mon,  5 Jan 2026 15:43:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B03D0337694;
-	Mon,  5 Jan 2026 14:43:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5FC17309EF2;
+	Mon,  5 Jan 2026 15:32:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RkVV7vwH"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DEjtA1bz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0E133508A
-	for <linux-man@vger.kernel.org>; Mon,  5 Jan 2026 14:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3452DF131
+	for <linux-man@vger.kernel.org>; Mon,  5 Jan 2026 15:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767624192; cv=none; b=lY7d4NwMjMSTaP2pNu3djE9NF7uHFLeanU1E90hdNn/bnHupjBhJum0onWJo3J23nEU3qNyhfb83gYEsm2Y6hfFsSOVCRJuWGTOXBX02eisAS45j6/n12/TLoUfyKHve7OiEeZpNasZ0Jqyvf/GKtSTG8TfeP6HF9TS36blsaQE=
+	t=1767627153; cv=none; b=Cr3Fyih9LJ7naB8VZP06O/zTvHAM8L4GkPTOqNxQBSuc1ZJYtF4w14hROemZbKtaOdGqx8wKl42NJRfKQ7sxMZhdT2xFcuUGMy9IZqsMTbQnvzGQNTCifYtP5i00Qvg6fXENwp2kAigRoaYMAkgbbxVhblT5gqDwq3NHSJXmu50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767624192; c=relaxed/simple;
-	bh=tFWVXjjoRyT6C6ZLK70lyUKROuxmS/MdgnOxWDu1MU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TiqXX2tHdOEv2rbNgnt4Zi4JlH5DngJAw5t7dDondB/QsXM9VDWYniOVDXhHkr2d4zAW8MrNoYX79kuAHBR/FdShXFVSD9feLTs3vnehPaBsImdvSt0kvPiYMvls1QDB8IlUnX5IC2aYg/TyskCOUOaf+2v/kiTB7cqP9iKgZ/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RkVV7vwH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C356C116D0;
-	Mon,  5 Jan 2026 14:43:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767624191;
-	bh=tFWVXjjoRyT6C6ZLK70lyUKROuxmS/MdgnOxWDu1MU0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RkVV7vwHS7trawPV/896quXPfmGuLyRDZIChgCybLc1D3Ag1/FgWKZxa9vYzidvBr
-	 f7kyDNlCh42YNDZhpjo7x0UB3attLTEFuDmgsRWoetHo93nQn7T0AA5YlI3sjRvL6c
-	 sCBu0NtXzNc1+N4Up7xlQZf5vjfPyFDZ+0xm6M9AMmdbYPXySbMl8LUFWKtxDn2njg
-	 rwAZadCgFn2RWIPaaOu+NHkcAMY/ICXvnSNjnXZSkYCDLx+9KZ5eNyaBjC7nyFs7Pz
-	 y0Umimm2IlXHuxKLmQvEDcg1UPRUjvvWdINrLcwRM761TSX5cG9As8+NkKGGkQhtKc
-	 9Eh8MTkfljiSA==
-Date: Mon, 5 Jan 2026 15:43:08 +0100
-From: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1767627153; c=relaxed/simple;
+	bh=NUOpyob1L9RbIogp2qpgLsz3N0/lCFuLFdlIAfC5Qe8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=HIOuQB4C3l/Mm36fH8v8VuY5RPBADwe02pcFspVaKOq+Tyuw1SYX9yLV9gyvDabtBcKEAc6hWfcmgD2uGv+yBp1nzD/PUIT4HivCVLzpQm6c0sO5DaojpugAvKXMiPwGHkTFfZ75AGPrcnLnAn88ELaqCA1GemAQfekwHYP1jvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DEjtA1bz; arc=none smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-7904a401d5cso774687b3.3
+        for <linux-man@vger.kernel.org>; Mon, 05 Jan 2026 07:32:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1767627150; x=1768231950; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=2+B0pw6OIjyBE3ZxdWDT1m67PcaklYbJ6MYfMb+uSk8=;
+        b=DEjtA1bz7iq69WJvyi15wfVHz344QWzH35QjHyJXinin0UJUe9rdVWgbayKmzMTEke
+         EELncdFnaA9PkYjPlLHK8j/CqiEah9NWUWBJL4rdlDw7hZektUGliNPcWMWqBtLbKads
+         elhILXCplgRxBFeyOCc8dmxRXGkWaXCKoL2YpDPtIplyxt9iFEH+tTGO/GEjoZSLSi6o
+         yTJQc3nMMh2Xyc8LIWogtMDZh3ompJGte14U42TVG0jgjwGzAm8mUbePuH3tg5U/RG2p
+         30dRF6I8kNERWdd15oCWii6IX8+eTG1i9TcI5szoymWp8051xBZrrPnTOKAV6jbWJUUB
+         CIsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767627150; x=1768231950;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2+B0pw6OIjyBE3ZxdWDT1m67PcaklYbJ6MYfMb+uSk8=;
+        b=ZX+Yww0waxi/sHS9LGNQMXqbqyeBJVF3iVCV+f3CJIArBLaL590E46PpBCxTwidFxS
+         Xz61tLxAygMXtXAGgkzC0AhWBgCEusKfA8qnw4pya37IEOItDqMTNK0ggbBI45RhUhpl
+         rBTbuMwpaX0OHWzS0qKB4AanS0rpFV2uPy6ebIsRzUy+fkibfgmMPPEZZCissf4v5wPE
+         Gw03WcsdSydUGJRysm35LSY0AgkDFUgrXMTaswbsLPDyKsR+ugZS2bU2p2AxsMJO2611
+         BUqAzD0vwCLGWHft8nt1yoV4WXPubN6vAJraT0mv/0oCpj6MfYZm0d+A2Gr39b/hTQ9c
+         19cQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVomd1vCheuaOLCEbaR8ghgwy3gxTYzEcWtpHWzUfxLRBhMT6Gi7LcWH5JvR+A4yjeqsgW/ylrTXcg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzok+n+F5+wJqTjVHU786ZeKFnrEaRMv12GlnhHnm7F3eJ3vKZf
+	IUWygQO53m3+b+hDtMBNB9J/ljcfcEJyu6hEOtaBrlctllkoXu605tYk6GsZwA==
+X-Gm-Gg: AY/fxX7rmE5lc44d1UTTv/a1IiC8KJjLeVoenE1Jdh7laZz1xkcWXK3cA19KOo3G7y/
+	qmbuaoP8sd8yejpXTgtcNMpxpk6HnzR/Z46AgpCL6hNqor6c1bwkVSMH5D79WdIzxeF5HxyxOfB
+	YmLFJQ740wA9inVijWjjgsqAZYgsuXbXXTh7r9hxofpQGVipq0CgrjQKVvxQIJUEFvjykCpj0wY
+	a9GKIAQjqAPGge86Drn0VgxGU1yfqhM7duhqX0zpRRdtrf0pOmNT65/lqDHByuP2uCVbH3ZXf5f
+	zgm9Be8SEOt1DFHVZIxJtbA1mO0YrJTZdSYcQ7Txgl5HknN5dIjDR45cz46Ldku5A3lt5VlpAhv
+	q9k714J5zfCGJFbif9Bx4ZwQCJCBbr1mFaJwqJvQu5MOV0yY1aKnEkr+BsxbZBWpB/RRMPsU8O7
+	h0
+X-Google-Smtp-Source: AGHT+IEMt9I2bhAi6dilxVCkeqkuXg8LHtt6mqyl3LIQSvXAdr10Sskz5jT0B7fqNAth2kDO0Yh7bg==
+X-Received: by 2002:a05:690c:fc2:b0:78f:bceb:e565 with SMTP id 00721157ae682-78fbcebea8cmr541564467b3.50.1767627150195;
+        Mon, 05 Jan 2026 07:32:30 -0800 (PST)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-78fb452c44esm187071497b3.47.2026.01.05.07.32.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Jan 2026 07:32:29 -0800 (PST)
+Date: Mon, 5 Jan 2026 09:32:27 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 00/12] man/man{2,3}const/*: Update POSIX history of
- constants
-Message-ID: <aVvN5ICfYt7CjX0v@devuan>
-References: <cover.1767599119.git.sethmcmail@pm.me>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 01/12] man/man2const/F_DUPFD.2const: HISTORY: Update
+ first POSIX appearance of F_DUPFD(2const)
+Message-ID: <20260105153227.6tm44wrjaonclphz@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="epn6si3qcwthj2u7"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="6cgx5cyztun5t6hn"
 Content-Disposition: inline
-In-Reply-To: <cover.1767599119.git.sethmcmail@pm.me>
+In-Reply-To: <24e850c16b1a16da197c3e86ec756a7f585ef732.1767599119.git.sethmcmail@pm.me>
+ <2ebaafd230336d02405815949315e1b0bdf2685f.1767599119.git.sethmcmail@pm.me>
+ <318b6e1e5d8a89b28ecfafc42794efd8a8ef32d4.1767599119.git.sethmcmail@pm.me>
 
 
---epn6si3qcwthj2u7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--6cgx5cyztun5t6hn
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 00/12] man/man{2,3}const/*: Update POSIX history of
- constants
-Message-ID: <aVvN5ICfYt7CjX0v@devuan>
-References: <cover.1767599119.git.sethmcmail@pm.me>
+Subject: Re: [PATCH v1 01/12] man/man2const/F_DUPFD.2const: HISTORY: Update
+ first POSIX appearance of F_DUPFD(2const)
 MIME-Version: 1.0
-In-Reply-To: <cover.1767599119.git.sethmcmail@pm.me>
 
-Hi Seth,
+Hi Seth & Alex,
 
-On Mon, Jan 05, 2026 at 07:18:36PM +1000, Seth McDonald wrote:
-> Hello all,
->=20
-> I'm continuing to update the first POSIX and SUS appearances of various
-> system calls and functions, but I'm doubting that it's a good idea to
-> wait and send all patches in at once.  So while I continue, I'll try
-> grouping related updates into patch sets and sending them through
-> semi-regularly.
->=20
-> To start, this patch set consists of updates for documented constants
-> in the 2const and 3const sections.  I've provided a reference to the
-> relevant POSIX version for each patch, providing links where possible.
->=20
-> In general, each patch concerns a separate page.  However, if two pages
-> share similar names and are referenced in the same section of POSIX
-> (such that the citation given for both are the same), then I batched
-> them together into the same patch.
->=20
-> Also perhaps noteworthy: if updating a page required only adding a POSIX
-> or SUS version, I usually added it in a new line and left any other
-> listed standards untouched.  While if it required changing a line shared
-> with other standards, I typically reformatted it to list each standard
-> on a separate line (for nicer diffs with future changes).
->=20
-> Seth McDonald (12):
->   man/man2const/F_DUPFD.2const: HISTORY: Update first POSIX appearance
->     of F_DUPFD(2const)
->   man/man2const/F_GETFD.2const: HISTORY: Update first POSIX appearance
->     of F_[GS]ETFD(2const)
->   man/man2const/F_GETFL.2const: HISTORY: Update first POSIX appearance
->     of F_[GS]ETFL(2const)
->   man/man2const/IPPROTO_IP{V6,}.2const: HISTORY: Add sections
->   man/man2const/IPV6_MULTICAST_{HOPS,IF,LOOP}.2const: HISTORY: Add
->     sections
->   man/man2const/IPV6_UNICAST_HOPS.2const: HISTORY: Add section
->   man/man2const/IPV6_V6ONLY.2const: HISTORY: Add first POSIX appearance
->     of IPV6_V6ONLY(2const)
->   man/man3const/EOF.3const: HISTORY: Update first POSIX appearance of
->     EOF(3const)
->   man/man3const/EXIT_SUCCESS.3const: HISTORY: Split EXIT_SUCCESS(3const)
->     and EXIT_FAILURE(3const)
->   man/man3const/EXIT_SUCCESS.3const: HISTORY: Update first POSIX
->     appearance of EXIT_SUCCESS(3const)
->   man/man3const/EXIT_SUCCESS.3const: HISTORY: Update first POSIX
->     appearance of EXIT_FAILURE(3const)
->   man/man3const/NULL.3const: HISTORY: Update first POSIX appearance of
->     NULL(3const)
+At 2026-01-05T19:18:37+1000, Seth McDonald wrote:
+> F_DUPFD(2const) first appeared in POSIX.1-1988.[1]
+[...]
+> -SVr4, 4.3BSD, POSIX.1-2001.
+> +SVr4,
+> +4.3BSD,
+> +POSIX.1-1988.
 
-Thanks!  I've applied all 12 patches.
+At 2026-01-05T19:18:38+1000, Seth McDonald wrote:
+> F_GETFD(2const) and F_SETFD(2const) first appeared in POSIX.1-1988.[1]
+[...]
+> -SVr4, 4.3BSD, POSIX.1-2001.
+> +SVr4,
+> +4.3BSD,
+> +POSIX.1-1988.
 
+At 2026-01-05T19:18:39+1000, Seth McDonald wrote:
+> F_GETFL(2const) and F_SETFL(2const) first appeared in POSIX.1-1988.[1]
+> -SVr4, 4.3BSD, POSIX.1-2001.
+> +SVr4,
+> +4.3BSD,
+> +POSIX.1-1988.
 
-Have a lovely New Year!
-Alex
+What ordering is used for these?
 
->=20
->  man/man2const/F_DUPFD.2const             | 4 +++-
->  man/man2const/F_GETFD.2const             | 4 +++-
->  man/man2const/F_GETFL.2const             | 4 +++-
->  man/man2const/IPPROTO_IP.2const          | 4 ++++
->  man/man2const/IPPROTO_IPV6.2const        | 4 ++++
->  man/man2const/IPV6_MULTICAST_HOPS.2const | 4 ++++
->  man/man2const/IPV6_MULTICAST_IF.2const   | 4 ++++
->  man/man2const/IPV6_MULTICAST_LOOP.2const | 4 ++++
->  man/man2const/IPV6_UNICAST_HOPS.2const   | 4 ++++
->  man/man2const/IPV6_V6ONLY.2const         | 1 +
->  man/man3const/EOF.3const                 | 3 ++-
->  man/man3const/EXIT_SUCCESS.3const        | 9 ++++++++-
->  man/man3const/NULL.3const                | 3 ++-
->  13 files changed, 46 insertions(+), 6 deletions(-)
->=20
-> Range-diff against v0:
->  -:  ------------ >  1:  24e850c16b1a man/man2const/F_DUPFD.2const: HISTO=
-RY: Update first POSIX appearance of F_DUPFD(2const)
->  -:  ------------ >  2:  2ebaafd23033 man/man2const/F_GETFD.2const: HISTO=
-RY: Update first POSIX appearance of F_[GS]ETFD(2const)
->  -:  ------------ >  3:  318b6e1e5d8a man/man2const/F_GETFL.2const: HISTO=
-RY: Update first POSIX appearance of F_[GS]ETFL(2const)
->  -:  ------------ >  4:  355603eae665 man/man2const/IPPROTO_IP{V6,}.2cons=
-t: HISTORY: Add sections
->  -:  ------------ >  5:  82a8170800bf man/man2const/IPV6_MULTICAST_{HOPS,=
-IF,LOOP}.2const: HISTORY: Add sections
->  -:  ------------ >  6:  daf65319f3b8 man/man2const/IPV6_UNICAST_HOPS.2co=
-nst: HISTORY: Add section
->  -:  ------------ >  7:  bec94e780a3c man/man2const/IPV6_V6ONLY.2const: H=
-ISTORY: Add first POSIX appearance of IPV6_V6ONLY(2const)
->  -:  ------------ >  8:  b8028fb93420 man/man3const/EOF.3const: HISTORY: =
-Update first POSIX appearance of EOF(3const)
->  -:  ------------ >  9:  25f4fa02d941 man/man3const/EXIT_SUCCESS.3const: =
-HISTORY: Split EXIT_SUCCESS(3const) and EXIT_FAILURE(3const)
->  -:  ------------ > 10:  0b59f68ab057 man/man3const/EXIT_SUCCESS.3const: =
-HISTORY: Update first POSIX appearance of EXIT_SUCCESS(3const)
->  -:  ------------ > 11:  966063053cfe man/man3const/EXIT_SUCCESS.3const: =
-HISTORY: Update first POSIX appearance of EXIT_FAILURE(3const)
->  -:  ------------ > 12:  bbd81741f759 man/man3const/NULL.3const: HISTORY:=
- Update first POSIX appearance of NULL(3const)
-> --=20
-> 2.47.3
->=20
->=20
+4.3BSD was 1986.[1]
 
---=20
-<https://www.alejandro-colomar.es>
+POSIX.1-1988 was, nominally, 1988 but we all know how standards
+sometimes lag.  It seems the record is murky in this case.[2]
 
---epn6si3qcwthj2u7
+I've seen dates of 1988 applied SVr4, but no reports that it was
+publicly available until 1989.[3]
+
+Regards,
+Branden
+
+[1] https://www.oreilly.com/openbook/opensources/book/kirkmck.html
+[2] https://luplab.cs.ucdavis.edu/2021/11/04/the-hunt-for-posix-1-1988.html
+[3] http://ps-2.retropc.se/sites/unixarchive/Documentation/AUUGN/AUUGN-V09.6.pdf
+
+--6cgx5cyztun5t6hn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlbzfsACgkQ64mZXMKQ
-wqkxAQ//QBxqns5ynctX5XalRcUKtud17PUBMRvDIEngRkM4kX1Pd4mf0Eu9Q8La
-n+JWWhXXs/VBA6T+FDph74vDuJ+Odxx++tjqqsGPuaV/rnFLgWtDx2Oq1R+ksjhp
-DzJc1vEI/nLem+Pw7q1sU59blMpRqAvlaJjgJtf+QS4hP7SuTEKBg1I/G5a4eUXa
-K0YP8sDXbIMCaH+d7HI582LYXDsrBRzARoJIX4dEt7AHUX67Nf7dD5wKOH6sJ5M0
-a2ll7GqsDC7h9pUWFCqRQgl0Jwruv9+hEKrlpD1h/KtJk3vm8nfihBEZULFI16Yd
-z7u/OhQZiyRS67+e5Tor2l16yl7mHgGHXfHkr6YilDQFvhee3th/BxDCK/JsoKad
-sR101lTY5vIGaQz66HzJnkhMowthm12fnfEDnj5W3kMHiN2LwuHyrc7/7lQZANX/
-yD4mey6acCDyPb1ItAOuOMlitOsZVGLBcgdbbwF9EiJDXr915qzGUbIJTKoWe21b
-FtbkzYaJLzcW3fAXbhtz8Y7J2OH19DRK1almqwPqU9BBCYH00vMfATZ+H1xG8gY6
-NJ9MQqCKDm+M2JNaeMEXNEvx7f8GRgVRYtSnTPR85ociG7AgC8om689oK0GRo9kE
-BRJNVNkWVw5xGh/ryj9HTlsFykDWeFyzthtnh0wYPFNOoe3Grzs=
-=kfre
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmlb2YQACgkQ0Z6cfXEm
+bc5Tzw//UN1Izm9+s182O0uDIodcGx//50r9SEtZH0mVBGLd1hKmzD3hHoHiwMNZ
+O8VNPWPgsPQX87nmfvO76r1xv7cSnZM1ZxJs80p3aC7cxd7jkyZNLOHVtV3sHH12
+Dy/9Z6AR5v8BhDK3cno6wetIafy/YT5kb+vmiYrKErgqatIYIUCQY4u7JqPE/rrR
+cVqUJFCKphb7RJpQTDVUDSkdlV9gkz2valJogI3cVRlxnhQeQI4G7kmrqXp1GtLd
+FSST4+KXRLqsumvRgCFiI/e4SA4U+VzqhBz/0Qdfi89rdqsJts6uTby29E4+D4BB
+am89sUp93BGMEQKaeB1ZfPlUatgE7vjWPTlj0mLOP7dRhMiQEGp7IRxBbWwZLSXU
+o/ngia6LhrDdmFaxCu8Ma5cA6o3wRCGsBHr9woMMxh8pShzAVWkD3DxNkBRMxmiy
+hqoBvumgprFIDL1VXIwQIAUu9qLzEnSKfxAiYSt3l9/0lpe8+kyVLYKHk8Rg3xz0
+7TRJSZHqRT6YiPduTr8cs0JRWZu2MOYI2tDkOjcm9wMzH/N8MC2ITfp8bT2ldPUJ
+iokL4pdht41gTqeWhRf35U/SWEWCPT3G64CN5fZBcAKhGk9L4sJJsoGrlp66miGD
+dp1Fw9yxeVFJfwyupgUbCoCOWBQNFZJAQssMZl4SyYA2K3MmKcA=
+=bnQy
 -----END PGP SIGNATURE-----
 
---epn6si3qcwthj2u7--
+--6cgx5cyztun5t6hn--
 
