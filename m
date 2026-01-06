@@ -1,82 +1,82 @@
-Return-Path: <linux-man+bounces-4660-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4661-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 566EACF7D39
-	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 11:38:14 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE412CF7D53
+	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 11:39:04 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id C80B230617E5
-	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 10:36:59 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 07B55314A7BB
+	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 10:32:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 221CB342CAE;
-	Tue,  6 Jan 2026 10:30:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC6AF3314B9;
+	Tue,  6 Jan 2026 10:32:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LSzMDrcZ"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KhzbF/II"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E318342C88
-	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 10:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB85C330B22
+	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 10:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767695457; cv=none; b=dv5AQAgLI97CCE76CZyJGQrqJhyRwtVT4DUpo0wnfAXgC2g/Wg79jnCCxCzLBns6b0qNwqLT5a+CEHaYZ5Usvi+cAFbIrqUgeJKc8JURGVPAevrsB7K2Xph+oSSwCtiQtKT+KfoSdtRjL43yXxiO5777PkofN8jhPlWpN+5gMkc=
+	t=1767695531; cv=none; b=A06qIIfA6tkOzFiIjZqjdu/rFIPN3l0lqenQQ3CTFrZCC5uFUHx7gyAvJFcg5Uv07ScS5gOsPYbCCjIBlpKeUk7em7cJ4zUHn0Bohq+2JMK9+c4QrCc7XvRgLsWxGY47+Oaubs1oehBkjhd92rRP97Pg8hpKypR+pBGyNaDksBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767695457; c=relaxed/simple;
-	bh=NY/kx0CsxQ8KUp2YT6hW0JMXE1cAtCFYYze2Fl91QnA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jcP7ioclML5RVwTnyvj514i9RzlmOig0zHDhCbEHB6/xND/FLnK8+JID5Kt1co+nqSEC/aRWSs/dhb1mTt01Wwwt4UW6xxpdqlvdZ67n92KAfIb/zE0cCBZ3Rt+Z0rsppRfRMJtQ0StZ3i6xPwhfsOfRuaoP4eSu/X7q2jYCg4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LSzMDrcZ; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1767695531; c=relaxed/simple;
+	bh=fjZeHy5Q88LzheA5/1onQidCRAK8XrXYB+OmL/LPizk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cTQC9z8uWqyyVRj4DznsMWWdVZwvIGe0qhwq7wVIrdeg5kPVu848mDNtf2oYZFLzaNY6+xtlf/IJgz4PBHj3VuRA9WTfEDB0jBrB0UQwAyDMlG3LFksQ1T7NcFU0dp5jovm4kvrs3YTHKQKpmDTgYvm1HTEuleMCecjzEoe+JmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KhzbF/II; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43246af170aso456691f8f.0
-        for <linux-man@vger.kernel.org>; Tue, 06 Jan 2026 02:30:55 -0800 (PST)
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-47d3ba3a4deso4968575e9.2
+        for <linux-man@vger.kernel.org>; Tue, 06 Jan 2026 02:32:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767695454; x=1768300254; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1767695526; x=1768300326; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jGHKOemU6IhLpEFQ995ZbgnuIIegrVzj1tCwu5oYdH4=;
-        b=LSzMDrcZg3NFH4VMzywla/B6KUeCvI/FXV20eOwfXK/OsrP1XRcuULbzRDtsoBSEG/
-         0pMAskO7FoBZ/ilmHGIPD+nLj+duHU4gNB9/Nr7pSqBNCYGrPEVfIXOIJB/YPvsCkG/2
-         lzRMLLxkRaTBr+/T+jkXHWb01a/q4tODFKHx/YcuV687M17bFvi3YC7Psd7DwL/yfRFX
-         6QEXomGq0FLo2MnC2veia4g0IQbrCHThryuwC/e1Kaz3mmfgiTeZBaeMWkgzXa9c7OyV
-         LJ34KFQDLCWDeiHi2dF3/LP7HU8WYgqcLrbzlVjbmVT+oWSdhiYDCbWWuNXncIMN7/mk
-         OnMg==
+        bh=NRpW20T7RkYBwz4q7tTr+ZUGmOGKmEemkfLxSn18BsA=;
+        b=KhzbF/IIA8bdxrgWOXwRa/cvWj/SYk2i6yJGgguAKWNmXy7tx53tHxt72MhpfiRtGl
+         XXpv/f8/wiCJJ/AkUzozjuSa+pr2TVcM0bdZGMLqzq6h1XDygSL3QFrkmHRgaV0nC9zu
+         c1U5mCvK7W6VKBHRfrnQOSvzqYjmLGsNrpT+k+uYUObZ67Jy6Qiw3NWJQT3HbR9qSnez
+         q+Za7/BaRtNh72LcdciNippVd5aw5R5jTuJTvKkO3TtCid4vetqn50uSm3RWsgBS7/b7
+         StHZHpCNoyH/8PQ5E4ZdRAFPpUiB++tDydllkNMc9H3jskmzEk5hef6feLR1aCzjcmuT
+         U+/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767695454; x=1768300254;
+        d=1e100.net; s=20230601; t=1767695526; x=1768300326;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jGHKOemU6IhLpEFQ995ZbgnuIIegrVzj1tCwu5oYdH4=;
-        b=xJ02Ei4UuXAaEjvDkICnQgNePXhXySB7Aaw7A2wwWxmXQ+kCu9Y6xeVKkSQBqPQ6Wn
-         TcAN+94pnrJ+y6FaK3izctMkE9xXYv4GFFk0KOF2BL/HfUxc+V7LnV/MwkQOn9ZwQ/gn
-         lRJ0NoUruAmSkn9+ElShW089XbSEI5bhf25emxGmwNHu1j6tA4kabVYQqJsSE0OM2eij
-         Hdz2KP5Kez5XkzGbZ6nz7Wgg2I81HBjzeAitSBdI7XPoK76oJUjhLJtD0L53K58LZt/q
-         nhqHpFDVrszDI+qDOEl7QfT5rRc3s0tzBVzGgxU7NYATb26XSeb43M6WlSccTPI2PVIb
-         iW3w==
-X-Gm-Message-State: AOJu0YxIvBG5vhqU/QrU9jZSOZAO/6HyGgl1OtYxWvYVHn3vlto9oZI5
-	nhvGMbeiNVD6qc+TwXVERgR50B7kS+JxyolsRRgXDzFGKUViCoi8LxyD
-X-Gm-Gg: AY/fxX5Q4ODGX/l4ohha1pg2vDFnXH+v8CZGf1ABkCpTCofrkvpb/nfZ9PnzRzGN1vc
-	pTC/SaQPVs/pyWH9S8NtswaSk0yNT/ADIf6KZLhlbkI85XlBkrAT6uiswZASs7/wNh7sb3sWZJj
-	K9qMCA0KoM4eGw0ZS7KQYXP2co/zrYa4SDHIv/eupM/YNDPeMyBZOdIIGVNn3V5heLvQKQDFxD8
-	21NcsDdIx8CViy4FUzDcM2CKscjL2UYbdSf/OJ+vCDOKV/I8PjWzFt1xTPyTX5bLAdOS/iIO9M8
-	ZF5bmTyOEVhZQAvs1iJGqWasdoUznZC3Q4S4rc8rL5aMONrFuTifbtuMyxNWlVmg6BAMA1AeiOi
-	v3M9ZmmjZ0hGyqcdgt0vutkvtjML4STHcuYw/Vr74ZKrWLIPJ/wjkt8RLYjvb0uoQ3CPTgSjgE/
-	IbBSXjKm51x9JW9GSUOGpNm2ObB3b6wGsGnziS
-X-Google-Smtp-Source: AGHT+IHgRvD2uURFjq+ONJOUurWhWwgtHDJhgMHyC64Nv+AwiZnlMUlzl/8aZzQRQ8eSjwolLaIr3Q==
-X-Received: by 2002:a5d:5f51:0:b0:430:f736:7cc with SMTP id ffacd0b85a97d-432bcfa1e4bmr2421269f8f.1.1767695454419;
-        Tue, 06 Jan 2026 02:30:54 -0800 (PST)
+        bh=NRpW20T7RkYBwz4q7tTr+ZUGmOGKmEemkfLxSn18BsA=;
+        b=jzIZvyJodABaL6syfbknmoi3e4itJllIInDmzuWJIGYVNfDHSj/qM18L35ViCam+pV
+         c3Bcp552nycgpOwsPnvk/e2EgltM5tSEIenGmAYPtyyv62BfL9E/BkTOyJv71Ezkdc2c
+         e4lDZ+Gw6CZa88jNh6bTjrYZgzeVstpqI5UsmftznuSulCiILRFcuCUclhUrksy/+aPo
+         mztUsNZBhVFnfwHklSq6SjN0aD5sA4NbPILE56E7vHNZelFuTznV5fu3YYGXRHImCk2q
+         hoeaNLaYQAG7uW/ghrmDxj9kYwbolCYPaa+M0pbZYACwxZwcbNH9e7FYFIk8EdTMHMKK
+         Xq0g==
+X-Gm-Message-State: AOJu0Yz9V4V/jJFprUDj20mNqpb9lkE/pBv9jJI+0350l4XkPKuDVzka
+	kR7LgwpOdurEaJuu/6RdxcSPs1x4k70xx3nj/1cTADnXHfZaaxFow4h8
+X-Gm-Gg: AY/fxX5a29n26uDp5GeQS/oODd/SsHjBHZ4mWTPDirTo/8ZqJBW+ZFL0EupXwUPVSV2
+	pQp4Q24zlZ/McBCvdgvqJF9L7kcjd92GUMEnR1zuv++kXBRWC0Hcgqi2mFm8soWlm9Hoh5bmT1t
+	5Q5MaSwXEF2ooFU6LC0Sir/1YzrtAInAUnk0eROpXd2tX7GxSmrogRcoZfTLGYHgYnexCld5jse
+	SeDgwFQv2dGY6Wh+iaVMmLpLcxjAQmkpKoYBAYvCATzEL9fC7V5zels5zwyvBh9J0j0n6VKzewG
+	1k3txbW5hneMXbBIwUd9rSZrBwRueL0cwDf1XMt8pDZPx7OAxNv0ZzbTXEA09TTcm18nytIVfmx
+	N9OZ12Xcp4ydLdmyNaccvJewoEQ7JouM9Zu1pvqcfeyXWJyg3POogzBXm3TDDmKJOVEN7NEb4Vy
+	0b+iTN5veB0nnJxtcRDVgA2aWztI84KCzRAbdMtKTxgEf9JBE=
+X-Google-Smtp-Source: AGHT+IEt5+VouKnDd8YPwm4hFGve3tYaetbYhetSB84cbU8gPLFCAQR8RR/EL0sRN6mp2Q8AKGpmTg==
+X-Received: by 2002:a05:600c:3b27:b0:46e:48fd:a1a9 with SMTP id 5b1f17b1804b1-47d7f0a86a6mr26248215e9.33.1767695525715;
+        Tue, 06 Jan 2026 02:32:05 -0800 (PST)
 Received: from DESKTOP-Q32C80O.localdomain ([102.91.81.188])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-432bd5ede7esm3581584f8f.32.2026.01.06.02.30.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d7fae6699sm14275055e9.3.2026.01.06.02.32.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Jan 2026 02:30:54 -0800 (PST)
+        Tue, 06 Jan 2026 02:32:05 -0800 (PST)
 From: Simon Essien <champbreed1@gmail.com>
 To: alx@kernel.org
 Cc: linux-man@vger.kernel.org,
 	debian@helgeth.de,
 	champbreed1@gmail.com
-Subject: [PATCH] man3: Fix spelling (British -> American)
-Date: Tue,  6 Jan 2026 10:30:48 +0000
-Message-ID: <20260106103048.29227-1-champbreed1@gmail.com>
+Subject: [PATCH] man2, man3: Fix spelling (British -> American)
+Date: Tue,  6 Jan 2026 10:31:59 +0000
+Message-ID: <20260106103159.30476-1-champbreed1@gmail.com>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -86,41 +86,41 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Standardize 'initialise' variants to American English 'initialize' in regex.3 and pthread_key_create.3.
+Change 'signalled' to 'signaled' to follow American English standards.
 
 Reported-by: Helge Kreutzmann <debian@helgeth.de>
 Signed-off-by: Simon Essien <champbreed1@gmail.com>
 ---
- man/man3/pthread_key_create.3 | 2 +-
- man/man3/regex.3              | 2 +-
+ man/man2/select_tut.2 | 2 +-
+ man/man3/exit.3       | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man/man3/pthread_key_create.3 b/man/man3/pthread_key_create.3
-index e4fb5e321..ab993cd99 100644
---- a/man/man3/pthread_key_create.3
-+++ b/man/man3/pthread_key_create.3
-@@ -188,7 +188,7 @@ with automatic reclamation at thread exit:
- /* Key for the thread-specific buffer */
- static pthread_key_t buffer_key;
+diff --git a/man/man2/select_tut.2 b/man/man2/select_tut.2
+index 8fd312bcd..6071ec7d8 100644
+--- a/man/man2/select_tut.2
++++ b/man/man2/select_tut.2
+@@ -128,7 +128,7 @@ main(int argc, char *argv[])
+         if (got_SIGCHLD) {
+             got_SIGCHLD = 0;
  \&
--/* Once-only initialisation of the key */
-+/* Once-only initialization of the key */
- static pthread_once_t buffer_key_once = PTHREAD_ONCE_INIT;
+-            /* Handle signalled event here; e.g., wait() for all
++            /* Handle signaled event here; e.g., wait() for all
+                terminated children.  (Code omitted.)  */
+         }
  \&
- /* Allocate the thread-specific buffer */
-diff --git a/man/man3/regex.3 b/man/man3/regex.3
-index c9cc310dd..a901a937a 100644
---- a/man/man3/regex.3
-+++ b/man/man3/regex.3
-@@ -127,7 +127,7 @@ contains
- is used to match a null-terminated string
- against the compiled pattern buffer in
- .IR *preg ,
--which must have been initialised with
-+which must have been initialized with
- .BR regcomp ().
- .I eflags
- is the
+diff --git a/man/man3/exit.3 b/man/man3/exit.3
+index da33aab4b..114d8247f 100644
+--- a/man/man3/exit.3
++++ b/man/man3/exit.3
+@@ -188,7 +188,7 @@ See
+ for an explanation of orphaned process groups.
+ .P
+ Except in the above cases,
+-where the signalled processes may be children of the terminating process,
++where the signaled processes may be children of the terminating process,
+ termination of a process does
+ .I not
+ in general cause a signal to be sent to children of that process.
 -- 
 2.51.0
 
