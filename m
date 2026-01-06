@@ -1,167 +1,142 @@
-Return-Path: <linux-man+bounces-4673-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4674-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85AFDCF82A1
-	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 12:54:31 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D90ACF841B
+	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 13:15:19 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 19E1E30ABCD6
-	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 11:48:04 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id D7D65307B3AA
+	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 12:08:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ECF13533D6;
-	Tue,  6 Jan 2026 11:48:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CBF2A328B43;
+	Tue,  6 Jan 2026 12:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adz9/Dym"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NEKysEep"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076B230FC04
-	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 11:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DAC329E53
+	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 12:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767700083; cv=none; b=QSwKqKdvZwLAwnmk4+JVYq6adXOtyxebcPTQTvmEWJ3qglbhL+dghAlNmMru7qTJsfpLXSyed1cwQ+ExPQnr8agP/mx1oPi5wmu7qEP5gIuvUv4uquFV4DfCzJxahw2Eg+mOu4RqG6+eVRBjJXbWYI/7YbX25amm6RbJgP9pDOc=
+	t=1767701288; cv=none; b=o9fubbC+V7LjObjpAGr1o7olCBggdEP/RuMEidWv7oVP85jE6i/4/Ord+2drjw5nPbA27zAb2CyZh+GKIcjXlN3CjwZA/m77O+D0T63myzMhT9jetrHIB3n3gEeNfkhC1zKCSj56L9Q1/LrJcNDBLdyXt93/kMHZxJUbBvsyXXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767700083; c=relaxed/simple;
-	bh=6FGt2gwEoWB98kKGwUMMfAL6znrbDAvSVVhmyHd6AaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mx79JyX/y8uQu/Jd6mRZe/C9LiaHT25O972LT6HgaJuO3iJsAINbntMY9Uap/NXBUhIyid9HFbA5dWMCG86tp5ayS2OhC17Uvfa1w9m70H0bz/w8CArjSpyitgTch/hTPScDZvUeHVRW2ZQNxmk5dzvKGP4Eac4UwmZcglr98vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adz9/Dym; arc=none smtp.client-ip=209.85.128.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f67.google.com with SMTP id 5b1f17b1804b1-4775ae77516so9588285e9.1
-        for <linux-man@vger.kernel.org>; Tue, 06 Jan 2026 03:48:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767700080; x=1768304880; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Nq/fd8wnXT6a760HNO1f8HFrYoxWID6QQZGETz5uX7g=;
-        b=adz9/DymL6BrGhtQHIiLDtuwRQ7uILbBpWwW7Q/x9NX58LO/4M53nXINUAERLYo8MT
-         TZqBSh8a3I5Oe8rtNUWO1FMBNtINzLMufJ3AWN2n3RAcjsQDcUzHMEg/k6aRbtwo4Onr
-         gEE5b9CPYHwJFN05+g9L4z303fVjxH25LDohGZmkmyA6eM5hNICygcJokCIbSF3UvVdV
-         xk6wbza8UewtFsGB3bZWp+vH2GrZ/8Y+1SwNpnT5hAzHBmgbW3R5PPU+RZIvBXKvuCOE
-         c6nM0sXbZ5t61S88IreAV8sDXgWS0Sc3eEIlZLMiqGNgQqhVNDnJY44rHKZ98jLaReum
-         rJIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767700080; x=1768304880;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Nq/fd8wnXT6a760HNO1f8HFrYoxWID6QQZGETz5uX7g=;
-        b=Qsi9GeyDmEJUXLHPw+/ke9k78mk3eVOCDz/EE8ccBoA3qKSD/CGmK9XTWYOhBUxZQr
-         /TpMxQWPYDTjNewzH7smpQSSUqFTVnhttTyH1bsqaU5ivLWrAMlsGROwzExHx1BJJtte
-         ALFP6ZcmyJv9L2CNNZadhq0k5ek2KBoWDtQ2n1h0H0T656zwy6J7PH4OQ2vdmWOG4PtC
-         KjE6Yk78WEYvRUjuLiDgmsZWvXg2ofnWcmymSZpnrI3/4oB9WoD3Kg4Ca8Gp7q2pLFFE
-         qKT1djH+KBADdvLFz1tNwbW0xmpeuHsa5ghI5lGcpM/5BM+qfTP4rAmSVaGrlpVxDNbn
-         ARrQ==
-X-Gm-Message-State: AOJu0YynaJuxowwsSU8c27KnW9rToOFwOGq7mgwBEjACQ+TX9Jvv9RRD
-	vVoaffxHpzjnSR/KmrXw1KiCOq054vx7jNQY5M14vpYQpcQAOajYu9fR
-X-Gm-Gg: AY/fxX6K1qLu2zGrmGEp9VLmT3C4TEawaTldVfz/0nFaTOktU6faaV75dK9n5eXoPya
-	cgdJjOeITo8BcxMfE1r1MPvnL3V7sY3YLpKt3muziJple/0FSzGeRPr7HEvBpBb/kYDy+G1J9JN
-	iYWR8CryqvUSJWFlH0l408OYhYYhgHNJhmCGLv3tJAbzsI0H3OyQBSFQ/iJcXICr+eUjdCPdbMX
-	xiezUseD+pMHSLDmcdUicuuWow1zrpixoYAwYcbj5GoxTD2SnurPHvYnPBHzj2P9OMRpK2et0yD
-	ioo70H/OsB2oPmqavKAIarJznmA8ko1M4I4J5ARsbMNRAbuvAtBjkrpT2gUZOMfapu7jG4Z6473
-	gCmo3BuoCP8v8Mfun2QoNizF1Zq7Usp9L+tdkmdXvXx1sQLEWNgL8AOKX9mRCsB6d8atWn0E6mw
-	p6lsvZ38Z/8rNnl68UnvCCncCDHPR26D+H8MUg
-X-Google-Smtp-Source: AGHT+IG52BaX4KEQumAOaAmh4qbjFLTjhJs7WejrftoO4EJREEioFNk0ndjFyRP20tntJg0cJhCOjA==
-X-Received: by 2002:a05:600c:4447:b0:477:b734:8c53 with SMTP id 5b1f17b1804b1-47d7f076913mr33286445e9.12.1767700080230;
-        Tue, 06 Jan 2026 03:48:00 -0800 (PST)
-Received: from DESKTOP-Q32C80O.localdomain ([102.91.81.188])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d7f418538sm38310895e9.5.2026.01.06.03.47.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Jan 2026 03:47:59 -0800 (PST)
-From: Simon Essien <champbreed1@gmail.com>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org,
-	champbreed1@gmail.com
-Subject: [PATCH 3/3] path_resolution.7: document read-only mounts, ACLs, and immutable files
-Date: Tue,  6 Jan 2026 11:47:36 +0000
-Message-ID: <20260106114736.105645-3-champbreed1@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260106114736.105645-1-champbreed1@gmail.com>
-References: <20260106114736.105645-1-champbreed1@gmail.com>
+	s=arc-20240116; t=1767701288; c=relaxed/simple;
+	bh=dprtqKGYaCdvMPvkEWtQBnL2BtwewiuTAQl4H7BOHgE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MuvfHgYwG/GdiDn7ITlw2bNgCM8LqSK1nfh6aii4kAFtmG7JOX0U/otPtxigHTyiB4I4dzVNQE/9THDh8N++CeI5Xq7cPRF6SnbNzM+EL+m5BzVJC7msRUtJGJyizqgb8Dh25dIkNNqLBr9WkIXgmRB5Sv7n3i816aHEPhRDyTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NEKysEep; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1B56C116C6;
+	Tue,  6 Jan 2026 12:08:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1767701288;
+	bh=dprtqKGYaCdvMPvkEWtQBnL2BtwewiuTAQl4H7BOHgE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NEKysEeptDc5tbmMXuphd35KuG+cYgFSvNcy3CAAXQM0+ink5HemFkmQv5AE/R2Dg
+	 B0aDR1LUX+NwnlXCXFkA1qrSzAQt3FkwHmxQdSxz5oI1LRmJoFgoDypFEVLZOXdEA7
+	 iCCGnLNbyolPULwJpjgO8SqOVfj4Cyo5tEOHarXhx0o6kaJyly2W+CEd4vzzVHXAMA
+	 xsEofgJKlS0EASC5idBX8CpJaY4p023rrO58ANhzCGE58t0LHzxcJ80OJRRDEwVr+L
+	 RtRJwBAYK2fPmanTWlZ6XpYj+ar4RwTeH8XsDbudPSBCBm3m+XiDJIvJIKzcmKicm5
+	 telv0lMWczYRw==
+Date: Tue, 6 Jan 2026 13:08:03 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: helpdesk@kernel.org
+Cc: Konstantin Ryabitsev <mricon@kernel.org>, 
+	Simon Essien <champbreed1@gmail.com>, linux-man@vger.kernel.org, debian@helgeth.de
+Subject: Re: [PATCH] man3/getopt.3: Fix spelling (British -> American)
+Message-ID: <aVz5ew5CJcV1BUAv@devuan>
+References: <20260106101302.11938-1-champbreed1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="r4hp33cu5dvrlczh"
+Content-Disposition: inline
+In-Reply-To: <20260106101302.11938-1-champbreed1@gmail.com>
 
-Address several FIXMEs by adding brief mentions of:
-- EROFS errors on read-only filesystems.
-- Access restrictions from filesystem ACLs.
-- Access restrictions from immutable file attributes.
 
-Signed-off-by: Simon Essien <champbreed1@gmail.com>
----
- man/man2/sched_setattr.2   |  7 -------
- man/man7/path_resolution.7 | 18 +++++++++++++++---
- 2 files changed, 15 insertions(+), 10 deletions(-)
+--r4hp33cu5dvrlczh
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: helpdesk@kernel.org
+Cc: Konstantin Ryabitsev <mricon@kernel.org>, 
+	Simon Essien <champbreed1@gmail.com>, linux-man@vger.kernel.org, debian@helgeth.de
+Subject: Re: [PATCH] man3/getopt.3: Fix spelling (British -> American)
+Message-ID: <aVz5ew5CJcV1BUAv@devuan>
+References: <20260106101302.11938-1-champbreed1@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20260106101302.11938-1-champbreed1@gmail.com>
 
-diff --git a/man/man2/sched_setattr.2 b/man/man2/sched_setattr.2
-index c8010b8fa..ba6eb9196 100644
---- a/man/man2/sched_setattr.2
-+++ b/man/man2/sched_setattr.2
-@@ -20,7 +20,6 @@ Standard C library
- .BI "int syscall(SYS_sched_getattr, pid_t " pid ", struct sched_attr *" attr ,
- .BI "            unsigned int " size ", unsigned int " flags );
- .fi
--.\" FIXME . Add feature test macro requirements
- .P
- .IR Note :
- glibc provides no wrappers for these system calls,
-@@ -498,12 +497,6 @@ if the in-kernel
- structure was larger than the
- .I size
- passed by user space.
--.\" In Linux versions up to up 3.15,
--.\" FIXME . patch from Peter Zijlstra pending
--.\" .BR sched_setattr ()
--.\" allowed a negative
--.\" .I attr.sched_policy
--.\" value.
- .SH SEE ALSO
- .ad l
- .nh
-diff --git a/man/man7/path_resolution.7 b/man/man7/path_resolution.7
-index cdf21e1f7..78573f3c2 100644
---- a/man/man7/path_resolution.7
-+++ b/man/man7/path_resolution.7
-@@ -225,7 +225,12 @@ Similarly, Linux uses the fsgid ("filesystem group ID")
- instead of the effective group ID.
- See
- .BR setfsgid (2).
--.\" FIXME . say something about filesystem mounted read-only ?
-+.P
-+Even if a process has the necessary permissions to access or
-+modify a file, an attempt to modify any part of the filesystem
-+will fail with the error
-+.B EROFS
-+if the filesystem is currently mounted read-only.
- .SS Bypassing permission checks: superuser and capabilities
- On a traditional UNIX system, the superuser
- .RI ( root ,
-@@ -256,8 +261,15 @@ The
- .B CAP_DAC_READ_SEARCH
- capability grants read and search permission
- on directories, and read permission on ordinary files.
--.\" FIXME . say something about immutable files
--.\" FIXME . say something about ACLs
-+.P
-+Beyond the standard permissions, access may also be restricted by
-+filesystem-specific ACLs (Access Control Lists) or by
-+immutable file attributes.
-+See
-+.BR acl (5)
-+and
-+.BR chattr (1)
-+for more details.
- .SH SEE ALSO
- .BR readlink (2),
- .BR capabilities (7),
--- 
-2.51.0
+Hi Konstantin,
 
+On Tue, Jan 06, 2026 at 10:13:01AM +0000, Simon Essien wrote:
+> The man-pages project uses American English. Change 'behaviour' to 'behav=
+ior'.
+>=20
+> Reported-by: Helge Kreutzmann <debian@helgeth.de>
+> Signed-off-by: Simon Essien <champbreed1@gmail.com>
+
+Could you please block 'Simon Essien <champbreed1@gmail.com>' from using
+any and all kernel infrastructure?  It's an LLM malicious bot, and
+starting to become very annoying and spammy.
+
+It's also violating the man-pages' contributing guidelines
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
+ING.d/ai>.
+
+
+Have a lovely day!
+Alex
+
+> ---
+>  man/man3/getopt.3 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man3/getopt.3 b/man/man3/getopt.3
+> index 8495719af..387ba9ce8 100644
+> --- a/man/man3/getopt.3
+> +++ b/man/man3/getopt.3
+> @@ -160,7 +160,7 @@ If \[aq]+\[aq] is not the first character of
+>  it is treated as a normal option.
+>  If
+>  .B POSIXLY_CORRECT
+> -behaviour is required in this case
+> +behavior is required in this case
+>  .I optstring
+>  will contain two \[aq]+\[aq] symbols.
+>  If the first character of
+> --=20
+> 2.51.0
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--r4hp33cu5dvrlczh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlc+xwACgkQ64mZXMKQ
+wqnGwQ//UzD7aYbg1h2kUadKjwrImIBKv7JO4W3MIvx052eGlateyKFobs7ku4da
+mDbYiLLw35RTG5HNbk/oNrS9Fr73gYOKjoU8L7aKdCwtI5qE6NOjWuotuDJV0BJG
+0gPg1uLH3MSKpsNwlUuuzoMs5KmdixRZZ2zRg/eOb09Fiw9egQgFkab7ZloIYYnz
+1k1qiISNFsBduKLFtegt+GKZ9P56lbfacxduE63sRniifM4bKYlCpB7yRqjnH5J4
+whCYFsBxcokpa5q6UZJNSaXeY6wsWyrjsqrwCmOoXbhTojT0uxXhKnM/OpY0eO0Z
+FUFTKXBAmErLSRCpLMJBq3GB5xLo2xi887mZPcAR+HahxdZwYp0L+n3JUTXpnrhd
+k4npLyfMQ0/9pE+yxzHTkvMav1ZqbdL3dxtUXPOrBT8n7LJGbdwBweBOXfL1W0dA
+5uPHk/0TnsJmbqb+N8xNfEZfBhAHeq3Rg/c4lzsG6EJiEpEpz98igyCNy9N0GkIG
+b85Eg4PgYOIDnOtckyWpRaCAseeLeR3yVopTYYactGR5w3mxhW2tYlEV2FgjyRbT
+hPj7h7RUZtUhhSbBJIwXf8AkSCbA6QRVmENMtlNXsZzMThdKzS3l5pR0aXfc2kH6
+PMJDjPqcfgiH3hrU2JBdgKA/RUal7F5GE2y+4N48JjvUvpF2SsM=
+=mU9S
+-----END PGP SIGNATURE-----
+
+--r4hp33cu5dvrlczh--
 
