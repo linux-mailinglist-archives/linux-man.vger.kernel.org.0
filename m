@@ -1,82 +1,86 @@
-Return-Path: <linux-man+bounces-4667-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4668-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 156D3CF80C4
-	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 12:31:13 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id A1F4ACF80D0
+	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 12:32:41 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 4E30E311798F
-	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 11:26:39 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 13A9E312C923
+	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 11:27:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A6CA630EF8F;
-	Tue,  6 Jan 2026 11:26:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71CA431AAAA;
+	Tue,  6 Jan 2026 11:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwRwhZi3"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vy9rxq+6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com [209.85.128.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB004400
-	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 11:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981E430EF8F
+	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 11:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767698798; cv=none; b=sHUMXrcyhZp5uGmLz6lwBZ2IXScq7q5rg9dEEon48Ez66TEV5CZQkIGducx8g2YaIuKPt4FsME+3CnebtwNKoQ1GymWia44c6sIlyiK7BRId95A2onUQEHnRZVHgDe2qBq+vmlUnN6IXbgHYWhYK6644qcOr/CEB0r2vHxWHcbk=
+	t=1767698818; cv=none; b=ghNO4KmDbdSlx6zESKsm2DISVYe4tcn2UZEfsAHbUza6l9wMVWHFZVYmkXzB1RQK+ZLw+jk3zn8OX2Ow0D7JYo24/OsGuJ8iNm5AgU9nWkIWi2la0M3gg1k20VJ2H/1aEYR/idipabMG6IVk70+fWJENNVaru6abOgKvJAvfLIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767698798; c=relaxed/simple;
-	bh=dBKIqD8h51QypEZo/f7gB9GFK1j6T4Va98kV31IXLEg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XLWsLm6bztBReuGIcsqnlq46L1wKwRJDrtS6P3W3g3/gP3Jeq/t40YRPox3txJO3OV2nN8W+5EC1mUCT9hMuREevk6EMV3o2CuKU1baaQsnTv5AXWPyMqJL4Fyx4dAl+1BcDSCG5+fgIfvNqXWKjAbPPA3jnq2l7vm1HdF+B/rI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwRwhZi3; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1767698818; c=relaxed/simple;
+	bh=Bs5fMWXcJXRZzCdzD5/4BlI7MLFpn3ododsw19SQGuU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oVWguVnKLznMRHPd7sQJE3ep7GOYudKnPeFgkSvKBWhmofMT6AKqhlkp4MJxTpumVilMDpd/Lzg93Je3WifUunCDU9ukLJa33VWGdNyuPw1qUe6LvCzz7gwLQMHogBXg7JQur4Oe3YD9B9fOdZk5SnBdudEUMaqPu/tLkdhJ/s4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vy9rxq+6; arc=none smtp.client-ip=209.85.128.68
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-432777da980so428061f8f.0
-        for <linux-man@vger.kernel.org>; Tue, 06 Jan 2026 03:26:36 -0800 (PST)
+Received: by mail-wm1-f68.google.com with SMTP id 5b1f17b1804b1-477619f8ae5so6894665e9.3
+        for <linux-man@vger.kernel.org>; Tue, 06 Jan 2026 03:26:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767698795; x=1768303595; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9LhX9tUq2aRl76m84eTozLW4opGZv4Q4yJ+J8lNfiSY=;
-        b=VwRwhZi3e7mvuchJMTyvOxYwM14lcwgqXJpe1Io4vqGn8WwgGOPIthDyYaN8ceNGny
-         O2VGkkXXJDdrucEaTOCMa/rttoeqLmi1HVJukfDw+pivgUrIOEn7Vy+XxXTUOxOZ1VUE
-         fWl25b95Z+uSQdkRnwnV+y//ca8GK/gLsM3XZ0vhB6tfptoeyzfF9RX3rB05yg2Jgr/r
-         U1edaZLRzxFZZ1H6v6BOpiYTpI2kxdlQj7HWzGoWm73ZwV55kho2REMGlK0BdGWXCHLf
-         hCRZ8sHBUzhDD7hls/M5lxt/MODJAb4n+XW/HVTbN9wtJzIa95x1SSYy5Czr1Kf+YNz+
-         MsWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767698795; x=1768303595;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1767698815; x=1768303615; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9LhX9tUq2aRl76m84eTozLW4opGZv4Q4yJ+J8lNfiSY=;
-        b=q++fsbJgEmG4/uRSWgapyAIJtWlZ7V9sBuSR/aVHXTqk9M/5Kq/a3xrTQ9Bx1+otWu
-         yI+l+UKWy41kjhbR6xs4jhUmM06SfPWdy/H6fFWN7qrZSBJU4Ki4BS6AWDtt9lsFbB9/
-         krUB0z+SdF61zT5t4RNyGCFldv124z+usdXE20uDEilP0+VxlIob1HHkxGvHkvtxNzxg
-         G5BsozCzhBvmr5lOIlweU2gYYHf6T4QgcUnTCL52nXlDcdcgbBJ+lp3gg9NBCn1LSR4z
-         ryDgz6Kn3fvfofiFUIi4fSJCmoFHsv8dWOQ0CfGiS/jacBlUuWilr2qPCC0Q27Cfz7B9
-         lNkQ==
-X-Gm-Message-State: AOJu0Yw9OUct+Lqnekt8JeAJbsZaSFwX8vCBmQo08roE8jMHA5TteJOL
-	9s4dbFPdVURm0esBjo7fqvY0G0M0GD6Lz9X7gjDDzglZmiFM4jBNDZMFBHndzPW1
-X-Gm-Gg: AY/fxX7/0a2jPDbWdVPqrMNcWqmTWzX8p1sUobndJ1/B8Lz6aPhKj2cRMnnjHVZSiVt
-	XXJcWWZzjWGfyYXXsU3lZZlGncKMu8lUUWLD4Kq3bpmwQPwG3ajBhxk5+9Ak+UjACLv63xdKjoO
-	MKkCGszQaSl9w7jQuEpg+5m5rxfSLZqfAmsWrLoAfAmYs6lVFsSlI5qRsl2nExHJbRmEh9AJWbE
-	bt/7KffOCCPV84BxyLfHW1qXX6Ctulu5W0awgWJXczJRxdf7HUIWj2lfdwSUQfJ4VBKIy6SgtK+
-	Szlm4k/S7fMwgvgC1pSrcfJgPT6dT2FpI3iHd8F81MZJiADsg9Xleln8A4VT8SQMxS34uKYHJ15
-	L30lKyMNrWcMEHSjmRrQ0nO1qmqs+L2VMfS9KaNVpxM8OmOa6Q2AwYKMYzfwLbwLuZ6g81vJ6aC
-	Vx6yUrHY3QeH9TSYuhXbA+Z6XlvfIKaQSXdDtv
-X-Google-Smtp-Source: AGHT+IFBKeuM1qCHFn9yQo+dFROn9s3O4HF1DBkZYXwbdmgI1jD9VkN+2kaV11KJyK5qvMY9EeG9aQ==
-X-Received: by 2002:a05:6000:4203:b0:432:85eb:a3cc with SMTP id ffacd0b85a97d-432bca2bcd5mr3208648f8f.19.1767698795003;
-        Tue, 06 Jan 2026 03:26:35 -0800 (PST)
+        bh=N6jD6Z/1L6jWLTThkDjURDAN4SUT0/0eteEfk85jgT0=;
+        b=Vy9rxq+6qkhWJbzJ/T3KlQqsJHc55nNbLTQpYBp6vbIkLrHenUIFgicWqFjgerZYXp
+         M/+YjXIzpGzz+gEPAwU/XWs4aMHAh5/gDuKI/QY6kLz/FLKfF2BtbEitbKgUS+f/UV43
+         ckvW7lm7vVZeMXmgf58guqLeMhR2X5gn7um0dvg0CWDa4tv0722i6E1r6OXpCpGrEJpa
+         eIdEOe4KkD1Nfqose+WtJs31mOQjkTIs4Kw+etH+eKWcZjN2XJvExUHohcSGPn7cX+Cb
+         4J2w9cprNDYET0d9GC3b1oxLpCR3wOSucixziJeTLLSzCqb67ZeShLh8AM8NzndxVj5e
+         E5lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767698815; x=1768303615;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=N6jD6Z/1L6jWLTThkDjURDAN4SUT0/0eteEfk85jgT0=;
+        b=UCF1w1BwtKChXUYj0Jn/zjrRzmUjtXYjbGMgNlHep1y0uK+8gTzPuYgb4nMSsRR1Vm
+         eomjeAy8RDD/nxvKSyR5dMm4YTEuTWANM9DbFBmuN3z2BEbpKdw+9VhRstF0+TU2EyOJ
+         oktTQ4CzGHmmzO36gSB5cEmXGrRorWA50f/7ShQaDK5fcMoweF3cVy2dEBV4Fbxx4UJK
+         OWYDNrTNFP0CaqoqEz77b0O9VslakmAeCV0ahzpGIvVyhkQP2WdxBhxF1kWswPUPJg2x
+         iEA7UbVUVYIR6UKmmjSZc37vxJhNLCaHMFirj+L4MDEt0i7Qd6x92fmC+JhtiNBgF+aK
+         pCuQ==
+X-Gm-Message-State: AOJu0YzDmRoS+oepti+NDdL3wwuxjlBnTV2MCJHxTBjA4ZtjhByL5wuC
+	EM8ypgSj8zcgCOWaAHENMJcNJABS0oNo4gGBTne1m3t4V/ZoZnxyLdnz
+X-Gm-Gg: AY/fxX7ZT9oo13qyxMGH09uqbFc0CYwSMSEAtgH4FUiZaAsSTP+rNkejyTArHyjIlIy
+	Z4VJR6hAnh3w6j2lIU0hSSea89J8fP/6AYbs+DbjjTatUs9hBVCr7+SBz0FpptLpsdVlkMF91V9
+	L81er5IZ1RuHLhR5SqgxY/1z65wYJ+F/OG0CEPfSUDPCO4ZCjYxgKp7I+MFe9aJaiGV9fHuVdnq
+	INsPr/Q93a3eQ/FqarnBuNFOJeG/L8EHL7Ux2YyuXjxGLsWCSPeS+IkQN3/i0+96WcrjrHNvdJw
+	XMFVjxoZczsa34c03/1pdC7HYkHHIDMt72pOWRdxIFTg2eRJSVM2Yas+LD5cj53CBEyUt7AndWM
+	hkpW9JtqCNWggCoeYElp7tGR06u5Kx3ruCNUWVFMemSz215+MU5bVh0yFevkORDjCyAjIDay11Z
+	N4s8qqWhav940s+yX3uX91FfVBBweqgltaFZ21
+X-Google-Smtp-Source: AGHT+IHxbmO3vnDaWB/15/WKyv9cvOI5lg4Q9PVtThR5l7VfY0NuYxAplZxION+wRQfUIRKFcSWiLw==
+X-Received: by 2002:a05:6000:26cd:b0:432:86dd:ef31 with SMTP id ffacd0b85a97d-432bca53d77mr3668413f8f.56.1767698814777;
+        Tue, 06 Jan 2026 03:26:54 -0800 (PST)
 Received: from DESKTOP-Q32C80O.localdomain ([102.91.81.223])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-432bd5ff1e9sm4071859f8f.41.2026.01.06.03.26.33
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-432bd5ff1e9sm4071859f8f.41.2026.01.06.03.26.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Jan 2026 03:26:34 -0800 (PST)
+        Tue, 06 Jan 2026 03:26:54 -0800 (PST)
 From: Simon Essien <champbreed1@gmail.com>
 To: alx@kernel.org
 Cc: linux-man@vger.kernel.org,
 	Simon Essien <champbreed1@gmail.com>
-Subject: [PATCH 1/2] man2: update glibc wrapper status and clean up FIXMEs
-Date: Tue,  6 Jan 2026 11:26:26 +0000
-Message-ID: <20260106112627.83127-1-champbreed1@gmail.com>
+Subject: [PATCH 2/2] path_resolution.7: document read-only mounts, ACLs, and immutable files
+Date: Tue,  6 Jan 2026 11:26:27 +0000
+Message-ID: <20260106112627.83127-2-champbreed1@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260106112627.83127-1-champbreed1@gmail.com>
+References: <20260106112627.83127-1-champbreed1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -85,61 +89,52 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Update seccomp(2) to reflect that glibc 2.33 added a wrapper.
-Update sched_setattr(2) to remove obsolete FIXME markers, as the
-lack of a glibc wrapper is already correctly noted in the text.
+Address several FIXMEs by adding brief mentions of:
+- EROFS errors on read-only filesystems.
+- Access restrictions from filesystem ACLs.
+- Access restrictions from immutable file attributes.
 
 Signed-off-by: Simon Essien <champbreed1@gmail.com>
 ---
- man/man2/sched_setattr.2 | 5 +----
- man/man2/seccomp.2       | 4 ++--
- 2 files changed, 3 insertions(+), 6 deletions(-)
+ man/man7/path_resolution.7 | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/man/man2/sched_setattr.2 b/man/man2/sched_setattr.2
-index 6d5718022..c8010b8fa 100644
---- a/man/man2/sched_setattr.2
-+++ b/man/man2/sched_setattr.2
-@@ -460,7 +460,6 @@ does not include all CPUs in the system
- Linux.
- .SH HISTORY
- Linux 3.14.
--.\" FIXME . Add glibc version
- .SH NOTES
- glibc does not provide wrappers for these system calls;
- call them using
-@@ -482,9 +481,7 @@ provides a superset of the functionality of
- and (partially)
- .BR getpriority (2).
- .SH BUGS
--In Linux versions up to
--.\" FIXME . patch sent to Peter Zijlstra
--3.15,
-+In Linux versions up to 3.15,
- .BR sched_setattr ()
- failed with the error
- .B EFAULT
-diff --git a/man/man2/seccomp.2 b/man/man2/seccomp.2
-index 125794880..685ed4713 100644
---- a/man/man2/seccomp.2
-+++ b/man/man2/seccomp.2
-@@ -25,7 +25,7 @@ Standard C library
- .fi
- .P
- .IR Note :
--glibc provides no wrapper for
-+Before glibc 2.33, glibc provided no wrapper for
- .BR seccomp (),
- necessitating the use of
- .BR syscall (2).
-@@ -863,7 +863,7 @@ be determined.
- Linux.
- .SH HISTORY
- Linux 3.17.
--.\" FIXME . Add glibc version
-+Glibc 2.33.
- .SH NOTES
- Rather than hand-coding seccomp filters as shown in the example below,
- you may prefer to employ the
+diff --git a/man/man7/path_resolution.7 b/man/man7/path_resolution.7
+index cdf21e1f7..78573f3c2 100644
+--- a/man/man7/path_resolution.7
++++ b/man/man7/path_resolution.7
+@@ -225,7 +225,12 @@ Similarly, Linux uses the fsgid ("filesystem group ID")
+ instead of the effective group ID.
+ See
+ .BR setfsgid (2).
+-.\" FIXME . say something about filesystem mounted read-only ?
++.P
++Even if a process has the necessary permissions to access or
++modify a file, an attempt to modify any part of the filesystem
++will fail with the error
++.B EROFS
++if the filesystem is currently mounted read-only.
+ .SS Bypassing permission checks: superuser and capabilities
+ On a traditional UNIX system, the superuser
+ .RI ( root ,
+@@ -256,8 +261,15 @@ The
+ .B CAP_DAC_READ_SEARCH
+ capability grants read and search permission
+ on directories, and read permission on ordinary files.
+-.\" FIXME . say something about immutable files
+-.\" FIXME . say something about ACLs
++.P
++Beyond the standard permissions, access may also be restricted by
++filesystem-specific ACLs (Access Control Lists) or by
++immutable file attributes.
++See
++.BR acl (5)
++and
++.BR chattr (1)
++for more details.
+ .SH SEE ALSO
+ .BR readlink (2),
+ .BR capabilities (7),
 -- 
 2.51.0
 
