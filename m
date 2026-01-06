@@ -1,81 +1,81 @@
-Return-Path: <linux-man+bounces-4665-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4666-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 004EBCF7EB2
-	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 11:58:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB99DCF7F8B
+	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 12:09:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 32D5C30321ED
-	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 10:54:11 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id F2D89305E2A2
+	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 11:04:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DDA3327797;
-	Tue,  6 Jan 2026 10:54:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 682DB3176F8;
+	Tue,  6 Jan 2026 11:04:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F8ajgJPh"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AohdlHzf"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87F932721D
-	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 10:54:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7723242B5
+	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 11:04:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767696850; cv=none; b=sxjOY6N++2uSYNKnknS0eF67poMk2Lm6ay2rMWcAnObk7HhKCGfLjw8aIDZ9qpyALSTKJHeUVyoSCyQH96z8OfAa4hRNy95EG7Bx4tIgoZB4u3eG4navyXFdpopLzdJtdDPog8MswJahkLblStmSZ6PfhotfCH047Jun9VjhFa0=
+	t=1767697476; cv=none; b=Fo0D8qAxvzoGeoFtGFfC+PoF3il/ksfwZ//B2xuT8Qn/bkyno6BDe/+rrwULERafppaR5bQNQv+dfRqYEdBGDrUfDlXPa5Y/wh2bDA/VKBTEa8Ls3lYa7/pZK01mvkvK0/z5BPLVeYsZ4RscppevJlP3FMCbJzM0OGhR1+QgA+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767696850; c=relaxed/simple;
-	bh=8f7LxaZPLn/p8tK+quNqIuhm2GoB6/q145fKRnt4Zzk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=evq2bFdzcsofTHO13mqU/BheM0Zb+JXFleq+uO5WTsd7BSqFBg5fyIOS4q023IuH6DpdzRid5R1BaAZ+4o+LUN5Aa0qTXWnkfQd8LVDP6VPjLI9cPSwha/2f8dhOAWzBxpDtXhkRUIYHO+yZ6kj/sfOnyRa+Lo8ATSapEnLzx9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F8ajgJPh; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1767697476; c=relaxed/simple;
+	bh=9OMqHIdVP+D5qcjvO9cH4+pQhkEQAh67lIkSsHCzvNs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GIIOgbwPex8vgjYwdsUolcYTvJiLzg4u+0pqhVQDR9mi5UFk8Vimp8VDMlxTGy2DIoBQe0nWTwrp9Sq6lTDxJMAEONIkKJcekkDWC9uL5D/eoeODbcb/ez5Vwl9h5lYTgXH7++QsYsTXOr2iYey++FoxCnQnVIUHQ0qbR+dk7HA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AohdlHzf; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-47aa03d3326so6936935e9.3
-        for <linux-man@vger.kernel.org>; Tue, 06 Jan 2026 02:54:07 -0800 (PST)
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-477bf34f5f5so7746385e9.0
+        for <linux-man@vger.kernel.org>; Tue, 06 Jan 2026 03:04:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767696846; x=1768301646; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1767697473; x=1768302273; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2mAgl6YLeuiXG+TMiylLr5yean6tJHyR6XoufJTlfk0=;
-        b=F8ajgJPhJNWLf8RY0RNOdYw9cpIybOos6z4c7RqS5X8ltuTPKgQB3k2fnP2YHHQePL
-         om4n7+Fv4RxrUzLw3IlAF2+9BPu/qnQpZ7+3FbmKL3WOsyZsoSmNVjbSf9FEzn4k5IHh
-         AYRGcdrCIye9CN4Ys45S8afLEFz5X0mQ7xZVp2JgtVT+5mtfq7i8vO6zCFGeoQ+76ntr
-         1acOJi93YeYA07p9Qq2GxJoVv2GK5MBMe4OS+sdJnoMCL7dxUNH5zb/axnsDrp3hw1Hr
-         pgvTXMBITghLGhl4HL1jR6e097efW24tymapGrRkgbTS3yBSnLz66ZuihMTuBqy7pON2
-         BPAA==
+        bh=DY7SJ83lIrW6fUelFoHr5MiOFNYeFAmS0DXGx5Jx6dc=;
+        b=AohdlHzfsfMRHq+0oaBjs7JRFp3ZXtfmMDeOkdS4Jq3HSnKUFZI5NHIK2d7mmft/cv
+         tFo0/ieL1DM7pQzg55SGfe7pGGM9mK539KXLX/tIEbIsJeBmtduuwMRP/7hOEbpYsIXC
+         sEDkdJU5ZS4UZ/KmgNLyw9tN4yDvZYRYT0qCyaUAchHbP7wSiNM9rvdBz2kTC5PXpt9+
+         A1OLQJB+nPqEhFhl0Fjw/IAohU/i8FHmRRq8M6gAl7VRDgiHJfyyeorJ5HY4KfVuc8Ax
+         5lt8HEc4OywTKVkhCiKySc0FuemxLAOjXRaeNyESxVNhy7aK672UWUqiR/iRqbXqk/23
+         tPKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767696846; x=1768301646;
+        d=1e100.net; s=20230601; t=1767697473; x=1768302273;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2mAgl6YLeuiXG+TMiylLr5yean6tJHyR6XoufJTlfk0=;
-        b=L5zMX/7JPhz5izZ3o0uKt09fMk0zf/okqY4ftTUeJRpW5VFnChNxy4Bpn7H0VCI9NB
-         mXMcteql0FhsKyM9TqSAExzeHxXmJPwruNOXgUuPy9ODS1xUFGXL8oF0Sm7qKyDQVlNX
-         ho7KJscgnx02gRZ8AAAlxjAIER2f+t6+7i2td4Su9+RPmL4ZwUJpyPC5ToV/dblJuNUB
-         I+4pUHCeGc1RasRDn02sbPB/a2YHZTWzO7LoKxLgF+dt31kSXq7cqA7T9cNUaCHGDSY4
-         Ii1AaJNR/B3S2UtoQJqOWL8saGrMoUi/WmD6kgwqQ5qkba7iXR5iJXSbchmqXREyrKM/
-         D2Mw==
-X-Gm-Message-State: AOJu0YyukRNqC4CBQUf8+4C3CkZvMHT0hKpoiuMeeMhayKeRDXqJJrzF
-	6aOlc/iUcc0N3a6dwg0LUN7gy8vG67rs7eyBd4FBcI12g0Kew3RNnxF9
-X-Gm-Gg: AY/fxX6sgoihybhb1ztifs7KngJnSXyg5b/jSvMjnj5ZBQutVghGiB7uKBryR96q7CR
-	/QH3I3qoWPNF0IwCa5ViTQwCKtxsmbmphk1ul0O/E70I4QOVkNfDw4O5TPZc/U+VdVMmyc+A8sI
-	jo0bq+5wjhH8cJB+7McG0vwqb+tdUZy159p+EjP6jgCbmtXScS57Scsn1fDc1oT0oRFNcPVWICv
-	lcUH8d/C06tmeZSKG6dIJsItL3Ego99yzFHAaGP04wfwSucQ78A/AoLHYk70a6wgIols3Hn1zlq
-	DSJTGhxaPw+pK2KL8htK2r4zOL9zNh9RLRALirzPzO++7UeTG06V4n+not0D9i/97BNn57PjZx7
-	My6SJyG3ZLqOukXeafzpjrlF30oxbpn/zHqVEEeprVMNYISknBK0mrU7LltybPEXkR3jrLXG+J5
-	mmkV3uJirbOSTuY7tAiPxI02u59SeNXftstxZC
-X-Google-Smtp-Source: AGHT+IF8WSh/e4GuF1I+iHBvCV7Tfan9lH0dyMflVoGkOUdNV3B+3ICJLztdChV7DgEhGWiGKJjuSg==
-X-Received: by 2002:a05:600c:4509:b0:477:7768:8da4 with SMTP id 5b1f17b1804b1-47d7f063343mr25402545e9.7.1767696845793;
-        Tue, 06 Jan 2026 02:54:05 -0800 (PST)
-Received: from DESKTOP-Q32C80O.localdomain ([102.91.81.223])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d7f68f4ddsm38062995e9.2.2026.01.06.02.54.04
+        bh=DY7SJ83lIrW6fUelFoHr5MiOFNYeFAmS0DXGx5Jx6dc=;
+        b=mYpad8xjoqrmVF81kX8EBNRnlra5yPSUs5FfmjVlUw9LnubmZjo7z6O54Hmq7awwTf
+         DlRYYvDTEvLAU5wxpUQc4pxAqYiTFQvlHREMAfvcOwh6U+goShiLUVTl+NgG7fGk5MCR
+         fv5lm91+7EZsuQgYffIwiAdIjudCGs6FLPCijy+ieHiX/AtdYzKwgZcB/k89bwXCS4P5
+         FRAB4AC7PFQwfXwK5wwSdyoWmvnSnIrP02JZCu6Zx+8CQvHdg0I1h5pBBIQMjVD7x8CT
+         NhZ2BruM3OYH94w9URTrHyMxgOwyo8Nio4QygYd1lL9N9tLchoRFIy3M4A3z8eJnl1l1
+         ovkQ==
+X-Gm-Message-State: AOJu0YwCotSwDciGg1sVGcMUJ+HwCf2lUIEkJ0CkZ7TLlsAppjaSPnci
+	TUkwZBuE9sTUx8wk00UJCXzniQVHDCE/PYW5qXZHfx4M6lvlDa7s9wnX
+X-Gm-Gg: AY/fxX712QPNFwEK3rxBxwQjeCqkYrXn78feN5lLgsC2IW8P97rke9p2ruQCg4+aP+f
+	p0D8UdY/4k78n+T19jFbM1u0xDw8kzFa6ICHj0D2s9dNKre6y3/AuRL/QhnwdPVCq6C+xROSCAg
+	HxC97sHnVXMtCT2yKsxPCOGaupggcR6XRZkoPTMkWjfB4cBR0IezOHyuz0udLD7IYchCGMZtflP
+	pQMuTUdvws9nF+tiLzOFD77fWqS0oKnjSdInfyGKpOtcR2RM67+FQMiB9xxgMo3pUoW9QlBv7um
+	GJVyTQApeL21V/RVP3VpMyvQu2KmTWwGqDjO5PWVZUV9kU/Frlfv06V2cARGl2PczvHFmH74SDn
+	yoxy6ds3jThO6u6hi2sd/6zDquiLnSMoWbeetZ0uYvsoKVkmb4gnS8o1jqa+wO3pW8sxf57NA1G
+	F8VtD1ppOZDW/7pKY7V/KYKKlbrArT2qXX/kNz
+X-Google-Smtp-Source: AGHT+IE9B4mGI/KOGkzZvRMfonecUJ4KgcpaGPnONlcmtuButJPxjSLz56f6MUg2tvTF29ZqnWsCjw==
+X-Received: by 2002:a05:600c:4fd3:b0:477:5c58:3d42 with SMTP id 5b1f17b1804b1-47d7f06fe58mr25565575e9.10.1767697472853;
+        Tue, 06 Jan 2026 03:04:32 -0800 (PST)
+Received: from DESKTOP-Q32C80O.localdomain ([102.91.81.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d7f418538sm36409735e9.5.2026.01.06.03.04.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Jan 2026 02:54:05 -0800 (PST)
+        Tue, 06 Jan 2026 03:04:32 -0800 (PST)
 From: Simon Essien <champbreed1@gmail.com>
 To: alx@kernel.org
 Cc: linux-man@vger.kernel.org,
 	champbreed1@gmail.com
 Subject: [PATCH] man3/creal.3, man3/cimag.3: Standardize style and history
-Date: Tue,  6 Jan 2026 10:53:57 +0000
-Message-ID: <20260106105357.52010-1-champbreed1@gmail.com>
+Date: Tue,  6 Jan 2026 11:04:25 +0000
+Message-ID: <20260106110425.61812-1-champbreed1@gmail.com>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -91,33 +91,35 @@ format within VERSIONS.
 
 Signed-off-by: Simon Essien <champbreed1@gmail.com>
 ---
- man/man3/cimag.3 |  7 ++++---
+ man/man3/cimag.3 | 11 ++++-------
  man/man3/creal.3 | 11 ++++-------
- 2 files changed, 8 insertions(+), 10 deletions(-)
+ 2 files changed, 8 insertions(+), 14 deletions(-)
 
 diff --git a/man/man3/cimag.3 b/man/man3/cimag.3
-index 39eeb1007..f204445e3 100644
+index 39eeb1007..946e095a8 100644
 --- a/man/man3/cimag.3
 +++ b/man/man3/cimag.3
-@@ -45,12 +45,13 @@ T{
+@@ -45,14 +45,11 @@ T{
  T}	Thread safety	MT-Safe
  .TE
  .SH VERSIONS
 -GCC also supports __imag__.
 -That is a GNU extension.
 +Available since glibc 2.1.
-+GCC also supports
-+.BR __imag__ ,
-+which is a GNU extension.
++GCC also supports the
++.BR __real__
++keyword (a GNU extension).
  .SH STANDARDS
  C11, POSIX.1-2008.
  .SH HISTORY
 -glibc 2.1.
  C99, POSIX.1-2001.
- .SH SEE ALSO
- .BR cabs (3),
+-.SH SEE ALSO
+-.BR cabs (3),
+-.BR creal (3),
+-.BR complex (7)
 diff --git a/man/man3/creal.3 b/man/man3/creal.3
-index be07d8273..0f9629e4b 100644
+index be07d8273..d05125274 100644
 --- a/man/man3/creal.3
 +++ b/man/man3/creal.3
 @@ -43,14 +43,11 @@ T{
@@ -127,9 +129,9 @@ index be07d8273..0f9629e4b 100644
 -GCC supports also __real__.
 -That is a GNU extension.
 +Available since glibc 2.1.
-+GCC also supports
-+.BR __real__ ,
-+which is a GNU extension.
++GCC also supports the
++.BR __real__
++keyword (a GNU extension).
  .SH STANDARDS
  C11, POSIX.1-2008.
  .SH HISTORY
