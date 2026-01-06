@@ -1,263 +1,147 @@
-Return-Path: <linux-man+bounces-4676-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4677-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AC4DCF85ED
-	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 13:46:10 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63697CF8A39
+	for <lists+linux-man@lfdr.de>; Tue, 06 Jan 2026 14:58:17 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 1F854301F8E3
-	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 12:35:04 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 7AF133109969
+	for <lists+linux-man@lfdr.de>; Tue,  6 Jan 2026 13:50:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8AA4A30DEA4;
-	Tue,  6 Jan 2026 12:35:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0E313375CD;
+	Tue,  6 Jan 2026 13:49:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zqec3YH9"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U+46/YnI"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0C032BF2E
-	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 12:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D181B332EDC
+	for <linux-man@vger.kernel.org>; Tue,  6 Jan 2026 13:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767702903; cv=none; b=HFAM8PNL4P5eARKBPone36eD8sSdE3Kat6KFTAHpCL3DB3ZCNIJs7UfKA+HTztOh/KhEUMzTdd8Y43rglySzEWn90MKgfnCEfvReR8yZ/0QYNdERW+VEVtvNKGwjYmjGW9G/n8D53otbWVFq1c5efMhaxgJMeevOmpJBg002eNY=
+	t=1767707387; cv=none; b=Vou0snDKV/+2+EUvMYbtxBKPNGnUMQNX6C2eBb29/F1m1kvzBCDGiz8e9f27pIMWAK+VlAsJlrqdOmzwmZy+7RNk6J13yP1D1irSmfuabSLEoBNCe+cpbjqw9fus3m23HfN0REOabNqyMEcd7CT5jhZZFN0ANm8a+PXs0XRNuhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767702903; c=relaxed/simple;
-	bh=E0amL95u5d6eFM2tyydkpOi1EKY4tR5T0hx/oxcwtUU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G095wlwPiuxJxmLKEI/GTCZnOhnHXBRI7FRBCRlMid0GmUwFrvIX9XTnei/1E/AJZ8rNZI5K8OnskHdh+gBaGmZmHZxHjgG1qgF1CRzuPsjjsLj4dSDcOJ+7GTyo7Iq6PUZJjdK8/oY2gwAi0XneqMbnLkHlGKz0PqHQFQpL7YM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zqec3YH9; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45639C116C6;
-	Tue,  6 Jan 2026 12:35:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767702902;
-	bh=E0amL95u5d6eFM2tyydkpOi1EKY4tR5T0hx/oxcwtUU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Zqec3YH9hQWVyik+SJJ6Bw8X4eSZZ6MI8Bm1QkbkZaa3HC21GpSbyG/GTetBNbUTL
-	 dR/Xgh5GQVk+oPMalJLI4Zr4VJfAw2dpMuTB2CyqeJwhSToOl2cONmMURzhJzF/2uz
-	 ZhVD3E2ZByL5TNj/Ht4x/qIhQR0h8qLW7V9JRj6N3XXEBDOYFdLCJ4JjyVJdMAL+7R
-	 lXTM14vF1KkkxavqimX+j1URbsbTg8K8/pdaGPty5YWZ8q385/oOPlQ0abv70O3sZt
-	 /19pXUIgyyfGZH7yC/8cJNu7oCp62hGuGbh0UcqqO6sQ8nG7QX6lRg152chW7rzAY8
-	 aRRh3UgVya8hw==
-Date: Tue, 6 Jan 2026 13:34:59 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 00/15] man/man3type/*: Update history of types A-INTN
-Message-ID: <aVz_ZyQwZ796x4mV@devuan>
-References: <cover.1767675322.git.sethmcmail@pm.me>
+	s=arc-20240116; t=1767707387; c=relaxed/simple;
+	bh=9OMqHIdVP+D5qcjvO9cH4+pQhkEQAh67lIkSsHCzvNs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nufjSZWbzFNXZ2HJdS8/fXgPioYEPK6qIKCEf1ZY+WWy89mlvDjh/ixxJrNs+EyhvEXNL8OxcABDjRItl7RvVQGR7klJL+vuaYKhuMjPWOrRRdAqfPxrH52NFiIu+DU2PdbS6OZj2SY6bS9B5vlIJC7Ke5snlxuU+DA1Lz+xVPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U+46/YnI; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-47a8195e515so6989905e9.0
+        for <linux-man@vger.kernel.org>; Tue, 06 Jan 2026 05:49:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1767707384; x=1768312184; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=DY7SJ83lIrW6fUelFoHr5MiOFNYeFAmS0DXGx5Jx6dc=;
+        b=U+46/YnIS42l0zLFYNmHqPCVS4BKc4W2VQ1PhEUz4TohjPdypj0fvCP7+nFypll+j/
+         /8Yi5UuU4ZQlNdDWhMLNB1uq5OW9f24C1W/Nyr3W0gmNnn9JpKFY0Gsr+n6K1ZJhlOw+
+         nc6Ri+Lm1dFEqXlxOJo1LCtuymE2RpRu6IlIomSs5fG1zg27qxRdDQQhPlAZ7SbGvoFz
+         JysBt3jsiVYnt++wXghtbjryMFy8FitHmgp+LSGrExJhPa0DchKvag6HukTtXHlnUmYS
+         Bar1FsT+nSn7kmEr1holPP7fVhM7o19uGXwobrzAQ/3RDNOqTTGhfsVydBYEdKtu9S0N
+         YjSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767707384; x=1768312184;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DY7SJ83lIrW6fUelFoHr5MiOFNYeFAmS0DXGx5Jx6dc=;
+        b=Y/IY1nkFHGxNkl/QokYdJBZssNwhOWjjidNXNf79zT3uhL7QjlDI5aVnuTIfFNUcUh
+         1CbTReeRkrug2PSSs47B7UfUSeepSsLIsVZENqdfWfC2Z6VvGPZd/YYkobDURF1vuAZH
+         H0mL/O8kB3vCDsnWsrGTyGZP0m8zYzVG4o5i3KOKOWzifjw95Q6w52jc+C7NM4rTcbzI
+         ZjkPHTcxeOD3FAa6fX5EYboNluUOCmpCy/yEo8eIRfE5qHeRe81V20DfYf4vCQJq11Jl
+         hUCXC8M+/qf65fQYhUjJ8E1AQ3PHXAQbTffpZezk8tc5UJ0pwyEafftVSKeEKqnC4sPT
+         Soyw==
+X-Gm-Message-State: AOJu0YwZ4ScbyLywTL20BoKw4Zsi5eRhWngScZp2IxlMjAr/eY1AimwT
+	ET73dbv+O9nVg3vJ1Q331uc6eQ1+aGQGzTSJJ+kL+40DOZifPPxBRO4F
+X-Gm-Gg: AY/fxX78XXmY8jSNY8pysQUmoiaOHqx+hMNcx0JnFL1FQk0JY4hczo0+bK4HOKvghcD
+	1CmV4+YYoMNoAU0/Rm0Ro/UZttTe4kU0Gwol0dqEVbWULidebyWnujkx24GMVM0wqC0AndSI0Vo
+	3Uo6XGnUgM11BFmuScYOPXSo1CUIH7/exfHgpZ5eSle+LrDKlo3Q88QNRDZAOfS6SwAClBArMRT
+	jvRy25tAVL2FbnXvZwu041aSZipgrzVQ2Fg47Dh6cwn25cvMqo7T0+inc+9YyfIel/f6nCdNYuM
+	cgDZN/DXhM4G6993ZhS7OPcbBl0k7pwq2fnvDy79J2X84rgeDk/CMMzjWcGqSQGGz3hSQTaniOl
+	7u9qQeJTKerETNWCPjqurRaRyzKUDvZo14M+h6FSbyCcdZySgZp3eyzh18saftn+jTRyCujSq1/
+	m/9d3UIReKgMtXLZ3WfsJVOhmJYJ+XgfaRoj7U
+X-Google-Smtp-Source: AGHT+IGgACEhsreNzL9Di82OCzaE/+eloqBMvzxUzct+uKzmPy+ZGPSHExF2Jj1KtMWDU4xYyFg9EA==
+X-Received: by 2002:a05:600c:3b27:b0:46e:48fd:a1a9 with SMTP id 5b1f17b1804b1-47d7f0a86a6mr33000415e9.33.1767707383919;
+        Tue, 06 Jan 2026 05:49:43 -0800 (PST)
+Received: from DESKTOP-Q32C80O.localdomain ([102.91.81.158])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-432bd5df9afsm4739378f8f.24.2026.01.06.05.49.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Jan 2026 05:49:43 -0800 (PST)
+From: Simon Essien <champbreed1@gmail.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	Simon Essien <champbreed1@gmail.com>
+Subject: [PATCH 1/3] man3/creal.3, man3/cimag.3: Standardize style and history
+Date: Tue,  6 Jan 2026 13:49:33 +0000
+Message-ID: <20260106134936.233305-1-champbreed1@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="z44lzmz4fxqy3ala"
-Content-Disposition: inline
-In-Reply-To: <cover.1767675322.git.sethmcmail@pm.me>
+Content-Transfer-Encoding: 8bit
 
+Consolidated VERSIONS and HISTORY sections to match project standards.
+Moved GNU extension notes for __real__ and __imag__ to a clearer
+format within VERSIONS.
 
---z44lzmz4fxqy3ala
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 00/15] man/man3type/*: Update history of types A-INTN
-Message-ID: <aVz_ZyQwZ796x4mV@devuan>
-References: <cover.1767675322.git.sethmcmail@pm.me>
-MIME-Version: 1.0
-In-Reply-To: <cover.1767675322.git.sethmcmail@pm.me>
+Signed-off-by: Simon Essien <champbreed1@gmail.com>
+---
+ man/man3/cimag.3 | 11 ++++-------
+ man/man3/creal.3 | 11 ++++-------
+ 2 files changed, 8 insertions(+), 14 deletions(-)
 
-Hi Seth,
+diff --git a/man/man3/cimag.3 b/man/man3/cimag.3
+index 39eeb1007..946e095a8 100644
+--- a/man/man3/cimag.3
++++ b/man/man3/cimag.3
+@@ -45,14 +45,11 @@ T{
+ T}	Thread safety	MT-Safe
+ .TE
+ .SH VERSIONS
+-GCC also supports __imag__.
+-That is a GNU extension.
++Available since glibc 2.1.
++GCC also supports the
++.BR __real__
++keyword (a GNU extension).
+ .SH STANDARDS
+ C11, POSIX.1-2008.
+ .SH HISTORY
+-glibc 2.1.
+ C99, POSIX.1-2001.
+-.SH SEE ALSO
+-.BR cabs (3),
+-.BR creal (3),
+-.BR complex (7)
+diff --git a/man/man3/creal.3 b/man/man3/creal.3
+index be07d8273..d05125274 100644
+--- a/man/man3/creal.3
++++ b/man/man3/creal.3
+@@ -43,14 +43,11 @@ T{
+ T}	Thread safety	MT-Safe
+ .TE
+ .SH VERSIONS
+-GCC supports also __real__.
+-That is a GNU extension.
++Available since glibc 2.1.
++GCC also supports the
++.BR __real__
++keyword (a GNU extension).
+ .SH STANDARDS
+ C11, POSIX.1-2008.
+ .SH HISTORY
+-glibc 2.1.
+ C99, POSIX.1-2001.
+-.SH SEE ALSO
+-.BR cabs (3),
+-.BR cimag (3),
+-.BR complex (7)
+-- 
+2.51.0
 
-On Tue, Jan 06, 2026 at 05:07:49PM +1000, Seth McDonald wrote:
-> Hello again!
->=20
-> My next few patch sets should update datatypes in the 3type section.
-> There are 48 patches total for this section, though I will be
-> partitioning them into three separate sets according to alphabetical
-> order.  This is primarily based on Linux's documentation recommending
-> patch sets of at most ~15 patches.[1]  But if this mailing list has
-> different preferences, let me know and I'll adjust accordingly.
-
-We have no bounds on the size of patch sets.  On the other hand, it may
-be good for you not sending a lot of patches that will be rejected due
-to some small detail, so you may choose to self-restrict to some size.
-As far as I'm concerned, you could send the 48 patches just fine.
-
-> This patch set regards types whose identifiers start with A-INTN (case
-> insensitive, of course).
->=20
-> Regarding the order of the listed standards in HISTORY sections, I've
-> seen man pages with the same set of standards listed in different
-> orders.  But I have found a general ordering that a good number of pages
-> adhere to.  That being:
->=20
-> SVrX, X.XBSD, SUSvX, POSIX.1-YYYY, POSIX.2, Linux X.X, glibc X.X[.X],
-> others (e.g. OpenBSD, Solaris, AIX).
-
-I think it would be better to use chronologic order.  I leave it up to
-you if you want to keep the patches as they are, and (optionally)
-improve the order afterwards, or fix the patches to use chronologic
-order.  Since, as you say, there's no existing consistency, I'll accept
-the patches in any order; just let me know what you prefer.
-
-> I call this a 'general' ordering because very rarely (if ever) are all
-> seven standards/systems listed (excluding 'others').  But subsets of
-> them tend to follow their relative ordering above, at least from what
-> I've seen.  So for consistency, I tended to use this ordering when
-> adding/updating standards.  That is, listing SUS and POSIX.1 after SV
-> and BSD, and before Linux, glibc, and other systems.
->=20
-> I also followed a few more guidelines when editing these lists that may
-> be noteworthy:
-> - Since POSIX and SUS merged into the same document in POSIX.1-2001/
->   SUSv3, only POSIX.1-2001 is listed for functions in these standards
->   (or later), but with XSI appended if the function was part of the XSI
->   extension (e.g. POSIX.1-2008 XSI).
-
-LGTM
-
-> - Since SUSv1 is aligned with POSIX.1-1990,[2] if a function's first
->   POSIX appearance was in POSIX.1-1988 or POSIX.1-1990, then it's first
->   appearance in SUSv1 is not also listed due to being implied by its
->   POSIX appearance.
-
-This should be documented in standards(7).
-
-> - Similarly, since SUSv2 is aligned with POSIX.1-1996,[3] the same is
->   true for functions first appearing in POSIX.1-1996 and SUSv2.
-
-This should be documented in standards(7).
-
-> So in general, SUS is listed if the function (or constant/type) appeared
-> in SUSv1 or SUSv2 before it appeared in POSIX.1.
-
-LGTM.
-
-> [1] <https://www.kernel.org/doc/Documentation/process/submitting-patches.=
-rst>
-> [2] X/Open CAE Specification, System Interfaces and Headers Issue 4,
-> Version 2, Chapter 1.6 "Relationship to Formal Standards", p. 10.
-
-Do you have a link?
-
-> [3] CAE Specification, System Interfaces and Headers, Issue 5, Chapter
-> 1.6 "Relationship to Formal Standards", p. 11.
-
-Do you have a link?
-
-> Seth McDonald (15):
->   man/man3type/aiocb.3type: HISTORY: Update first POSIX appearance of
->     aiocb(3type)
->   man/man3type/blk{cnt,size}_t.3type: HISTORY: Update first SUS
->     appearance of blk{cnt,size}_t(3type)
->   man/man3type/cc_t.3type: HISTORY: Update first POSIX appearance of
->     types
->   man/man3type/clockid_t.3type: HISTORY: Update first POSIX appearance
->     of clockid_t(3type)
->   man/man3type/clock_t.3type: HISTORY: Update first POSIX appearance of
->     clock_t(3type)
->   man/man3type/dev_t.3type: HISTORY: Update first POSIX appearance of
->     dev_t(3type)
->   man/man3type/div_t.3type: HISTORY: Split [l]div_t(3type) and
->     {ll,imax}div_t(3type)
->   man/man3type/div_t.3type: HISTORY: Update first SUS appearance of
->     [l]div_t(3type)
->   man/man3type/FILE.3type: HISTORY: Update first POSIX appearance of
->     FILE(3type)
->   man/man3type/id_t.3type: HISTORY: Split id_t(3type) from
->     [pug]id_t(3type)
->   man/man3type/id_t.3type: HISTORY: Update first POSIX appearance of
->     [pug]id_t(3type)
->   man/man3type/id_t.3type: HISTORY: Mention change in datatypes of
->     [pug]id_t(3type)
->   man/man3type/id_t.3type: HISTORY: Update first POSIX appearance of
->     id_t(3type)
->   man/man3type/intN_t.3type: HISTORY: Split types and macros
->   man/man3type/intN_t.3type: HISTORY: Update first SUS appearance of
->     [u]intN_t(3type)
-
-I'll ignore all of these patches for now, waiting for your feedback.
-
-
-Have a lovely day!
-Alex
-
->=20
->  man/man3type/FILE.3type      |  3 ++-
->  man/man3type/aiocb.3type     |  2 +-
->  man/man3type/blkcnt_t.3type  |  1 +
->  man/man3type/blksize_t.3type |  1 +
->  man/man3type/cc_t.3type      |  2 +-
->  man/man3type/clock_t.3type   |  3 ++-
->  man/man3type/clockid_t.3type |  2 +-
->  man/man3type/dev_t.3type     |  2 +-
->  man/man3type/div_t.3type     | 11 +++++++++++
->  man/man3type/id_t.3type      | 22 +++++++++++++++++++++-
->  man/man3type/intN_t.3type    | 20 ++++++++++++++++++++
->  11 files changed, 62 insertions(+), 7 deletions(-)
->=20
-> Range-diff against v0:
->  -:  ------------ >  1:  9d2453196924 man/man3type/aiocb.3type: HISTORY: =
-Update first POSIX appearance of aiocb(3type)
->  -:  ------------ >  2:  3e3cdf605fad man/man3type/blk{cnt,size}_t.3type:=
- HISTORY: Update first SUS appearance of blk{cnt,size}_t(3type)
->  -:  ------------ >  3:  eb523868fce1 man/man3type/cc_t.3type: HISTORY: U=
-pdate first POSIX appearance of types
->  -:  ------------ >  4:  75786342c4cc man/man3type/clockid_t.3type: HISTO=
-RY: Update first POSIX appearance of clockid_t(3type)
->  -:  ------------ >  5:  24395294f63b man/man3type/clock_t.3type: HISTORY=
-: Update first POSIX appearance of clock_t(3type)
->  -:  ------------ >  6:  2bb3f33e65b7 man/man3type/dev_t.3type: HISTORY: =
-Update first POSIX appearance of dev_t(3type)
->  -:  ------------ >  7:  417e53f6394a man/man3type/div_t.3type: HISTORY: =
-Split [l]div_t(3type) and {ll,imax}div_t(3type)
->  -:  ------------ >  8:  feb8d662b9fe man/man3type/div_t.3type: HISTORY: =
-Update first SUS appearance of [l]div_t(3type)
->  -:  ------------ >  9:  77b4c360910f man/man3type/FILE.3type: HISTORY: U=
-pdate first POSIX appearance of FILE(3type)
->  -:  ------------ > 10:  18896b1be985 man/man3type/id_t.3type: HISTORY: S=
-plit id_t(3type) from [pug]id_t(3type)
->  -:  ------------ > 11:  d32b6148d2a9 man/man3type/id_t.3type: HISTORY: U=
-pdate first POSIX appearance of [pug]id_t(3type)
->  -:  ------------ > 12:  00eec0f9aa43 man/man3type/id_t.3type: HISTORY: M=
-ention change in datatypes of [pug]id_t(3type)
->  -:  ------------ > 13:  e5992856df9c man/man3type/id_t.3type: HISTORY: U=
-pdate first POSIX appearance of id_t(3type)
->  -:  ------------ > 14:  903b6a6dee42 man/man3type/intN_t.3type: HISTORY:=
- Split types and macros
->  -:  ------------ > 15:  43f013547fbe man/man3type/intN_t.3type: HISTORY:=
- Update first SUS appearance of [u]intN_t(3type)
-> --=20
-> 2.47.3
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---z44lzmz4fxqy3ala
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmldAWoACgkQ64mZXMKQ
-wqmRqQ//QAwW4RGhn7WFspwEj7YSybTTbDG5Aq34tqKSnHb1iGim/1OCMy5tMDQD
-YfXhAn102ECGev01hvQUBfgkYZozNpWdAu4vrKOS0iuu6ptpoGF+kOdSkO8pjsjE
-HlZ0+6re1QHCUb5obloX4eikQ+qMXTYNyMXPwx47yg8pDRWHLR+8mM2mzLlbsHn1
-9cfebgyOADBUpIQeGjv5zrKkQFfIf67mfv5AELWGmLJnOUJ9cm7xvxGCEDxg/I7U
-M+r2MBUv6xp71y7uwEkQLYJPSLV/cPu26Z96DAESS5WO3QTAZikGvMK3JcZdQPtF
-t3Ht7pxYdmFcOfS/EC0Paw/ppa5RysmiRjYr0uxVUc5gGWGIw3O7409v7Zas3ZkE
-QBumvJtaB+358uG9RYEqNhllvlExoCzcQTTklzR1E/ATTL6sNjSNLct7wdGwBFDA
-xxwzdi21WI3775Wdq0HJCf90jo3MdFIJYGpBRjls7sUurB0GeS8MFj1DRVVFwLNh
-iXsYH6SrjuNMXF0OWwCcAiNiIloxY0ddMgCbRlohjHG7/XCjz8JirYjVyQmTVcVO
-O5OuMt28WR4jKnRbCb4JLYbTUzAuPwl1xHvjCzIYm4sis77HWKoq6rKJ9JRffrEi
-a2swe7OuOyGvpAiXVNavgTdzOO3ETy+oMWv6SgZ+I44NRNnqkcA=
-=QJbh
------END PGP SIGNATURE-----
-
---z44lzmz4fxqy3ala--
 
