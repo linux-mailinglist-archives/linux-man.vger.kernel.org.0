@@ -1,60 +1,58 @@
-Return-Path: <linux-man+bounces-4709-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4710-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 317B3D00032
-	for <lists+linux-man@lfdr.de>; Wed, 07 Jan 2026 21:29:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E350AD00059
+	for <lists+linux-man@lfdr.de>; Wed, 07 Jan 2026 21:35:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id C91033027A4F
-	for <lists+linux-man@lfdr.de>; Wed,  7 Jan 2026 20:17:17 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 84D0C303FE2C
+	for <lists+linux-man@lfdr.de>; Wed,  7 Jan 2026 20:28:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC0101E5201;
-	Wed,  7 Jan 2026 20:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C905F335081;
+	Wed,  7 Jan 2026 20:28:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alejandro-colomar.es header.i=@alejandro-colomar.es header.b="Kzdij2lH"
+	dkim=pass (2048-bit key) header.d=alejandro-colomar.es header.i=@alejandro-colomar.es header.b="lMNkcgoQ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
+Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6957E329E6D
-	for <linux-man@vger.kernel.org>; Wed,  7 Jan 2026 20:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A3B2DEA7A
+	for <linux-man@vger.kernel.org>; Wed,  7 Jan 2026 20:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767817036; cv=none; b=oF31vo8eb7VApqtUFO5bSrCYnPIyy5ROmHFxhcj86HXxs/sBa0HTpfBqwBRhJoUYH2h+u2t3bMOWYA7kyezWi6ApOCvqVnmSCjQbpI8iYCRt42VeIQpx59fxc1Dw49oNdDrREHqAYK/TPPO5BAOpBcyhYT2E8m+q/jGJdBN4giE=
+	t=1767817720; cv=none; b=frEJu44RrQVxQV1yXJu5FDqp3DhHCb5Q1SACzG1/8SWSVHq1hEa2SMKOkUS0YXh6OgJi0os/O1VImJTtrpAAgf6Dsg3PGt75C/egSY0u5AcBlAjvkn+CaMuH0KU7EskatiTw6PARAJwBHt3XSRmc23BMhZKdCFSZCgEm2LIsOpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767817036; c=relaxed/simple;
-	bh=07n/DPpLfsVOQnqsq1zt3L2sQCCbMBtf1Pie/5/x2js=;
+	s=arc-20240116; t=1767817720; c=relaxed/simple;
+	bh=R9LPqotALiOwGB5RBmCgud3ViOjL9X7nquLDZPpa8xY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l/aHC2SAOkn61KqFTooUMCa0yQxe/kHmPOVFdY2LTMwUq7aUc+G1Gdy8MTZndsFcWc+pdWHUjgEvlAWtT6haRf+GVfMgvt0Ja0KPm2N9FcDM7NMrsG7FoEMoytXd0IRb0rWNK8DniN+oLLPOhHCNJ0ip9RQZWzfPJmHW9ygnEc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alejandro-colomar.es; spf=pass smtp.mailfrom=alejandro-colomar.es; dkim=pass (2048-bit key) header.d=alejandro-colomar.es header.i=@alejandro-colomar.es header.b=Kzdij2lH; arc=none smtp.client-ip=95.215.58.183
+	 Content-Type:Content-Disposition:In-Reply-To; b=LMWAV3gcvBLH1cNdaVli885Ii3ZFpFmaMJT2145+cqNCNtMn/x7CoroStJ5KYzKyK+FomUOu0fTYkfFdvDttGa5GuQG21RmPPSVLi3DCTwb8O9+PMtx5SBYtIzHSsXFUpMGFzpXZulFSgIFIN4N943uRKU0udnMGvm/JFUv2LuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alejandro-colomar.es; spf=pass smtp.mailfrom=alejandro-colomar.es; dkim=pass (2048-bit key) header.d=alejandro-colomar.es header.i=@alejandro-colomar.es header.b=lMNkcgoQ; arc=none smtp.client-ip=95.215.58.188
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alejandro-colomar.es
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alejandro-colomar.es
-Date: Wed, 7 Jan 2026 21:16:52 +0100
+Date: Wed, 7 Jan 2026 21:28:30 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alejandro-colomar.es;
-	s=key1; t=1767817029;
+	s=key1; t=1767817715;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=16pWyrkuc1X33Ptdg8hM18gMPvRpTPebwIBcfnybcpI=;
-	b=Kzdij2lHrBCQyF9asn66fGhu5lhpnqzHyA5Zi81mhBtcy0n47hYMRZSfn2qSawM+vZcALS
-	hPSZ4QWJFpEOdFumbOD2zK5AZNNxjOEc2UKCleTtc9LMd/e7fBp0oU7QZUvVGkH5iuQEf8
-	0xEIVkL8pMHF9GRIrQfkIwZ38jAJ9Rve7LZerh44cFz56eiG4ij8t1rTiIIky/TEkbiwXD
-	X/9nN3CvtN27do81M9YlU5GI9/sZTNAGJ6rzMWFqMSdO1kcOaI/tmLxjpbKi/IVxGTba/H
-	SwjhSmJXIDJkFG3pPGxRVTIw0iwzFXoOKqOIO+Fo7cuoCxI6PYCFUaihCcgRWw==
+	bh=sTyDA0YsrDTDV72cycb/qK/rVB0SBJoXUeDSI/WqAl8=;
+	b=lMNkcgoQ6kYOCyTlesElJBwlw4nTGRXdDcylFiRlxBYupwgUcMJ8Ae7NuakUGAdp7VbP6e
+	z1nPWWyju1GjMoVqIEfGKPgJeWF7w5Ck6QVrZZRLd2HQPRPKdCFmJ8siSGBLhRWCyITSFe
+	M6nbNWGmItOlzIqQsfevW4WMc8zI3lPzunzVihU6j7g6kAq3oYuVij2U2otGJKpl1pxYw/
+	N8u437upNRZnMOcjPPpd4sJ931kQIRh3NX86sOtzFwMC5e1G36ij6QMVGHBrxcdpbh1sTt
+	5D0AnJS8OToufhwciU1JZijjy/3GHP7lLArY3AldeL0iCNbayVz+rhFNFiaEGQ==
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 From: Alejandro Colomar <une+c@alejandro-colomar.es>
-To: David Svoboda <svoboda@cert.org>
-Cc: Robert Seacord <rcseacord@gmail.com>, 
-	"sc22wg14@open-std. org" <sc22wg14@open-std.org>, Florian Weimer <fweimer@redhat.com>, 
-	Carlos O'Donell <carlos@redhat.com>, Aaron Ballman <aaron@aaronballman.com>, 
-	"libc-alpha@sourceware.org" <libc-alpha@sourceware.org>, "musl@lists.openwall.com" <musl@lists.openwall.com>, 
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: David Svoboda <svoboda@cert.org>, Robert Seacord <rcseacord@gmail.com>, 
+	"sc22wg14@open-std. org" <sc22wg14@open-std.org>, Carlos O'Donell <carlos@redhat.com>, 
+	Aaron Ballman <aaron@aaronballman.com>, "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>, 
+	"musl@lists.openwall.com" <musl@lists.openwall.com>, "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
+	Paul Eggert <eggert@cs.ucla.edu>
 Subject: Re: [SC22WG14.34664] n3752, alx-0029r8 - Restore the traditional
  realloc(3) specification
-Message-ID: <aV69o8h0I3Px7ryV@devuan>
-References: <20251223161139.196AB356CF9@www.open-std.org>
- <20251223164349.F0BC5356D1A@www.open-std.org>
- <CACqWKsOkbArXm0XBUHkLcFFwDUP8iDQv_xPeNbomR0bKf-GCFw@mail.gmail.com>
+Message-ID: <aV6_UHBxHrOsL3qD@devuan>
+References: <CACqWKsOkbArXm0XBUHkLcFFwDUP8iDQv_xPeNbomR0bKf-GCFw@mail.gmail.com>
  <20251223211529.6365A356CF9@www.open-std.org>
  <CACqWKsNQCchFZnFKKAyi-3HDtJYQ6sc=UZeb+hX48WQ1e7yj_w@mail.gmail.com>
  <20260106210527.AA3FA356D3A@www.open-std.org>
@@ -62,6 +60,8 @@ References: <20251223161139.196AB356CF9@www.open-std.org>
  <PH1P110MB1636A1DEC402A702C28EBA9ECC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
  <aV4N-0egpfxhmnta@devuan>
  <PH1P110MB1636D74EDD4F3074AC98F12FCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
+ <PH1P110MB163601133BF0167C46C8CC9DCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
+ <lhuqzs1uy7s.fsf@oldenburg.str.redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -69,29 +69,27 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qo4pmdvz556yatqa"
+	protocol="application/pgp-signature"; boundary="3l2ugbyk5n37kf5k"
 Content-Disposition: inline
-In-Reply-To: <PH1P110MB1636D74EDD4F3074AC98F12FCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
+In-Reply-To: <lhuqzs1uy7s.fsf@oldenburg.str.redhat.com>
 X-Migadu-Flow: FLOW_OUT
 
 
---qo4pmdvz556yatqa
+--3l2ugbyk5n37kf5k
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <une+c@alejandro-colomar.es>
-To: David Svoboda <svoboda@cert.org>
-Cc: Robert Seacord <rcseacord@gmail.com>, 
-	"sc22wg14@open-std. org" <sc22wg14@open-std.org>, Florian Weimer <fweimer@redhat.com>, 
-	Carlos O'Donell <carlos@redhat.com>, Aaron Ballman <aaron@aaronballman.com>, 
-	"libc-alpha@sourceware.org" <libc-alpha@sourceware.org>, "musl@lists.openwall.com" <musl@lists.openwall.com>, 
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: David Svoboda <svoboda@cert.org>, Robert Seacord <rcseacord@gmail.com>, 
+	"sc22wg14@open-std. org" <sc22wg14@open-std.org>, Carlos O'Donell <carlos@redhat.com>, 
+	Aaron Ballman <aaron@aaronballman.com>, "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>, 
+	"musl@lists.openwall.com" <musl@lists.openwall.com>, "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
+	Paul Eggert <eggert@cs.ucla.edu>
 Subject: Re: [SC22WG14.34664] n3752, alx-0029r8 - Restore the traditional
  realloc(3) specification
-Message-ID: <aV69o8h0I3Px7ryV@devuan>
-References: <20251223161139.196AB356CF9@www.open-std.org>
- <20251223164349.F0BC5356D1A@www.open-std.org>
- <CACqWKsOkbArXm0XBUHkLcFFwDUP8iDQv_xPeNbomR0bKf-GCFw@mail.gmail.com>
+Message-ID: <aV6_UHBxHrOsL3qD@devuan>
+References: <CACqWKsOkbArXm0XBUHkLcFFwDUP8iDQv_xPeNbomR0bKf-GCFw@mail.gmail.com>
  <20251223211529.6365A356CF9@www.open-std.org>
  <CACqWKsNQCchFZnFKKAyi-3HDtJYQ6sc=UZeb+hX48WQ1e7yj_w@mail.gmail.com>
  <20260106210527.AA3FA356D3A@www.open-std.org>
@@ -99,78 +97,99 @@ References: <20251223161139.196AB356CF9@www.open-std.org>
  <PH1P110MB1636A1DEC402A702C28EBA9ECC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
  <aV4N-0egpfxhmnta@devuan>
  <PH1P110MB1636D74EDD4F3074AC98F12FCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
+ <PH1P110MB163601133BF0167C46C8CC9DCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
+ <lhuqzs1uy7s.fsf@oldenburg.str.redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <PH1P110MB1636D74EDD4F3074AC98F12FCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
+In-Reply-To: <lhuqzs1uy7s.fsf@oldenburg.str.redhat.com>
 
-On Wed, Jan 07, 2026 at 01:38:19PM +0000, David Svoboda wrote:
-> Hi, Alex!
+Hi Florian, David,
 
-Hi David!
-
-> I'm just going to respond to your first point (about what precisely the U=
-B is):
+On Wed, Jan 07, 2026 at 06:30:47PM +0100, Florian Weimer wrote:
+> * David Svoboda:
 >=20
-> The n3605 Annex J text says:
+> > WRT this text:
+> >
+> >         Code written for platforms returning a null pointer can be
+> > =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82migrated to platf=
+orms returning non-null, without significant
+> > =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82issues.
+> >
+> > I am very skeptical that this is indeed true. But to be precise, this
+> > is Glibc's problem rather than WG14's.  If they are willing to change
+> > glibc to return non-null on realloc(0), then I am willing to agree to
+> > this change in ISO C.
+
+A major implementation, gnulib, has done the switch in 2024 after this
+proposal.  No regressions are known.  We would have certainly noticed
+if something important had happened.
+
+> If glibc makes the change, it becomes the problem of our users (and
+> developers who interpose glibc's malloc).  I'm not sure that's a helpful
+> approach.
+
+A reminder: glibc's realloc(p,0) already can return non-null
+(if p=3D=3DNULL before the call).  This means that correct glibc code must
+be able to handle the possibility of realloc(p,0) returning a non-null
+pointer.
+
+> Someone needs to take responsibility.
+
+What do you mean exactly by this?
+
+> For glibc, we would have to do some analysis to figure out the impact.
+
+I have done some theoretical analysis in the paper.
+
+gnulib has done some experimental analysis, to the extent that it has
+done the change in 2024, and we're already in 2026 and we've seen zero
+regression reports so far.  This is used in GNU coreutils, which is
+certainly something essential enough that if it had any important
+issues, we would have noticed by now.
+
+You could do some more, but with the resources we have, this should be
+quite convincing.
+
+> I don't think the glibc team at Red Hat will be able to work on this in
+> the foreseeable future.  I don't we should make such changes upstream
+> without such an analysis.
 >=20
->     (157) A non-null pointer returned by a call to the calloc, malloc, re=
-alloc, or aligned_alloc
->     function with a zero requested size is used to access an object (7.25=
-=2E4).
->=20
-> This suggests that working with a non-null pointer that has been returned=
- from realloc() is the UB, not invoking realloc(0).
->=20
-> But 7.25.4.8 (realloc) text says:
->=20
->     Otherwise, if ptr does not match a pointer earlier returned by a memo=
-ry management function, or
->     if the space has been deallocated by a call to the free or realloc fu=
-nction, or if the size is zero, the
->     behavior is undefined.
->=20
-> So you're right...UB comes from actually invoking realloc(), not working =
-with whatever it returned.  The Annex J wording needs some cleanup.  Unless=
- your paper gets accepted, in which case this Annex J UB goes away (and it =
-wouldn't hurt to mention this in your paper, as we have found lots of obsol=
-ete UBs in Annex J).
+> What's Microsoft's position on this entire topic?  I thought they use
+> the glibc behavior, too?
 
-Agree; UB 182 is already covered by the usual rules for NULL.
-
-I thought you were talking about the UB introduced in C23, but that one
-seems not documented in Annex J.  In fact, it's still documented
-incorrectly as ID (J.3.13 entry 41, in N3220).
-
-The UB we should be talking about is specified in 7.24.3.7p3:
-
-	[...]  Otherwise, [...], or if the size is zero, the
-	behavior is undefined.
+Microsoft doesn't seem to have representation in the committee.  At
+least, they haven't showed up to talk about this.
 
 
-Have a lovely night!
+Cheers,
 Alex
+
+>=20
+> Thanks,
+> Florian
+>=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---qo4pmdvz556yatqa
+--3l2ugbyk5n37kf5k
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlevzQACgkQ64mZXMKQ
-wqmyCA//c8pBP/fqPGt7HIAMOc1SfyL53AnW0DIJNKsBcXO+08jKxuGCBsBSioH0
-7j1ywkQrTOv8kxOQF8zrFUSjevzbY6aobS4ZsaBLkZ1AyTsBQPYqIIsgbPPyQxZQ
-8ndVN2GrCmiDmZNXYDYotaPY7DG6UkmYNUnAqPJ2yVUZ21i6kUa5ofEwfpNiyCrR
-o84fWUwxmMBuS+LQot7gaW+DuZ4IIxw80eZ+S9LzdShFotskgayY3e9v49MGzoSF
-Q5pZddMEn/Jrb7Tsbkifwk3y2D+ecWweWU4Q2x6vEssAN9ziyjVKcGad/thb70dX
-9peaQIQgwcSvf5kCtc/TbrnNmHSeelbRtkpBIqUmefKuSLEk/E3ZX/YYzKfo9HvK
-Fr9gb74zZH34SJJxRpM8AX3fmeO1lBKWvUwEFWfqDOg/z5o0rPSYhQkPNB+LreZH
-r7OJQEVhh6WiwALtKS0oiMLKt3dVJ9ZHcJAb8qA1kzpSBmRqhGaCBLGofffKET6j
-eAExiBGgXHyINVQKLsGO6TBmIOoYbFmdhieyle9nXCxRsVQun5S5TC+ZsX0vtrPl
-6rEPuda+TYEGtAankWnnB0jeO2lTF5+EK8fHpZ0OLQs4jW+MYairtzyVDiS6mnbE
-zBVASZ59065IzHne7/SyRQx6Xq64uciaMuKbWRkKCdb+bO3Nikk=
-=hrTL
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlewecACgkQ64mZXMKQ
+wqlunw//ZLjzO1NaG8WgmaWF+BvvK0PACmemMVK6sYqA6Fc7rX1Bcqx1/PkvgxWJ
+/N6YwUL+IQYKoMRGuevJmE6SmOuOG2GF5cbk22z3U8NjsvHRBHGljcO4t9SX3taE
+3+iBWsgai+qX6tNDJMEJk+6APeWXiOPABWpHk7RGALYMxXlnZrno/lcCVf7FcyZJ
+hMmRJD4SSF6XuTGAM5v4cVmds2ZVz/7NsoBciWWp+ApH5PoymC/Q9YEQmNUUUlQA
+pjhp+MGTdXdea17b1niNYAhbPoFWah0devRPJ/WUGKK+IbaduGGmg/J5c2hptfGE
+8bAdewSXbCEoMJgKu8xY8nyij4aJcOcOlB/gLHwQFtMHWEYjhV1twy24VYkojUDH
+mrp2MBjxiOKevL+ZsKz4lytqYiDuJrAuS7OPftzuM2PsKsb2UCYe6we9QM6OQVfy
+BqE0GJtSZFE9c4EDd1+tA8nItKhrjxmok/9UsJHt+RG0NTuOt8Wxt13q3UkBymg9
+C5Mzw1svyvTjNpMOh6d833WQ0L9tAEbEjYPKA2s5vzEVjXIbwY1R66FoymATQsD8
+1pRSdMsuOX3RfWsQRXzLvpzpNxpjm0zahUrPPg5CbKcy4XjbW9KnQnC9bgEISRwh
+WQWLG+In2GmYDhwrUjWmYgvZh6k3zaCIOE5Z2F9roF1SPkgJTdk=
+=B74D
 -----END PGP SIGNATURE-----
 
---qo4pmdvz556yatqa--
+--3l2ugbyk5n37kf5k--
 
