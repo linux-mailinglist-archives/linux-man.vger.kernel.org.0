@@ -1,85 +1,89 @@
-Return-Path: <linux-man+bounces-4713-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4714-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8BCD00C37
-	for <lists+linux-man@lfdr.de>; Thu, 08 Jan 2026 04:04:19 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B1B6D00C3B
+	for <lists+linux-man@lfdr.de>; Thu, 08 Jan 2026 04:04:22 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 1B1E2300E028
-	for <lists+linux-man@lfdr.de>; Thu,  8 Jan 2026 03:03:57 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id E5ADE300F9CC
+	for <lists+linux-man@lfdr.de>; Thu,  8 Jan 2026 03:03:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7678825A659;
-	Thu,  8 Jan 2026 03:03:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 747AE22B8B6;
+	Thu,  8 Jan 2026 03:03:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LeGVDEgQ"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YW76P/ez"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02033A0B24
-	for <linux-man@vger.kernel.org>; Thu,  8 Jan 2026 03:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E713A0B24
+	for <linux-man@vger.kernel.org>; Thu,  8 Jan 2026 03:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767841436; cv=none; b=qp+/bZ+qwY5lgxV3vNY3O0Qxb/Rw2IEHVPcFIqJHx9COn6GYcVMsIdRzDs0vQ22KoWJr1PCi/BW7F6sNA6DSF4uEn7iL2GwFokuEVSYs+pg5sLTUgcrGZKHv6UJZsijHfEtuM1FK3VIoNmXCJGLA4PbrgoAbanb815RuUXeiRRE=
+	t=1767841438; cv=none; b=pvibW/jdzZr2sKO7fNzu9xILFlC0eoh1IO1jwGYhdytod2ZoR/6AWEx3WElI2C3ZHrcXyGbSXjNsu7VmJzoxNFD6G0OUsb15rca05HoK2JuSifSMX0L2Q9dsg8H6j6EonUyX+OArdj5YKIdz+Ldfy24EB8wfgm4nFOiZSQfRGUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767841436; c=relaxed/simple;
-	bh=GjxlXAgSlk6IieaSMzljLxsWRHEz3d/atR8ihQxZvyo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SAqWlgCwHtaW/nsM46mWW772LGNo3KSLgcqxh29L/volxYrShgD/gJ2vKA9xEox4n3HK3MwRbJR0ETX5h0/aqLQyqxyXCIpocmCZd45qfRueH8JwvjPXDA7WaJ8eZ4zmgKXP5ve29cbGBEe0PRx3tyP15LYINeDnJHwBVmF65pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LeGVDEgQ; arc=none smtp.client-ip=209.85.210.195
+	s=arc-20240116; t=1767841438; c=relaxed/simple;
+	bh=kLaqg/LOK/vtfyohPOlY4cMVfuYGFD5xBGsxbVsYf74=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d3DUjBDlc7lFgd7N8wU5c5B9ResUFRbV5cfjQvAWZNdIZvcXGDGTQR0beCa3AYqZeUAhs9AfZUDCVjpZNg6autOl8KGN+MBD31K/1hwqHQb+fNoIhpSRIszVrjQ98IEUHH20UfmZZD4E9wRbSNi6L5qjBcpMsMsDJNp15GwpR+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YW76P/ez; arc=none smtp.client-ip=209.85.210.196
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-7f1243792f2so1443801b3a.1
-        for <linux-man@vger.kernel.org>; Wed, 07 Jan 2026 19:03:54 -0800 (PST)
+Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-7aab7623f42so2427621b3a.2
+        for <linux-man@vger.kernel.org>; Wed, 07 Jan 2026 19:03:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767841434; x=1768446234; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RE8+Wnjvu7eMpyT+cB/b7WtxqDKI4OO2wodamZORnwM=;
-        b=LeGVDEgQEnDqzirBFKe1O7qG5H7U+dkMG0ADK9+8rmmC05WhhWAuabSt0WcF5DFZSI
-         LfdsyUF3G48KUBzka753rqweCTdHi77mT8HsQe+pGTV+4EBXqLXkxrNHtSqQsWwHKLnT
-         2RXCVYlGyRgnvVN/Ti+tCT8vkdId51kmjRR2eQYWBS7I29XMJqvMFv/QE1kABsCPCTw6
-         tY6Z1Z9r18qk056nnS1UHZButnBz5Pn57ioVEphKzOxQPZBqPmyTh/9tLeoaqCkff801
-         ZqvsbhVL2if130YW/4ECuWdTV9ho05x4GCnoo3jtERZ+rWLtOIfVfK+gatySo6gv6yW+
-         0hzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767841434; x=1768446234;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20230601; t=1767841436; x=1768446236; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=RE8+Wnjvu7eMpyT+cB/b7WtxqDKI4OO2wodamZORnwM=;
-        b=HQGpRYx8c8tlHsca1U2oFJwqzrR6e61dd+28favV5alBnAhT4ItklM4wTaqxCri9uQ
-         +NcyRAii3nMKAuAtkzVUKCdn+hI0Vg3c4lLJ/WokPBxL+w/Bfb2mZ0zOC8RfAbqvqL8n
-         uLcapYvxnGeKV2d4Zu3FMlL3bIhvv3V7sR3mrPwHItS34ofTjdskFUEjdrjJRIW5+zUg
-         fl2zqigXW8btJs5eGLEtmHjbSGEtKNqQc1LJUjEnDwa4VoSZLd6Wf/39EN/vbcTnkYij
-         S9TqLM+22CntSkyctphWGdV2iSxKQ9SouoWvmw85klzhJnMFkTYdUWylQScEsbSnUJpb
-         kLyg==
-X-Forwarded-Encrypted: i=1; AJvYcCUKuoaU6cVEUJ/lggGxXntV1wy6Rn0/1XyU54ydNSn7RraIjZuaJsQD5+o9tFCchh1m6rCpDK0bwzc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzwzN0b3sxEwB0HPhNjoD+aIaXGAA9CmIXncWnry0DRYqhUrIN
-	v8DuR0sTYyhYXVN/8tpgXPVzHuxE9MXUIMVrcGBErWspqYUh59ApA92q
-X-Gm-Gg: AY/fxX5gpFSQv5zoWRCOFVaErdvLa4wRkXbjSRq0cuG3Tf3wdYUkQFOsoatDNfEOcYm
-	2i8JR1nA3xK3DNquN7HH7k3sSc+rgx6tFqxc7qNT0UY0CSvVLzgwNDnbWBUp6obWMNcot53K04L
-	CmfuToSnlYy26dYR+Zm+AejkfRKceuHDaa1M7KfWlDEvVqTOF9/QZLkWJqvY3DGfIrEs6D5gC2O
-	a8TOXtiKRTEBCZeXDtvG61beIuNHabxN3qv7gaKdjQTEFJa+5gR/1x/IFEDhvVR4DW66mTnEm1U
-	bjYxzVjyGzYhyiAmxW4jgC/KJzO6vDvJ3CcxMEw1jXz9Bu1HfSi+SHu8ksejaGOrRUNmh8SZGzA
-	MYwgHHj8uAs7XHlmMZmjMcTRf0BQ4wdpN/2zUvF9oTyj4MsOE5sA545mH2AhA7ViGZbgCLeiqB2
-	WiCHKaKqcrmL5dnv2PhuCUM1AKWbDaPl3rjCysCxlPBh1wqU7VLhasJy3yz/I32pZ92t1P0+woy
-	UfJIL37fgLWp7s=
-X-Google-Smtp-Source: AGHT+IGXyWvD4F+n0e4ZCP8TkgfM903EfHapSlv2TgLldTfeJm9LTzePzKZOdpZCqBCtGaGqYZ0hOQ==
-X-Received: by 2002:a05:6a00:ab8a:b0:7a6:2c97:eda7 with SMTP id d2e1a72fcca58-81b7e252686mr4539318b3a.29.1767841433989;
-        Wed, 07 Jan 2026 19:03:53 -0800 (PST)
+        bh=ovZT7AR/SEEx5KQRqgyKO2Hb6HW8G3l2hYsU9/PcoKM=;
+        b=YW76P/ez0nHC6VLAeSdrGqV43xvoUU69wQbJ9ni9k65VMcRoxgdqqx/czvba71/CG/
+         LGRoBxxaZkygq5VwV4m17y8WZFjMHJ//XK5/J1In2uLsju/M4VTdHawkK+72gGSuUNaF
+         p7tZMa1Hrw0LnjFI6o1h92CMQOofUIq9n7CSoKKhLHRJDvrAMp2QCT5ng7gY8eo7rRtv
+         Hh7MAe1JaElSLvX3itirH89slV2rz9Vht5x70nAeowGBe2erqdmv0Q7+sV16ponA8MJU
+         InXtnGHFDKRxAJOsdmAdPzQcLW6LlHh4VX8v6wuKr5OH8su77W4aQktRzsK+VkOgd0MV
+         Zz8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767841436; x=1768446236;
+        h=content-transfer-encoding:mime-version:reply-to:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ovZT7AR/SEEx5KQRqgyKO2Hb6HW8G3l2hYsU9/PcoKM=;
+        b=tm+kf/ulC+Tq+cctjxO7mD4UbV2D2N3yvWOllKKNzhU+qspnhWtA4wdPAjOzGeEKFL
+         AvMwJzm+u2iB5ArwPOjY4+yuMAjOzinpaWtfX1x+22WTnQ1xB37mLzIGArYIblTM7E6k
+         lvm9V6qRMdOh3fBl174XHVTiPVzpbgwo/bkb0rssltGiE0SiMAS29QdeWQ++14b9uI0T
+         N6mKqZ79m0XxVE8IGeCJFMDDOfWW1EHYImrX2UgjWbYCHcX3hFtSiOsjiaoDlf2XEA2O
+         tWV09oHSiu+zBalJ35IjWdun+fPBELFBNY4OWJRpFPRhRRKTqcIfeMIxv0VTEcIbtH7J
+         9lrA==
+X-Forwarded-Encrypted: i=1; AJvYcCWoZO3hWM4IpZZN5DaxKzylcdNiThIH9VNdVclYx0Jd3bTjpL7xfPpS2hu/sssbnh9EPc9c09o4Nzs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YynKon8cKbaVpBLAS3od+7lKGBr6QrqwI6vX2dEt3edtfeKxlW+
+	n0TuFNRC5maoVdNiMmlwuBuEeM5S7q848psPc6MY2/qZ+ajRJ+5n4XX0
+X-Gm-Gg: AY/fxX5PwJzK5iREu9ahFY8hyJaa+9v5Lu0ShAXJXzxRiD3Q2eo6zcXipPFw098af0b
+	Zgs4AUDo3mLXxHNXzivfLZU6jE4xOqZfKOktNSDo7QyELtkcqW1/qwe4uU8+f4HnSeO2mafbsko
+	l4DuHvvAiUQ1VxSV/ZhscNgW+0e3JdJJFNMK4tpDPbOpbDiThLGexwjrleEBjNc620GB2OSZMKt
+	D87Lzwuzwc2oZySpEEZhnJZW1IkvbjsQMnS0oryzWxF61kfv0MbkspxLm5WdWt8Z1RpYfYd16HV
+	JWl39sakgE59Gpq9PAvsTypghqC2xbaW7NEmZcQmEKZujIA9T2Ym4z0Dqk5gOwhBRn0Z4K1lLHF
+	5D/w1ibpubOLJwp9vf6VnNYZp1lUX2CutyVv+XXkZqcTCzi6Cmk6h92gyECk5AVRxtvmsIB7Jqy
+	bNVJ3mIgcGj3RMp/nOIQiPms9va7a0obo2ah8W0KwmGSVv3VzicPG05fYhMCAjW4qKct4P3hcw8
+	ZGMNnEt6RgAQ6g=
+X-Google-Smtp-Source: AGHT+IEa7fEwOzOGXT7Rz3UkoWnR7fvmHTG1IlZYLVz/4ZsmnsK2RxahnW38JEWpAqFb+4oFZTZN1A==
+X-Received: by 2002:a05:6a00:1c83:b0:808:434f:ba75 with SMTP id d2e1a72fcca58-81b7e04bba7mr4098691b3a.25.1767841436102;
+        Wed, 07 Jan 2026 19:03:56 -0800 (PST)
 Received: from McDaDebianPC.local (2403-580b-5de8-0-ce7d-5796-70e-21eb.ip6.aussiebb.net. [2403:580b:5de8:0:ce7d:5796:70e:21eb])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-819bb4c85bfsm6120312b3a.30.2026.01.07.19.03.51
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-819bb4c85bfsm6120312b3a.30.2026.01.07.19.03.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Jan 2026 19:03:53 -0800 (PST)
+        Wed, 07 Jan 2026 19:03:55 -0800 (PST)
 From: Seth McDonald <seth.i.mcdonald@gmail.com>
 X-Google-Original-From: Seth McDonald <sethmcmail@pm.me>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Seth McDonald <sethmcmail@pm.me>,
 	linux-man@vger.kernel.org
-Subject: [PATCH v1 00/11] man/man3type/*: Update simple history of types
-Date: Thu,  8 Jan 2026 13:03:06 +1000
-Message-ID: <cover.1767840410.git.sethmcmail@pm.me>
+Subject: [PATCH v1 01/11] man/man3type/itimerspec.3type: HISTORY: Update first POSIX appearance of itimerspec(3type)
+Date: Thu,  8 Jan 2026 13:03:07 +1000
+Message-ID: <48b823b1a96548132bd3414bcb3505f15e1572b3.1767840410.git.sethmcmail@pm.me>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1767840410.git.sethmcmail@pm.me>
+References: <cover.1767840410.git.sethmcmail@pm.me>
 Reply-To: Seth McDonald <sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -89,55 +93,31 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Seth McDonald <sethmcmail@pm.me>
 
-This patch set updates the history of types that have only one standard
-listed in their HISTORY section, meaning they should have no ordering
-issues.
+itimerspec(3type) first appeared in POSIX.1-1996.[1]
 
-Seth McDonald (11):
-  man/man3type/itimerspec.3type: HISTORY: Update first POSIX appearance
-    of itimerspec(3type)
-  man/man3type/mode_t.3type: HISTORY: Update first POSIX appearance of
-    mode_t(3type)
-  man/man3type/off_t.3type: Change VERSIONS to HISTORY
-  man/man3type/off_t.3type: HISTORY: Update first POSIX appearance of
-    off_t(3type)
-  man/man3type/sigevent.3type: HISTORY: Update first POSIX appearance of
-    sig{event,val}(3type)
-  man/man3type/stat.3type: SYNOPSIS: wfix
-  man/man3type/stat.3type: HISTORY: Update first POSIX appearance of
-    stat(3type)
-  man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of
-    st_{rdev,blksize,blocks}
-  man/man3type/stat.3type: HISTORY: Specify initial datatypes of
-    st_{blksize,blocks}
-  man/man3type/timer_t.3type: HISTORY: Update first POSIX appearance of
-    timer_t(3type)
-  man/man3type/timespec.3type: HISTORY: Update first POSIX appearance of
-    timespec(3type)
+[1] ISO/IEC 9945-1:1996, Section 14.1.1 "Time Value Specification
+Structures".
 
- man/man3type/itimerspec.3type |  2 +-
- man/man3type/mode_t.3type     |  2 +-
- man/man3type/off_t.3type      |  4 ++--
- man/man3type/sigevent.3type   |  2 +-
- man/man3type/stat.3type       | 19 +++++++++++++++++--
- man/man3type/timer_t.3type    |  2 +-
- man/man3type/timespec.3type   |  2 +-
- 7 files changed, 24 insertions(+), 9 deletions(-)
+Signed-off-by: Seth McDonald <sethmcmail@pm.me>
+---
+ man/man3type/itimerspec.3type | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Range-diff against v0:
- -:  ------------ >  1:  48b823b1a965 man/man3type/itimerspec.3type: HISTORY: Update first POSIX appearance of itimerspec(3type)
- -:  ------------ >  2:  90f54d80c479 man/man3type/mode_t.3type: HISTORY: Update first POSIX appearance of mode_t(3type)
- -:  ------------ >  3:  c1498253ab68 man/man3type/off_t.3type: Change VERSIONS to HISTORY
- -:  ------------ >  4:  6b062b0d6afa man/man3type/off_t.3type: HISTORY: Update first POSIX appearance of off_t(3type)
- -:  ------------ >  5:  6919cafeb4e3 man/man3type/sigevent.3type: HISTORY: Update first POSIX appearance of sig{event,val}(3type)
- -:  ------------ >  6:  84a9e467d506 man/man3type/stat.3type: SYNOPSIS: wfix
- -:  ------------ >  7:  0611f62eeedb man/man3type/stat.3type: HISTORY: Update first POSIX appearance of stat(3type)
- -:  ------------ >  8:  9d3a705508aa man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of st_{rdev,blksize,blocks}
- -:  ------------ >  9:  e13690db2fb6 man/man3type/stat.3type: HISTORY: Specify initial datatypes of st_{blksize,blocks}
- -:  ------------ > 10:  eb28bf22aed9 man/man3type/timer_t.3type: HISTORY: Update first POSIX appearance of timer_t(3type)
- -:  ------------ > 11:  d25e140aaabe man/man3type/timespec.3type: HISTORY: Update first POSIX appearance of timespec(3type)
+diff --git a/man/man3type/itimerspec.3type b/man/man3type/itimerspec.3type
+index 00eca6702293..7c366b186894 100644
+--- a/man/man3type/itimerspec.3type
++++ b/man/man3type/itimerspec.3type
+@@ -24,7 +24,7 @@ .SH DESCRIPTION
+ .SH STANDARDS
+ POSIX.1-2024.
+ .SH HISTORY
+-POSIX.1-2001.
++POSIX.1-1996.
+ .SH SEE ALSO
+ .BR timerfd_create (2),
+ .BR timer_settime (2),
 -- 
 2.47.3
 
