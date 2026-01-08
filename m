@@ -1,86 +1,86 @@
-Return-Path: <linux-man+bounces-4721-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4723-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E23CD00C4C
-	for <lists+linux-man@lfdr.de>; Thu, 08 Jan 2026 04:04:29 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 74073D00C3A
+	for <lists+linux-man@lfdr.de>; Thu, 08 Jan 2026 04:04:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id A7310301517C
-	for <lists+linux-man@lfdr.de>; Thu,  8 Jan 2026 03:04:13 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 63F8230010FB
+	for <lists+linux-man@lfdr.de>; Thu,  8 Jan 2026 03:04:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7446919E97F;
-	Thu,  8 Jan 2026 03:04:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9D12277013;
+	Thu,  8 Jan 2026 03:04:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JpHvPYi0"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GZysS7ZY"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABCC227BB5
-	for <linux-man@vger.kernel.org>; Thu,  8 Jan 2026 03:04:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315B120F09C
+	for <linux-man@vger.kernel.org>; Thu,  8 Jan 2026 03:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767841453; cv=none; b=nSucbG8V9lv8/rKafQESa6vhKsK0OKuXwAXYQEmLb2CpEtHuiVK7ejgABlka2dbH277lad50iETC+LI0rrjjfdl34IoG/q9L1exIOMFArl1cR6yKa+CWr3SXrPa4QWQcL++KVOqEZOl3ZGyGODjaONuZXOgorykp5iBRktsCOAI=
+	t=1767841457; cv=none; b=C0fvHvI71bzIMP7KSQxERUSYMEoC2eRSW3I2ClhZ+EYfjP/8QWw22P/7xVMhrqZd5I12I2KBw3TReT/l0OqcoraUqh6N5q2WFbX0wOdzjpcS4ap+bjubAL4Se39gi08iLRhn3q5VmShTaWl3W4JwE/TFyyulUZWHVapCv/f/S2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767841453; c=relaxed/simple;
-	bh=2xDuGeVGI7I7CAHV4gVoUBN7WROuhRxeC0tq+uoX6eA=;
+	s=arc-20240116; t=1767841457; c=relaxed/simple;
+	bh=XP8IDAcfwHa49J84EhHMknTOiiH/T27MYDthIMvulM8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AjKBbfIhOaGzS8Z0sYGHGgQe/0ndErK1noGHhQOoYnR7ghh3EgwBq8SnRz8ZXlOg33cRgDJqLoETMad47tsEfGMrOp75D/KsOAsGbSbTmTQbsmbUyyLc66M/B9CJsrADYecRtPH3dCvrZrydsNjl4G10RCFvnZ29lwmiS7kRZ+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JpHvPYi0; arc=none smtp.client-ip=209.85.210.196
+	 MIME-Version; b=OQhOzxvoGgjp83DnYY+k4VMzi1W7b8UAtOOQkTNMHD1l6EAG7sPUeG5HKi16ELVP3nmZ2q0uprydqJiuWQ8+R7RdR2lK1+vfmCNveW05N0vxSfXcYrQx6yGKTx8nS7o8dHu5Wv+WEzk/Fmgawbmzu5Bgip9T2Px0qTnC73mbptA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GZysS7ZY; arc=none smtp.client-ip=209.85.210.196
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-7ade456b6abso1833658b3a.3
-        for <linux-man@vger.kernel.org>; Wed, 07 Jan 2026 19:04:11 -0800 (PST)
+Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-7bab7c997eeso2199120b3a.0
+        for <linux-man@vger.kernel.org>; Wed, 07 Jan 2026 19:04:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767841451; x=1768446251; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1767841455; x=1768446255; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:reply-to:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=to3Zhvw4J6xqOqxPHnFF+jqNhjbHhu9TPBH3BiESmgI=;
-        b=JpHvPYi0Ucg9Gij1UqEUloIgWrFykF52V/3OrbPKWuoS8WojjCOryymzU9Rpis4Fcu
-         r+1SJ2qnEMZ7KCj73giPNj8ZooUfmUrHlBR0z7QB4ibavz7RjOzdXuwcBeCdRfVaY4VF
-         Si9zWHfmWfSpOun1WCnjEw3DsSYUETrVm5ODnkNz3peJRjD1vbLfcRrEanJLlzGW1Y9m
-         J9/z3FvEhjD9bt5Ee0wGZB9suZAjKJr4qupK7yxcEe45eO5iaM0UpD/BIkEFnUCH/54Q
-         h1zc9SyhI2aSKSJH+PpkvQXf5AgPwk2O7y8V5pAvwDK3vtNp4NuCzQIKsB12jfUHmQwu
-         A4EA==
+        bh=qXxzY3BpUF9liI9poopvv8JHbN1s2eNJDjQTw8j1Ww8=;
+        b=GZysS7ZYFtvqXeYwvkvJox2oj9l6b50UeNOKu8hGdCZbPIdJJhoMkss6VUDqxK1UJl
+         EuRUdq672KIe8YrxIqP+6znTkSb/7ZhrWfHnfdwOm8xrkzItGSGPE9gQdtpuJPwrwlzn
+         xdh/OzoUYjFfsZe6zkqvHxi5XgU5ymmMGy328TgHwFWNr2JEwzm31KxnCN9Gm5C7u7UC
+         RguwZLR75zocHjWmI/ZyXt+b9gHOMfrUagOYl1psFBqrgcO49gPh1HZHi8zi6ggzzxyQ
+         ySF06+ksxevv1QBAekOl2x4GonK1d5XTXyY7wm7RyzoKDUz3xEBb9wSeNrp2CkdSaM4O
+         VttA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767841451; x=1768446251;
+        d=1e100.net; s=20230601; t=1767841455; x=1768446255;
         h=content-transfer-encoding:mime-version:reply-to:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=to3Zhvw4J6xqOqxPHnFF+jqNhjbHhu9TPBH3BiESmgI=;
-        b=rFTsaSCxnXNy2SuL1ACeV7ObwkG/ZopX/e5rqfwg8rk1gO/IuUqo4qm07q7G8+bsyJ
-         UrebGkkU+uQ8o/COPLDt3lwCRFNz5LvgeKswgwNHFKDQvGa3JzVs4e5CHPv7M479Z0Rj
-         pzM/nr8tn7W8mqxi/1sdK7iCelPRg0WVX4wFl2+XYnT7qZEZMA09eyDLPwzf0nMm+b8Y
-         AIkG9W0YcnoqIsKvXHzmWi0kdFyFbqChitl7+XYeLO6xpeC/PCNbzHBdDker5Hc9b7kL
-         /qjYvCGk5MO4+DTBQP8UCrUwgnBBLpI2JMphjMKtEGdrQ/Iak3VRTSwdDQ4CzFog53G9
-         LwQg==
-X-Forwarded-Encrypted: i=1; AJvYcCWmAc6UebbC7vEBn97y///2CbJ2xoEvYXrR79dqIPoLICG5ux/OIu+xzya1TWU6qgxMKsVFh37RWBI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfZ3Rj4fFv31Xm5+rMjxHeG8FEgTyNP6fqBqqsGwHMT4S8Vbyo
-	6yQ9dk/qpgEYbPxRc6MYJFhQ4Ua24DfyijBqlFCpbg9J1TbV5VwdvYaz8CyBrobk
-X-Gm-Gg: AY/fxX7VbbOnsOzA5UVWeB+Ih9NTfamymX2cDlE7GFvQw1oaYqiMjFIibHGv6I+W9J/
-	iRSpqxIOmdxBfcgIWcYfpllMMmZdHLlhZv4/X5dNlLP9rhMysF+IvfLAog9GAlsk6jp538waDgb
-	RvCvl6NrtIafoPXJLSttY+GCjawljs4u7GybQ/Tfw/plVT2hCw33POAuvWKB1GeJmUHkFFxHyGA
-	2l5Fv0mBODhhUK3PoLefYwQT6bUbAomAC7XrnNlb0QsArsFJZHbB8xbESaWvzBGwVhay4GgwwAu
-	K/42opxiDuLSnu24ww2ViX59270XlwtbfsFZLi1EuiOhC/DKrwsdE8rabt1Zv6yeyKTy4xYf+S5
-	Ot1WOuQF2lA3qyzKnMsNXGJtH4eq5U/6nmKOH+LQ8tRMKzd1YWbz1U4NdQozqIOynAF+9s4LYRN
-	hWOozQmJ53qRcLne3HPriwUAsT8u+TQ+ThReZQegusUp5xAjAtFezmNs2Jw0bMAUO1YzhN5V0EM
-	xkkhOqj4IE72eI=
-X-Google-Smtp-Source: AGHT+IHKaLJ/gX8ww77dpBqAd0c6bWtfQ44WddVcIyCoBw3LZlrpVsDKE9mhyvOC9xZZ/mMr/T1vYA==
-X-Received: by 2002:a05:6a00:4212:b0:7e8:4471:8d2 with SMTP id d2e1a72fcca58-81b7f6e0a6fmr4166196b3a.51.1767841451175;
-        Wed, 07 Jan 2026 19:04:11 -0800 (PST)
+        bh=qXxzY3BpUF9liI9poopvv8JHbN1s2eNJDjQTw8j1Ww8=;
+        b=OhSZWwAreGHUFYgtEzgVot5tXkop9D5Do4o6dy2B5BuQVn1IOBGJK63di8sahAdsDH
+         EdVxLvWP06Ukf16CSR+sYsVTg14IFwUd9MeYcSxcWXfP0gYwvZHA9pjeCtsIEiGl1dBw
+         PuveIcEgHvYnVShIfp4mgbllfXghF+JB6+xua9XcyP7BvzxPjGu5OncJebs/9VskrYlC
+         dIO91bN6GiY+K6nQH0Um/EYKnkB1v3uIW4Gkj0nucRKukckcTr+nkInIlhb6Bik4pg5T
+         5JE7YbX0JQCt6nRBrF2EeW4rfsW+JxkyL+KU5gwqkhiG3SEnwFsAcemD932zzrSOc24D
+         cWEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU0s36uXV7tpgIMe8fqjYl9iCI2k9TqQzKJ+Tru3Z2/YcAHtW030mC7YqyNpQaOBiJExYdAuS6Zjd0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNu0piHH1aECqheVls4nW+XnNeIJPggPGslREvo4bhQ3RNVcgf
+	H6mmbU86LmTV0fQ5n08pds485bVVPFgFSpkkwwGmRpzAtzRR0yATFyrH
+X-Gm-Gg: AY/fxX4B2ucOYMldHcOA7WJ4dvkoxb2Q70PKUw1dSVq/96IVNKx+AVTsZpg1jPYcZ/K
+	/tduJKZ4zmOkbmQBxEinjMt5b9xujwa/7alywH/RRRHs5oZolsvJTsMLPXs9MRgDID9JSg4durf
+	MawfevGEpoWgvDuUc0kMTq0ySQhUVKGvqHRd4sb0pBCQ5yWvGaBmcXABoFvN6pg+scUyqPn1Phx
+	1naILFlsM3BO3LyCsJLNrNi0D3grWswZn2BdUKItdhDAmhkiDyz3pqxaNEdnJ3n4cP/FE08xAeS
+	RlZAOMyBt9zuu8iizAWgPEQc5AlzKRLHy5QkaYfy0KQa4wbwA8Y6SpPo45S4E+Rjc70eb8rYcng
+	H6J/OOSt6+2f0SECE+czugzp9ZSkb5CeUJOwAvKhIrZEpzMlIl3VFWKJDcPKUckvIrKqSZt8JDt
+	feeO5tFfqrAXkB89fFa76kil/3r6Xyb69uZut5ltlX5BKVapmuXslF0I8H3pzi8PUSXHvEkSzXF
+	UXtPjptjtrN+8w=
+X-Google-Smtp-Source: AGHT+IHXR3S3wP5oROl+KHAYettgPG1Hn2yDqlP2nOAecoxuukA6kWjACwcfvn4+PVts+psUSEQ7DQ==
+X-Received: by 2002:a05:6a00:6c87:b0:7f1:fad7:2ce with SMTP id d2e1a72fcca58-81b7fbc91acmr4622597b3a.48.1767841455539;
+        Wed, 07 Jan 2026 19:04:15 -0800 (PST)
 Received: from McDaDebianPC.local (2403-580b-5de8-0-ce7d-5796-70e-21eb.ip6.aussiebb.net. [2403:580b:5de8:0:ce7d:5796:70e:21eb])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-819bb4c85bfsm6120312b3a.30.2026.01.07.19.04.09
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-819bb4c85bfsm6120312b3a.30.2026.01.07.19.04.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Jan 2026 19:04:10 -0800 (PST)
+        Wed, 07 Jan 2026 19:04:15 -0800 (PST)
 From: Seth McDonald <seth.i.mcdonald@gmail.com>
 X-Google-Original-From: Seth McDonald <sethmcmail@pm.me>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Seth McDonald <sethmcmail@pm.me>,
 	linux-man@vger.kernel.org
-Subject: [PATCH v1 08/11] man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of st_{rdev,blksize,blocks}
-Date: Thu,  8 Jan 2026 13:03:14 +1000
-Message-ID: <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me>
+Subject: [PATCH v1 10/11] man/man3type/timer_t.3type: HISTORY: Update first POSIX appearance of timer_t(3type)
+Date: Thu,  8 Jan 2026 13:03:16 +1000
+Message-ID: <eb28bf22aed931e9f0afdaa6dfc8f6061bfcae60.1767840410.git.sethmcmail@pm.me>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1767840410.git.sethmcmail@pm.me>
 References: <cover.1767840410.git.sethmcmail@pm.me>
@@ -95,39 +95,28 @@ Content-Transfer-Encoding: 8bit
 
 From: Seth McDonald <sethmcmail@pm.me>
 
-The st_rdev, st_blksize, and st_blocks fields of the stat(3type)
-structure first appeared in SUSv1.[1]  They were added to POSIX.1-2001
-when POSIX and SUS merged, but as an XSI extension (still SUS-only).[2]
+timer_t(3type) first appeared in POSIX.1-1996.[1]
 
-[1] X/Open CAE Specification, System Interfaces and Headers Issue 4,
-Version 2, Chapter 4 "Headers", p. 830.
-[2] IEEE Std 1003.1-2001, Volume 1, Chapter 13 "Headers", p. 356.
-<https://pubs.opengroup.org/onlinepubs/009604499/basedefs/sys/stat.h.html>
+[1] ISO/IEC 9945-1:1996, Section 14.1.3 "Type Definitions".
 
 Signed-off-by: Seth McDonald <sethmcmail@pm.me>
 ---
- man/man3type/stat.3type | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ man/man3type/timer_t.3type | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
-index 44d45b4a52b4..83f6e881a5ae 100644
---- a/man/man3type/stat.3type
-+++ b/man/man3type/stat.3type
-@@ -137,6 +137,14 @@ .SH STANDARDS
+diff --git a/man/man3type/timer_t.3type b/man/man3type/timer_t.3type
+index ff907871815f..b1b8ba632669 100644
+--- a/man/man3type/timer_t.3type
++++ b/man/man3type/timer_t.3type
+@@ -20,7 +20,7 @@ .SH DESCRIPTION
+ .SH STANDARDS
+ POSIX.1-2024.
  .SH HISTORY
- POSIX.1-1988.
- .P
-+The
-+.IR .st_rdev ,
-+.IR .st_blksize ,
-+and
-+.I .st_blocks
-+fields first appeared in SUSv1
-+before being added to POSIX.1-2001 XSI.
-+.P
- Old kernels and old standards did not support nanosecond timestamp fields.
- Instead, there were three timestamp fields
- .RI \[em] .st_atime ,
+-POSIX.1-2001.
++POSIX.1-1996.
+ .SH NOTES
+ The following header also provides
+ .IR timer_t :
 -- 
 2.47.3
 
