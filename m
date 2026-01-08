@@ -1,139 +1,144 @@
-Return-Path: <linux-man+bounces-4712-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4713-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15E01D00448
-	for <lists+linux-man@lfdr.de>; Wed, 07 Jan 2026 23:04:13 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E8BCD00C37
+	for <lists+linux-man@lfdr.de>; Thu, 08 Jan 2026 04:04:19 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 2418B30255B8
-	for <lists+linux-man@lfdr.de>; Wed,  7 Jan 2026 22:01:39 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 1B1E2300E028
+	for <lists+linux-man@lfdr.de>; Thu,  8 Jan 2026 03:03:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 664112FB630;
-	Wed,  7 Jan 2026 22:01:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7678825A659;
+	Thu,  8 Jan 2026 03:03:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IsYfNvzG";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hEKhxxtT"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LeGVDEgQ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E0C20F079
-	for <linux-man@vger.kernel.org>; Wed,  7 Jan 2026 22:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02033A0B24
+	for <linux-man@vger.kernel.org>; Thu,  8 Jan 2026 03:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767823298; cv=none; b=f14uWTV4JNIMRI4tLyV3/+gCEeAyhRVtK6FFVlSu7QL7ZJPln3oaV953igh54OyUE7AWEZmddMzMlAyOU2NOVYgBWJojMye7hF4K0CXq2fKdDK4UmaW3r2TwhC7Jne91KIWywakbHOUrULDoZ5Vr6/mszFMeL/KUNFjQrVV8c9U=
+	t=1767841436; cv=none; b=qp+/bZ+qwY5lgxV3vNY3O0Qxb/Rw2IEHVPcFIqJHx9COn6GYcVMsIdRzDs0vQ22KoWJr1PCi/BW7F6sNA6DSF4uEn7iL2GwFokuEVSYs+pg5sLTUgcrGZKHv6UJZsijHfEtuM1FK3VIoNmXCJGLA4PbrgoAbanb815RuUXeiRRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767823298; c=relaxed/simple;
-	bh=jJD+wMluDSJbJR9EaskpRxS58I03YBXveelrkM+wRDk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=SRUFQDGRyI+Bew+phLwH+5c9IoF8ZLPtItLJDfmnB9xVsNwHOATgyzrOL+7vcd4zFiZuIwo45afGcj/mQFnT6zL4GOG5m8EvxJUwozfjFqWkH1h8byaAU0Te473TiqUFOLu7zEPB0YIt4vHOHViftrZE2npI1VtHIqqZzB6o8yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IsYfNvzG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hEKhxxtT; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1767823295;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WgEkjCq/eeWfalypLcZcxL2NfVBAbzWa4XCtbK7BcR8=;
-	b=IsYfNvzGB40Jm7MZE5E+JgCqdFgArr+30i8kxSu1I/czfwVM+GzlAWiflr0BywS2/APRLl
-	I1dLsaA3jdKQSH5NZkfejjyA3WYTQ50dfOqt3mfS8qmGKDs+cW6NAP9dkqKSMThFSh+Z+6
-	qFa9rTGFKAOBNgajCdULzjRdkn5+WMg=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-670-yZdJ79sEPDmf8CSIep1kjA-1; Wed, 07 Jan 2026 17:01:34 -0500
-X-MC-Unique: yZdJ79sEPDmf8CSIep1kjA-1
-X-Mimecast-MFC-AGG-ID: yZdJ79sEPDmf8CSIep1kjA_1767823293
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4775d110fabso23486065e9.1
-        for <linux-man@vger.kernel.org>; Wed, 07 Jan 2026 14:01:33 -0800 (PST)
+	s=arc-20240116; t=1767841436; c=relaxed/simple;
+	bh=GjxlXAgSlk6IieaSMzljLxsWRHEz3d/atR8ihQxZvyo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SAqWlgCwHtaW/nsM46mWW772LGNo3KSLgcqxh29L/volxYrShgD/gJ2vKA9xEox4n3HK3MwRbJR0ETX5h0/aqLQyqxyXCIpocmCZd45qfRueH8JwvjPXDA7WaJ8eZ4zmgKXP5ve29cbGBEe0PRx3tyP15LYINeDnJHwBVmF65pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LeGVDEgQ; arc=none smtp.client-ip=209.85.210.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-7f1243792f2so1443801b3a.1
+        for <linux-man@vger.kernel.org>; Wed, 07 Jan 2026 19:03:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1767823293; x=1768428093; darn=vger.kernel.org;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WgEkjCq/eeWfalypLcZcxL2NfVBAbzWa4XCtbK7BcR8=;
-        b=hEKhxxtTgteS2bl9KWgk33XODOqf67JCXoweD6HrVYKvCExMhnZ+tPVWD/AYwRhhFt
-         tVfAuMGVJ0Za1/mddOlYta6fPowxmd9Q5M7bpV/adk3/ZExhsSWej9l6y9mfDCIn2vxn
-         uqjOnTj1h3BAGfvmjIEvFGoUHKBQyYjAfGN0c/6bUzgA0GHsVGzng10XDJTfuwoN68aG
-         UndFw++WR6nuYbew8WBUsvQI5jYh3UieGsqYl6Gm1tXG9m9bl3/jDbF5OVoY+2zUm43u
-         hma7/1mm031aPkWGQJkB2Hddc4mub1fO9gGh3oZfsTOLX3U2Iaabeowv0zsMK76shCRZ
-         M9yw==
+        d=gmail.com; s=20230601; t=1767841434; x=1768446234; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RE8+Wnjvu7eMpyT+cB/b7WtxqDKI4OO2wodamZORnwM=;
+        b=LeGVDEgQEnDqzirBFKe1O7qG5H7U+dkMG0ADK9+8rmmC05WhhWAuabSt0WcF5DFZSI
+         LfdsyUF3G48KUBzka753rqweCTdHi77mT8HsQe+pGTV+4EBXqLXkxrNHtSqQsWwHKLnT
+         2RXCVYlGyRgnvVN/Ti+tCT8vkdId51kmjRR2eQYWBS7I29XMJqvMFv/QE1kABsCPCTw6
+         tY6Z1Z9r18qk056nnS1UHZButnBz5Pn57ioVEphKzOxQPZBqPmyTh/9tLeoaqCkff801
+         ZqvsbhVL2if130YW/4ECuWdTV9ho05x4GCnoo3jtERZ+rWLtOIfVfK+gatySo6gv6yW+
+         0hzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767823293; x=1768428093;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WgEkjCq/eeWfalypLcZcxL2NfVBAbzWa4XCtbK7BcR8=;
-        b=W6G7hlDIAOydtzSChJ70Cy0Cj3hSS2V+FP+Rk9p6zfNSOGjy69JUvJ0PHcgGZbDBOA
-         xTZlNvyVDR9IpggxA4CNFVLQVpuEa4GPYUE2xRfpQXjWijC0Cb1wwmfB3/ki1npvlQKN
-         3gJXihw2/olMcTvkGEFp9AB3iEekgfvaATgHTa8YaBKWuiwyPxGhVF97WdyOYOCQsnym
-         n0kGDdvxSsdedbYw/yBhB3yoRL26HXqw+G3IOTS6buGwuFjCc0BjR8ZG7tuxq6pyNYjk
-         uicTYg+qhL8rMfe+TP14JlHcf2hUYwc9Z6iPgD9loTKQ6BsY0TYCFO/MmNp40XsECRAL
-         veFQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXyzXxms/NjEr1bMcAD7Vc6mLd8+Z2zrLip/ztQPFgmj6RV6ss24+jqU1jWPqL27ff1B5+YGqCRQw0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyt2Sv6Wjua2arsjcZG2mxaHSHDJ9esaf6d6aAeFQEkP3Br67Cl
-	MtVF6DPSzmyznlXhg/SUQO94C20GP4xvUQf5rf3cMZdPikZvhVHuD+dW52bmkgirZnw7ISESP+z
-	ilNIVL3T7d56E/DUPgXEN5DgZwxRjm3oNxIDOdU3SdDFXuDCIaoKndsKE6RXlWA==
-X-Gm-Gg: AY/fxX7+lKsO2UAiyRWosLwrvZWfuYu0n6burGd88a7i+5esSO2OTRKMFeo/uLNUtx0
-	Jt0NNUaU+s9M886bKS12ezNJIPzVVrRyAICvE/2mOS9ocDQ4gl9L1n772z0ivAu4Z1L2wmuE7a/
-	qARhhnVuPoo+hFQNRbE4hwAdF3FThsLUb9x8Rb1f6bN/7zk68NyCGBCA/rv/uJ7tcVc9Ah7nHI+
-	Qq7FJdaLHPZf9VZ/PR8uZ2APuAinAFVnbynmlfhHZdnsqz6c5fiIPiLSMwLqPA7PueXXeZuCt+R
-	fvRDah8/3tPJ79iSBw/5B0c2AM8QTlKsGVJczyzXbqS/i89vlTo7/0N9e1EksBaX7b9Xz1gUAiu
-	GRVvPTg4ljqqhkYarrFoqNROgqXiPyzJtiPtasg8B
-X-Received: by 2002:a05:600c:a48:b0:477:9eb8:97d2 with SMTP id 5b1f17b1804b1-47d84b08652mr48445225e9.8.1767823292691;
-        Wed, 07 Jan 2026 14:01:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEFFBQ6f4dgqT66Z2rtHVbZLTL54Uls3e70dgvt5NOwL8/PHkCJK05N0l/jLQPYCDX9LJ5nNA==
-X-Received: by 2002:a05:600c:a48:b0:477:9eb8:97d2 with SMTP id 5b1f17b1804b1-47d84b08652mr48444995e9.8.1767823292323;
-        Wed, 07 Jan 2026 14:01:32 -0800 (PST)
-Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d8662ffaasm22483475e9.6.2026.01.07.14.01.31
+        d=1e100.net; s=20230601; t=1767841434; x=1768446234;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=RE8+Wnjvu7eMpyT+cB/b7WtxqDKI4OO2wodamZORnwM=;
+        b=HQGpRYx8c8tlHsca1U2oFJwqzrR6e61dd+28favV5alBnAhT4ItklM4wTaqxCri9uQ
+         +NcyRAii3nMKAuAtkzVUKCdn+hI0Vg3c4lLJ/WokPBxL+w/Bfb2mZ0zOC8RfAbqvqL8n
+         uLcapYvxnGeKV2d4Zu3FMlL3bIhvv3V7sR3mrPwHItS34ofTjdskFUEjdrjJRIW5+zUg
+         fl2zqigXW8btJs5eGLEtmHjbSGEtKNqQc1LJUjEnDwa4VoSZLd6Wf/39EN/vbcTnkYij
+         S9TqLM+22CntSkyctphWGdV2iSxKQ9SouoWvmw85klzhJnMFkTYdUWylQScEsbSnUJpb
+         kLyg==
+X-Forwarded-Encrypted: i=1; AJvYcCUKuoaU6cVEUJ/lggGxXntV1wy6Rn0/1XyU54ydNSn7RraIjZuaJsQD5+o9tFCchh1m6rCpDK0bwzc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzzwzN0b3sxEwB0HPhNjoD+aIaXGAA9CmIXncWnry0DRYqhUrIN
+	v8DuR0sTYyhYXVN/8tpgXPVzHuxE9MXUIMVrcGBErWspqYUh59ApA92q
+X-Gm-Gg: AY/fxX5gpFSQv5zoWRCOFVaErdvLa4wRkXbjSRq0cuG3Tf3wdYUkQFOsoatDNfEOcYm
+	2i8JR1nA3xK3DNquN7HH7k3sSc+rgx6tFqxc7qNT0UY0CSvVLzgwNDnbWBUp6obWMNcot53K04L
+	CmfuToSnlYy26dYR+Zm+AejkfRKceuHDaa1M7KfWlDEvVqTOF9/QZLkWJqvY3DGfIrEs6D5gC2O
+	a8TOXtiKRTEBCZeXDtvG61beIuNHabxN3qv7gaKdjQTEFJa+5gR/1x/IFEDhvVR4DW66mTnEm1U
+	bjYxzVjyGzYhyiAmxW4jgC/KJzO6vDvJ3CcxMEw1jXz9Bu1HfSi+SHu8ksejaGOrRUNmh8SZGzA
+	MYwgHHj8uAs7XHlmMZmjMcTRf0BQ4wdpN/2zUvF9oTyj4MsOE5sA545mH2AhA7ViGZbgCLeiqB2
+	WiCHKaKqcrmL5dnv2PhuCUM1AKWbDaPl3rjCysCxlPBh1wqU7VLhasJy3yz/I32pZ92t1P0+woy
+	UfJIL37fgLWp7s=
+X-Google-Smtp-Source: AGHT+IGXyWvD4F+n0e4ZCP8TkgfM903EfHapSlv2TgLldTfeJm9LTzePzKZOdpZCqBCtGaGqYZ0hOQ==
+X-Received: by 2002:a05:6a00:ab8a:b0:7a6:2c97:eda7 with SMTP id d2e1a72fcca58-81b7e252686mr4539318b3a.29.1767841433989;
+        Wed, 07 Jan 2026 19:03:53 -0800 (PST)
+Received: from McDaDebianPC.local (2403-580b-5de8-0-ce7d-5796-70e-21eb.ip6.aussiebb.net. [2403:580b:5de8:0:ce7d:5796:70e:21eb])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-819bb4c85bfsm6120312b3a.30.2026.01.07.19.03.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Jan 2026 14:01:31 -0800 (PST)
-Received: from jsm28 (helo=localhost)
-	by digraph.polyomino.org.uk with local-esmtp (Exim 4.98.2)
-	(envelope-from <josmyers@redhat.com>)
-	id 1vdbas-00000008QTE-30LT;
-	Wed, 07 Jan 2026 22:01:30 +0000
-Date: Wed, 7 Jan 2026 22:01:30 +0000 (UTC)
-From: Joseph Myers <josmyers@redhat.com>
-To: Alejandro Colomar <une+c@alejandro-colomar.es>
-cc: David Svoboda <svoboda@cert.org>, Robert Seacord <rcseacord@gmail.com>, 
-    "sc22wg14@open-std. org" <sc22wg14@open-std.org>, 
-    Florian Weimer <fweimer@redhat.com>, Carlos O'Donell <carlos@redhat.com>, 
-    Aaron Ballman <aaron@aaronballman.com>, 
-    "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>, 
-    "musl@lists.openwall.com" <musl@lists.openwall.com>, 
-    "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: Re: [SC22WG14.34664] n3752, alx-0029r8 - Restore the traditional
- realloc(3) specification
-In-Reply-To: <aV69o8h0I3Px7ryV@devuan>
-Message-ID: <190a03f2-4818-7061-59d7-276508931a3d@redhat.com>
-References: <20251223161139.196AB356CF9@www.open-std.org> <20251223164349.F0BC5356D1A@www.open-std.org> <CACqWKsOkbArXm0XBUHkLcFFwDUP8iDQv_xPeNbomR0bKf-GCFw@mail.gmail.com> <20251223211529.6365A356CF9@www.open-std.org> <CACqWKsNQCchFZnFKKAyi-3HDtJYQ6sc=UZeb+hX48WQ1e7yj_w@mail.gmail.com>
- <20260106210527.AA3FA356D3A@www.open-std.org> <20260106214930.A5C8E356D2B@www.open-std.org> <PH1P110MB1636A1DEC402A702C28EBA9ECC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM> <aV4N-0egpfxhmnta@devuan> <PH1P110MB1636D74EDD4F3074AC98F12FCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
- <aV69o8h0I3Px7ryV@devuan>
+        Wed, 07 Jan 2026 19:03:53 -0800 (PST)
+From: Seth McDonald <seth.i.mcdonald@gmail.com>
+X-Google-Original-From: Seth McDonald <sethmcmail@pm.me>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Seth McDonald <sethmcmail@pm.me>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v1 00/11] man/man3type/*: Update simple history of types
+Date: Thu,  8 Jan 2026 13:03:06 +1000
+Message-ID: <cover.1767840410.git.sethmcmail@pm.me>
+X-Mailer: git-send-email 2.47.3
+Reply-To: Seth McDonald <sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Wed, 7 Jan 2026, Alejandro Colomar wrote:
+Hi,
 
-> I thought you were talking about the UB introduced in C23, but that one
-> seems not documented in Annex J.  In fact, it's still documented
-> incorrectly as ID (J.3.13 entry 41, in N3220).
+This patch set updates the history of types that have only one standard
+listed in their HISTORY section, meaning they should have no ordering
+issues.
 
-See 
-https://stackoverflow.com/questions/78691087/reallocptr-0-in-c23-now-what 
-regarding the lists of UB related to realloc being out of date.  I think 
-this could be fixed editorially via a merge request (to make the Annex J 
-lists in C2y agree with the actual current realloc semantics in C2y) but I 
-haven't got round to writing such an MR myself.
+Seth McDonald (11):
+  man/man3type/itimerspec.3type: HISTORY: Update first POSIX appearance
+    of itimerspec(3type)
+  man/man3type/mode_t.3type: HISTORY: Update first POSIX appearance of
+    mode_t(3type)
+  man/man3type/off_t.3type: Change VERSIONS to HISTORY
+  man/man3type/off_t.3type: HISTORY: Update first POSIX appearance of
+    off_t(3type)
+  man/man3type/sigevent.3type: HISTORY: Update first POSIX appearance of
+    sig{event,val}(3type)
+  man/man3type/stat.3type: SYNOPSIS: wfix
+  man/man3type/stat.3type: HISTORY: Update first POSIX appearance of
+    stat(3type)
+  man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of
+    st_{rdev,blksize,blocks}
+  man/man3type/stat.3type: HISTORY: Specify initial datatypes of
+    st_{blksize,blocks}
+  man/man3type/timer_t.3type: HISTORY: Update first POSIX appearance of
+    timer_t(3type)
+  man/man3type/timespec.3type: HISTORY: Update first POSIX appearance of
+    timespec(3type)
 
+ man/man3type/itimerspec.3type |  2 +-
+ man/man3type/mode_t.3type     |  2 +-
+ man/man3type/off_t.3type      |  4 ++--
+ man/man3type/sigevent.3type   |  2 +-
+ man/man3type/stat.3type       | 19 +++++++++++++++++--
+ man/man3type/timer_t.3type    |  2 +-
+ man/man3type/timespec.3type   |  2 +-
+ 7 files changed, 24 insertions(+), 9 deletions(-)
+
+Range-diff against v0:
+ -:  ------------ >  1:  48b823b1a965 man/man3type/itimerspec.3type: HISTORY: Update first POSIX appearance of itimerspec(3type)
+ -:  ------------ >  2:  90f54d80c479 man/man3type/mode_t.3type: HISTORY: Update first POSIX appearance of mode_t(3type)
+ -:  ------------ >  3:  c1498253ab68 man/man3type/off_t.3type: Change VERSIONS to HISTORY
+ -:  ------------ >  4:  6b062b0d6afa man/man3type/off_t.3type: HISTORY: Update first POSIX appearance of off_t(3type)
+ -:  ------------ >  5:  6919cafeb4e3 man/man3type/sigevent.3type: HISTORY: Update first POSIX appearance of sig{event,val}(3type)
+ -:  ------------ >  6:  84a9e467d506 man/man3type/stat.3type: SYNOPSIS: wfix
+ -:  ------------ >  7:  0611f62eeedb man/man3type/stat.3type: HISTORY: Update first POSIX appearance of stat(3type)
+ -:  ------------ >  8:  9d3a705508aa man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of st_{rdev,blksize,blocks}
+ -:  ------------ >  9:  e13690db2fb6 man/man3type/stat.3type: HISTORY: Specify initial datatypes of st_{blksize,blocks}
+ -:  ------------ > 10:  eb28bf22aed9 man/man3type/timer_t.3type: HISTORY: Update first POSIX appearance of timer_t(3type)
+ -:  ------------ > 11:  d25e140aaabe man/man3type/timespec.3type: HISTORY: Update first POSIX appearance of timespec(3type)
 -- 
-Joseph S. Myers
-josmyers@redhat.com
+2.47.3
 
 
