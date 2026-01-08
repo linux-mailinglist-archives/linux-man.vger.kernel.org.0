@@ -1,144 +1,170 @@
-Return-Path: <linux-man+bounces-4726-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4727-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06648D03161
-	for <lists+linux-man@lfdr.de>; Thu, 08 Jan 2026 14:38:44 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id D6093D035B1
+	for <lists+linux-man@lfdr.de>; Thu, 08 Jan 2026 15:31:58 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id F33153004F38
-	for <lists+linux-man@lfdr.de>; Thu,  8 Jan 2026 13:27:39 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id B036830E044D
+	for <lists+linux-man@lfdr.de>; Thu,  8 Jan 2026 14:07:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0B92487592;
-	Thu,  8 Jan 2026 11:18:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD003435646;
+	Thu,  8 Jan 2026 11:48:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gA3k+KGh"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qi3lFVud"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE1E44BCBF
-	for <linux-man@vger.kernel.org>; Thu,  8 Jan 2026 11:18:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76B341B36D
+	for <linux-man@vger.kernel.org>; Thu,  8 Jan 2026 11:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767871135; cv=none; b=n1lr6VQhBsf8jDZo/xADU7SyD+0TpY2kniabDvv6Sf4Tz8MpFXmOz9D+MLS9cOLgQ+quyzr5H7Q77oXpUGDEMeik4eM5X/YVkieKY+Q6cDp2bvpG6wHZZG7D6bJvwVBJ7hVgXlWn113wRWZMM/9aUtNx7K9JKTkz2Sd6mQ0UQJ4=
+	t=1767872882; cv=none; b=SzCARZoqMfaJBh83KYFBZOB4i8av52kTbNGOSJjlP0H6JePDP0iASrMuAeY2nE34f5qnbu2DnebAWZdJzN72FnMKs+jBvf/86Fox0JnIy5IKGGWzT8ZYh4tu3r+L4egkPgd4V9XOkm2Pdwfr7mqd1g7txB/7DfRQWFn+BN08Wws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767871135; c=relaxed/simple;
-	bh=ny3y76j8WXdbmNoY1d/eR6vR1Bl9NE9H+l8RqekFZRQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=XLtjWQ2Nd6hNIX0HuM0kzpYqwqBoXzp+sNY98gr0a6wbzgbSncrOtGn46a3XK7tRXvy3gJ4moSTM7TCkezFZ4xfM4oL/Un8GgcOlTUCeuP0tl9eLoMgwQrcXoc1uIx4qh1vphBBuOiRKBtojdlwVUu6m+jKJLMPBP+/8csENisc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gA3k+KGh; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1767871130;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Paq0xT5CHYs6/WjlRSpvwa5rzXXTXDLpgaP0x7Av/Do=;
-	b=gA3k+KGh5tTjuHu1KiE44JgWXbOjPe5cOFVyOo3OnPpKzNijTIyjkTLLmrj/+Sajdp8+wR
-	qrU4m3DRwLBvFjmGD4ICOsAtJ8E8m+YU8S1C+dRa+HmTGvGpV0yFNbZcT+hoT0jlB2lBPo
-	qPDKlWUniOC3KwiK52wQ2EiUF3b8jEI=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-537-KJjwuuA9Py6GOPtv_GxFrw-1; Thu,
- 08 Jan 2026 06:18:47 -0500
-X-MC-Unique: KJjwuuA9Py6GOPtv_GxFrw-1
-X-Mimecast-MFC-AGG-ID: KJjwuuA9Py6GOPtv_GxFrw_1767871126
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 542111956053;
-	Thu,  8 Jan 2026 11:18:45 +0000 (UTC)
-Received: from fweimer-oldenburg.csb.redhat.com (unknown [10.45.224.39])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 524F619560A2;
-	Thu,  8 Jan 2026 11:18:41 +0000 (UTC)
-From: Florian Weimer <fweimer@redhat.com>
-To: Alejandro Colomar <une+c@alejandro-colomar.es>
-Cc: David Svoboda <svoboda@cert.org>,  Robert Seacord <rcseacord@gmail.com>,
-  "sc22wg14@open-std. org" <sc22wg14@open-std.org>,  Carlos O'Donell
- <carlos@redhat.com>,  Aaron Ballman <aaron@aaronballman.com>,
-  "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-  "musl@lists.openwall.com" <musl@lists.openwall.com>,
-  "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,  Paul Eggert
- <eggert@cs.ucla.edu>
-Subject: Re: [SC22WG14.34664] n3752, alx-0029r8 - Restore the traditional
- realloc(3) specification
-In-Reply-To: <aV6_UHBxHrOsL3qD@devuan> (Alejandro Colomar's message of "Wed, 7
-	Jan 2026 21:28:30 +0100")
-References: <CACqWKsOkbArXm0XBUHkLcFFwDUP8iDQv_xPeNbomR0bKf-GCFw@mail.gmail.com>
-	<20251223211529.6365A356CF9@www.open-std.org>
-	<CACqWKsNQCchFZnFKKAyi-3HDtJYQ6sc=UZeb+hX48WQ1e7yj_w@mail.gmail.com>
-	<20260106210527.AA3FA356D3A@www.open-std.org>
-	<20260106214930.A5C8E356D2B@www.open-std.org>
-	<PH1P110MB1636A1DEC402A702C28EBA9ECC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
-	<aV4N-0egpfxhmnta@devuan>
-	<PH1P110MB1636D74EDD4F3074AC98F12FCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
-	<PH1P110MB163601133BF0167C46C8CC9DCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
-	<lhuqzs1uy7s.fsf@oldenburg.str.redhat.com> <aV6_UHBxHrOsL3qD@devuan>
-Date: Thu, 08 Jan 2026 12:18:38 +0100
-Message-ID: <lhuldi8pd2p.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=arc-20240116; t=1767872882; c=relaxed/simple;
+	bh=58k7GLzMfB3zzHoBUc9KAV0pvT8ZxrSCAFdcM2/yYIw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XIZGjCD7wM1RML09CN94dBua9uXYXajFHDgbn7x8TUGjkh7QPhC19QPyrkCt4iIz1RXfRVbxSaRF9u04U3xc4AT8SfJAkrj8T72aDltdUz0tYJGCuOllBUqpZJhUZ9fA/V+4XroDhdELcFH2+lQFXsZC3a3Cl4nBYFJ0Ix0xAAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qi3lFVud; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343E4C116C6;
+	Thu,  8 Jan 2026 11:48:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1767872880;
+	bh=58k7GLzMfB3zzHoBUc9KAV0pvT8ZxrSCAFdcM2/yYIw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Qi3lFVudYuV2zKya8U7YR54+Ipj5Za4i4JdOV/Dp0PCV/42mhSy706DOrNxNmSwHA
+	 ECBpuwN0xxm8RDmtTTMbxyBcylNbD4HmpizTDUSYWtyREAF8B7Akhpno10VI/o9SEu
+	 SaUvJiY4acGF7ec9G/V1nEzLHOYukNiVsc0SzT0jJSi/tb+P/OjoAuuphfrisTFvkM
+	 +B4GpCO8YTQvSXxQGbU//rGTqKBStmPpW7gondOmJYKktQd0YWCzaF9GLBPbv1sRci
+	 C7JpHmhmzVJF+Tha0bF/RZ9b74a/PTB9XdFJ+jNiWbEsSZVfZFOeN1DOM8oHIgsTUM
+	 t3SqxrD4RsiUA==
+Date: Thu, 8 Jan 2026 12:47:57 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 08/11] man/man3type/stat.3type: HISTORY: Specify first
+ POSIX appearance of st_{rdev,blksize,blocks}
+Message-ID: <aV-ZG_8At_-R7G2v@devuan>
+References: <cover.1767840410.git.sethmcmail@pm.me>
+ <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oyopu7vv5huexvcv"
+Content-Disposition: inline
+In-Reply-To: <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me>
+
+
+--oyopu7vv5huexvcv
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+From: Alejandro Colomar <alx@kernel.org>
+To: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 08/11] man/man3type/stat.3type: HISTORY: Specify first
+ POSIX appearance of st_{rdev,blksize,blocks}
+Message-ID: <aV-ZG_8At_-R7G2v@devuan>
+References: <cover.1767840410.git.sethmcmail@pm.me>
+ <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me>
+MIME-Version: 1.0
+In-Reply-To: <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me>
 
-* Alejandro Colomar:
+Hi Seth,
 
-> Hi Florian, David,
->
-> On Wed, Jan 07, 2026 at 06:30:47PM +0100, Florian Weimer wrote:
->> * David Svoboda:
->>=20
->> > WRT this text:
->> >
->> >         Code written for platforms returning a null pointer can be
->> > =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82migrated to plat=
-forms returning non-null, without significant
->> > =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82issues.
->> >
->> > I am very skeptical that this is indeed true. But to be precise, this
->> > is Glibc's problem rather than WG14's.  If they are willing to change
->> > glibc to return non-null on realloc(0), then I am willing to agree to
->> > this change in ISO C.
->
-> A major implementation, gnulib, has done the switch in 2024 after this
-> proposal.  No regressions are known.  We would have certainly noticed
-> if something important had happened.
+On Thu, Jan 08, 2026 at 01:03:14PM +1000, Seth McDonald wrote:
+> From: Seth McDonald <sethmcmail@pm.me>
+>=20
+> The st_rdev, st_blksize, and st_blocks fields of the stat(3type)
+> structure first appeared in SUSv1.[1]  They were added to POSIX.1-2001
+> when POSIX and SUS merged, but as an XSI extension (still SUS-only).[2]
+>=20
+> [1] X/Open CAE Specification, System Interfaces and Headers Issue 4,
+> Version 2, Chapter 4 "Headers", p. 830.
+> [2] IEEE Std 1003.1-2001, Volume 1, Chapter 13 "Headers", p. 356.
+> <https://pubs.opengroup.org/onlinepubs/009604499/basedefs/sys/stat.h.html>
+>=20
+> Signed-off-by: Seth McDonald <sethmcmail@pm.me>
+> ---
+>  man/man3type/stat.3type | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
+> index 44d45b4a52b4..83f6e881a5ae 100644
+> --- a/man/man3type/stat.3type
+> +++ b/man/man3type/stat.3type
+> @@ -137,6 +137,14 @@ .SH STANDARDS
+>  .SH HISTORY
+>  POSIX.1-1988.
+>  .P
+> +The
+> +.IR .st_rdev ,
+> +.IR .st_blksize ,
+> +and
+> +.I .st_blocks
+> +fields first appeared in SUSv1
+> +before being added to POSIX.1-2001 XSI.
+> +.P
 
-gnulib is a sub-settable copylib, so it only affects gnulib-using
-applications that end up copying the relevant realloc implementation
-from gnulib (there are at least two).  This is a relatively small set of
-applications, and they typically run only for a limited time.
+I think this would be simpler like this:
 
-It's not that users update systems to a newer gnulib and applications
-switch to a different realloc implementation.  It's a very incremental
-roll-out.
+	@@ -135,7 +135,14 @@ .SH DESCRIPTION
+	 .SH STANDARDS
+	 POSIX.1-2024.
+	 .SH HISTORY
+	+.TP
+	+.I stat
+	 POSIX.1-1988.
+	+.TP
+	+.I .st_rdev
+	+.I .st_blksize
+	+.I .st_blocks
+	+SUSv1, POSIX.1-2001 XSI.
+	 .P
+	 Old kernels and old standards did not support nanosecond timestamp fields.
+	 Instead, there were three timestamp fields
 
->> Someone needs to take responsibility.
->
-> What do you mean exactly by this?
+What do you think?
 
-It was suggested that WG14 can just make the change and ignore its
-consequences for glibc and other implementations.  For glibc, we could
-also make the change and tell our users to deal with the breakage.  I
-don't think this is a good approach.
 
-> You could do some more, but with the resources we have, this should be
-> quite convincing.
+Have a lovely day!
+Alex
 
-I don't feel comfortable changing glibc based on the data we have so
-far.
+>  Old kernels and old standards did not support nanosecond timestamp field=
+s.
+>  Instead, there were three timestamp fields
+>  .RI \[em] .st_atime ,
+> --=20
+> 2.47.3
+>=20
 
-Thanks,
-Florian
+--=20
+<https://www.alejandro-colomar.es>
 
+--oyopu7vv5huexvcv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlfmW0ACgkQ64mZXMKQ
+wqkClhAAgovzSRAuoFhfF05ycs2J98RoSCemdPRjAv54umazt8klYvHXMlYdOKCS
+jbrpk2uBmyMaVOumUAS9wcTFcbR7LqPdAU0Hxg+82jpW+MoBcx8IeC+1OJPZ2Dmd
+bTS2EmNHSBm6hJymsC+nxX5BYMy2dZctfKFetysKAIpKzIMhZ2bt0lysCMs6eDJx
+0w0HcqsHkr0cceh7AWDjXNScbGCev2zkYojfCFAp0tGA/YCVI/INY2XroJmpqK2s
+a3n1Qsgh2jvdlH/SvIp5rqsTuGDWUF+Ou4wT2FjNmA9NfZvVX1kCnhKiiXXajQvT
+6XZ7NImVTtLAznlAJTfoDUpufjfQlEC8iOLwbMT3UcSnpY8EHt3QF8phJX5PWT68
+TBc3+dqe4SVodkcDgayreWEf9fiYT4nyrG+FnfTJawLV3r+ZQbcfPL6bJRDegHJc
+luQ1UI4ogbmXcaHNhufXXO2PMfNit8POLiL3kRoVYEY4qfscK/WxtOpVw7zoODuI
+mm3sCGejhKuXk7QJwa5R58wZMsm/AMR2aarLl8qXoYVcb2dERKRMcI3E7BRX0AKp
+r5ddTqMU0EJ6mNltvMHZUoyW6CbdaJ5ET7u+SkZ7kfc5ltQ0hWQ3EPBib36XWT0Z
+QKGkLAyZMVGsvUaajBZAu9W2CQhJmCckd3KkxJwUsJ2iGkr2b6Y=
+=BWMq
+-----END PGP SIGNATURE-----
+
+--oyopu7vv5huexvcv--
 
