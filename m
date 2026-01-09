@@ -1,86 +1,86 @@
-Return-Path: <linux-man+bounces-4756-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4760-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF95FD076BC
-	for <lists+linux-man@lfdr.de>; Fri, 09 Jan 2026 07:43:40 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC59BD076E3
+	for <lists+linux-man@lfdr.de>; Fri, 09 Jan 2026 07:45:45 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id BFAF2300872E
-	for <lists+linux-man@lfdr.de>; Fri,  9 Jan 2026 06:43:24 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id D3BBC301276A
+	for <lists+linux-man@lfdr.de>; Fri,  9 Jan 2026 06:43:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3C2A2DE717;
-	Fri,  9 Jan 2026 06:43:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 150DB2DC792;
+	Fri,  9 Jan 2026 06:43:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QpQ4itGB"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pu4rokrN"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com [209.85.215.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A10D2DCF6B
-	for <linux-man@vger.kernel.org>; Fri,  9 Jan 2026 06:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0922DC344
+	for <linux-man@vger.kernel.org>; Fri,  9 Jan 2026 06:43:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767941002; cv=none; b=QJHO8v4A9tYa/ctH2M/fpE2805ZHDdLOrMwVM/B9DMjvC9A8No4jX8Hd2XwPbnuHDLUSV+6GJK5tyOTVmvLAHmq9oMap38/90wAOrqxYh4NjI0k6zBplrCMpe4R9OGnGH1nsWDM267jM57ZvLALi8t/Qq3UAgvMyVqrQ5Mq8Ckc=
+	t=1767941005; cv=none; b=ST0cxXMGrAd6hwbf71zTX17A1Mmf485lkmGZykIkWHPImLe4fGZYXGQCd4Orfi3m5asPoIQc2o/WjdiImHwnJ0MSSr2B+itGFTih2oNr+CtAyvtCDOT0RUQkS2pFJHYuBKQoRId4q0BCENXGyN4Q+kx4Hxn/YrxWJOquROVskDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767941002; c=relaxed/simple;
-	bh=B4IFsKEMwK/4xLTRc5V7PSC2FD1CuCSFvXb1j0uSXD8=;
+	s=arc-20240116; t=1767941005; c=relaxed/simple;
+	bh=GcHXmdGZYKCUZwO0W9AJVyyYKboVUZ8nIo1fuIy7b1s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cvcYsrYeLpy2tnHUr83QWKjfNmv02jUTSmPKLtECfqD9eFk2p+NfsjfYAB5jXt8NC1lCngLZMTf29ufMe1KLy3ijg7vLGDmTRCiYxaCw4s3lf5Oh3BTo1J+2ZX+P9wUAQZML8EmOhqriNMYdym9a34C+DCQT3Gb5e48/2snq/wY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QpQ4itGB; arc=none smtp.client-ip=209.85.215.194
+	 MIME-Version; b=PA/9GpYlnwX5T5ZNiQFLDXcxGiiNs3+VCdI98dqThWZnnxS4G6U/r2FBwokrUDQEHhCa6mMUXwwKCg4m2+H4YQfcV+7o1NyFv3EJucHwo2Iy10vMCsgqLdUn33WYJ2mQ1rG/oLojJ7ye7NRxK267a3Gnk60DxNPgobbFb28YIf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pu4rokrN; arc=none smtp.client-ip=209.85.215.194
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f194.google.com with SMTP id 41be03b00d2f7-c46d68f2b4eso2417056a12.2
-        for <linux-man@vger.kernel.org>; Thu, 08 Jan 2026 22:43:19 -0800 (PST)
+Received: by mail-pg1-f194.google.com with SMTP id 41be03b00d2f7-bd1ce1b35e7so2504838a12.0
+        for <linux-man@vger.kernel.org>; Thu, 08 Jan 2026 22:43:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767940994; x=1768545794; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1767940997; x=1768545797; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:reply-to:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=9rBxot6bipIIS5OQTOg9BAyZvtPzE+awMBWNskBFHUA=;
-        b=QpQ4itGB+MJ7Yr04CRqKRCzbQakZAgdSIynNeFTtG+Bzghn16szLPOvZlAPeSJq0bR
-         VzNVWQxsfTuxJwR0OcIIkcqfdCPT0uOqXCfyqTj12lURquZ609EednUtooSkp3QJLDDJ
-         jgzxfijeWJNdah+idHhHs2WuNx/iqxDauWnnk+3T+QWZN+ZZbPNjj64eoMj3DVzsod/4
-         CajcQ2F4CS2C+H6YO8AU7Tgf0QjFSckz9ObhyO5eAqisE3jxCneHcZNJ9b5alPq97St/
-         mNjkzQzZq3lrLI8MDq2ZhqGJfOKoQdWCzu1bhN+zNd/Cf/UDCuQdQ2WV67u4sZBbJrBZ
-         /qyg==
+        bh=gM1J8Dw0+kkq9xugsoScBB4/h/dWISxBlk22TCVkKhQ=;
+        b=Pu4rokrN9jvTcsRcD0lu8s5KmVtwPawRFoOcZZ8fEfbtIKz+43GSQRSpEVAFXA/ARZ
+         WLh6g4kuf1kdc44HYa3ptMeeYCGfPbDCwEED1igNnJe+hM8BSkrFOfySncZoDUfsI8T/
+         EGT037zciiVP6Ez+MLpzDSYLtkeBNvaliR6BXSFaQ81GI41fQOqJ2TRa07Ymm5ZH/SGJ
+         SKZYkiRjVP5AK5nj2M/RLle6Uo07k0xpjkASSNybeTuctxkD7cdb8sZltqM7PCxLNTH/
+         7r5S59BF7ygE4eZtIOgxHdJsXEyv5eK7cHYxBa7WWHdk51C7snuH2nZtWjOnRk060WFb
+         KFCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767940994; x=1768545794;
+        d=1e100.net; s=20230601; t=1767940997; x=1768545797;
         h=content-transfer-encoding:mime-version:reply-to:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9rBxot6bipIIS5OQTOg9BAyZvtPzE+awMBWNskBFHUA=;
-        b=lGVGGcDekGFi9CWvZ2vDkb/sT9mItLdyjkf63/uZvG4YdtPJw4Ya8/xng/m3nly3VA
-         /unBuIL+AQqE1USdwTB7vqGaethE/eCex+v+fFYSgUFNti3+N8k2ibEFdMc3o6Rw+deu
-         LCTqi8G/e7HMMzENs5u4su19c6J1qW29ExmMG1qiZfdFqdOVsCIkFa27lM/8JfaV2HkY
-         dwaYeDKeJGLx+tgqNNo5CfSluj6sa26fasKooY17qSsxPod1likmEXb//WRdXanEN1GG
-         ntBY4QlMN9kFEAMq7aQqoArkBHJcyK483g0imk0bb11M/hTOerHa7vLs2swv3oCSJdUW
-         Xv9g==
-X-Forwarded-Encrypted: i=1; AJvYcCXzk9QfgWlBgjS8HqYcsc8ckI0eoN3JYrUks9VPWimiF9FEiPe7RjK7874cHopfIP62mPbTU07JBdI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZa0kA/XXwK9UnGNPJ4L1O88uqmyIL9CxeDNhC4gV9KXnuufSX
-	XoGlaPLev8Im6idgxjMCxK9VeIUndVOty3TYoQN3CXur5Z8ts/rkQDS6
-X-Gm-Gg: AY/fxX4Bb5pGvUt8mQViIYhDH6+6ATETQe4ooJd+jno0SokM2pnuPyL7M5eVZ3K9XOr
-	ny42cIfNWTOmUqeLRGsaEID3gu5q0CslLw39QHIFGGh2fb0jDfTwG8OHAQfzwMpKQswlm8QpjGX
-	D6wkuNmwP9QcqA5RFYnW/834M6npYW0+uUd/z4iGzG0M4mAg2WswiVklJxjWtGyje3XCCLnoGrI
-	8aVQAFIfyvIYapqASKXWj92hwVsn+10gVaSgmaKYlyME+S1kQDvnEUlqD+asUNeuPlbAz78O0xR
-	+ia2d1VBiMd5/kivcZjFhGtIajzUI7oOnd+TYyOuDkCKy8/KYITFjQ/icGxpRuN4xTfHbv5q/au
-	Pw3mfJTvuAJ2EAKEDOVNbibd39a+Rs7ple5akhz4ShM1m2u0IKVW42I0Gmzkb95MKbhXtNaWonb
-	vQtkVOfTlFo4Xf5EpThWtwTsjvWzidLrA+vOss9vpbTOntMpe8vaO375Bl4sHW+EUUHbctFIfEB
-	uPsfhXMjtB8Jb9n
-X-Google-Smtp-Source: AGHT+IFW/uvW0oJoHCXKYHE4csnGRmrnhkG5s+ECXSEUF63M99VOUg7/o9sh82UIGyrlxvmQfD3wqw==
-X-Received: by 2002:a17:90b:524c:b0:341:8ae5:fde5 with SMTP id 98e67ed59e1d1-34f68c4d71cmr8661347a91.18.1767940994479;
-        Thu, 08 Jan 2026 22:43:14 -0800 (PST)
+        bh=gM1J8Dw0+kkq9xugsoScBB4/h/dWISxBlk22TCVkKhQ=;
+        b=JvwfMHeQCZ08zL0JLw8j+U5lpyi5DBve43SNU/CEO4iGLuesG12BvrAn4Plow5BPHo
+         2uGbRL45SzJG0r1VExSicQ3kDms4k+lioIdRNurXlAN3WGI5MeNRF5/Nq1b2kV8rem2w
+         5AwLMR8C1ezs8dgcPjQS25AKu5TPJyQa7sunEb489VuepRTwAh62ZT0pDznMMptlmFiK
+         EsNp89hVU9n++ekNznT1EWvmToG5FvuSUelGbnQTJdndOvA5eAnfhDEN6nncE2+X3ncU
+         lUMPuiaMUkz6Z7w/CXgsJlnbvtz/ntau32SfdCKMj6TCks7Yjh0UIMnAPkk89W4ZzkKO
+         yvvw==
+X-Forwarded-Encrypted: i=1; AJvYcCWyDZaBclw6hvSB5bzLazLIzyci2nuJSRf18+TEDhyqAG35PEIIfFU2V+qbwsMyZq4lQZPG7rkeP3s=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywgq4SBIc6eWGjcjZSgNB4lLLAGpAJggW7YR83LUdqkjShH7HMe
+	JUOXoEuEHMbsA9XLWCZ6PmnMO97JQubKfd+0CUZrvqh0hhYT23ACeNJe
+X-Gm-Gg: AY/fxX62x+v5q9kQBpqxVq55QBz3kuT0aBd3yKEAUKIU/kGT3lLTy9EvQv+lRBSb7rr
+	5Cb5TJJAKr8FkSd2qRDKTzCxs+idVuujS1ZsqVUjCTQstpye/J0p8emgblayygPMeH0IzSPludh
+	Eycn3UvwHI6NMt7PtnZ7+Yhg3PnkV5yUd8t56ZrJvZ6umOnaUHU5ni2qhdIXUef+zf1aIWm6ayp
+	iz8PPAC94I8KuLN8C6JMVVRuiAHOiGyL1giHwOhdJ7h1ya0p5NjspfWU2DhYohhKG6LKH1d4Efo
+	2Ojbo5lZsIu8uST9UTf8a/ATC3f5H5IY8ukgP/RIwCJyCdXK7tFTBriKeP9pvYZ9L8LlhjyLYt2
+	AV8tQdedthVts2FEOSw1DW9vtUe7cSOiurT2QqHWQvy7ZD59Msg7fG7M5sleKX7aRK2Bqg1O/qL
+	QKpE5A988mGugvTr82h4M86O+51QX78vyf7o5AIsbahOi9a+Vg1x9sztHnJEPx42vBQ/s1Roldx
+	W2vFcceDGhxMrCD
+X-Google-Smtp-Source: AGHT+IEPmNOu/erb7B0vOqqzdJZIwSrp+ADJS3SlD3c7cBYiRNEWkmPqHKNEnV4wrqS+0C4YFv1WGQ==
+X-Received: by 2002:a05:6a20:6a1d:b0:357:78fa:b338 with SMTP id adf61e73a8af0-3898f92906bmr9246823637.35.1767940996651;
+        Thu, 08 Jan 2026 22:43:16 -0800 (PST)
 Received: from McDaDebianPC.local (2403-580b-5de8-0-e0e7-1287-13c3-bc3d.ip6.aussiebb.net. [2403:580b:5de8:0:e0e7:1287:13c3:bc3d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-34f5f88e95dsm9597421a91.12.2026.01.08.22.43.12
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-34f5f88e95dsm9597421a91.12.2026.01.08.22.43.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Jan 2026 22:43:14 -0800 (PST)
+        Thu, 08 Jan 2026 22:43:16 -0800 (PST)
 From: Seth McDonald <seth.i.mcdonald@gmail.com>
 X-Google-Original-From: Seth McDonald <sethmcmail@pm.me>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Seth McDonald <sethmcmail@pm.me>,
 	linux-man@vger.kernel.org
-Subject: [PATCH v1 10/25] man/man3type/lconv.3type: HISTORY: Update first SUS appearance of lconv(3type)
-Date: Fri,  9 Jan 2026 16:40:28 +1000
-Message-ID: <ca58744440b06b6e7dac8599c69613454f619ffa.1767939178.git.sethmcmail@pm.me>
+Subject: [PATCH v1 11/25] man/man3type/mbstate_t.3type: HISTORY: Update first SUS appearance of mbstate_t(3type)
+Date: Fri,  9 Jan 2026 16:40:29 +1000
+Message-ID: <b4bba25be7dfabc0864f3eea3f92435d8f36b2ca.1767939178.git.sethmcmail@pm.me>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1767939178.git.sethmcmail@pm.me>
 References: <cover.1767939178.git.sethmcmail@pm.me>
@@ -95,29 +95,29 @@ Content-Transfer-Encoding: 8bit
 
 From: Seth McDonald <sethmcmail@pm.me>
 
-lconv(3type) first appeared in SUSv1, but without the six members
-int_[pn]_{cs_precedes,sep_by_space,sign_posn}.[1]
+mbstate_t(3type) first appeared in SUSv2.[1]
 
-[1] X/Open CAE Specification, System Interfaces and Headers Issue 4,
-Version 2, Chapter 4 "Headers", p. 778.
+[1] CAE Specification, System Interfaces and Headers, Issue 5, Chapter 4
+"Headers", p. 1212.
+<https://pubs.opengroup.org/onlinepubs/7908799/xsh/wchar.h.html>
 
 Signed-off-by: Seth McDonald <sethmcmail@pm.me>
 ---
- man/man3type/lconv.3type | 1 +
+ man/man3type/mbstate_t.3type | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/man/man3type/lconv.3type b/man/man3type/lconv.3type
-index b76f06a93e1b..291e9121b954 100644
---- a/man/man3type/lconv.3type
-+++ b/man/man3type/lconv.3type
-@@ -48,6 +48,7 @@ .SH STANDARDS
+diff --git a/man/man3type/mbstate_t.3type b/man/man3type/mbstate_t.3type
+index a4e090477b08..229599c2d4ab 100644
+--- a/man/man3type/mbstate_t.3type
++++ b/man/man3type/mbstate_t.3type
+@@ -74,6 +74,7 @@ .SH DESCRIPTION
+ .SH STANDARDS
+ C11, POSIX.1-2024.
  .SH HISTORY
- .TP
- .I lconv
-+SUSv1,
- POSIX.1-2001.
- .TP
- .I .int_p_cs_precedes
++SUSv2,
+ C99, POSIX.1-2001.
+ .SH SEE ALSO
+ .BR mbrlen (3),
 -- 
 2.47.3
 
