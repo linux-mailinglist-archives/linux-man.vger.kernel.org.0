@@ -1,173 +1,176 @@
-Return-Path: <linux-man+bounces-4731-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4732-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6F73D048FE
-	for <lists+linux-man@lfdr.de>; Thu, 08 Jan 2026 17:53:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0032BD06FF7
+	for <lists+linux-man@lfdr.de>; Fri, 09 Jan 2026 04:32:06 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 17DD23010642
-	for <lists+linux-man@lfdr.de>; Thu,  8 Jan 2026 16:26:16 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 20E293003B14
+	for <lists+linux-man@lfdr.de>; Fri,  9 Jan 2026 03:32:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 449802D321B;
-	Thu,  8 Jan 2026 16:26:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D2CF1CD2C;
+	Fri,  9 Jan 2026 03:32:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N2vVmXcA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fy08pIEc"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="WSdTkNLN"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21CB2C21DF
-	for <linux-man@vger.kernel.org>; Thu,  8 Jan 2026 16:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D1F50094D
+	for <linux-man@vger.kernel.org>; Fri,  9 Jan 2026 03:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767889574; cv=none; b=dnFjoF/j0EERY5+XiC8gYF1o/JPcdSVd6zqHh7NYQYR3pMFeXzyg6Ol0/k1OweuBN1UqV9ZuY14/pdOW2ojFc6Z0tLDHSjuApMTdUnF/4Ml6uxAxiONAD03T5g/57io8i5/4ihAz9bA73i49ZmdgHVKN/sAXw/wvDgoqcwLSN3c=
+	t=1767929523; cv=none; b=PEMKEzXpM/ERxrJ4l3nh8YoMqqzn35B2t5i3qH1UFQ3Ljr3/hvAbPQa/ObctRz/sHml1DeuzRytTAF8pFSbZrLzTgAmitA2Ukd509KsrWmWYm/+N+2A3B14FH0un4bsFWSlopqf+No5VkOtrUKqd8cVx/6sAbMHQ5P5fy51rUnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767889574; c=relaxed/simple;
-	bh=oIrpoPa8Lyn/ssL6VYX6goYxvR91DjpmFk5uGocwbVE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=HIJl5my5R/PKrd9nuXwA0GO9QNv8OFNK6ojjsfP7v/lMS8Nb5+ojX71A2ds99E/mNbnCqHwar9uXE8+Jyh8p2KLcOWI1EBaIfD47PHxoHa43+I05T+S8HiD6DLJMwrSpFadF4bPH4i3E88iwE7mv87nbKuVvhx0ZrFYq1mEtso8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=N2vVmXcA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fy08pIEc; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1767889566;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gSmLEXlMz4yYM2myMFp40+mXvfbuHnRwVC+Kf1wwDU8=;
-	b=N2vVmXcAidwEqgTgClRi21IG3DyxVkviuChD6tpk8ZbNyOYWs+U0yQWiCKnpKnER5pPQ2q
-	xJrwhzAD3YRJjHat10y0hbME2/UGaCUcyaGYTKlAtY6byRIKSqufN+ZAhCwaFTbYgY8Wli
-	qHqelbQVwjXei/kSigp9gyr6wJYqwxI=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-624-wMn2VeGhM7S9cc6konjtWw-1; Thu, 08 Jan 2026 11:26:05 -0500
-X-MC-Unique: wMn2VeGhM7S9cc6konjtWw-1
-X-Mimecast-MFC-AGG-ID: wMn2VeGhM7S9cc6konjtWw_1767889564
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4775d110fabso31786305e9.1
-        for <linux-man@vger.kernel.org>; Thu, 08 Jan 2026 08:26:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1767889564; x=1768494364; darn=vger.kernel.org;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=gSmLEXlMz4yYM2myMFp40+mXvfbuHnRwVC+Kf1wwDU8=;
-        b=Fy08pIEcN4U9KUQSurP/6yiqDXbLf1Y2H68j1YEOPGejNI5DuytxKP6QcSYqG3MnCO
-         wQsu7d6bZM0HyMxgz3nMqd9sfSc+fClQ1wPQasKUWR/KebODRK/nlpqU38/UvN8kaXVq
-         sFzouHB7QIk+3N1ykO0Jz3nkpmUU0y+WJKtMdffswSqLH99diTngy3+9ZV9xDFa+0OJi
-         JbRvA2sufc4Q9/RYIC9t6hZP66/RwAg0gLLmFphOTNFSuXSU0Pkj6in+UOJAyYJJTZDT
-         S2fb8AWDa9KUIIF6mLnk5wQXtjbCOCLc11isZJ5KEizfI1C7J2a5psEFeNpRppEzJeya
-         29lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767889564; x=1768494364;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gSmLEXlMz4yYM2myMFp40+mXvfbuHnRwVC+Kf1wwDU8=;
-        b=nCsoRvBhsJxmY0NtrIKC49LcKT7GKl1+B8MaS8tVj910av0ukqyx51CO7x0buRlBdA
-         U8kc8hq1HlcCYmRnEVcnNHJx0Lu6XK+9PYcpuyrRqlwI84epQGLbvQlR+FcbJQwyqwO5
-         w0WbpoW3MreYMMKM7OMx2/KewHv/UbOfS6LukV8YD0JirulHzAQRToPY7vQ7lyLkJpaT
-         pbri/GjWJ4GEvGpmDQ7VAgDJXrNIl4D7H9NuwienCxSyvr9dbVrtvZ7fv0I7Qax3344E
-         fxB9nHotE3WR/kP+4ImohUmwbguuMaXKO2sqHpDEn58i/mZnOwH7bpfQo1/fLQ26IBEc
-         7vYg==
-X-Forwarded-Encrypted: i=1; AJvYcCVYgcwZKqTEA3QHcy5Ut/9m8HgVdSUwWfyoNPCp3DQ59G/raxeFZBjTPDaB7a3CD9PJUd50r97eOas=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLwYKVygct4hXeN1jvRz80OD3te10EaTIrQLppcg5D58e17CLo
-	uGhqewBaYnxenZVUPJahpB9VNizO+Fqydtm6GEYjvtHy7jkLqEfBySOY5HFp9NaKhOX2wCJe8AF
-	2R72UA+7VZI3qeY3sJ/MFYlDhJ2wKHqKhix6ntMVn+EJCuhYMmj6a94RE2oq8Z0iVqz3RMw==
-X-Gm-Gg: AY/fxX5vPn7KcAdPUprQn48ob5FrpxwI55TkcVVsMgC/XJocziIeOQ4dztFAgpn5xYQ
-	Bb/jeg2ZhObWo6FxvkgibqS1uxyQZv3DSaiYndDaJFQy6HsnpAG19aTIS6RtHmwLVveCE5OVNVe
-	hTsT/98uQ9ae2nRl9eW4mXvnSRGtvifuJ+kegibMNFO9GoVoQC38Wdho3iiUYHUW5myOImKZlMc
-	alVE8D29Z6IPrp1P8n6WF/yUyEzX1WEVpJeoJ9ahbgdPG0mTxJZRXQzq44O/CrxqGmlqg6thg/Z
-	BggcWpGM83aR/BcuLgySvlFzGQmw1AEB3JtYNGwm13/car3DosDPRVG/6yuWOl+QpY0RuOZDPir
-	+5vZ8DAXu2bxnshg27mDA0z5ywh//3WHLF7AVavdU
-X-Received: by 2002:a05:600c:648a:b0:47a:9560:ec22 with SMTP id 5b1f17b1804b1-47d84b17ae4mr75862955e9.14.1767889563837;
-        Thu, 08 Jan 2026 08:26:03 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHuUJg9jiDNSOHIt1i+kFV/AGQXFAcVRHcbuR1bFUIlNYyf9DFrBSFn+H5l2q5yvCJJ47esXw==
-X-Received: by 2002:a05:600c:648a:b0:47a:9560:ec22 with SMTP id 5b1f17b1804b1-47d84b17ae4mr75862665e9.14.1767889563409;
-        Thu, 08 Jan 2026 08:26:03 -0800 (PST)
-Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d7f695956sm163419205e9.6.2026.01.08.08.26.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Jan 2026 08:26:02 -0800 (PST)
-Received: from jsm28 (helo=localhost)
-	by digraph.polyomino.org.uk with local-esmtp (Exim 4.98.2)
-	(envelope-from <josmyers@redhat.com>)
-	id 1vdspl-00000008kBX-3bYE;
-	Thu, 08 Jan 2026 16:26:01 +0000
-Date: Thu, 8 Jan 2026 16:26:01 +0000 (UTC)
-From: Joseph Myers <josmyers@redhat.com>
-To: David Svoboda <svoboda@cert.org>
-cc: Martin Uecker <ma.uecker@gmail.com>, 
-    Alejandro Colomar <une+c@alejandro-colomar.es>, 
-    Robert Seacord <rcseacord@gmail.com>, 
-    "sc22wg14@open-std. org" <sc22wg14@open-std.org>, 
-    Florian Weimer <fweimer@redhat.com>, Carlos O'Donell <carlos@redhat.com>, 
-    Aaron Ballman <aaron@aaronballman.com>, 
-    "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>, 
-    "musl@lists.openwall.com" <musl@lists.openwall.com>, 
-    "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: Re: [SC22WG14.34679] n3752, alx-0029r8 - Restore the traditional
- realloc(3) specification
-In-Reply-To: <PH1P110MB16361EF635C579E30308D647CC85A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
-Message-ID: <38b040b1-2de9-4e70-8f9e-32fe5d51b160@redhat.com>
-References: <20251223161139.196AB356CF9@www.open-std.org>  <20251223164349.F0BC5356D1A@www.open-std.org>  <CACqWKsOkbArXm0XBUHkLcFFwDUP8iDQv_xPeNbomR0bKf-GCFw@mail.gmail.com>  <20251223211529.6365A356CF9@www.open-std.org> 
- <CACqWKsNQCchFZnFKKAyi-3HDtJYQ6sc=UZeb+hX48WQ1e7yj_w@mail.gmail.com>  <20260106210527.AA3FA356D3A@www.open-std.org>  <20260106214930.A5C8E356D2B@www.open-std.org>  <PH1P110MB1636A1DEC402A702C28EBA9ECC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM> 
- <aV4N-0egpfxhmnta@devuan>  <PH1P110MB1636D74EDD4F3074AC98F12FCC84A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>  <aV69o8h0I3Px7ryV@devuan> <20260107220138.AE8DF356CFB@www.open-std.org> <9ba7ba75043cdabf30bc98260848aa8b9e43c0bd.camel@gmail.com>
- <PH1P110MB16361EF635C579E30308D647CC85A@PH1P110MB1636.NAMP110.PROD.OUTLOOK.COM>
+	s=arc-20240116; t=1767929523; c=relaxed/simple;
+	bh=nQV1acxdqaHzmn1W08MfOXUTC1AiGICYA1hgKH4vyQ0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BbexPimceyGAa85EAj60a/IwaD0rF64gN1BrFnmQ7ULC7VqL5MyEie5V2VDnO9TmfS9FouWk3sy5grnr1Bq5NFT/gpjBmzcgxShACa66Oo3FE1zKk8O1E+nWFJrwBpVVbnrrI27n+1fI+DoouRly+T9BXYZT32uE0P4OkTvdqw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=WSdTkNLN; arc=none smtp.client-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1767929512; x=1768188712;
+	bh=NWYX7TTZx/zNE51FyZWfmeAhWrudBPwGnJjanLf13k4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=WSdTkNLNnrPkf+mWg0vgsPCkGtEGyDU5F/8LQaIgxRVZGfytEbsUrmWA2d5FGret/
+	 xjWV1z5C8hvKzcC/hk2JgRCjtQ9TnkhGjGonkY4Jpt4wmTrjvT2JQZ950MPg64HTLL
+	 cGs6X7frjuRT7LD1ophT/fYxNDda6USkV+Gqjx503rpQkTsRikh9qApCmEbhXci32m
+	 8pv7CFyLpwHlyC07gbXA6RYHFjuX3FJb0kNg83r2NQNTV68IvVrs20s6rilnyfc+p3
+	 NqNg2fMU8qsXVuMv84qCh/AicuiJI2cqiSlve6eGtnJGCUi0VnCkzHt5P4CTw8XysT
+	 N5B2oBz2MI3pQ==
+Date: Fri, 09 Jan 2026 03:31:46 +0000
+To: Alejandro Colomar <alx@kernel.org>
+From: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 08/11] man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of st_{rdev,blksize,blocks}
+Message-ID: <AzV_uq5wDJK6TGmy0mhak2A1ooip-Z-E6YOBGNRtQXcSgNNe0SlkUc0uHPvPaAVxQZMRSpw_nrvCwq3u3MnibR-mB-ymp3ycoAH9fIhWu6k=@pm.me>
+In-Reply-To: <aV-ZG_8At_-R7G2v@devuan>
+References: <cover.1767840410.git.sethmcmail@pm.me> <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me> <aV-ZG_8At_-R7G2v@devuan>
+Feedback-ID: 171233811:user:proton
+X-Pm-Message-ID: 7861ad96e52b4e88e197b2dc5f285370c3a02ab0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------e9dc63d14b23ad904ffc935a8c097321aa4624febacd79e93bb0655920f005bc"; charset=utf-8
 
-On Thu, 8 Jan 2026, David Svoboda wrote:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------e9dc63d14b23ad904ffc935a8c097321aa4624febacd79e93bb0655920f005bc
+Content-Type: multipart/mixed;boundary=---------------------f2e44cbd348765299e848cc7a2afd7a3
 
-> I would agree.  I interpret "informally take over" to mean two things:
-> 
-> 1. I would like someone to volunteer to scan the C2y draft standard 
-> (n3605) specifically to catch errors in Annex J.2.  In particular, are 
-> there any UBs in J2 no longer in the standard. Likewise does the 
-> standard have any UBs not in J.2?  The result would be a document 
-> recommending editorial changes to Annex J.2.
+-----------------------f2e44cbd348765299e848cc7a2afd7a3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-It's probably not just J.2.  My guess is that J.1 (Unspecified behavior), 
-J.3 (Implmentation-defined behavior) and J.4 (Locale-specific behavior) 
-could all also be out of date relative to the normative contents of the 
-standard.
+Hi Alex,
 
-In the case of checking for UBs, it needs to include "shall" or "shall 
-not" outside constraints, whose violation is UB and ought to be listed as 
-such in J.2 (when it's not a ghost - so when that "shall" or "shall not" 
-expresses a requirement on C programs, not on implementations, that it is 
-possible to violate without also violating a syntax rule or constraint), 
-as well as places that explicitly say "undefined" in normative text.  
-Also, some entries in J.2 may be things that are implicitly UB through 
-lack of definition (so the absence of something in the normative text 
-saying "undefined", "shall" or "shall not" isn't enough basis to remove 
-something from J.2 editorially, you also need to locate the change that 
-removed the UB from the normative text to demonstrate that there was an 
-accidental failure to remove an entry from J.2).
+On Thursday, 8 January 2026 at 21:48, Alejandro Colomar <alx@kernel.org> w=
+rote:
+> Hi Seth,
+>
+> On Thu, Jan 08, 2026 at 01:03:14PM +1000, Seth McDonald wrote:
+> > From: Seth McDonald <sethmcmail@pm.me>
+> >
+> > The st_rdev, st_blksize, and st_blocks fields of the stat(3type)
+> > structure first appeared in SUSv1.[1] They were added to POSIX.1-2001
+> > when POSIX and SUS merged, but as an XSI extension (still SUS-only).[2=
+]
+> >
+> > [1] X/Open CAE Specification, System Interfaces and Headers Issue 4,
+> > Version 2, Chapter 4 "Headers", p. 830.
+> > [2] IEEE Std 1003.1-2001, Volume 1, Chapter 13 "Headers", p. 356.
+> > https://pubs.opengroup.org/onlinepubs/009604499/basedefs/sys/stat.h.ht=
+ml
+> >
+> > Signed-off-by: Seth McDonald <sethmcmail@pm.me>
+> > ---
+> > man/man3type/stat.3type | 8 ++++++++
+> > 1 file changed, 8 insertions(+)
+> >
+> > diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
+> > index 44d45b4a52b4..83f6e881a5ae 100644
+> > --- a/man/man3type/stat.3type
+> > +++ b/man/man3type/stat.3type
+> > @@ -137,6 +137,14 @@ .SH STANDARDS
+> > .SH HISTORY
+> > POSIX.1-1988.
+> > .P
+> > +The
+> > +.IR .st_rdev ,
+> > +.IR .st_blksize ,
+> > +and
+> > +.I .st_blocks
+> > +fields first appeared in SUSv1
+> > +before being added to POSIX.1-2001 XSI.
+> > +.P
+>
+> I think this would be simpler like this:
+>
+> 	@@ -135,7 +135,14 @@ .SH DESCRIPTION
+> 	.SH STANDARDS
+> 	POSIX.1-2024.
+> 	.SH HISTORY
+> 	+.TP
+> 	+.I stat
+> 	POSIX.1-1988.
+> 	+.TP
+> 	+.I .st_rdev
+> 	+.I .st_blksize
+> 	+.I .st_blocks
+> 	+SUSv1, POSIX.1-2001 XSI.
+> 	.P
+> 	Old kernels and old standards did not support nanosecond timestamp fiel=
+ds.
+> 	Instead, there were three timestamp fields
+>
+> What do you think?
 
-Trickier cases where it's less clear why the entry was in J.2 in the first 
-place, or where you need to argue that the entry is in fact a ghost, 
-should still get papers.  It's the ones that can be identified as 
-accidental omissions to update Annex J (in either direction) when a change 
-was made to the normative text that I think can be made editorially by 
-merge requests without papers (and then if someone is concerned with such 
-a change afterwards, they can request a revert and a paper to discuss it 
-further).
+That would certainly work.  I initially thought about doing that, but
+decided against it since I hadn't at the time seen any other pages that
+list individual structure members in their history section.  But if
+you're on board with it, then I'll send in a v2 with this fixup.
 
-I've wondered if it would be better to set up the LaTeX source of the 
-standard so that the Annex J entries appear in the sources alongside the 
-relevant parts of the normative text and get automatically collected for 
-Annex J, rather than appearing separately in annex-port.tex, but that 
-would be a big change and a lot of care would be needed not to lose any 
-Annex J entries in the process.
+Btw, I'll want to add in some '.TQ's between the listed members, as
+without it the formatting looks a little funny.
 
--- 
-Joseph S. Myers
-josmyers@redhat.com
+	$ MANWIDTH=3D64 man ./man3type/stat.3type | sed -n '/^HISTORY$/,+5p'
+	HISTORY
+	       stat   POSIX.1-1988.
+
+	       .st_rdev
+	              .st_blksize .st_blocks SUSv1, POSIX.1-2001 XSI.
+
+I'll also send in the next set of man3type patches with chronological
+ordering, at least as far as I can tell. :)
+
+----
+Seth McDonald.
+sethmcmail at pm dot me (mailing lists)
+2336 E8D2 FEB1 5300 692C=C2=A0 62A9 5839 6AD8 9243 D369
+-----------------------f2e44cbd348765299e848cc7a2afd7a3--
+
+--------e9dc63d14b23ad904ffc935a8c097321aa4624febacd79e93bb0655920f005bc
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmlgdqEJEFg5atiSQ9NpRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdqSapWmA2maDiGfN1Yxw5c0W56vQrq19pTodpy
+asXwCxYhBCM26NL+sVMAaSxiqVg5atiSQ9NpAADPtQEAzxgC7IXEcNaoV+HH
+pP0sBSKcS52Pin34pdUqwOG0ewMBAMxY3qDSEFQktCxdjY9Gx50UKPVpSm1N
+75Xh17+kSvoB
+=/jPz
+-----END PGP SIGNATURE-----
+
+
+--------e9dc63d14b23ad904ffc935a8c097321aa4624febacd79e93bb0655920f005bc--
 
 
