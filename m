@@ -1,52 +1,53 @@
-Return-Path: <linux-man+bounces-4773-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4774-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 446ECD08722
-	for <lists+linux-man@lfdr.de>; Fri, 09 Jan 2026 11:11:50 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FC6DD0895F
+	for <lists+linux-man@lfdr.de>; Fri, 09 Jan 2026 11:34:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id D29F43075EA3
-	for <lists+linux-man@lfdr.de>; Fri,  9 Jan 2026 10:06:48 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id 9784B30042A2
+	for <lists+linux-man@lfdr.de>; Fri,  9 Jan 2026 10:34:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7A083358DB;
-	Fri,  9 Jan 2026 10:05:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B40163382F7;
+	Fri,  9 Jan 2026 10:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZLSe+Gl"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u+24cbXl"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAD6332EDD
-	for <linux-man@vger.kernel.org>; Fri,  9 Jan 2026 10:05:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7465F3370EF
+	for <linux-man@vger.kernel.org>; Fri,  9 Jan 2026 10:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767953113; cv=none; b=mLqn7JlL7766sZWp0LdGYq+xIGIRjHjiEE6VY1FClPUYG07cZvqHLhda2KmSPrA1WcI3fKF6ZPa085aQYZKPGYgcm8Fw1RDIj55RyiYEswWSZ/otPAV3qNUpy4FVLwGh2U1zbnxZoyU/rbazMI7bwuohL64e1uCb+fEmCxe/VHA=
+	t=1767954842; cv=none; b=fLkvwyBbtJU/NXXteBuqHbKI7AGAhtgD7Mvltb6eztBRopNGd8HPExxdD7NHsqNRuAKhrmgquqyrkTA/eyOPnbW0GhxaeB3UDuLHfD64Xi/jXwPeLUFdpOALvcAyzwnC9NkdmvvUsgaXF+pX1IDV0Moj7vd6mNgPrt+DdHd/w4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767953113; c=relaxed/simple;
-	bh=iV0yDmKtIdt5mhdK4T5CxYIGkfz4lcgoTLbITDbs01M=;
+	s=arc-20240116; t=1767954842; c=relaxed/simple;
+	bh=eLXEpjrSYDjrHuTGDAf0fzRUc7GH8l4Q+CpGnOWvk/M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rgzR2MBmR0CmJ3RWzFdX5aHQdh/IwkZgWrCap0QiHM5cZWiCO18Azg/Jk9cGEZLGUE8ErSKgMSUBR1N2r81VITfqncGsDKj6h22x8ew8tNycFiwqYJBrvsixxvViFV6xu6wO9nC72COmoU8XVqimrVrWymTBz1xKcsthHsK5jGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZLSe+Gl; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AAFC4CEF1;
-	Fri,  9 Jan 2026 10:05:12 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=JoydIFBcWd8/Da+Cj9fLgUXwHrHAyt++D8UOnq5hnOqsUpciqijkU9PhZDLgigJZlX5ORvO0R6wTN91CTGgaM8ezFSevVEF4mFXZYnuN/4h9vCY0egpxdcS6daaLqVu7O2qFUeaO1X2pifPxl7CTlJTlQ2JaaetTcXsjdRGpn7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u+24cbXl; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FDFBC4CEF1;
+	Fri,  9 Jan 2026 10:34:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767953113;
-	bh=iV0yDmKtIdt5mhdK4T5CxYIGkfz4lcgoTLbITDbs01M=;
+	s=k20201202; t=1767954842;
+	bh=eLXEpjrSYDjrHuTGDAf0fzRUc7GH8l4Q+CpGnOWvk/M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OZLSe+Gl07nRYh2bVVKztn2OB9VCaT0BMqNDoN4oEhPjBUmwraX64xTSQ9zWmc00x
-	 PjqAx0doENKCxZfTQFCrFQW4OiH959pQZ6dNm2YBsJ8hYBVjlExdLRmWaXZ9A6AcFL
-	 7hus1HCrDfg5XvPkEuKJ1Ccrd/+Z0vNWm63kgFMOJRfWU+pfYlRDdJWJ6N3oIUr9GU
-	 KPxU7tXnt00n7jrZKcKa9xYIteLAAob7LlzomwHKAfcd2KF5EdYnED3B4I38cJFpeX
-	 XFjiynScH2oH8oS7Itsxj1MnMSpSVTPI6ggD33z9rBCNyxU+R17U14q1QoeeZjGKXC
-	 qeojeCn9cFo0Q==
-Date: Fri, 9 Jan 2026 11:05:10 +0100
+	b=u+24cbXlnBihPnNps4w0Ta3eO41A49vRDAxWieoOWOwOVWupzm6OhUmlgQjyhZ1HC
+	 /qN4uv1dw8clp8obD/LLjxH7AYX6N0Y8lISCVmopERaiX5c5HahGtfjxfUrUcX9B6Y
+	 FcfiTC2PJMb1bn7Z5tZm6GEIRuSueriVxmP1JBBtMBA9cgLaTFbAKAf4lW0ccVEkPr
+	 3cgIOXVdIoAZX0FYqKaNzqXhLCu6UPGbp6C8LJc505PSgOXaC3ohelyIQc2g1QEKKN
+	 oCYdKt+GbWY2gzAMub3oE55roKZn/RRwm3orOkLcKMulK+acmBH/Kamrb8aUDYJ5HB
+	 vsMlkIPlhs8rQ==
+Date: Fri, 9 Jan 2026 11:33:58 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 00/12] man/man3type/*: Update simple history of types
-Message-ID: <aWDSo41SpN_s4Em8@devuan>
-References: <cover.1767840410.git.sethmcmail@pm.me>
- <cover.1767931376.git.sethmcmail@pm.me>
+Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first
+ POSIX appearance of void(3type)
+Message-ID: <aWDZFvDvb-hAXQMJ@devuan>
+References: <cover.1767939178.git.sethmcmail@pm.me>
+ <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -54,176 +55,70 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g37shdnn6qzo3fwx"
+	protocol="application/pgp-signature"; boundary="i5qu5ujpxwr273fd"
 Content-Disposition: inline
-In-Reply-To: <cover.1767931376.git.sethmcmail@pm.me>
+In-Reply-To: <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
 
 
---g37shdnn6qzo3fwx
+--i5qu5ujpxwr273fd
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 00/12] man/man3type/*: Update simple history of types
-Message-ID: <aWDSo41SpN_s4Em8@devuan>
-References: <cover.1767840410.git.sethmcmail@pm.me>
- <cover.1767931376.git.sethmcmail@pm.me>
+Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first
+ POSIX appearance of void(3type)
+Message-ID: <aWDZFvDvb-hAXQMJ@devuan>
+References: <cover.1767939178.git.sethmcmail@pm.me>
+ <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
 MIME-Version: 1.0
-In-Reply-To: <cover.1767931376.git.sethmcmail@pm.me>
+In-Reply-To: <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
 
 Hi Seth,
 
-On Fri, Jan 09, 2026 at 02:18:54PM +1000, Seth McDonald wrote:
-> Hello,
+On Fri, Jan 09, 2026 at 04:40:37PM +1000, Seth McDonald wrote:
+> From: Seth McDonald <sethmcmail@pm.me>
 >=20
-> v2 applies Alex's feedback and reformats the stat(3type) page's history
-> section by listing the structure's members' different origins in a way
-> consistent with other man pages.  I also added a separate patch for
-> splitting stat(3type) and its members' listed standards for nicer
-> logical ordering.
+> The void pointer (void*) type first appeared in POSIX.1-1990 as a
+> parameter type in the read(2) function.[1]
+>=20
+> [1] IEEE Std 1003.1-1990, Section 6.4.1 "Read from a File".
+>=20
+> Signed-off-by: Seth McDonald <sethmcmail@pm.me>
 
-This patch set doesn't apply.  Maybe you need to git-fetch(1) and
-git-rebase(1)?
+I think 'void*' is important enough that it would be useful to dig in
+its history further.  Was it an invention of C89?  Or was it an
+extension in some existing compilers?  If the latter, it would be
+interesting to document which systems had it before C89.
+
+I'm mentioning this just in case you know.  Feel free to ignore
+otherwise.
+
+Anyway, I've applied the patch.  Thanks!
 
 
-Cheers,
+Have a lovely day!
 Alex
 
+> ---
+>  man/man3type/void.3type | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >=20
-> Seth McDonald (12):
->   man/man3type/itimerspec.3type: HISTORY: Update first POSIX appearance
->     of itimerspec(3type)
->   man/man3type/mode_t.3type: HISTORY: Update first POSIX appearance of
->     mode_t(3type)
->   man/man3type/off_t.3type: Change VERSIONS to HISTORY
->   man/man3type/off_t.3type: HISTORY: Update first POSIX appearance of
->     off_t(3type)
->   man/man3type/sigevent.3type: HISTORY: Update first POSIX appearance of
->     sig{event,val}(3type)
->   man/man3type/stat.3type: SYNOPSIS: wfix
->   man/man3type/stat.3type: HISTORY: Update first POSIX appearance of
->     stat(3type)
->   man/man3type/stat.3type: HISTORY: Split stat(3type) from
->     st_{rdev,blksize,blocks}
->   man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of
->     st_{rdev,blksize,blocks}
->   man/man3type/stat.3type: HISTORY: Specify initial datatypes of
->     st_{blksize,blocks}
->   man/man3type/timer_t.3type: HISTORY: Update first POSIX appearance of
->     timer_t(3type)
->   man/man3type/timespec.3type: HISTORY: Update first POSIX appearance of
->     timespec(3type)
->=20
->  man/man3type/itimerspec.3type |  2 +-
->  man/man3type/mode_t.3type     |  2 +-
->  man/man3type/off_t.3type      |  4 ++--
->  man/man3type/sigevent.3type   |  2 +-
->  man/man3type/stat.3type       | 22 ++++++++++++++++++++--
->  man/man3type/timer_t.3type    |  2 +-
->  man/man3type/timespec.3type   |  2 +-
->  7 files changed, 27 insertions(+), 9 deletions(-)
->=20
-> Range-diff against v1:
->  1:  48b823b1a965 =3D  1:  48b823b1a965 man/man3type/itimerspec.3type: HI=
-STORY: Update first POSIX appearance of itimerspec(3type)
->  2:  90f54d80c479 =3D  2:  90f54d80c479 man/man3type/mode_t.3type: HISTOR=
-Y: Update first POSIX appearance of mode_t(3type)
->  3:  c1498253ab68 =3D  3:  c1498253ab68 man/man3type/off_t.3type: Change =
-VERSIONS to HISTORY
->  4:  6b062b0d6afa =3D  4:  6b062b0d6afa man/man3type/off_t.3type: HISTORY=
-: Update first POSIX appearance of off_t(3type)
->  5:  6919cafeb4e3 =3D  5:  6919cafeb4e3 man/man3type/sigevent.3type: HIST=
-ORY: Update first POSIX appearance of sig{event,val}(3type)
->  6:  84a9e467d506 =3D  6:  84a9e467d506 man/man3type/stat.3type: SYNOPSIS=
-: wfix
->  7:  0611f62eeedb =3D  7:  0611f62eeedb man/man3type/stat.3type: HISTORY:=
- Update first POSIX appearance of stat(3type)
->  8:  9d3a705508aa !  8:  623290de35e6 man/man3type/stat.3type: HISTORY: S=
-pecify first POSIX appearance of st_{rdev,blksize,blocks}
->     @@ Metadata
->      Author: Seth McDonald <sethmcmail@pm.me>
->     =20
->       ## Commit message ##
->     -    man/man3type/stat.3type: HISTORY: Specify first POSIX appearance=
- of
->     +    man/man3type/stat.3type: HISTORY: Split stat(3type) from
->          st_{rdev,blksize,blocks}
->     =20
->     -    The st_rdev, st_blksize, and st_blocks fields of the stat(3type)
->     -    structure first appeared in SUSv1.[1]  They were added to POSIX.=
-1-2001
->     -    when POSIX and SUS merged, but as an XSI extension (still SUS-on=
-ly).[2]
->     -
->     -    [1] X/Open CAE Specification, System Interfaces and Headers Issu=
-e 4,
->     -    Version 2, Chapter 4 "Headers", p. 830.
->     -    [2] IEEE Std 1003.1-2001, Volume 1, Chapter 13 "Headers", p. 356.
->     -    <https://pubs.opengroup.org/onlinepubs/009604499/basedefs/sys/st=
-at.h.html>
->     -
->       ## man/man3type/stat.3type ##
->     -@@ man/man3type/stat.3type: .SH STANDARDS
->     +@@ man/man3type/stat.3type: .SH DESCRIPTION
->     + .SH STANDARDS
->     + POSIX.1-2024.
->       .SH HISTORY
->     ++.TP
->     ++.I stat
->     ++POSIX.1-1988.
->     ++.TP
->     ++.I .st_rdev
->     ++.TQ
->     ++.I .st_blksize
->     ++.TQ
->     ++.I .st_blocks
->       POSIX.1-1988.
->       .P
->     -+The
->     -+.IR .st_rdev ,
->     -+.IR .st_blksize ,
->     -+and
->     -+.I .st_blocks
->     -+fields first appeared in SUSv1
->     -+before being added to POSIX.1-2001 XSI.
->     -+.P
->       Old kernels and old standards did not support nanosecond timestamp =
-fields.
->     - Instead, there were three timestamp fields
->     - .RI \[em] .st_atime ,
->  -:  ------------ >  9:  a33e91f7c1b7 man/man3type/stat.3type: HISTORY: S=
-pecify first POSIX appearance of st_{rdev,blksize,blocks}
->  9:  e13690db2fb6 ! 10:  3ffb01f7c196 man/man3type/stat.3type: HISTORY: S=
-pecify initial datatypes of st_{blksize,blocks}
->     @@ Commit message
->     =20
->       ## man/man3type/stat.3type ##
->      @@ man/man3type/stat.3type: .SH HISTORY
->     - .I .st_blocks
->     - fields first appeared in SUSv1
->     - before being added to POSIX.1-2001 XSI.
->     + SUSv1,
->     + POSIX.1-2001 XSI.
->     + .P
->      +Initially, SUSv1 specified
->      +.I .st_blksize
->      +and
->      +.I .st_blocks
->      +with type
->      +.IR long .
->      +This was remedied in SUSv2.
->     - .P
->     ++.P
->       Old kernels and old standards did not support nanosecond timestamp =
-fields.
->       Instead, there were three timestamp fields
->     + .RI \[em] .st_atime ,
-> 10:  eb28bf22aed9 =3D 11:  d6fc0ff67155 man/man3type/timer_t.3type: HISTO=
-RY: Update first POSIX appearance of timer_t(3type)
-> 11:  d25e140aaabe =3D 12:  9b6fedfdc71e man/man3type/timespec.3type: HIST=
-ORY: Update first POSIX appearance of timespec(3type)
+> diff --git a/man/man3type/void.3type b/man/man3type/void.3type
+> index ebbeb4d154e1..9a46f84b1d37 100644
+> --- a/man/man3type/void.3type
+> +++ b/man/man3type/void.3type
+> @@ -65,7 +65,8 @@ .SH VERSIONS
+>  .SH STANDARDS
+>  C11, POSIX.1-2024.
+>  .SH HISTORY
+> -C89, POSIX.1-2001.
+> +C89,
+> +POSIX.1-1990.
+>  .SH SEE ALSO
+>  .BR malloc (3),
+>  .BR memcmp (3),
 > --=20
 > 2.47.3
 >=20
@@ -232,25 +127,25 @@ ORY: Update first POSIX appearance of timespec(3type)
 --=20
 <https://www.alejandro-colomar.es>
 
---g37shdnn6qzo3fwx
+--i5qu5ujpxwr273fd
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlg0tUACgkQ64mZXMKQ
-wqmohw/+OIwVjtJ2UyqxkXKMzHjKNNeDEE1c+LXUmzms3ZNoDRDRFvtLem1WOJZ6
-H6vc+1v07IeBdEvTn+Ur4NrrtG5s7QOy5kmvukR89hcuQ04soWKCD62eg7o3YwyF
-yksgMPEle4mNrDERURE2NaOCY17Y/aB61aPp1yp+6gqMrrDGi0f9DQ39tvseWKCQ
-oiLcMHxPMpKnRLEm0lpJE1JH9wIDlUTmX6kVs360wEc/mLoyavm30IJumgoiqIKD
-tXb4U17ynCBENVjFiVO5W6/ilQaPNwbIkA8b93IjrXqdwavL29UW05udzZXD9FTt
-mtP7SXShdL58sCMU7wIk48K/J1fEekCESXMDsLtJNK5vMWGjv5+5aNCK2Duk6yRW
-N8X9k78yzl+64Cy72qq4bLa4YbUW05Qfb1/m86A50nxkIzxp5bdPrYqOg0EiyAKh
-gG3/oEKQegV04nrWBK5mrO1Rx1/aTZaZytmlY1a1hyfEBscjRliFke4jhHwkx/eH
-ecYo8XUwX7IbiARknX2/qK2LEvaamLzurAAo2E9CQNc/Dcz2JyIYNJfB8VV3BR6W
-qQPaGmbFX9nAMrr9VmLwrm044hGGznrit3vQXWPhUMJXj/UsFuLnUPIn/aYL/hvr
-PLVuInTs+96ANUhVLEYJ/WlyzPuKlHwShmsOmr5tB0K5aj+uO1E=
-=7wr2
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlg2ZYACgkQ64mZXMKQ
+wqksPw/7B0W4gVN3QXLL9/dPSk52t66yajV/tTe5wDWbtnbLphtR0yRAC1jTlQN+
+4Ui6UOt09IX9pT9bH/Bgd1deOXB7aMwEZE9KO2HvcrMC37HHXGAHmfnGjtNvzN38
+Pu7bGFN0/fqTaQdssBLDoNjFzmjCuaUkuisjNofPSZ/a0IwXYHcs6ZaVQLTyvNG6
+KHMIOmacGnvngxWi/Vx51JWHI8BBKdESlcV8iZkm4cWb7UX2O+uvLB+MfeWFOu7D
++xWYN6IUmz+Bj2fKfnBYC/6gdQ5EH0lhNmkxKpYtclaI8vMzpuvoYMaj+XX1K2kv
+18rktCpAy96oMz4ULyAD5MPRpHQK3mDYyd/pYgV5Mz4gN/HUTI9pyyRxwgwZkmkv
+jwqP0JHkj7S3FJHfAk7tTpVmrPIQNafVToIjMpKLigiQi6Ym77qL8xFwcUIATxVD
+FcaNXkmBpTeLETHelwSiF4mVAOh5EBww1Lb9ZYUxlH5c/vqSBU2RAyF1ldUyBLHy
+h6MEU/IaZRjTlURnB81gAfp5qOqfoLqdHDqpJeZgxeLX2ECxqDKyZWIih9QMYeer
+1B9VVAb/CMA2esavOLsRveXxiK5rzAxdaWHoFzEmIHN+8u8e2kt3KYHR3uv62nu/
+7fTRSPZr9s5JWZjUSSbWcrEiV+RTfzCdBXgunE90S4A/b3J1AI0=
+=w6vd
 -----END PGP SIGNATURE-----
 
---g37shdnn6qzo3fwx--
+--i5qu5ujpxwr273fd--
 
