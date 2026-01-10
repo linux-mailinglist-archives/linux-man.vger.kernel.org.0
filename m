@@ -1,57 +1,55 @@
-Return-Path: <linux-man+bounces-4784-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4785-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25CCDD0D529
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 12:12:44 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 613FFD0D551
+	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 12:30:28 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id C1034301E937
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 11:12:31 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 5A0D230155DB
+	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 11:30:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F1CA3382E6;
-	Sat, 10 Jan 2026 11:12:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8C1F21D3E2;
+	Sat, 10 Jan 2026 11:30:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oh7T+rq5"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJBtBwEn"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037833191C2
-	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 11:12:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD045733E
+	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 11:30:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768043551; cv=none; b=IxGlgmqMK6iARTf9goHp7TQwp14wSzTjDpf1K+a7lNDH/Jk/oCQ2wJAOR+swFC15W88y6DPhGXijgLRjkJWoIcEURHg+da2YGThbvEDmft6CZhQ8w2lq4Y05AnphO9uyyPdz5GJAPcBY1hD8Cu9XC2XkDRw+pV4m0gsTGzMmTDk=
+	t=1768044617; cv=none; b=HJ+zzBKtGzgnxBzhmtzikKt5EUKN7tzeWf9X6oX+5LNZDi9S4QEgTpxVK3ketsDaM3oraE40mFVbk8NlIYF+VS1+LhNpjIoR/zma38hexZa3GX6hRUO3Vk6g5ZP0uCYMZY9GvhchlFxaavzhSbgZnpOTztdJBC0ejDjjdqUAGEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768043551; c=relaxed/simple;
-	bh=c7Q5ZwJd8OGEQNIVdYHudVJn1/spOrTwTZVUY3oz8x0=;
+	s=arc-20240116; t=1768044617; c=relaxed/simple;
+	bh=I8C61HUt2m9tI/R8Hgmy6w6G+ydbF0JCbsIreqSrz2s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EwdFB3mfycrpwMuu9SL6gauBCaukVmzp8jwjyivAX96FYL0/HhDFjKPpkkdJ9iL/yuxXhmrFBJHW/8bRBmMePYJWLu+7jctT2giZJjhxkXkyv7T6okukto0AqSuQQ+FCZ80nVluy7K3WhA8GWKHF3dhSbTS154pK5pm/lo4Cj6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oh7T+rq5; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA7AC4CEF1;
-	Sat, 10 Jan 2026 11:12:29 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=d3Isskbv24m+5NVZ3CwpZfu2a2PdUBPezrmhVRUlLmzmHcVBuybh/LJXmg9H7KjqW3gIKu3sAC/C6YEV7nK0xTT49x8A+8vo1TUwNK8sF2pmA41XzFR+CwlX1iqomRiB5ZeJKiZc3+T2GJn8xQ1oKKsT88ciXJSgH5mhATNbUb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJBtBwEn; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81769C4CEF1;
+	Sat, 10 Jan 2026 11:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768043550;
-	bh=c7Q5ZwJd8OGEQNIVdYHudVJn1/spOrTwTZVUY3oz8x0=;
+	s=k20201202; t=1768044617;
+	bh=I8C61HUt2m9tI/R8Hgmy6w6G+ydbF0JCbsIreqSrz2s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Oh7T+rq5wYad9jEJS0Zu9o40Z/whYEIjInqPXOWrWxMlVEsLMjzj2C3j7eODHUM2J
-	 ssZxrFxnkCz52Gs+9Ba4qXOO+gW/s4yf8UGl+oF0dbpaWfX7Zz9hes+BdiLsXiX5Km
-	 F2eMr3ezed8Mkb7b/eIlI46SMP9Dw6h6CvGCx+bs9w03OTl2sZkaD2Tf/TmlH4b5I1
-	 5fsXncjlPTbX8WoU2dtuTEVvo7UdSiFMhCDdV0BcI77KFHUzM8Zmg5Y9Gycmba/JZb
-	 rw5IDSMmWxfABIplDj7UGls/swcdaMK2T9lvHqCyvRo12ZkSaFJOA5Cb56CqPCptx7
-	 AyKM+CnbaLcnw==
-Date: Sat, 10 Jan 2026 12:12:27 +0100
+	b=HJBtBwEnKphJpt0YZVlSzduMGa06M+LV+Llw7HThfYSLP+RG7fFPi41wmRzaS2Xnd
+	 v5Ze+5NzZBiCdHUCvk5qkXquAv8Gbbd2pjdoTbruKX8RsoSgiDgG2dyzTfMvh51PkL
+	 AaBmeq8v3n7ijTW7gz4ujveTGEkgPK2bqIR168sdbSzeA0y1UGMHxeOYC9PpzY7GV4
+	 M+I7IDnYRdvFYfbMJJR4ZBo9qpDaCHD5rJa2/PI1kxFZYn2hAjpeh/Jo3oKRtuFpSz
+	 iTCXUmQbH0JO1053tQN6h7LKMiqTmiL9gUke/WGtT01R2xWiaWzqjSWGSXsfPDSXU1
+	 FZgYmhgx/PZeA==
+Date: Sat, 10 Jan 2026 12:30:13 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 08/11] man/man3type/stat.3type: HISTORY: Specify first
- POSIX appearance of st_{rdev,blksize,blocks}
-Message-ID: <aWIwpq89awdmYTS5@devuan>
-References: <cover.1767840410.git.sethmcmail@pm.me>
- <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me>
- <aV-ZG_8At_-R7G2v@devuan>
- <AzV_uq5wDJK6TGmy0mhak2A1ooip-Z-E6YOBGNRtQXcSgNNe0SlkUc0uHPvPaAVxQZMRSpw_nrvCwq3u3MnibR-mB-ymp3ycoAH9fIhWu6k=@pm.me>
- <aWDO3nEcZWMcqvXx@devuan>
- <O3wNNZ-8zjB5uqYmBT-pq1iZtfGLOznbpKjwEKFZqn0Alz65p63u1_R9jcyHDD-9yZocERBl1fVdn5LKF6bHJALSvtWvvbpfHGNmc93geok=@pm.me>
+Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first
+ POSIX appearance of void(3type)
+Message-ID: <aWI0djUqajn0xGZL@devuan>
+References: <cover.1767939178.git.sethmcmail@pm.me>
+ <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
+ <aWDZFvDvb-hAXQMJ@devuan>
+ <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,109 +57,108 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5tfxwor3hoj37ipe"
+	protocol="application/pgp-signature"; boundary="xzovymz6ate7spq3"
 Content-Disposition: inline
-In-Reply-To: <O3wNNZ-8zjB5uqYmBT-pq1iZtfGLOznbpKjwEKFZqn0Alz65p63u1_R9jcyHDD-9yZocERBl1fVdn5LKF6bHJALSvtWvvbpfHGNmc93geok=@pm.me>
+In-Reply-To: <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
 
 
---5tfxwor3hoj37ipe
+--xzovymz6ate7spq3
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 08/11] man/man3type/stat.3type: HISTORY: Specify first
- POSIX appearance of st_{rdev,blksize,blocks}
-Message-ID: <aWIwpq89awdmYTS5@devuan>
-References: <cover.1767840410.git.sethmcmail@pm.me>
- <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me>
- <aV-ZG_8At_-R7G2v@devuan>
- <AzV_uq5wDJK6TGmy0mhak2A1ooip-Z-E6YOBGNRtQXcSgNNe0SlkUc0uHPvPaAVxQZMRSpw_nrvCwq3u3MnibR-mB-ymp3ycoAH9fIhWu6k=@pm.me>
- <aWDO3nEcZWMcqvXx@devuan>
- <O3wNNZ-8zjB5uqYmBT-pq1iZtfGLOznbpKjwEKFZqn0Alz65p63u1_R9jcyHDD-9yZocERBl1fVdn5LKF6bHJALSvtWvvbpfHGNmc93geok=@pm.me>
+Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first
+ POSIX appearance of void(3type)
+Message-ID: <aWI0djUqajn0xGZL@devuan>
+References: <cover.1767939178.git.sethmcmail@pm.me>
+ <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
+ <aWDZFvDvb-hAXQMJ@devuan>
+ <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
 MIME-Version: 1.0
-In-Reply-To: <O3wNNZ-8zjB5uqYmBT-pq1iZtfGLOznbpKjwEKFZqn0Alz65p63u1_R9jcyHDD-9yZocERBl1fVdn5LKF6bHJALSvtWvvbpfHGNmc93geok=@pm.me>
+In-Reply-To: <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
 
 Hi Seth,
 
-On Sat, Jan 10, 2026 at 06:00:14AM +0000, Seth McDonald wrote:
-> On Friday, 9 January 2026 at 20:00, Alejandro Colomar <alx@kernel.org> wr=
+On Sat, Jan 10, 2026 at 07:57:49AM +0000, Seth McDonald wrote:
+> Hi Alex,
+>=20
+> On Friday, 9 January 2026 at 20:34, Alejandro Colomar <alx@kernel.org> wr=
 ote:
 > > Hi Seth,
 > [...]
-> > You may be interested in diffman-git(1). I think it would help
-> > reviewing your diffs. Here's some example of how it works:
-> [...]
-> > For more documentation, see diffman-git(1), of course. :)
->=20
-> That does look quite useful!  I've seen it used before in the mailing
-> list, but couldn't initially find its documentation.  Which I now
-> realise is because I was looking for its man page in my installed man
-> pages, rather than in the repository *for this documentation* (ironic,
-> I know).
-
-Yup, I wrote that script very recently.  Distros have not packaged it
-yet.
-
-> > It's provided in the repository, in case your distro doesn't provide it
-> > yet. You can install it with the usual
+> > I think 'void*' is important enough that it would be useful to dig in
+> > its history further. Was it an invention of C89? Or was it an
+> > extension in some existing compilers? If the latter, it would be
+> > interesting to document which systems had it before C89.
 > >
-> > $ make -R -j4 && sudo make -R -j4 install;
-> >
-> > Or just run it from the repo, since it's a bash(1) script. It's here:
-> >
-> > $ find * | grep diffman-git
-> > man/man1/diffman-git.1
-> > src/bin/diffman-git
+> > I'm mentioning this just in case you know. Feel free to ignore
+> > otherwise.
 >=20
-> My distro (Debian 13) indeed doesn't seem to provide it yet, so I've
-> installed it successfully via the repo.
+> I know that the void pointer type was not mentioned or used in
+> POSIX.1-1988.  Instead, the standard used the char pointer type for
+> pointers to generic data.  POSIX.1-1990 seems to implicitly require void
+> pointers - at least for conformance to "POSIX.1, C Language Binding (C
+> Standard Language-Dependent System Support)" - by including them in some
+> function prototypes.
 
-The only distro that already provides the scripts from this repo, AFAIR,
-is Arch.  I've been talking to Fedora and Debian, and they'll likely
-package them soon.
+Hmmm, since POSIX.1-1988 was already written after some C89 draft, it
+seems void* was incorporated to C89 in a late draft.
 
-> I'm glad it's a bash script,
-> as I'd be a little more hesitant to install a binary executable.
-
-Yup.
-
-> [...]
-> > I have a question: do you use mutt(1) or neomutt(1) by chance?
 >=20
-> Currently neither; I generally just use the Proton Mail Linux app.
-> Mainly because it's a familiar interface from before I switched to Linux
-> in mid-2025.
+> Looking at C89, it did explicitly specify void pointers as part of the
+> language, stating that "[a] pointer to void shall have the same
+> representation and alignment requirements as a pointer to a character
+> type."[1]
+>=20
+> Looking* at K&R C, I skimmed through chapter 5 "Pointers and Arrays",
+> and couldn't find any references to void pointers.  In fact, it seems to
+> use char pointers instead, similar to POSIX.1-1988.
 
-I was mentioning it because since you send many patches, it would be
-interesting if you could sign them with gpg(1).  It's not necessary, but
-if you used one of these, it would be trivial to sign them.
+Yup, K&R C 1st ed. is too old and I wouldn't expect it to have
+void*.  I have a physical copy of K&R C 2nd ed. (1988) and it does have
+void*.
 
-> However, I have been really getting into TUIs recently.
+> So I think what happened (pure speculation) was between 1978 and 1989,
+> void pointers increased in user popularity and compiler support enough
+> that ANSI decided to extend the language by adding void pointers to its
+> 1989 C standard.  Which would explain why POSIX.1-1988 also didn't have
+> void pointers, but POSIX.1-1990 suddenly did.
+>=20
+> With regard to implementation support for void pointers prior to C89,
+> this is where my knowledge falls short.  I'm not the most educated on
+> past implementations (yet).
 
-Nice!  :-)
+That's fine.  If anyone else reading the list knows anything, it would
+be welcome.
 
-> So if you recommend either, then I'd be enthusiastic to give it a try.
+> *I found this[2] PDF online which appears to be a scan of a (heavily
+> annotated) copy of the first edition of The C Programming Language.
+> I don't know if it's authentic though, so take it with a grain of salt.
 
-I recommend both.  Personally I like mutt(1) because it's simpler, but
-for sending patches, neomutt(1) is useful because it allows signing
-patches cryptographically with gpg(1) in batch mode (called by
-git-send-email(1)).  mutt(1) can only sign emails in interactive mode.
+Being a scan, it could be authentic.  I don't have a physical copy of
+the first edition, so can't compare.
 
-I certainly recommend you give a try to mutt(1) first.  For interactive
-use, I don't need more than that.  I learnt to use it with this youtube
-video: <https://www.youtube.com/watch?v=3D2jMInHnpNfQ>.  If you want more
-help, I can share my configuration files with you, and maybe clarify
-some doubts.
+Be careful of online copies of K&R C, though.  I once found one of the
+second edition, and it was fake (by comparing it to the actual copy).
 
-neomutt(1) is a fork of mutt(1) with (many) more features, but I prefer
-simpler software with less features.
+Much better to get the physical copy.  Although the first edition seems
+difficult to find.
 
 
-Have a lovely day!
+Cheers,
 Alex
 
+> ----
+> [1] ANSI X3.159-1989 "Programming Language =E2=80=93 C", Section 3.1.2.5
+> "Types", p. 24.
+> <https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf>
+> [2] Kernighan, Brian W., Ritchie, Dennis M. (1978). The C Programming
+> Language (1st ed.).
+> <https://retrofun.pl/wp-content/uploads/sites/2/2023/12/1978-ritchie-the-=
+c-programming-language.pdf>
+>=20
 > ----
 > Seth McDonald.
 > sethmcmail at pm dot me (mailing lists)
@@ -173,25 +170,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es>
 
---5tfxwor3hoj37ipe
+--xzovymz6ate7spq3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmliNBAACgkQ64mZXMKQ
-wqlFrA/9GgmgnQ8Gpea0nQ8VnmCKjzrCfh+5UeOhu9f3Q0nTLzPVwc0nTwglTIF8
-7YtLh4dTKSX14SoXtp+yH6wMKWoobwBan91j/lGRwsF5IeoVzkt9j5skBCuRk0hB
-uCzdDdKoarXgtM6Hedad8KVgnyPpMss+myg8Xckv/7n4aagBmzdWOJA5CPcIYcIR
-pOeRM0R5bya4bJHsAu6MwqsP8DrrhXU6XcOoOnRFISccFQOwcXi4dSCp4UwIVKnG
-KbDwZjM00I0XcgK7X15vRvmB4/5dzICpyG+lQXkku6ZHcOytv8CN3iIvlWj8EJeA
-AAUKA8aTJl+bsmrxuC4t+yLLeIOEciIqWiehX8ukxC0K28RF8LAEv0QtTOUcfzEp
-a4kY/Y0pSC/I0gFBwty7vGWe5QsKmAo2B69RD5bHZ6Uts5gxdaxbEJ5hzbbw3BiE
-5Cfw0Ny5H5F5RilpiiHSr6YB0GfaScYPjFVHm0oDijp/Q3i/9ZDik9kqrj1fNArd
-O60/R/aOBUdZQArPNl5NLlogliwE5d9Hdbbmqy87rt4MaPk0Sa+6d3DSXu6JAT1F
-47dn6adveqXYM3la6tlNi/KYuNdqY+1IoPn13PVvwFJmthsadqZ6E4MnhxPWOPl0
-hySgtr1q7UPiTd/rUabJIKiMQrDVdJp5s0i5B3ZKzf20nHhgtZc=
-=6gp5
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmliOD8ACgkQ64mZXMKQ
+wqkc1g//fwhd1H2bf8g/e9HA3g+7h1SMNk235htgLpt1qr6ASYeNVrPUPQURzUjq
+VETQy0ysesoCuzd2tSvpBofuL//bOAa6sDv8yUkoi3p5N72gdoNvJiNGOSVOmGfO
+JmtWMd37cXw8/eixw9S/hn56ytbOLfCgX3SvRuSnIEMM2d6PN5bpxdA0FLkWVGT6
+8t07W4MZldbOoFrWnmnNpwFYzHA5EZCQgq3Tan/NLfkicsjY7WgrWjpqTtI9V1XT
+Ckqp+b2tRgu+udk8Jsz17Q466gF72PvvalNPptv7lipWnA4cT/d6WwV5Sf3hVKvN
+CcRbuRgg4d7Blx00ZncWkr+A+TeLfaQKt2wq9RqZzmZG79JgPD28aOZMGZ5qvnQ5
+JOsv7VaS8PpjTdWlF9qacezVA26UB/xn+WLSgi1GgZYaQjSGcvO+FsItSjjTq+jB
+jKBnMkmwM2EVKqMCjlcbSwYditt+XfDWf0bp0Bqo4LGo2ecyLvBuX8jKqNKkc2cU
+ydo495HS45HWVsfkrZizBu6Pb2dKRC637tdSP/sAE0RAs+Gd5r26eiafoGVXA4F/
+9ZMskqUEWaqBDEAGZK8beOhziG4/6bYmx4TYhlg4GmM6n7BidIKlijCNRBi/SFax
+POEdCI/rQWcj0WMQi/LWNzjNGMLz8tCBC4zDEGdXEq244LRj/9s=
+=/ZNI
 -----END PGP SIGNATURE-----
 
---5tfxwor3hoj37ipe--
+--xzovymz6ate7spq3--
 
