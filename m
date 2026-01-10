@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-4785-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4786-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 613FFD0D551
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 12:30:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA0D2D0D566
+	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 12:44:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 5A0D230155DB
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 11:30:18 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 544F4300727D
+	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 11:44:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8C1F21D3E2;
-	Sat, 10 Jan 2026 11:30:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7EDE133D6EB;
+	Sat, 10 Jan 2026 11:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJBtBwEn"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p5aI8/ca"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD045733E
-	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 11:30:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D1A33A71B
+	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 11:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768044617; cv=none; b=HJ+zzBKtGzgnxBzhmtzikKt5EUKN7tzeWf9X6oX+5LNZDi9S4QEgTpxVK3ketsDaM3oraE40mFVbk8NlIYF+VS1+LhNpjIoR/zma38hexZa3GX6hRUO3Vk6g5ZP0uCYMZY9GvhchlFxaavzhSbgZnpOTztdJBC0ejDjjdqUAGEs=
+	t=1768045460; cv=none; b=DDGMih1qhgZ+r7ZtZRiYFmoQTcfiIHoKpPlLw/7313nzOLiiBR+GaBjbNI9oLeh0GrtUuevuhm4GYVUk0XggrwwY8v0q2cXqdWqtFSAlHtb+/fyAsyZGOZdM0z/G7k/V0hiCqAqlfzr6ldk3YpdbAfmIMf4AQoekF+5dSn4ciNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768044617; c=relaxed/simple;
-	bh=I8C61HUt2m9tI/R8Hgmy6w6G+ydbF0JCbsIreqSrz2s=;
+	s=arc-20240116; t=1768045460; c=relaxed/simple;
+	bh=RK0kaXH946joA31HJoo8Bkcy4J+mhvrIEiIV6ullE/A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d3Isskbv24m+5NVZ3CwpZfu2a2PdUBPezrmhVRUlLmzmHcVBuybh/LJXmg9H7KjqW3gIKu3sAC/C6YEV7nK0xTT49x8A+8vo1TUwNK8sF2pmA41XzFR+CwlX1iqomRiB5ZeJKiZc3+T2GJn8xQ1oKKsT88ciXJSgH5mhATNbUb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJBtBwEn; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81769C4CEF1;
-	Sat, 10 Jan 2026 11:30:16 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=slbkuKjCYtaekE0+2xrL1oSaXcvtamzvv1YQnDnhwlKQynWK0fWRyTtkr1PzJZlPDG6lAZBSU/v8Jh6n+0RmoPS4p2RwvFnmCeT5TC/CgTzvA2/4cDjXhwTy6Uhz3yaNRJDw3tk2NgtNM8bLZn6AclEzrE1DysvS9T3DpG7ErEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p5aI8/ca; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F76AC4CEF1;
+	Sat, 10 Jan 2026 11:44:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768044617;
-	bh=I8C61HUt2m9tI/R8Hgmy6w6G+ydbF0JCbsIreqSrz2s=;
+	s=k20201202; t=1768045459;
+	bh=RK0kaXH946joA31HJoo8Bkcy4J+mhvrIEiIV6ullE/A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HJBtBwEnKphJpt0YZVlSzduMGa06M+LV+Llw7HThfYSLP+RG7fFPi41wmRzaS2Xnd
-	 v5Ze+5NzZBiCdHUCvk5qkXquAv8Gbbd2pjdoTbruKX8RsoSgiDgG2dyzTfMvh51PkL
-	 AaBmeq8v3n7ijTW7gz4ujveTGEkgPK2bqIR168sdbSzeA0y1UGMHxeOYC9PpzY7GV4
-	 M+I7IDnYRdvFYfbMJJR4ZBo9qpDaCHD5rJa2/PI1kxFZYn2hAjpeh/Jo3oKRtuFpSz
-	 iTCXUmQbH0JO1053tQN6h7LKMiqTmiL9gUke/WGtT01R2xWiaWzqjSWGSXsfPDSXU1
-	 FZgYmhgx/PZeA==
-Date: Sat, 10 Jan 2026 12:30:13 +0100
+	b=p5aI8/cah3DaNSAcQpCI037nw1AWTX0ygVW5sH+vTZyK8HT7nmwEgw4fH4v+GQf/k
+	 PRfwlxanEd0QobggYQ+gSgr8ARvMt0DGwYio07tmIAGs2zJv1EKCSTvgbh9iuKPS1h
+	 InhtvSvRVgYRNxPWa5aMNRf/f2V0uUutap4ooF8u9nWvHlBGlAkrmo5/AvdmaAu92p
+	 w45N5xkVMMWRDei2jmBvOI/ZjmlIcY3eYiNTMWBQKYbkuW6zfRFc2h1NoJmFq5TKlN
+	 W3PcQ0h1VaxfmvuqCmWeBjHEpa+g7vWV/yXM5ef9G8H/mblhztZHRblKm07+Ssk76w
+	 MtpCQUMmbDgaw==
+Date: Sat, 10 Jan 2026 12:44:16 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first
- POSIX appearance of void(3type)
-Message-ID: <aWI0djUqajn0xGZL@devuan>
+Subject: Re: [PATCH v1 21/25] man/man3type/wchar_t.3type: HISTORY: Update
+ first SUS appearance of wchar_t(3type)
+Message-ID: <aWI4rAg8tYlkRMwK@devuan>
 References: <cover.1767939178.git.sethmcmail@pm.me>
- <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
- <aWDZFvDvb-hAXQMJ@devuan>
- <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
+ <a7d237cd5287cf35982d26f5289b1b9daaeb0be1.1767939178.git.sethmcmail@pm.me>
+ <aWDZ5EM-knrbOb_t@devuan>
+ <h4reW7ecM6XLHLIdrP5SKys4XwrtBO5ZoRHij7d30gTkw9a3W6zEALzJEpjfU_NoGp5Q3pEIQ0nIx2HN-AEBBSj_QNaR0Ca5Qn4lTwyZ3Sc=@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,138 +57,116 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xzovymz6ate7spq3"
+	protocol="application/pgp-signature"; boundary="oca6x4ph7lpm7xp6"
 Content-Disposition: inline
-In-Reply-To: <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
+In-Reply-To: <h4reW7ecM6XLHLIdrP5SKys4XwrtBO5ZoRHij7d30gTkw9a3W6zEALzJEpjfU_NoGp5Q3pEIQ0nIx2HN-AEBBSj_QNaR0Ca5Qn4lTwyZ3Sc=@pm.me>
 
 
---xzovymz6ate7spq3
+--oca6x4ph7lpm7xp6
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first
- POSIX appearance of void(3type)
-Message-ID: <aWI0djUqajn0xGZL@devuan>
+Subject: Re: [PATCH v1 21/25] man/man3type/wchar_t.3type: HISTORY: Update
+ first SUS appearance of wchar_t(3type)
+Message-ID: <aWI4rAg8tYlkRMwK@devuan>
 References: <cover.1767939178.git.sethmcmail@pm.me>
- <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
- <aWDZFvDvb-hAXQMJ@devuan>
- <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
+ <a7d237cd5287cf35982d26f5289b1b9daaeb0be1.1767939178.git.sethmcmail@pm.me>
+ <aWDZ5EM-knrbOb_t@devuan>
+ <h4reW7ecM6XLHLIdrP5SKys4XwrtBO5ZoRHij7d30gTkw9a3W6zEALzJEpjfU_NoGp5Q3pEIQ0nIx2HN-AEBBSj_QNaR0Ca5Qn4lTwyZ3Sc=@pm.me>
 MIME-Version: 1.0
-In-Reply-To: <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
+In-Reply-To: <h4reW7ecM6XLHLIdrP5SKys4XwrtBO5ZoRHij7d30gTkw9a3W6zEALzJEpjfU_NoGp5Q3pEIQ0nIx2HN-AEBBSj_QNaR0Ca5Qn4lTwyZ3Sc=@pm.me>
 
 Hi Seth,
 
-On Sat, Jan 10, 2026 at 07:57:49AM +0000, Seth McDonald wrote:
+On Sat, Jan 10, 2026 at 09:08:49AM +0000, Seth McDonald wrote:
 > Hi Alex,
 >=20
-> On Friday, 9 January 2026 at 20:34, Alejandro Colomar <alx@kernel.org> wr=
+> On Friday, 9 January 2026 at 20:37, Alejandro Colomar <alx@kernel.org> wr=
 ote:
 > > Hi Seth,
 > [...]
-> > I think 'void*' is important enough that it would be useful to dig in
-> > its history further. Was it an invention of C89? Or was it an
-> > extension in some existing compilers? If the latter, it would be
-> > interesting to document which systems had it before C89.
-> >
-> > I'm mentioning this just in case you know. Feel free to ignore
-> > otherwise.
+> > I've recently learned that wchar_t and related APIs were introduced to
+> > ISO C in C95.  If you are interested in them, you could check the C95
+> > draft (there's a link in standards(7) --I added it a few weeks ago--).
+> > Otherwise, I'll have a look at it myself.  Let me know.
 >=20
-> I know that the void pointer type was not mentioned or used in
-> POSIX.1-1988.  Instead, the standard used the char pointer type for
-> pointers to generic data.  POSIX.1-1990 seems to implicitly require void
-> pointers - at least for conformance to "POSIX.1, C Language Binding (C
-> Standard Language-Dependent System Support)" - by including them in some
-> function prototypes.
+> I can include this in later patches, as long as citing the draft is
+> sufficient justification.  I personally tend to have a more 'final
+> standard only' mindset, but if you're okay with the draft, then I'm
+> all good to use it.
 
-Hmmm, since POSIX.1-1988 was already written after some C89 draft, it
-seems void* was incorporated to C89 in a late draft.
+For ISO C, unless you have the money to pay for the standard documents
+(usually, this is only done by companies that need certification), the
+drafts are the only available thing.  The actual standards are behing a
+paywall, and most people never see one.  I have never seen an ISO C
+standard (and I'm member of the C Committee).
+
+The C Committee publishes drafts of what will become the standard, and
+usually, it's enough to consult the draft that's closest to the
+standard.  See also:
+<https://stackoverflow.com/questions/81656/where-do-i-find-the-current-c-or=
+-c-standard-documents>
+
+For C95, the draft n412 is, as far as I understand, identical to the
+standard (except for the ISO cover sheet, etc.).  Draft n412 was an
+early draft for C99 published around the publication of C95, and even in
+the SUMMARY of the draft, it states that "This document represents C90
+with Technical Corrigendum 1 and Amendment 1 applied".  See
+<https://www.open-std.org/jtc1/sc22/wg14/www/docs/n412.pdf>.
+
+For C23, for example, the draft n3220 is identical to C23 except for one
+typo in C23 that was fixed in n3220.  (n3220 is the first draft of C2y).
+
+In other versions of ISO C, drafts may differ more from the actual
+standard.
 
 >=20
-> Looking at C89, it did explicitly specify void pointers as part of the
-> language, stating that "[a] pointer to void shall have the same
-> representation and alignment requirements as a pointer to a character
-> type."[1]
->=20
-> Looking* at K&R C, I skimmed through chapter 5 "Pointers and Arrays",
-> and couldn't find any references to void pointers.  In fact, it seems to
-> use char pointers instead, similar to POSIX.1-1988.
+> For the 3type section I've already covered, it'd probably be easier if
+> you could patch up the few types that first appeared in C95.  I'd rather
+> not keep going back to refine previous patches, as I've found (from
+> general experience) this mindset tends to cause me to *constantly* find
+> new ways to polish what I've already done, preventing me from making
+> much progress.
 
-Yup, K&R C 1st ed. is too old and I wouldn't expect it to have
-void*.  I have a physical copy of K&R C 2nd ed. (1988) and it does have
-void*.
-
-> So I think what happened (pure speculation) was between 1978 and 1989,
-> void pointers increased in user popularity and compiler support enough
-> that ANSI decided to extend the language by adding void pointers to its
-> 1989 C standard.  Which would explain why POSIX.1-1988 also didn't have
-> void pointers, but POSIX.1-1990 suddenly did.
->=20
-> With regard to implementation support for void pointers prior to C89,
-> this is where my knowledge falls short.  I'm not the most educated on
-> past implementations (yet).
-
-That's fine.  If anyone else reading the list knows anything, it would
-be welcome.
-
-> *I found this[2] PDF online which appears to be a scan of a (heavily
-> annotated) copy of the first edition of The C Programming Language.
-> I don't know if it's authentic though, so take it with a grain of salt.
-
-Being a scan, it could be authentic.  I don't have a physical copy of
-the first edition, so can't compare.
-
-Be careful of online copies of K&R C, though.  I once found one of the
-second edition, and it was fake (by comparing it to the actual copy).
-
-Much better to get the physical copy.  Although the first edition seems
-difficult to find.
+Yes, I'm taking your patches as they already improve the pages.  I was
+mentioning this in case you want to write patches in the future that
+also document C95.  FWIW, I've applied the patches already.
 
 
 Cheers,
 Alex
 
-> ----
-> [1] ANSI X3.159-1989 "Programming Language =E2=80=93 C", Section 3.1.2.5
-> "Types", p. 24.
-> <https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf>
-> [2] Kernighan, Brian W., Ritchie, Dennis M. (1978). The C Programming
-> Language (1st ed.).
-> <https://retrofun.pl/wp-content/uploads/sites/2/2023/12/1978-ritchie-the-=
-c-programming-language.pdf>
 >=20
 > ----
 > Seth McDonald.
 > sethmcmail at pm dot me (mailing lists)
 > 2336 E8D2 FEB1 5300 692C=C2=A0 62A9 5839 6AD8 9243 D369
 
-
-
-
 --=20
 <https://www.alejandro-colomar.es>
 
---xzovymz6ate7spq3
+--oca6x4ph7lpm7xp6
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmliOD8ACgkQ64mZXMKQ
-wqkc1g//fwhd1H2bf8g/e9HA3g+7h1SMNk235htgLpt1qr6ASYeNVrPUPQURzUjq
-VETQy0ysesoCuzd2tSvpBofuL//bOAa6sDv8yUkoi3p5N72gdoNvJiNGOSVOmGfO
-JmtWMd37cXw8/eixw9S/hn56ytbOLfCgX3SvRuSnIEMM2d6PN5bpxdA0FLkWVGT6
-8t07W4MZldbOoFrWnmnNpwFYzHA5EZCQgq3Tan/NLfkicsjY7WgrWjpqTtI9V1XT
-Ckqp+b2tRgu+udk8Jsz17Q466gF72PvvalNPptv7lipWnA4cT/d6WwV5Sf3hVKvN
-CcRbuRgg4d7Blx00ZncWkr+A+TeLfaQKt2wq9RqZzmZG79JgPD28aOZMGZ5qvnQ5
-JOsv7VaS8PpjTdWlF9qacezVA26UB/xn+WLSgi1GgZYaQjSGcvO+FsItSjjTq+jB
-jKBnMkmwM2EVKqMCjlcbSwYditt+XfDWf0bp0Bqo4LGo2ecyLvBuX8jKqNKkc2cU
-ydo495HS45HWVsfkrZizBu6Pb2dKRC637tdSP/sAE0RAs+Gd5r26eiafoGVXA4F/
-9ZMskqUEWaqBDEAGZK8beOhziG4/6bYmx4TYhlg4GmM6n7BidIKlijCNRBi/SFax
-POEdCI/rQWcj0WMQi/LWNzjNGMLz8tCBC4zDEGdXEq244LRj/9s=
-=/ZNI
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmliO4oACgkQ64mZXMKQ
+wqkV2BAAuf8G/xdvPtXNtLxmtxOBljv18mmtjNEM/t3Grs/hYqqciUH9FwzyaNCF
+qdP0xvJ+3boZe/sqq53Ul0FPyTxGxTSqrTOMDUTXZErpeIr9wZ6oHk1f2el7XHp/
+Gn0kT88Z+XQoy5+vSFEqCEsrmfBYz2XaB3Nu13K9iM1OOBeLRQ56Qe6di7juVMom
+W6h4Mk1jbA/77arRMVRfZaW8qH1e/7yv8jnt0f8FOACQBMkgvTAowpEZrTi6v+YL
+GsngzgFY/jH7bxlQm0dF9CWkvPAvM7gH6AgSlusjHF4ocx/2GEnG7IhS7OrjcC9f
+MPDGFG0fUCWyj89cv1nlLpZ0iRzyFG7WrjDbdQ8oPQ5TyTk9ZIcHpzUkxUUpkBok
+7RstQ0Mh9P/GbKRo2rMPNiTEOudwyYWtYnO2kix+weomn87VBZE0o/ocd9wAGxi8
+OCUC/RLHeN7U+VSgo23CdzBpXF/2l9FYD5G7H3I9VB0kX3n7jIOomi4RmdXmju8b
+dDIHrxaCDwX4JteQLdUNUr/tvfMG3HqsabuBniUdc/ef5ysMVqGo0ZGkwwyYvE9r
+YRYnKjCvu1h/mb6ip12LzCmWJyokjrOW2cb7SxohzKvXzwq48oGEj1sL7ub/LZ4Q
+R7tqPgDEzcf9CLxrV4UIhLYVNVfL6F0/HgM1/ldujJIUAu8yuuU=
+=/GR3
 -----END PGP SIGNATURE-----
 
---xzovymz6ate7spq3--
+--oca6x4ph7lpm7xp6--
 
