@@ -1,135 +1,148 @@
-Return-Path: <linux-man+bounces-4781-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4782-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id E388ED0D07F
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 07:16:09 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2478DD0D2F2
+	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 08:58:05 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 419CF302AFFC
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 06:16:01 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id EF82E300B34B
+	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 07:57:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 161AB24E4C3;
-	Sat, 10 Jan 2026 06:16:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07C392E7650;
+	Sat, 10 Jan 2026 07:57:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FW3C1Q2u"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="IarES+CX"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com [209.85.214.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4B5205E26
-	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 06:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF8420E023
+	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 07:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768025760; cv=none; b=Eil6BTPypZQxr/UxqYYzykCz5u+72+dNX49oyi7Z4nUUXPcBibshHxgyGNPQJ7OBKs/X11VP2WTBcqzH2ADRPi3sC1JIawEX5h1N4iLhoYRgoPtLeTGqk40gx9Jnrq7YTCUZJAglhmC5Dbd8C8kUvG6V+JhoJgomR3rSZ5gs0gM=
+	t=1768031878; cv=none; b=cC9kGh2nKDnVJ+kCq5ei00Mk24s/vTeewJo7X86AxEUnr2oRWb4qE5z7I8tVwn3LcGoQNcqjI8yki4IRtOe92M1cbcxP7XaQGT1WUbRpbZ5JZJw2b3h8ucGi9OvkxZfMDdCmq1ntpqiwWg7BPCNpspA1KqWGhEzgr2lJNCwfc+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768025760; c=relaxed/simple;
-	bh=DcBQXTps0FW0YbfTh5/e1FpJotwkr7HjcbPAV0L3rPg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QzNkEPmmgVB4z5OQ0QHSVFd+sgysqqQ5/llUC/q2NSV99XP1CaCnkve3xU0Wchzo8pHJZ+WBaCqKKUe5dJ7go6c9iVJ9HBZGfg5ZK673/9c1oHVzyIQEHRKWmgbYajQ0ZHBxuZQJShmeQ1/i5C0hQSXHSzXnZkTznLIdEfYjsRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FW3C1Q2u; arc=none smtp.client-ip=209.85.214.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f193.google.com with SMTP id d9443c01a7336-2a07f8dd9cdso36000805ad.1
-        for <linux-man@vger.kernel.org>; Fri, 09 Jan 2026 22:15:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768025759; x=1768630559; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=p+CUgQ+Ida49VU8TjqU2s+i5uGy7IhHZMWPNL0YfwFk=;
-        b=FW3C1Q2ubKSIpQJ0Ceucw9kz0IDsgclpN4c5x46MOjqZDmCpS0FIG+hiTizZLZzhul
-         FqRnUK0nkWPKHZaZ8kjglCu1paCPEDXTM11+7hVpwmoEozQiKV07pNtzSyvye71tBEYC
-         LR23habPrCKChDv8iBR8NeResAefnF4iY/+7EmuwkQUkbvKKyZmWTbfQn/sRUq2n52pY
-         8D2XU2Nk2BZD8xX+M/TC6Qopg4QWskL4+EqKWFBHCfs419GPQvbP4fxjwk41Ro0CRqxD
-         F8N29qSkK2wMc7VTqoSE9yRAoGS5uanB4i0sv5DG8szme7H0AQ+NDEXyMDGC6weicQQE
-         RuDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768025759; x=1768630559;
-        h=content-transfer-encoding:mime-version:reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=p+CUgQ+Ida49VU8TjqU2s+i5uGy7IhHZMWPNL0YfwFk=;
-        b=nsbY68juSQ+B6ujMG4SpJ4ScNL4Bnk97uPUNdZtC9bLDNOpQ1D3UyBrVX7ro5O1178
-         c1UksLgboak/6wu4cbjqOLkgaDvQ3WYW+8rAoVBq9kT2WMuEYNKsD5EjLP/OAWaiQwNT
-         AANeJ9uQ8PzMt1+UQ5baKRyrwGvTkpCAEzlQqzs5woDscHyUch/n7KcSfjO1XwKjf5q3
-         znQ+d0DrhTKSronhNCB7b8/4vqGYcvDXa6a30+vfmuVwbbM6WZMKlvRNDOroQ1X3lT1A
-         B0J/nn9YH4BuYTE0XX6J866JgXWuCQ/ElBR9dpBvicUbPhE09+9PhgLJUJLWlUB8RSj5
-         WSuQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWJPvhoOfr0WdNW0s8cHmhWDIDxejeTJVjzGO8/x7DXrNDsm3uIw5ifmAjFSrBYnDoEqemTn15a17I=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwphDnjSu/GAKNt19KW5cOsXwXW11LEkdbPq15XyK/Nt0697cjn
-	nl7jy5L6Fu38Q52ahhh+qkUM3XCSOdT+ky60jAJVCX4/HLG2inxlgw1C
-X-Gm-Gg: AY/fxX7kP7uWs+0LWPMXNGBE/7je7lUTBBc583COz/MB/8gTZzXZMSZAsxzoTKe0lL2
-	Rvlkw03fCj33XiyESw0dIlYg3DgQ7CuqbOyi1Jq1vlGI+jTRQX7Tp785H36cHbm/zs7R2afVKy+
-	otnfrn8/lr5TkO6sVS8CfapVNLDH9sLq5QUD95c9wPCorsWGCXH3FUw7/rb9TuNnNw2JPwrQ4x7
-	38l2stXOINuSWBIVF5rI9ht4VB8pq7FQx18toY9rLT/A5cb9QE9zuZCtBR1VhW/k4ziCAucWicX
-	KMVRnaFqdi4Ey3b1J+Tv1+fR63qEkJUP9gtChX5XHW+KEGwg2Q86w9nLuE/L2vd71wwSPszqXER
-	XMGSf5+VqvIKjk42RhDcZwWZhwP9wznXf+WifYC+NvkPED8/MD1gC3CVKyQGNNb5SeenETJeVrn
-	b30X5/l755FW2IoS45ElsJxhPTjMGk5F4AItZVr8mDVzpSeSRWfV8NtYj7FrJ3Zyq9Rj9sWiY+b
-	P2f3ZhFfPceyalNcKrpBc7hV/w3
-X-Google-Smtp-Source: AGHT+IEU7ZrD4y5OB5kganVT2ygcA2+//mHrRI13CwsAW1dW52UBMskA/RamzFGFhSy547vCdS5p2g==
-X-Received: by 2002:a17:903:32c9:b0:296:2aed:4fab with SMTP id d9443c01a7336-2a3ee43595bmr111967945ad.23.1768025758839;
-        Fri, 09 Jan 2026 22:15:58 -0800 (PST)
-Received: from McDaDebianPC.local (2403-580b-5de8-0-ce8d-7313-a81a-a88c.ip6.aussiebb.net. [2403:580b:5de8:0:ce8d:7313:a81a:a88c])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2a3e3cc8ddfsm119807885ad.74.2026.01.09.22.15.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Jan 2026 22:15:58 -0800 (PST)
-From: Seth McDonald <seth.i.mcdonald@gmail.com>
-X-Google-Original-From: Seth McDonald <sethmcmail@pm.me>
+	s=arc-20240116; t=1768031878; c=relaxed/simple;
+	bh=V8iWKu8kcQ7DSm/3Kwusw4MfqjefeAAgMQnjLfH5omQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WLva7/XadXSBjCum1bYj/9D+r1lk7U26zaSA1/owALd4neEPqBiuXtw6BT+bRNXB+vt4uYtamDyuGq4Wm8eTmtz03uuJWhoJf2ssYb8+PJDmYpmcgBEIqbzY6PUHQ/CezVVN5ZlyysU4fBgjOXwFi6ydn3wLAoQMNqFsNoywPUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=IarES+CX; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1768031874; x=1768291074;
+	bh=DuN2j6cfsiBSfFIqGW21CV3YD27T23hwN9CGoSw1v+w=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=IarES+CXSoDyZnke5tZd0pFYUfeqqN11DoDFoJ0XQHDLbj4E/PgfTyeWsbEecHHnL
+	 +D4XteDveGly9GhKtRL0lxGJNI1E/Ro3fg469X5p8YfffvV2H2I+H5z5jkJ5DLXvDi
+	 1rKoV/HpBVInn77xNEW8nGGUHS5YO2GDrly3V2mGu+f+5GGexj5Yt2RTNhM9QBrSOz
+	 BzsJwkXcBdd9F3fog6xzpM9sb9q09ev8vCdetqv9JzZdDnqMm/yIWNqoJJseJ1TIU6
+	 uU+8SyTafQk3Zw4+qqWJAYkn8jADx/c3bvjdZJTlMx2JIm6+ur2Zxtr569H90w5T3k
+	 MsB4Cy8WKjE2g==
+Date: Sat, 10 Jan 2026 07:57:49 +0000
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Seth McDonald <sethmcmail@pm.me>,
-	linux-man@vger.kernel.org
-Subject: [PATCH v3 3/3] man/man3type/stat.3type: HISTORY: Specify initial datatypes of st_{blksize,blocks}
-Date: Sat, 10 Jan 2026 16:15:20 +1000
-Message-ID: <5f6bf068bb5fa226d4933f2faa25a738ce098cc8.1768025095.git.sethmcmail@pm.me>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1768025095.git.sethmcmail@pm.me>
-References: <cover.1767931376.git.sethmcmail@pm.me> <cover.1768025095.git.sethmcmail@pm.me>
-Reply-To: Seth McDonald <sethmcmail@pm.me>
+From: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first POSIX appearance of void(3type)
+Message-ID: <N5rwikkzw2f0JXz95u_1kI4bAmDj9D2gkp_MrOGQRmYRpZUHBuRAP390fgTkgcNbzYe3YAfS3Zb-OT95Mc_XjSCLQwr-JnMM6fLmIlsN8NI=@pm.me>
+In-Reply-To: <aWDZFvDvb-hAXQMJ@devuan>
+References: <cover.1767939178.git.sethmcmail@pm.me> <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me> <aWDZFvDvb-hAXQMJ@devuan>
+Feedback-ID: 171233811:user:proton
+X-Pm-Message-ID: 1e27fd162ea9ac05923ac23a65d099cb79c9f8da
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------cb7c59d2d1e9a9365f754b6bfad743c769d413c575607ce8e4e3675597075c1a"; charset=utf-8
 
-From: Seth McDonald <sethmcmail@pm.me>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------cb7c59d2d1e9a9365f754b6bfad743c769d413c575607ce8e4e3675597075c1a
+Content-Type: multipart/mixed;boundary=---------------------7a2c4dab35aefb6f156fac03ce58ad28
 
-The st_blksize and st_blocks fields of the stat(3type) structure were
-both specified as 'long' integers in SUSv1.[1]  SUSv2 then changed them
-to blksize_t(3type) and blkcnt_t(3type), respectively.[2]
+-----------------------7a2c4dab35aefb6f156fac03ce58ad28
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-[1] X/Open CAE Specification, System Interfaces and Headers Issue 4,
-Version 2, Chapter 4 "Headers", p. 830.
-[2] CAE Specification, System Interfaces and Headers, Issue 5, Chapter 4
-"Headers", p. 1169.
-<https://pubs.opengroup.org/onlinepubs/7908799/xsh/sysstat.h.html>
+Hi Alex,
 
-Signed-off-by: Seth McDonald <sethmcmail@pm.me>
----
- man/man3type/stat.3type | 8 ++++++++
- 1 file changed, 8 insertions(+)
+On Friday, 9 January 2026 at 20:34, Alejandro Colomar <alx@kernel.org> wro=
+te:
+> Hi Seth,
+[...]
+> I think 'void*' is important enough that it would be useful to dig in
+> its history further. Was it an invention of C89? Or was it an
+> extension in some existing compilers? If the latter, it would be
+> interesting to document which systems had it before C89.
+>
+> I'm mentioning this just in case you know. Feel free to ignore
+> otherwise.
 
-diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
-index 55294599638a..ad366bdeb35d 100644
---- a/man/man3type/stat.3type
-+++ b/man/man3type/stat.3type
-@@ -147,6 +147,14 @@ .SH HISTORY
- SUSv1,
- POSIX.1-2001 XSI.
- .P
-+Initially, SUSv1 specified
-+.I .st_blksize
-+and
-+.I .st_blocks
-+with type
-+.IR long .
-+This was remedied in SUSv2.
-+.P
- Old kernels and old standards did not support nanosecond timestamp fields.
- Instead, there were three timestamp fields
- .RI \[em] .st_atime ,
--- 
-2.47.3
+I know that the void pointer type was not mentioned or used in
+POSIX.1-1988.  Instead, the standard used the char pointer type for
+pointers to generic data.  POSIX.1-1990 seems to implicitly require void
+pointers - at least for conformance to "POSIX.1, C Language Binding (C
+Standard Language-Dependent System Support)" - by including them in some
+function prototypes.
+
+Looking at C89, it did explicitly specify void pointers as part of the
+language, stating that "[a] pointer to void shall have the same
+representation and alignment requirements as a pointer to a character
+type."[1]
+
+Looking* at K&R C, I skimmed through chapter 5 "Pointers and Arrays",
+and couldn't find any references to void pointers.  In fact, it seems to
+use char pointers instead, similar to POSIX.1-1988.
+
+So I think what happened (pure speculation) was between 1978 and 1989,
+void pointers increased in user popularity and compiler support enough
+that ANSI decided to extend the language by adding void pointers to its
+1989 C standard.  Which would explain why POSIX.1-1988 also didn't have
+void pointers, but POSIX.1-1990 suddenly did.
+
+With regard to implementation support for void pointers prior to C89,
+this is where my knowledge falls short.  I'm not the most educated on
+past implementations (yet).
+
+*I found this[2] PDF online which appears to be a scan of a (heavily
+annotated) copy of the first edition of The C Programming Language.
+I don't know if it's authentic though, so take it with a grain of salt.
+
+----
+[1] ANSI X3.159-1989 "Programming Language =E2=80=93 C", Section 3.1.2.5
+"Types", p. 24.
+<https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf>
+[2] Kernighan, Brian W., Ritchie, Dennis M. (1978). The C Programming
+Language (1st ed.).
+<https://retrofun.pl/wp-content/uploads/sites/2/2023/12/1978-ritchie-the-c=
+-programming-language.pdf>
+
+----
+Seth McDonald.
+sethmcmail at pm dot me (mailing lists)
+2336 E8D2 FEB1 5300 692C=C2=A0 62A9 5839 6AD8 9243 D369
+-----------------------7a2c4dab35aefb6f156fac03ce58ad28--
+
+--------cb7c59d2d1e9a9365f754b6bfad743c769d413c575607ce8e4e3675597075c1a
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmliBnsJEFg5atiSQ9NpRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdms5BCf/tLeeX+Mi93CqMeW5MzYvqAvqwkL8Qx
+dz++FhYhBCM26NL+sVMAaSxiqVg5atiSQ9NpAADCTwD/XKlesxfNQuVAJi+I
+jl/s5XeRWAbHUm8ZCVz9BLcfouYA/jM17A0KxDKQ3x6d7AT3WXghtP6vbalk
+VBs2H1+VIz4P
+=PgNa
+-----END PGP SIGNATURE-----
+
+
+--------cb7c59d2d1e9a9365f754b6bfad743c769d413c575607ce8e4e3675597075c1a--
 
 
