@@ -1,135 +1,146 @@
-Return-Path: <linux-man+bounces-4777-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4778-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35911D0D049
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 07:00:46 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC5DFD0D076
+	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 07:15:56 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 009B130096B1
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 06:00:37 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id BE1523026BEF
+	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 06:15:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85DF433D6EB;
-	Sat, 10 Jan 2026 06:00:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5073E23817E;
+	Sat, 10 Jan 2026 06:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="YIpTq65W"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UL/jlyIT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com [209.85.214.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DD233BBD2
-	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 06:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C62205E26
+	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 06:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768024834; cv=none; b=cmAEmQz06p+988xpWJMYHKJeKyxmPVb3GDwPiSD1VqfMtbYhjL/ZWPLJ2bTtmfJZjKFkO8xpOAsVes0ys2S4P//B6pZ8VEdGT1q6M0b6H8HY+IBH7U4Lcm8HREQ34nrdNHI3FjQdXpJNf+Bd74Usem9u+PmajTWXB9RQBUmXl2Q=
+	t=1768025754; cv=none; b=tGkFVe26gjEYgqz4uFTogZDmMURfwuvgspRmFoQ63jcsRCLr21rTI7YWqxxfG89aqSH5vSds6WuFJikDzje7fAwwofMy/slOWApA6HzVO7UuP3aCs4FC9l83k/3fLgq0B11gARO9HSDunp5pVag0LVSyaFbsdxQoGiRHxDjGWR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768024834; c=relaxed/simple;
-	bh=0DxbunyIe7+BCvrTOOjPhMMaP5k24SNNIjOhxQqfukA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QRHavvjvKZ965eeUkRgdlkT+ma1zouo9Gy+etcdv8+wEBluWq1jgU9UEvRlKgoSnR6hc4wFmlGz34haGMHbCi1foaYhOtAqUOr3uQcYBNBAC49KTldr1p0fHoisJwDUDMKnm5wBmWyqk1zj9dOnYQLY2lNhI0bFGi8xLsfMXtFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=YIpTq65W; arc=none smtp.client-ip=85.9.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1768024819; x=1768284019;
-	bh=w2AyUxD53wc5wyJw6Z27beC7qWz2t088QqnsO+SN5Ns=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=YIpTq65WOKq9laaqIf0NUWNsaWna6RX4Xg+o657/VxXKM2iWpg7IXKSTxVnIWm15Z
-	 bZtyxCqVnOghGPjmN6RHwnSwPvEWDcOrO//zdW2qpqBiC+CQIfIjy+bEOOE1CrNn63
-	 zgZapxhKtM9OywElzoDzIYduPDVaQAE0R/7/XtxjrtW7f5L6lDBjbyXjnL946NFzuB
-	 CJfjPRdvXMtY6ddmU/SgJacpk1XdOGXdm6tvcRX6iQTJozjQZkvAkWeG5X6DT1HX58
-	 8eWfrwmPOmaJz7W5K6h9oFvwOM8MJT7EgcJuYIoIkQjfKB3tj6UB5gjlB+uoHYSQjM
-	 k4WB7rxwLXBpA==
-Date: Sat, 10 Jan 2026 06:00:14 +0000
+	s=arc-20240116; t=1768025754; c=relaxed/simple;
+	bh=LzHQqQop0MArG4JCv1D8BwIr4/ggT5FBUPvX3lSqOyw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jOgKejDykfHNJ7W092c/C5zafpTUjEoLUiSWZjX7TC0DRSCfV4/QHfV3l2VZ4SHq3eyaM4spK2o0hUxqUH5eEovNeEXbfNfwxGvClzp4KJvucOAsSy9IIYNZczXK7riMMdPVNH9zhiKA10B3YwjULu1GZqgXxUPO1f1kG3JQzeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UL/jlyIT; arc=none smtp.client-ip=209.85.214.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f196.google.com with SMTP id d9443c01a7336-29f2676bb21so44124195ad.0
+        for <linux-man@vger.kernel.org>; Fri, 09 Jan 2026 22:15:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1768025752; x=1768630552; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=O3I7eeTfVNLxDgNekznycXgmn17DBymOOmYr0KWFtAc=;
+        b=UL/jlyITDQuUi8ZT3xSqg0mU36s3eNQHC5gt0X2wwPaOKyPH1gdznSpYtgxT0NXGQ3
+         vudBRAq9V0/kcdGiirPaeG1ZPf4O/Zra7kUGN1/v0MTZEej+vFjxLoMcj/RNrdCdIxAI
+         LQMaJOnK2Kr/pvDQgl53YuGtvLIa3zutYezUdekPRwGFiegH+G66qYVHre4Qid5fj+v2
+         /lejkJ3n0oQWv9RkP1Lc6MSnME8c6clb7aykvMIMXKl9tzMbgddEglGUtCSCy05sji4B
+         7WDiMwF0rX0XiPZtEL4EhsHW00+TKQiU8538n5mW9bAP5ufQm1ofs2geLfEkODUhwuHi
+         pUSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768025752; x=1768630552;
+        h=content-transfer-encoding:mime-version:reply-to:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=O3I7eeTfVNLxDgNekznycXgmn17DBymOOmYr0KWFtAc=;
+        b=hyXyDZX2WKTyh5qNGNRq7M4pSjoWopfeiGHqnsQZI1GKsmS2NRIGy2i5wZBwpCGedc
+         sSZLOCv5XP/UdM8ZV27ZYwkpm4ecWbFWAdxmqdp7Lti51pM4/kX9wk++AEHZvj6YEuWS
+         3lX3ZrPGwdcbAc+Ezv6J7bSxYIz0REYmFjDMe9DFJ2uKO2jpyX0xEDsBVDlesnw6ZXPH
+         mDPcg82byVJL2yDGBD3KP0zn+bzf1a/nX38LMqAW3CX984GptVVXpndnJG6ohG18AFaY
+         nJ6bgoJ1a02jdvacO+e2O28ErvJV/KwXfcbRTLlpkK0JxuTragrLcTk8oJ+AGeFy6xHB
+         ApOw==
+X-Forwarded-Encrypted: i=1; AJvYcCX1uxyui17LPnlz+1pd5cZtbU6Po5sRb12oCRu8JQn0a5Em9iYOw+Wzs36Rt0uyW1oRH/Bagq1cD7Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyOd8DEl9MHYZuVzZ5wkO+bxs8zROf95lGccHiugGUzQUGGElfG
+	4E/yEXEGu7SQXgnx+xdThTZUGSeXK///nfPmSSNUMrJHyvRBaUpz/UDcxt45MLvX
+X-Gm-Gg: AY/fxX5IFth72EQ+XsoKDDDOBsjhNsCwHACaLBSndbUWwU7cxOwmnH8t1LRwBf+Dtkq
+	cIrFNBKUT/cKmBwPcw23uBW094RqVbp096fdqRHN7Viee2tyc1Hf+7RrslU1koBg6ttMJ4ZhoFU
+	UHc87+vnrat/NunpO9aB7toumks/zfvC+miBwdxy3VPWfkgNVgiIc4X9z9YgnlX45gde1WEr9MN
+	IJ98gEXq4Em9cZ/yovlJz4LJRLBuDbp8XEzPb+bP87NIzELGXgs/535qbyQlR9QuPKiDr1V+dO5
+	9nuJluVFwmDjdpqMoH/5DvaPhZmBoOmqhG0KYQxe9gxIRJnmLEHoll+M43r3YGvSxQRqamLEvFR
+	uOPDjoHbUWBFNy5n9zCD8Xjhx4EdK37nvL8wclD9VOIYLD8gqnhFlH8VA8hGfuKLdFlj1rOibIu
+	SjohofVRpDVrlAmqktDgzp76xXNjW/yxj/8aVku93v1/pO4Szg/BwA31eneFSdaPGKZf16w06FS
+	XOmDfWD1x4AgS9ynw==
+X-Google-Smtp-Source: AGHT+IG8I6+nkwRQeHXQwE7RPzLAH8fNNXPskLFiis+++KSaH2rYocWQIiAmZxESifZYHfrDeM4W/Q==
+X-Received: by 2002:a17:902:cecb:b0:2a0:8972:d8ca with SMTP id d9443c01a7336-2a3ee491c20mr111849015ad.35.1768025752005;
+        Fri, 09 Jan 2026 22:15:52 -0800 (PST)
+Received: from McDaDebianPC.local (2403-580b-5de8-0-ce8d-7313-a81a-a88c.ip6.aussiebb.net. [2403:580b:5de8:0:ce8d:7313:a81a:a88c])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2a3e3cc8ddfsm119807885ad.74.2026.01.09.22.15.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Jan 2026 22:15:51 -0800 (PST)
+From: Seth McDonald <seth.i.mcdonald@gmail.com>
+X-Google-Original-From: Seth McDonald <sethmcmail@pm.me>
 To: Alejandro Colomar <alx@kernel.org>
-From: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 08/11] man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of st_{rdev,blksize,blocks}
-Message-ID: <O3wNNZ-8zjB5uqYmBT-pq1iZtfGLOznbpKjwEKFZqn0Alz65p63u1_R9jcyHDD-9yZocERBl1fVdn5LKF6bHJALSvtWvvbpfHGNmc93geok=@pm.me>
-In-Reply-To: <aWDO3nEcZWMcqvXx@devuan>
-References: <cover.1767840410.git.sethmcmail@pm.me> <9d3a705508aaaec7b2ee5c79bb284fd508008fce.1767840410.git.sethmcmail@pm.me> <aV-ZG_8At_-R7G2v@devuan> <AzV_uq5wDJK6TGmy0mhak2A1ooip-Z-E6YOBGNRtQXcSgNNe0SlkUc0uHPvPaAVxQZMRSpw_nrvCwq3u3MnibR-mB-ymp3ycoAH9fIhWu6k=@pm.me> <aWDO3nEcZWMcqvXx@devuan>
-Feedback-ID: 171233811:user:proton
-X-Pm-Message-ID: 37f156e7f325b9dd83a788dde8ce9456ca761891
+Cc: Seth McDonald <sethmcmail@pm.me>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v3 0/3] man/man3type/*: Update simple history of types
+Date: Sat, 10 Jan 2026 16:15:17 +1000
+Message-ID: <cover.1768025095.git.sethmcmail@pm.me>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1767931376.git.sethmcmail@pm.me>
+References: <cover.1767931376.git.sethmcmail@pm.me>
+Reply-To: Seth McDonald <sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------6a531110b40353cd8b1bcfffab0f57f022a00b4db306885bc615d7db8627b4bf"; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------6a531110b40353cd8b1bcfffab0f57f022a00b4db306885bc615d7db8627b4bf
-Content-Type: multipart/mixed;boundary=---------------------689ff06c85b7e178ae307a3f430f8c26
+Hello,
 
------------------------689ff06c85b7e178ae307a3f430f8c26
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+This v3 should be almost identical to v2 (sans a reworded commit msg),
+except it should (hopefully) work.  I think the reason v2 didn't apply
+may be because I just resent all patches, even those already pushed,
+rather than only sending the non-pushed patches and using the --base
+option for git-format-patch (which I now know about after rereading its
+doc).
 
-Hi Alex,
+But regardless, I've tested applying these patches onto origin in my own
+worktree after fetching and it seemed to work.
 
-On Friday, 9 January 2026 at 20:00, Alejandro Colomar <alx@kernel.org> wro=
-te:
-> Hi Seth,
-[...]
-> You may be interested in diffman-git(1). I think it would help
-> reviewing your diffs. Here's some example of how it works:
-[...]
-> For more documentation, see diffman-git(1), of course. :)
+Seth McDonald (3):
+  man/man3type/stat.3type: HISTORY: Split stat(3type) from
+    st_{rdev,blksize,blocks}
+  man/man3type/stat.3type: HISTORY: Update first POSIX appearance of
+    st_{rdev,blksize,blocks}
+  man/man3type/stat.3type: HISTORY: Specify initial datatypes of
+    st_{blksize,blocks}
 
-That does look quite useful!  I've seen it used before in the mailing
-list, but couldn't initially find its documentation.  Which I now
-realise is because I was looking for its man page in my installed man
-pages, rather than in the repository *for this documentation* (ironic,
-I know).
+ man/man3type/stat.3type | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-> It's provided in the repository, in case your distro doesn't provide it
-> yet. You can install it with the usual
->
-> $ make -R -j4 && sudo make -R -j4 install;
->
-> Or just run it from the repo, since it's a bash(1) script. It's here:
->
-> $ find * | grep diffman-git
-> man/man1/diffman-git.1
-> src/bin/diffman-git
+Range-diff against v2:
+ 1:  48b823b1a965 <  -:  ------------ man/man3type/itimerspec.3type: HISTORY: Update first POSIX appearance of itimerspec(3type)
+ 2:  90f54d80c479 <  -:  ------------ man/man3type/mode_t.3type: HISTORY: Update first POSIX appearance of mode_t(3type)
+ 3:  c1498253ab68 <  -:  ------------ man/man3type/off_t.3type: Change VERSIONS to HISTORY
+ 4:  6b062b0d6afa <  -:  ------------ man/man3type/off_t.3type: HISTORY: Update first POSIX appearance of off_t(3type)
+ 5:  6919cafeb4e3 <  -:  ------------ man/man3type/sigevent.3type: HISTORY: Update first POSIX appearance of sig{event,val}(3type)
+ 6:  84a9e467d506 <  -:  ------------ man/man3type/stat.3type: SYNOPSIS: wfix
+ 7:  0611f62eeedb <  -:  ------------ man/man3type/stat.3type: HISTORY: Update first POSIX appearance of stat(3type)
+ 8:  623290de35e6 =  1:  f09dc86eb395 man/man3type/stat.3type: HISTORY: Split stat(3type) from st_{rdev,blksize,blocks}
+ 9:  a33e91f7c1b7 !  2:  e4503345e46f man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of st_{rdev,blksize,blocks}
+    @@ Metadata
+     Author: Seth McDonald <sethmcmail@pm.me>
+     
+      ## Commit message ##
+    -    man/man3type/stat.3type: HISTORY: Specify first POSIX appearance of
+    +    man/man3type/stat.3type: HISTORY: Update first POSIX appearance of
+         st_{rdev,blksize,blocks}
+     
+         The st_rdev, st_blksize, and st_blocks fields of the stat(3type)
+10:  3ffb01f7c196 =  3:  5f6bf068bb5f man/man3type/stat.3type: HISTORY: Specify initial datatypes of st_{blksize,blocks}
+11:  d6fc0ff67155 <  -:  ------------ man/man3type/timer_t.3type: HISTORY: Update first POSIX appearance of timer_t(3type)
+12:  9b6fedfdc71e <  -:  ------------ man/man3type/timespec.3type: HISTORY: Update first POSIX appearance of timespec(3type)
 
-My distro (Debian 13) indeed doesn't seem to provide it yet, so I've
-installed it successfully via the repo.  I'm glad it's a bash script,
-as I'd be a little more hesitant to install a binary executable.
-
-[...]
-> I have a question: do you use mutt(1) or neomutt(1) by chance?
-
-Currently neither; I generally just use the Proton Mail Linux app.
-Mainly because it's a familiar interface from before I switched to Linux
-in mid-2025.  However, I have been really getting into TUIs recently.
-So if you recommend either, then I'd be enthusiastic to give it a try.
-
-----
-Seth McDonald.
-sethmcmail at pm dot me (mailing lists)
-2336 E8D2 FEB1 5300 692C=C2=A0 62A9 5839 6AD8 9243 D369
------------------------689ff06c85b7e178ae307a3f430f8c26--
-
---------6a531110b40353cd8b1bcfffab0f57f022a00b4db306885bc615d7db8627b4bf
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0Fgmlh6u0JEFg5atiSQ9NpRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmcZv91of6eGLcD7u2IGOhXVS1VaFcaZ+4nV4Poh
-YGYRwBYhBCM26NL+sVMAaSxiqVg5atiSQ9NpAAAgiwEAjS8ie8Kcn6SaY7Hv
-12Tz533pujaqglFYllrpvYQZMv4BAPOLtbj2fFJDEHlYlgt93e6x4BwaqUHV
-yB8iE6b9TyYC
-=WxJv
------END PGP SIGNATURE-----
-
-
---------6a531110b40353cd8b1bcfffab0f57f022a00b4db306885bc615d7db8627b4bf--
+base-commit: 753ac20a01007417aa993e70d290f51840e2f477
+-- 
+2.47.3
 
 
