@@ -1,83 +1,83 @@
-Return-Path: <linux-man+bounces-4794-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4795-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAE5FD151D4
-	for <lists+linux-man@lfdr.de>; Mon, 12 Jan 2026 20:44:17 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C67CD151E9
+	for <lists+linux-man@lfdr.de>; Mon, 12 Jan 2026 20:45:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 4675A302533A
-	for <lists+linux-man@lfdr.de>; Mon, 12 Jan 2026 19:44:09 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id A4A5930049CC
+	for <lists+linux-man@lfdr.de>; Mon, 12 Jan 2026 19:45:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E19BB30F818;
-	Mon, 12 Jan 2026 19:44:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 303F7315D40;
+	Mon, 12 Jan 2026 19:45:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5XuENM/"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QoZe9oqc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1495A254AFF
-	for <linux-man@vger.kernel.org>; Mon, 12 Jan 2026 19:44:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7529430F816
+	for <linux-man@vger.kernel.org>; Mon, 12 Jan 2026 19:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768247048; cv=none; b=nJYkwNUfTVgShEwTEb1M5C3aw2/pWu32Mk9CiDExP2z2LDPJMPncP0WzsMoTZM46cPw8k1Vb4LqAh7RmrXG3nDSHBlmL24pO0h2kBeGswQN/i9OG1dxOdgG8mOj8qG53HevKPCo7PrjDtKrvLLHSTDhUCUo4Dtz8hFSezRe7i8o=
+	t=1768247135; cv=none; b=JHEbTwI8g0diVrr1/SZdu1UdK+zb3IeI7SW1XSZltF9MJrIN3NTqw17wyqwMi1lQFOTUgShLmr6tTXFOTT7Bh77nQdHf3Ze70/40M8udo8cqB4qZeZAP8RIPcnIjbAxQOWgWa1jjKew4M2BW2q4RDOtEhTX3yhYk/t49IGpUEHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768247048; c=relaxed/simple;
-	bh=4tbE0i/Cd/iR/roO4TPIxZVK6iCtZPNBL1rkCBsheGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GCOd5ThLt4dGOayGp3I3d/Hk+nW/YfkFZp2bh3nq5PeT37k+lMevJK8nOIsC2jKRUnNJq490MapHnFIGdeSujWcsynQxz7l0SQZJIO3LyX5Z86Vy0Jj3Q/1yTpkqvVwckiKG7kysLBnqiw+E+oX7wKJdu4xvrWsX/n1r2M4+u2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5XuENM/; arc=none smtp.client-ip=209.85.218.46
+	s=arc-20240116; t=1768247135; c=relaxed/simple;
+	bh=FxSADg9z+ZiyTEme5p5S8kCGSh1+yWn40mK4XdoWKdw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NzYtb5nUDWFfb7JADf1QhUDO2qL5MtmF5IJt+UD4zkuywjTaxDP+X62qc024WN0CXURc6M0wPs9Z8v9zPjxbFksSy3YbjZ8aIaSCFltocOYdcnQ6PIkBTZwIstiNhfxwA97UdnpoZi9VWMQE2djoDxASe7cVufS0mDXjN4hnyGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QoZe9oqc; arc=none smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-b86f3e88d4dso277606766b.0
-        for <linux-man@vger.kernel.org>; Mon, 12 Jan 2026 11:44:06 -0800 (PST)
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-b872cf905d3so151494166b.2
+        for <linux-man@vger.kernel.org>; Mon, 12 Jan 2026 11:45:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768247045; x=1768851845; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1768247132; x=1768851932; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=91Y2/qO2mBqRktnDr8aFMUJJJ3+yQuTweh6fIwnu4Uk=;
-        b=P5XuENM/qjKlPON8tsZFzXkX5Df2Y9v5ONqnrsT9Q2kenXajkdWReVribylwpyr5MD
-         ENx56RoYsxZTIE7Zkmvt7i3Yw9/B/YBbX1yjf9JTDaNehtzdQuDHvMkvioBVUdUvMTNi
-         4S7bxXpb0Zzsz+Co/8Eu60yGPjRmr5e1TwD6RofufMCt5dD1ZvyLINfmwPliBHsCoiQb
-         zfL2Wh41bXxBTaBR6jWT5asiFVZiC9aW4DFivGPnfcg592VfF4H6OgZR12URSv1baEBg
-         yIszpydHR1Ui5kUS1gWnzlo5f84I2inQbgpNol+bHfTb0xK9/34MU4hJSZrc5VR6oWIq
-         cH8w==
+        bh=yidhgbBWyEC3gg8PW6JbHYTq5M3zrwM5hQR58zYpxYQ=;
+        b=QoZe9oqc0WL8qwwjhJXS+jki9ut/0FAxUc2Iuyaelq7eLYq5dC5TCHJxHv/C2hcyUQ
+         DPdckJEfFJE0SmjpjmZKTxBxz7+S5iW9puEX3xHHGzHsqGRKoB2LlxZxP2Me9RD3IRa7
+         zob6NajiawmSNYRUqJP2lbTEg8MewaIn3cKaIEdtefWH7Lwm82i80uqHpC8UX7At4mer
+         8tqtyCGiKOXzB3olkfO5fJZBZPbU3IRwAUwV9OeHNIN0FtIzNi1OKor44dPuV6n0QoUY
+         qRUPdvfbg18+3CJRYSz8CoX3DhgPM+44Ab8zn75yjOMmCsK9Gsnuw0GiMroQH3jbOm/6
+         evBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768247045; x=1768851845;
+        d=1e100.net; s=20230601; t=1768247132; x=1768851932;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=91Y2/qO2mBqRktnDr8aFMUJJJ3+yQuTweh6fIwnu4Uk=;
-        b=D9lV+9NmaryqPi7knUij8VO+WBlM/GduPUJsx18cJz22Fq6k5Lc2gevQIiCJor/Nef
-         65SNSJw3kGJy94dpTBXfP/bANO8pbCKZxILnSyYJDH+MbHHnbxVFZDKG3OSSs3IeDHa0
-         HfCBlhTiXN4EM7hwP1DJdxKZEOsFwKJ2JxOlQYkaaDwymgLeKlF7TyYf+iiHiFeP8dMm
-         XFAkWOBQ5a/tBbiuUZWLncUoZ1ogK5h0+Pjac541s01SClyN4wCcntdZZ+tGx0c13Dyi
-         xAwI0n6Y5p8X2bZGfQ1tdDO3nP3ExnoHKZKx5Uw7g1Tx6quM5Qx5KWt7+hnzkM7QGfqV
-         30lQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXGzpgJlPfl0DgYuLziPfLm2E0tQmviRuH46MVj6fEpQQhqNXvnL5Fbsri6LoRFC9TqQcN77Q4MVmg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYQlsUoUaqKcurtYPwCM7EVVegQHBNP/I9kYRsMqC8tAfr/HTJ
-	n13VqBAZwVXFNoW4ZcZIgj6TDyZ5GeneYHHsklexfMNtoNFCcRuAhzx8
-X-Gm-Gg: AY/fxX4moMcm/KuFE99rMf5BLnsNjFd7YEX4R2GKnSlg/hdSnW3xCF7lBgtaHAkaJmq
-	pT6tpR/dV1y3reGlEX6hO4ZJc5xlCgszNh6OHM6pzL2j/WiXNGzkfBP5/zCN+mQIDY0pqi7eqf/
-	VspLhC7BNzzeIbbon8nPUu1fzSiyRKMbOl8Xe9rVvidPoTawZnwXjMeb9ttRs5hp+sPPeiMQULf
-	bqr9OET6rYNC5ZCX+ygz+iXkG7bJWKlIcRmPO9+Gpq0weGeZo9wk2xKSKpaB477KjNtRtNEmUmq
-	OZZqTSK2cjXtvqfDN9rsLNQWpbYeKst1YwOmSa1U0SzjH3ekAR/ayCvM3D7K7ZMuye4uhwiMeND
-	hapPTnp5BXlc001N1phNVmz1wC46LUfVfu49uPbpkjzQkQKlS0y50cZ+4VnJ4R3lcD7XwWxI9g9
-	KFvOi1cUNVZ5SEdCFwf0jyYX5yP6YO2L5sOIrSoZ5TNUJ65kw=
-X-Google-Smtp-Source: AGHT+IEvfiX26z1aNKT+d2taCx4WEzGOjwnSGy/7lpI4A3ggvhQjeXrXh0wvb4t8GICQ5bWzvPZW0w==
-X-Received: by 2002:a17:907:94d0:b0:b87:1ca0:4a12 with SMTP id a640c23a62f3a-b871ca04b68mr307658966b.64.1768247045181;
-        Mon, 12 Jan 2026 11:44:05 -0800 (PST)
+        bh=yidhgbBWyEC3gg8PW6JbHYTq5M3zrwM5hQR58zYpxYQ=;
+        b=CZqSmvaXZNjKK6PXcij3xxUFoy0F3g8krRdVglRZauVN3lXSXG1j53uoQtNcyzSyvX
+         YBgy5GjOBTv/KJW0cg5oOkoeu91mM+2ql6e7Rk4xvFoWZP5hyauOxSiC3mC41X7xqJAL
+         8S5unb3b/57t6ncJMfp0N1m3xpg5fURcl0YPQ72XcVd3jOkUEAFu94rvrjJFEK/YygXt
+         Yf+GJILmInY21we946WN26z+6QfKDIWEi6f1UgezEiYG4mAMC9Vltww8yqNeXXrYKgQS
+         aS6KdCY7g/mGj9wa3tRqR/EvpNAEArRXlixNcw96rrZ5f4he6JRD9iiGQJYTF8SktzUQ
+         3KcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXx8zKfT+92rTVSncHxMhkhdp6iTbPGdBWZPl0DufV/FE8+jBNIpG2wGn4wRCgjy4w0+mGnWRGoV04=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXeWfX9plrm4PlWmfAvLRPyKaMEYWLIhxqYadXFHYCl/7ESxvB
+	M32xTJSmJmE+ZSV1Ip59QPh0uWLVTT1EUDCOEM028tnbxIIX8sGemQgyVoHr2HHW
+X-Gm-Gg: AY/fxX6oo+rtvOVwea+cAcA+8knKRU4IjeIvxQdVfy1vfXAo329daPXMjG1MrTAVoci
+	y9sseTArzhF+AGexmZOYEXVS1XAuvKQxwy26B70p0eeVXpUB/9JCf5jCbo/qV1gfwJYhDuvRpif
+	foBirOt4lLPH5cOJhYJ8/oVtZ8ubz74JLeQeYUO6vR/ZmWIcK+/sGpMBfk7tl0Ut4vmjKl07Tdw
+	i0CN3UnOIF3pwmk7bVWbu1WI7vrENOg2Cn9VpABvryjfHTC29NKeNa64vG/6O58rqfYnMI0w2Hn
+	imix693xNWV+CX3mOJ4qTTurYPQKQUTysBEqufILm21bS/yHBznISRoOzJeUkhKz2z4mtoDFQBB
+	Tzp883zWFM46fuOMam4OqIwbYtU0Z65xVc7ar+lMWS8YGWGtgL4iWPEOxHP4k48pkfAUv+YaRyV
+	vGJTdsIJ/zj1ub7fZIIzvECbQcuyIQZOXqWj/k
+X-Google-Smtp-Source: AGHT+IGTPefg1tMBckmz5dUsbPooKpF8xOWiUsegGkccyEdYXkw114HlS48nD6+oBoOqjmnqk/umMQ==
+X-Received: by 2002:a17:907:a089:b0:b87:1ffc:bfbd with SMTP id a640c23a62f3a-b871ffcc370mr344277066b.7.1768247131623;
+        Mon, 12 Jan 2026 11:45:31 -0800 (PST)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b87207e08a7sm281669466b.55.2026.01.12.11.44.04
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b86ebfd08b2sm829738166b.25.2026.01.12.11.45.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Jan 2026 11:44:04 -0800 (PST)
+        Mon, 12 Jan 2026 11:45:31 -0800 (PST)
 From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To: Alejandro Colomar <alx.manpages@gmail.com>
 Cc: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
 	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	linux-man@vger.kernel.org
 Subject: [PATCH man] landlock.7: Re-group description of IOCTL access right
-Date: Mon, 12 Jan 2026 20:43:24 +0100
-Message-ID: <20260112194332.5498-1-gnoack3000@gmail.com>
+Date: Mon, 12 Jan 2026 20:45:17 +0100
+Message-ID: <20260112194520.5854-2-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -85,6 +85,7 @@ List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 Move the description of the LANDLOCK_ACCESS_FS_IOCTL_DEV access right
@@ -103,6 +104,7 @@ patch set.
 The same change was also done in kernel documentation, linked below.
 
 Link: https://lore.kernel.org/all/20260111175203.6545-2-gnoack3000@gmail.com/
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
  man/man7/landlock.7 | 81 ++++++++++++++++++++++-----------------------
  1 file changed, 39 insertions(+), 42 deletions(-)
