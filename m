@@ -1,107 +1,170 @@
-Return-Path: <linux-man+bounces-4791-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4792-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B686D0DE83
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 23:33:12 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id 801E0D13368
+	for <lists+linux-man@lfdr.de>; Mon, 12 Jan 2026 15:39:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 1F7AE30341CC
-	for <lists+linux-man@lfdr.de>; Sat, 10 Jan 2026 22:32:54 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id CC29730BFB8D
+	for <lists+linux-man@lfdr.de>; Mon, 12 Jan 2026 14:33:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C3274271443;
-	Sat, 10 Jan 2026 22:32:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F01D2E0904;
+	Mon, 12 Jan 2026 14:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n21TJItv"
 X-Original-To: linux-man@vger.kernel.org
-Received: from alt.a-painless.mh.aa.net.uk (alt.a-painless.mh.aa.net.uk [81.187.30.53])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CED2512E6
-	for <linux-man@vger.kernel.org>; Sat, 10 Jan 2026 22:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=81.187.30.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020782561AA
+	for <linux-man@vger.kernel.org>; Mon, 12 Jan 2026 14:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768084373; cv=none; b=X7xR2I5JHAQ9lNRx6Y/mQh+VSKXLyeD5/oSmvDuB+GuQzyIMDjNuEyrJBHm/hR4Wn3nsRsY2ZNT66dsLclSDd69H6D77zOmLjIwuyi9iMKU/KxofU3nHuhiGwtDYY1NEI8zsDxpzhgOcO9ZD3WVBxrZVLujbbtb4p3I+K4NSqrY=
+	t=1768228087; cv=none; b=LWN6AQXTGeWJDWcbni4kYiErp/V65hNQRTYTylMyfrov7XFa+/+bVUJiANu9zwYLFe4syocWkZUaPt/LAOJym9V4QzYWtQlfy5hh7Nl6IKRcTXCvzdoTV0PVgq9dHEuOl8IW/uwo4wJkV+5TS8DBL8wWFkHKidH+jxfsSUTnzO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768084373; c=relaxed/simple;
-	bh=8pF+o5rsKzmaVAjKyRN3vmKhIZ9PrRT+mqOi79UJ2YY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=S51NQi6/YPYwCXOl5o+rqB5PHTlnzuqzT2+RyT42NCbQ5YcNKFg1Cktw65VdsKlS4Lfl+lYqgMmGdQhTwjOQut8sWKSr+t0vvqPppku7UpYAgb/AahJN790vWkICvrue4E6nJIO+7nrpjY/9w1pVwLjATdJtLf1fEyUO0ojXtHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=offog.org; spf=none smtp.mailfrom=offog.org; arc=none smtp.client-ip=81.187.30.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=offog.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=offog.org
-Received: from cartman.offog.org ([2001:8b0:83b:b53f::a])
-	by painless-a.thn.aa.net.uk with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ats@offog.org>)
-	id 1vehVo-009MY9-1y;
-	Sat, 10 Jan 2026 22:32:48 +0000
-Received: from ats by cartman.offog.org with local (Exim 4.99.1)
-	(envelope-from <ats@offog.org>)
-	id 1vehVW-000000000iK-3737;
-	Sat, 10 Jan 2026 22:32:30 +0000
-From: Adam Sampson <ats@offog.org>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1768228087; c=relaxed/simple;
+	bh=4SSoriwt6VBwL3Df6u2xDrux9TXlry+j7wrB71m0oz8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZYqJw4uMMGwyxzs7dm/HYLDRKhy2p/Sl/4yHXUUx85nt86s5dNCOe0gzE2THx0tfFpcmtwOqkREEDRoOYFkbWG24pZOiGO4wbdTlXJYyA1HXKeKF/jb9yeuYHfuQ7ypC69HjBuXsLAFKieZ2iXyRipdggXsYR4J0nzfj5AoGHI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n21TJItv; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AB4C16AAE;
+	Mon, 12 Jan 2026 14:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1768228086;
+	bh=4SSoriwt6VBwL3Df6u2xDrux9TXlry+j7wrB71m0oz8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=n21TJItv1/vXCsN2ISy2FTe7W1q0crRUmmOHk/c900nNR9CS7pwdEVllOHvg5LZAF
+	 ZwT4wXgCb0QfUssGUtRVBJT3qvdfvzjNwcpT1Vp3HjDHQvNl8151Z5PxGeNoeBaLLq
+	 zTv4IpzzOW7kqR+khZS7Mt5Z8xmT/ZhpQNxv/OwffRLVigJCkfS9UI1xQkKn5YkyZq
+	 LmoEC+0sh4qoxHle4aQigEBAzn0tmQwlZ2AnuVp26ulzImVVvKUK/2HJsHBtCvb2P6
+	 8fqFTrgK5tNcGNAt0h+jH0TZrmdJmThfZKTV5f0dQtX9SMPUutZ2fsqQnD5lBau3fH
+	 lJ0XN+L4NsrEA==
+Date: Mon, 12 Jan 2026 15:28:03 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Adam Sampson <ats@offog.org>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first
  POSIX appearance of void(3type)
-In-Reply-To: <aWDZFvDvb-hAXQMJ@devuan> (Alejandro Colomar's message of "Fri, 9
-	Jan 2026 11:33:58 +0100")
+Message-ID: <aWUAXoVyRpanc-sF@devuan>
 References: <cover.1767939178.git.sethmcmail@pm.me>
-	<efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
-	<aWDZFvDvb-hAXQMJ@devuan>
-Date: Sat, 10 Jan 2026 22:32:30 +0000
-Message-ID: <y2abjj1cd4x.fsf@offog.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
+ <aWDZFvDvb-hAXQMJ@devuan>
+ <y2abjj1cd4x.fsf@offog.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m24imj2vgsy4rrnf"
+Content-Disposition: inline
+In-Reply-To: <y2abjj1cd4x.fsf@offog.org>
 
-Alejandro Colomar <alx@kernel.org> writes:
 
-> I think 'void*' is important enough that it would be useful to dig in
-> its history further.  Was it an invention of C89?  Or was it an
-> extension in some existing compilers?  If the latter, it would be
-> interesting to document which systems had it before C89.
+--m24imj2vgsy4rrnf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Adam Sampson <ats@offog.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 19/25] man/man3type/void.3type: HISTORY: Update first
+ POSIX appearance of void(3type)
+Message-ID: <aWUAXoVyRpanc-sF@devuan>
+References: <cover.1767939178.git.sethmcmail@pm.me>
+ <efe8112034e9388465c108fd0418d7e0c68d12ee.1767939178.git.sethmcmail@pm.me>
+ <aWDZFvDvb-hAXQMJ@devuan>
+ <y2abjj1cd4x.fsf@offog.org>
+MIME-Version: 1.0
+In-Reply-To: <y2abjj1cd4x.fsf@offog.org>
 
-From evidence in the utzoo Usenet archive, the idea was around before
-the ANSI C effort.
+Hi Adam,
 
-The first mention of "void *" is in November 1982, where Ken Dalka
-(ihuxe!dalka) observed in net.lang.c that void * was accepted as a type.
-He didn't say which compiler was being used, but an earlier post said
-ihuxe "runs USG 4.0 UN*X".
+On Sat, Jan 10, 2026 at 10:32:30PM +0000, Adam Sampson wrote:
+> Alejandro Colomar <alx@kernel.org> writes:
+>=20
+> > I think 'void*' is important enough that it would be useful to dig in
+> > its history further.  Was it an invention of C89?  Or was it an
+> > extension in some existing compilers?  If the latter, it would be
+> > interesting to document which systems had it before C89.
+>=20
+> From evidence in the utzoo Usenet archive, the idea was around before
+> the ANSI C effort.
+>=20
+> The first mention of "void *" is in November 1982, where Ken Dalka
+> (ihuxe!dalka) observed in net.lang.c that void * was accepted as a type.
+> He didn't say which compiler was being used, but an earlier post said
+> ihuxe "runs USG 4.0 UN*X".
 
-The next is from Mary Ann Horton (mark@cbosgd.UUCP) in January 1984,
-also in net.lang.c, who suggests using "(void *) 0" as a definition of
-NULL, giving a varargs function with args terminated by NULL as an
-example.
+Huh, would this be the "System IV" that was never externally released?
+The year seems consistent with that.  Interesting!  According to
+<https://www.tuhs.org/Archive/Documentation/Manuals/Unix_4.0/README>,
+the official name of this would be PWB 4.0. or Unix/TS 4.0.
 
-Then in March 1984, Doug Gwyn (gwyn@Brl-Vld.ARPA) says, as part of a
-discussion about casting the result of malloc in net.unix-wizards:
+Should we document it as Unix/TS 4.0?
 
-> The C Language Standards Committee was talking about adding
-> (void *) to the language as a generic pointer type.  Perhaps
-> that will eventually help...
+This predates the C Committee by one year, BTW.
 
-It then shows up in various posts in both of those groups throughout
-1984, including a summary by Henry Spencer in June 1984 of Larry
-Rosler's presentation on the ANSI C project at Usenix saying:
+It would also be useful to know when the BSD lineage incorporated void*.
 
-> II.  "void *" is a new kind of pointer, which cannot be dereferenced but
-> 	can be assigned to any other type of pointer without a cast.  The
-> 	idea here is that "char *" is no longer required to be the
-> 	"universal" pointer type which can point to anything.  So for
->	example, the declaration of fread earlier really should go:
+> The next is from Mary Ann Horton (mark@cbosgd.UUCP) in January 1984,
+> also in net.lang.c, who suggests using "(void *) 0" as a definition of
+> NULL, giving a varargs function with args terminated by NULL as an
+> example.
+>=20
+> Then in March 1984, Doug Gwyn (gwyn@Brl-Vld.ARPA) says, as part of a
+> discussion about casting the result of malloc in net.unix-wizards:
+>=20
+> > The C Language Standards Committee was talking about adding
+> > (void *) to the language as a generic pointer type.  Perhaps
+> > that will eventually help...
 >
->		extern int fread(void *, int, int, FILE *);
->
->	(People who have machines where all pointers have the same
->	representation, don't complain.  You are lucky.  Others aren't.)
+> It then shows up in various posts in both of those groups throughout
+> 1984, including a summary by Henry Spencer in June 1984 of Larry
+> Rosler's presentation on the ANSI C project at Usenix saying:
+>=20
+> > II.  "void *" is a new kind of pointer, which cannot be dereferenced but
+> > 	can be assigned to any other type of pointer without a cast.  The
+> > 	idea here is that "char *" is no longer required to be the
+> > 	"universal" pointer type which can point to anything.  So for
+> >	example, the declaration of fread earlier really should go:
+> >
+> >		extern int fread(void *, int, int, FILE *);
+> >
+> >	(People who have machines where all pointers have the same
+> >	representation, don't complain.  You are lucky.  Others aren't.)
+>=20
+> Thanks,
 
-Thanks,
+Thanks a lot!
 
--- 
-Adam Sampson <ats@offog.org>                         <http://offog.org/>
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--m24imj2vgsy4rrnf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmllBO0ACgkQ64mZXMKQ
+wqnXVg/9Er05bE2SAv5BRxx73SS3qOqbkjPVIV1/nYPmF+pwzS0Q+Mr0w0KIVoE2
+XRynWDyfjzNLep/7++f56qtyjtvbFj27qaLPQCPycMiTPk+k2dTRC27eCspR4M4e
+CN5HfTp8trphkWalC6FXk7O20qja1sXt9pbh8w9pM8/LOwr3mht5KfWNTFqXtLfP
+rTsErwIFKNZaogSSzAbSfLBD0LuEuzxIMpomJq36yCzu/ByAtMJ79mfrZfmVNvxU
+BjEFZPQu7LJrHOl8lOiYxO1Jmn132h1qBUiRzJn30gW8w6mW45+zLjERKvbIr8R5
+oSCjBm9dtX/TzgQ/1fVuOP1Pdhn+rC3KbQWK2NxU1mSd+y/F/sA7k/pSUK0KDhmW
+t0g3Cf5+0rvrrn2mnfO+niETjsFa6zQuJ/TbXw26nsNNFYC7kVxt8UbhIZ0ixtRW
+sv9FBHoWqqcYLp5pLF0/S52+G8dGzCAHY6C6oBeP3mqQusYak33U1UbOyAS8ZVU2
+JwU+pA5P+AXL1SaZnchIvIhSuNxTEKRFzrKWF/y4o4ljZng5J5Qoz+hTbP8qqnFb
+3kUwn2Wixr9l8m+dzZrNAfEKBUkcmUqFQl3+PGFz+0xIeG99ofeCV4TbBQBwlLE/
+Ng2a81nOZ7sKwEPU9U6K3B29SEn3y5E0c+eWippjLsjYGLKr7bk=
+=WVhF
+-----END PGP SIGNATURE-----
+
+--m24imj2vgsy4rrnf--
 
