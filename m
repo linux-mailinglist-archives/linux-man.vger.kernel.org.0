@@ -1,53 +1,52 @@
-Return-Path: <linux-man+bounces-4797-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4798-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DA90D15E88
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 01:01:39 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
+	by mail.lfdr.de (Postfix) with ESMTPS id 23258D19619
+	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 15:19:11 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id A297A30365B7
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 00:01:26 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id E132B302D5E8
+	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 14:14:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77B1718A6A7;
-	Tue, 13 Jan 2026 00:01:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4C9B3933ED;
+	Tue, 13 Jan 2026 14:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pR5S0pge"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLupUiYF"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B69710785
-	for <linux-man@vger.kernel.org>; Tue, 13 Jan 2026 00:01:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9D43933E9;
+	Tue, 13 Jan 2026 14:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768262486; cv=none; b=sTILn1Ha1ojVQHEFUdXS8bc/X4CfJeTWCB/OnOl75FkUb/MFKE2oAKPkv/kdWP7So5i6rfA6w6eWYNRHadTx942YsiqleX4WtnWl3RakmI/+BJ952z+AvSYN79y+fAEHzDCtWZrxChhc33i6VwjCfDOPQjuCQ039uyFlLU1tl5E=
+	t=1768313630; cv=none; b=iaCEUXZGxugr9T3jDc4XwVVqd8J8z7DcZadBJNuj38aUH1+5fI6RPVps02tNIKNo6+J2iq5xiu2c5/CkE3gOKlZIhHl5VBVJwW0yWKJOKRrO6LHPilWrEvnhKjqcHL3dW/aVsWnbqUt3xW0tKmXgugUOvG5O5ZdE4lcc1JAoNjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768262486; c=relaxed/simple;
-	bh=4QHAWP8iWhanC8+J84eUeP1+O/rYzTw9O18yEShaZnU=;
+	s=arc-20240116; t=1768313630; c=relaxed/simple;
+	bh=8rE9EZhCN//ArE0zA6OgzzOj00X5vEshKP0avuPe1K0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DUCePIhjhcvTcMfh8VX5rYsiTIQckd3k60BwiAenDUn7LwzeHF6eTH3OmJDAZ73X0DXs2/+17n+vUnTEByLTfsA5P1JOvirpwtQPuJJLSKMwxyFw9sCYpzNONCjgdOos1uvzmX4Ta5FBfs2/4hfotLheJboAKMWODjiYA3if4J4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pR5S0pge; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F96AC116D0;
-	Tue, 13 Jan 2026 00:01:24 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=DVNw2lBAWrQZ8eynKvBFv7EFHVW0fPmUpQYlplvsQaKBCCL2LnT0/UvWLOJ/6hD1UOSjMdI9+PPZQKbDwZAjeuM0+ZdYLldvSaQUNojonGCVJ+jlpH9gZozpHVoQjQ7txgfIRhFQJhoAVuuTTfPODVYFAKmTJ3g2Obj8hAYA54g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLupUiYF; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50EABC16AAE;
+	Tue, 13 Jan 2026 14:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768262485;
-	bh=4QHAWP8iWhanC8+J84eUeP1+O/rYzTw9O18yEShaZnU=;
+	s=k20201202; t=1768313630;
+	bh=8rE9EZhCN//ArE0zA6OgzzOj00X5vEshKP0avuPe1K0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pR5S0pgeI4P98T7mj/sISbzSKxOZna/BK/mMNYiQjb7VdJWrSwq9X4Fyl6zmulSJT
-	 hXj7ZSiY0wO8nri9IiMC2uRDQYWHM1NPOUDlbA93sbrjmGgEMNIQRhgZtWYx5/4B7p
-	 9RZ4MztSBk1vyFmBNtI4x7gS5x6rUIB91g5qq0zUAsXagNvYQPZEwTW0wafLg7sjU1
-	 OpM3QrPfNva+8DXetvrSZ1Q5D+d+GQECCg9pFxVoagNhE3jqT6T6JIYobSmplQLpNB
-	 OlKx7Ray8aE77MEeu0sADq0ooIwmdnI4uzOwjWJD2tkKcGbV/Haz9C0vzynbRmEv89
-	 8HPrzfjM8y0bg==
-Date: Tue, 13 Jan 2026 01:01:22 +0100
+	b=MLupUiYF3yOvRQx9u56A3/AxPJsN4AGJZGzm76Zl2MVR16G5J2Hzp4TTh2R3iC/cd
+	 hkUYaFh7XctYIX0PyBvvlN2e/jLArHZYU+DiMD1ZbhQ4b+GOmYNLnZKYD02RuSUOKy
+	 D9ptJ/HpWZS5rt44jY4IQ5qeD35NQ+tGJ/2khM1UogeMuNVozG10llZ6+FFIP6fbdT
+	 WvFq2qcKKDbWUxNrnUr8jpdNx0W9qIXWyjI2z7SkEtq2PSB1xiPxFoddriBiDO3OwZ
+	 KihljBFfrrVJwnAFBqlLfO/ctQ9sisZAMrrLFPCqU8NDC+BNWczKG/qUcQHhQO7H5h
+	 N3DictSYGzvKA==
+Date: Tue, 13 Jan 2026 15:13:47 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH man] landlock.7: Re-group description of IOCTL access
- right
-Message-ID: <aWWJ5VhPwvKCVwRk@devuan>
-References: <20260112194520.5854-2-gnoack3000@gmail.com>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH man-pages] man/man2const: document the new F_SETDELEG and
+ F_GETDELEG constants
+Message-ID: <aWZIQA3GJ9QCVywE@devuan>
+References: <20260112-master-v1-1-3948465faaae@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,222 +54,465 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="olbjwwga2udyn5ny"
+	protocol="application/pgp-signature"; boundary="55r3eb63qbqtvp7x"
 Content-Disposition: inline
-In-Reply-To: <20260112194520.5854-2-gnoack3000@gmail.com>
+In-Reply-To: <20260112-master-v1-1-3948465faaae@kernel.org>
 
 
---olbjwwga2udyn5ny
+--55r3eb63qbqtvp7x
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH man] landlock.7: Re-group description of IOCTL access
- right
-Message-ID: <aWWJ5VhPwvKCVwRk@devuan>
-References: <20260112194520.5854-2-gnoack3000@gmail.com>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH man-pages] man/man2const: document the new F_SETDELEG and
+ F_GETDELEG constants
+Message-ID: <aWZIQA3GJ9QCVywE@devuan>
+References: <20260112-master-v1-1-3948465faaae@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260112194520.5854-2-gnoack3000@gmail.com>
+In-Reply-To: <20260112-master-v1-1-3948465faaae@kernel.org>
 
-Hi G=C3=BCnther,
+Hi Jeff,
 
-> Cc: Alejandro Colomar <alx.manpages@gmail.com>,=20
-
-Please remember to use <alx@kernel.org>.  :)
-
-> Subject: Re: [PATCH man] landlock.7: Re-group description of IOCTL access=
- right
-
-Please use full path of the manual page (this can be done with the tab
-key --autocompletion--).
-
-On Mon, Jan 12, 2026 at 08:45:17PM +0100, G=C3=BCnther Noack wrote:
-> Move the description of the LANDLOCK_ACCESS_FS_IOCTL_DEV access right
-> together with the file access rights.
+On Mon, Jan 12, 2026 at 01:47:11PM -0500, Jeff Layton wrote:
+> With v6.19, userland will be able to request a delegation on a file or
+> directory. These new objects act a lot like file leases, but are based
+> on NFSv4 file and directory delegations.
 >=20
-> This group of access rights applies to files (in this case device
-> files), and they can be added to file or directory inodes using
-> landlock_add_rule(2).  The check for that works the same for all file
-> access rights, including LANDLOCK_ACCESS_FS_IOCTL_DEV.
+> Add new F_GETDELEG and F_SETDELEG manpages to document them.
 >=20
-> Invoking ioctl(2) on directory FDs can not currently be restricted
-> with Landlock.  Having it grouped separately in the documentation is a
-> remnant from earlier revisions of the LANDLOCK_ACCESS_FS_IOCTL_DEV
-> patch set.
-
-If I understand correctly, the behavior has never changed, and the
-documentation was wrong.  Did I understand correctly?
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> ---
+>  man/man2/fcntl.2                |   5 +
+>  man/man2const/F_GETDELEG.2const | 230 ++++++++++++++++++++++++++++++++++=
+++++++
+>  man/man2const/F_SETDELEG.2const |   1 +
+>  3 files changed, 236 insertions(+)
 >=20
-> The same change was also done in kernel documentation, linked below.
->=20
+> diff --git a/man/man2/fcntl.2 b/man/man2/fcntl.2
+> index 7f34e332ef9070867c4cdb51e8c5d4991b4fac22..f05d559da149e6a4cc8ae935f=
+fa32111deabd94d 100644
+> --- a/man/man2/fcntl.2
+> +++ b/man/man2/fcntl.2
+> @@ -78,6 +78,11 @@ indicating that the kernel does not recognize this val=
+ue.
+>  .BR F_SETLEASE (2const)
+>  .TQ
+>  .BR F_GETLEASE (2const)
+> +.SS Delegations
+> +.TP
+> +.BR F_SETDELEG (2const)
+> +.TQ
+> +.BR F_GETDELEG (2const)
+>  .SS File and directory change notification (dnotify)
+>  .TP
+>  .BR F_NOTIFY (2const)
+> diff --git a/man/man2const/F_GETDELEG.2const b/man/man2const/F_GETDELEG.2=
+const
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..60c7e62f8dbcb6f97fda82e1c=
+50f34ecacce2aab
+> --- /dev/null
+> +++ b/man/man2const/F_GETDELEG.2const
+> @@ -0,0 +1,230 @@
+> +.\" Copyright, the authors of the Linux man-pages project
+> +.\"
+> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> +.\"
+> +.TH F_GETDELEG 2const (date) "Linux man-pages (unreleased)"
+> +.SH NAME
+> +F_GETDELEG,
+> +F_SETDELEG
+> +\-
+> +delegations
+> +.SH LIBRARY
+> +Standard C library
+> +.RI ( libc ,\~ \-lc )
+> +.SH SYNOPSIS
+> +.nf
+> +.B #define _GNU_SOURCE
+> +.B #include <fcntl.h>
+> +.P
+> +.EX
+> +/* Argument structure for F_GETDELEG and F_SETDELEG */
 
-Could you please add a Fixes: tag?
+I'd say this comment seems redundant, given this structure is defined
+in this manual page.
 
-The format we use can be generated with these git(1) aliases:
+> +struct delegation {
+> +        __u32   d_flags;
+> +        __u16   d_type;
+> +        __u16   __pad;
+> +};
+> +.EE
+> +.P
+> +.BI "int fcntl(int " fd ", F_SETDELEG, struct delegation *" deleg );
 
-	[alias]
-		ref =3D show --no-patch --abbrev=3D12 --date=3Dshort \
-			--format=3Dtformat:'%C(auto)%h%C(reset) %C(dim white)(%cd%x3B \"%C(reset=
-)%C(auto)%s%C(reset)%C(dim white)\")%C(reset)'
-		ref2 =3D show --no-patch --abbrev=3D12 --date=3Dshort \
-			--format=3Dtformat:'%C(auto)%h%C(reset) %C(dim white)(%ad, %cd%x3B \"%C(=
-reset)%C(auto)%s%C(reset)%C(dim white)\")%C(reset)'
+Is this really not const-qualified?  Does the kernel modify it?
 
-The format is:
+> +.br
 
-	12-char-hash (commit-date; "commit-subject")
+This .br seems superfluous.
 
-Important note: it's the commit date, not the author date.
+> +.BI "int fcntl(int " fd ", F_GETDELEG, struct delegation *" deleg );
+> +.fi
+> +.SH DESCRIPTION
+> +.SS Delegations
 
-Example:
+If the entire section is within a subsection, I think the subsection is
+redundant, isn't it?
 
-	$ git ref HEAD
-	92fc3fad3490 (2026-01-13; "man/man7/landlock.7: Re-group description of IO=
-CTL access right")
+> +.B F_SETDELEG
+> +and
+> +.B F_GETDELEG
+> +are used to establish a new delegation,
+> +and retrieve the current delegation, on the open file description
+> +referred to by the file descriptor
 
-I checked that this is not documented.  I'll add it to CONTRIBUTING.d/.
+Just to confirm: one can't retrieve delegations through a different file
+description that refers to the same inode, right?
 
-> Link: https://lore.kernel.org/all/20260111175203.6545-2-gnoack3000@gmail.=
-com/
-> Signed-off-by: G=C3=BCnther Noack <gnoack3000@gmail.com>
+> +.IR fd .
 
-The diff LGTM.  Thanks!
+I'd separate the paragraph here.  The above serves as a brief
+introduction of these two APIs, while the following text describes what
+delegations are.
+
+> +A file delegation is a mechanism whereby the process holding
+> +the delegation (the "delegation holder") is notified (via delivery of a =
+signal)
+> +when a process (the "delegation breaker") tries to
+> +.BR open (2)
+> +or
+> +.BR truncate (2)
+> +the file referred to by that file descriptor, or attempts to
+> +.BR unlink (2)
+> +or
+> +.BR rename (2)
+> +the dentry that was originally opened for the file.
+> +.BR F_RDLCK
+> +delegations can also be set on directory file descriptors, in which case=
+ they will
+> +be recalled if there is a create, delete or rename of a dirent within th=
+e directory.
+
+Please use semantic newlines.  See man-pages(7):
+
+$ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
+   Use semantic newlines
+     In the source of a manual page, new sentences should be started on
+     new lines, long sentences should be split  into  lines  at  clause
+     breaks  (commas,  semicolons, colons, and so on), and long clauses
+     should be split at phrase boundaries.  This convention,  sometimes
+     known as "semantic newlines", makes it easier to see the effect of
+     patches, which often operate at the level of individual sentences,
+     clauses, or phrases.
+
+> +.TP
+> +.B F_SETDELEG
+> +Set or remove a file or directory delegation according to which of the f=
+ollowing
+> +values is specified in the
+> +.IR d_type
+
+s/IR/I/
+
+IR is for alternating Italics and Roman.
+
+Also, it would be good to use '.d_type' notation, for making it easier
+to distinguish struct members.  A few manual pages already do this.
+Thus:
+
+	.I .d_type
+
+> +field of
+> +.IR deleg :
+
+Maybe we could even simplify this as:
+
+	...
+	specified in
+	.IR deleg->d_type :
+
+> +.RS
+> +.TP
+> +.B F_RDLCK
+> +Take out a read delegation.
+
+'Take out' means to remove, but by reading the context, I think this
+instead creates a read delegation, right?  Would it be correct to say
+this?:
+
+	Create a read delegation.
+
+(I'm not a native English speaker, so I may be mistaken.)
+
+> +This will cause the calling process to be notified when
+> +the file is opened for writing or is truncated, or when the file is unli=
+nked or renamed.
+> +A read delegation can be placed only on a file descriptor that
+> +is opened read-only. If
+> +.IR fd
+> +refers to a directory, then the calling process
+> +will be notified if there are changes to filenames within the directory,=
+ or when the
+> +directory itself is renamed.
+> +.TP
+> +.B F_WRLCK
+
+Are we in time to rename this?
+
+F_RDLCK blocks essentially writing.
+F_WRLCK blocks both reading and writing.
+
+What do you think of this rename:
+
+	RD =3D> WR
+	WR =3D> RW
+
+> +Take out a write delegation.
+> +This will cause the caller to be notified when
+> +the file is opened for reading or writing or is truncated or when the fi=
+le is renamed
+> +or unlinked.  A write delegation may be placed on a file only if there a=
+re no
+> +other open file descriptors for the file. The file must be opened for wr=
+ite in order
+> +to set a write delegation on it. Write delegations cannot be set on dire=
+ctory
+> +file descriptors.
+> +.TP
+> +.B F_UNLCK
+> +Remove our delegation from the file.
+> +.RE
+> +.P
+> +Like leases, delegations are associated with an open file description (s=
+ee
+> +.BR open (2)).
+> +This means that duplicate file descriptors (created by, for example,
+> +.BR fork (2)
+> +or
+> +.BR dup (2))
+> +refer to the same delegation, and this delegation may be modified
+> +or released using any of these descriptors.
+> +Furthermore, the delegation is released by either an explicit
+> +.B F_UNLCK
+> +operation on any of these duplicate file descriptors, or when all
+> +such file descriptors have been closed.
+> +.P
+> +An unprivileged process may take out a delegation only on a file whose
+> +UID (owner) matches the filesystem UID of the process.
+> +A process with the
+> +.B CAP_LEASE
+> +capability may take out delegations on arbitrary files or directories.
+> +.TP
+> +.B F_GETDELEG
+> +Indicates what type of delegation is associated with the file descriptor
+> +.I fd
+> +by setting the
+> +.IR d_type
+> +field in
+> +.IR deleg
+> +to either
+> +.BR F_RDLCK ", " F_WRLCK ", or " F_UNLCK ,
+
+Please use a separate line for each:
+
+	.BR F_RDLCK ,
+	.BR F_WRLCK ,
+	or
+	.BR F_UNLCK ,
+
+> +indicating, respectively, a read delegation , a write delegation, or no =
+delegation.
+
+Spurious white space before comma.
+
+> +.P
+> +When a process (the "delegation breaker") performs an activity
+> +that conflicts with a delegation established via
+> +.BR F_SETDELEG ,
+> +the system call is blocked by the kernel and
+> +the kernel notifies the delegation holder by sending it a signal
+> +.RB ( SIGIO
+> +by default).
+> +The delegation holder should respond to receipt of this signal by doing
+> +whatever cleanup is required in preparation for the file to be
+> +accessed by another process (e.g., flushing cached buffers) and
+> +then either remove or downgrade its delegation.
+> +A delegation is removed by performing an
+> +.B F_SETDELEG
+> +operation specifying
+> +.I d_type
+> +in
+> +.I deleg
+> +as
+> +.BR F_UNLCK .
+> +If the delegation holder currently holds a write delegation on the file,
+> +and the delegation breaker is opening the file for reading,
+> +then it is sufficient for the delegation holder to downgrade
+> +the delegation to a read delegation.
+> +This is done by performing an
+> +.B F_SETDELEG
+> +operation specifying
+> +.I d_type
+> +in
+> +.I deleg
+> +as
+> +.BR F_RDLCK .
+> +.P
+> +If the delegation holder fails to downgrade or remove the delegation wit=
+hin
+> +the number of seconds specified in
+> +.IR /proc/sys/fs/lease\-break\-time ,
+> +then the kernel forcibly removes or downgrades the delegation holder's d=
+elegation.
+> +.P
+> +Once a delegation break has been initiated,
+> +.B F_GETDELEG
+> +returns the target delegation type in the
+> +.I d_type
+> +field in
+> +.I deleg
+> +(either
+> +.B F_RDLCK
+> +or
+> +.BR F_UNLCK ,
+> +depending on what would be compatible with the delegation breaker)
+> +until the delegation holder voluntarily downgrades or removes the delega=
+tion or
+> +the kernel forcibly does so after the delegation break timer expires.
+> +.P
+> +Once the delegation has been voluntarily or forcibly removed or downgrad=
+ed,
+> +and assuming the delegation breaker has not unblocked its system call,
+> +the kernel permits the delegation breaker's system call to proceed.
+> +.P
+> +If the delegation breaker's blocked system call
+> +is interrupted by a signal handler,
+> +then the system call fails with the error
+> +.BR EINTR ,
+> +but the other steps still occur as described above.
+> +If the delegation breaker is killed by a signal while blocked in
+> +.BR open (2)
+> +or
+> +.BR truncate (2),
+> +then the other steps still occur as described above.
+> +If the delegation breaker specifies the
+> +.B O_NONBLOCK
+> +flag when calling
+> +.BR open (2),
+> +then the call immediately fails with the error
+> +.BR EWOULDBLOCK ,
+> +but the other steps still occur as described above.
+> +.P
+> +The default signal used to notify the delegation holder is
+> +.BR SIGIO ,
+> +but this can be changed using the
+> +.B F_SETSIG
+> +operation to
+> +.BR fcntl ().
+> +If a
+> +.B F_SETSIG
+> +operation is performed (even one specifying
+> +.BR SIGIO ),
+> +and the signal
+> +handler is established using
+> +.BR SA_SIGINFO ,
+> +then the handler will receive a
+> +.I siginfo_t
+> +structure as its second argument, and the
+> +.I si_fd
+> +field of this argument will hold the file descriptor of the file with th=
+e delegation
+> +that has been accessed by another process.
+> +(This is useful if the caller holds delegations against multiple files.)
+> +.SH NOTES
+> +Delegations were designed to implement NFSv4 delegations for the Linux N=
+FS server, and
+> +conform to the delegation semantics described in RFC\ 8881.
+
+I'd say the part after the comma is redundant with the STANDARDS
+section.
+
+> +.SH RETURN VALUE
+> +On success zero is returned. On error, \-1 is returned, and
+> +.I errno
+> +is set to indicate the error. A successful F_GETDELEG call will also upd=
+ate the
+
+F_GETDELEG should be in bold.
+
+> +.I d_type
+> +field in the structure to which
+> +.I deleg
+> +points.
+> +.SH ERRORS
+> +See
+> +.BR fcntl (2).
+
+I guess there are also errors specific to delegations, right?  I expect
+for example an error if F_SETDELEG is called with F_WRLCK but more file
+descriptors are open for the same file.
+
+> +.SH STANDARDS
+> +Linux, IETF RFC\ 8881.
+> +.SH HISTORY
+> +Linux v6.19.
+
+Please remove the 'v'.
+
+> +.SH SEE ALSO
+> +.BR fcntl (2)
+> diff --git a/man/man2const/F_SETDELEG.2const b/man/man2const/F_SETDELEG.2=
+const
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..acabdfc139fb3d753dbf3061c=
+31d59332d046c63
+> --- /dev/null
+> +++ b/man/man2const/F_SETDELEG.2const
+> @@ -0,0 +1 @@
+> +.so man2const/F_GETDELEG.2const
+
+Thanks!
+
+
+Have a lovely day!
+Alex
 
 > ---
->  man/man7/landlock.7 | 81 ++++++++++++++++++++++-----------------------
->  1 file changed, 39 insertions(+), 42 deletions(-)
+> base-commit: 753ac20a01007417aa993e70d290f51840e2f477
+> change-id: 20260112-master-23a1ede99836
 >=20
-> diff --git a/man/man7/landlock.7 b/man/man7/landlock.7
-> index 5d4a24f79..c31d513d1 100644
-> --- a/man/man7/landlock.7
-> +++ b/man/man7/landlock.7
-> @@ -97,6 +97,45 @@ with
->  .BR O_TRUNC .
->  .IP
->  This access right is available since the third version of the Landlock A=
-BI.
-> +.TP
-> +.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-> +Invoke
-> +.BR ioctl (2)
-> +commands on an opened character or block device.
-> +.IP
-> +This access right applies to all
-> +.BR ioctl (2)
-> +commands implemented by device drivers.
-> +However, the following common IOCTL commands continue to be invokable
-> +independent of the
-> +.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-> +right:
-> +.RS
-> +.IP \[bu] 3
-> +IOCTL commands targeting file descriptors
-> +.RB ( FIOCLEX ,
-> +.BR FIONCLEX ),
-> +.IP \[bu]
-> +IOCTL commands targeting file descriptions
-> +.RB ( FIONBIO ,
-> +.BR FIOASYNC ),
-> +.IP \[bu]
-> +IOCTL commands targeting file systems
-> +.RB ( FIFREEZE ,
-> +.BR FITHAW ,
-> +.BR FIGETBSZ ,
-> +.BR FS_IOC_GETFSUUID ,
-> +.BR FS_IOC_GETFSSYSFSPATH )
-> +.IP \[bu]
-> +Some IOCTL commands which do not make sense when used with devices, but
-> +whose implementations are safe and return the right error codes
-> +.RB ( FS_IOC_FIEMAP ,
-> +.BR FICLONE ,
-> +.BR FICLONERANGE ,
-> +.BR FIDEDUPERANGE )
-> +.RE
-> +.IP
-> +This access right is available since the fifth version of the Landlock A=
-BI.
->  .P
->  Whether an opened file can be truncated with
->  .BR ftruncate (2)
-> @@ -198,48 +237,6 @@ If multiple requirements are not met, the
->  .B EACCES
->  error code takes precedence over
->  .BR EXDEV .
-> -.P
-> -The following access right
-> -applies to both files and directories:
-> -.TP
-> -.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-> -Invoke
-> -.BR ioctl (2)
-> -commands on an opened character or block device.
-> -.IP
-> -This access right applies to all
-> -.BR ioctl (2)
-> -commands implemented by device drivers.
-> -However, the following common IOCTL commands continue to be invokable
-> -independent of the
-> -.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-> -right:
-> -.RS
-> -.IP \[bu] 3
-> -IOCTL commands targeting file descriptors
-> -.RB ( FIOCLEX ,
-> -.BR FIONCLEX ),
-> -.IP \[bu]
-> -IOCTL commands targeting file descriptions
-> -.RB ( FIONBIO ,
-> -.BR FIOASYNC ),
-> -.IP \[bu]
-> -IOCTL commands targeting file systems
-> -.RB ( FIFREEZE ,
-> -.BR FITHAW ,
-> -.BR FIGETBSZ ,
-> -.BR FS_IOC_GETFSUUID ,
-> -.BR FS_IOC_GETFSSYSFSPATH )
-> -.IP \[bu]
-> -Some IOCTL commands which do not make sense when used with devices, but
-> -whose implementations are safe and return the right error codes
-> -.RB ( FS_IOC_FIEMAP ,
-> -.BR FICLONE ,
-> -.BR FICLONERANGE ,
-> -.BR FIDEDUPERANGE )
-> -.RE
-> -.IP
-> -This access right is available since the fifth version of the Landlock A=
-BI.
->  .\"
->  .SS Network flags
->  These flags enable to restrict a sandboxed process
+> Best regards,
 > --=20
-> 2.52.0
+> Jeff Layton <jlayton@kernel.org>
+>=20
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---olbjwwga2udyn5ny
+--55r3eb63qbqtvp7x
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlli1IACgkQ64mZXMKQ
-wqk7dA/+Iz87QlIAnUTxvZzwO+MygnBvOA65IN8Ysxp4idCJznJg1Mea8JqY53dG
-qq3ME0E9FANAdp7cHmBCQG87vkCGfxg8SBGMbFfPmt7D3hzJB8yfYThQmhkQ3dq4
-I2OOtLtcpdylGXPM4ia1KmOvKR2FqlePODRI8ijdec3dDCi78eDKM1nP61ZhJEVt
-OS4uReETzpM0YI0hSS2QBk0lMIAdgBZeSfUngkPJ888WrEWX0lLem0K0CUYHHtQ9
-utCyEmSs4lQV9HRJzS5hZIKV1k3fPrHMP0vekT+54NAy9O+tEkcGmsbWiabO99am
-m+Io+rcGFGyP49yRwi9Onx2UiJJfSXYsUKtRaWZnHUDTWKrU+4GkLtT1LMqeEo1d
-rLr8JmrIAldsJkM5mSjK3qmT6vZObtpNgBQkQjvaf7sBp28bW05N6+ngdPR9LvuL
-T/K2EcSh581ibgolGTxB5J4aSgQYt9PTT8HOhuxQYxBSrF6FHUrKlxtuobMEXbr3
-dxs2Bcw/J4RgRwR6QdNDlHNMF9Fb/k8Ht4HiIloguM9tAcBPlsg781LkdXoPwJJx
-qc1YxCgLVyjEwwiDS70Z4SdRB1C7jTvvM2HlO+uSNqGvaSRrGlMZpO4LGhl4B6NO
-0rJ1fnn89n1uor10TpZSYZLpDlAiAX3tPyvORxwwx8ahSVtRFOw=
-=Lis+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlmUxQACgkQ64mZXMKQ
+wqnBPRAAnHPU5Jhmn5yUnAJ9XCQz/lQvT3qea67oW7mRWJnn2h2/ZmthMiH0pDuC
+Zg6XTCZCQYeAVc5WpvqqPeQ4haI3e454XK6DTYSoCz7LhII7ImR9MooZmqzIbHW2
+AZA0oAOK3g/mG40e8W9kza5KkA+wdl3KsnbQieGuHhVfJiwl298rdvhC5RqOy15/
+gYB3AW0KiWpdcfelNgbZtJI1zv3PR9eKMJNH9SKC+hWjg7z9aZIFghKY3XH5Rj30
+NfwItJx9hAmEgt1jxYtUhjBE2jCSBToCUiKXYM+TuVuQ9R9o+fPQc3eSrVOAwJ1h
+gmAeb5vR7OcBp7Dlc7V1YwUEtcmZaip4JGBZftp587aYCFDW2X9wp76+dmwdIQef
+7KyV1+6KjOfeg9cZicpz1lQX8mASFVC4dTH4WrkF7THMpI+9GSkF7ZFIXyHEYK1N
+iGfm1uM04q6R7mbZHE/HjnIZQs7wW8vj3USAIiRYFjFlwxrTY+5DPWLDUsH0EiKq
+2miJ3c3MqdOIl/DBaX1CTaBCV8Ry2RL9H2KAvYHYJ1lKdmhw2WzFlVQhkZv6+9BS
+oxzRseY0ygW1YlWG5XbARFUJ/ktbOglfruJE6P2pyW0/TUaM8147HCUmYXpJflkg
+b9oqHRnytlXiR2KfuQYe5BV1PC/AcFDJraQ6Sho7j0rs/hIY0IA=
+=ebAI
 -----END PGP SIGNATURE-----
 
---olbjwwga2udyn5ny--
+--55r3eb63qbqtvp7x--
 
