@@ -1,214 +1,195 @@
-Return-Path: <linux-man+bounces-4803-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4804-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85DECD1B052
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 20:23:08 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id 95610D1B692
+	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 22:34:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id B7FCD306BC57
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 19:21:17 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 7184D3035053
+	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 21:34:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3245E35CBB4;
-	Tue, 13 Jan 2026 19:21:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 809622D838C;
+	Tue, 13 Jan 2026 21:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hZJS1H0n"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYu+s7eG"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A3430FC12
-	for <linux-man@vger.kernel.org>; Tue, 13 Jan 2026 19:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441152DA755
+	for <linux-man@vger.kernel.org>; Tue, 13 Jan 2026 21:34:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768332077; cv=none; b=hWoX1x6ceiH7wkJQs9Y8u491ro90r3FDZuyzRavRw6KZC5zVtSFjwX8OTuuHjtEuJfBSI0nAWct5CXNvXnfdhcPDje5l/a2kww/Eo4Q5HbKrtgfrf6Bxqxg7r14S4YXkaxG60hkUHwPP1ClCgAcqaTdWp0CqyvVUCkAD1FNVAt8=
+	t=1768340055; cv=none; b=QXwxoOabaFpaimWHX2nSOc6upqWbErLGYk8Ae2ozTd2lDzhTGgMRn6qZfuHq5+iOQX9eVnaADfrqb55aZSdPV7uEPbR/dcvWnkmkujBJ96PUfVIVtWTQ3c/ZI9wQhikfEczLyzN+zgklGIAwWGs2PMzHG+CpvoiitzHLhcC4xkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768332077; c=relaxed/simple;
-	bh=dCHHGwefgkPq2e4IKZJSbFIg1KaATHbOhkpd+6Id070=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VxPkRgO9TaOByEfXCjl79sH6SHcExdZNk6bTYREGhX3qq99HeRyjfUQv4D2erGhDo2WeOr/pQmhK/H+8Un9p5elnUOx/vkMolAZH9vjNiE0W4YnjgXLVFY/upgeXcxiMsHywbLqQTJ0/0TEw8j0+sgUYVPdoitoOzeP9sE7fChM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hZJS1H0n; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-64b4b35c812so12944967a12.0
-        for <linux-man@vger.kernel.org>; Tue, 13 Jan 2026 11:21:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768332074; x=1768936874; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=e0x6Je6GZKr9QCzO52cDT7X8vRUxGUegWC1lwgBQni4=;
-        b=hZJS1H0nnZWYH9iJ9gEZHRO8xIf7utqbqZYLRlp+oiMe+6O0rqnGNDnHPILN3pDxDq
-         ZkvchPZz8QtjNBuB7FBqeh4+ZLJiwlHXoqDvH6ZLkNoBDKQ/25Ejy3SD1zOKcK7ukQ0N
-         9XZYarGjMpIEiZ7QHSpHo3ZyRC0JBheTMDvqH2vNp/YTaatz2OgCOv+xJFRPxqHWByPd
-         XZLHgIgzwEnrUSb+8V8C6wfI2wjqpshZyWnoTjkK6CxVPiuES8DwzOBWmNpMU+BWCVGK
-         eNmVdavNgXZ3DclILEYkEoB2tTunFI6lkkU8dpiV1T5VU0TGZ3ycNbP/PPLLaX2xvkDy
-         /Uig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768332074; x=1768936874;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=e0x6Je6GZKr9QCzO52cDT7X8vRUxGUegWC1lwgBQni4=;
-        b=gmb5BYUDNaKIH8YulNZvIw/nDErvQJQWr+IgkbCHYag8lEtuV1IqN3JZdxYVOlzYKg
-         c3NUWzt9wjDhRxZj42NRNYrMXwsNgwPwRGO2SmgbaP7obOM+VpUDD+p4RqCBfxwHsQl9
-         i6HV05x511o1Vt9cQGzL4oDb2e6LO+j4oYPxJhA9vxNHCcZGZVrDNcynRZyGFwi+FDFM
-         ASgjxe2EFWBQZEtzblnFdtGmCva5XAPwIN1hIsb3NKrzDaAeAd/35CVQEtN3RlMBgi0x
-         FNhxfmRKtBNCD35jYI/058fiyQdVWctsiOywKBlgNrXZNW6MuDf5HyzH2J3UXEaWLsC6
-         UbpA==
-X-Forwarded-Encrypted: i=1; AJvYcCVJWKPVOu+Rgxvn1x56A4C5CUE8z510WD1wvaFvaqTgaPfX1sbqj/bn+zVs8bxSNWWhgFQb39qFLfw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIUDf2JoHXOYbuvaYnzWZPtyZ7x4Bm7tY3rn3BDOAx9twkGoL9
-	Ad28V0XkDYam/cJvyWZURHTl4/ZBkmXu/k29UhuHLReF1eOE95Hzme+z
-X-Gm-Gg: AY/fxX4EyYvti2Y16eUMxrm2tBe4Brw9LT/y18O8ZA9vCtJkU1INe43bPuIp7obDEZ2
-	VgeyOqiooNwHGVjwxY7Qv2Q32nJtz6Fk9784xvNp4WdmvbYt7SmM6UrILUyDOuHdFxOvLC8yysq
-	wZzVYLHxQXVnzoEvcR16iSawnXhpIUmMIN578nDUEzNE6OABr6vu0EBd5m09prbXY+iR7uoNC+h
-	/YGhSCrKpJ18txnkfUFkgRCpToiWcocKUaO7TdcI6guywQ7w2GJV9e94ugxzNV+oo39bDIvZXuL
-	qUXRX+Ym4ENQgGcRyBo4SU8NHIXBL4KmSZxeVtrkUSMhpJ9CtYfnD3TYdIFQWiaBTPjjM8P4wgd
-	PogNdOp+AQJfDN0yUuVIfQz09JNXmi99Y9XWcGoqQtjr7Mijis/gWIp5V5Psmiefub3mm92zgLN
-	2fJk5FcheLRvuVpX4YA3flBuLlU+DAfuuoWxQK
-X-Received: by 2002:a05:6402:268b:b0:64d:1a0f:6968 with SMTP id 4fb4d7f45d1cf-653ec101c4fmr72293a12.5.1768332073838;
-        Tue, 13 Jan 2026 11:21:13 -0800 (PST)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6507b9d51basm20873978a12.12.2026.01.13.11.21.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Jan 2026 11:21:13 -0800 (PST)
-From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	linux-man@vger.kernel.org,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH man v2] man/man7/landlock.7: Re-group description of IOCTL access right
-Date: Tue, 13 Jan 2026 20:20:53 +0100
-Message-ID: <20260113192052.4703-2-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1768340055; c=relaxed/simple;
+	bh=EcFNrKOMIneXuienn1+nmu7H17LBdP7GWoXxYz9q7zI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oLMUxbBrKgyMhiPbIYCE1u9TiAfIvUaN4ahCB+lFPfvINUlPP1vPbDL+QheGRL+aSQwglM26Ohlxjq+7RO00klDKg3cXlClMweJgjcEV7YYlAnXH9r7RkYL22Tpp6kaeDSTiEEU6btzpEdpWUILcYejhOPmduE/mvjpXSuwhbrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYu+s7eG; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18C52C116C6;
+	Tue, 13 Jan 2026 21:34:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1768340054;
+	bh=EcFNrKOMIneXuienn1+nmu7H17LBdP7GWoXxYz9q7zI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jYu+s7eGL6GzNv2kr4jKr+oxWXAoCQdUyfaHzPCwxugSL4cG/bASkuQdDgI0paiqh
+	 dAeK5MB+F4YfRvR1wAKZoz49g1Ej33iZfK12tj5qFaX+EbZVjY8v0qXzdcDsNgNCEy
+	 MB2W2MPzEzBLi+2QSIQWIptH7vZJnZZQil0dumCTt6RT8f+eAE3fhgBrcgveOXuvov
+	 lCBQXdX59apnMxvk5dewdV+yl+wsSyEkA3che6+RPlhvD5yu6VBiRdROjOE90eU6Wj
+	 GUijvA7QvtihGY00daIk9a4KqUFYVny9k00ClXzHLeJVZuIXjORpG/1XfkrJTuVL82
+	 E0m/0KHXnkq/w==
+Date: Tue, 13 Jan 2026 22:34:11 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH man] landlock.7: Re-group description of IOCTL access
+ right
+Message-ID: <aWa1ljYArMmY5W9o@devuan>
+References: <20260112194520.5854-2-gnoack3000@gmail.com>
+ <aWWJ5VhPwvKCVwRk@devuan>
+ <20260113.44fa9e91ef9a@gnoack.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ywqmkrhzt5g5llhf"
+Content-Disposition: inline
+In-Reply-To: <20260113.44fa9e91ef9a@gnoack.org>
 
-Move the description of the LANDLOCK_ACCESS_FS_IOCTL_DEV access right
-together with the file access rights.
 
-This group of access rights applies to files (in this case device
-files), and they can be added to file or directory inodes using
-landlock_add_rule(2).  The check for that works the same for all file
-access rights, including LANDLOCK_ACCESS_FS_IOCTL_DEV.
+--ywqmkrhzt5g5llhf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH man] landlock.7: Re-group description of IOCTL access
+ right
+Message-ID: <aWa1ljYArMmY5W9o@devuan>
+References: <20260112194520.5854-2-gnoack3000@gmail.com>
+ <aWWJ5VhPwvKCVwRk@devuan>
+ <20260113.44fa9e91ef9a@gnoack.org>
+MIME-Version: 1.0
+In-Reply-To: <20260113.44fa9e91ef9a@gnoack.org>
 
-Invoking ioctl(2) on directory FDs can not currently be restricted
-with Landlock.  Having it grouped separately in the documentation is a
-remnant from earlier revisions of the LANDLOCK_ACCESS_FS_IOCTL_DEV
-patch set.
+On Tue, Jan 13, 2026 at 08:18:59PM +0100, G=C3=BCnther Noack wrote:
+> Hi Alejandro!
 
-The same change was also done in kernel documentation, linked below.
+Hi G=C3=BCnther!
 
-Fixes: 893db5f60c73 (2024-08-21; "landlock.7: Document Landlock ABI version 5 (IOCTL)")
-Link: https://lore.kernel.org/all/20260111175203.6545-2-gnoack3000@gmail.com/
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- man/man7/landlock.7 | 81 ++++++++++++++++++++++-----------------------
- 1 file changed, 39 insertions(+), 42 deletions(-)
+[...]
+> > >=20
+> > > The same change was also done in kernel documentation, linked below.
+> > >=20
+> >=20
+> > Could you please add a Fixes: tag?
+>=20
+> Done. Thanks for sharing the handy git alias as well - this is very
+> neat, I added that to my toolbox :)
 
-diff --git a/man/man7/landlock.7 b/man/man7/landlock.7
-index 5d4a24f79..c31d513d1 100644
---- a/man/man7/landlock.7
-+++ b/man/man7/landlock.7
-@@ -97,6 +97,45 @@ with
- .BR O_TRUNC .
- .IP
- This access right is available since the third version of the Landlock ABI.
-+.TP
-+.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-+Invoke
-+.BR ioctl (2)
-+commands on an opened character or block device.
-+.IP
-+This access right applies to all
-+.BR ioctl (2)
-+commands implemented by device drivers.
-+However, the following common IOCTL commands continue to be invokable
-+independent of the
-+.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-+right:
-+.RS
-+.IP \[bu] 3
-+IOCTL commands targeting file descriptors
-+.RB ( FIOCLEX ,
-+.BR FIONCLEX ),
-+.IP \[bu]
-+IOCTL commands targeting file descriptions
-+.RB ( FIONBIO ,
-+.BR FIOASYNC ),
-+.IP \[bu]
-+IOCTL commands targeting file systems
-+.RB ( FIFREEZE ,
-+.BR FITHAW ,
-+.BR FIGETBSZ ,
-+.BR FS_IOC_GETFSUUID ,
-+.BR FS_IOC_GETFSSYSFSPATH )
-+.IP \[bu]
-+Some IOCTL commands which do not make sense when used with devices, but
-+whose implementations are safe and return the right error codes
-+.RB ( FS_IOC_FIEMAP ,
-+.BR FICLONE ,
-+.BR FICLONERANGE ,
-+.BR FIDEDUPERANGE )
-+.RE
-+.IP
-+This access right is available since the fifth version of the Landlock ABI.
- .P
- Whether an opened file can be truncated with
- .BR ftruncate (2)
-@@ -198,48 +237,6 @@ If multiple requirements are not met, the
- .B EACCES
- error code takes precedence over
- .BR EXDEV .
--.P
--The following access right
--applies to both files and directories:
--.TP
--.B LANDLOCK_ACCESS_FS_IOCTL_DEV
--Invoke
--.BR ioctl (2)
--commands on an opened character or block device.
--.IP
--This access right applies to all
--.BR ioctl (2)
--commands implemented by device drivers.
--However, the following common IOCTL commands continue to be invokable
--independent of the
--.B LANDLOCK_ACCESS_FS_IOCTL_DEV
--right:
--.RS
--.IP \[bu] 3
--IOCTL commands targeting file descriptors
--.RB ( FIOCLEX ,
--.BR FIONCLEX ),
--.IP \[bu]
--IOCTL commands targeting file descriptions
--.RB ( FIONBIO ,
--.BR FIOASYNC ),
--.IP \[bu]
--IOCTL commands targeting file systems
--.RB ( FIFREEZE ,
--.BR FITHAW ,
--.BR FIGETBSZ ,
--.BR FS_IOC_GETFSUUID ,
--.BR FS_IOC_GETFSSYSFSPATH )
--.IP \[bu]
--Some IOCTL commands which do not make sense when used with devices, but
--whose implementations are safe and return the right error codes
--.RB ( FS_IOC_FIEMAP ,
--.BR FICLONE ,
--.BR FICLONERANGE ,
--.BR FIDEDUPERANGE )
--.RE
--.IP
--This access right is available since the fifth version of the Landlock ABI.
- .\"
- .SS Network flags
- These flags enable to restrict a sandboxed process
--- 
-2.52.0
+Nice!  :)
 
+BTW, I should explain the rationale for the format.  I based it on two
+things: the format used in the kernel, which is
+
+	12-char-hash ("commit-subject")
+
+and 'git log --pretty=3Dreference', which is
+
+	short-hash (commit-subject, author-date)
+
+(example:)
+
+	alx@devuan:~/src/shadow/shadow/master$ git log -1 --pretty=3Dreference HEAD
+	b55a55aeb (lib/string/: Use QChar_of() to simplify some macros, 2025-11-25)
+
+The kernel format is known to not be good enough, as 12-char-hashes are
+known to have collisions.  And the subject isn't enough to disambiguate,
+as some commits have quite generic subjects which also have collisions
+(e.g., tfix).  Thus, a date helps disambiguate.
+
+The problem with the author dates is that they're not correlative.  You
+could have commits applied today that have been authored a few years
+ago (consider a slow review process).  Commit dates, instead, are always
+correlative (unless you specify a different one with
+GIT_COMMITTER_DATE).  When disambiguating, you could look at git-log(1),
+do a binary search on the commit date, and then from the few commits of
+that day, the hash should be easy to find unambiguously.
+
+I used the quotes, for consistency with the kernel format, and because
+it reads better.
+
+About putting the date before instead of after, it has several reasons:
+
+-  Avoid confusion.  If I left the date at the end, one could think I'm
+   using --pretty=3Dreference format, and thus think it's an author date.
+
+-  Alignment.  The dates always take the same space XXXX-XX-XX, so
+   having them first results in a visually more pleasing format.  Your
+   eyes can find both the date and the start of the subject easily,
+   without having to parse anything.
+
+-  It allows knowing how old the bug being fixed is, and in which
+   release it was introduced (if you know the dates of each release).
+
+And in some cases, the author date might be important, which is why
+I sometimes use ref2, but it's an exception.  When I use the author
+date, it goes before the commit date, for consistency with how
+git-log(1) shows them.
+
+The dates are separated with a comma between then, and then with
+a semicolon from the subject.  This makes it even machine parseable.
+
+	alx@devuan:~/src/shadow/shadow/master$ git ref HEAD
+	b55a55aebc5d (2025-12-26; "lib/string/: Use QChar_of() to simplify some ma=
+cros")
+	alx@devuan:~/src/shadow/shadow/master$ git ref2 HEAD
+	b55a55aebc5d (2025-11-25, 2025-12-26; "lib/string/: Use QChar_of() to simp=
+lify some macros")
+
+The full format would be
+
+	12-char-hash ([author-date,] commit-date; "commit-subject")
+
+where [] denotes an optional field.
+
+
+Have a lovely night!
+Alex
+
+> Will send a v2 shortly.
+>=20
+> =E2=80=93G=C3=BCnther
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--ywqmkrhzt5g5llhf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlmuk0ACgkQ64mZXMKQ
+wqmf6w/7Bu0Zqwd89zEZAKRuHaD6EVcTcZ1AyABlrrR2Rr9bd1zauTUMP6zHXssv
+HB3ENMVtWP4H08IirIsTgVahjrEenasSpo0J1iG49/ZqaVlk7+waPEhYzTwlUw7A
+1VRfBGAY/hW8MHD9OOls1u7idrszQj+xZVdr1lkOU+FiwyzWXA6MeXYEdsQ8rcq3
+adGp+dKrVfijCW0LddbFKvjP9A1p+DEnFwSDblJk86mPPEC8scy+NEMqJ0GJDPVN
+vmn1KAYG9+njR4caeMl/7KaZh71XsCkmUMy2FU1bmls14qoz/wQlMEYs6n00499s
+SDvo58woi0uih5vg55PqL6Wl+f5Q2qR7UCjL3FbwWGlhu2hmj4IOnA6/j/QHFxLa
+V3BsWEQStjhTbymBHzHzkNuaUe/Lui0PZtrAaxXHqRTuwfH7Xk5nb5DN41xFYo53
+xgAQXshiFfQl9Oj2CerjVT6PkT4oNiKCewCblWP9sWnhYJ58EiRYl9sIhLwlaHS1
+38W/GEg9TsBL3YU650vahTZF3rda1Vv4Rv7FQb8+C1f1Rse57/7h/pJ7KOoQA0do
+rDyNQ+IcoZU9KiUoT7Joc4BFAFXlgpqYBNE3fWcmAOVekUZcuXTVxtq5CYpNaeyi
+/8Lyjy9/oakpGBN3E/sarA92f3xIRbEnEwuq4/m2uDdMx2vkyOQ=
+=YyZQ
+-----END PGP SIGNATURE-----
+
+--ywqmkrhzt5g5llhf--
 
