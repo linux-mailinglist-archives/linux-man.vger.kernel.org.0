@@ -1,243 +1,160 @@
-Return-Path: <linux-man+bounces-4805-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4806-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95506D1BBAD
-	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 00:35:13 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id A6518D1F67F
+	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 15:26:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 8B1D830060FA
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jan 2026 23:35:10 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id 275DD30042AB
+	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 14:26:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E0EB355036;
-	Tue, 13 Jan 2026 23:35:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CF30285CB4;
+	Wed, 14 Jan 2026 14:26:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGcdIxk5"
+	dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b="YPY82k93"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220C5350A2F
-	for <linux-man@vger.kernel.org>; Tue, 13 Jan 2026 23:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1F07E110
+	for <linux-man@vger.kernel.org>; Wed, 14 Jan 2026 14:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.229.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768347308; cv=none; b=pTxI7mvkR8+dC0GVLIqjpcCHOw4JQNJ53lyG8qrthVNdTcJdaa0/per/KxaaN79S5bfh75nFLb1UejNx49lzLUZbuHnuhWz8abXaLSMIpEiwnM90sqQLf7CD8+E1D3xT9cLUnNbn64Vr3fBGsgZyxE+5P3cdhWx/EGMMiAp/7ko=
+	t=1768400781; cv=none; b=eMZM2khSHXRw0+HGdYapI7ZdhvkpraMyFrUPodO5UpCQbDRjEqjE2RiZ6GtVd0SRZe6+Ry8HNxEEwzulvWEg7IcDQ6LfNAkSUYUWGfi56EFDl6gfWib4Vf8nE6DVG+TF6qFf/07nKlkwqGiaj3RWA953vrDIF2Yg1/Xx7LmbWV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768347308; c=relaxed/simple;
-	bh=9GLcaIK8dakX1K37xCtPdxfJuANWaeXFFcEB5c5lmj8=;
+	s=arc-20240116; t=1768400781; c=relaxed/simple;
+	bh=uIbPTEV7JhXhP5dbUwn8E0y0Xf4LjwBsalQgqidmI+Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NbADpTDOJ3fcVkiWta74nJL2YMe269SRjGkXSN+sEyKat7ZpiH1pK1lcCFpWbWCtg2VrzNhfn9vhN3NoXGd80s2iZlzNKqHScI3astYx5U/3Eu0IoMPg1HevxUH6o3qfQD1taTISViDoLukUEpFNbOtLDZP1fnOFMSmSF3rLh64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGcdIxk5; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD52CC116C6;
-	Tue, 13 Jan 2026 23:35:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768347307;
-	bh=9GLcaIK8dakX1K37xCtPdxfJuANWaeXFFcEB5c5lmj8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mGcdIxk5XHN3BWixJ8EevdWexuil/5CT0dCgwkfFPt1BXPUwPECn5jw6BQ5qG30ru
-	 YYyLeVD4qaF7gHfYZQDp+9jxIb1OMJbRsw8uFZhgH30cxufRsScG5SzNjh5styigwP
-	 9uFs5jb0RbcrupyMDoQtmS9L5gKCyCIm5JV6JPBJyuTd+2TaElm7W9XOIOxo7qaHEu
-	 j3qLQEQGoHWzEggE4Njt1pCXYCZ4WmyMCVOuqh56cVv/O3ALMWPh7s5BoX14+dFHgd
-	 HMcMa4WWXHrxfiUVXZzFI5b5Lb+n17wwyenWKEabRbdKPK7iWZMSGyg5MiC5GcaQ5M
-	 BG/RWFoW8JOCg==
-Date: Wed, 14 Jan 2026 00:35:04 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH man v2] man/man7/landlock.7: Re-group description of
- IOCTL access right
-Message-ID: <aWbWiK9ReypIhrj3@devuan>
-References: <20260113192052.4703-2-gnoack3000@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z7eiR964eICKrmlJ/51xHeNDe3YYpdduna/KP+2e1ksR5uLuUOmw0GO6r+BJFHRjS1K3MAMvxasRBwbJHuWiBCAofVnMoce8k/ydX2x/YyOXiuPTZSJjn7vuxn9EfhauSXJ396/yDY9VVluudeZSpJNkiDcGVHIW9LFIi/dmvxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org; spf=pass smtp.mailfrom=treblig.org; dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b=YPY82k93; arc=none smtp.client-ip=46.235.229.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+	; s=bytemarkmx; h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+	:Subject; bh=p+RQf0OHitIWIMYaYsDzZ/Gm20tfUsD1YYHE6KB+Kx4=; b=YPY82k937xcHresf
+	urt//BsRGEQp2UbRw+kZJLS+2i2k7aqF9FvLTTTEHsyR4E1EGqOWg6FC5j3Kw1P0i0LwhMP6XkTgn
+	sfVq1bflSNbYEyDzO6DLnEyMWh6aMS5uwWJ4RVPxW4YUP8cm+H9+gEseTAGOTVhCZ1bSH0rWRAXiB
+	D4TVWA13ZYxArlaejFnPO3Dr91k10tGKktetzRFvhHVp6zMYEt6Q+ZvPwSPEVZ5BmboMqowGMgaKC
+	f98ZPdIcgvYWwOnb2pEKtPA4WfCkVtGpzA3Ecjh7cKxByheY/ODjFAlkxixBQRTqaXEQG4lPXDeAA
+	rGlHqSk54LBDaAzc0A==;
+Received: from dg by mx.treblig.org with local (Exim 4.98.2)
+	(envelope-from <dg@treblig.org>)
+	id 1vg1p5-0000000EhMw-2BSU;
+	Wed, 14 Jan 2026 14:26:11 +0000
+Date: Wed, 14 Jan 2026 14:26:11 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man5/gai.conf: Labels have a label not a precedence
+Message-ID: <aWengydRnAZx37KF@gallifrey>
+References: <20260104220438.265626-1-dg@treblig.org>
+ <aVroLT4toQaQD2nn@devuan>
+ <aVrvS17o3Pq7e-Tq@gallifrey>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="czxv3juq5b4lqivl"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260113192052.4703-2-gnoack3000@gmail.com>
+In-Reply-To: <aVrvS17o3Pq7e-Tq@gallifrey>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.12.48+deb13-amd64 (x86_64)
+X-Uptime: 14:25:51 up 79 days, 14:02,  3 users,  load average: 0.04, 0.06,
+ 0.01
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
+* Dr. David Alan Gilbert (dave@treblig.org) wrote:
+> * Alejandro Colomar (alx@kernel.org) wrote:
+> > Hi David,
+> 
+> Hi Alex,
 
---czxv3juq5b4lqivl
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH man v2] man/man7/landlock.7: Re-group description of
- IOCTL access right
-Message-ID: <aWbWiK9ReypIhrj3@devuan>
-References: <20260113192052.4703-2-gnoack3000@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20260113192052.4703-2-gnoack3000@gmail.com>
+Hi Alex,
+> > On Sun, Jan 04, 2026 at 10:04:38PM +0000, dg@treblig.org wrote:
+> > > From: "Dr. David Alan Gilbert" <dave@treblig.org>
+> > > 
+> > > The numeric value on a label entry is a label which is separate
+> > > from the precedences.  Labels are compared with other labels, not
+> > > precedences.
+> > 
+> > Is there any source to verify this?
+> 
+> The two I checked are:
+>   https://datatracker.ietf.org/doc/html/rfc3484#section-2.1
+>     is the RFC itself, and it talks about the Precedence and labels
+> as separate values.  Note how it's talking in terms of:
+> 
+>    If Precedence(A) > Precedence(B), we say that...
+> and
+>    The algorithms prefer to use a source address S with a destination
+>    address D if Label(S) = Label(D).
+> 
+> So it's label compared to label and precedence compared to precedence.
+> 
+> The corresponding bits of glibc are:
+> https://sourceware.org/git/?p=glibc.git;a=blob;f=nss/getaddrinfo.c;h=c0f496f96c752220e68bf0257d9ff1ffc624ebe6;hb=HEAD#l1525
+> 
+> where the label values are compared in Rule 5, and the precedence values
+> are compared in Rule 6.
 
-Hi G=C3=BCnther,
+  Does that explanation I sent make sense?
 
-On Tue, Jan 13, 2026 at 08:20:53PM +0100, G=C3=BCnther Noack wrote:
-> Move the description of the LANDLOCK_ACCESS_FS_IOCTL_DEV access right
-> together with the file access rights.
->=20
-> This group of access rights applies to files (in this case device
-> files), and they can be added to file or directory inodes using
-> landlock_add_rule(2).  The check for that works the same for all file
-> access rights, including LANDLOCK_ACCESS_FS_IOCTL_DEV.
->=20
-> Invoking ioctl(2) on directory FDs can not currently be restricted
-> with Landlock.  Having it grouped separately in the documentation is a
-> remnant from earlier revisions of the LANDLOCK_ACCESS_FS_IOCTL_DEV
-> patch set.
->=20
-> The same change was also done in kernel documentation, linked below.
->=20
-> Fixes: 893db5f60c73 (2024-08-21; "landlock.7: Document Landlock ABI versi=
-on 5 (IOCTL)")
-> Link: https://lore.kernel.org/all/20260111175203.6545-2-gnoack3000@gmail.=
-com/
-> Signed-off-by: G=C3=BCnther Noack <gnoack3000@gmail.com>
+Dave
 
-Thanks!  Patch applied.
-
-
-Have a lovely night!
-Alex
-
-> ---
->  man/man7/landlock.7 | 81 ++++++++++++++++++++++-----------------------
->  1 file changed, 39 insertions(+), 42 deletions(-)
->=20
-> diff --git a/man/man7/landlock.7 b/man/man7/landlock.7
-> index 5d4a24f79..c31d513d1 100644
-> --- a/man/man7/landlock.7
-> +++ b/man/man7/landlock.7
-> @@ -97,6 +97,45 @@ with
->  .BR O_TRUNC .
->  .IP
->  This access right is available since the third version of the Landlock A=
-BI.
-> +.TP
-> +.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-> +Invoke
-> +.BR ioctl (2)
-> +commands on an opened character or block device.
-> +.IP
-> +This access right applies to all
-> +.BR ioctl (2)
-> +commands implemented by device drivers.
-> +However, the following common IOCTL commands continue to be invokable
-> +independent of the
-> +.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-> +right:
-> +.RS
-> +.IP \[bu] 3
-> +IOCTL commands targeting file descriptors
-> +.RB ( FIOCLEX ,
-> +.BR FIONCLEX ),
-> +.IP \[bu]
-> +IOCTL commands targeting file descriptions
-> +.RB ( FIONBIO ,
-> +.BR FIOASYNC ),
-> +.IP \[bu]
-> +IOCTL commands targeting file systems
-> +.RB ( FIFREEZE ,
-> +.BR FITHAW ,
-> +.BR FIGETBSZ ,
-> +.BR FS_IOC_GETFSUUID ,
-> +.BR FS_IOC_GETFSSYSFSPATH )
-> +.IP \[bu]
-> +Some IOCTL commands which do not make sense when used with devices, but
-> +whose implementations are safe and return the right error codes
-> +.RB ( FS_IOC_FIEMAP ,
-> +.BR FICLONE ,
-> +.BR FICLONERANGE ,
-> +.BR FIDEDUPERANGE )
-> +.RE
-> +.IP
-> +This access right is available since the fifth version of the Landlock A=
-BI.
->  .P
->  Whether an opened file can be truncated with
->  .BR ftruncate (2)
-> @@ -198,48 +237,6 @@ If multiple requirements are not met, the
->  .B EACCES
->  error code takes precedence over
->  .BR EXDEV .
-> -.P
-> -The following access right
-> -applies to both files and directories:
-> -.TP
-> -.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-> -Invoke
-> -.BR ioctl (2)
-> -commands on an opened character or block device.
-> -.IP
-> -This access right applies to all
-> -.BR ioctl (2)
-> -commands implemented by device drivers.
-> -However, the following common IOCTL commands continue to be invokable
-> -independent of the
-> -.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-> -right:
-> -.RS
-> -.IP \[bu] 3
-> -IOCTL commands targeting file descriptors
-> -.RB ( FIOCLEX ,
-> -.BR FIONCLEX ),
-> -.IP \[bu]
-> -IOCTL commands targeting file descriptions
-> -.RB ( FIONBIO ,
-> -.BR FIOASYNC ),
-> -.IP \[bu]
-> -IOCTL commands targeting file systems
-> -.RB ( FIFREEZE ,
-> -.BR FITHAW ,
-> -.BR FIGETBSZ ,
-> -.BR FS_IOC_GETFSUUID ,
-> -.BR FS_IOC_GETFSSYSFSPATH )
-> -.IP \[bu]
-> -Some IOCTL commands which do not make sense when used with devices, but
-> -whose implementations are safe and return the right error codes
-> -.RB ( FS_IOC_FIEMAP ,
-> -.BR FICLONE ,
-> -.BR FICLONERANGE ,
-> -.BR FIDEDUPERANGE )
-> -.RE
-> -.IP
-> -This access right is available since the fifth version of the Landlock A=
-BI.
->  .\"
->  .SS Network flags
->  These flags enable to restrict a sandboxed process
-> --=20
-> 2.52.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---czxv3juq5b4lqivl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlm1qgACgkQ64mZXMKQ
-wqluXxAApjt6vVhe3LUP/pOpV72ojWTsqU6Rxa0w+3Mk9DLCNWed3Nrr2/xOIEd2
-nstA+V1XecIcRXI2/scsybyNVNxDWJwiqjSsVPcfkDGqABbufdwinKUAPPIleD5G
-bJyNHc6Ozvk6OHBl+5BtKySPOii91+2IGPvHyWnZMvvUMgNcZzNwO+A5pQ/a14uq
-MBg2Zf16s7RB+vi6Kee9EbmcJwCyB2ddmZu5giSv5KOuDWQJC89+lN0v6dlWDNm3
-xGhVq1z0xzn4gzVSQvVmHGTledTupZRpx+8KkfsoINkhlKNCi57LrAXc6BQ2dIka
-+0R0nVqfRmkBOz5lEfnAEglpPPvVdkPEKR3tNgvMS2MUd3KKqpVv6FtW/n7KQOuY
-+ES6BTX+JCmU0519M4j+vFarSmfXdJ5kJaPVqufzO3QEFrGWs6+uE2Ic9zwFpOpX
-3GmJEdtEQGSWEzY3Aoc9U33VfcUyVytUJPwUPTvXyMSOlt+aFDVVaQwsmvoanahH
-yt2GZYSq+JPaHjqmbRRBFPre/86vSDBnjnEqSzgbDdTJqOblXJIJ8y1K0T0s5xPU
-uE9UGdyC6LEIcF1Xum/7bR1QRxbdF4efwGYoBfMeMAwZk28znUg/arjV56tQ0bU6
-RCz8X+Utf6aGkBYGky0BBdAuDJ+3xfhP+RnHg8zR4AqQV26uk+Y=
-=iqrL
------END PGP SIGNATURE-----
-
---czxv3juq5b4lqivl--
+> Dave
+> 
+> > 
+> > Cheers,
+> > Alex
+> > 
+> > > 
+> > > Rename the field.
+> > > 
+> > > Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
+> > > ---
+> > >  man/man5/gai.conf.5 | 4 ++--
+> > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/man/man5/gai.conf.5 b/man/man5/gai.conf.5
+> > > index 4aff0b0b9..ef330995d 100644
+> > > --- a/man/man5/gai.conf.5
+> > > +++ b/man/man5/gai.conf.5
+> > > @@ -26,7 +26,7 @@ .SH DESCRIPTION
+> > >  .P
+> > >  The keywords currently recognized are:
+> > >  .TP
+> > > -.BI label\~ netmask\~precedence
+> > > +.BI label\~ netmask\~label
+> > >  The value is added to the label table used in the RFC\ 3484 sorting.
+> > >  If any
+> > >  .B label
+> > > @@ -35,7 +35,7 @@ .SH DESCRIPTION
+> > >  All the label definitions
+> > >  of the default table which are to be maintained have to be duplicated.
+> > >  Following the keyword,
+> > > -the line has to contain a network mask and a precedence value.
+> > > +the line has to contain a network mask and a label value.
+> > >  .TP
+> > >  .BI precedence\~ netmask\~precedence
+> > >  This keyword is similar to
+> > > -- 
+> > > 2.52.0
+> > > 
+> > 
+> > -- 
+> > <https://www.alejandro-colomar.es>
+> 
+> 
+> -- 
+>  -----Open up your eyes, open up your mind, open up your code -------   
+> / Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+> \        dave @ treblig.org |                               | In Hex /
+>  \ _________________________|_____ http://www.treblig.org   |_______/
+-- 
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
 
