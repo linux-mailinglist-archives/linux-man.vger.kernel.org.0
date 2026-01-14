@@ -1,160 +1,110 @@
-Return-Path: <linux-man+bounces-4806-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4807-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6518D1F67F
-	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 15:26:24 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2FE8D20916
+	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 18:35:47 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 275DD30042AB
-	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 14:26:24 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id B12F930161D3
+	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 17:35:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CF30285CB4;
-	Wed, 14 Jan 2026 14:26:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1481B2FD1B5;
+	Wed, 14 Jan 2026 17:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b="YPY82k93"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCFA0iS/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1F07E110
-	for <linux-man@vger.kernel.org>; Wed, 14 Jan 2026 14:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.229.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69101D5ABA;
+	Wed, 14 Jan 2026 17:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768400781; cv=none; b=eMZM2khSHXRw0+HGdYapI7ZdhvkpraMyFrUPodO5UpCQbDRjEqjE2RiZ6GtVd0SRZe6+Ry8HNxEEwzulvWEg7IcDQ6LfNAkSUYUWGfi56EFDl6gfWib4Vf8nE6DVG+TF6qFf/07nKlkwqGiaj3RWA953vrDIF2Yg1/Xx7LmbWV4=
+	t=1768412143; cv=none; b=TOwO1idad8orHh/30GZ50EvZFWxGTX9uUaqOaF8esReHth2KhJcV2U2FWwEKEnB92e5eCsLOlZapPPLcfNqYc5Sk9Jb6EWriQQewvBQgHF5euAPeaWDygUIfsJ4nngOebpOK+jscooTnQ8DKPhQtmNP57OyUGv8bWhUrUFGpNVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768400781; c=relaxed/simple;
-	bh=uIbPTEV7JhXhP5dbUwn8E0y0Xf4LjwBsalQgqidmI+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z7eiR964eICKrmlJ/51xHeNDe3YYpdduna/KP+2e1ksR5uLuUOmw0GO6r+BJFHRjS1K3MAMvxasRBwbJHuWiBCAofVnMoce8k/ydX2x/YyOXiuPTZSJjn7vuxn9EfhauSXJ396/yDY9VVluudeZSpJNkiDcGVHIW9LFIi/dmvxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org; spf=pass smtp.mailfrom=treblig.org; dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b=YPY82k93; arc=none smtp.client-ip=46.235.229.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
-	; s=bytemarkmx; h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
-	:Subject; bh=p+RQf0OHitIWIMYaYsDzZ/Gm20tfUsD1YYHE6KB+Kx4=; b=YPY82k937xcHresf
-	urt//BsRGEQp2UbRw+kZJLS+2i2k7aqF9FvLTTTEHsyR4E1EGqOWg6FC5j3Kw1P0i0LwhMP6XkTgn
-	sfVq1bflSNbYEyDzO6DLnEyMWh6aMS5uwWJ4RVPxW4YUP8cm+H9+gEseTAGOTVhCZ1bSH0rWRAXiB
-	D4TVWA13ZYxArlaejFnPO3Dr91k10tGKktetzRFvhHVp6zMYEt6Q+ZvPwSPEVZ5BmboMqowGMgaKC
-	f98ZPdIcgvYWwOnb2pEKtPA4WfCkVtGpzA3Ecjh7cKxByheY/ODjFAlkxixBQRTqaXEQG4lPXDeAA
-	rGlHqSk54LBDaAzc0A==;
-Received: from dg by mx.treblig.org with local (Exim 4.98.2)
-	(envelope-from <dg@treblig.org>)
-	id 1vg1p5-0000000EhMw-2BSU;
-	Wed, 14 Jan 2026 14:26:11 +0000
-Date: Wed, 14 Jan 2026 14:26:11 +0000
-From: "Dr. David Alan Gilbert" <dave@treblig.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man5/gai.conf: Labels have a label not a precedence
-Message-ID: <aWengydRnAZx37KF@gallifrey>
-References: <20260104220438.265626-1-dg@treblig.org>
- <aVroLT4toQaQD2nn@devuan>
- <aVrvS17o3Pq7e-Tq@gallifrey>
+	s=arc-20240116; t=1768412143; c=relaxed/simple;
+	bh=StjXHvouvWQmw0RrTtQN1NyVarGBOdFO/AzhATMAE2w=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aM7nSCbzZy4PbnUTfV9Ay7ZFHRP0NspgQprySNHofz5/R9IgW1b/mEk8tPmWszq1jO7YBrIUZiXqXS2axfE3jKnXCaYcVQRTTsh98r4WJUoBesxUJuOnXH604cHkRGhz4AHLOvWSnNqPmRPpdUkZ1k7veMG4KYJ6bCRoiNqMgxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCFA0iS/; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9B1C4CEF7;
+	Wed, 14 Jan 2026 17:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1768412143;
+	bh=StjXHvouvWQmw0RrTtQN1NyVarGBOdFO/AzhATMAE2w=;
+	h=From:Subject:Date:To:Cc:From;
+	b=kCFA0iS/5iNv+dlwY9vkID3zzyxEEFcOeHqKYj0tX5emURIwoBYBo5weR/4qKjCJ4
+	 ylK7Y87loucCj9POMRk+NAcB3YPAzD1Hudh88TgHXR25GvlGGbVTkob8/EZ6uh3Bfc
+	 pqSHCZcfqYYPyF5YHqrjFc4zO0YOfYysYue/UHbaNw2031igC6wogaInj9OyMRv8g8
+	 cUBXKuK+21XJVBPXK2Q914ul1YTDVwclU/OrL4J/XBK8QFhOqKeapNgqYXoqLmFGlT
+	 zjuamPwqpQHEhmDZuSj7UWpo1x5NvMe3PqLKPgZVsZJ2biz5X86QgkNJzBENSbEs3V
+	 OqjyOxoJSrDCA==
+From: Jeff Layton <jlayton@kernel.org>
+Subject: [PATCH man-pages v2 0/2] man/man2const: clean up F_GETLEASE and
+ add F_SETDELEG/F_GETDELEG manpages
+Date: Wed, 14 Jan 2026 12:35:23 -0500
+Message-Id: <20260114-master-v2-0-719f5b47dfe2@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-In-Reply-To: <aVrvS17o3Pq7e-Tq@gallifrey>
-X-Chocolate: 70 percent or better cocoa solids preferably
-X-Operating-System: Linux/6.12.48+deb13-amd64 (x86_64)
-X-Uptime: 14:25:51 up 79 days, 14:02,  3 users,  load average: 0.04, 0.06,
- 0.01
-User-Agent: Mutt/2.2.13 (2024-03-09)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NQQqDMBBFryKzbopJbDBdeY/iYqhjDK1RJhJaJ
+ HdvyLLLx3+8f0Ik9hTh3pzAlHz0WyigLg08FwyOhJ8Kg2qVaaVUYsV4EAulUdJE1vbaQJF3ptl
+ /augBKwaxoys0lmnx8dj4Wy+SrMJ/LUkhhbZd35nbjIg0vIgDva8bOxhzzj+zTsicqAAAAA==
+X-Change-ID: 20260112-master-23a1ede99836
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1065; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=StjXHvouvWQmw0RrTtQN1NyVarGBOdFO/AzhATMAE2w=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpZ9PqYUrazvAp4hBL07l9BcddnbZW5w5CGVsf8
+ SVZDPqCY+qJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaWfT6gAKCRAADmhBGVaC
+ FbKwEADGdAYE3MW5bm5S3dcRTsj4h28ZBe7pv7HOWNURKBJYOe/+QY0nyJgg6/zlNHVW05jDQhR
+ K64BwXyH3/jukeybo+u8MR927Q6NJs17JndTZEBAVBrSOQwFT+S2O4EFHjOdP2CmEOiTIm/0hTw
+ bIs7mzYOocu/QvCf/DA6HbRniBvkSxDQityHUY6gUmubaQTiniIWZI7oorWRMfEraxdVotaWgmN
+ R8rKGO3aPrH/TPFLp2hwnI1yHyL1ZkLIxBPVfLvn5uZpuilB8DyY/ROaXGghSdTyIJcmlbWWitn
+ x+03CeqcjzV2lsDuwC7Vj9pp+sXUmK1Mnk1SoOHybaEfh6kG45fdFgZy6Tpz0rzq3UPG8zQN4l7
+ QbIYaOZ/mWMEZDgFeEPEbQei4j1yGSUvasAPmRvtVQjpAPSLxr6nWtWk869T5bVm7PmE+HL/2TV
+ nBFOwBkrT32tkWlNwMQlK7F0KVAe4bJBsF3I8NG8CJRopdpJeQgEK8XizEfrPmCRDQbocLPkxSh
+ bgOkCavJ/QTjCq4hiuEbm8fH4xW1YG3PeO101EcrN7e3EpaRxOnVmWbuOZ/HJ3Ffk7yJlySALyS
+ 2dP1LDAhLK4ZVTjuUoeew5KENDiea1p7MiG2yiNgfotif2RdxiYk6sh/6HF5gIE5Wss4mNuPg1q
+ YRTim26fMjmrDJw==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-* Dr. David Alan Gilbert (dave@treblig.org) wrote:
-> * Alejandro Colomar (alx@kernel.org) wrote:
-> > Hi David,
-> 
-> Hi Alex,
+Hopefully this set is closer to being mergeable. Let me know if I missed
+anything. Not sure if I got the semantic newline thing right, but I
+think it's at least slightly more readable now.
 
-Hi Alex,
-> > On Sun, Jan 04, 2026 at 10:04:38PM +0000, dg@treblig.org wrote:
-> > > From: "Dr. David Alan Gilbert" <dave@treblig.org>
-> > > 
-> > > The numeric value on a label entry is a label which is separate
-> > > from the precedences.  Labels are compared with other labels, not
-> > > precedences.
-> > 
-> > Is there any source to verify this?
-> 
-> The two I checked are:
->   https://datatracker.ietf.org/doc/html/rfc3484#section-2.1
->     is the RFC itself, and it talks about the Precedence and labels
-> as separate values.  Note how it's talking in terms of:
-> 
->    If Precedence(A) > Precedence(B), we say that...
-> and
->    The algorithms prefer to use a source address S with a destination
->    address D if Label(S) = Label(D).
-> 
-> So it's label compared to label and precedence compared to precedence.
-> 
-> The corresponding bits of glibc are:
-> https://sourceware.org/git/?p=glibc.git;a=blob;f=nss/getaddrinfo.c;h=c0f496f96c752220e68bf0257d9ff1ffc624ebe6;hb=HEAD#l1525
-> 
-> where the label values are compared in Rule 5, and the precedence values
-> are compared in Rule 6.
+Thanks for the review so far!
 
-  Does that explanation I sent make sense?
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+Changes in v2:
+- Add patch to clean up F_GETLEASE manpage
+- Grammatical and formatting cleanups for F_GETDELEG manpage
+- Link to v1: https://lore.kernel.org/r/20260112-master-v1-1-3948465faaae@kernel.org
 
-Dave
+---
+Jeff Layton (2):
+      man/man2const: document the new F_SETDELEG and F_GETDELEG constants
+      man/man2const: clean up the F_GETLEASE manpage
 
-> Dave
-> 
-> > 
-> > Cheers,
-> > Alex
-> > 
-> > > 
-> > > Rename the field.
-> > > 
-> > > Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
-> > > ---
-> > >  man/man5/gai.conf.5 | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/man/man5/gai.conf.5 b/man/man5/gai.conf.5
-> > > index 4aff0b0b9..ef330995d 100644
-> > > --- a/man/man5/gai.conf.5
-> > > +++ b/man/man5/gai.conf.5
-> > > @@ -26,7 +26,7 @@ .SH DESCRIPTION
-> > >  .P
-> > >  The keywords currently recognized are:
-> > >  .TP
-> > > -.BI label\~ netmask\~precedence
-> > > +.BI label\~ netmask\~label
-> > >  The value is added to the label table used in the RFC\ 3484 sorting.
-> > >  If any
-> > >  .B label
-> > > @@ -35,7 +35,7 @@ .SH DESCRIPTION
-> > >  All the label definitions
-> > >  of the default table which are to be maintained have to be duplicated.
-> > >  Following the keyword,
-> > > -the line has to contain a network mask and a precedence value.
-> > > +the line has to contain a network mask and a label value.
-> > >  .TP
-> > >  .BI precedence\~ netmask\~precedence
-> > >  This keyword is similar to
-> > > -- 
-> > > 2.52.0
-> > > 
-> > 
-> > -- 
-> > <https://www.alejandro-colomar.es>
-> 
-> 
-> -- 
->  -----Open up your eyes, open up your mind, open up your code -------   
-> / Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
-> \        dave @ treblig.org |                               | In Hex /
->  \ _________________________|_____ http://www.treblig.org   |_______/
+ man/man2/fcntl.2                |   5 +
+ man/man2const/F_GETDELEG.2const | 246 ++++++++++++++++++++++++++++++++++++++++
+ man/man2const/F_GETLEASE.2const |  22 +++-
+ man/man2const/F_SETDELEG.2const |   1 +
+ 4 files changed, 269 insertions(+), 5 deletions(-)
+---
+base-commit: 753ac20a01007417aa993e70d290f51840e2f477
+change-id: 20260112-master-23a1ede99836
+
+Best regards,
 -- 
- -----Open up your eyes, open up your mind, open up your code -------   
-/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
-\        dave @ treblig.org |                               | In Hex /
- \ _________________________|_____ http://www.treblig.org   |_______/
+Jeff Layton <jlayton@kernel.org>
+
 
