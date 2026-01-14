@@ -1,152 +1,150 @@
-Return-Path: <linux-man+bounces-4809-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4810-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0076DD20925
-	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 18:36:01 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 658ECD20A88
+	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 18:51:54 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 4A9153025702
-	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 17:35:50 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id E655C301FB71
+	for <lists+linux-man@lfdr.de>; Wed, 14 Jan 2026 17:50:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6147C3009F6;
-	Wed, 14 Jan 2026 17:35:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3007332A3EC;
+	Wed, 14 Jan 2026 17:50:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MHdLZvum"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QAK2bRz2"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f194.google.com (mail-yw1-f194.google.com [209.85.128.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240673033F1;
-	Wed, 14 Jan 2026 17:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC0231ED7D
+	for <linux-man@vger.kernel.org>; Wed, 14 Jan 2026 17:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768412145; cv=none; b=sLhPgswAdfhk4GIH5sR/ZtbCbQiXWI9KJI+1ygG1Of6tEa1Zljs74G2Tn7/gU2xI1z7LmwpcxW7br/H36x9oPLUJx/3+hKA6C4oPmnzA9Br8UxxkC6+p6e3gwmYy3TqjQqwa0Z84qyXXT1to/m7UQUUrZnYm823qA/9QsYFlUtk=
+	t=1768413053; cv=none; b=SuU2ZZcpuJGaR4Nw3vMq9R06FUCF15TDD7tks8eYB0r/2m6i4Wn9RhpH0idchyAIMFr2N4uXNRadw6z429PuNkO9fA/WVnT+tKhnEkK4zX1n4lDOHdhyu+AUWoVKzVGmVHacvNrwVX2i5Xdl7q9NDEpvXdHMP0B5zByuyJ33cCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768412145; c=relaxed/simple;
-	bh=keTbcQdGaBPEh0rD0E9o/NIZZW2dTCXvbS17oGc3BGg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VVoD9zOYULeijavX/LmSTEmqsyFZPcL18+ZBGxAtryUHwPmmg90mIMh8ncNT5hD0XfSsPuOn7GaSPNtJ6iZuSyHgmTrx34L4rBjriZJNCVOW71nG0iDEKyRiaNjGcbcC//Zt3+yYyW/TiqczM/jM6ML06jAWJFM2MiMxlFmLviU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MHdLZvum; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F01C4CEF7;
-	Wed, 14 Jan 2026 17:35:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768412144;
-	bh=keTbcQdGaBPEh0rD0E9o/NIZZW2dTCXvbS17oGc3BGg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=MHdLZvumfNpRYDY/owAP2VJP7dCI9O/3W+1/O8M4p4NZ7H19C5lrXady7k9glTuhY
-	 fWldlKuOWiyDc2Jy2B1X5JLBJNMo3rNuEvvxBLe5+kQk2nDra1sIHFyHiCilhfFbch
-	 sCEh5rrNOxe8Mz+01KxESpStVUZOo2rZZGNpavU+j6t7ytzOWqZRgVxPRZ0/Wdo1UW
-	 hJ7Bphte7M8eiqFoW8+h0Y8+Z8vkBXF+LQljiKL31UbMExtx/I3XuQBKrpFOxSVjWS
-	 n+6yUoGkvY7GM9aZRGRiFepLXAHVamgPIg2xdVpgUL2vDQurm+kfSLJ7WkkRGlG6Bo
-	 FwgRkZOHcrNcA==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Wed, 14 Jan 2026 12:35:25 -0500
-Subject: [PATCH man-pages v2 2/2] man/man2const: clean up the F_GETLEASE
- manpage
+	s=arc-20240116; t=1768413053; c=relaxed/simple;
+	bh=4HugxS99JATPZh7UtegD00ahZepCflNCES68LB5SC/4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jNHmNco68iE8WEFSBa5INUBLKFTw1EpzgNU4AfE3Cm6MVg5HWtmRTjneHQfBaStsn8lWM4e6aaNnV8P/0HDBwQPueBx8Gghrc1E6rFpAuCb5piUz6eb4NabEmaLn7GM39RiiwguQPIcPV2r+lLhmkf++fcNMItpi3+on9yHRfAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QAK2bRz2; arc=none smtp.client-ip=209.85.128.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f194.google.com with SMTP id 00721157ae682-78fb6c7874cso172587b3.0
+        for <linux-man@vger.kernel.org>; Wed, 14 Jan 2026 09:50:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1768413051; x=1769017851; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=D/yJE0mQv4t06ZIh/iLWxjHHlzd+ByfHco7ny6pUeOw=;
+        b=QAK2bRz2Ud4s9PCofHoykgImszSWztLvBzhM92og1yVKpRd0GOKDXA/Vb+U+gP/+LC
+         sE0K65eQYQ6lV3UZoP/pPrxT8YSGn9YilfwM+QsRuz74XjnUG1rDYXeQ4gsjNxiWBUYK
+         Uv0t47Y9RfMuN5cr5zZgf6Tg+2qrDdbPBYS66zY07v8z/LewZmS621/g84b/r5zwSePG
+         jwuyrUQipA2+9zAb0yjJrJhMv6gmUkACAtbSN3JzUVVyq3obLXG5MmyzgyU/ePxivncC
+         21RE8LVZTCcsQ4O3vF8JW/ZGWyuRNFtxHhipnX6pFLysXojCsWSb83FFkX2nQvA/kbro
+         MwPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768413051; x=1769017851;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=D/yJE0mQv4t06ZIh/iLWxjHHlzd+ByfHco7ny6pUeOw=;
+        b=aZbQui6h8w5Us485f2GrsuV5IlyZGNhtwpRvUvFrosYYucgPKW7PRNiGINDqhn/HOz
+         3vFsy9G2svD14qLbaF6P6zQKdBn7SjwLNy0k2EN6/QOgz8O9Ey/DXiMkz20Dc0wsCXdQ
+         t7U7R+vFd558DGKAKDV+Q8KJtn3z4JGX/Jks0gMZ29xx4uICp4FO7XK1EcZ0PDDX4vrM
+         xp42gg71erfu/vYmE62Cjr1zBHXVshI2vdI9DyxRY24jf67Rb1zySAYuH3HK0lqXLdi1
+         jk0CO+1mFwaCFFyidwP0FP7o728p6g1HqXpsi0LfOnzfNKNVw5sh5V8q1HU0Gw3ROfBS
+         Yhmw==
+X-Forwarded-Encrypted: i=1; AJvYcCXvg+WN1cKXKYaRZG8h3qUPhTHeiq/HVuEg/crXIm0JEm5poXc9/ZTp9tI60kXJoLpwgGp47n4vhBc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6YonzQzuwkoMM288d+VxKYXC4L8zSusPIB+HmeB9o5SYgx8vv
+	Wk8M2kW9Bd2ruQgKAgQjyhsVEA6YmonFYVmqtTpeDBbo6zyb8eNeCnz27BBMr9ME
+X-Gm-Gg: AY/fxX5lfbflkWveSvOyxXJvN2R1S+dqRhWEba7wCHDCCNpkiymNL/6HvtDsUarF9u0
+	vJfp5j99f4qfE0qW9itG+mgHtBr6smwjhhVJVa6cnUdoZnCEZihRU06yGBd2n8D6rrb+c3tRc1f
+	dMByInhr1Fmn88eoJ9jRBQm2G9svV6Z9Ii2W2f4DOs8WMIIJ4edrjjXUyldypGJF36jhtmQz/SS
+	2dgx+1uy7jpnGaJmZ5Vwekys13908ipg1C4WiKNmtqg6cTdFgztCSdry+YnjLR/cUgv7XDInF7I
+	bKO3VT5Subn/ui/spnx5GX3HBwow+OzumiF0NprOSaItIdaq8iG+D3XkZSQ6YrvyokRIKq2fcsr
+	uZvjFtjOLm3n0PCuA9ADTapiiadvX4Hn5wCkUHMbf66P9xOZyd/1If5IZqoTapMVRmIwVF3KvRS
+	Qp
+X-Received: by 2002:a05:690e:11c4:b0:641:f5bc:694b with SMTP id 956f58d0204a3-64901b11096mr2568941d50.79.1768413051341;
+        Wed, 14 Jan 2026 09:50:51 -0800 (PST)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-790aa679385sm93186017b3.32.2026.01.14.09.50.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Jan 2026 09:50:50 -0800 (PST)
+Date: Wed, 14 Jan 2026 11:50:48 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH man-pages v2 1/2] man/man2const: document the new
+ F_SETDELEG and F_GETDELEG constants
+Message-ID: <20260114175048.krre2hmydplaluty@illithid>
+References: <20260114-master-v2-0-719f5b47dfe2@kernel.org>
+ <20260114-master-v2-1-719f5b47dfe2@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260114-master-v2-2-719f5b47dfe2@kernel.org>
-References: <20260114-master-v2-0-719f5b47dfe2@kernel.org>
-In-Reply-To: <20260114-master-v2-0-719f5b47dfe2@kernel.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2263; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=keTbcQdGaBPEh0rD0E9o/NIZZW2dTCXvbS17oGc3BGg=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpZ9Pu2WN/TOOOXjppkaLst77ulVFzmTs9ZftG7
- r1uL3Kzs2WJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaWfT7gAKCRAADmhBGVaC
- FdTVD/9zb2tmJLi52pX5H1QscuzEr68dzTTFlo6EdvvqQe51dJtUIcjedlSaDlYxRVmur6+OMzS
- LQoBgNqZMibljbMzmct8u0Kb0+6XqYXs/3mkcEJe5kc/OaFgEPQOHdzFsq4kA6zs15M/bNLExtO
- UDB/Oqr0VEoA7LnqzSwdcUbtH0lyHDF8qGAA1tJefJ7b4dyFvybcrBTIDXStcyeN6xA17nlgX7v
- lyDPgZd8id/lNHBd5joB214U03ghGhNaSqhtdqtIpJF8aRJ+YL2dFyxHd1kCbxukUJccYIJ7hn1
- 96gYlHN/CFjueNYZ09eHazf0NNPHPCxTb6Rouao/aUJ25s42PdkcdjfIQTZpfYcTy7M9UPXCtsj
- gj2m+m2Gs1CZy6C4R9VHnPVEPaxCm4esF4mzLCrT+XVvv9stHHK4Xv80JpqbfznSdQIvAmekwER
- Gh/jCWM8IsoLUp5kpQgbliZx+M82eIOSzQmOzIDQJwv5NLZsgBVqslBqXk/vMsYLGDxBoT/Hxc2
- dSG5SumqCN5M9cFTwrsOFdHmBEvZRBSbZP86GBI4K4LmDLJS9TanHF2H5ZFx9yeQ/MpNK63U6KQ
- 1583tN3XJduOel5IZExciocfcOoHcfIb3S3pjSr1rqkDQAFoarLC1oPvx4D8IEXww3iZioDvCtf
- Va4DjqZbsFj219g==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="jkasqkgh4pwlr6xn"
+Content-Disposition: inline
+In-Reply-To: <20260114-master-v2-1-719f5b47dfe2@kernel.org>
 
-- Remove a redundant subsection heading
-- Add in the lease-specific error codes
-- Clean up some semantic newline warts
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- man/man2const/F_GETLEASE.2const | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
+--jkasqkgh4pwlr6xn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH man-pages v2 1/2] man/man2const: document the new
+ F_SETDELEG and F_GETDELEG constants
+MIME-Version: 1.0
 
-diff --git a/man/man2const/F_GETLEASE.2const b/man/man2const/F_GETLEASE.2const
-index 10f7ac7a89a70b83be10a381462d879cff813471..e841f7f8c7c64ba8c6868e68d493716040e3dec2 100644
---- a/man/man2const/F_GETLEASE.2const
-+++ b/man/man2const/F_GETLEASE.2const
-@@ -20,7 +20,6 @@ Standard C library
- .BI "int fcntl(int " fd ", F_GETLEASE);"
- .fi
- .SH DESCRIPTION
--.SS Leases
- .B F_SETLEASE
- and
- .B F_GETLEASE
-@@ -43,7 +42,7 @@ values is specified in the integer
- .RS
- .TP
- .B F_RDLCK
--Take out a read lease.
-+Establish a read lease.
- This will cause the calling process to be notified when
- the file is opened for writing or is truncated.
- .\" The following became true in Linux 2.6.10:
-@@ -52,7 +51,7 @@ A read lease can be placed only on a file descriptor that
- is opened read-only.
- .TP
- .B F_WRLCK
--Take out a write lease.
-+Establish a write lease.
- This will cause the caller to be notified when
- the file is opened for reading or writing or is truncated.
- A write lease may be placed on a file only if there are no
-@@ -86,8 +85,11 @@ capability may take out leases on arbitrary files.
- Indicates what type of lease is associated with the file descriptor
- .I fd
- by returning either
--.BR F_RDLCK ", " F_WRLCK ", or " F_UNLCK ,
--indicating, respectively, a read lease , a write lease, or no lease.
-+.BR F_RDLCK,
-+.BR F_WRLCK,
-+or
-+.BR F_UNLCK,
-+indicating, respectively, a read lease, a write lease, or no lease.
- .I arg
- is ignored.
- .P
-@@ -196,6 +198,16 @@ is set to indicate the error.
- .SH ERRORS
- See
- .BR fcntl (2).
-+These operations can also fail with the following error codes:
-+.TP
-+.B EAGAIN
-+The operation is prohibited because the file is open in a way that conflicts with the requested lease.
-+.TP
-+.B EINVAL
-+The operation is prohibited because the underlying filesystem doesn't support leases,
-+or because
-+.I fd
-+does not represent a regular file.
- .SH STANDARDS
- Linux.
- .SH HISTORY
+Hi Jeff,
 
--- 
-2.52.0
+The following observation is not a blocker.
 
+At 2026-01-14T12:35:24-0500, Jeff Layton wrote:
+[...]
+> +.P
+> +A file delegation is a mechanism whereby
+> +the process holding the delegation (the "delegation holder")
+> +is notified (via delivery of a signal)
+> +when a process (the "delegation breaker") tries to
+
+I recommend use of typographer's quotes marks in prose (contrast code).
+
+groff_man_style(7):
+     \[lq]
+     \[rq]  Left and right double quotation marks.  Use these for paired
+            directional double quotes, =E2=80=9Clike this=E2=80=9D.
+
+These look better in typeset output (like PDF) and on UTF-8 terminals,
+and avoid collisions with `"` when searching man(7) documents in source
+and, on the aforemented devices, as rendered too.
+
+Regards,
+Branden
+
+--jkasqkgh4pwlr6xn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmln13EACgkQ0Z6cfXEm
+bc4PdQ//UVGUE3EDEF5ndu5zEhHXj/hcMFfM+I7PMz8pM0T8VyAW6b5BulvfNTJ6
+vwV6/huGJJm0YsC8+nJ/amMBKQCqVgExqfeAZtJhS6U+KPylj2NpCWTwBUSFSXV4
+6shjPzlLhoZCvj2pQ09qtryXVHeUhXC/SUDcyB9bBYQH4/ts7a+cmwZIy+cHbtFz
+Qo8GSRM2DenWszaXvi/TknAHxZDpi2cIKMd4oPVtPSwbfCRAN/a2max+UBgoAAxZ
+F88uVdAVtFdA784Rc79Mop6BxRkC5sRJ3+7zjXo5UpEMqNa9o8coJKL1fEGHScEc
+OlCtHCx7n30JzNS6w2P11J32KD1gPnN2WMJuRN2Q75pauyroDyD2mDUQtEl6Qteb
+C5HG5VBxdOSdDnJwNBvcmRmSD95pft0MdtC3OCPf0wFu2TO/IMTOBPeq+Foeny7w
+bHdI+CruKKT/Jn6T17ai7044yX4UqigF+GDaZPqTwSwCpFnLd77qpeCb/ofsQogM
+sAfc9xOpl1xHDHBHPk+gAVlOMdGLsC1G6GfFV1+5GF8RjSDb55N3qydUSnhcdLh6
+qpYExh8bzVGmLktw/3XZBkb/CQ8aI9pyAgDoEV3a1v/vmsdW3fadIurKw8a/wZjy
+6XSmbGkB3FbhfsDgFMz1YVJGMPP/L/epkqtb5U9BowkRO4gAArA=
+=t2j9
+-----END PGP SIGNATURE-----
+
+--jkasqkgh4pwlr6xn--
 
