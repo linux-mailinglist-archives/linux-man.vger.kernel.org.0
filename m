@@ -1,53 +1,54 @@
-Return-Path: <linux-man+bounces-4819-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4820-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17D72D38EA0
-	for <lists+linux-man@lfdr.de>; Sat, 17 Jan 2026 14:16:09 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B31D390F7
+	for <lists+linux-man@lfdr.de>; Sat, 17 Jan 2026 21:58:11 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id D02E3301AD0D
-	for <lists+linux-man@lfdr.de>; Sat, 17 Jan 2026 13:16:07 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 066733015EEE
+	for <lists+linux-man@lfdr.de>; Sat, 17 Jan 2026 20:58:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31E821C6B4;
-	Sat, 17 Jan 2026 13:16:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C11382C21CC;
+	Sat, 17 Jan 2026 20:58:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fl0HkssC"
+	dkim=pass (2048-bit key) header.d=alejandro-colomar.es header.i=@alejandro-colomar.es header.b="Z2qBvFOW"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93CA849C
-	for <linux-man@vger.kernel.org>; Sat, 17 Jan 2026 13:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AF32571A5
+	for <linux-man@vger.kernel.org>; Sat, 17 Jan 2026 20:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768655767; cv=none; b=YpYrVgI9jV8J86vfP1/oucB0/eh7CWBv/PfvBsoSk+MkM7IK0xw/voL8nhLxb7ELI+UKvk6UGKg8I0ay9H6A5Zz01/HvUMcqnt+gaCMG3oABNwa0VCWvIxAKMFe7sJnGJJAdqAu9kX0lukkhUVYehPrlIi0PMVjfy7Yz78aHaS0=
+	t=1768683487; cv=none; b=P233NZXouYjAeOdB2vMpq3967oODVg/Z2ScV4bTOBDuCUzwStqtwHvyRrPzlSAMCsEelDVpRmMfhYR862nk+u8T8otrWKmDrv4dEakWG0AcSqWUmXF5Nmt1KhuwlADI4A/EupZgn02ZjO5ucThR93S+Pt1TM9YmtzYd3bCZ0yjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768655767; c=relaxed/simple;
-	bh=TPx68TziId2+vo3sra7oxVh1DoiXHRQ/C5ZwmWm0AXE=;
+	s=arc-20240116; t=1768683487; c=relaxed/simple;
+	bh=XhlinKFWaZ8hYs+WHA8XY3SkzABza+Zrkqva73Jaxq4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hzM6mbCB0v8/QoRzVelky/cZmxxdRWI5fRfW6mmXGY7ErDGOQzwjYkWQgoaks+Dji2oQ7g45akIMXzVSuUxIfU2jfjI6EAL448qXBSxXrkzD/y5pDKzhzNjWNT3XYgtd9rL3m3iZtJNiMaxlL0o5MxHwELUJ9NYI9285PXwAbn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fl0HkssC; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807D8C4CEF7;
-	Sat, 17 Jan 2026 13:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768655766;
-	bh=TPx68TziId2+vo3sra7oxVh1DoiXHRQ/C5ZwmWm0AXE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Fl0HkssCEGDyr+2C6IbeRQ7WKC5pjyPrqOs4WEOKxIY0c2MHkW0o/WSFuMLEF2I71
-	 gEp6SGCd07+U+Z0vSB51bur9ymUotVZcTCA32q1nm39YQpFDQETQkDK5at0U+WhZ4Q
-	 O55ohCXxQ8DgVnOt384Ky/dKQJAZ+4qj7b+kCKip3CaU6V7CZmw+QAd1frJ23aNrh7
-	 xq1YbgM9f3y/b6z//wKZCFmswrJTMKnZNGVfhaIsKGj/ytbQgXsu9gCVYAA18QLf7x
-	 3ONvlccKA4CaT+e96kI1R1yuIkoLsjorgLN0dbFw+LjQFiTNJs2mwwlHOmNhX7FbUk
-	 VVy0uzMifSl0Q==
-Date: Sat, 17 Jan 2026 14:16:03 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man <linux-man@vger.kernel.org>, 
-	"G. Branden Robinson" <branden@debian.org>
-Subject: Re: Chronological order of BSD, SV, and POSIX.1
-Message-ID: <aWuHPHi-08JB8UAS@devuan>
-References: <aWtmabtT1dFTBCI8@McDaDebianPC>
+	 Content-Type:Content-Disposition:In-Reply-To; b=HriFZjDQOrqAey30xJoMZCUox3bSuJKw+rShYFk1FFYvz7Tdf5AJmn0FN4FiKIR6r3lQlKVyDzucYiHobA2KUHietuz9pBEH8YfeRvf/qi3CaGrqM+x4ijCZ2Eetzcb9ryJHOsyEK+DFJicruYt+9cyxSPNC0P0ZGTqpv7bf21M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alejandro-colomar.es; spf=pass smtp.mailfrom=alejandro-colomar.es; dkim=pass (2048-bit key) header.d=alejandro-colomar.es header.i=@alejandro-colomar.es header.b=Z2qBvFOW; arc=none smtp.client-ip=95.215.58.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alejandro-colomar.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alejandro-colomar.es
+Date: Sat, 17 Jan 2026 21:57:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alejandro-colomar.es;
+	s=key1; t=1768683483;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gnH2VIzinxL00nqeXCKO6YRM81M6fUG8rDOG/nRQe3A=;
+	b=Z2qBvFOWWEoTBKreFrlrTu24GWoamPXNwK4/kCPq0GV+BfmXYFOY4Z7eDCvGgEdCq5FjMI
+	bfndWGBqDx4dO+5Yys/pOPj38h/umo9S+FIt15NiHEHSFBsVOS3P/mTPheL4X7T3ZFy1Qt
+	1T6zxH73ZpjiA3ahaoKqX4kV5ZqBL/e+0ESjWF0tdlRe3rPNc2Alm1ryAitprX9MMZwO3S
+	HnWi4K6ZtOQzuGH33A8s8Jk9o8F1m5ywD4A7Lb3TRYNBYNn2sNuz6XNWVTVfVwUfmNTuY2
+	DjbAy0qnDGMSoIrYXDi0eIdR6+a1sGwUJh0w+11rQbOsglLB2wsJnPrjwF/AlA==
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Alejandro Colomar <une+c@alejandro-colomar.es>
+To: C Committee <sc22wg14@open-std.org>
+Cc: Vincent Lefevre <vincent@vinc17.net>, linux-man@vger.kernel.org, 
+	alx@kernel.org
+Subject: Feedback for n3704 - Clean up frexp, ldexp, and scalbn prototypes
+Message-ID: <aWv1Z8v3E3DAoBzW@devuan>
+References: <20250714222434.4D926356820@www.open-std.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,126 +56,202 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fittoxyct32oamww"
+	protocol="application/pgp-signature"; boundary="ypmxyfqrall4qvcx"
 Content-Disposition: inline
-In-Reply-To: <aWtmabtT1dFTBCI8@McDaDebianPC>
+In-Reply-To: <20250714222434.4D926356820@www.open-std.org>
+X-Migadu-Flow: FLOW_OUT
 
 
---fittoxyct32oamww
+--ypmxyfqrall4qvcx
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man <linux-man@vger.kernel.org>, 
-	"G. Branden Robinson" <branden@debian.org>
-Subject: Re: Chronological order of BSD, SV, and POSIX.1
-Message-ID: <aWuHPHi-08JB8UAS@devuan>
-References: <aWtmabtT1dFTBCI8@McDaDebianPC>
+From: Alejandro Colomar <une+c@alejandro-colomar.es>
+To: C Committee <sc22wg14@open-std.org>
+Cc: Vincent Lefevre <vincent@vinc17.net>, linux-man@vger.kernel.org, 
+	alx@kernel.org
+Subject: Feedback for n3704 - Clean up frexp, ldexp, and scalbn prototypes
+Message-ID: <aWv1Z8v3E3DAoBzW@devuan>
+References: <20250714222434.4D926356820@www.open-std.org>
 MIME-Version: 1.0
-In-Reply-To: <aWtmabtT1dFTBCI8@McDaDebianPC>
+In-Reply-To: <20250714222434.4D926356820@www.open-std.org>
 
-[CC +=3D =D0=BD=D0=B0=D0=B1, Branden]
-
-On Sat, Jan 17, 2026 at 10:37:36AM +0000, Seth McDonald wrote:
-> Hi Alex,
-
-Hi Seth, =D0=BD=D0=B0=D0=B1,
-
-> In my next patch set (for system calls), I've generally been ordering
-> POSIX.1-1988/1990 relative to BSD and SV according to their release
-> years as specified in standards(7).  Which gives the following relative
-> ordering between SV and POSIX.1:
->=20
-> SVr1
-> SVr2
-> SVr3
-> 	POSIX.1-1988
-> SVr4
-> 	POSIX.1-1990
-> SVID 4
->=20
-> And the following relative ordering between BSD and POSIX.1:
->=20
-> 3BSD
-> 4BSD
-> 4.1BSD
-> 4.2BSD
-> 4.3BSD
-> 	POSIX.1-1988
-> 	POSIX.1-1990
-> 4.4BSD
-
-That seems to match standards(7).
-
-There are more SV standards than those documented in standards.  I think
-we should document these in standards(7):
-
-SVID Issue 2 (1986):
-<https://bitsavers.org/pdf/att/unix/SVID/System_V_Interface_Definition_Issu=
-e_2_Volume_1_1986.pdf>
-
-SVID Issue 3 (1991):
-<https://archive.org/details/systemvinterface0001unse>
-
-I wonder how these influenced early POSIX and ANSI C.  I know that some
-SVID heavily influenced ANSI C, at least regarding allocation functions.
-<https://nabijaczleweli.xyz/content/blogn_t/017-malloc0.html>
-
-Also, I suspect SVID eventually was absorbed by POSIX.  POSIX.1-2001 is
-known as "Issue 6", and it sometimes refers to earlier issues, and I
-don't know if some of those issues refer to SVID or early POSIX
-versions.  It would be good to document that under standards(7) if we
-learn it.
-
-> Because many of the system calls I updated listed SVr4, and some listed
-> 4.4BSD, I want to check that it makes sense to list them after
-> POSIX.1-1988.  In case, for example, SVr4 is known to have influenced
-> POSIX.1-1988 prior to being officially released.
-
-I don't know much of this.  I've CCed =D0=BD=D0=B0=D0=B1, who I suspect wil=
-l be able
-to confirm much of this, and fill the gaps.  Also Branden might know
-since he's subscribed to the TUHS mailing list.  (You may find TUHS
-interesting, if you're into old standards.  See <https://www.tuhs.org/>.)
-
-=D0=BD=D0=B0=D0=B1, would you mind having a look at standards(7) and fill t=
-he gaps?
-Links to standards would also be very useful!  :-)
-
-> (I've also taken your recommendation and am trying out mutt(1), starting
-> with this email.  It's certainly a learning curve, but I'm slowly
-> getting there!)
-
-:)
+Hi!
 
 
-Have a lovely day!
+I see n3704 attempts to fix the issues reported by Vincent; that's good.
+<https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3704.pdf>
+
+However, the paper renames the pointer to 'p', which doesn't seem to
+have good mnemonics nor relate to what it is.  'p' seems to just be
+for 'pointer'?  We can and should do better.
+
+I think alx-0051 was better, in using a parameter name that relates to
+what the parameter means: 'e' for exponent.  Names matter.
+
+I think we should discuss the name in the meeting.  Also, I think n3704
+should have included a rationaly for the name; especially, when a better
+name has been proposed, and for some reason the proposal decided to use
+a different one; that should certainly have been discussed.
+
+I think we can discuss the name in meeting without having to officially
+present alx-0051 with an N-document number.  Please let me know if I
+should formally present alx-0051 for the next meeting.
+
+
+Have a lovely night!
 Alex
+
+On Tue, Jul 15, 2025 at 12:24:29AM +0200, Alejandro Colomar wrote:
+> Hi!
+>=20
+> Vincent reported this issue to me in the Linux man-pages mailing list
+> (as the manual pages also had the same issue, so he reported the issue
+> in both the manual pages and the ISO C standard).  I think this can be
+> fixed editorially without going through an official N-document.  Please
+> find the proposal below.
+>=20
+>=20
+> Have a lovely night!
+> Alex
+>=20
+> ---
+> Name
+> 	alx-0051r0 - don't misuse reserved identifier 'exp'
+>=20
+> Category
+> 	Editorial.
+>=20
+> Author
+> 	Reported-by: Vincent Lefevre <vincent@vinc17.net>
+> 	Signed-off-by: Alejandro Colomar <alx@kernel.org>
+>=20
+> History
+> 	<https://www.alejandro-colomar.es/src/alx/alx/wg14/alx-0051.git/>
+>=20
+> 	r0 (2025-07-15):
+> 	-  Initial draft.
+>=20
+> Rationale
+> 	Since 'exp' is a library function, it is a reserved identifier,
+> 	which should not be used as a variable / parameter name.
+>=20
+> 	7.1.3p1 says
+>=20
+> 		All potentially reserved identifiers (...) that are
+> 		provided by an implementation with an external
+> 		definition are reserved for any use.
+>=20
+> Proposed wording
+> 	Based on N3550.
+>=20
+>     7.17.7.5  The atomic_compare_exchange generic functions
+> 	@@ Description, p7 EXAMPLE
+> 	-	exp =3D atomic_load(&cur);
+> 	+	e =3D atomic_load(&cur);
+> 		do {
+> 	-		des =3D function(exp);
+> 	+		des =3D function(e);
+> 	-	} while (!atomic_compare_exchange_weak(&cur, &exp, des));
+> 	+	} while (!atomic_compare_exchange_weak(&cur, &e, des));
+>=20
+>     B.11  Mathematics <math.h>
+> 	@@
+> 	...
+> 	-_FloatN frexpfN(_FloatN value, int *exp);
+> 	-_FloatNx frexpfNx(_FloatNx value, int *exp);
+> 	-_DecimalN frexpdN(_DecimalN value, int *exp);
+> 	-_DecimalNx frexpdNx(_DecimalNx value, int *exp);
+> 	+_FloatN frexpfN(_FloatN value, int *e);
+> 	+_FloatNx frexpfNx(_FloatNx value, int *e);
+> 	+_DecimalN frexpdN(_DecimalN value, int *e);
+> 	+_DecimalNx frexpdNx(_DecimalNx value, int *e);
+> 	...
+>=20
+> 	@@
+> 	...
+> 	-_FloatN ldexpfN(_FloatN value, int *exp);
+> 	-_FloatNx ldexpfNx(_FloatNx value, int *exp);
+> 	-_DecimalN ldexpdN(_DecimalN value, int *exp);
+> 	-_DecimalNx ldexpdNx(_DecimalNx value, int *exp);
+> 	+_FloatN ldexpfN(_FloatN value, int *e);
+> 	+_FloatNx ldexpfNx(_FloatNx value, int *e);
+> 	+_DecimalN ldexpdN(_DecimalN value, int *e);
+> 	+_DecimalNx ldexpdNx(_DecimalNx value, int *e);
+> 	...
+>=20
+> 	@@
+> 	...
+> 	-_FloatN scalbnfN(_FloatN value, int *exp);
+> 	-_FloatNx scalbnfNx(_FloatNx value, int *exp);
+> 	-_DecimalN scalbndN(_DecimalN value, int *exp);
+> 	-_DecimalNx scalbndNx(_DecimalNx value, int *exp);
+> 	+_FloatN scalbnfN(_FloatN value, int *e);
+> 	+_FloatNx scalbnfNx(_FloatNx value, int *e);
+> 	+_DecimalN scalbndN(_DecimalN value, int *e);
+> 	+_DecimalNx scalbndNx(_DecimalNx value, int *e);
+> 	-_FloatN scalblnfN(_FloatN value, int *exp);
+> 	-_FloatNx scalblnfNx(_FloatNx value, int *exp);
+> 	-_DecimalN scalblndN(_DecimalN value, int *exp);
+> 	-_DecimalNx scalblndNx(_DecimalNx value, int *exp);
+> 	+_FloatN scalblnfN(_FloatN value, int *e);
+> 	+_FloatNx scalblnfNx(_FloatNx value, int *e);
+> 	+_DecimalN scalblndN(_DecimalN value, int *e);
+> 	+_DecimalNx scalblndNx(_DecimalNx value, int *e);
+> 	...
+>=20
+>     F.10.4.9  The ldexp functions
+> 	@@ p1
+> 	 On a binary system,
+> 	-ldexp(x, exp)
+> 	+ldexp(x, e)
+> 	 is equivalent to
+> 	-scalbn(x, exp).
+> 	+scalbn(x, e).
+>=20
+> 	## And remove bold from 'exp' in the paragraph above.  This is
+> 	## probably present due to exp being considered as a reserved
+> 	## identifier by some script, which is part of the consequences
+> 	## of undefined behavior: UB might format your standard!  :)
+>=20
+>     H.11.3  Functions
+> 	@@ 7.12.7  Exponential and logarithmic functions
+> 	## Apply same changes as in B.11 (see above).
+>=20
+> 	@@ F.10.14  Payload functions, p2
+> 	...
+> 	 the exponent is an integral power of 2 and,
+> 	 when applicable,
+> 	-value equals x =C3=97 2*exp.
+> 	+value equals x =C3=97 2*e.
+>=20
+> --=20
+> <https://www.alejandro-colomar.es/>
+
+
 
 --=20
 <https://www.alejandro-colomar.es>
 
---fittoxyct32oamww
+--ypmxyfqrall4qvcx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlri40ACgkQ64mZXMKQ
-wqk+eg/+Kv5zTA9mxhRKsa11ifVmxPmkB/9+fxjOR0sX3j4WtsbEeDPwNiKG0o6M
-wrxHdch2dR7cVnswt77i5czPfwNCkViPjIU1RdQC+p4Qp+XHhaoXB1P3HZflyjnj
-bGJv4yRH6rFWravGgWG8a4Yok4bPH7Z2c6e+6mUj04OkYZW1xq+O3el65PoDs/vK
-zDBQ4P3/KA9YYDfrnM8ffJf9+fm6iEN66csadtgp50qCG9JMXPiJtrwGqBHpQkdc
-bCb1p+3qFaDOLyM3Gu90vQxK39WDDxzzKSUi9/NBvH5VildeGbmFIxvE2pEiBiVx
-6++V2sTrHlIiScGHHMxWQtARJrxjtCP10eh+2qDklKDu1qyucmUvJ254HBPC8mlw
-RLJRMCKz9VbRle/tFzGIrKD1gNV4Mi5sY9AzrEk8Qofn+b5EQMadq5VwmHQjy6/v
-omwtMbii8LklG+/qp001IRrqWZJczyME/kLVsG4fgH1Yi1EtEz7E1g/RKa3S7HOx
-/KBx5o3k0IIC9YB2Hux0VCxYlP16UNY7rrNkl9YuRK4GtywfL5ECX0ARG8UqS8Lu
-Gwz5WGVCKGUbmqUsNodTShT5y+Borp15Ec8gvC0ZHHu5gjWnmOU3iDX3jHZEpz1+
-p1DIuAEFVQZaVCBERVOL0mqWsXfTLl6QfJVIvZNmrqoWDaXLrT4=
-=NPz+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlr98gACgkQ64mZXMKQ
+wqlg/g//W6sfcDA9TtkIqv8RCSZskmc22xXqEOnr/itWMq4y0VhUnpfvXCtGt0Ao
+sDnOXHt5CgjT4sOCMp4hR68cW83steYIHyO6He+3fMqGGG0d8aKgJHDVzrKOY+hG
+GZvZphWTOG1qq79ao69esA2NRvVrqfS0812oWuWztyw2x7a0m1yWqCkAqADRiW1b
+0Wr9/aPTuFj0Gmo8ukmh83Xkof5uUcKOXuXnOnp+9JFkV/IofWFEzW3nrGW+i+zO
+HxyzPg63jRFkq78Agwv/GBiC1BXYFVT9933ZtN1P+VOW8awjfOMgJ30hNDqax2Iz
+wWL0Tr+y41f9ikjqtnT+8Mz6NSENCBagk9Ywt3SQwO7FKk4Pv5oDbziq+Q1NqIZ9
+LB1Mg4ry8mnSjj2Ib2YC6XTlxmgLwcx9JjHNsdYWU7HDk6h5GHJI5py4UBCli1K8
+26ONoWaeduNan+9yJvp7nlO+E3X5AHEl0CKZOOfnHncB8IprEowrBdqX3IbuRit0
+LJaeFLlpPlC1p77YXgVPa2M0U45elfjf5KPvPTBXpJQiP/17nu/LG6WcpXCYnctr
+THqZ/RSYJ+l2N62U3GbsayMkZULqqeb0PlxjsmJiRDhHr9BAnfQPd5fH7Ewa404J
+hxeOvU/yjmUQftqva/AkCeUylyeYuvNpW1e9BWWMChq0yj5RtwA=
+=GZJW
 -----END PGP SIGNATURE-----
 
---fittoxyct32oamww--
+--ypmxyfqrall4qvcx--
 
