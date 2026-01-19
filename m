@@ -1,109 +1,117 @@
-Return-Path: <linux-man+bounces-4844-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4845-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70F12D3A79C
-	for <lists+linux-man@lfdr.de>; Mon, 19 Jan 2026 12:59:52 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAFDFD3A781
+	for <lists+linux-man@lfdr.de>; Mon, 19 Jan 2026 12:57:10 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 81D95303B7DD
-	for <lists+linux-man@lfdr.de>; Mon, 19 Jan 2026 11:56:59 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id 628703002D03
+	for <lists+linux-man@lfdr.de>; Mon, 19 Jan 2026 11:57:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 014DA31AA8D;
-	Mon, 19 Jan 2026 11:56:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6FC2031B825;
+	Mon, 19 Jan 2026 11:57:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="f1h1vk4p"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="k2JeAyaX"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7C431AABA
-	for <linux-man@vger.kernel.org>; Mon, 19 Jan 2026 11:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085E731B81C
+	for <linux-man@vger.kernel.org>; Mon, 19 Jan 2026 11:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768823817; cv=none; b=sRvZg8i2Ka45w9UeOreZTOFP+BSNcK+uRHvIXdZ5nKfqp1GhYAPyIhFFnZKlJfOXhRFrEnISsv00aJ67oEA5PyKijuwpbBW0H9+YY24IV4spvNb/IdnO6SjHj7D/ft+tcz/8Y0YPB9Gp08/RzP7frpO+k0Z94P47aXk8hk8HYFU=
+	t=1768823829; cv=none; b=eEsh7tQkaioAjncdoGom7vJiFUNJFjD+Yog7x+jyEU4/FB44rxgobVkDKr+dSdxM5hNTY2VctMGLEPLxvR1Yc7qoPda69J5NUOaLSq2hXPBZqhuhh329kkR9wAjpwRtSQYd6avFQ9RR6XtOmKadU0cJ2Aw98NI4q9mGZVzKesDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768823817; c=relaxed/simple;
-	bh=QHGILL+nMr0dyYSSg4G0H3BZCxvFM3G/YKk8TYWdhkE=;
+	s=arc-20240116; t=1768823829; c=relaxed/simple;
+	bh=nWPKbqzQIVJ06vteM46Svjhc3+O+pi3qyEAsMIZ9fBc=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hGisR+WB85OSLpu7E5uGgE3TRd/7CsnBLcOks39rgFcmnrfhYre0oZpgVNpWvgDXs5xgcKfVOZrvfRMb+L2zcu32t6ObN9xMybgCBXnqP29am5SbTUSarIqDtvDGnJJAK9wQEHb2bwpJwnxHuoQT6o7YMSa9BrGfG6+CcZMFPZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=f1h1vk4p; arc=none smtp.client-ip=109.224.244.17
+	 MIME-Version:Content-Type; b=DNwmLf87HnMKTQfxDd4EOMGC3kpDXGmhEWQrHqMieoiHQdNAPSZOHCBhvp3aAOEgnAuS0Q/SBbFC7TMHiVNijMZRG4JXP5+n0HJhH3RJ40W5TCfMNj6mB/gD2juR8W/kf11Pusn9FafaaWuaJjXNXbKMyFQGwoGKwXRpf+VRB0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=k2JeAyaX; arc=none smtp.client-ip=185.70.43.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1768823814; x=1769083014;
-	bh=ECCQHsdwxJRKCA6LS+CEVWJxZG2D2CMJ8KwWSUQ8dtU=;
+	s=protonmail3; t=1768823826; x=1769083026;
+	bh=9ZOANsla29+QGtjQC8bYguaQ/3mJhPDGP7V9tqQ5a8I=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=f1h1vk4pcxLxLlu65/qifgrohyR4lPUfrvDxWXTzFA782WA0NYL0noVD9dXrwQiLt
-	 tcb5qBvLlPF0CMDcB2zZFvjGBLlcKWSzN6SAmc88dD5pXI+BXdUe1dDFfFbpGeqlVP
-	 a/OK9rk7XV/Yb6gIEMWoqgoL/KF/CDyCQhSNvKqyTDirQ8FdzO7Fw/niTJnaUdN/kd
-	 P1hUYGmyoyHk3HqYq60/LIUFUOWMu02uhH5au0VeSags669la6xoVXzhitU7vDqP/B
-	 giquNw0xeSO1hiWGqP4qVlvSa11AUINjuI6Yba7JdcgYTyo3lhSck9381uayfuNPcs
-	 yX7JTh9Qp7tFQ==
-Date: Mon, 19 Jan 2026 11:56:48 +0000
+	b=k2JeAyaXirF5fvTJBo5vgwNWTn22vqMKFnFi1APdg5Fk5ql9DyGsAMqwv0PwY52eI
+	 4t2KIKOLMnrAR834Bp0wA3L5FeLcTgxjulUOOm2jjE0sxvZFaTERra/EzgnoAAM7Sy
+	 ZwZg5IXBcSopNxn5SYMYkzZ27CY2axnFxVeKj1a5FY8hwdOp/KYIc4iLSvauUXqlsl
+	 8PIrqrEDl+saKNagi22/otx15t8kcWzNQHPNd10waApAil5uS4aCWBxR8fQAzuaEu3
+	 0Ht18l8R1OGYTyx9degfemEC5S/JCq3IWONQg4dL9Yw30Wosp+bph8UfGWv/PQmSC7
+	 sPeK60d2VLGLg==
+Date: Mon, 19 Jan 2026 11:57:01 +0000
 To: Alejandro Colomar <alx@kernel.org>
 From: Seth McDonald <sethmcmail@pm.me>
 Cc: Seth McDonald <sethmcmail@pm.me>, linux-man@vger.kernel.org
-Subject: [PATCH v1 10/19] man/man2/chmod.2: HISTORY: Update first POSIX appearance of chmod(2)
-Message-ID: <de87aa2b3e28fe1ade21c7d119dd3968616fb25d.1768822707.git.sethmcmail@pm.me>
+Subject: [PATCH v1 11/19] man/man2/chmod.2: HISTORY: Specify different chmod(2) prototypes
+Message-ID: <02eef8835d607e135ad5f3ca6d28276c99a6feda.1768822707.git.sethmcmail@pm.me>
 In-Reply-To: <cover.1768822707.git.sethmcmail@pm.me>
 References: <cover.1768822707.git.sethmcmail@pm.me>
 Feedback-ID: 171233811:user:proton
-X-Pm-Message-ID: b71ba38138d16b7a890d3e862efd5c14ec4a03cf
+X-Pm-Message-ID: 21b98b12c5a6f31045d290e251cd58ab54fdc8dd
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------a096ac7114da56eb05a18c42f729413344ef1932757871aeb10f2bffd9adf62e"; charset=utf-8
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------b01df9da6270e2be8eec3583cd051622e34bf4e644de74acd7baf43212d1385c"; charset=utf-8
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------a096ac7114da56eb05a18c42f729413344ef1932757871aeb10f2bffd9adf62e
+--------b01df9da6270e2be8eec3583cd051622e34bf4e644de74acd7baf43212d1385c
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 From: Seth McDonald <sethmcmail@pm.me>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Seth McDonald <sethmcmail@pm.me>,
 	linux-man@vger.kernel.org
-Subject: [PATCH v1 10/19] man/man2/chmod.2: HISTORY: Update first POSIX appearance of chmod(2)
-Date: Mon, 19 Jan 2026 21:51:54 +1000
-Message-ID: <de87aa2b3e28fe1ade21c7d119dd3968616fb25d.1768822707.git.sethmcmail@pm.me>
+Subject: [PATCH v1 11/19] man/man2/chmod.2: HISTORY: Specify different chmod(2) prototypes
+Date: Mon, 19 Jan 2026 21:51:55 +1000
+Message-ID: <02eef8835d607e135ad5f3ca6d28276c99a6feda.1768822707.git.sethmcmail@pm.me>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1768822707.git.sethmcmail@pm.me>
 References: <cover.1768822707.git.sethmcmail@pm.me>
 MIME-Version: 1.0
 
-chmod(2) first appeared in POSIX.1-1988.[1]
+chmod(2) was specified in POSIX.1-1988 with the prototype
+int chmod(char *path, mode_t mode); [1]
+
+POSIX.1-1990 then changed the prototype to
+int chmod(const char *path, mode_t mode); [2]
 
 [1] IEEE Std 1003.1-1988, Section 5.6.4 "Change File Modes".
+[2] IEEE Std 1003.1-1990, Section 5.6.4 "Change File Modes".
 
 Signed-off-by: Seth McDonald <sethmcmail@pm.me>
 ---
- man/man2/chmod.2 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ man/man2/chmod.2 | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/man/man2/chmod.2 b/man/man2/chmod.2
-index 998869dc8097..d9e316747f98 100644
+index d9e316747f98..78bd4d05139f 100644
 --- a/man/man2/chmod.2
 +++ b/man/man2/chmod.2
-@@ -345,8 +345,8 @@ .SH HISTORY
- .TP
- .BR chmod ()
- SVr4,
--4.4BSD,
--POSIX.1-2001.
-+POSIX.1-1988,
-+4.4BSD.
- .TP
- .BR fchmod ()
- SVr4,
+@@ -361,6 +361,13 @@ .SH HISTORY
+ .B AT_SYMLINK_NOFOLLOW
+ glibc 2.32,
+ Linux 6.5.
++.P
++POSIX.1-1988 initially specified the function signature of
++.BR chmod ()
++with a non-const-qualified
++.I path
++parameter.
++This was remedied in POSIX.1-1990.
+ .SH SEE ALSO
+ .BR chmod (1),
+ .BR chown (2),
 --=20
 2.47.3
 
 
---------a096ac7114da56eb05a18c42f729413344ef1932757871aeb10f2bffd9adf62e
+--------b01df9da6270e2be8eec3583cd051622e34bf4e644de74acd7baf43212d1385c
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -111,14 +119,14 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: ProtonMail
 
-wqsEARYIAF0FgmluG/sJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmeg40Sk3Czzty+3HTN+cvAxFiEEIzbo0v6xUwBp
-LGKpWDlq2JJD02kAAHBIAP4mB4zjoadnfEq86Rs5pGVJMjvZq0xpeorDcoAL
-Q+RpywD+JXYbTdCryZLdafN5K1OM31V+9UKC3b4IDyP8ABSD+As=
-=83fl
+wqsEARYIAF0FgmluHAsJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmf6R0mG+SfAKXs8U7B7+w/LFiEEIzbo0v6xUwBp
+LGKpWDlq2JJD02kAAPKQAP0dMnMGw9VEMy6BZ5ChKH38+uu00MCAMfucA7Q6
+l6JAIgEAkvAGIWNZiRxcnQkiuuy4CYbalk6khCucR1W2D6cqxAA=
+=n4Pg
 -----END PGP SIGNATURE-----
 
 
---------a096ac7114da56eb05a18c42f729413344ef1932757871aeb10f2bffd9adf62e--
+--------b01df9da6270e2be8eec3583cd051622e34bf4e644de74acd7baf43212d1385c--
 
 
