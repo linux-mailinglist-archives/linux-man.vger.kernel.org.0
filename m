@@ -1,245 +1,240 @@
-Return-Path: <linux-man+bounces-4862-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4857-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YA2NAFe/b2kOMQAAu9opvQ
-	(envelope-from <linux-man+bounces-4862-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 18:45:59 +0100
+	id aJuOE0ZJcGnXXAAAu9opvQ
+	(envelope-from <linux-man+bounces-4857-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 04:34:30 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF3D548CA2
-	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 18:45:58 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD6A25071C
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 04:34:29 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 430287EC83A
-	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 15:56:06 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 3D7D5867AE9
+	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 12:14:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4AC933164B0;
-	Tue, 20 Jan 2026 15:30:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77A033D3CF4;
+	Tue, 20 Jan 2026 12:13:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mwl4gI0B"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="J0Wej7x+"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0416F4418D8;
-	Tue, 20 Jan 2026 15:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D453C197E
+	for <linux-man@vger.kernel.org>; Tue, 20 Jan 2026 12:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768923002; cv=none; b=S/I7lw1pRqR9by4g1LM1zvbRibN3zOLcu4mAwuxJM6Gfl0ZfNQwZDAjtt4qOijGDUQ8v+FK5eJ3TRAwznegFXKfz+Ol402bz5AZYTnJtbu1yEYEgnly9wqJEq6EF4N2p2f0m3NMJaRV70J1f8kIl4plYYVbJhGPxIovMa8lsiEg=
+	t=1768911228; cv=none; b=sIfCrwKeeVhBgGaHX92THMUrXzOkzauIjHHcz+pW9y/DVLMidiHMAAQ7KK3xYpRFeng7RCj3irp4uE8bHXGaPpluoQ6xvBRT+kFgcN/6Vnq6guxBNulwf+7Hdw9ww8BwQtamjnQKLq73dDK6coPkdvw6RQ172is1gqlZ3TQ/rZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768923002; c=relaxed/simple;
-	bh=CVlmMgyHpYGnjVB3yvSpnnPQQUnicSReF4FOwXhW7M8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JoWTrgds8AeLY5AnyDkRWvvhi/0yiYs2Xp8sGdrwP+Pwu0MigTylee8wN2O34IUioyNhGQPuQp8MNY9WRow0K8Yh0ZcIahJk8DQf59Qo86m9BctxOtmy/7Xxk8bKvpGYPGUoDqMW2SFjN3XlS/3MNcdvx11JJ7yeGYG6Vjivb0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mwl4gI0B; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909A8C16AAE;
-	Tue, 20 Jan 2026 15:30:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768923001;
-	bh=CVlmMgyHpYGnjVB3yvSpnnPQQUnicSReF4FOwXhW7M8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=Mwl4gI0BlsY5JiDCByhUrseQ8RpGh0uOZgTr1DbDK3+wA3Gge9GPaO8OEJleuJez9
-	 ZAhDUec+R8OwYvqHOhMEMI9T6otBcyJAuc49Pt+craqelBfEyTftqv5Nj/lDS45+/k
-	 UtL/uV2cTcrtFhYItdtcUFkDTQbXVNJB+Sk6MUyNKPxqG4fSjAQJl8Gl2IvtKXZa4V
-	 Y1LAf9+W4umJ2YXdYwP+zmGkA1QSnAsR7jc9taNJhFH5XZVJXlbmEXqdM9wU/If0Qn
-	 lZi+WNBPyy+8F3PjEJhzHKJTIjmxH3qaWHZWUnKxOnrkfbhdkucMSgZ/lzgJnOvzLO
-	 q+TzFme7PvJxg==
-Message-ID: <1fa92006626f975663c53d903d363e260c0c7ae1.camel@kernel.org>
-Subject: Re: [PATCH v3] man/man2const/F_[SG]ETDELEG.2const,
- man/man2/fcntl.2: Document F_SETDELEG and F_GETDELEG
-From: Jeff Layton <jlayton@kernel.org>
+	s=arc-20240116; t=1768911228; c=relaxed/simple;
+	bh=GPYEnSFMZ1BjLttY8OB57X3WohAz9TrDLLekOuYmUdE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l6e7CnmuwuqUghWzVoK4Tqg1A+ZSjoqd4cwb6x89qUB6mjhzq565xlA284IAHAqgC1HL0iHl0gCux17zY1Ox+ZLXbrr96wRFDMlwNtCELWO5V8WcCNJSepexczvQ/1tVO6fM8PpCmaYCJvLAbVT+fuF0OTsThnAe9e61geF2AXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=J0Wej7x+; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1768911217; x=1769170417;
+	bh=7T3Co3N91VGQQYYZ/NieepJ2pPk088uSJrIJuXQrwdA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=J0Wej7x+3SQ2ABmCPubtuAFBQzov/+ldEdQj58INZL3mqFfNy8KN2xKN1KJJb3FQj
+	 jR8nusGnrLOMr71F3uOJ30QLB5EDZnA1poZMpT+3MHITmfrAJO7IN4YagB7iM0RqlL
+	 MqnZtso7f7pafHspm+3JqrkH1h4AVJc+ulcHQIQfi1oEjyDNsmPAV1+1PPmu3EJjaZ
+	 RtH0neUVNap+pCdtDYVN3bJPZBNl85qENnNUdq8fUjGoxJYJX1XNvg+mgJwfCIfeaY
+	 jmwX/2esw1454jf/JPb16jwc9yZKtZolCIhmq7+tnX3Nf/AlmZiLhPBNT6IH6hpkpA
+	 BBArHwlRjOkug==
+Date: Tue, 20 Jan 2026 12:13:32 +0000
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Date: Tue, 20 Jan 2026 10:30:00 -0500
-In-Reply-To: <aW-awBnQ6RU8o19b@devuan>
-References: <20260114-master-v2-0-719f5b47dfe2@kernel.org>
-	 <5b283a25dbe2ab9ed78719c132885d9d3157f2bb.1768750908.git.alx@kernel.org>
-	 <a0916b361406fa52771cf3dd507521fa1cc31d7c.camel@kernel.org>
-	 <aW-awBnQ6RU8o19b@devuan>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.2 (3.58.2-1.fc43) 
+From: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 02/19] man/man2/access.2: HISTORY: Specify different access(2) prototypes
+Message-ID: <aW9xYhsFpNxlo3C5@McDaDebianPC>
+In-Reply-To: <aW7aOgFHOdCSiwUH@devuan>
+References: <cover.1768822707.git.sethmcmail@pm.me> <d87c7800e0f556efefaf5972294fb6a149bf02d1.1768822707.git.sethmcmail@pm.me> <aW7aOgFHOdCSiwUH@devuan>
+Feedback-ID: 171233811:user:proton
+X-Pm-Message-ID: 49978d69c92852f691be4d8604ee8ecb6a97c75a
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Spamd-Result: default: False [-1.96 / 15.00];
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------ec091236aa50c0a31104f38b344e894e0b285c892ea569864921369a74fd4bbe"; charset=utf-8
+X-Spamd-Result: default: False [-3.56 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MID_RHS_NOT_FQDN(0.50)[];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[pm.me:s=protonmail3];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_FROM(0.00)[bounces-4862-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	DMARC_POLICY_ALLOW(0.00)[kernel.org,quarantine];
-	RCPT_COUNT_THREE(0.00)[3];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	TAGGED_FROM(0.00)[bounces-4857-lists,linux-man=lfdr.de];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	DMARC_POLICY_ALLOW(0.00)[pm.me,quarantine];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[pm.me:+];
 	R_SPF_SOFTFAIL(0.00)[~all:c];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,linux-man@vger.kernel.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sethmcmail@pm.me,linux-man@vger.kernel.org];
+	HAS_ATTACHMENT(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:7979, ipnet:2a01:60a::/32, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ams.mirrors.kernel.org:rdns,ams.mirrors.kernel.org:helo]
-X-Rspamd-Queue-Id: DF3D548CA2
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:7979, ipnet:142.0.200.0/24, country:US];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[dfw.mirrors.kernel.org:rdns,dfw.mirrors.kernel.org:helo]
+X-Rspamd-Queue-Id: CD6A25071C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, 2026-01-20 at 16:12 +0100, Alejandro Colomar wrote:
-> Hi Jeff,
->=20
-> On Tue, Jan 20, 2026 at 09:39:27AM -0500, Jeff Layton wrote:
-> > On Sun, 2026-01-18 at 16:42 +0100, Alejandro Colomar wrote:
-> > > From: Jeff Layton <jlayton@kernel.org>
-> > >=20
-> > > With Linux 6.19, userland will be able to request a delegation on a f=
-ile
-> > > or directory.  These new objects act a lot like file leases, but are
-> > > based on NFSv4 file and directory delegations.
-> > >=20
-> > > Add new F_GETDELEG and F_SETDELEG manpages to document them.
-> > >=20
-> > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> > > [alx: minor tweaks]
-> > > Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > > ---
-> > >  man/man2/fcntl.2                |   5 +
-> > >  man/man2const/F_GETDELEG.2const | 265 ++++++++++++++++++++++++++++++=
-++
-> > >  man/man2const/F_SETDELEG.2const |   1 +
-> > >  3 files changed, 271 insertions(+)
-> > >  create mode 100644 man/man2const/F_GETDELEG.2const
-> > >  create mode 100644 man/man2const/F_SETDELEG.2const
-> > >=20
->=20
-> [...]
->=20
-> > > diff --git a/man/man2const/F_GETDELEG.2const b/man/man2const/F_GETDEL=
-EG.2const
-> > > new file mode 100644
-> > > index 000000000..e4d98feed
-> > > --- /dev/null
-> > > +++ b/man/man2const/F_GETDELEG.2const
-> > > @@ -0,0 +1,265 @@
->=20
-> [...]
->=20
-> > > +.SH NOTES
-> > > +Delegations were designed to implement NFSv4 delegations for the Lin=
-ux NFS server.
->=20
-> Do we have a link to the NFSv4 specification of delegations?  It could
-> be useful, I think.  What do you think?
->=20
-> [...]
->=20
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------ec091236aa50c0a31104f38b344e894e0b285c892ea569864921369a74fd4bbe
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Jan 2026 22:13:22 +1000
+From: Seth McDonald <sethmcmail@pm.me>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 02/19] man/man2/access.2: HISTORY: Specify different
+ access(2) prototypes
+Message-ID: <aW9xYhsFpNxlo3C5@McDaDebianPC>
+Mail-Followup-To: Seth McDonald <sethmcmail@pm.me>,
+	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+References: <cover.1768822707.git.sethmcmail@pm.me>
+ <d87c7800e0f556efefaf5972294fb6a149bf02d1.1768822707.git.sethmcmail@pm.me>
+ <ev23B3DKLdN9g4CRRLa_ZC5ohdKhgj4TZKeP-J9xljLhk56B0K0zYZuezny6W9rPaBAcC_2uOvecVozER_IOXQ==@protonmail.internalid>
+ <aW7aOgFHOdCSiwUH@devuan>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <aW7aOgFHOdCSiwUH@devuan>
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-RFC8881 is the NFSv4.1 spec, and that's what defines them. The
-description is spread out all over the document however. Section 10.2
-probably has the best basic description. It's not exactly succinct
-though.
+On Tue, Jan 20, 2026 at 02:34:08AM +0100, Alejandro Colomar wrote:
+> Hi Seth,
+> 
+> On Mon, Jan 19, 2026 at 11:55:06AM +0000, Seth McDonald wrote:
+> > access(2) was specified in POSIX.1-1988 with the prototype
+> > int access(char *path, int amode); [1]
+> > 
+> > POSIX.1-1990 then changed the prototype to
+> > int access(const char *path, int amode); [2]
+> 
+> I suspect this is common to all APIs specified in those standards,
+> right?  Or is it specific to this API?
+> 
+> 'const' was invented by ANSI C89, so I expect the change was around that
+> time.
+
+I believe the qualifier is indeed absent from any* specified prototype
+in POSIX.1-1988.  Which would make sense if it was first specified in
+C89.  Similar to how void pointers didn't first appear in POSIX.1-1988,
+but after being added in C89, appeared in POSIX.1-1990.
+
+*Interestingly enough, the appendix of POSIX.1-1988 (section B.2.2.4,
+page 192) does acknowledge the const qualifier when describing the C
+Standard's atoi(3) function.  Which makes me think that POSIX was
+actually aware of C89's upcoming additions to the language.  Which in
+turn begs the question: why, if they knew about it, was it not used in
+the POSIX.1-1988 standard?  Multiple other types and functions were
+included in POSIX.1-1988 because they were (going to be) in C89.
+
+This is just me thinking out loud here.  I don't mind if the answer
+isn't known.  Although if the answer is relevant/broad enough, it may be
+useful to mention it in standards(7).  Something like "POSIX.1-1988
+attempted to align its specification with the features/syntax of the
+(not yet released) C89 standard, but for ABC reasons, could not use XYZ
+language features."
+
+> On the change itself, it wasn't a breaking change: programs written
+> before the addition of const wouldn't notice that const has been added
+> to the prototype.
+> 
+> The change would be noticed by a program written today, but compiled in
+> such an old system.  However, I expect such a program to be aware that
+> pre-ANSI C was different, and it would have to adapt to it anyway.
+> const would be something that would have to be globally ignored, with
+> something like
+> 
+> 	#define const
+> 
+> Given this should be of no importance to users, I'd prefer not
+> documenting this difference.
+> 
+> What do you think?
+
+It's important to note that since the type 'const char*' is a pointer to
+a const char, rather than a const pointer to a char, the type is
+incompatible with its non-const counterpart.  That is, 'const char*' and
+'char*' are technically incompatible datatypes.
+
+This can be seen by attempting to compile the following C program:
+
+	#include <stdio.h>
+
+	int say_hi(const char* str)
+	{
+		return printf("Hi %s", str);
+	}
+
+	int main(void)
+	{
+		int (*func)(char*) = say_hi;
+		func("Linux");
+		return 0;
+	}
+
+On GCC at least, you should get an incompatible-pointer-types error.
+
+Now imagine an old program that was built to be compatible with
+specifically POSIX.1-1988, and which liked to use function pointers a
+little too much.  If it happened to use function pointers to functions
+whose parameters weren't const-qualified in POSIX.1-1988, but were in
+later versions, then it (to my understanding) cannot be linked to an
+implementation of a later POSIX version without either errors or the
+possibility of undefined behaviour.
+
+While I cannot guarantee that such a program exists, what I can say is
+that I have used pointers to library functions in my own code before.
+So I don't think it'd be unusual for such a program to exist.
+
+Given this, I do think this still may be notable enough to document.
+Perhaps not in every such function - as that can get quite repetitive -
+but instead as a property of the POSIX.1-1988 standard as a whole.  But
+feel free to let me know if there's something I missed here.
+
+-- 
+Take care,
+	Seth McDonald.
+
+On-list:  2336 E8D2 FEB1 5300 692C  62A9 5839 6AD8 9243 D369
+Off-list: 82B9 620E 53D0 A1AE 2D69  6111 C267 B002 0A90 0289
 
 
-> > This all looks great to me. Did you need me to make any other changes?
->=20
-> The only remaining doubt is the question above.
->=20
-> > Thanks for doing the cleanup! FWIW:
-> >=20
-> > Reviewed-by: Jeff Layton <jlayton@kernel.org>
->=20
-> You're welcome!  And thanks!  :-)
->=20
->=20
-> Have a lovely day!
-> Alex
+--------ec091236aa50c0a31104f38b344e894e0b285c892ea569864921369a74fd4bbe
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
---=20
-Jeff Layton <jlayton@kernel.org>
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wqsEARYIAF0FgmlvcWoJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmf6reAzfmwZXZg1NKP1xerLFiEEIzbo0v6xUwBp
+LGKpWDlq2JJD02kAAM/4AP46khAc1hl1XaykTjRhG5R1fnqpRRydUMoEAKAW
+TYbFHQD/a5UBa8fVYrY4H8nMGfOQQwmzj4n03Ltoo8iZV/qLjwU=
+=RI/Z
+-----END PGP SIGNATURE-----
+
+
+--------ec091236aa50c0a31104f38b344e894e0b285c892ea569864921369a74fd4bbe--
+
 
