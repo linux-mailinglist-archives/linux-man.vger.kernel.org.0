@@ -1,63 +1,61 @@
-Return-Path: <linux-man+bounces-4859-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4861-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qL6HG3Cvb2lBGgAAu9opvQ
-	(envelope-from <linux-man+bounces-4859-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 17:38:08 +0100
+	id sAFdLQ+yb2nMKgAAu9opvQ
+	(envelope-from <linux-man+bounces-4861-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 17:49:19 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE61347BE7
-	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 17:38:07 +0100 (CET)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
+	by mail.lfdr.de (Postfix) with ESMTPS id 593CC47F0A
+	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 17:49:19 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id EB76E84C9AB
-	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 14:02:58 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 7B8947CB5FF
+	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 15:31:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59859439002;
-	Tue, 20 Jan 2026 13:59:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8BA343E491;
+	Tue, 20 Jan 2026 15:12:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ekP02jjb"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egLskHnh"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DE643635F
-	for <linux-man@vger.kernel.org>; Tue, 20 Jan 2026 13:59:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740193DA7C1;
+	Tue, 20 Jan 2026 15:12:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768917584; cv=none; b=FhPm7GyujDIQO2ohKI3+sFimW1IX0VliuOL9VYwIejKGMh/lCeWizgqxB6/S40hrwgtYyaKcRRhFEF80dQ97RP0j2glXwzPyxRIlc0cD5KTgcM6Bn1v7qmYUmEQvi3foxZsmTWOeNPhqvnKIzcTE1ZlZpjyXlu+OdVIFcIVlArU=
+	t=1768921954; cv=none; b=n5os+n96vEe1fHWxETDgYrxqIXrqWH5yofqLQTAN6yDK8W2pvSm58kkrbBLoMoCspg0bQwVbsI4k2RLEs+59Mow7JUwHaYL2fFuSiDmjY4tkA0iumAvWtblRKayWUoKeiloYJEIPeIBpB6LYywj3Aoq0oTBCvuj2YkaFJm5FxFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768917584; c=relaxed/simple;
-	bh=yvlkT8kghDfRBv3+yNxD8ugm+9mIXdDV2jStHpWlJic=;
+	s=arc-20240116; t=1768921954; c=relaxed/simple;
+	bh=VFC229AZuFdlJP7YaiN7RvBqAhpGSQlaVITbdAUfss8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hGc+3wdBH8LvVOruwaWJGjfMFNEwW2e9RACEAPz5VrRwz38PPl/ZEZYZKvCifMbXRbHWsE8lTSB+qRYl6iHeHPSf21prCcOpmMMyiGRsb6OXH6+BJbxx0UibLOJRl0BcXFZnb0w1IPrzPdHaAy5qg6ioJ5doDalYPO8T/4NFH5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ekP02jjb; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0852DC16AAE;
-	Tue, 20 Jan 2026 13:59:42 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=uasJkstjtlSh/m3CPlkwGZ5uWhOWV5nvzWkNosv6jKlJcWNjraupTgjjpOxBupYhxAGcgRJq+S9o/vJVCfNZLM9gC0tC4o/yP8hyEuxN/uHagrHst6vlLXwL2pohrnpAlZhz9FXpRAtBtXXga6PgUDvNg8Enk2RoHCfNCjplWmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egLskHnh; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EBA8C19422;
+	Tue, 20 Jan 2026 15:12:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768917583;
-	bh=yvlkT8kghDfRBv3+yNxD8ugm+9mIXdDV2jStHpWlJic=;
+	s=k20201202; t=1768921954;
+	bh=VFC229AZuFdlJP7YaiN7RvBqAhpGSQlaVITbdAUfss8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ekP02jjbVW/IiSa8D9sZ661hZ3mNnTJATXDn9vfWcYeooeJ/59nN96s2HFq3W8Lbf
-	 tYd2bbTmpn872Zh4X1bw42962UbaOTi7j0qFneWQf2+SQMzqNYSKGs/3Pcpi5WtNGz
-	 zUmtyteQjSHtCUI3Ks6u4hcMXWU0gYFd1ZJ0sVjvOzBpZglELSziN4Qr9RYImAW7wL
-	 0c8833PbFtS+z38tIAfOa1rGa/9Z/AK0L7Qu7cRiZ7Y/2JLxWx6XysfFpb8ikSDjxv
-	 5OXmr4MF+5eU08d/kG08p2eFcU8pFmDCLVm9trYW4+dE/CConton8CAGcgDvXDL9wA
-	 oQJsv+TRTa99g==
-Date: Tue, 20 Jan 2026 14:59:40 +0100
+	b=egLskHnhH/94aju3jK3FgZwZVfQ0G/6hVMAcH0JmBwyMlrqBpu+a/DYxADIrXZILA
+	 3kjk/SNLlp7WZcpldaalT9sc2V0WtVPUpx4W3Lb5aw92v0lAStTRwKnQp/6nEyvYtW
+	 R1rD8nqqKtFkep2PA4rHx0bFRbEpXijDTgVo65TAAJ9EFpGZDfLvVHDD9QOz4AjKxV
+	 VAzpDu0l0t42l2QofjK9wXtxzo98Z4IajutAlInPLcbSB6noD3ROf+UxaxkcdO9Q44
+	 sYkXQ4FXcB+Iomd+Wq1wM5jtbc87mQHC7hYO2xpv5j5P2ObxpyNRUBwvvxeKEpMo3O
+	 2zAoBaEiTbJ4w==
+Date: Tue, 20 Jan 2026 16:12:31 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: History of const in C++, C89, and POSIX.1-1988 (was: [PATCH v1
- 02/19] man/man2/access.2: HISTORY: Specify different)
-Message-ID: <aW-In8-c7w1J13Th@devuan>
-References: <cover.1768822707.git.sethmcmail@pm.me>
- <d87c7800e0f556efefaf5972294fb6a149bf02d1.1768822707.git.sethmcmail@pm.me>
- <aW7aOgFHOdCSiwUH@devuan>
- <aW9xYhsFpNxlo3C5@McDaDebianPC>
- <aW96GgzoYUurH5FS@devuan>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3] man/man2const/F_[SG]ETDELEG.2const, man/man2/fcntl.2:
+ Document F_SETDELEG and F_GETDELEG
+Message-ID: <aW-awBnQ6RU8o19b@devuan>
+References: <20260114-master-v2-0-719f5b47dfe2@kernel.org>
+ <5b283a25dbe2ab9ed78719c132885d9d3157f2bb.1768750908.git.alx@kernel.org>
+ <a0916b361406fa52771cf3dd507521fa1cc31d7c.camel@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,24 +63,24 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kqwytpuebgllwyj6"
+	protocol="application/pgp-signature"; boundary="pwiekixizj7yf3bc"
 Content-Disposition: inline
-In-Reply-To: <aW96GgzoYUurH5FS@devuan>
+In-Reply-To: <a0916b361406fa52771cf3dd507521fa1cc31d7c.camel@kernel.org>
 X-Spamd-Result: default: False [-3.56 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-4859-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-4861-lists,linux-man=lfdr.de];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DMARC_POLICY_ALLOW(0.00)[kernel.org,quarantine];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	RCVD_COUNT_THREE(0.00)[4];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	FROM_HAS_DN(0.00)[];
@@ -90,101 +88,114 @@ X-Spamd-Result: default: False [-3.56 / 15.00];
 	R_SPF_SOFTFAIL(0.00)[~all:c];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:7979, ipnet:2605:f480::/32, country:US];
+	ASN(0.00)[asn:7979, ipnet:213.196.21.0/24, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[dfw.mirrors.kernel.org:rdns,dfw.mirrors.kernel.org:helo,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: BE61347BE7
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,ams.mirrors.kernel.org:rdns,ams.mirrors.kernel.org:helo]
+X-Rspamd-Queue-Id: 593CC47F0A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---kqwytpuebgllwyj6
+--pwiekixizj7yf3bc
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: History of const in C++, C89, and POSIX.1-1988 (was: [PATCH v1
- 02/19] man/man2/access.2: HISTORY: Specify different)
-Message-ID: <aW-In8-c7w1J13Th@devuan>
-References: <cover.1768822707.git.sethmcmail@pm.me>
- <d87c7800e0f556efefaf5972294fb6a149bf02d1.1768822707.git.sethmcmail@pm.me>
- <aW7aOgFHOdCSiwUH@devuan>
- <aW9xYhsFpNxlo3C5@McDaDebianPC>
- <aW96GgzoYUurH5FS@devuan>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3] man/man2const/F_[SG]ETDELEG.2const, man/man2/fcntl.2:
+ Document F_SETDELEG and F_GETDELEG
+Message-ID: <aW-awBnQ6RU8o19b@devuan>
+References: <20260114-master-v2-0-719f5b47dfe2@kernel.org>
+ <5b283a25dbe2ab9ed78719c132885d9d3157f2bb.1768750908.git.alx@kernel.org>
+ <a0916b361406fa52771cf3dd507521fa1cc31d7c.camel@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <aW96GgzoYUurH5FS@devuan>
+In-Reply-To: <a0916b361406fa52771cf3dd507521fa1cc31d7c.camel@kernel.org>
 
-On Tue, Jan 20, 2026 at 02:52:25PM +0100, Alejandro Colomar wrote:
-> For example, here's how qsort(3) was implemented in 4.3BSD (1986):
+Hi Jeff,
 
-BTW, there's a git repository that includes all of the historic Unix
-systems: <git@github.com:dspinellis/unix-history-repo.git>
+On Tue, Jan 20, 2026 at 09:39:27AM -0500, Jeff Layton wrote:
+> On Sun, 2026-01-18 at 16:42 +0100, Alejandro Colomar wrote:
+> > From: Jeff Layton <jlayton@kernel.org>
+> >=20
+> > With Linux 6.19, userland will be able to request a delegation on a file
+> > or directory.  These new objects act a lot like file leases, but are
+> > based on NFSv4 file and directory delegations.
+> >=20
+> > Add new F_GETDELEG and F_SETDELEG manpages to document them.
+> >=20
+> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > [alx: minor tweaks]
+> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> > ---
+> >  man/man2/fcntl.2                |   5 +
+> >  man/man2const/F_GETDELEG.2const | 265 ++++++++++++++++++++++++++++++++
+> >  man/man2const/F_SETDELEG.2const |   1 +
+> >  3 files changed, 271 insertions(+)
+> >  create mode 100644 man/man2const/F_GETDELEG.2const
+> >  create mode 100644 man/man2const/F_SETDELEG.2const
+> >=20
 
-I use it when I need to inspect old Unix sysmtems.  I have checked out
-a few of them in separate git-worktree(1)'s:
+[...]
 
-	alx@devuan:~/src/unix/unix$ ls -a
-	.  ..  .bare.git  4.3BSD  v3  v4  v5  v6  v7
-	alx@devuan:~/src/unix/unix$ ls | xargs -I {} git -C {} status
-	HEAD detached at BSD-4_3
-	nothing to commit, working tree clean
-	HEAD detached at Research-V3
-	nothing to commit, working tree clean
-	HEAD detached at Research-V4
-	nothing to commit, working tree clean
-	HEAD detached at Research-V5
-	nothing to commit, working tree clean
-	HEAD detached at Research-V6
-	nothing to commit, working tree clean
-	HEAD detached at Research-V7
-	nothing to commit, working tree clean
+> > diff --git a/man/man2const/F_GETDELEG.2const b/man/man2const/F_GETDELEG=
+=2E2const
+> > new file mode 100644
+> > index 000000000..e4d98feed
+> > --- /dev/null
+> > +++ b/man/man2const/F_GETDELEG.2const
+> > @@ -0,0 +1,265 @@
 
-> 	alx@devuan:~/src/unix/unix/4.3BSD$ cat ./usr/src/lib/libc/gen/qsort.c \
-> 	| sed -n \
-> 		-e '/^qsort/,/^{/p' \
-> 		-e '/compar\>/p' \
-> 		-e '/qcmp/p' \
-> 		-e '/^}/{p;q}' \
-> 	| uniq;
-> 	static  int		(*qcmp)();		/* the comparison routine */
-> 	qsort(base, n, size, compar)
-> 		char	*base;
-> 		int	n;
-> 		int	size;
-> 		int	(*compar)();
-> 	{
-> 		qcmp =3D compar;
-> 			if (qcmp(j, lo) > 0)
-> 			while (qcmp(hi -=3D qsz, min) > 0)
-> 	}
+[...]
+
+> > +.SH NOTES
+> > +Delegations were designed to implement NFSv4 delegations for the Linux=
+ NFS server.
+
+Do we have a link to the NFSv4 specification of delegations?  It could
+be useful, I think.  What do you think?
+
+[...]
+
+> This all looks great to me. Did you need me to make any other changes?
+
+The only remaining doubt is the question above.
+
+> Thanks for doing the cleanup! FWIW:
+>=20
+> Reviewed-by: Jeff Layton <jlayton@kernel.org>
+
+You're welcome!  And thanks!  :-)
+
+
+Have a lovely day!
+Alex
 
 --=20
 <https://www.alejandro-colomar.es>
 
---kqwytpuebgllwyj6
+--pwiekixizj7yf3bc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlvikwACgkQ64mZXMKQ
-wqlNzg/6AvTYBrm8SdYl+TuSY8eyBx0faTXzAl2l706PpLv09XZXX4DAAS0kxUQx
-hrrmLbLAdIvrY+lP08/7634HJtSEsHx0Mn0O5PxvRQPbHXfiyv5zcGqGPMSMO1UF
-Hae8bpWoW0OmVt3TmsFsQiWOd0cdAnS168k/h4hgy4bENjCG97sYTWc/1Xu9pyDi
-8rGVZkrbsvBzSoj1WTb/RGurAjKJ+zDOQz/YaFXB7VOz0uSjQwFd8mjofA25bjvJ
-vwHWdjnt04bvVqFEEEVWN590pTZapWd9y7n5AzSQp8J7pfqsB4WcFXgb3qEYEOE1
-7FFZohrlBpit0bDrdNZrANDcuevxy5FB4KsKqmLxXbST2HiFnSIrVIg8sCsshrTB
-hQtvN4cF3RIoA0AUO6jGTPyN3lLzgBGgkaZ8bKp0qtJ77Og25iaKKFXlsyhokDgn
-EtU0N6Uzezh40+JUO10EBK4Fo7ag+6ocDbBxxacoMNMSRQvo2o/6YdIF9zMWMRe5
-PvyMsLFquClJnrsCyLxb7v1Dw543TkCdszGD5vXIVsH9hJSTkzpCNckZ53q4MazN
-vjAsqbLL5cNMKMEYkbXgyYFLw0zY+Canzf7oME69Iz18FjMZLQaSMNSdWHOJ8U7H
-ATZnvIWJQ7spCdlYfMlI3Yj4w680loTzGgQ6ygEaHjtoexnMdAI=
-=cz59
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlvm1cACgkQ64mZXMKQ
+wql+RQ//VVIwqqxU0sBVJTko2FgmsP7dS78xT/McXJHwCLs1AVVilwaIy2dFsOzX
+v4CMW0PVqzhxUyIwx3zv3v+uwSrYRMCPcBbcwW3Banz1odlQqtWThkWhTHwno5Xu
+/9U7o0X+JrGgpmafNlU3ihVGBGr6Khz3oQrxP0Nu85aKc0bOyXDeYXD5TskcjytT
+mN8jDbb0qocTqAMFJrn5f4ya+Fk7UKxiFiXJ24uNf+s1qdgszyiuwTvDNcWHqGOy
+gxO8ZoaHX+YqwKLJqtv1D4Pk1UoWRvlZ8S38zXOLtVsoImOI8fCzMZww0Nb1TTAI
+/uPd9/X4fv4puKHYWGfOypoGBteFlj3dzayWgF1pzRf03VZl3pIhBR/OCLYYPDaf
+MFWqnsGxUy5Mxx80wrZUwW3F/dh4uhUffQjfdlHbNqtR4XpAO12QKh+fVvBiYmw3
+uFUq1vo0RIuKoLQviiAsgUCUKyKnEUra4UVV1qk2kV8YZR+8Dn03GI2tCJtrgqtT
+bMp2VYrxjm0cdGtHM3y+STF07ThdYQpYabUuLTaqkDLUhhIfuH9c2wvcgu9MkQNw
+ZdukRuGjjsP5Cs3nyjYNrn5uJmSqtShxkt3TLn56vMI0QlMQJ/7NvQFqIGpekf61
+UbfGfmPsxTXdGJkub2vWgawf1WQw2ubO3E+mJXSkxEFkFpgolgQ=
+=xS8N
 -----END PGP SIGNATURE-----
 
---kqwytpuebgllwyj6--
+--pwiekixizj7yf3bc--
 
