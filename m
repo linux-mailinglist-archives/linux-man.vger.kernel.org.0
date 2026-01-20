@@ -1,129 +1,144 @@
-Return-Path: <linux-man+bounces-4853-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4854-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id A72FBD3A7B1
-	for <lists+linux-man@lfdr.de>; Mon, 19 Jan 2026 13:01:51 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2643D3BCCF
+	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 02:21:53 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 0CFA2303F7A1
-	for <lists+linux-man@lfdr.de>; Mon, 19 Jan 2026 11:58:49 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 266023004182
+	for <lists+linux-man@lfdr.de>; Tue, 20 Jan 2026 01:21:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E91331D380;
-	Mon, 19 Jan 2026 11:58:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC7561EFF93;
+	Tue, 20 Jan 2026 01:21:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="QoRC+m0g"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sohtG8xt"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE81D31D726
-	for <linux-man@vger.kernel.org>; Mon, 19 Jan 2026 11:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03A71D5CD1
+	for <linux-man@vger.kernel.org>; Tue, 20 Jan 2026 01:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768823928; cv=none; b=XjdI8Cf4Q9aOq3dGnTh0Onod+HeXBmi//9dy1LjmBxfOSOVcIbyDvRdja2vLOw/2L1MZb2RvgRbqBqECePj7IiWwzWeyjFy5m0aKZN2TMESZfH4piGaCezWtCeaje4Vld6r7AFBgCydrDiTmz5dWep2bVUkjAp7Ei5k2pNkr9l4=
+	t=1768872110; cv=none; b=b8yARmdu8SW8yXgjgHxXj2+nLHGHqo+j/j+YW05JlY2UCSqytGJBN5hPXQlTRjDqGS55DsboGy8lPe4rrgpWk43QP01nDcir43PZkIIZFt7KM71Ru7nvmTMadUhLU8PAvBAHsXi/H1aRCEozEUbzPjwkWCaaCQdyCj8dlkmQues=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768823928; c=relaxed/simple;
-	bh=eragYpbgBxaMs0gOsWmCsQz3df8xbU+5kvoqV8Uscuc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YS4VFCYuMCU+/MYLXhWQRNUs9gdhqma/mcYLIHSX9deU8IzEP8n+sD1RcJ5snn+/BcE9nbaJvim3MmORC4HLYfzBbhcit0Z3rP90068A5bUoq3Ebk73wzc4kcpzPb/Tsx0EbR10PHE7euGqC3V4ESnk/H4imqB2AkmGT+fhkbKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=QoRC+m0g; arc=none smtp.client-ip=79.135.106.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1768823918; x=1769083118;
-	bh=2HRXcdL/57CST1XYocOjqO7G1uEQNketXueUXGkpapw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QoRC+m0gCqI8Xqr9M++LCV5ab7ZV4Wr8cR9/ktVR4sluee+aYuvZqedPalSJWUPr0
-	 SdENQjVOUhh3/rh3kI98TjIPPVN0ZWL0hXVMy4dX/Gl2Kx1GmbAsiytFCW44CnnIq9
-	 e1uUht1YfsabN+/eoPKrCk+dCH8IVNXlMOQfKhSfUljH5N6sBfYagmK83tPAjKKWIF
-	 IIWG0YYSSJbFB3pRysqkjSnBtigePKLDvxlXmdrauYjr49wlE47iDjKdL2NSVcXMQP
-	 nUNroBA70OO6h+AuE2JGt8vSZuR1ZinfAHAc8ISibu6YJm9P44Ut9M68ZkUEeq1XUo
-	 tb79eZHGuGHTw==
-Date: Mon, 19 Jan 2026 11:58:35 +0000
-To: Alejandro Colomar <alx@kernel.org>
-From: Seth McDonald <sethmcmail@pm.me>
-Cc: Seth McDonald <sethmcmail@pm.me>, linux-man@vger.kernel.org
-Subject: [PATCH v1 19/19] man/man2/chroot.2: HISTORY: Update first SUS appearance of chroot(2)
-Message-ID: <fd08b4cf0a5260ec25eb26cc1a5f0b81d935e0ba.1768822707.git.sethmcmail@pm.me>
-In-Reply-To: <cover.1768822707.git.sethmcmail@pm.me>
-References: <cover.1768822707.git.sethmcmail@pm.me>
-Feedback-ID: 171233811:user:proton
-X-Pm-Message-ID: 88df9c92948cf68ef8d70d25266f8f182bb155c5
+	s=arc-20240116; t=1768872110; c=relaxed/simple;
+	bh=ojNpv0yG0ZabmDmX71VcZ3CHWOz0Xs/tDJq8YSpJfoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KGAsPiti/cZNy8InBT+tuYwsytKYJjgBkYCBaZXp9JT3TPrT3lraqRELBqNWAiZrdna0IvSFSC/zObdxwfIBLBFV7V0FEPL4E6vDFYPS9hNohQ/EyZWPjE8zjz+vGhMmuIqiG3aW+p/blOs/0dJqrwpzzr7zEeiv5vTcGRyNAE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sohtG8xt; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A883FC116C6;
+	Tue, 20 Jan 2026 01:21:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1768872110;
+	bh=ojNpv0yG0ZabmDmX71VcZ3CHWOz0Xs/tDJq8YSpJfoM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sohtG8xtRv0hl57hjMGPqBLq+IPheCYzS4+OLGPVUsV60D9BI6U5nBgiOiQHpRCeF
+	 ydCxeAA4rsHZSbja6GbQ51r7l+bFF0A1TaXHKdKnWtiNvIh3EpmxbY99ws506IXvkN
+	 KK1O01IbB6/JA+EfMVTrmPPLmSqpgMYgmsmWtQgUxZ0xu7ujhGJQY5FEoZfXN6VYzh
+	 jKJ6mK5YchuvLkvET2LhLLefAPXjAANV0aGrIjf9fnclPM1dMQpBj+85lQQOkPIsaK
+	 qB1Ghk+qhc+kKYcrTiYwI8tkY3qUYk0Oz9m0xk8dfu/wN7Ds78XhN6zkJwSrH7hbj4
+	 gTrD1EvJ5sTdg==
+Date: Tue, 20 Jan 2026 02:21:47 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1] man/man3type/time_t.3type: HISTORY: wfix
+Message-ID: <aW7YlhnV7E9TmnuW@devuan>
+References: <0e6949ff808556cd8632520603fb2c030b7a5215.1768804942.git.sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------d5bf066f7fe906ba934186bf32aa99924ea873f79ac646dd97bf845909ab87d0"; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="czqsel2lfx5pqzl3"
+Content-Disposition: inline
+In-Reply-To: <0e6949ff808556cd8632520603fb2c030b7a5215.1768804942.git.sethmcmail@pm.me>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------d5bf066f7fe906ba934186bf32aa99924ea873f79ac646dd97bf845909ab87d0
-Content-Type: text/plain; charset=UTF-8
+
+--czqsel2lfx5pqzl3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Seth McDonald <sethmcmail@pm.me>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Seth McDonald <sethmcmail@pm.me>,
-	linux-man@vger.kernel.org
-Subject: [PATCH v1 19/19] man/man2/chroot.2: HISTORY: Update first SUS appearance of chroot(2)
-Date: Mon, 19 Jan 2026 21:52:03 +1000
-Message-ID: <fd08b4cf0a5260ec25eb26cc1a5f0b81d935e0ba.1768822707.git.sethmcmail@pm.me>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1768822707.git.sethmcmail@pm.me>
-References: <cover.1768822707.git.sethmcmail@pm.me>
+From: Alejandro Colomar <alx@kernel.org>
+To: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v1] man/man3type/time_t.3type: HISTORY: wfix
+Message-ID: <aW7YlhnV7E9TmnuW@devuan>
+References: <0e6949ff808556cd8632520603fb2c030b7a5215.1768804942.git.sethmcmail@pm.me>
 MIME-Version: 1.0
+In-Reply-To: <0e6949ff808556cd8632520603fb2c030b7a5215.1768804942.git.sethmcmail@pm.me>
 
-chroot(2) first appeared in SUSv1 with the 'TO BE WITHDRAWN' marking.[1]
-It was given this marking because "[t]here is no portable use that an
-application could make of this interface."
+Hi Seth,
 
-[1] X/Open CAE Specification, System Interfaces and Headers Issue 4,
-Version 2, Chapter 3 "System Interfaces", pp. 88-89.
+On Mon, Jan 19, 2026 at 06:57:08AM +0000, Seth McDonald wrote:
+> There are two more lines which were part of the paragraph that the
+> listed commit removed.  On their own, they do not form a complete
+> sentence.  So remove the missed two lines.
+>=20
+> Fixes: b32b8934dd19 (2026-01-18; "man/man3type/time_t.3type: HISTORY: Rem=
+ove superfluous theoretical history")
+> Signed-off-by: Seth McDonald <sethmcmail@pm.me>
 
-Signed-off-by: Seth McDonald <sethmcmail@pm.me>
----
- man/man2/chroot.2 | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Oops!  Thanks!  I've applied the patch.
 
-diff --git a/man/man2/chroot.2 b/man/man2/chroot.2
-index 090a88f0c397..bcb8da39a231 100644
---- a/man/man2/chroot.2
-+++ b/man/man2/chroot.2
-@@ -135,7 +135,10 @@ .SH ERRORS
- .SH STANDARDS
- None.
- .SH HISTORY
--SVr4, 4.4BSD, SUSv2 (marked LEGACY).
-+SVr4,
-+4.4BSD,
-+SUSv1 (marked TO BE WITHDRAWN),
-+SUSv2 (marked LEGACY).
- This function is not part of POSIX.1-2001.
- .\" SVr4 documents additional EINTR, ENOLINK and EMULTIHOP error condition=
-s.
- .\" X/OPEN does not document EIO, ENOMEM or EFAULT error conditions.
+
+Have a lovely night!
+Alex
+
+> ---
+>  man/man3type/time_t.3type | 2 --
+>  1 file changed, 2 deletions(-)
+>=20
+> diff --git a/man/man3type/time_t.3type b/man/man3type/time_t.3type
+> index 18e8f7be0e4d..08eb4198501c 100644
+> --- a/man/man3type/time_t.3type
+> +++ b/man/man3type/time_t.3type
+> @@ -71,8 +71,6 @@ .SS Header files
+>  .I time_t
+>  since POSIX.1-2008.
+>  .SS time_t
+> -In POSIX.1-2001,
+> -.I time_t
+>  POSIX.1-2024 requires that the width of
+>  .I time_t
+>  is at least 64 bits;
+>=20
+> Range-diff against v0:
+> -:  ------------ > 1:  0e6949ff8085 man/man3type/time_t.3type: HISTORY: w=
+fix
+>=20
+> base-commit: 91fa6d909b1171bc2361b5b2192c11c8be06a7d1
+> --=20
+> 2.47.3
+>=20
+
+
+
 --=20
-2.47.3
+<https://www.alejandro-colomar.es>
 
-
---------d5bf066f7fe906ba934186bf32aa99924ea873f79ac646dd97bf845909ab87d0
+--czqsel2lfx5pqzl3
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
-Version: ProtonMail
 
-wqsEARYIAF0FgmluHGkJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcme1yjUcxYbahcsQftpdzC3xFiEEIzbo0v6xUwBp
-LGKpWDlq2JJD02kAABnuAP9PMoNbM3dk8+9k0kiRRnRuqy49ixEfopR2HTQG
-chm/1wD+Nsi1WxIbVUzyUQieyVgUpuhOgueCeBc1NrXrWUc8cAo=
-=EOBK
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlu2KsACgkQ64mZXMKQ
+wqkHoRAAlJLERYGhnRyVA0AUjqVD56e+ywbFJm4kr0qytn1uu3yZGFZdQ2XEeqrU
+DO9yhajVDj9UkuQ2ZrNNkpXTlkDW1P3KkNghO0nzpl1Ca6L/nf2aQznXNh5RRDCy
+qPsk/u2qro9wLACPNfn7ygxKE4TgW64Q5a/dJXpNMf4TGRhcjC7RT979BfhFfuye
+A21UAvXHHZ09aBW+BpR0+OCwTTIT3CO1DddnG9Y5ripczVxzIlf0hhQWuSA2/EOg
+6KkVjDUzwN+Z4yMCVjYzUKllZ1H/TMuQvqpLD2tQwv3cc7VuiJQSBKLtPAQNvBQ3
+DvnCuEDEvwKpDspeEwBiUFFrzfOp4FRhgtODn2v6ePOl2Bi3ev9Nr9xk8ExXmbtF
+AJJAvB2Vw5PRpzwZn8Hnv/kOMa+QQescwrW1wxfIQV6y+yGC7pFaHDI1o3PNGI3t
+yVm9YYuA8ljwPQveU3EvsrY3M52O2iQFoOebKWfCa5/z10KwcYeXUku1UPHEn0b5
+sscpeqcNAclY+dJpwvxiLn7+TcR6dyntFN+ZYdlbEXHeHc4iWhTd1NHBrNBpE4Qs
+5r2XtZbnVDuXqCWIYoJPqkdZiCPzlE5vatHe5R0mfmkwUiRxbcqp5pVK2NhqFdRy
+eoKyX3JAHPAYMSv8AotkLqSa2FW5MhBqsSt60GB/1gR+iekaP7g=
+=D4IX
 -----END PGP SIGNATURE-----
 
-
---------d5bf066f7fe906ba934186bf32aa99924ea873f79ac646dd97bf845909ab87d0--
-
+--czqsel2lfx5pqzl3--
 
