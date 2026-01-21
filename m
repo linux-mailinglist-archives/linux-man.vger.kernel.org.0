@@ -1,70 +1,70 @@
-Return-Path: <linux-man+bounces-4885-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4886-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id w4+DIWnCcGkNZwAAu9opvQ
-	(envelope-from <linux-man+bounces-4885-lists+linux-man=lfdr.de@vger.kernel.org>)
+	id KPADIGnCcGnzZgAAu9opvQ
+	(envelope-from <linux-man+bounces-4886-lists+linux-man=lfdr.de@vger.kernel.org>)
 	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 13:11:21 +0100
 X-Original-To: lists+linux-man@lfdr.de
 Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
-	by mail.lfdr.de (Postfix) with ESMTPS id 500B9568F9
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 13:11:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF03568F8
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 13:11:16 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 258E6467231
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id E58ED468619
 	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 12:08:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6AAD3ACA6B;
-	Wed, 21 Jan 2026 12:08:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D4323EF0DD;
+	Wed, 21 Jan 2026 12:08:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="l0d4MrSc"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Zgz0M8QH"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C2E363C4F
-	for <linux-man@vger.kernel.org>; Wed, 21 Jan 2026 12:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5933DA7F3
+	for <linux-man@vger.kernel.org>; Wed, 21 Jan 2026 12:08:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768997307; cv=none; b=d43IBEVTE9OHWk8UEVHmJR5NG1uRa2QpCs8AMHPM6RmyJ3M6zne+ErOMql4mJwWbXhB4bwcxMf6nodDyGxlb86VlCZEx/49hqKghMse9Y8qq+u0lLJADfkMHWa06unPwlqOo3MKoIu3vqq8sr2XV0n4OIjAYiAMroZ4r/p6Lp0U=
+	t=1768997311; cv=none; b=fcrcZqJj7tauLaV7pSbMU8Vx4vBuY0/MDtfowvqChSSAVxHenKQHiuw58W0sPQBh8nlRbGjRqbW2ywudXrTdPCB+ou9LnxNTFEoGvqLHA9Mxq7ocAwPHpaTUnfwEa7WJLpgyppflDpnpJIxc1U2fhRxTtD/Vd61skeRdowynT0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768997307; c=relaxed/simple;
-	bh=rHOEeyDG4RCi/EAWs+ISuZdNgEKO/BNCDCswEHFCmRg=;
+	s=arc-20240116; t=1768997311; c=relaxed/simple;
+	bh=FQpLA2v9deovxSK01tiSzBxXynZuVhheQz5PGpWl/Kg=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MYuUuZV+3qUTbl7OKDKonPnnYrot4ca3mbgv6XN0V2Wc9+fy5eaVXXoLu1Nc8jspvwVjBxwlcckFIF+XHeNqOb595PiW13hXKtITbCtsPbrACO9exUoADrTpWlU9wbr5WCHt5BgEzOxTMDjIcPgAuh3mApUxfqkrmRibhIoNLWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=l0d4MrSc; arc=none smtp.client-ip=185.70.43.16
+	 MIME-Version:Content-Type; b=Vh3X369FOYF6erc2Mt3wfam/ahuWdTDNhImhqxgMCu00H5pZ8KpLtgd40x8aj7WGFf6ct63n8E78VFlqFHku6FYOb/HXTOXJDduugsahdkIBUxRlkAhiUsOUXa7wom0G1lXpjq4h+XTdgzWQaAW7WWxBM4BXWeVsD4bdHkRfqDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Zgz0M8QH; arc=none smtp.client-ip=185.70.43.103
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1768997304; x=1769256504;
-	bh=O9beHd9Qd+3Wu0BuyTgPKrmkmFYAEfcW+p280AD0TwQ=;
+	s=protonmail3; t=1768997307; x=1769256507;
+	bh=FQpLA2v9deovxSK01tiSzBxXynZuVhheQz5PGpWl/Kg=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=l0d4MrScLzz+94Fwr0duZGbvWL8/e/01o6c8e8b/qtnyy5pB4VwtW1pOj8ib6tPFY
-	 qPPCkjgcMeW+zR/apkZrCk+jQhqxljyRzVCaC9R+mnzi8xqw+AIwYnJ3rbxVpTQFE7
-	 MrgXKegBe3nlpGixPgRhafRSlSsAWA+w0J268ugzvU1wgEclQMMz6z1OOsa7tCkhQZ
-	 EsDWEN1vx/Cteuwnob57++kEEhe5cemaB29YeSGDiD0iPTheLPZDRFPcUHvmm7pKYZ
-	 HCNjtHDvh9iEpm99gKFtpQmQCtxbZHt9JkT5FmbyDh9h4WFaCn5XrDid09BxpMMSW/
-	 F3fFw65d+VjaA==
-Date: Wed, 21 Jan 2026 12:08:19 +0000
+	b=Zgz0M8QH9wuP83gZX+LhCOlQMJIiwlNcbUE5Ro22UAE89zWK6oV+ip9Zqw32k5HrB
+	 yncCBykWvYunBfmz2mWjppKXAx2uSI+RFibT+79npahrf8nq2mSWRhqNiOSfgkiooA
+	 XjD5z6nZ850fuIp1GCCcandwjAQT1fxfgFHEXCamBJGW3fnebDiBZHPE3wHMnvWr1b
+	 QU/xAfjv2W/VEDh2EwojYb3Ebb2CCHB0op45/tveYuW2YK2QG/cITx4X/VnA/G29dR
+	 iZuNUuEZMOsOaT70zSM9yM2xkdUeHFI5/w7ihfDC1HNdIw8iX3u5v5oi/J8o0NxY22
+	 VUAqDMhrtjH5A==
+Date: Wed, 21 Jan 2026 12:08:24 +0000
 To: Alejandro Colomar <alx@kernel.org>
 From: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH v1 18/23] man/man2/getpriority.2: HISTORY: Update first POSIX appearance of [gs]etpriority(2)
-Message-ID: <d5e7adf0a8040b165906b50ee93edbd43a7c24ab.1768995315.git.sethmcmail@pm.me>
+Subject: [PATCH v1 19/23] man/man2/getresuid.2: HISTORY: Update first POSIX appearance of getres[gu]id(2)
+Message-ID: <b5a7de01af52fe01951c2b63d364b5636185a479.1768995315.git.sethmcmail@pm.me>
 In-Reply-To: <cover.1768995315.git.sethmcmail@pm.me>
 References: <cover.1768995315.git.sethmcmail@pm.me>
 Feedback-ID: 171233811:user:proton
-X-Pm-Message-ID: f77cc367ab6e180cc50151005dec7b9ac052779a
+X-Pm-Message-ID: e063c442656c67e4fbe3fb8297973ef7f339b8ca
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------88ae65da73605cfafcd01affb6da5ad0368c827a65c503b1ecb576e767b7ebce"; charset=utf-8
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------d24292f4955ac8cf3c4c648d46eb19b95920ba9042ef92766ac890b005f8bd89"; charset=utf-8
 X-Spamd-Result: default: False [-3.06 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	MID_CONTAINS_FROM(1.00)[];
@@ -75,7 +75,7 @@ X-Spamd-Result: default: False [-3.06 / 15.00];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-4885-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-4886-lists,linux-man=lfdr.de];
 	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
 	RCVD_COUNT_THREE(0.00)[3];
@@ -93,63 +93,59 @@ X-Spamd-Result: default: False [-3.06 / 15.00];
 	ASN(0.00)[asn:7979, ipnet:213.196.21.0/24, country:US];
 	TO_DN_SOME(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[opengroup.org:url,pm.me:email,pm.me:dkim,pm.me:mid,ams.mirrors.kernel.org:rdns,ams.mirrors.kernel.org:helo]
-X-Rspamd-Queue-Id: 500B9568F9
+X-Rspamd-Queue-Id: 8DF03568F8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------88ae65da73605cfafcd01affb6da5ad0368c827a65c503b1ecb576e767b7ebce
+--------d24292f4955ac8cf3c4c648d46eb19b95920ba9042ef92766ac890b005f8bd89
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 From: Seth McDonald <sethmcmail@pm.me>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH v1 18/23] man/man2/getpriority.2: HISTORY: Update first POSIX appearance of [gs]etpriority(2)
-Date: Wed, 21 Jan 2026 22:05:53 +1000
-Message-ID: <d5e7adf0a8040b165906b50ee93edbd43a7c24ab.1768995315.git.sethmcmail@pm.me>
+Subject: [PATCH v1 19/23] man/man2/getresuid.2: HISTORY: Update first POSIX appearance of getres[gu]id(2)
+Date: Wed, 21 Jan 2026 22:05:54 +1000
+Message-ID: <b5a7de01af52fe01951c2b63d364b5636185a479.1768995315.git.sethmcmail@pm.me>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1768995315.git.sethmcmail@pm.me>
 References: <cover.1768995315.git.sethmcmail@pm.me>
 MIME-Version: 1.0
 
-getpriority(2) and setpriority(2) first appeared in SUSv1.[1]  The
-functions were added to POSIX.1-2001 when POSIX and SUS merged, but as
-an XSI extension (still SUS-only).[2]
+getresgid(2) and getresuid(2) first appeared in POSIX.1-2024 as an XSI
+extension.[1][2]
 
-[1] X/Open CAE Specification, System Interfaces and Headers Issue 4,
-Version 2, Chapter 3 "System Interfaces", pp. 262-263.
-[2] IEEE Std 1003.1-2001, Volume 2, Chapter 3 "System Interfaces", pp.
-540-542.
-<https://pubs.opengroup.org/onlinepubs/009604499/functions/getpriority.html=
->
+[1] IEEE Std 1003.1-2024, Volume 2, Chapter 3 "System Interfaces", p.
+1174.
+<https://pubs.opengroup.org/onlinepubs/9799919799/functions/getresgid.html>
+[2] IEEE Std 1003.1-2024, Volume 2, Chapter 3 "System Interfaces", p.
+1175.
+<https://pubs.opengroup.org/onlinepubs/9799919799/functions/getresuid.html>
 
 Signed-off-by: Seth McDonald <sethmcmail@pm.me>
 ---
- man/man2/getpriority.2 | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ man/man2/getresuid.2 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man/man2/getpriority.2 b/man/man2/getpriority.2
-index 63509ee35216..aa76c1dad8fb 100644
---- a/man/man2/getpriority.2
-+++ b/man/man2/getpriority.2
-@@ -139,8 +139,10 @@ .SH ERRORS
- .SH STANDARDS
- POSIX.1-2024.
+diff --git a/man/man2/getresuid.2 b/man/man2/getresuid.2
+index 8286f36fb402..10a21dbcb5a2 100644
+--- a/man/man2/getresuid.2
++++ b/man/man2/getresuid.2
+@@ -42,7 +42,8 @@ .SH STANDARDS
+ These calls also appear on HP-UX and some of the BSDs.
  .SH HISTORY
--POSIX.1-2001,
--SVr4, 4.4BSD (these interfaces first appeared in 4.2BSD).
-+SVr4,
-+4.4BSD (first appeared in 4.2BSD),
-+SUSv1,
-+POSIX.1-2001 XSI.
+ Linux 2.1.44,
+-glibc 2.3.2.
++glibc 2.3.2,
++POSIX.1-2024 XSI.
  .P
- The details on the condition for
- .B EPERM
+ The original Linux
+ .BR getresuid ()
 --=20
 2.47.3
 
 
---------88ae65da73605cfafcd01affb6da5ad0368c827a65c503b1ecb576e767b7ebce
+--------d24292f4955ac8cf3c4c648d46eb19b95920ba9042ef92766ac890b005f8bd89
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -157,14 +153,14 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: ProtonMail
 
-wqsEARYIAF0FgmlwwbIJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcme9wzOTthiYuJ6NLlzL35a1FiEEIzbo0v6xUwBp
-LGKpWDlq2JJD02kAAIt8AP9pDxw1HzpFeq1kle2rW4ppMRI/A1e/+83sDnbI
-8GtmfAEAqDRMOoqW0EjLQRSz2IiFlrIfpAGJ0hcN9lUmyt+6pA4=
-=Yjnw
+wqsEARYIAF0FgmlwwbcJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmf4YnOAtwjURsCo31AEDChmFiEEIzbo0v6xUwBp
+LGKpWDlq2JJD02kAAPlNAQCQ+K2Uz8jXQBK0hZI/MjbMeRhxhXIcZ1juWt80
+fkwTYwD/VGN3RDGB4+gn0oo5IdI+38UbEoN0jCISL4yUHL1zaAE=
+=3Zld
 -----END PGP SIGNATURE-----
 
 
---------88ae65da73605cfafcd01affb6da5ad0368c827a65c503b1ecb576e767b7ebce--
+--------d24292f4955ac8cf3c4c648d46eb19b95920ba9042ef92766ac890b005f8bd89--
 
 
