@@ -1,86 +1,82 @@
-Return-Path: <linux-man+bounces-4865-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4866-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8DpeOnRucGkVXwAAu9opvQ
-	(envelope-from <linux-man+bounces-4865-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 07:13:08 +0100
+	id yGkQIle7cGmWZQAAu9opvQ
+	(envelope-from <linux-man+bounces-4866-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 12:41:11 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97A0151ECA
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 07:13:08 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 083E75624E
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 12:41:11 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 193D546740B
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 06:13:08 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 5B50D92C774
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 11:17:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11AF243CEEE;
-	Wed, 21 Jan 2026 06:13:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C29944BCBC;
+	Wed, 21 Jan 2026 11:14:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="EyP17R6L"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="OlgOdp00"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD48426EAB
-	for <linux-man@vger.kernel.org>; Wed, 21 Jan 2026 06:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A504657E9
+	for <linux-man@vger.kernel.org>; Wed, 21 Jan 2026 11:14:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768975980; cv=none; b=ZiO1UdpZ0TovryFraLKBZdkFRJ1aCad7Zt+Mtkw1Eom2PCjIM1q4okPB/TJorI6UbTl8TdrxUgl2PDl8GF8oqcSfVDkxC8P1Sn6+VbpFwrTLNwWDo+7ejwXvHa/jpAJVNjbpyM3Cam+2Dq6VJ58PRfPexObLJjgxRbH+lxXxKCQ=
+	t=1768994090; cv=none; b=ogpMB3wzFUsYf2RIhWY1TX6u59A/UTT9dhIGSZpRDSxZ3oTY8vstG+Z2jm1kBxcHFP2XAKuV2WtO1IHTutKGbNHxcqVLO7O9CY1xIsRzckLqJZF4rN9rNvsPnB+p8C2CDfl+Pq4MqWgEj5KjsPJDzAL6xIwdynSwVY+9ziKMzXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768975980; c=relaxed/simple;
-	bh=xoREvrXa9PIzH2pyTpcLLesmtk3q6wyTYxsLwxN35KA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y2nwah6NVIJIOB5tvXYlg6qufkyI6X2gCfJdbYR3eYKzI2toGD/ntM0jL8EIuXSQBt+UcUAK1AidML8rZ9P1U2EZ2kcjRJ9zLbiSVi+6Hi7scOcSU1iVrZ5QzyrqdEkS1CS+LxXs+JVe59tLQg4MSbvEC5fyUczebTsJ0XZwSYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=EyP17R6L; arc=none smtp.client-ip=109.224.244.16
+	s=arc-20240116; t=1768994090; c=relaxed/simple;
+	bh=89AHs+kNCuZ9bBI0tHU9czuhsfhboVNJ8TbZLcqoz0c=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=LZVeA0cXuDLXruT9Ea0ljIvJ33yk2qXlSTVCzPG9ogcWS6h2wfMKj2ARrwB+Fxyo9umPp4Zlq6n4mnhHlUbwUqpilxZtstXPft7bwLJCcchmUl922ypFNWssnT5R6wDCX90PksuqWpLGaOS5yrMA3XYF0R74VXnOwO3x9vx9uhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=OlgOdp00; arc=none smtp.client-ip=79.135.106.31
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1768975969; x=1769235169;
-	bh=8VTFof0YCNt7Lu+COSxspF061Cdl0UG/KS198KLbiZg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=EyP17R6LxEG6WWVv+BV6D6ewB6J8/jxN6P3GTeuQ5CZM9rjPFPJta5490797wngjK
-	 NDk5NVZ42aXrK+OK1dSOWe3OlXro/cXTtJ7z5xGoFIYQUROlNyDDveD/qHgKmIWKai
-	 HWM5nk0tFf99hxF12Bxgt99PYO27AeA+H1w3NW4pTBmgKYka/ZtqlQIreOHGIlF81/
-	 BEvMmGj2N6xXlf1kajdkchFhgA4Riw5X8nywL1QE1453mehVhM1MQZtjXto86h4sJb
-	 hMVZ4BTR83L4lLULm/59/H/JCxRZ67KTa0iZ58595cXSp14A6fINe+A4jDdhjeMkSf
-	 evgESW3Ig9iyg==
-Date: Wed, 21 Jan 2026 06:12:45 +0000
+	s=protonmail3; t=1768994080; x=1769253280;
+	bh=qj0JmcK/ZoL2Xg/mc9BA2SrBrG5cFXfRZsXCPjkR6w8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=OlgOdp00ReOWb9n2X88OL7UGX17j05KPBX+ZhE6/Ck2XrdHfTuple0C/qKZaGxywH
+	 lEZFRRgsq3zSNmHShdmoRLz6GskZfBpcvlJt99u2ILWTlOouB93lj7lvCoqT27vkHb
+	 AoKKl05O3HzhyBTVsTj806ZSiubLk6RHvJT+tAN2c/7TFl8NT4lEH9WAALShi6fyPa
+	 SmTXBvUA9I+XBGY9ytnuQWJNSDQCGcZ2Y7VGFi0LcjEYCppHFXz7rhccMhA00pU3O9
+	 1ccvDVKC2jNDXq45qMPQpD1w71NbYwGHf7K6NHVwdcFDXcK+vgmEfeO1OPrUQ+s4yo
+	 0nCL7J294pDBg==
+Date: Wed, 21 Jan 2026 11:14:34 +0000
 To: Alejandro Colomar <alx@kernel.org>
 From: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: History of const in C++, C89, and POSIX.1-1988 (was: [PATCH v1 02/19] man/man2/access.2: HISTORY: Specify different)
-Message-ID: <aXBuVeyTXLZ67TmH@McDaDebianPC>
-In-Reply-To: <aW96GgzoYUurH5FS@devuan>
-References: <cover.1768822707.git.sethmcmail@pm.me> <d87c7800e0f556efefaf5972294fb6a149bf02d1.1768822707.git.sethmcmail@pm.me> <aW7aOgFHOdCSiwUH@devuan> <aW9xYhsFpNxlo3C5@McDaDebianPC> <aW96GgzoYUurH5FS@devuan>
+Subject: Re: [PATCH v1 00/19] man/man2/*: Update history of syscalls A-CH
+Message-ID: <35lZsvMN8xE1C1VDR8Qwz4lNsKFkEYnumVqGPHg7F6k0_GLk6Oqnz9-k9owiHRCszhZCqwDE9BFR73d3nCqawQ==@protonmail.internalid>
 Feedback-ID: 171233811:user:proton
-X-Pm-Message-ID: a139bb05445a7c0205f798e0cfc016ead16a4711
+X-Pm-Message-ID: 9555f4020e5d9ebf4f86c9ba4d7e79f2cdc04dc3
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------619155c734a7526646c12fae16591be6c37f31b62a8525cc5b91387ff8c82ca2"; charset=utf-8
-X-Spamd-Result: default: False [-3.56 / 15.00];
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------c5f3422f73b7c4a0bbd1a25bfc25701e5e944bb96cb288856389a89a9fd1e247"; charset=utf-8
+X-Spamd-Result: default: False [-3.06 / 15.00];
 	SIGNED_PGP(-2.00)[];
+	FAKE_REPLY(1.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	R_DKIM_ALLOW(-0.20)[pm.me:s=protonmail3];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	TAGGED_FROM(0.00)[bounces-4865-lists,linux-man=lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-4866-lists,linux-man=lfdr.de];
 	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	DMARC_POLICY_ALLOW(0.00)[pm.me,quarantine];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[pm.me:+];
@@ -90,143 +86,110 @@ X-Spamd-Result: default: False [-3.56 / 15.00];
 	HAS_ATTACHMENT(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
 	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:7979, ipnet:213.196.21.0/24, country:US];
+	ASN(0.00)[asn:7979, ipnet:142.0.200.0/24, country:US];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ams.mirrors.kernel.org:rdns,ams.mirrors.kernel.org:helo,devuan:email]
-X-Rspamd-Queue-Id: 97A0151ECA
+	DBL_BLOCKED_OPENRESOLVER(0.00)[dfw.mirrors.kernel.org:rdns,dfw.mirrors.kernel.org:helo,pm.me:dkim,protonmail.internalid:mid]
+X-Rspamd-Queue-Id: 083E75624E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------619155c734a7526646c12fae16591be6c37f31b62a8525cc5b91387ff8c82ca2
+--------c5f3422f73b7c4a0bbd1a25bfc25701e5e944bb96cb288856389a89a9fd1e247
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Jan 2026 16:12:37 +1000
+Date: Wed, 21 Jan 2026 21:14:27 +1000
 From: Seth McDonald <sethmcmail@pm.me>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: History of const in C++, C89, and POSIX.1-1988 (was: [PATCH v1
- 02/19] man/man2/access.2: HISTORY: Specify different)
-Message-ID: <aXBuVeyTXLZ67TmH@McDaDebianPC>
+Subject: Re: [PATCH v1 00/19] man/man2/*: Update history of syscalls A-CH
+Message-ID: <35lZsvMN8xE1C1VDR8Qwz4lNsKFkEYnumVqGPHg7F6k0_GLk6Oqnz9-k9owiHRCszhZCqwDE9BFR73d3nCqawQ==@protonmail.internalid>
 Mail-Followup-To: Seth McDonald <sethmcmail@pm.me>,
 	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-References: <cover.1768822707.git.sethmcmail@pm.me>
- <d87c7800e0f556efefaf5972294fb6a149bf02d1.1768822707.git.sethmcmail@pm.me>
- <aW7aOgFHOdCSiwUH@devuan>
- <aW9xYhsFpNxlo3C5@McDaDebianPC>
- <w91s4TOinHPzD01SQoSj-uHbODY8O7XgARi5LXX1HCkUrS1nPf_UX6FD-1bF-_VxuEZSfQWk3cRX4mZdr9C5GA==@protonmail.internalid>
- <aW96GgzoYUurH5FS@devuan>
+References: <35lZsvMN8xE1C1VDR8Qwz4lNsKFkEYnumVqGPHg7F6k0_GLk6Oqnz9-k9owiHRCszhZCqwDE9BFR73d3nCqawQ==@protonmail.internalid>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aW96GgzoYUurH5FS@devuan>
+X-Pm-Gluon-Id: 7c251d09-5357-43c8-bea3-535d41ed17d6
+X-Pm-Date: Wed, 21 Jan 2026 04:33:15 +0000
+X-Pm-Internal-Id: 35lZsvMN8xE1C1VDR8Qwz4lNsKFkEYnumVqGPHg7F6k0_GLk6Oqnz9-k9owiHRCszhZCqwDE9BFR73d3nCqawQ==
+X-Pm-Content-Encryption: end-to-end
+X-Pm-Origin: internal
 User-Agent: Mutt/2.2.13 (2024-03-09)
 
 Hi Alex,
 
-On Tue, Jan 20, 2026 at 02:52:22PM +0100, Alejandro Colomar wrote:
+On Tue, Jan 20, 2026 at 02:50:22AM +0100, Alejandro Colomar wrote:
 > Hi Seth,
 > 
-> On Tue, Jan 20, 2026 at 12:13:32PM +0000, Seth McDonald wrote:
+> On Mon, Jan 19, 2026 at 11:54:29AM +0000, Seth McDonald wrote:
 [...]
-> > This is just me thinking out loud here.  I don't mind if the answer
-> > isn't known.  Although if the answer is relevant/broad enough, it may be
-> > useful to mention it in standards(7).
+> > And on another note, I think I've found a way to stop Proton Mail from
+> > corrupting patches.  So my patches should henceforth all be PGP-signed,
+> > assuming my workaround is sufficient.
 > 
-> We might need a qualifiers(7) manual page.  Especially, once their rules
-> are modified in ISO C2y.  Alternatively, we may need a new section
-> man3qual, with an intro(3qual) page talking about this, and then
-> const(3qual) and volatile(3qual) to document the usual qualifiers, plus
-> a restrict(3qual) documenting how irremediably broken that monster is,
-> and _Atomic(3qual) also documenting that qualifier (which I never really
-> understood well, and from what the committee is talking now, they don't
-> seem to like it either).
+> Yup; that worked!  All patches were correctly signed, and none were
+> corrupted (or at least I didn't notice).  Out of curiosity, what was the
+> workaround?
 
-I'd be down for a qualifiers(7) man page.  Don't know about a whole
-man3qual section though.  Unlike library functions (man3), constants
-(man3const), or types (man3type), which are all provided by GNU/Linux,
-qualifiers are a built-in language feature of C.  One could argue that
-GCC 'provides' them, but I don't think that means they should be
-documented as if they're a feature of GNU/Linux.  Documenting them in
-the miscellaneous man7 instead conveys how they're important enough to
-document and are related to GNU/Linux, without implying that they're
-part of/provided by GNU/Linux (like other man3* sections).
+tl;dr: The solution was surprisingly simple: just always use
+quoted-printable or base64 for the email's transfer encoding.
 
-Btw, I'm curious as to why you say the restrict qualifier is broken.
-I'm yet to encounter much trouble with it, so I'd be interested in its
-flaws.
+Because I did not want to associate my Gmail address with my PGP key(s)
+(I very rarely use it), I spent a good while trying to figure out why
+Proton Mail was corrupting my patches.  And specifically, I continually
+experimented with different patches to see if I could predict exactly
+when and where any corruption would occur (scientific method ftw!).
 
-[...]
-> > It's important to note that since the type 'const char*' is a pointer to
-> > a const char, rather than a const pointer to a char, the type is
-> > incompatible with its non-const counterpart.  That is, 'const char*' and
-> > 'char*' are technically incompatible datatypes.
-> > 
-> > This can be seen by attempting to compile the following C program:
-[...]
-> > On GCC at least, you should get an incompatible-pointer-types error.
-> > 
-> > Now imagine an old program that was built to be compatible with
-> > specifically POSIX.1-1988, and which liked to use function pointers a
-> > little too much.  If it happened to use function pointers to functions
-> > whose parameters weren't const-qualified in POSIX.1-1988, but were in
-> > later versions, then it (to my understanding) cannot be linked to an
-> > implementation of a later POSIX version without either errors or the
-> > possibility of undefined behaviour.
-[...]
-> 
-> I suspect back then this was not a big problem.
-> 
-> Function prototypes were also invented by C89 (although it seems to have
-> been invented in an earlier draft than const, by the fact that
-> POSIX.1-1988 has prototypes but not const).
-> 
-> Before function prototypes, functions were declared as
-> 
-> 	int f();
-> 
-> and function pointers were declared as
-> 
-> 	int (*fp)();
-> 
-> For example, here's how qsort(3) was implemented in 4.3BSD (1986):
-> 
-> 	alx@devuan:~/src/unix/unix/4.3BSD$ cat ./usr/src/lib/libc/gen/qsort.c \
-> 	| sed -n \
-> 		-e '/^qsort/,/^{/p' \
-> 		-e '/compar\>/p' \
-> 		-e '/qcmp/p' \
-> 		-e '/^}/{p;q}' \
-> 	| uniq;
-> 	static  int		(*qcmp)();		/* the comparison routine */
-> 	qsort(base, n, size, compar)
-> 		char	*base;
-> 		int	n;
-> 		int	size;
-> 		int	(*compar)();
-> 	{
-> 		qcmp = compar;
-> 			if (qcmp(j, lo) > 0)
-> 			while (qcmp(hi -= qsz, min) > 0)
-> 	}
-> 
-> Even though in 1988 function prototypes already existed, I expect code
-> didn't start using them quickly, and thus no real incompatibilities
-> existed.
-> 
-> About when function prototypes were introduced...  POSIX.1-1988 already
-> uses them, and SVID Issue 2 (~1986) doesn't, so it was somewhere between
-> those years.
+This included trying out different combinations of options for
+git-send-email(1), including those which I previously had no
+understanding of.  And I eventually found that, given the same email,
+executing git-send-email(1) with the --transfer-encoding option set to
+'7bit' or '8bit' would produce the same corrupted patch, but with it set
+to 'quoted-printable' or 'base64' the patch would remain intact.
 
-So if I understand correctly, because function prototypes were first
-specified in C89, programs written about 1988-1990 for compatability
-with POSIX.1-1988 likely didn't use function pointers in the way my
-example did.  In that case, I would agree that this change from 'char*'
-to 'const char*' is too inconsequential to document here.
+I also found that the mangling was deterministic.  The same email is
+always mangled the same way.  And the mangling always occurs via the
+insertion of line breaks into the email contents.
 
-But I do still find it an interesting clue as to how these different
-standards developed in tandem with one another.  Perhaps we could
-still consider noting it in standards(7)?  Since that page already
-documents how some systems/standards influenced each other in their
-historical development.
+Not only that, but (and this is the weirdest part) if we treat line
+breaks as two characters (i.e. as CRLF), then every line break is
+inserted exactly every 1000 characters.  If you go back to the first
+corrupted patch I sent in and count from the start of the text/plain
+contents, you should find two out-of-place line breaks both 1000
+characters apart (again, counting line breaks as two characters).
+
+After doing some research with this information, my guess as to what's
+happening is Proton Mail is getting an email from an external source,
+and checking it to ensure it conforms to the semantics of the specified
+content transfer encoding.  Including that lines are no longer than 998
+characters and line breaks use CRLF when using 7bit or 8bit encodings.
+But may not correctly reset its line length/character count to zero when
+encountering an LF and changing it to CRLF.  And so thinks that the
+email is one giant line, and inserts line breaks every 1000 characters
+to "fix" it.
+
+This is just a guess though.  And regardless of the actual cause, I've
+reported the bug with this information (and more) to Proton.  So
+hopefully it'll be fixed sometime.
+
+> And how did you sign the patches?  Was it with neomutt(1)?  
+
+The way I set up my email workflow is with Proton Mail Bridge, which
+creates a local SMTP server I can use to send emails via mutt(1),
+git-send-email(1), etc.  I have it configured to by default sign all
+emails I send with the corresponding PGP key.  That way, any email I
+send with mutt(1) or git-send-email(1) should be automatically signed.
+
+Now, yes, I am aware that a third party (Proton) having access to an
+(encrypted w/ my password) store of the private key I use can arguably
+defeat the purpose of using PGP.  After all, only *I* should ever have
+access to it.  And in principle I 100% agree.  But since my personal
+threat model currently doesn't include being a state target, I don't
+see the need to change my workflow.  (But who knows, seeing how the US
+is currently going, I may be compelled to change that...)
+
+Besides, I also have a separate PGP key I keep *only* on a physical
+security key which I use for most non-email situations.  Such as
+encrypting documents and signing commits.  If I ever need extra
+assurance for authenticity or encryption, this is the key I use.
 
 -- 
 Take care,
@@ -236,7 +199,7 @@ On-list:  2336 E8D2 FEB1 5300 692C  62A9 5839 6AD8 9243 D369
 Off-list: 82B9 620E 53D0 A1AE 2D69  6111 C267 B002 0A90 0289
 
 
---------619155c734a7526646c12fae16591be6c37f31b62a8525cc5b91387ff8c82ca2
+--------c5f3422f73b7c4a0bbd1a25bfc25701e5e944bb96cb288856389a89a9fd1e247
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -244,14 +207,14 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: ProtonMail
 
-wqsEARYIAF0FgmlwblsJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmfQ6jcdMw67Qhl67LS94TYVFiEEIzbo0v6xUwBp
-LGKpWDlq2JJD02kAALg4AP9rYdaWlo0fCA/u4jBjcnGwNkQg+RzND6Y6weMJ
-8+USewD/Reiquo0dlIeGKGvdysPi/W4IOrWN5NXCTjCy3eIm0Qw=
-=QIZ6
+wqsEARYIAF0FgmlwtRoJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdxxPT2++K2dZV35EHiiw5xFiEEIzbo0v6xUwBp
+LGKpWDlq2JJD02kAANo5AQCbbEb+odhAlAb8BiTbSLzSXPtiN1b91/UgzPDn
+rZKP0gEA98v2+1waOUVz4oiBdV3CwzWmsp45HqQ/4mSPiDQkAgY=
+=l5av
 -----END PGP SIGNATURE-----
 
 
---------619155c734a7526646c12fae16591be6c37f31b62a8525cc5b91387ff8c82ca2--
+--------c5f3422f73b7c4a0bbd1a25bfc25701e5e944bb96cb288856389a89a9fd1e247--
 
 
