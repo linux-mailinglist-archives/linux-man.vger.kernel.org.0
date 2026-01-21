@@ -1,57 +1,58 @@
-Return-Path: <linux-man+bounces-4891-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4892-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sAGZI0ztcGk+awAAu9opvQ
-	(envelope-from <linux-man+bounces-4891-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 16:14:20 +0100
+	id sPIoAmf6cGmgbAAAu9opvQ
+	(envelope-from <linux-man+bounces-4892-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 17:10:15 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F012559006
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 16:14:19 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BBAE59B61
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 17:10:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 9D9C0A43EB2
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 14:54:01 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 928B4A05A18
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 14:54:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E74848B373;
-	Wed, 21 Jan 2026 14:41:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C5FA47D951;
+	Wed, 21 Jan 2026 14:44:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXtgvSPP"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZIygLg1K"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9E949553F
-	for <linux-man@vger.kernel.org>; Wed, 21 Jan 2026 14:41:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C000C2D3225
+	for <linux-man@vger.kernel.org>; Wed, 21 Jan 2026 14:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769006518; cv=none; b=qGT8FhEi35XOUW/XW82IlQ8SBGkKJTeuPMz1gnn0c/MDb6O4ApGYqvg2yXqR3mOJk7Ajgmp8Yh1IckNF3lDFqYDWTLleWD7KpUucRZCiuq/g3K2WCCWwLItso+rl07LZjH3TpIuPluSehDOFY+q3La8p7oDTY7hP5y74xRbWf8Q=
+	t=1769006679; cv=none; b=oNvpMGIkfgIKSt3qkeq02DXFNw0+80qNwsNqs0wwIRBUteLu5YvTYATJANN6j0xgZfXqXeGR4Re0Tetffpv12k+k8WSvX2OoY+4OSsRzpFostuIRMlhThIOZa157bJMPv8daVe1bGUbI9J/gdKRYNuJilgPACL5pG6LveBuozjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769006518; c=relaxed/simple;
-	bh=appWuqNGY/GFbMzEFna0fxnURwnEA2v01s1eaBx3L8g=;
+	s=arc-20240116; t=1769006679; c=relaxed/simple;
+	bh=ogedk8T9yLeYVPe0VwQEOM8d4845NSBItrd0idZKCTo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TKIqdt380ho2OgpB5ZSZaGq/U2QVIhJ2J8Y9sXHxJ+sAeB/vr6/l0AORg8Bjz6Es9r6ePBfwuQ0/niYqWjUq+K4zIaVtsVGcVl0PuzZktan7Lgi7xSJnxHFcNHVT5qgVqPaM3jEw5pthPhGgTXTDjdwDwH0gLa6VxIF11AXRBv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXtgvSPP; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA59DC4CEF1;
-	Wed, 21 Jan 2026 14:41:56 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=d8NNUNBDdG4l0/ZMMOojVBTFoEm7gTWPQZ1glxMhnNWK6XQBRCwcRF1Whmezuk9zHgZptbdkIyFsM/KtZH0GpiUvEKfsnKyNO9bo3S7tcGGJ8pRERXUOC4tA5mcGRToxEkdBNI2njWUFpySRyDK+P1hfzryKJGEVR/FZTAXATCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZIygLg1K; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB529C2BC9E;
+	Wed, 21 Jan 2026 14:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1769006517;
-	bh=appWuqNGY/GFbMzEFna0fxnURwnEA2v01s1eaBx3L8g=;
+	s=k20201202; t=1769006679;
+	bh=ogedk8T9yLeYVPe0VwQEOM8d4845NSBItrd0idZKCTo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YXtgvSPPIi546hHoeOs7hTupgi5vJNbSSXBp2I76gbt7q0DRlyAUtMZ/f2PZz/YFi
-	 hi5BQXWQBpWiYygbGFucQRANsUQXn5YFm4bvlrL9beGmEWVRVgg93kIK8piQnFB7rc
-	 FgIH0W13LgQ1Gbqq7VMfUTFFqi4Ema5+dFfpokYlC6sQK0Ac4pkykc3XJxJNNQZM0k
-	 y/+ab844JgCFmryTYsXAlE15DsP6+lfWnNBn2ZobuSclceFQlm7vf8SaXJmHGub2nr
-	 FtSXvLOzS39GK3skXudQ/BNIlPJTGp2gUzgo6yZS3Uns4pzjux3fBIxUvOFTk6RwNh
-	 juUHsZ6DwsETw==
-Date: Wed, 21 Jan 2026 15:41:54 +0100
+	b=ZIygLg1KmiGrL50wigp/tqNeFEvuWtmLuZZY9K3wA/xR9Rt6RNcb8gUOqZhRQq+CL
+	 qNSdaeZ/JxRDYoSrETcJz87jC+I3GsLsAcJbcNOpRoMscrZ2kfa/aDDAO+CFoGm9sC
+	 35kp2QBchYbLj7ASsEwaa96pjnDmuwY9h2wMxtHO/rAfWlL404XTcWU8uMMpPAsX/M
+	 BbjqrI4Ov/NNzwIdABjGqDBVhbvliiARoYyispECGX+n+Pmzb1SR0xTLZg2WhPF8fj
+	 xwBeFjaH+Rsc2DNj/Tp+IoM4tBMqtE4Gfh1SKr5pQHGcf8kFp3Dd3wHsOUlo+l6lN1
+	 EeLu8kfGoSvow==
+Date: Wed, 21 Jan 2026 15:44:36 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org, gcc@gcc.gnu.org
-Subject: On restrict (a broken qualifier)
-Message-ID: <aXDecr1b-ke8cN40@devuan>
+Cc: linux-man@vger.kernel.org
+Subject: Re: History of const in C++, C89, and POSIX.1-1988 (was: [PATCH v1
+ 02/19] man/man2/access.2: HISTORY: Specify different)
+Message-ID: <aXDlwT8ya6kKcJvN@devuan>
 References: <cover.1768822707.git.sethmcmail@pm.me>
  <d87c7800e0f556efefaf5972294fb6a149bf02d1.1768822707.git.sethmcmail@pm.me>
  <aW7aOgFHOdCSiwUH@devuan>
@@ -65,24 +66,24 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d7nemtyoougwfqj2"
+	protocol="application/pgp-signature"; boundary="sfil7b44axtxqu24"
 Content-Disposition: inline
 In-Reply-To: <aXBuVeyTXLZ67TmH@McDaDebianPC>
 X-Spamd-Result: default: False [-3.56 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-4891-lists,linux-man=lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[kernel.org,quarantine];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-4892-lists,linux-man=lfdr.de];
+	DMARC_POLICY_ALLOW(0.00)[kernel.org,quarantine];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RCPT_COUNT_TWO(0.00)[2];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	FROM_HAS_DN(0.00)[];
@@ -90,26 +91,27 @@ X-Spamd-Result: default: False [-3.56 / 15.00];
 	R_SPF_SOFTFAIL(0.00)[~all:c];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:7979, ipnet:142.0.200.0/24, country:US];
+	ASN(0.00)[asn:7979, ipnet:2605:f480::/32, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[dfw.mirrors.kernel.org:rdns,dfw.mirrors.kernel.org:helo,alejandro-colomar.es:url,devuan:email]
-X-Rspamd-Queue-Id: F012559006
+	DBL_BLOCKED_OPENRESOLVER(0.00)[dfw.mirrors.kernel.org:rdns,dfw.mirrors.kernel.org:helo]
+X-Rspamd-Queue-Id: 8BBAE59B61
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---d7nemtyoougwfqj2
+--sfil7b44axtxqu24
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org, gcc@gcc.gnu.org
-Subject: On restrict (a broken qualifier)
-Message-ID: <aXDecr1b-ke8cN40@devuan>
+Cc: linux-man@vger.kernel.org
+Subject: Re: History of const in C++, C89, and POSIX.1-1988 (was: [PATCH v1
+ 02/19] man/man2/access.2: HISTORY: Specify different)
+Message-ID: <aXDlwT8ya6kKcJvN@devuan>
 References: <cover.1768822707.git.sethmcmail@pm.me>
  <d87c7800e0f556efefaf5972294fb6a149bf02d1.1768822707.git.sethmcmail@pm.me>
  <aW7aOgFHOdCSiwUH@devuan>
@@ -119,162 +121,53 @@ References: <cover.1768822707.git.sethmcmail@pm.me>
 MIME-Version: 1.0
 In-Reply-To: <aXBuVeyTXLZ67TmH@McDaDebianPC>
 
-[CC +=3D gcc@]
-
 Hi Seth,
 
 On Wed, Jan 21, 2026 at 06:12:45AM +0000, Seth McDonald wrote:
 [...]
-> > We might need a qualifiers(7) manual page.  Especially, once their rules
-> > are modified in ISO C2y.  Alternatively, we may need a new section
-> > man3qual, with an intro(3qual) page talking about this, and then
-> > const(3qual) and volatile(3qual) to document the usual qualifiers, plus
-> > a restrict(3qual) documenting how irremediably broken that monster is,
-> > and _Atomic(3qual) also documenting that qualifier (which I never really
-> > understood well, and from what the committee is talking now, they don't
-> > seem to like it either).
->=20
-> I'd be down for a qualifiers(7) man page.  Don't know about a whole
-> man3qual section though.  Unlike library functions (man3), constants
-> (man3const), or types (man3type), which are all provided by GNU/Linux,
-> qualifiers are a built-in language feature of C.
+> So if I understand correctly, because function prototypes were first
+> specified in C89, programs written about 1988-1990 for compatability
+> with POSIX.1-1988 likely didn't use function pointers in the way my
+> example did.  In that case, I would agree that this change from 'char*'
+> to 'const char*' is too inconsequential to document here.
 
-We have _Countof(3), _Maxof(3), and _Minof(3) manual pages for these
-operators (which are also built-in language features (operators) of C.
+Yes.
 
-And we have manual pages for attributes (man3attr).
+> But I do still find it an interesting clue as to how these different
+> standards developed in tandem with one another.  Perhaps we could
+> still consider noting it in standards(7)?  Since that page already
+> documents how some systems/standards influenced each other in their
+> historical development.
 
-man3qual would be smaller (the number of qualifiers is rather small),
-but it would be consistent, I think.
-
-> One could argue that
-> GCC 'provides' them, but I don't think that means they should be
-> documented as if they're a feature of GNU/Linux.
-
-The fact that qualifiers are so widespread and unified today that
-there's not much variance among implementations doesn't mean that there
-aren't outliers.  Some implementations (dialects) of C still don't have
-qualifiers; an example is Plan9's C compiler, which doesn't have const.
-
-So, const is indeed a feature of GCC (among many others).
-
-> Documenting them in
-> the miscellaneous man7 instead conveys how they're important enough to
-> document and are related to GNU/Linux, without implying that they're
-> part of/provided by GNU/Linux (like other man3* sections).
->=20
-> Btw, I'm curious as to why you say the restrict qualifier is broken.
-> I'm yet to encounter much trouble with it, so I'd be interested in its
-> flaws.
-
-For a starter, it doesn't follow the usual qualifier rules; being a
-qualifier on the pointer, it gets discarded immediately on lvalue
-conversion.  It essentially behaves as an attribute with the syntax of
-a qualifier.
-
-Regarding the semantics, it's defined in terms of accesses, and thus it
-is valid to declare two aliasing pointers as restrict as long as they
-are not accessed.
-
-	alx@devuan:~/tmp$ cat restrict.c=20
-	int *f(int *restrict a, int *restrict b);
-
-	int
-	main(void)
-	{
-		int x;
-
-		f(&x, &x);
-	}
-
-	int *
-	f(int *restrict a, int *restrict b)
-	{
-		*a =3D 42;
-		return b;
-	}
-	alx@devuan:~/tmp$ gcc -Wall -Wextra restrict.c=20
-	restrict.c: In function =E2=80=98main=E2=80=99:
-	restrict.c:8:11: warning: passing argument 1 to =E2=80=98restrict=E2=80=99=
--qualified parameter aliases with argument 2 [-Wrestrict]
-	    8 |         f(&x, &x);
-	      |           ^~  ~~
-
-The program above is fine according to ISO C.  GCC diagnoses in this
-case (it is a false positive), but doesn't diagnose on other cases.
-Clang doesn't diagnose at all.  See below an example that is not
-diagnosed by GCC either:
-
-	alx@devuan:~/tmp$ cat restrict2.c=20
-	int *f(int *restrict a, int **restrict b);
-
-	int
-	main(void)
-	{
-		int *x =3D &(int){0};
-
-		f(x, &x);
-	}
-
-	int *
-	f(int *restrict a, int **restrict b)
-	{
-		*a =3D 42;
-		*b =3D a;
-		return *b;
-	}
-	alx@devuan:~/tmp$ gcc -Wall -Wextra restrict2.c=20
-	alx@devuan:~/tmp$ clang -Weverything restrict2.c=20
-	alx@devuan:~/tmp$=20
-
-This program is also fine according to ISO C.  Neither GCC nor Clang
-emit any diagnostics; and they can't!  If they diagnosed this, they'd
-have to diagnose on valid uses of strtol(3), and that would be
-unacceptable.
-
-But if compilers can't diagnose on the call f(x,&x) where f()'s
-parameters are restrict, what stops one from passing aliasing pointers
-to a function that really accesses its parameters?  The compiler can't
-know what the function will do with them.  Thus, restrict results in
-having more UB, and the optimizations it enables can make that UB even
-more dangerous.
-
-And unsurprisingly, the rationale for restrict was optimizations, not
-diagnostics.  That's a bad idea.
-
-restrict should eventually be replaced by an attribute (a qualifier
-won't work).  Such an attribute should be defined only in terms of
-aliasing of pointers, and not on accesses.  That would turn it into
-a tool for diagnostics instead of a tool for optimization (while it
-would still allow for optimizations in most cases), and that is a good
-idea.
+Yes, a line saying that POSIX.1-1988 was heavily influenced by the
+development of C89 would be good, I think.
 
 
-Have a lovely day!
+Cheers,
 Alex
 
 --=20
 <https://www.alejandro-colomar.es>
 
---d7nemtyoougwfqj2
+--sfil7b44axtxqu24
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlw5awACgkQ64mZXMKQ
-wqnYsg/8CusvSfM1IEpzAZunrMDS7MCNFI/AxUthdTgY2OptA9+0delD0B0/RjmI
-oVq++Q6ibOpt6J/rLbbzWVg65LulQdzboRbfLQm7TxVrhDdiGGfjtCzrRn942xbu
-1b5DTu3L2ay6RjE+hYDSVzgr17UXF9SFfjtrpN6zvAEzpKBnJiUt7hU21xfThMl/
-YujMtGo1WGmrVBF2Is9aECC9eaLNkBaGQrT77bNPgqalyJP/t3BIPm4l0Jido/S1
-6MkImKyfJ2MueSVriFrQJlIAoTZC6UVjvDaraXt7M3XpWtsnyf4VRt41dYSRZb20
-BayibE26TzII5KMxSciZ8PwKQQ1NxZgomHto3dorj6tVNw2mxN1IxZK0END64QyY
-EZDR8vP++HKrSENEgfSq2oEMdOG90WDsTpAXpxb/H0Kcri48ZFDTKkUMJUWIfyTG
-ks2+4fGyWEoQMzlBQSJ1UseuIINMOi5Fu3nSsa2UwNTUrKPIWozK80okCJ9q60Vy
-EuDDKnXQUNzo9kSERXezQnvcNtPFMCLETULHa6qmqmxn/vTXv76HnbrYVzcPxIn7
-7VyzJ0lPq4Y916DzG3GceeIz1iK5xxoQAVYmhZRcQlliCztTRiCQ7Xk/8qMbDe2W
-pCjPgah3zw1/lSzrglQKnyghrbGXSPNDhEPQb4uCi8yNVt5NMsw=
-=POcs
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlw5lQACgkQ64mZXMKQ
+wqlOXBAAmC0uaYwnJ8t07p9twFMDxkImsVfl0ftWdJlcitKCvLSBUUPmcFkvxc6c
+XmZq1IO/1Wu6YQrImyh2b1t/crpX5zFz9S2VKdPkTbLJxfbx8CTR8lc7r+t85Kut
+wqFoXd20i8ghxTpRxWEP30syqYNHS2W0eGngJE/2JVJHc8m4iI+dVrF8Au+6SWi7
+SHX7zA7sM7oOGbOh6nzL90+sY9M4m69I2B0e4iBKymtmYhaS9HwB0XmSP47x3pSb
+gir4pX0K/ZhWM0mJyQS/oXmmVfn6pC+v/WbCjyu6hmpzb0lEj9y/ma4mZsqEPolF
+LWaUqHK/F/zjN40KtoAkMwqpjSdTJi4Bmthle5qkm2CA1+xwx/ceIUKqgIZzAeyN
+PVaIjie2akxozU6iJ6YQUai6jgEPgvhzXnUXHc/orG6NoebImg1JlX5/5jJh45YH
+1F1zjJHhv+PmKR3fRlJTpr6LefD9+197+1zA1utvuqbqZO77oy5kWd9kuE8NS6de
+tAfotw6KXzNODCv9QAIq4kyclFo5fwL/xzZ2UwQxpfgW97fXh9w82uzV4sUyoF4n
+DHQguOy6Huw89kaFfCg0C76oJXdACbKPZR5kpka8YLoZhJg5W0beKnxBijisNUin
+NenJ2+Axro6QHYSF+j71/xwODJj/nf23PrMNlW/iWspXzR7KBZ4=
+=Tp0L
 -----END PGP SIGNATURE-----
 
---d7nemtyoougwfqj2--
+--sfil7b44axtxqu24--
 
