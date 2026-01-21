@@ -1,181 +1,174 @@
-Return-Path: <linux-man+bounces-4895-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4896-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QNkiCur8cGmgbAAAu9opvQ
-	(envelope-from <linux-man+bounces-4895-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 17:20:58 +0100
+	id gNUNCzUDcWmgbAAAu9opvQ
+	(envelope-from <linux-man+bounces-4896-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 17:47:49 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3D5159CF6
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 17:20:57 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6317D5A1BD
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 17:47:48 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 5D38474A2C6
-	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 15:54:52 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id AB3CDB08563
+	for <lists+linux-man@lfdr.de>; Wed, 21 Jan 2026 16:06:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 283583ACF05;
-	Wed, 21 Jan 2026 15:49:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D069230F532;
+	Wed, 21 Jan 2026 15:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLbkch24"
+	dkim=pass (1024-bit key) header.d=eurecom.fr header.i=@eurecom.fr header.b="Pr8/fGeh"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.eurecom.fr (smtp.eurecom.fr [193.55.113.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C536022FE0A
-	for <linux-man@vger.kernel.org>; Wed, 21 Jan 2026 15:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE7933A9E5
+	for <linux-man@vger.kernel.org>; Wed, 21 Jan 2026 15:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.55.113.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769010568; cv=none; b=bk0Mo4vH9mJssTCSkoG3xoBWmVzKXJz/m5VUS/LaGHVjimhyVRVWjqVVTGtBVWBbX/K+mhZgKhCGd4HBL6YbwVtz3Om8OuyjfyzBXsn9kFgm1abG+dMzGoePvwOA+vX1O5y18dBLM2rKwOHS2dKYF9DxFCFH6pYMr0PUxKJmTHU=
+	t=1769011136; cv=none; b=QXrpDm1AXN84kZHi8WCc4lbwgNqN6qpRHVegTDugM2f6n1V57DTayV4cdKBc993hVjtsCoiyZGUd8TBFN+utY5ByLzTh881IM2zEoC001PoGp+FjN6pWi/p4QBDm0lewSMfhwBKuSx4Ag6N1+rms/OUu9S4exKA0QhmO9AhQNOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769010568; c=relaxed/simple;
-	bh=UQjeT+FN86+6s2PjxpFFkrPqrg0Oba/gjbfdjzCEysg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PXONOxR4SnSTNExqLzkou5YyV+d3PllY5iDmjKPI3FIK42xmsElCAadXLrIEoxDR8Mafrw5dqzNzeOViIdhxDLDUj89OIdn0v6va0jD0DaDd/eP0MbiIHusab7kh7Lk4yZeQFEtKT0HaqNL6KmoIsPjWAYTHbm/CwT7eaSlB4Yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RLbkch24; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C36C4CEF1;
-	Wed, 21 Jan 2026 15:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1769010568;
-	bh=UQjeT+FN86+6s2PjxpFFkrPqrg0Oba/gjbfdjzCEysg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RLbkch24iXs6sNB/XTNd4UdbJvsXfvnHj0ULy0bj02tDo6VmbacWGk/imySp7wNm1
-	 S4JgvO/kFtoC6reu1dz/nlPHZP3/OP939KL96AcqG2VEYaPdK5IlUjQNmJwT3Li2QC
-	 75SmDuS93nkbnOYxd2nGMKSilQs7o82J2aSIsj74uaRmdRXXyYOAl4hRt1K9e6JQUO
-	 gPa89dTbHshXmkRF+deLag6y2UjQ4g2+WRuX1ioo9i78Z4k4jEkSCZcQWR5U/bu8Qn
-	 3+7mu2npzwrxC/FCpN9SgR3ai9fD6v6K4/627sfEhPEm26tf91ZqAxIycz5GLi9pXU
-	 lC6jQmH6gvJ9Q==
-Date: Wed, 21 Jan 2026 16:49:25 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 01/23] man/man2/clock_getres.2: HISTORY: Update first
- POSIX appearance of clock_* syscalls
-Message-ID: <aXD1GRoxwzGA5Gsn@devuan>
-References: <cover.1768995315.git.sethmcmail@pm.me>
- <1a421b5ee130c1d5892791060b6fdf8d911d8362.1768995315.git.sethmcmail@pm.me>
+	s=arc-20240116; t=1769011136; c=relaxed/simple;
+	bh=gYTH38DnB7fgR+vK4iYedKgeFMEGSW/7Lji2cQZ67u8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Fix3U92aAvBIaxPVd6mPRGVkp8ZE6YkG7fKpuN5r8BB6w5n/HAdh6nU8+85QZWXnQqztqKM2550XS3FX8gJXRvVOQ+wdjkt7JRjj9NmDl/fkdcFwqa+9faZ31jkn9bmxYAY4SA6BEVOyvCOYISSPKq9EAGOqRx87aCfQL/8+q1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eurecom.fr; spf=pass smtp.mailfrom=eurecom.fr; dkim=pass (1024-bit key) header.d=eurecom.fr header.i=@eurecom.fr header.b=Pr8/fGeh; arc=none smtp.client-ip=193.55.113.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eurecom.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eurecom.fr
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=eurecom.fr; i=@eurecom.fr; q=dns/txt; s=default;
+  t=1769011131; x=1800547131;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=gYTH38DnB7fgR+vK4iYedKgeFMEGSW/7Lji2cQZ67u8=;
+  b=Pr8/fGehlo6OHFRnWlzavGl9RLE3GNMGK8C+mPttT7x5pJWh3TrkGPs4
+   4A6CmPXCtvAzt0j8dGbPT3k1MXVrUsdpsFVMnlJjXQdpKN+qcHroOvAgm
+   7+xpy+P3CIYC82A3TgeiCmEBwR+9F1BCEHmrK8qiaAHIyfXWdex1pfJHf
+   k=;
+X-CSE-ConnectionGUID: wV6QGXsUQi+9fIxNQAg3Wg==
+X-CSE-MsgGUID: uB/B13tLQm2FspFd0N82iQ==
+X-IronPort-AV: E=Sophos;i="6.21,242,1763420400"; 
+   d="scan'208";a="4301004"
+Received: from waha.eurecom.fr (HELO smtps.eurecom.fr) ([10.3.2.236])
+  by drago1i.eurecom.fr with ESMTP; 21 Jan 2026 16:57:39 +0100
+Received: from marco-eurecom-desktop.s3.eurecom.fr (unknown [193.55.114.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtps.eurecom.fr (Postfix) with ESMTPSA id ECC6127DA;
+	Wed, 21 Jan 2026 16:57:38 +0100 (CET)
+From: Marco Cavenati <Marco.Cavenati@eurecom.fr>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	"Dmitry V . Levin" <ldv@strace.io>,
+	Marco Cavenati <Marco.Cavenati@eurecom.fr>
+Subject: [PATCH] man/man2/ptrace.2: Add PTRACE_SET_SYSCALL_INFO, update struct ptrace_syscall_info
+Date: Wed, 21 Jan 2026 16:55:41 +0100
+Message-ID: <20260121155550.281916-1-Marco.Cavenati@eurecom.fr>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="l47gicmw4r3en2qt"
-Content-Disposition: inline
-In-Reply-To: <1a421b5ee130c1d5892791060b6fdf8d911d8362.1768995315.git.sethmcmail@pm.me>
-X-Spamd-Result: default: False [-3.56 / 15.00];
-	SIGNED_PGP(-2.00)[];
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-0.96 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[eurecom.fr:s=default];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-4895-lists,linux-man=lfdr.de];
-	DMARC_POLICY_ALLOW(0.00)[kernel.org,quarantine];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+];
+	DMARC_POLICY_ALLOW(0.00)[eurecom.fr,none];
+	DKIM_TRACE(0.00)[eurecom.fr:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-4896-lists,linux-man=lfdr.de];
+	RCPT_COUNT_THREE(0.00)[4];
 	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
 	R_SPF_SOFTFAIL(0.00)[~all:c];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	FROM_NEQ_ENVFROM(0.00)[Marco.Cavenati@eurecom.fr,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:7979, ipnet:213.196.21.0/24, country:US];
+	RCVD_COUNT_FIVE(0.00)[5];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ams.mirrors.kernel.org:rdns,ams.mirrors.kernel.org:helo,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: C3D5159CF6
+	TAGGED_RCPT(0.00)[linux-man];
+	ASN(0.00)[asn:7979, ipnet:142.0.200.0/24, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[dfw.mirrors.kernel.org:rdns,dfw.mirrors.kernel.org:helo,gmx.de:email,eurecom.fr:email,eurecom.fr:dkim,eurecom.fr:mid]
+X-Rspamd-Queue-Id: 6317D5A1BD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Add documentation for the new ptrace request PTRACE_SET_SYSCALL_INFO,
+introduced in Linux 6.16.
 
---l47gicmw4r3en2qt
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 01/23] man/man2/clock_getres.2: HISTORY: Update first
- POSIX appearance of clock_* syscalls
-Message-ID: <aXD1GRoxwzGA5Gsn@devuan>
-References: <cover.1768995315.git.sethmcmail@pm.me>
- <1a421b5ee130c1d5892791060b6fdf8d911d8362.1768995315.git.sethmcmail@pm.me>
-MIME-Version: 1.0
-In-Reply-To: <1a421b5ee130c1d5892791060b6fdf8d911d8362.1768995315.git.sethmcmail@pm.me>
+Add 'reserved' and 'flags' fields of struct ptrace_syscall_info.
 
-Hi Seth,
+This description is based on kernel commit 26bb32768fe6552de044f782a58b3272073fbfc0
+("ptrace: introduce PTRACE_SET_SYSCALL_INFO request") by Dmitry V. Levin.
 
-On Wed, Jan 21, 2026 at 12:06:57PM +0000, Seth McDonald wrote:
-> clock_getres(2), clock_gettime(2), and clock_settime(2) first appeared
-> in POSIX.1-1996.[1]  SUSv2 incorporates POSIX.1-1996, so listing both is
-> redundant.
+Signed-off-by: Marco Cavenati <Marco.Cavenati@eurecom.fr>
+---
+ AUTHORS           |  1 +
+ man/man2/ptrace.2 | 21 +++++++++++++++++++++
+ 2 files changed, 22 insertions(+)
 
-Are you sure SUSv2 incorporates POSIX.1-1996?  Could you please show
-sources for that?
+diff --git a/AUTHORS b/AUTHORS
+index 9035d405a..f332932e1 100644
+--- a/AUTHORS
++++ b/AUTHORS
+@@ -497,6 +497,7 @@ Marc-André Lureau <marcandre.lureau@redhat.com>
+ Marcela Maslanova <mmaslano@redhat.com>
+ Marcin Ślusarz <marcin.slusarz@gmail.com>
+ Marco Bonelli <marco@mebeim.net>
++Marco Cavenati <marco.cavenati@eurecom.fr>
+ Marcus Folkesson <marcus.folkesson@gmail.com>
+ Marcus Gelderie <redmnic@gmail.com>
+ Marcus Huewe <suse-tux@gmx.de>
+diff --git a/man/man2/ptrace.2 b/man/man2/ptrace.2
+index 2da43dcb9..45d4c4c84 100644
+--- a/man/man2/ptrace.2
++++ b/man/man2/ptrace.2
+@@ -1042,6 +1042,8 @@ structure contains the following fields:
+ .EX
+ struct ptrace_syscall_info {
+     __u8 op;        /* Type of system call stop */
++    __u8 reserved;  /* Reserved for future use, must be zero */
++    __u16 flags;    /* Reserved for future use, must be zero */
+     __u32 arch;     /* AUDIT_ARCH_* value; see seccomp(2) */
+     __u64 instruction_pointer; /* CPU instruction pointer */
+     __u64 stack_pointer;    /* CPU stack pointer */
+@@ -1121,6 +1123,25 @@ is limited to type
+ unless
+ .B PTRACE_O_TRACESYSGOOD
+ option is set before the corresponding system call stop has occurred.
++.TP
++.BR PTRACE_SET_SYSCALL_INFO " (since Linux 6.16)"
++.\" commit 26bb32768fe6552de044f782a58b3272073fbfc0
++Modify information about the system call that caused the stop.
++The
++.I data
++argument is a pointer to
++.I struct ptrace_syscall_info
++that specifies the system call information to be set.
++The
++.I addr
++argument should be set to
++.IR "sizeof(struct ptrace_syscall_info)" .
++Only the
++.IR nr ,
++.IR args ,
++and
++.I rval
++fields can be modified.
+ .\"
+ .SS Death under ptrace
+ When a (possibly multithreaded) process receives a killing signal
+-- 
+2.51.0
 
-
-Cheers,
-Alex
-
->=20
-> [1] ISO/IEC 9945-1:1996, Section 14.2.1 "Clocks".
->=20
-> Signed-off-by: Seth McDonald <sethmcmail@pm.me>
-> ---
->  man/man2/clock_getres.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man/man2/clock_getres.2 b/man/man2/clock_getres.2
-> index 5f8ed14f1555..1a486c886229 100644
-> --- a/man/man2/clock_getres.2
-> +++ b/man/man2/clock_getres.2
-> @@ -369,7 +369,7 @@ .SS C library/kernel differences
->  .SH STANDARDS
->  POSIX.1-2024.
->  .SH HISTORY
-> -POSIX.1-2001, SUSv2.
-> +POSIX.1-1996,
->  Linux 2.6.
->  .P
->  On POSIX systems on which these functions are available, the symbol
-> --=20
-> 2.47.3
->=20
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-
---l47gicmw4r3en2qt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlw9YUACgkQ64mZXMKQ
-wqnVfBAAi9/4zDKTMI0bVMjck9e/qmoiMBRQckGD63Vibq8rMf/O/iusdopvsYsG
-QC2XpeefOmwHXF2z534SCm4k9iMUxET0hO9rt5WV+4fndOLdtmPXTh6/F1CB2yJ6
-EE9gpSg9Fd3kXRG/LXBxYbetntv+OrAGnNLuztgDEc9bwtfj6ZCmx8FQY40xxVAs
-XZU3pvrL5kTFoYBpVrmsXzj8QbufPhXUORdME0drTcx44MgZO08EMybiSuQVKydz
-Ea2+Y98wxUGjm9m/tB6G3NCXqlTn7wlN3utrX4H0M0xSX6Ft1yGyrhLWD5Krnkc5
-E3WsB23fZkxlKcIKMVe/zwZvr/2ajnJE2V2yFXbyzpBbvVAVd92jfCvtdSk6zBxm
-bYyAzG63frzb6l5QOt6q9h1RBQjd5aRI1D4/Vk29rcnJG1J2iCyOOqfbSPB3qnw9
-c/23MfoOcZSG0sm9GsAk7uB54DEvPNwj9RCiMAQ/Zub6urHQuKdgP1kF2+WK12EQ
-xtZdIeF8DDSkud76Qj962rISxkookrm4Q3dmwDz97ZBg1p7hwdLKesX9nOgPAkU7
-mM699nACsa5pNiU3d+KiJyEo/SECxMUAVYblNbMDEreh52UfkKOlHG5/kOP5LHQ5
-Fd/U02mRaaai7YBH84Bk2szjX8hF/4BI5W490Ij/F8+FIP1OIJ4=
-=BXx2
------END PGP SIGNATURE-----
-
---l47gicmw4r3en2qt--
 
