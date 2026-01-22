@@ -1,207 +1,326 @@
-Return-Path: <linux-man+bounces-4899-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4900-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QEnTLzRycWkPHAAAu9opvQ
-	(envelope-from <linux-man+bounces-4899-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 22 Jan 2026 01:41:24 +0100
+	id KL0PFUGLcWkLJAAAu9opvQ
+	(envelope-from <linux-man+bounces-4900-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 22 Jan 2026 03:28:17 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4043F5FFD2
-	for <lists+linux-man@lfdr.de>; Thu, 22 Jan 2026 01:41:24 +0100 (CET)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA3A060E41
+	for <lists+linux-man@lfdr.de>; Thu, 22 Jan 2026 03:28:16 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 0B15D4E074D
-	for <lists+linux-man@lfdr.de>; Thu, 22 Jan 2026 00:41:23 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 03C4950422F
+	for <lists+linux-man@lfdr.de>; Thu, 22 Jan 2026 02:25:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E8172FF158;
-	Thu, 22 Jan 2026 00:41:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A5ECD30F542;
+	Thu, 22 Jan 2026 02:24:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JK5rnxDD"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="m9lwZ6g4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE112FDC30
-	for <linux-man@vger.kernel.org>; Thu, 22 Jan 2026 00:41:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF723128BD
+	for <linux-man@vger.kernel.org>; Thu, 22 Jan 2026 02:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769042478; cv=none; b=jaJJioMsA+80YFFzR0e/9pVb827LyrvKXyo8AyRSOOQIQm1IXwu66FiZmGnUAPzM0MaFSsBkcPwKPhWOMGs+k1ifpO/pdU9v30oQZmyelv2BFJIiG34jiU/iyymD2cCD9HFR4I6c5k29eTal13EbUSLP1HTnPb7SUwEn1TsArTo=
+	t=1769048679; cv=none; b=dDg8c7zcJtkL/b4Oh5tssx76UTYQGKqUtYrc4Qj/r1CWeO6LIG3DUNObhDBPn3++uwGnlzBlpE8t3IZJqrXNBtCdUK2yVJnlyGtbox2XTjxB4o5V0fRUZl9WNgn3Jjrc+UsJVEWm0kxB7o5+03VvBdEAk62S8uEwXciKpj1ZVdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769042478; c=relaxed/simple;
-	bh=xYZP3wBYqp87YfZr1IlSViQPpVGLMuz8zS4BdO1ubhc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X4DX4p/UX8ra0EflywwdK39nL9Id5heSmYCpXI1E86SEmsab+SNEdhB/b5V9L7KBCd0MZhgYF/3d0B4gKIhDJF2K83x57WJpTznvbl8ZEHWmAIsWv+jtcc2yJRQnBPZ6X/SzJxHyT1fRRHjfhmchA2O2JyhkMGUVMNqGe4sVEFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JK5rnxDD; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E3D7C4CEF1;
-	Thu, 22 Jan 2026 00:41:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1769042476;
-	bh=xYZP3wBYqp87YfZr1IlSViQPpVGLMuz8zS4BdO1ubhc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JK5rnxDDayl6Yncs3niL65Oy95oNQsd6ccgQ/Q50L4RdIbjMpy2po6KnTE8gG0HqA
-	 O4RSJB5jpQM22ndz1mbzaRNYGZJwllQLL79ceUWb/W9K77quuMrP0NGuFoZuSQsJc2
-	 0tA53qPJgWrvsGXYEv8WjRTYuNokmIq+c6g8RAN8V4kRUgfoL7RQ9LhFhQF2/v1NQx
-	 n4cSVtDoopFSEq4FyiIwRj2Ug4VMvBJZXsTGmx3o96qNnGccEtdPJN/znAoi+BvTYK
-	 fRzvFsoySpekz0ctmvOWBYVk4+8RCp8sFQZYCkgIae8Me1LDb+oaSDzBXTfNl8EtaR
-	 cz3mnCKjLPRUQ==
-Date: Thu, 22 Jan 2026 01:41:13 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
+	s=arc-20240116; t=1769048679; c=relaxed/simple;
+	bh=g6Ve+M8pcBQyHZ0UTNaAcD4kLv/C7xJsR42t5D+apVM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=E4bELDCO/BDKKTszlGLCaUlpSGewBrDtmc+5XdGNwYmQxZtBVClY11Cm4Sl9xWWCUpoM7DUmVc95TbE/TwpEbXfvUbQpAZsv5chJuCCCjNLi/06SfTagR8OikUowD4ajMlB4V1OP5iW6tvUXVTBMojiKgNloBP/YPB6oSfdn6CQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=m9lwZ6g4; arc=none smtp.client-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1769048668; x=1769307868;
+	bh=w27FB9nnahOpyYnLqRgzVfhaz1ZvarOZIaDw6e4FAuU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=m9lwZ6g48Ow4fbr86MbQwZn0ZCy+B2ycA2RCvrDvbsH79y0BTyvDHD9xW37Ixjn8y
+	 GhLelyaVh6PVKJU9fCV5l49xU0XtaK5Kw4kE02SBy1p2+3Xgd5wgHAGqOoJAxiNzbG
+	 qRuEGQRdXi5oJ9Xaegq14CDKfSkawdRl8HvjAfyFMfeSVQN7IseVdZg37aBBe5K1ZI
+	 0uri+BU+z55E+hU6McMImIIJKI4SRQMgjWv7pKvLs732Sxo8xjcBdwGEY8R9+OMF0K
+	 9jdN3oDaestx0VlNY4crcBQhD4AI9N08HD/qXy5kwI8nxZNuMCBj68WCFku2ZcpWuc
+	 0h8PREt6LfBOQ==
+Date: Thu, 22 Jan 2026 02:24:23 +0000
+To: Alejandro Colomar <alx@kernel.org>
+From: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 01/23] man/man2/clock_getres.2: HISTORY: Update first
- POSIX appearance of clock_* syscalls
-Message-ID: <aXFwqEqGsAU9FwfD@devuan>
+Subject: [PATCH v2 00/23] man/man2/*: Update history of syscalls CI-G
+Message-ID: <cover.1769047228.git.sethmcmail@pm.me>
+In-Reply-To: <cover.1768995315.git.sethmcmail@pm.me>
 References: <cover.1768995315.git.sethmcmail@pm.me>
- <1a421b5ee130c1d5892791060b6fdf8d911d8362.1768995315.git.sethmcmail@pm.me>
- <aXD1GRoxwzGA5Gsn@devuan>
- <aXFwMamVRAdu-NuR@McDaDebianPC>
+Feedback-ID: 171233811:user:proton
+X-Pm-Message-ID: 06cf767c8b9624debf89127990a03d485dd1ef6b
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ldmldiboyd52aksp"
-Content-Disposition: inline
-In-Reply-To: <aXFwMamVRAdu-NuR@McDaDebianPC>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------1f2adfd90ff4dfc22e07094cd94012b703694d66bdd5e76190994231b5662cf1"; charset=utf-8
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.56 / 15.00];
+X-Spamd-Result: default: False [-3.06 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
+	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_DKIM_ALLOW(-0.20)[pm.me:s=protonmail3];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-4899-lists,linux-man=lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	DMARC_POLICY_ALLOW(0.00)[kernel.org,quarantine];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	MISSING_XM_UA(0.00)[];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	TAGGED_FROM(0.00)[bounces-4900-lists,linux-man=lfdr.de];
+	DMARC_POLICY_ALLOW(0.00)[pm.me,quarantine];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[pm.me:+];
 	R_SPF_SOFTFAIL(0.00)[~all:c];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sethmcmail@pm.me,linux-man@vger.kernel.org];
+	HAS_ATTACHMENT(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:7979, ipnet:142.0.200.0/24, country:US];
-	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: 4043F5FFD2
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:7979, ipnet:2605:f480::/32, country:US];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[dfw.mirrors.kernel.org:helo,dfw.mirrors.kernel.org:rdns]
+X-Rspamd-Queue-Id: BA3A060E41
 X-Rspamd-Action: no action
 
-
---ldmldiboyd52aksp
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------1f2adfd90ff4dfc22e07094cd94012b703694d66bdd5e76190994231b5662cf1
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
+From: Seth McDonald <sethmcmail@pm.me>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 01/23] man/man2/clock_getres.2: HISTORY: Update first
- POSIX appearance of clock_* syscalls
-Message-ID: <aXFwqEqGsAU9FwfD@devuan>
+Subject: [PATCH v2 00/23] man/man2/*: Update history of syscalls CI-G
+Date: Thu, 22 Jan 2026 12:23:52 +1000
+Message-ID: <cover.1769047228.git.sethmcmail@pm.me>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1768995315.git.sethmcmail@pm.me>
 References: <cover.1768995315.git.sethmcmail@pm.me>
- <1a421b5ee130c1d5892791060b6fdf8d911d8362.1768995315.git.sethmcmail@pm.me>
- <aXD1GRoxwzGA5Gsn@devuan>
- <aXFwMamVRAdu-NuR@McDaDebianPC>
 MIME-Version: 1.0
-In-Reply-To: <aXFwMamVRAdu-NuR@McDaDebianPC>
 
-Hi Seth,
+Hi again,
 
-On Thu, Jan 22, 2026 at 12:32:55AM +0000, Seth McDonald wrote:
-> Hi Alex,
->=20
-> On Wed, Jan 21, 2026 at 04:49:25PM +0100, Alejandro Colomar wrote:
-> > Hi Seth,
-> >=20
-> > On Wed, Jan 21, 2026 at 12:06:57PM +0000, Seth McDonald wrote:
-> > > clock_getres(2), clock_gettime(2), and clock_settime(2) first appeared
-> > > in POSIX.1-1996.[1]  SUSv2 incorporates POSIX.1-1996, so listing both=
- is
-> > > redundant.
-> >=20
-> > Are you sure SUSv2 incorporates POSIX.1-1996?  Could you please show
-> > sources for that?
->=20
-> We can reference the following SUSv2 PDF:
-> CAE Specification, System Interfaces and Headers, Issue 5.
-> <https://pubs.opengroup.org/onlinepubs/009639399/toc.pdf>
->=20
-> Section 1.6 "Relationship to Formal Standards", page 11 states:
->=20
-> 	Great care has been taken to ensure that this specification is
-> 	fully aligned with the following formal standards:
-> 	- ISO/IEC 9945-1:1996
-> 	- ISO/IEC 9945-2:1993
-> 	- ISO/IEC 9899:1990
-> 	- ISO/IEC 9899:1990/Amendment 1:1994 (E) (MSE)
-> 	- Federal Information Procurement Standards (FIPS) 151-2.
->=20
-> 	Any conflict between this specification and any of these
-> 	standards is unintentional.
->=20
-> Additionally, section 1.7 "Portability", page 12 states:
->=20
-> 	This document describes a superset of the requirements of the
-> 	ISO POSIX-1 standard and the ISO C standard. [...] (The ISO
-> 	POSIX-1 standard is identical to IEEE Std 1003.1-1996, which is
-> 	often referred to as the POSIX.1 standard. [...])
->=20
-> For context, page xiii defines "ISO C" as ISO/IEC 9899:1990 including
-> Technical Corrigendum 1:1994 and Amendment 1:1994.  And "ISO POSIX-1" as
-> ISO/IEC 9945-1:1996.
->=20
-> So SUSv2 XSH is a superset of POSIX.1-1996 and C95.
+v2 now treats listings of both 4.2BSD and 4.4BSD as equivalent to just
+4.2BSD, and thus removes the redundant mention of 4.4BSD in such cases.
 
-Thanks!  And then I guess POSIX.1-1996 would also be based on C95.
-This is quite interesting!
+Seth McDonald (23):
+  man/man2/clock_getres.2: HISTORY: Update first POSIX appearance of
+    clock_* syscalls
+  man/man2/close.2: HISTORY: Update first POSIX appearance of close(2)
+  man/man2/dup.2: HISTORY: Update first POSIX appearance of dup[2](2)
+  man/man2/execve.2: HISTORY: Update first POSIX appearance of execve(2)
+  man/man2/_exit.2: HISTORY: Update first POSIX appearance of _exit(2)
+  man/man2/fcntl.2: HISTORY: Update first POSIX appearance of fcntl(2)
+  man/man2/fcntl_locking.2: HISTORY: Update first POSIX appearance of
+    locking constants
+  man/man2/fork.2: HISTORY: Update first POSIX appearance of fork(2)
+  man/man2/fsync.2: HISTORY: Split fsync(2) and fdatasync(2)
+  man/man2/fsync.2: HISTORY: Update first POSIX appearance of fsync(2)
+  man/man2/fsync.2: HISTORY: Update first POSIX appearance of
+    fdatasync(2)
+  man/man2/get[gu]id.2: HISTORY: Update first POSIX appearance of
+    get[e][gu]id(2)
+  man/man2/getgroups.2: HISTORY: Update first POSIX appearance of
+    getgroups(2)
+  man/man2/gethostname.2: HISTORY: Split gethostname(2) and
+    sethostname(2)
+  man/man2/getitimer.2: HISTORY: Update first SUS appearance of
+    [gs]etitimer(2)
+  man/man2/getpagesize.2: HISTORY: Update first SUS appearance of
+    getpagesize(2)
+  man/man2/getpid.2: HISTORY: Update first POSIX appearance of
+    get[p]pid(2)
+  man/man2/getpriority.2: HISTORY: Update first POSIX appearance of
+    [gs]etpriority(2)
+  man/man2/getresuid.2: HISTORY: Update first POSIX appearance of
+    getres[gu]id(2)
+  man/man2/getrlimit.2: HISTORY: Update first POSIX appearance of
+    [gs]etrlimit(2)
+  man/man2/getsid.2: HISTORY: Update first POSIX appearance of getsid(2)
+  man/man2/getrusage.2: HISTORY: Update first POSIX appearance of
+    getrusage(2)
+  man/man2/gettimeofday.2: HISTORY: Update first POSIX appearance of
+    gettimeofday(2)
 
+ man/man2/_exit.2         |  4 +++-
+ man/man2/clock_getres.2  |  2 +-
+ man/man2/close.2         |  4 +++-
+ man/man2/dup.2           |  4 +++-
+ man/man2/execve.2        |  4 +++-
+ man/man2/fcntl.2         |  4 +++-
+ man/man2/fcntl_locking.2 |  4 +++-
+ man/man2/fork.2          |  4 +++-
+ man/man2/fsync.2         |  9 ++++++++-
+ man/man2/getgid.2        |  3 ++-
+ man/man2/getgroups.2     |  4 +++-
+ man/man2/gethostname.2   | 12 ++++++++----
+ man/man2/getitimer.2     |  5 ++++-
+ man/man2/getpagesize.2   |  5 +++--
+ man/man2/getpid.2        |  4 +++-
+ man/man2/getpriority.2   |  6 ++++--
+ man/man2/getresuid.2     |  3 ++-
+ man/man2/getrlimit.2     |  6 +++++-
+ man/man2/getrusage.2     |  5 ++++-
+ man/man2/getsid.2        |  7 +++++--
+ man/man2/gettimeofday.2  |  7 ++++---
+ man/man2/getuid.2        |  3 ++-
+ 22 files changed, 79 insertions(+), 30 deletions(-)
 
-Have a lovely night!
-Alex
+Range-diff against v1:
+ 1:  1a421b5ee130 =3D  1:  1a421b5ee130 man/man2/clock_getres.2: HISTORY: U=
+pdate first POSIX appearance of clock_* syscalls
+ 2:  5327747ac3c3 =3D  2:  5327747ac3c3 man/man2/close.2: HISTORY: Update f=
+irst POSIX appearance of close(2)
+ 3:  11e4b9d2ac05 =3D  3:  11e4b9d2ac05 man/man2/dup.2: HISTORY: Update fir=
+st POSIX appearance of dup[2](2)
+ 4:  5d691ee5e6a3 =3D  4:  5d691ee5e6a3 man/man2/execve.2: HISTORY: Update =
+first POSIX appearance of execve(2)
+ 5:  eb5b310ab4dd =3D  5:  eb5b310ab4dd man/man2/_exit.2: HISTORY: Update f=
+irst POSIX appearance of _exit(2)
+ 6:  1f924f4f5c3c =3D  6:  1f924f4f5c3c man/man2/fcntl.2: HISTORY: Update f=
+irst POSIX appearance of fcntl(2)
+ 7:  a44c49650063 =3D  7:  a44c49650063 man/man2/fcntl_locking.2: HISTORY: =
+Update first POSIX appearance of locking constants
+ 8:  7404e99ec690 =3D  8:  7404e99ec690 man/man2/fork.2: HISTORY: Update fi=
+rst POSIX appearance of fork(2)
+ 9:  163be42a70ea !  9:  7b237415d7b9 man/man2/fsync.2: HISTORY: Split fsyn=
+c(2) and fdatasync(2)
+    @@ man/man2/fsync.2: .SH VERSIONS
+     +POSIX.1-2001.
+     +.TP
+     +.BR fdatasync ()
+    -+4.2BSD,
+     +POSIX.1-2001.
+      .P
+      In Linux 2.2 and earlier,
+10:  0dfa064b051b ! 10:  ab31e843c470 man/man2/fsync.2: HISTORY: Update fir=
+st POSIX appearance of fsync(2)
+    @@ man/man2/fsync.2: .SH HISTORY
+     +POSIX.1-1996.
+      .TP
+      .BR fdatasync ()
+    - 4.2BSD,
+    + POSIX.1-2001.
+11:  a968c006c218 ! 11:  0d67e7c63fd3 man/man2/fsync.2: HISTORY: Update fir=
+st POSIX appearance of fdatasync(2)
+    @@ Commit message
+    =20
+      ## man/man2/fsync.2 ##
+     @@ man/man2/fsync.2: .SH HISTORY
+    + POSIX.1-1996.
+      .TP
+      .BR fdatasync ()
+    - 4.2BSD,
+     -POSIX.1-2001.
+     +POSIX.1-1996.
+      .P
+12:  566fd21d97b0 =3D 12:  6b987649c5cc man/man2/get[gu]id.2: HISTORY: Upda=
+te first POSIX appearance of get[e][gu]id(2)
+13:  a54a94c8b118 =3D 13:  4ad7acf2ef8c man/man2/getgroups.2: HISTORY: Upda=
+te first POSIX appearance of getgroups(2)
+14:  0097b249c950 ! 14:  94b81d0f1c2b man/man2/gethostname.2: HISTORY: Spli=
+t gethostname(2) and sethostname(2)
+    @@ man/man2/gethostname.2: .SH STANDARDS
+      .BR gethostname ()
+     -but not
+     -.BR sethostname ().
+    ++4.2BSD,
+     +SVr4,
+    -+4.4BSD (first appeared in 4.2BSD),
+     +POSIX.1-2001.
+     +.TP
+     +.BR sethostname ()
+    -+SVr4,
+    -+4.4BSD (first appeared in 4.2BSD).
+    ++4.2BSD,
+    ++SVr4.
+      .P
+      Versions of glibc before glibc 2.2
+      .\" At least glibc 2.0 and glibc 2.1, older versions not checked
+15:  824605c82a14 ! 15:  9c780e0e0176 man/man2/getitimer.2: HISTORY: Update=
+ first SUS appearance of [gs]etitimer(2)
+    @@ man/man2/getitimer.2: .SH VERSIONS
+      None.
+      .SH HISTORY
+     -POSIX.1-2001, SVr4, 4.4BSD (this call first appeared in 4.2BSD).
+    ++4.2BSD,
+     +SVr4,
+    -+4.4BSD (first appeared in 4.2BSD),
+     +SUSv1,
+     +POSIX.1-2001.
+      POSIX.1-2008 marked
+16:  f776e452e427 ! 16:  825144f95298 man/man2/getpagesize.2: HISTORY: Upda=
+te first SUS appearance of getpagesize(2)
+    @@ man/man2/getpagesize.2: .SH VERSIONS
+      .SH HISTORY
+     -This call first appeared in 4.2BSD.
+     -SVr4, 4.4BSD, SUSv2.
+    ++4.2BSD,
+     +SVr4,
+    -+4.4BSD (first appeared in 4.2BSD),
+     +SUSv1.
+      In SUSv2 the
+      .BR getpagesize ()
+17:  c2b9d37b6208 =3D 17:  db0485168785 man/man2/getpid.2: HISTORY: Update =
+first POSIX appearance of get[p]pid(2)
+18:  d5e7adf0a804 ! 18:  6bcf34a705e3 man/man2/getpriority.2: HISTORY: Upda=
+te first POSIX appearance of [gs]etpriority(2)
+    @@ man/man2/getpriority.2: .SH ERRORS
+      .SH HISTORY
+     -POSIX.1-2001,
+     -SVr4, 4.4BSD (these interfaces first appeared in 4.2BSD).
+    ++4.2BSD,
+     +SVr4,
+    -+4.4BSD (first appeared in 4.2BSD),
+     +SUSv1,
+     +POSIX.1-2001 XSI.
+      .P
+19:  b5a7de01af52 =3D 19:  0afcc4b4083b man/man2/getresuid.2: HISTORY: Upda=
+te first POSIX appearance of getres[gu]id(2)
+20:  5e54217b8cec =3D 20:  ffb23d585617 man/man2/getrlimit.2: HISTORY: Upda=
+te first POSIX appearance of [gs]etrlimit(2)
+21:  1bc25963021c =3D 21:  8ec811d4690a man/man2/getsid.2: HISTORY: Update =
+first POSIX appearance of getsid(2)
+22:  b93c17918b36 =3D 22:  3efc2800fc16 man/man2/getrusage.2: HISTORY: Upda=
+te first POSIX appearance of getrusage(2)
+23:  00b72e770428 =3D 23:  37278a0497bd man/man2/gettimeofday.2: HISTORY: U=
+pdate first POSIX appearance of gettimeofday(2)
 
->=20
-> --=20
-> Take care,
-> 	Seth McDonald.
->=20
-> On-list:  2336 E8D2 FEB1 5300 692C  62A9 5839 6AD8 9243 D369
-> Off-list: 82B9 620E 53D0 A1AE 2D69  6111 C267 B002 0A90 0289
-
-
-
+base-commit: 760458adc15668e910cefbbc4f9e11ccfd454411
 --=20
-<https://www.alejandro-colomar.es>
+2.47.3
 
---ldmldiboyd52aksp
+
+--------1f2adfd90ff4dfc22e07094cd94012b703694d66bdd5e76190994231b5662cf1
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmlxciMACgkQ64mZXMKQ
-wqm+2w/9F/b3q0h6YupggL72U1kYcQ0d5GOSUNVVq9mIGuaMmwdiLTnh3+s6FgsK
-C7Rk/gJ0/5r2EVaMwf8OFZBjzO7YuP5nlY2zBdWiNE9AeyiRGvqutXpPyQw9Dk5/
-PwKT4QGLk1wt/ljM+/BXDnV8R75DOWbU/Reho8W2mDQEIP0ECY9MQD0xLK+9zohl
-HyU1+l/DsOpsCEr4hiCsF6i5vvfXtO6whAUSGasdK8oSfaZ9dTCBH9BHVVUKJHRN
-OalhD8DezkXwbLJFWEv5cVkNxhRqpUqL2L9xqg9pcTiqOqV0On20SsVL2Hwvik7A
-58wQNUyAl6YVv4OntcOvwfY6czFRx5EWWtheTnIT3F5yCbOv/q0XSyWs1m84TrgL
-P5B2SjRBfvBxqcbWtCGCdeJEbevOfpKfXOgsBhZmsbkOxLjjZWlHePKG9rovmxGv
-CXC+MWIsktRGAFOv2rS7fX1X61UA6Vm3LqFDtYHYm0af0l2vBj9hVa3/77dhI2iL
-LegqQkCKAQjUUMvXLSsPHIFEUB/hCc8EVqPr7VZjhLtnGIOMXDs+UrZHOwTr9RQ3
-HNUGZ5xdYohuTy4YrIdybKHei3330P3ODPUvJ2EG3XXdnv4KkEQEIfqo3ZDWCskH
-ZEJ8EaFgFvYLe0PAsnmjFbxGoZe4LHZ7Q5V7duYoMc6Z0djz7JA=
-=R7hU
+wqsEARYIAF0FgmlxilcJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmc/jDf+g55LFJ1ZFEwrqemtFiEEIzbo0v6xUwBp
+LGKpWDlq2JJD02kAAOxwAP9MYd0UNII8YHvRdrvFUes29Ta2Z4V83RsBkRhU
+8B0u4AEA0MQd4AYgnJMR2JAdnK8LPOovJ2lNowDiKlJFUijstAA=
+=NDHz
 -----END PGP SIGNATURE-----
 
---ldmldiboyd52aksp--
+
+--------1f2adfd90ff4dfc22e07094cd94012b703694d66bdd5e76190994231b5662cf1--
+
 
