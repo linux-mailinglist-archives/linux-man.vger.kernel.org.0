@@ -1,195 +1,214 @@
-Return-Path: <linux-man+bounces-4960-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4961-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id COsHBbC0d2nKkQEAu9opvQ
-	(envelope-from <linux-man+bounces-4960-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 19:38:40 +0100
+	id CMOWEUDsd2nlmQEAu9opvQ
+	(envelope-from <linux-man+bounces-4961-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 23:35:44 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 777DD8C26A
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 19:38:39 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0FBE8DF8E
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 23:35:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 9A3873014133
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 18:38:30 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 738F530157C2
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 22:35:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0CD4D238C0D;
-	Mon, 26 Jan 2026 18:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2AD73093DE;
+	Mon, 26 Jan 2026 22:35:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SZWHbYZ8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cONzs6Sq"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935E2223DFB
-	for <linux-man@vger.kernel.org>; Mon, 26 Jan 2026 18:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872D63093CB
+	for <linux-man@vger.kernel.org>; Mon, 26 Jan 2026 22:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769452709; cv=none; b=umWoky5QNUbmyzkuedyYGSLuPF3i644jClUaeJ1FQinKbTT93S7NiS1b397N5Hh8VH1yoRb6gQKTZUXNviwGDcX8Ej7r/U7UBbV7pmweRpHC0R60rNPmpAIUvLjsCb74An9Wev74+lkVcZ92EfIWmp/oQwlEM2ws1DWpXu7Fjfs=
+	t=1769466934; cv=none; b=uDf8fSkBuO2Gplnt5FD6XIMQziFUdOOKJ/jmdkUPpPi8R6WxSfwHbRkcrldBY23wWcYM5ft3h2RDar+71Qf3AKOxbMSdz8oKYXy+u128+6KVx2Ci8VICSJuWYCswzW7rBOM1RIl6nVO+KnzvE8V99Mj+QcRNp6wn4I00QAsoA0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769452709; c=relaxed/simple;
-	bh=iDhpyyMouJfqqHP9/dFBSFog49Z6EDyHRI4PEUNaGTU=;
+	s=arc-20240116; t=1769466934; c=relaxed/simple;
+	bh=imL/JuwhBpSrPC3q1hcUHmJPrw7LHhnWhjiOTteL+xQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QDZm63rbrGMdR6DPRAeCECn0jV3noHV55SqAEpKfeyEN/e0YHVz1Iq4+k/uN5IDLvzYCiGABIu1jSXwAcOcpPTGgC+XkOcX9WKJnM4RzrY+aZYb9rXvPAXicCKif00zs02QHoGQz9WQdD7VrmbNLJE9qOlwEAkAgf2q1Pi+0nCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SZWHbYZ8; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-794719afcd4so4786527b3.1
-        for <linux-man@vger.kernel.org>; Mon, 26 Jan 2026 10:38:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769452707; x=1770057507; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=P4JhBa2AYS8obmE3t7QFaLUD1RnAuf8Yf9kOyuZ+0vI=;
-        b=SZWHbYZ8447W5o1wb7zml4SD2yWXTS/1zfYfUJoK9U3omiK6pvXhmgZ6GdFwLztZF9
-         0eQ+oeXXloFa/9/KcX0iMWfU24ovElgqsU6TPE6b4rg+HVd302HL201nDLGiFKSkhFGW
-         EMGsg7FlQlU99tM+zLYF7/orkUVWnEA3CQvnCaQZ5DtRijA3gDjExAJdv/0mh9mB+VOM
-         KSPm3LqP+UH+U1FS8EJdTJWB/zXn8PwE5PdF276tTCHdDPH9+YKS78XzJ7M8nwoPgL80
-         foB/Slm+obV29p34hejjf+8Uikm99e6VsJV7U7jpGgxBnSq36RMshb0bAjiV+OxF7YTF
-         quqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769452707; x=1770057507;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=P4JhBa2AYS8obmE3t7QFaLUD1RnAuf8Yf9kOyuZ+0vI=;
-        b=N0xekUpSDvIgbvtE4UWGQhirSSvsrkOGhb0W1tdOppckBb6oUfA6QW1d0yYNxu9LkL
-         4nyoGCU0A6I2Ag7LAzYWPDhjbTFUSotOnwl7L5XeHv4UT3cy7WFvHCtEFVrvQMOUAo53
-         lQmbQ4djt2mOsw52wWIV9fppGHwedDb/ukx1wX/Vq8qp5ZKvVLVgyapIC303QezD8wH7
-         17I7zae93Gyou6Xun6+Ia2cQZ+LauyE0+mQuLObkk6rOiBDu2kKHxzB5JA1ywXoCPQHI
-         74sLP80QKfY1tOBGU2k/7siEYJl+hI9Cri7WlZzl7JNBRBNdZsXEdrYY5A7QJJD80VwN
-         0oVQ==
-X-Gm-Message-State: AOJu0YxJAAAOW72gDPCbcNxySULO6PcbfH0/8Pd4u9cDrfb9e3U2+TYM
-	iJq2syFeDV6QlfoLvBrCcXZzWY8IQZxbFQeJKc71n5c5JE1QJTRlaRd4
-X-Gm-Gg: AZuq6aLqQ6FIux+rphq/TxPe+L0JOOw3ROnHUd+NsR0Pwhr9usdfKpCv4m8DENprjjO
-	zjmMnH9hr3Vf+hiztiC6GOQTRhjKAg/EnBes5Y83ns9ZJH3j3Uxl7RPxlig9jcq0n4HdVkddzhl
-	oYea5Y/QnkCTU5va7VewrcymVSl7hPqc6ymHYZPtqBpBCCoWj+bDWTZ4Rg35tUwDC/rii7qhbmR
-	EGG08OsyGzfY6WRANUqEahdf5liSQJWisXNn4a2Rayyr8dcjUv1cX364qADSYuKZHc6yCYIVP+C
-	+wfagmqna+bon19iwtIQM9w7NQDMOlXZ4XB9MHGPUbBZk6IUH4aNl0M0HBYJygKwvsspe46VomR
-	CPa8UTQOyea+pmoVbDQwURKV+GO42mFVk2Weq+rB2uVjRXXA9MFjxIIyjBxdDkhgdTzZXlok2yU
-	qU
-X-Received: by 2002:a05:690c:dd5:b0:794:1466:1b38 with SMTP id 00721157ae682-7945a8488c4mr36442147b3.14.1769452707373;
-        Mon, 26 Jan 2026 10:38:27 -0800 (PST)
-Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7943af13c0bsm52058287b3.4.2026.01.26.10.38.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Jan 2026 10:38:26 -0800 (PST)
-Date: Mon, 26 Jan 2026 12:38:24 -0600
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Seth McDonald <sethmcmail@pm.me>
+	 Content-Type:Content-Disposition:In-Reply-To; b=eXjML+SZZNAIbILW0FFCYmrKAaagVROdnSE8iAZ/c0BfJaHukRvZ+ESpnTt5ShiYpUEjnmlS3FAvOTtZAI5Pdff47GAoaMM8x5jylUpfVdrlnzHkyvi+tlK+HK4FDcS17E2xXND5RZ+wZS2HU0YPKji8nWLEtrYotsIILlnjZkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cONzs6Sq; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BDDFC116C6;
+	Mon, 26 Jan 2026 22:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1769466934;
+	bh=imL/JuwhBpSrPC3q1hcUHmJPrw7LHhnWhjiOTteL+xQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cONzs6SqTcOpIh4yKkVTaSqNdFqdsGC5O5N1Y5ahEs21G82Hq3FL46d8SoQvx2gRz
+	 NefCi/QcekEJ58rhsLxSurvHPUgHZXZ9Gv/9N8xFpE5tuLOVShIWQEzEqP4qP9HzI4
+	 /O0JSQhAxuwQwPqruoxxlwTtd1ejOdrW6eo8iEkwDNPpZenR8TM5PO4cDw1yxsQ7uU
+	 k85lO65ubV0Kd51CmY5IKK7y89KKwk+ulUygcmR3WjGz9VdK4O1F6I42yzjTRz7hAc
+	 xADgahLsvom6Rpn62/TnnfGmoNY3qpw07gNZDfA984JHv1Q8G6RjlbTjzR7yrFb67f
+	 uIsGiYJO+vUaQ==
+Date: Mon, 26 Jan 2026 23:35:31 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
 Cc: linux-man@vger.kernel.org
-Subject: the origin of mkdir(2) (was: [PATCH v1 00/21] man/man2/*: Update
- history of syscalls H-M)
-Message-ID: <20260126183824.kpl2f3bjfre4uufx@illithid>
-References: <cover.1769429341.git.sethmcmail@pm.me>
+Subject: Re: [PATCH] man/man2/mmap.2: Further document MAP_GROWSDOWN
+Message-ID: <aXfrneY9fxE1-pbQ@devuan>
+References: <20260126181304.3312554-1-benjamin.p.kallus.gr@dartmouth.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="h5ec3jbewexx4o7u"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fhu7blz4cv5tlbfe"
 Content-Disposition: inline
-In-Reply-To: <cover.1769429341.git.sethmcmail@pm.me>
+In-Reply-To: <20260126181304.3312554-1-benjamin.p.kallus.gr@dartmouth.edu>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-4960-lists,linux-man=lfdr.de];
-	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
+	TAGGED_FROM(0.00)[bounces-4961-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gbrandenrobinson@gmail.com,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 777DD8C26A
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: B0FBE8DF8E
 X-Rspamd-Action: no action
 
 
---h5ec3jbewexx4o7u
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--fhu7blz4cv5tlbfe
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: the origin of mkdir(2) (was: [PATCH v1 00/21] man/man2/*: Update
- history of syscalls H-M)
+From: Alejandro Colomar <alx@kernel.org>
+To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/mmap.2: Further document MAP_GROWSDOWN
+Message-ID: <aXfrneY9fxE1-pbQ@devuan>
+References: <20260126181304.3312554-1-benjamin.p.kallus.gr@dartmouth.edu>
 MIME-Version: 1.0
+In-Reply-To: <20260126181304.3312554-1-benjamin.p.kallus.gr@dartmouth.edu>
 
-Hi Seth,
+Hi Ben,
 
-At 2026-01-26T12:28:10+0000, Seth McDonald wrote:
-> This set updates the history of system calls H to M.
+On 2026-01-26T13:13:04-0500, Ben Kallus wrote:
+> Makes 2 corrections to the page:
+> 1. mmap(MAP_GROWSDOWN) returns the base address of the returned
+>    mapping; not one page lower than that.
+> 2. When growing a MAP_GROWSDOWN mapping, the kernel doesn't require that
+>    the faulting access be within the guard page. Instead, it just needs
+>    to be beneath the mapping, and not within `stack_guard_gap` of the
+>    next lower mapping. By default, `stack_guard_gap` is 256.
+
+Would you mind separating this into two patches?  Or do you think this
+is better as a single one?
+
+> ---
+
+Would you mind signing the patch?
+
+$ tail CONTRIBUTING.d/patches/description=20
+    Trailer
+	Sign your patch with "Signed-off-by:".  Read about the
+	"Developer's Certificate of Origin" at
+	<https://www.kernel.org/doc/Documentation/process/submitting-patches.rst>.
+	When appropriate, other tags documented in that file, such as
+	"Reported-by:", "Reviewed-by:", "Acked-by:", and "Suggested-by:"
+	can be added to the patch.  We use "Co-authored-by:" instead of
+	"Co-developed-by:".  Example:
+
+		Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+>  man/man2/mmap.2 | 12 +++++-------
+>  1 file changed, 5 insertions(+), 7 deletions(-)
 >=20
-> While I have been thorough with my research, I would encourage those
-> interested to double-check that my edits make sense given the listed
-> sources.  Particularly for linkat(2), SEEK_DATA/SEEK_HOLE, mkdirat(2),
-> and mincore(2), since they took significantly more time and research
-> than other functions.
+> diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
+> index 093b0caf1..be2b21ccc 100644
+> --- a/man/man2/mmap.2
+> +++ b/man/man2/mmap.2
+> @@ -274,13 +274,11 @@ should check the returned address against the reque=
+sted address.
+>  This flag is used for stacks.
+>  It indicates to the kernel virtual memory system that the mapping
+>  should extend downward in memory.
+> -The return address is one page lower than the memory area that is
+> -actually created in the process's virtual address space.
+> -Touching an address in the "guard" page below the mapping will cause
+> -the mapping to grow by a page.
+> -This growth can be repeated until the mapping grows to within a
+> -page of the high end of the next lower mapping,
+> -at which point touching the "guard" page will result in a
+> +Accessing an address in the pages below the mapping will cause the mappi=
+ng
+> +to grow to accommodate the access.
 
-I thank you for this work!  I could not have told you that mkdir(2)--
-the system call--arrived in Unix as late as 4.2BSD.  My first thought
-was, "that can't be right".  My second was, "ah, that must be when Unix
-got rid of the 14-character limit on file names".
+Please use semantic newlines.  See man-pages(7).
 
-(Traditionally in Unix, a directory was a plain file of 16-byte
-entries--a 14-byte `char` field for the file name, which was not
-null-terminated if of maximum length, and a 2-byte `int` for the file's
-inode number.  This design kept the system call interface narrow.  It
-also, if I understand the war stories correctly, could lead to horrible
-problems, like users open(2)ing directories belonging to themselves and
-trashing them with sloppy code, or introducing cycles into into the
-graph of the file system by creating hard links to directories.[1])
+$ MANWIDTH=3D72 man man-pages | awk '/Use semantic newlines/,/^$/'
+   Use semantic newlines
+     In the source of a manual page, new sentences should be started on
+     new lines, long sentences should be split  into  lines  at  clause
+     breaks  (commas,  semicolons, colons, and so on), and long clauses
+     should be split at phrase boundaries.  This convention,  sometimes
+     known as "semantic newlines", makes it easier to see the effect of
+     patches, which often operate at the level of individual sentences,
+     clauses, or phrases.
 
-And sure enough, history appears to record that the Berkeley FFS ("fast
-file system") came in with 4.2BSD as well.
 
-https://www.oreilly.com/openbook/opensources/book/kirkmck.html
+Have a lovely day!
+Alex
 
-Regards,
-Branden
+> +This growth can be repeated until the mapping grows to within
+> +256 pages of the high end of the next lower mapping, at which point touc=
+hing
+> +below the mapping will result in a
+>  .B SIGSEGV
+>  signal.
+>  .TP
+> --=20
+> 2.52.0
+>=20
 
-[1] This was such an unthinkable and invalid situation that, again AIUI,
-    that rather than being flatly prohibited by the kernel, only root
-    was allowed to create hard links to directories.
+--=20
+<https://www.alejandro-colomar.es>
 
---h5ec3jbewexx4o7u
+--fhu7blz4cv5tlbfe
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAml3tJgACgkQ0Z6cfXEm
-bc7KRBAAn/JKnx4yGQrIFmiVsDB6VPikFeXw7QYhYJi6d4WMKjcPgZ6uf67p/lq6
-H5eWLKlEFNAjgdJ8fnOGlJiNd+CUDH4WG/62alLjFzaBdHp4a0eg0yFA4WjDBtLk
-+uV4nZ9yKF3qQPw+kxpWgJrqxY7y7yA2QgSv35hxnhb/jaAoYAVxzqzjZZOUKeGE
-MOnXYnO1bduN7Ws0w9kClx+WPI++1AWZiz5jDoyPbNQSZ8UNgHebg843YqP0x/s4
-PC7H/pYWC/FUm7MgBET97JSiwB+TM/Wte4BA7+lTgutrG2HrfjBa7HCQAlFWnLyV
-o0TPlgTlZjdM5OpDCwhlziWbfs4LCn3hDRWMV19ZzwCvCehLkDXc+2Rnx9MyW2pa
-UZpDQcoF6ix/IumnNzY/+sAY1ruzu7yL8Ty9ScUrnlrx0AsqcqYyH9hrFTU0TyiG
-zi+H+N/vaiK9vd3xrBT04OfiWxqPc07Pjo6AtqVH6YSPUXwJ7wI0EA51PgyYanc8
-Mz8LApfmgg0fTF8wRm+1+QI+PWudXJhYleB6OobRAmWStRkfV7qWiPib2Ds40Wmh
-hs/GlS8IrW0Tzz06Qn/V8aphRbTQaUxBIbCptyQ8sG9fx5LmUMzSqQ05l5eyEdcI
-7WirS/LR941SSZyMYWAWHx06oy2Ql1lEBGECwO1hyGkejpovsEg=
-=WAKK
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAml37DMACgkQ64mZXMKQ
+wqmaGw//aQAO6LDbmqBIeqw30q14eKWUfdFBG1y07Jx77AFaCTVCJXwvscjTPzJE
+W2ZoMa0jLv/4fp1+3BOKj8X/gpX/YNYrmiKVX8rZkSM4Keb/hIWVFQmU0Ldy59y8
+Yb5p7DY4FDNg/Qt6qIvEsbIbYUjKNue6JWPHweln9C2kbFoyaIaLJbWnuNEP+Geo
+JofCltC4Y4G+lTRroekIvhpOaA8sQ5mXbYQi5WGrK5SjYMTtgsI4LiXtCQcOFZ47
+uIB/67yoc7+88zZsuinH/2E+CJH/m3LB5J8+0AKYhgj+z7OZT8oPwDn3wS1qr7v6
+MNBWwTfCGwc9/rAS9q1JJaLBKgmq4Nd/cMmQ1wVRTMw9nxYA3Oxp6v5KPC2DeoWD
+jH/+egpmU8eOGwS8PXJQydibTzsvrf7Jls/7XGjJDrOtNQf5XdL1OHcZ0yAjb1YC
+fY1DMq5MmOR10kO/qEOk7OjgI8nzlNSDUpebxsOpoAHy8UW/lc8fxRYfSkd1xn5p
+5SMFdfiBiJZfjoK9ONWCsCkCqjC0bbwWtQ+HtizswTgnKtoJwnRL4uaj9gTjAB22
+NEKDm68M7XfZn3tWjAkro6d0+tlp7E5D4nUolpSJ2cyjUomODrQp8Bg9/vpWM9hT
+fgEeCKDxGpQFbhXoEa4cyza6v4r2/2LQeBjvBopGfEB32ORb8oY=
+=Em6H
 -----END PGP SIGNATURE-----
 
---h5ec3jbewexx4o7u--
+--fhu7blz4cv5tlbfe--
 
