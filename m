@@ -1,88 +1,87 @@
-Return-Path: <linux-man+bounces-4959-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4960-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EAQwND+yd2l2kQEAu9opvQ
-	(envelope-from <linux-man+bounces-4959-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 19:28:15 +0100
+	id COsHBbC0d2nKkQEAu9opvQ
+	(envelope-from <linux-man+bounces-4960-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 19:38:40 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37AEC8C15B
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 19:28:15 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 777DD8C26A
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 19:38:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id E52CD302A53F
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 18:28:13 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 9A3873014133
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jan 2026 18:38:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDEFA2F362A;
-	Mon, 26 Jan 2026 18:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0CD4D238C0D;
+	Mon, 26 Jan 2026 18:38:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cPDM3WGb"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SZWHbYZ8"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552B3239085
-	for <linux-man@vger.kernel.org>; Mon, 26 Jan 2026 18:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935E2223DFB
+	for <linux-man@vger.kernel.org>; Mon, 26 Jan 2026 18:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769452092; cv=none; b=TW3Vn+34kqvYABgDWkTZGUcOZgbd2TCdypVeSxaRmaCOjO85YwVPpFpqS9vU7aN+KbgkpKRDZkja1bnFIFMs7c7f9RgmG30syF6T/JBJlsYqN/omOEO4RhujYRR59CNcwpmydFAwPvmZbNTAW7dssgT0gyN+Ub8Ym0Q8Y6FKPj4=
+	t=1769452709; cv=none; b=umWoky5QNUbmyzkuedyYGSLuPF3i644jClUaeJ1FQinKbTT93S7NiS1b397N5Hh8VH1yoRb6gQKTZUXNviwGDcX8Ej7r/U7UBbV7pmweRpHC0R60rNPmpAIUvLjsCb74An9Wev74+lkVcZ92EfIWmp/oQwlEM2ws1DWpXu7Fjfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769452092; c=relaxed/simple;
-	bh=D0zpI8az5IDmJNZ3t4VCcEJRR5NWaTx1wJgs/bZnsUU=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GukmoScI0KSKTWOj2zPM+xpXWPbP7ExGIuKPu9nJXjOLsAib02b1XqXJGI/J8aFjF6v6Pvva/SUASaIpL9b8PnRlLDlqGtnIHHdZLRgQTX/sVjmn3SvCTMybQRYwjKscKnJuvHBWrzjeI7U+Bh0ph5IUHl2o8ol3xt9YZfj1C44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cPDM3WGb; arc=none smtp.client-ip=209.85.128.177
+	s=arc-20240116; t=1769452709; c=relaxed/simple;
+	bh=iDhpyyMouJfqqHP9/dFBSFog49Z6EDyHRI4PEUNaGTU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QDZm63rbrGMdR6DPRAeCECn0jV3noHV55SqAEpKfeyEN/e0YHVz1Iq4+k/uN5IDLvzYCiGABIu1jSXwAcOcpPTGgC+XkOcX9WKJnM4RzrY+aZYb9rXvPAXicCKif00zs02QHoGQz9WQdD7VrmbNLJE9qOlwEAkAgf2q1Pi+0nCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SZWHbYZ8; arc=none smtp.client-ip=209.85.128.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-79456d5dda4so16240557b3.2
-        for <linux-man@vger.kernel.org>; Mon, 26 Jan 2026 10:28:11 -0800 (PST)
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-794719afcd4so4786527b3.1
+        for <linux-man@vger.kernel.org>; Mon, 26 Jan 2026 10:38:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769452090; x=1770056890; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1769452707; x=1770057507; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=HYAU9D6kw9KQdxJIF3MWZNmCD3EcyFLJYgG2h2sCuCc=;
-        b=cPDM3WGb9c77OUirBlgmQF0e2dhlbQasgx7dSrjdoq11kA7h4PDBZbzLFM1ijM4/wI
-         szgP1MX0w4E8RBk7/qlmfn2fpvXY2xzqj3ePgBjWtG9WOYlPMb3VxZUC4PnEbcqPUbgJ
-         dPI7Tp7wLfysae9+4trZVzxmL4XhLjKc5uGziiCobfpUuGh2yEpJ97bSlKc/oXJpGcYa
-         ZLP29+dzFtbTC2YOrdzAw+r1Xg9y/wKPag25vTR502l8ImFhqy9I/gNEu2YJTDWoaUYd
-         EQE2QnmLEaGVAmFBYRLX/s312UsUsfHDO3oBIRbM75P3dEepPy9aJ1SsJaDaAYbHgp2z
-         4cKQ==
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=P4JhBa2AYS8obmE3t7QFaLUD1RnAuf8Yf9kOyuZ+0vI=;
+        b=SZWHbYZ8447W5o1wb7zml4SD2yWXTS/1zfYfUJoK9U3omiK6pvXhmgZ6GdFwLztZF9
+         0eQ+oeXXloFa/9/KcX0iMWfU24ovElgqsU6TPE6b4rg+HVd302HL201nDLGiFKSkhFGW
+         EMGsg7FlQlU99tM+zLYF7/orkUVWnEA3CQvnCaQZ5DtRijA3gDjExAJdv/0mh9mB+VOM
+         KSPm3LqP+UH+U1FS8EJdTJWB/zXn8PwE5PdF276tTCHdDPH9+YKS78XzJ7M8nwoPgL80
+         foB/Slm+obV29p34hejjf+8Uikm99e6VsJV7U7jpGgxBnSq36RMshb0bAjiV+OxF7YTF
+         quqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769452090; x=1770056890;
+        d=1e100.net; s=20230601; t=1769452707; x=1770057507;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=HYAU9D6kw9KQdxJIF3MWZNmCD3EcyFLJYgG2h2sCuCc=;
-        b=fG6ILLTwVwDmvd42Ay3yQRwM/j9vkJXhOFTnMa6AqHbijBzB3GPmD97ZQ7IgJbEFCh
-         HM46zKAxbagROPXcdxW19l9aNONkozfLa5w907rpHa28JDP5R0MJrrVe2xuoDIVgOzX+
-         YtV65lgCRzrKWtWw6bENBll7U+pRA8JjEgSZvCh0xVfkU94ypOV/lUcwSgMyYoNE2gNT
-         5rjQ14jKmcrRrMHJf8TWqvdB3j6tXPc+PBPDhK/yVoMfGeSZ7B/XGtxF36pDcjpNJUh5
-         srFEIqbW3Qc32HJT0vaIC1uZYGmMGyqCh1Pv3E/fmYEHNbRWI6GXFXXLWr6ugSPRUDAe
-         8luA==
-X-Gm-Message-State: AOJu0YyKupkLscLSewTmaJeisK91kwnK9ERjN4RiXJwUa21xInd6f9c2
-	yL/qTKI343Air35Bsou3ePI7iQoxxeZPf3fD+qRANPzbRMlRAiPSqtOO9LjBAg==
-X-Gm-Gg: AZuq6aI9bPme85Cyfhgonkrl7Go/0VSMq/j+Eafj3dzCeul8WbRYXFKyTZSZFgW1lSP
-	LZrbbzgoZwrkzxsPMK7Yzq59hM12IHO9CiVY+LJMKKGoZXj+BUnXl0kKj7hEzBB8fCjFr/akvIw
-	Zus+FeDqr11mIvohcvA+MJgebmWoPMfIOkM3UerOuepYtaAtd265Sv8t6XOpKD+n6KEHxf/OXnX
-	nh4hx9lJ1xTRdiqlWTArcF0XUtS8RX2nE0ScClEUT86bITuSJr3aWmzIsxV6u9mti0WLfAAum/P
-	oNtGYDEi2NOxLhwHUwu9bUaHC2pED/wBnYvb1A1TwR+DV0uNM+EzznxgIkNPvm4BoF0SIxixWGU
-	qlr7iJZYMixQWG6b7fuGTGmnaruN+xSXCVbM5VtIXtGb5j4LWIZjRsxdAtLOLcTgj1hj/ayrJ4a
-	Pm
-X-Received: by 2002:a05:690c:ec7:b0:794:2b18:5464 with SMTP id 00721157ae682-7945a86bab4mr99678717b3.11.1769452089583;
-        Mon, 26 Jan 2026 10:28:09 -0800 (PST)
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=P4JhBa2AYS8obmE3t7QFaLUD1RnAuf8Yf9kOyuZ+0vI=;
+        b=N0xekUpSDvIgbvtE4UWGQhirSSvsrkOGhb0W1tdOppckBb6oUfA6QW1d0yYNxu9LkL
+         4nyoGCU0A6I2Ag7LAzYWPDhjbTFUSotOnwl7L5XeHv4UT3cy7WFvHCtEFVrvQMOUAo53
+         lQmbQ4djt2mOsw52wWIV9fppGHwedDb/ukx1wX/Vq8qp5ZKvVLVgyapIC303QezD8wH7
+         17I7zae93Gyou6Xun6+Ia2cQZ+LauyE0+mQuLObkk6rOiBDu2kKHxzB5JA1ywXoCPQHI
+         74sLP80QKfY1tOBGU2k/7siEYJl+hI9Cri7WlZzl7JNBRBNdZsXEdrYY5A7QJJD80VwN
+         0oVQ==
+X-Gm-Message-State: AOJu0YxJAAAOW72gDPCbcNxySULO6PcbfH0/8Pd4u9cDrfb9e3U2+TYM
+	iJq2syFeDV6QlfoLvBrCcXZzWY8IQZxbFQeJKc71n5c5JE1QJTRlaRd4
+X-Gm-Gg: AZuq6aLqQ6FIux+rphq/TxPe+L0JOOw3ROnHUd+NsR0Pwhr9usdfKpCv4m8DENprjjO
+	zjmMnH9hr3Vf+hiztiC6GOQTRhjKAg/EnBes5Y83ns9ZJH3j3Uxl7RPxlig9jcq0n4HdVkddzhl
+	oYea5Y/QnkCTU5va7VewrcymVSl7hPqc6ymHYZPtqBpBCCoWj+bDWTZ4Rg35tUwDC/rii7qhbmR
+	EGG08OsyGzfY6WRANUqEahdf5liSQJWisXNn4a2Rayyr8dcjUv1cX364qADSYuKZHc6yCYIVP+C
+	+wfagmqna+bon19iwtIQM9w7NQDMOlXZ4XB9MHGPUbBZk6IUH4aNl0M0HBYJygKwvsspe46VomR
+	CPa8UTQOyea+pmoVbDQwURKV+GO42mFVk2Weq+rB2uVjRXXA9MFjxIIyjBxdDkhgdTzZXlok2yU
+	qU
+X-Received: by 2002:a05:690c:dd5:b0:794:1466:1b38 with SMTP id 00721157ae682-7945a8488c4mr36442147b3.14.1769452707373;
+        Mon, 26 Jan 2026 10:38:27 -0800 (PST)
 Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7945dbbdf9esm19248247b3.24.2026.01.26.10.28.08
-        for <linux-man@vger.kernel.org>
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7943af13c0bsm52058287b3.4.2026.01.26.10.38.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Jan 2026 10:28:08 -0800 (PST)
-Date: Mon, 26 Jan 2026 12:28:06 -0600
+        Mon, 26 Jan 2026 10:38:26 -0800 (PST)
+Date: Mon, 26 Jan 2026 12:38:24 -0600
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 06/21] man/man2/lseek.2: HISTORY: Update appearances
- of SEEK_{DATA,HOLE}
-Message-ID: <20260126182806.kyaq4iocq624bkvb@illithid>
+To: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org
+Subject: the origin of mkdir(2) (was: [PATCH v1 00/21] man/man2/*: Update
+ history of syscalls H-M)
+Message-ID: <20260126183824.kpl2f3bjfre4uufx@illithid>
 References: <cover.1769429341.git.sethmcmail@pm.me>
- <bcf9f5113f3c88ec1a3fa2bd9ec7a397b603f7c0.1769429341.git.sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -90,122 +89,107 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4j7bq6dbdihaqke4"
+	protocol="application/pgp-signature"; boundary="h5ec3jbewexx4o7u"
 Content-Disposition: inline
-In-Reply-To: <bcf9f5113f3c88ec1a3fa2bd9ec7a397b603f7c0.1769429341.git.sethmcmail@pm.me>
+In-Reply-To: <cover.1769429341.git.sethmcmail@pm.me>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TAGGED_FROM(0.00)[bounces-4959-lists,linux-man=lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	RCPT_COUNT_ONE(0.00)[1];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-4960-lists,linux-man=lfdr.de];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	MISSING_XM_UA(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[gbrandenrobinson@gmail.com,linux-man@vger.kernel.org];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_NONE(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,bowdoin.edu:url]
-X-Rspamd-Queue-Id: 37AEC8C15B
+	TAGGED_RCPT(0.00)[linux-man];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 777DD8C26A
 X-Rspamd-Action: no action
 
 
---4j7bq6dbdihaqke4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--h5ec3jbewexx4o7u
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 06/21] man/man2/lseek.2: HISTORY: Update appearances
- of SEEK_{DATA,HOLE}
+Subject: the origin of mkdir(2) (was: [PATCH v1 00/21] man/man2/*: Update
+ history of syscalls H-M)
 MIME-Version: 1.0
-
-[minor point on English usage]
 
 Hi Seth,
 
-At 2026-01-26T12:28:59+0000, Seth McDonald wrote:
-> SEEK_DATA and SEEK_HOLE appeared in Solaris no later than 2005-12-12,
-> when a ZFS developer stated in a blog post that "[a]t this [time of]
-> writing, SEEK_HOLE and SEEK_DATA are Solaris-specific."[1]
+At 2026-01-26T12:28:10+0000, Seth McDonald wrote:
+> This set updates the history of system calls H to M.
+>=20
+> While I have been thorough with my research, I would encourage those
+> interested to double-check that my edits make sense given the listed
+> sources.  Particularly for linkat(2), SEEK_DATA/SEEK_HOLE, mkdirat(2),
+> and mincore(2), since they took significantly more time and research
+> than other functions.
 
-"At this writing" is idiomatic (but relatively formal) English.
+I thank you for this work!  I could not have told you that mkdir(2)--
+the system call--arrived in Unix as late as 4.2BSD.  My first thought
+was, "that can't be right".  My second was, "ah, that must be when Unix
+got rid of the 14-character limit on file names".
 
-If the bracketed "[time of]" was meant only or mainly to clarify meaning
-for non-native English speakers, of whom there are many subscribed to
-this list, that's fine of course, and you should skip this message.
+(Traditionally in Unix, a directory was a plain file of 16-byte
+entries--a 14-byte `char` field for the file name, which was not
+null-terminated if of maximum length, and a 2-byte `int` for the file's
+inode number.  This design kept the system call interface narrow.  It
+also, if I understand the war stories correctly, could lead to horrible
+problems, like users open(2)ing directories belonging to themselves and
+trashing them with sloppy code, or introducing cycles into into the
+graph of the file system by creating hard links to directories.[1])
 
-I'm having trouble finding an authoritative source for my claim, and my
-_American Heritage Dictionary of Idioms_ is no use--possibly because
-this isn't an idiomatic, but a literal one, if one interprets "writing"
-as referring to an action in progress, like "playing" or "dancing", and
-not as a gerund, as in "in my time of dying".
+And sure enough, history appears to record that the Berkeley FFS ("fast
+file system") came in with 4.2BSD as well.
 
-But here are some exhibits of its correct (idiomatic, if you will) use
-on the Web.
-
-"I also subscribe to MLB-TV and urge on my Baltimore Orioles, who
-haven't had such a good time of it at this writing."
-	https://www.bowdoin.edu/news/2025/06/getting-them-laughing.html
-
-"Linney has a series of audio lectures based on The First Year of Latin,
-an 1902 text by Gunnison and Harley covering, at this writing, half the
-text."
-	https://quarksandquirks.wordpress.com/tag/william-linney/
-
-"The program book, still online at this writing, contained informative
-program notes by musicologist Anne Pi=C3=A9jus, an excellent essay by
-Washington Post Art and Architecture critic Philip Kennicott drawing
-parallels between the French court=E2=80=99s reception of Esther and impact=
-s of
-today=E2=80=99s social media, and an also excellent essay by music historian
-Benjamin Bernard who covered private school education at a
-contemporaneous boys school, Coll=C3=A8ge Mazarin, and the girls school at
-Saint-Cyr, Maison royae de Saint-Louis."
-	https://operagene.com/new-blog/2024/2/12/opera-lafayettes-from-saint-cyr-t=
-o-cannons-moreau-and-handels-esther-theater-as-mass-media
-
-(One's got to have an immense lung capacity to perform opera
-professionally, and even its fans would seem to be up to that high
-standard, judging by the prodigious length of the foregoing sentence.)
+https://www.oreilly.com/openbook/opensources/book/kirkmck.html
 
 Regards,
 Branden
 
---4j7bq6dbdihaqke4
+[1] This was such an unthinkable and invalid situation that, again AIUI,
+    that rather than being flatly prohibited by the kernel, only root
+    was allowed to create hard links to directories.
+
+--h5ec3jbewexx4o7u
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAml3si8ACgkQ0Z6cfXEm
-bc5i4RAAhgu61O9yj+ZOvo2p7GTBI6PtmMy0TcETf0dz5Wp77Ric5KDhOHjKXLaw
-WUvzthGEllrn9o0vPZs0ZVVpvvL/2aE/BQJrHgN1sKlYGIUS98yKTuB5/KUfh+HI
-M9UmuNp5WWi1hbiFbMQCWSobD2up7gpfOgrOsrcVUOeLl2CIr22Q2HgLl1AW2mNs
-/r7D07y7BuCL1Jnfqk6RWHeVq5IMsLG3HZq8c4/TN0llqr+O3mFRDC5AvHZ+Oydf
-xBQMMOekXz+qsaVvg6eCCuT6p/BDiZFbzNnxk+vtD786hkFmQx7BwwioIOmjDZt3
-X1g8zAmgYEE1TpAzPSPqXUse2EFPTfUPgnLBDiu3SM/c+Z9HMKkBSNL1/BVkVAoQ
-eSbaOp88OS8cZwiQCnmSa5iqcO1hEiBAYIXYIhEyegGX5TYMvIY8gVnAraqY8Z/C
-6WTw0zxj4V7LFU3m33wiPNLKIk87uT32e0r0vhDEHen1tHZy0hKIVHZW5/TIP0ca
-JZU/c0m2G09a8VA8mrWZtT6PjJUpvcgzyGs3AyU4F9hzr/NKY6x3HW5+ztSnLHKi
-qPrcrjXAci4M7E6ZvNRNwafio5Ah1sLShS5dGtQY+iryeU3dygSgzj0OsNq83RZC
-aCueGODum0vWwBuliun5SyehTg+gpgExlpWhQcggtK7ORsekz08=
-=i27y
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAml3tJgACgkQ0Z6cfXEm
+bc7KRBAAn/JKnx4yGQrIFmiVsDB6VPikFeXw7QYhYJi6d4WMKjcPgZ6uf67p/lq6
+H5eWLKlEFNAjgdJ8fnOGlJiNd+CUDH4WG/62alLjFzaBdHp4a0eg0yFA4WjDBtLk
++uV4nZ9yKF3qQPw+kxpWgJrqxY7y7yA2QgSv35hxnhb/jaAoYAVxzqzjZZOUKeGE
+MOnXYnO1bduN7Ws0w9kClx+WPI++1AWZiz5jDoyPbNQSZ8UNgHebg843YqP0x/s4
+PC7H/pYWC/FUm7MgBET97JSiwB+TM/Wte4BA7+lTgutrG2HrfjBa7HCQAlFWnLyV
+o0TPlgTlZjdM5OpDCwhlziWbfs4LCn3hDRWMV19ZzwCvCehLkDXc+2Rnx9MyW2pa
+UZpDQcoF6ix/IumnNzY/+sAY1ruzu7yL8Ty9ScUrnlrx0AsqcqYyH9hrFTU0TyiG
+zi+H+N/vaiK9vd3xrBT04OfiWxqPc07Pjo6AtqVH6YSPUXwJ7wI0EA51PgyYanc8
+Mz8LApfmgg0fTF8wRm+1+QI+PWudXJhYleB6OobRAmWStRkfV7qWiPib2Ds40Wmh
+hs/GlS8IrW0Tzz06Qn/V8aphRbTQaUxBIbCptyQ8sG9fx5LmUMzSqQ05l5eyEdcI
+7WirS/LR941SSZyMYWAWHx06oy2Ql1lEBGECwO1hyGkejpovsEg=
+=WAKK
 -----END PGP SIGNATURE-----
 
---4j7bq6dbdihaqke4--
+--h5ec3jbewexx4o7u--
 
