@@ -1,152 +1,174 @@
-Return-Path: <linux-man+bounces-4968-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4969-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UJTCHPjKeGmNtQEAu9opvQ
-	(envelope-from <linux-man+bounces-4968-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 27 Jan 2026 15:26:00 +0100
+	id 3z7qKi02eWnwvwEAu9opvQ
+	(envelope-from <linux-man+bounces-4969-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 27 Jan 2026 23:03:25 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 328B995966
-	for <lists+linux-man@lfdr.de>; Tue, 27 Jan 2026 15:25:59 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 01B179AE30
+	for <lists+linux-man@lfdr.de>; Tue, 27 Jan 2026 23:03:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id A0B283001F86
-	for <lists+linux-man@lfdr.de>; Tue, 27 Jan 2026 14:25:56 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 8589F300D46C
+	for <lists+linux-man@lfdr.de>; Tue, 27 Jan 2026 22:03:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48C6F3587A4;
-	Tue, 27 Jan 2026 14:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 197C0275AE8;
+	Tue, 27 Jan 2026 22:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b="Y1rPF5bS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="siGCTSuu"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f67.google.com (mail-qv1-f67.google.com [209.85.219.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980DD34B195
-	for <linux-man@vger.kernel.org>; Tue, 27 Jan 2026 14:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A7021B185
+	for <linux-man@vger.kernel.org>; Tue, 27 Jan 2026 22:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769523955; cv=none; b=FvUsSKBdsgNawKLwCnGphsCLreDj3vPBCjcaTBYxm4T9USknUnP5t3MDnU53iSQNKJqQTQgGdpBFIda19O2vF66r+B7XKPYYHvf+KNwUbj0zmML0bpefi4cFrrZOYcfpyLP5DUMxevAMmwujIwMRh4U7BUaNxImtT63cUCUBXpU=
+	t=1769551402; cv=none; b=OLoXuPu699CKMlwu9J0YjrbeDhQBE6a4Nmevq8kg1YFV0KjuOZofaVGzmvTGH9qHELNqMUe8Xgjx5q/MBHfy18n/m9Tj9QiOwhgSnQoHCzfsXlXL7BRNO4sXvSkRBmC7R3ZBs/YMJIHJ8sDn5wiliUJH2RYpak8uBYcF2CJaVf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769523955; c=relaxed/simple;
-	bh=38ywWlYc+nAWGU0AzNOftHqJHzqrC6sj4dR2ilnx7oM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a16DS8WWBi9iKg7AiePLvnWa5Br5HqobhUJ4jMmgfXSDHfxM4Tkl7Nv1XfJP5ALjSd946AfWiLkOJzo7WOJlYz/J0/g+FPgJ3vHZk3yfk9EW6EN1mFv8Nq5RL5d1uDJiKYBvLjmxs0UMjgqWI2Gh5UHFA8BA+xDykoiCSsKGmLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu; spf=pass smtp.mailfrom=dartmouth.edu; dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b=Y1rPF5bS; arc=none smtp.client-ip=209.85.219.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dartmouth.edu
-Received: by mail-qv1-f67.google.com with SMTP id 6a1803df08f44-88a3d2f3299so61629276d6.2
-        for <linux-man@vger.kernel.org>; Tue, 27 Jan 2026 06:25:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dartmouth.edu; s=google1; t=1769523952; x=1770128752; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=zQBG3AiVtn0KsqKJ0GnSFKvdfuYEctNJ5mX3P+UB/Ng=;
-        b=Y1rPF5bSATEMEgMDWH/j49IWkzCzh4MsDcpwx3DuBbt3GdyWxA8XIQyVI/8xOHQdfW
-         XxPwS5LfGLjuyuLGlWM39sMpjcgUggYv8cdzecbLTScTdhvyzE91UU9UKpW8AJeG+v1k
-         RbQsPrI1vQYxZdMI3i64IfolCD+etQ5OO7dOuaVHJsGRYZGP0DpUMZQuyVHOxuea/q4e
-         fF6O0I+2WKqX4gI7KHg2GhXaVx5Jflp0q4x/U7XrKgtTkzxxC4vMlB1+m6SqM/+ulC7S
-         lcRzHCrKs0tUFkRkgspzlxS8iFoP4is32jEY1mbQF0xtM7MTiA1FHv6n/3Fv2F9ZRrB1
-         LaMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769523952; x=1770128752;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zQBG3AiVtn0KsqKJ0GnSFKvdfuYEctNJ5mX3P+UB/Ng=;
-        b=TMzjF2ixBjDSvGtVAQ81YZZXptJg3n3awJ2FurMnc3xusgZZcdQWQ3cnI5sQwIfkTv
-         +4FzyuSogCbVEswGTOOBOUZCRmOFFIO4t3cFGDLlrebQo4nJHHvKxniNYmAeWt8FTrmC
-         +1LbHpaMpfJBONR4AtxsF7m+myrngWkfXW+Sk6xtII4jLO5pCefqZ7hbL3mulefUJMl2
-         ZYi7A1b8NE3N/TAZ5wKd3T1WDN03ukVOnz/rldsB50ZE1Bpb0wjSp9uk5K8TJ0IysczC
-         OIYJPkw7KQgEmw35Wz416P5Mdow9kqlSynhAD+Alx2VBiDl6czK15tVnPSm1RdB+gKoH
-         aZFA==
-X-Gm-Message-State: AOJu0Yxf9/+pxp7nGOyAFoDDY2ogklXqB6Wrv8rlba4hygWTW6qUdv/c
-	GmrIHMrGiqGgRiZD/IKYhq0mYL7JdbHCoF3H09UPrv9VWKEKsG37wvkx1yN4x8AXHz0=
-X-Gm-Gg: AZuq6aJrDnUlV1X24f0i/sSX4IGbDp3aIZqf0sRey8puLn0SgFBM3yVFabh6mc5XSs0
-	1oxltb8FfvLElwICntPEfrDeA6ujVrZahxbGDDqG8K6fvSytA9SV2liFE899GsHfjmM3rAJ5XTU
-	OCB/wBqTQUkPMhbcAbO9WIDoz2xIMT3SkVKHY+ORved/1zzWSLYQWW6MbIQHsAIa42OV5FFA2nj
-	GApaNV130UYFsWHoRtW3Akd5SqDEVnJSSLcp6MEhDr+wUc9gomgsrBUlwSTEvcNCKXOtxOoVktt
-	VeyqRG04ZU/Mdus57FQEIz7vg200H82m4DImJ+Yc/9f7zMr+Y5b55htwm8fU9pMVqA1lohQCxmq
-	ITTOzW1sXmr+vuJB0JStWubHFcf5naGENRwkEZCTfXP0VgjVvFtbiAJB35U99QkEw7HassQbR03
-	0m63lEjIgNzy75Xe5Y5Bl1/19n6+ianW2q4rF0qR0+WV/4wh+FpeC5sqkgZGvVB9HQJeqhwIH/Z
-	hEGyNhNGM/cBiUnSwLWDlYFiMBjtqHNG5shbohQwHpyjcLO/OI2gsnDV0Qx6D9kNG7stJOrtAik
-	060wfWc5ofbG7QjJbN5T52BtGqD+g15wsNZXvd4LE1KKZe3OGprdwWfA9yu6PyLPpyBVZglvyrY
-	Gevdzu8gRNF+hVl+3ue794DJJ1nSvwPUEiuUfATDhcW6i83oYxaex0bCX
-X-Received: by 2002:a05:6214:29e4:b0:88f:fcac:e9c7 with SMTP id 6a1803df08f44-894cc7d9219mr23875816d6.9.1769523952539;
-        Tue, 27 Jan 2026 06:25:52 -0800 (PST)
-Received: from localhost ([129.170.197.107])
-        by smtp.gmail.com with UTF8SMTPSA id 6a1803df08f44-89491844d6asm114901036d6.21.2026.01.27.06.25.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Jan 2026 06:25:52 -0800 (PST)
-From: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org,
-	Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Subject: [PATCH] man/man2/mmap.2: Document MAP_GROWSDOWN return val
-Date: Tue, 27 Jan 2026 09:25:45 -0500
-Message-ID: <20260127142545.3328119-1-benjamin.p.kallus.gr@dartmouth.edu>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1769551402; c=relaxed/simple;
+	bh=qZTb4DqseaQKLwyxwFZ+IQ58u+3gDyhb6ahBrm//UHU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZlHVsSrbo3ILtG7A+TglZeFrHuSaCqmY7pG/4/jlkt6pSsJK/X62OehgwEv6E7w36r5xP3vO0I7/IU3dzrjLNqoucFF9kjd8apLFjoBIFhtEdBW9ghJ2G4Eq3QKrmGwdU19i0EOdXB8MDWc/sNGNkjd1U7mf1UfK8+tUrR9daLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=siGCTSuu; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9F9C116C6;
+	Tue, 27 Jan 2026 22:03:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1769551402;
+	bh=qZTb4DqseaQKLwyxwFZ+IQ58u+3gDyhb6ahBrm//UHU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=siGCTSuuGphSD9h+FAo42ahaBhdNKh6jHOAWgDIz6c1Op+B0f1Hs12l6NBBGdUEng
+	 WmkL4CBEjVL43DXIQy0ZnuLFLukkNH8MYYRVw5dIjP8REn37wF7dc2vLSFAuNJVpVF
+	 l2dttkBJGutkYcqmoN2cy97TpU+eF8JYDql/6a8sFmqE2vbidYfQ/P7CU4OuhWobTs
+	 FfLD9HlplMKUib8mA82W+AEpbi9ogkGqM7pKu7Q2BvyRbTQsL2wUw42oGBfpHqwAGm
+	 FPykiWxPM0Ax1E+IPuIsN+kpt7s6lQm7D6sta5ELwPHevj7awHGqKoLncRFBowrImP
+	 n66QwAf9XY1SA==
+Date: Tue, 27 Jan 2026 23:03:19 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/mmap.2: Document MAP_GROWSDOWN return val
+Message-ID: <aXk13qiCiMyzqWu1@devuan>
+References: <20260127142545.3328119-1-benjamin.p.kallus.gr@dartmouth.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ihx2675ksamx2aj2"
+Content-Disposition: inline
+In-Reply-To: <20260127142545.3328119-1-benjamin.p.kallus.gr@dartmouth.edu>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.66 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-3.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[dartmouth.edu,none];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
-	R_DKIM_ALLOW(-0.20)[dartmouth.edu:s=google1];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-4968-lists,linux-man=lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
-	RCPT_COUNT_THREE(0.00)[3];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[benjamin.p.kallus.gr@dartmouth.edu,linux-man@vger.kernel.org];
+	RCPT_COUNT_TWO(0.00)[2];
+	TAGGED_FROM(0.00)[bounces-4969-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[dartmouth.edu:+];
-	RCVD_COUNT_FIVE(0.00)[5];
-	TAGGED_RCPT(0.00)[linux-man];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	TAGGED_RCPT(0.00)[linux-man];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns,dartmouth.edu:email,dartmouth.edu:dkim,dartmouth.edu:mid]
-X-Rspamd-Queue-Id: 328B995966
+	DBL_BLOCKED_OPENRESOLVER(0.00)[dartmouth.edu:email,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 01B179AE30
 X-Rspamd-Action: no action
 
-Previously, the man page stated that the MAP_GROWSDOWN flag causes the
-kernel to return an address one page lower than the mapping created.
-This is not true; the kernel returns the base address of the mapping
-created. This can be confirmed by inspecting /proc/self/maps after
-making a gd mapping, and comparing it to the returned value from mmap.
 
-Signed-off-by: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
----
- man/man2/mmap.2 | 2 --
- 1 file changed, 2 deletions(-)
+--ihx2675ksamx2aj2
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/mmap.2: Document MAP_GROWSDOWN return val
+Message-ID: <aXk13qiCiMyzqWu1@devuan>
+References: <20260127142545.3328119-1-benjamin.p.kallus.gr@dartmouth.edu>
+MIME-Version: 1.0
+In-Reply-To: <20260127142545.3328119-1-benjamin.p.kallus.gr@dartmouth.edu>
 
-diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
-index 093b0caf1..9bfa88a65 100644
---- a/man/man2/mmap.2
-+++ b/man/man2/mmap.2
-@@ -274,8 +274,6 @@ should check the returned address against the requested address.
- This flag is used for stacks.
- It indicates to the kernel virtual memory system that the mapping
- should extend downward in memory.
--The return address is one page lower than the memory area that is
--actually created in the process's virtual address space.
- Touching an address in the "guard" page below the mapping will cause
- the mapping to grow by a page.
- This growth can be repeated until the mapping grows to within a
--- 
-2.52.0
+Hi Ben,
 
+On 2026-01-27T09:25:45-0500, Ben Kallus wrote:
+> Previously, the man page stated that the MAP_GROWSDOWN flag causes the
+> kernel to return an address one page lower than the mapping created.
+> This is not true; the kernel returns the base address of the mapping
+> created. This can be confirmed by inspecting /proc/self/maps after
+> making a gd mapping, and comparing it to the returned value from mmap.
+>=20
+> Signed-off-by: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+> ---
+>  man/man2/mmap.2 | 2 --
+>  1 file changed, 2 deletions(-)
+>=20
+> diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
+> index 093b0caf1..9bfa88a65 100644
+> --- a/man/man2/mmap.2
+> +++ b/man/man2/mmap.2
+> @@ -274,8 +274,6 @@ should check the returned address against the request=
+ed address.
+>  This flag is used for stacks.
+>  It indicates to the kernel virtual memory system that the mapping
+>  should extend downward in memory.
+> -The return address is one page lower than the memory area that is
+> -actually created in the process's virtual address space.
+>  Touching an address in the "guard" page below the mapping will cause
+
+The patch only removes code.  Is this accidental or intended?  I think
+this does not match the commit subject (which BTW has a cut word?)
+
+
+Have a lovely day!
+Alex
+
+>  the mapping to grow by a page.
+>  This growth can be repeated until the mapping grows to within a
+> --=20
+> 2.52.0
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--ihx2675ksamx2aj2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAml5NiEACgkQ64mZXMKQ
+wqnpxg/8DgvXx2fE/Ul6unZt/1regFzlFagb/nDS4ShiXMkb3A5OiApsk6xQJxuu
+8IgP9qGxM57YgLkWeRq7ieXJyN8dm0uiLEtllDCciRTzRqMS02Bt5AVPGhhUQ2l3
+3DNufCPfQNYYJDwQZ7oh4bXGzy/JLVXgmkOx7gZCZsLNotDqi4zf+kuR3hvvt9lr
+LR1NjsKm3F4VPmH2Q9Ho265vNRmmbL1StxLDN3WK09p2PCNjzELCafBst9p2tFvY
+Yv96eikVK+cabG9XcrYiBeWqfYTCidXrkTOb3Lp0+7HevGCwVeGHd0m5FRMdXyAC
+K4hcJuzHqRvBZkEcHGtkgoghdQzzMkqDLDxZDPR2R4239S5YzlIpjcxi5OxLmawI
+vo3wHOJ9vUNnQZGRwUF3OgUD2kEuxwZnP4Djc6S8MgyPI8CvXe0BzHorWrWB+trz
+Ea378+xslIEw/UeZVxYT8XxHGo5hUa647pGXkphptIf17wRpjWsdcjmQNQoBAw5B
+vS/FWNbVg8b+EurwKwi3bFYvBqHRmQ29xdiXei0kzEctya7OJP0dSIR4igJcaNRU
+sUgms0dayp6EticjWN8gy13BnbXZy6zz/7Yz+nmtbCmkgutkQBvuONvgS1B8Ao7o
+NrJwtaVEmVnDVKt4soQZ9Xrn2mkgWbf3U/pgy0mQxcDOoY6Xl90=
+=gtyT
+-----END PGP SIGNATURE-----
+
+--ihx2675ksamx2aj2--
 
