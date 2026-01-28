@@ -1,264 +1,152 @@
-Return-Path: <linux-man+bounces-4987-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4988-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2KQCCNEiemmv2wEAu9opvQ
-	(envelope-from <linux-man+bounces-4987-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 15:53:05 +0100
+	id AFy1ArgkemkO3QEAu9opvQ
+	(envelope-from <linux-man+bounces-4988-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 16:01:12 +0100
 X-Original-To: lists+linux-man@lfdr.de
 Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70D50A343F
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 15:53:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98EF9A36B1
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 16:01:01 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 4778130B549C
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 14:47:35 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 5892230A6081
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 14:52:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E172361DB8;
-	Wed, 28 Jan 2026 14:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7232628CF77;
+	Wed, 28 Jan 2026 14:52:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODf1ULSL"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="brF/il5/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3414034A797
-	for <linux-man@vger.kernel.org>; Wed, 28 Jan 2026 14:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769611629; cv=none; b=dFylrbw6v4eFG5nJArNSXPO096ehwmHSQEXMKETW6AgNNLro5LzasMT8UZ3Yekc2tqJ1HGfcM5FITqcWG5fKl1BlSkAE1BmOmb3v7tmzGlP0goQ177muZMP7UM8ejlXdfvyCqkDgc9pF/x9CFXld0pNRuzSH9u+9nuGaiEDO35Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769611629; c=relaxed/simple;
-	bh=2AirEJvtOqKt9U3/kYSwHT4so9mZ2ODuSbWiTxo6Jck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LxZrB5mKR2qgm1vO5Ylba7rnJC5v7uH2na77r1lbjiARCPnl8EA4qW/hKy8xCl4nHG8mu3fPV9NOYGxmF4quu5EKmhJC4nH2xwnOdY98X6bEHEHten9FY5CK7AbAQxmITzjYzIolOOgcr7gWECytNvwOSh6db0x+pS2ZAE6I/d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODf1ULSL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E73C4CEF1;
-	Wed, 28 Jan 2026 14:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1769611628;
-	bh=2AirEJvtOqKt9U3/kYSwHT4so9mZ2ODuSbWiTxo6Jck=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ODf1ULSLjueGzYESa2pyyLL6g2ughhOxrW4g/tQ2ejEjrPHWcW88ygZ5rLQljeDh3
-	 jln6PNh/fMyGHQyggkXQaPC2TH0+RAw3L9xIog8Lf3ATiXIqovsEXyEPh3v5T9/xix
-	 +uqWCjYoSapbkPlOyXV90hNZPbYYK07+m2S4aVemLC7mjqCBWt2ntTN8TSF6oYE5/n
-	 GWUpTS3AzpT/m56RRxpImlQ65qpMSKVKz9Y6s18ScCMZ5GCHWpou9f4MSN2et8Yfkc
-	 RoCNUtIIq3oYAagmjtmQSiAkaqj9zGwYtDOKO+enNNu65tfdfjad4CSxOw1OFg1K5e
-	 Oa+QLGcL5RFBw==
-Date: Wed, 28 Jan 2026 15:47:05 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org, 
-	Douglas McIlroy <douglas.mcilroy@dartmouth.edu>, "G. Branden Robinson" <branden@debian.org>, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Subject: Re: [RFC PATCH v1 0/2] New sman(1) script
-Message-ID: <aXoe53s-QgwEjQ37@devuan>
-References: <cover.1769497513.git.sethmcmail@pm.me>
- <aXixqbsZcY-tbCJ4@devuan>
- <aXmUPal6Owzv8eDr@McDaDebianPC>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F6A33ADBD
+	for <linux-man@vger.kernel.org>; Wed, 28 Jan 2026 14:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1769611922; cv=pass; b=csFX7gjLsCbu1b0j9ESdg7v8wi3acZzeScFbEjZVbpMIzqafauepIfvfTdH/rdDsnbTNWwdXDFHHblTsU7NXZ7SC/NL4zVHL3NVI2PfNc8q8L6oOUfjQa+JcPBMNGV2T/sEy1vzy5wQhnVQz+wr2AQHrClgZbIAMFLUIZbI0bfM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1769611922; c=relaxed/simple;
+	bh=oDV4CARBjowfsef0Yf1s/BXVEwZqMGCJ7ml12z+TcCI=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=qn6nju/XPjRpv8MWAd8dgnxiGSrB3HxxKGE06ImRTr031/Zb3yT9S6+zG6L9rGUPC0Dvdoz9urqJEyR+Q6eq6EkB+Hg23w15n4YAi8UK7izjkwY4yCzNFwHKl2Q/84H8Wld8X95Y2RXMRsS1CyG1fMarg3c/BP5Y5U/if2J2ZWk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=brF/il5/; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-65808d08423so10424710a12.1
+        for <linux-man@vger.kernel.org>; Wed, 28 Jan 2026 06:52:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769611919; cv=none;
+        d=google.com; s=arc-20240605;
+        b=CL0NHgQRpLFxoNs7RMwKioCVb3Tga+OMfYe+4pQ5F3NIN/QGqItDqB2B0sOH+xoHar
+         DISAs8rdDm1omCsMYrVXzwTJI21d1z/cRoGoDAPhhFfzpEczlfV5OM/C/nCJYB0OdfMb
+         wdlEMGljFkwKnpgktzxHv1fLOnYhc76HuZ652JnrUUYnCGc03OmO0kFxg24vkwgs2R0U
+         FgfOAinslyCxVI+gyKY9iEo67p3nfwHZfMCioWhSNl/bdnVjkH0E9lRnqj9uGakDB7Hq
+         xy3DNujk4wH7OYD7HygQeX9MWfvv74mcnCt7nJlOPd8lxDyy2acmMW6eSxQgLWBDXq+o
+         9zOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=2qJvYf8o/QA+FqDCM1u7titKLRz7zdSKHfDbFSF4W48=;
+        fh=c1whHUeJnQA9k8nvkHAvGRExA8LyZLAxHiuV1QNxZ3Q=;
+        b=FbU/yuHU0xuzyGlCXcPb4sBTMb9wdU8BxX9HHn8crjXXrXMgSg7cjHUR2Nw/+ng/Aw
+         0zb4TpLGZSRWcvbKpzu+R/kZgRnppujGbyfY79hBcuIPBCe5ZepauJwZNpesELv0Vx8A
+         4ezcPULVj7tYuFHpPBeSENlS3M8wxzI9izfWnzrpeEFCoaTM3SBCP4Cm/nXYEZAzNtEF
+         8DhbV7YP56e0XUzMjJcPnowpB4jYcHWyqNEx+Muo4afXQ+tOq0DQgwcVbATg4lAWFce0
+         Z5b8nhL375UDF35RblPMl7aGP51FyrO2SqOtw+7gqoQ1u6wMQ3LLVEY0QGfGgaFvexiA
+         Ia4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1769611919; x=1770216719; darn=vger.kernel.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=2qJvYf8o/QA+FqDCM1u7titKLRz7zdSKHfDbFSF4W48=;
+        b=brF/il5/EomPAGK0ClDVPOSfEAe73T5FSxSSHRkiZjlVQ3U1qbJYGOMJEnzHNuDjCR
+         5HzbEBPfIRI8wLA927DcuNcYN84vVTXSlOIi5IosrUAuehHIVk0NMTZkjP2K/0RRSoMc
+         tWKGuOFZypaxk0kQAHHV4G/tRT+5PikfADZWOcmwjx5GZtm+lcQT7CZt8mtsnxFsEMYZ
+         DzJDYLIfqDabRpwIhz80kSl0jI80SqGHDEDn11JCBLVGbNqyKUZBVGFgGh0NvNe4ihDg
+         SRlx7giZYOpHxh88Kp7IH/AQ6t12K2bkyaLTLaBxxYhcCF7yZIXKgJp3mU+5UY64VNUU
+         LsfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769611919; x=1770216719;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2qJvYf8o/QA+FqDCM1u7titKLRz7zdSKHfDbFSF4W48=;
+        b=dGSljL6cPFjuZ2G/6IzZaNTCNK+6o6PBeHw7QIsnhAwhzZPnwqOwSFaQ/0Y0X0LE44
+         oyOvFvxz4EXgb751fSNwmk8W19w5pLaXJfTGDei4+AA/Su1e9jjvUkjSzViz61DQkUFO
+         vJJ3H1POFEyCtWRmyG04Kiw1LKB+f7zs5JTAxYi+WNhRcXD7H3vcGWOka+eVDqUtRncm
+         2s2WLutUeDEOZkC+ZkkFL7kRdlwXm4C1luao1oaGWehwv0a5yRlnH9/2pQY4rpARsbrU
+         WRggJ+U4vRJC0yVxCs2gCEVBU4izax1FEV4dvROTc2kWG/RP66qAgZqWB8IHW6Srfgk7
+         ZI1w==
+X-Forwarded-Encrypted: i=1; AJvYcCXpjcMY6XMrYByT8AnJl4cp32KEUhOGDEOwqn7Y0ucijhn6TPw2to49n0S/4jUsXYVmLf5xgDxOK6M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRN+V/MoieIMN9YQMxKnvK7Yb5T9YC/ixOgz1sFxYcs++bQDai
+	MqDNvnIXlwdJGp13EJbGw5AkcSSQP7TMM8GRU+gn+sEodG+ujkDNsWMPW8PTIEbDbtQAs6Jlv5n
+	WKflpMeVnD6euYC8TDpQn4AckWqex4gq2IDxg
+X-Gm-Gg: AZuq6aIo19IrJWM6PRCIB2g7OGnzxH0+Aovb48xbDIb9/5aHBIwFUYcl6uYgwdWyXGQ
+	mr0vXKXg6jcqHAMNT6lVrjRN14N1HrlHBH0btdsfIf9IZVNP6HtgAAmknnNCqzepsNowlqjPOsm
+	RqakkdvelOrcMavDYiO9adKIKdDNXZ34LyvlCNDEncbo4U+4L8geM/mRTuObYxPTlql47ikYJRB
+	uu7ABxaZ3x6213SjxFig7KwWqabIsk3E/IqpMAz6UAAqUDa0Fd5aITk7aLJqOlPEHbQGEj+Z1kr
+	LwgoOrdv69wKlgcTaFuGVwNO7vjtYoFHsgsrCiZ4pu9g5BJJ4HGtZj9NQnYUjx0JEqIv
+X-Received: by 2002:a05:6402:50cb:b0:64b:5f4e:9e6d with SMTP id
+ 4fb4d7f45d1cf-658a6084067mr3681035a12.18.1769611918651; Wed, 28 Jan 2026
+ 06:51:58 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p4jdl23ce6sdctlf"
-Content-Disposition: inline
-In-Reply-To: <aXmUPal6Owzv8eDr@McDaDebianPC>
+From: Morten Welinder <mwelinder@gmail.com>
+Date: Wed, 28 Jan 2026 09:51:47 -0500
+X-Gm-Features: AZwV_QgExq91Wu_5mQZNjULdJNDONrfCZQ6m9vMQWP0mBWE_emq0I_V9vY6z8Vg
+Message-ID: <CANv4PNkbi35JzgKump4zdNSUEwSjCpS7pQLZ8LTm+kKZ_4vtyw@mail.gmail.com>
+Subject: floor/ceil man pages
+To: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+X-Spamd-Result: default: False [-2.16 / 15.00];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-4987-lists,linux-man=lfdr.de];
+	RCPT_COUNT_TWO(0.00)[2];
 	RCVD_COUNT_THREE(0.00)[4];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RSPAMD_URIBL_FAIL(0.00)[cppreference.com:query timed out];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ASN_FAIL(0.00)[114.105.105.172.asn.rspamd.com:query timed out];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	TO_DN_SOME(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mwelinder@gmail.com,linux-man@vger.kernel.org];
+	PRECEDENCE_BULK(0.00)[];
+	TAGGED_FROM(0.00)[bounces-4988-lists,linux-man=lfdr.de];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 70D50A343F
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 98EF9A36B1
 X-Rspamd-Action: no action
 
+I see two minor problems:
 
---p4jdl23ce6sdctlf
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <sethmcmail@pm.me>
-Cc: linux-man@vger.kernel.org, 
-	Douglas McIlroy <douglas.mcilroy@dartmouth.edu>, "G. Branden Robinson" <branden@debian.org>, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Subject: Re: [RFC PATCH v1 0/2] New sman(1) script
-Message-ID: <aXoe53s-QgwEjQ37@devuan>
-References: <cover.1769497513.git.sethmcmail@pm.me>
- <aXixqbsZcY-tbCJ4@devuan>
- <aXmUPal6Owzv8eDr@McDaDebianPC>
-MIME-Version: 1.0
-In-Reply-To: <aXmUPal6Owzv8eDr@McDaDebianPC>
+"If x is integral, +0, -0, NaN, or infinite, x itself is returned." --
+this seems to suggest that NaN is passed through unchanged, i.e., the
+type and sign of the NaN is unchanged.  Other references I can find
+suggest that the NaN details are not guaranted.  See
+https://en.cppreference.com/w/c/numeric/math/floor.html, for example.
 
-Hi Seth,
+"ceil(-0.5) is 0.0".  I can't find a reference, but (1) this looks
+weird, and (2) it looks like libc actually returns -0.0 which makes
+more sense.  As noted above, ceil(-0.0) is required to be -0.0 if if
+ceil(-0.5) were to return +0.0 it would make ceil a non-monotonic
+function.
 
-On 2026-01-28T04:44:53+0000, Seth McDonald wrote:
-
-[...]
-> > > As far as I can tell, no program in src/bin/ can currently do this.  =
-The
-> > > closest is mansect(1), but that outputs the source code rather than t=
-he
-> > > rendered page.
-> >=20
-> > You could use mansect(1) for that, and pipe it to man(1) (or groff(1)).
->=20
-> I honestly have no idea how that never crossed my mind.  Seems so
-> obvious in retrospect lol.
-
-:-)
-
-[...]
-> > > As an example, the script currently re-renders the whole man page for
-> > > each section in a for loop, rather than printing each section from the
-> > > same rendered page, which would likely be more performant.
-> >=20
-> > I honestly can't read that script.  My ability to read other people's
-> > bash(1) scripts is quite limited.  :)
->=20
-> Very fair.  There's just something about shell scripts that make them
-> particularly difficult to parse imo.
-
-I think tend to have more issues reading scripts that use shell features
-other than pipes.  Scripts that do 'foo|bar|baz|asd|fgh' tend to be
-quite readable.
-
-> > About the interface, I think I like more the interface of mansect(1),
-> > which is
-> >=20
-> > 	mansect section [file ...]
-> >=20
-> > I think that's ideal.  We don't need an argument like man(1)'s -s,
-> > because that would be more easily specified as
-> >=20
-> > 	mansectf LIBRARY printf.3;
-> >=20
-> > The .3 disambiguates without needing a separate argument.  However,
-> > I don't think we want to do librarian work here, and think we should
-> > entirely refrain from accepting manual page names like man(1).  I think
-> > we should only accept file names.
->=20
-> I modelled the interface after man(1) because I assumed that would be
-> more familiar.  But I'd certainly be down for an interface like
-> mansect(1)'s if that's preferable.
-
-A benefit of mansect(1)'s interface is that it can be used on a
-directory:
-
-	mansect HISTORY man2/
-
-And it works on all files under that directory.  I've found that to be
-quite useful.
-
-[...]
-> > And then about the main work, it can be done by calling mansect(1) in
-> > a pipeline.
-> >=20
-> > With that in mind, I've written my own approach, which I've called
-> > mansectf.
-> >=20
-> > 	$ cat src/bin/mansectf;
-> > 	#!/bin/bash
-> > 	#
-> > 	# Copyright, the authors of the Linux man-pages project
-> > 	# SPDX-License-Identifier: GPL-3.0-or-later
-> >=20
-> > 	set -Eefuo pipefail;
-> >=20
-> > 	mansect "$@" \
-> > 	| man /dev/stdin;
-> >=20
-> > Does this work for you?  I look at it and wonder if it's worth
-> > a separate script, but then it might be useful for people who are less
-> > experienced with man(1).  To be fair, few people know that man(1) can
-> > accept stdin, and even if they know, sometimes convenience wrappers
-> > improve readability: for example, printf(1) is unnecessary given that
-> > fprintf(3) exists, yet it's thoroughly used and I find it essential.
-> >=20
-> > 	printf("foo");
-> > 	fprintf(stdout, "foo");
-> >=20
-> > So, I think such a thin wrapper can have its place, as it's the main use
-> > case of mansect(1).
->=20
-> This would be perfectly suitable, at least for my use cases.  I also
-> think mansectf is a *much* more apt name.
-
-Nice!
-
-> All in all, I also think the best option here is a thin wrapper over
-> mansect(1).  The main benefit being that it would simplify many use
-> cases of mansect(1) without adding an unreasonable amount of complexity.
-
-Yup.
-
-> Also, if we were to add mansectf, I would probably opt for adding it to
-> mansect(1)'s man page, rather than giving it its own page.
-
-I think I'll write a separate manual page.  I tend to dislike pages that
-document more than one API, with few exceptions.  Exceptions are for
-example modf/modff/modfl, where the only difference is the type.
-
-> (P.S. While I'm nowhere near an expert on Unix shells, I honestly feel
-> like I've learnt more about their use from these email exchanges than
-> most other sources.  So thanks for that. :) )
-
-You're welcome!  :-)
-
-(FWIW, I also learnt to write good shell scripts in this mailing list;
- especially, preparing scripts for applying global changes to the manual
- pages, and for finding inconsistencies in manual pages.)
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---p4jdl23ce6sdctlf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAml6IWMACgkQ64mZXMKQ
-wqmnbxAAnUpfdWRMTmpLqCiQ59WRrN+av2Nh0ZC+AVPB0iQHIdVf5rSE1Ugzt4r2
-adSmrSP1rp+YPigWjdtpk8QbzLa4FH2qJo/XccCNIBuZRBsl5DnYyk4bdERWw7I9
-qhhQRxH4wMNTdcvMKhXYfWG+rS3sFilEtY30OKjGk1EqkvGlEKF/j4dGGra0dV32
-8sU0AfnzBnUQO9o/COt2gHxx55EZAYKy4GnrdFv2OsZnlDctRJYE2E0PbA/0FKD5
-EmwdftGdPBvNSp6cxVQTCumCweT+kFP7xCarUPn4Cj/kp9MeJFejh6wDPmktiG5a
-m0nlAeQKyvvdHW7CbfkaRmQyS8/E3x3qz/KT7mh6kmL+TVO2N297PHp9rMgGAKk7
-Is10BO1j84Kc3wGMFHru4FPSXAwpAcyHhkS55NXvSVq79werGNjwOXKuUIIPRXzv
-o7f90clmrKxyL6XkzM1OuXuRVh53E/jAy6ySAwaoWDzHThOURMt6bqWHSoSEfIaU
-bFb2NjrBU55TjB0Lmr/tuGM5h3+r6ZGFK1+sJgYsOi/AcLtA3l+cy/ERH1KEJVbZ
-LB6xGaZvsFdF8nLd6d3mv4U0o7QLV6Awu+fDxh99FV7ItvPfBVpmYftgrqXk4s7M
-x/DY4SEoeZHyiwsXwUhxyDfaamBkM4uRRg0P1xf0qaDgD1cKqG8=
-=NbC/
------END PGP SIGNATURE-----
-
---p4jdl23ce6sdctlf--
+M.
 
