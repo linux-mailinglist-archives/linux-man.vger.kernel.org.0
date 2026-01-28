@@ -1,57 +1,60 @@
-Return-Path: <linux-man+bounces-4989-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4990-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IFJWNzglemlk3QEAu9opvQ
-	(envelope-from <linux-man+bounces-4989-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 16:03:20 +0100
+	id uGuOOe5Bemmr4wEAu9opvQ
+	(envelope-from <linux-man+bounces-4990-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 18:05:50 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29852A3745
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 16:03:14 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F5CAA685B
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 18:05:50 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id BFA06305CF7F
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 14:57:58 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 90856304A54E
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 16:56:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8A0A83659F5;
-	Wed, 28 Jan 2026 14:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6942733F39B;
+	Wed, 28 Jan 2026 16:52:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QObQCbxe"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="aSv0chSv"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0EB357737
-	for <linux-man@vger.kernel.org>; Wed, 28 Jan 2026 14:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DB1303C86
+	for <linux-man@vger.kernel.org>; Wed, 28 Jan 2026 16:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769612276; cv=none; b=uUZn6hW6ecbACDucEDrwt0J5ZWVFXf6z2PDv4Ja1Oclc0hxavG6ZF0hT6haVYnv56SBHDtygTVXeUjh/L2GQojoFkxuWHtt7weC1uOCYuNTO6kCU5OOuvdo0eufueK5wc7lfarwZnOjv9HmH29pkpSb7z8HrY9KtMvkX07frjlk=
+	t=1769619174; cv=none; b=C1GiRqtHaR9H6kxLSpdAnXAUneofmfrapPDHAeIe9oiH9FQIWCOsB+LFH+LhjNqOamoA2cHwRVL5CZMqoeQl6zY7mQf83VY1iaopyYQ1JfzGa8yzEIE9Wy+2Nhp1v/Tv77SCTQ7HT6zSHe7+eFpafQQdORAJJuflqmsxmMfz6os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769612276; c=relaxed/simple;
-	bh=3pGXhLvIJVU40OjUvK+k3BU/sweW5CmmmVcsuNhd5Jo=;
+	s=arc-20240116; t=1769619174; c=relaxed/simple;
+	bh=jSKwKwx74OUot0AD7bT6wmuSDQp/05ekMaXliYJuGxw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zbnwn0a1jF0klsw0b/NuCSiZff0Q1L7OX+qlodIAw68YuV5/L4b687abYlzHZUgGQ3igHywclbeHWeDZzYdwsWegsIh4Ld/q4dXT0nILyflosnnqeCCYXJENIAqIrQFNCcAPZe8v40AX2BiQmHRpr/JLKCgwCbXnxxs0k2WguJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QObQCbxe; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91457C4CEF1;
-	Wed, 28 Jan 2026 14:57:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1769612275;
-	bh=3pGXhLvIJVU40OjUvK+k3BU/sweW5CmmmVcsuNhd5Jo=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=fbq7UNfEd/JSXIFeUwdfHpHd6S6+FzIAb77ZoWQngZypUmk7YfYd3Hgl0zcIgX/WCSpyol8bAN1DRYTRqQ9aHa4BRyrwq3hwiybY1rM8XCH9f149kM62DkMVzKdB7PYKOEcjSQQxeFGhBbO/sHCxvSFui/aRUC5TUI4vpmZEVi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=aSv0chSv; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202505; t=1769619136;
+	bh=jSKwKwx74OUot0AD7bT6wmuSDQp/05ekMaXliYJuGxw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QObQCbxe+Ald8o440Xc4NtRMwPHKiwNNNDxoeBcGe/GyAaQDNhuKdezedXeqipXuB
-	 0T/op32sCPgoEudsLynCbkP7GRJ/i+Tqdmccq7U22mQ5EUZ2wQH1UNF44k/Q3HDxsv
-	 iqw40w2schA63owKxx40ONJDk+JBzCL13Yc3dPMVrIe6npya7uj7nztCvxn5eZ1F4E
-	 2RpKP0xcrITeThQGAj9bR3wnM23lPfbM9ve7rootFrcBc6JQpUnQPw5N+9X8btfxPy
-	 /rfn464aTWsE7SbikOxgUhmoAVd0cmWKXxjNHuKXPXhbF/zCRV36EMGktlgsqkDr7d
-	 kVZhskTum9gCA==
-Date: Wed, 28 Jan 2026 15:57:52 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	Adhemerval Zanella <adhemerval.zanella@linaro.org>
-Subject: Re: [PATCH] man/man3/timespec_get.3: Add ISO C23 time bases
-Message-ID: <aXoixaxyo_OkBRJ_@devuan>
-References: <1b8aea00296c530f2a3a79158a98d44a46a795e5.1769581372.git.mark.hsj@gmail.com>
+	b=aSv0chSvpijERnaPmYf6VrWVAWxc4Bb4LfqIpJdPoe1s4mnf0XxAgPiV0LRFBasHy
+	 3DZ3NIgf8NoHez70Ek60lXe6NF893OJryWcaI27joVW+jYlPWaBchjtB6KrVnbJS1F
+	 CKRevyP9oBusgTi67T2cOxPnCY3lprEBcb84jSmcqRnvW0KkgNNhJBP+U+KBKXg1Fh
+	 db+l0948TZd08odiiu/+bLhYGEWFz4jfgi1EIkziu7EXviwDMOR6xP5n62Ce7i7Yi1
+	 dubA0C6sur/+VXRM1Zt6kA7Ny3GKUzbugU8nzbIRltXI5OwsvzC0vkWsEGhZ0Oy2un
+	 t9eFbGU9LrcQw==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 41313F0A;
+	Wed, 28 Jan 2026 17:52:16 +0100 (CET)
+Date: Wed, 28 Jan 2026 17:52:15 +0100
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Seth McDonald <sethmcmail@pm.me>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Subject: Re: [RFC PATCH v1 1/2] src/bin/sman: Add script
+Message-ID: <xclnrhc3q3kub6gqhd64difkyls74zcqmhnpwov2dwzrsghjg3@tarta.nabijaczleweli.xyz>
+References: <cover.1769497513.git.sethmcmail@pm.me>
+ <d093a884e5fbe60d62c35189ac38de5a6b0005e1.1769497513.git.sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,225 +62,216 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kuy7kx2fwmh26lek"
+	protocol="application/pgp-signature"; boundary="ezu5rc7d52pn3n7j"
 Content-Disposition: inline
-In-Reply-To: <1b8aea00296c530f2a3a79158a98d44a46a795e5.1769581372.git.mark.hsj@gmail.com>
+In-Reply-To: <d093a884e5fbe60d62c35189ac38de5a6b0005e1.1769497513.git.sethmcmail@pm.me>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
+X-Spamd-Result: default: False [-4.26 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	DMARC_POLICY_ALLOW(-0.50)[nabijaczleweli.xyz,none];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
+	R_DKIM_ALLOW(-0.20)[nabijaczleweli.xyz:s=202505];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	ASN_FAIL(0.00)[10.253.234.172.asn.rspamd.com:query timed out];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	TAGGED_FROM(0.00)[bounces-4989-lists,linux-man=lfdr.de];
-	RCPT_COUNT_THREE(0.00)[3];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	PRECEDENCE_BULK(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
-	MISSING_XM_UA(0.00)[];
+	TAGGED_FROM(0.00)[bounces-4990-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DKIM_TRACE(0.00)[nabijaczleweli.xyz:+];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
+	NEURAL_HAM(-0.00)[-1.000];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[nabijaczleweli@nabijaczleweli.xyz,linux-man@vger.kernel.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 29852A3745
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 5F5CAA685B
 X-Rspamd-Action: no action
 
 
---kuy7kx2fwmh26lek
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--ezu5rc7d52pn3n7j
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	Adhemerval Zanella <adhemerval.zanella@linaro.org>
-Subject: Re: [PATCH] man/man3/timespec_get.3: Add ISO C23 time bases
-Message-ID: <aXoixaxyo_OkBRJ_@devuan>
-References: <1b8aea00296c530f2a3a79158a98d44a46a795e5.1769581372.git.mark.hsj@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <1b8aea00296c530f2a3a79158a98d44a46a795e5.1769581372.git.mark.hsj@gmail.com>
 
-Hi Mark,
+You wrote it confusingly (if I wrote it like that it'd be on purpose;
+ I doubt that was your intent but that's how it reads),
+so I isomorphised your program into third normal form:
+-- >8 --
+#!/bin/sh
+#
+# Copyright, the authors of the Linux man-pages project
+# SPDX-License-Identifier: GPL-3.0-or-later
 
-On 2026-01-27T22:42:21-0800, Mark Harris wrote:
-> Document new time bases TIME_MONOTONIC, TIME_ACTIVE, and
-> TIME_THREAD_ACTIVE, introduced in ISO C23 and supported by
-> glibc 2.43.[1]
->=20
-> [1] <https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommit;h=3Df28a11e43f4=
-0>
->=20
-> Signed-off-by: Mark Harris <mark.hsj@gmail.com>
+name=3D"${0##*/}"
 
-Thanks!
+# fail [error message]
+fail() {
+	[ $# -gt 1 ] && echo "$name: $1"
+	echo "Usage: $name [man section] <man page> <page section>..."
+	exit $#
+}
 
-> ---
->  man/man3/timespec_get.3 | 64 ++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 57 insertions(+), 7 deletions(-)
->=20
-> diff --git a/man/man3/timespec_get.3 b/man/man3/timespec_get.3
-> index 79bb82226..d2be50fd4 100644
-> --- a/man/man3/timespec_get.3
-> +++ b/man/man3/timespec_get.3
-> @@ -17,6 +17,25 @@ .SH SYNOPSIS
->  .BI "int timespec_get(struct timespec *" res ", int " base );
->  .BI "int timespec_getres(struct timespec *" tp ", int " base );
->  .fi
-> +.P
-> +.RS -4
-> +Feature Test Macro Requirements for glibc (see
-> +.BR feature_test_macros (7)):
-> +.RE
-> +.P
-> +.BR timespec_get (),
-> +.BR TIME_UTC :
-> +.nf
-> +    _ISOC11_SOURCE
-> +.fi
-> +.P
-> +.BR timespec_getres (),
-> +.BR TIME_MONOTONIC ,
-> +.BR TIME_ACTIVE ,
-> +.BR TIME_THREAD_ACTIVE :
-> +.nf
-> +    _ISOC23_SOURCE
-> +.fi
->  .SH DESCRIPTION
->  The
->  .BR timespec_get ()
+[ $# -eq 0 ] && fail
+[ $# -lt 2 ] && fail "Too few arguments."
 
-LGTM.  But would you mind separating the patch into one that reformats
-the page without adding the new time bases, and then one patch that adds
-the new time bases?
+command -v man > /dev/null 2>&1 || fail "Failed to find man(1)."
+command -v sed > /dev/null 2>&1 || fail "Failed to find sed(1)."
 
-> @@ -39,16 +58,49 @@ .SH DESCRIPTION
->  For a particular time base,
->  the resolution is constant for the lifetime of the calling process.
->  .P
-> +The time base
-> +.I base
-> +is one of the following:
-> +.TP
+[ -n "$MAN_KEEP_FORMATTING" ] && export MAN_KEEP_FORMATTING=3D1
+[ -n "$MANWIDTH"            ] && export MANWIDTH
 
-Same here.  I'd like this to be part of a pre-patch.
+# There are currently no man pages whose name starts with a digit.  So
+# its fair to assume that if the first arg starts with a digit, it's
+# referring to a man section.
+if [ "${1#[0-9]}" !=3D "$1" ]
+then
+	msect=3D"$1"
+	shift 1
+fi
 
->  .B TIME_UTC
-> -is always a supported time base,
-> -and is the only time base supported on Linux.
-> +A system-wide time base that measures real (i.e., wall-clock) time.
->  The time and resolution in this time base
->  are the same as those retrieved by
->  .I clock_gettime(CLOCK_REALTIME,\~res)
->  and
->  .IR clock_getres(CLOCK_REALTIME,\~tp) ,
->  respectively.
-> -Other systems may support additional time bases.
-> +.TP
-> +.BR TIME_MONOTONIC " (since glibc 2.43)"
-> +A time base that measures time since an unspecified point in the past,
-> +where the time within a process will not decrease even if the
-> +system's real time clock is set or adjusted.
-> +The time and resolution in this time base
-> +are the same as those retrieved by
-> +.I clock_gettime(CLOCK_MONOTONIC,\~res)
-> +and
-> +.IR clock_getres(CLOCK_MONOTONIC,\~tp) ,
-> +respectively.
-> +.TP
-> +.BR TIME_ACTIVE " (since glibc 2.43)"
-> +A process-specific time base that measures CPU time consumed by
-> +the calling process.
-> +The time and resolution in this time base
-> +are the same as those retrieved by
-> +.I clock_gettime(CLOCK_PROCESS_CPUTIME_ID,\~res)
-> +and
-> +.IR clock_getres(CLOCK_PROCESS_CPUTIME_ID,\~tp) ,
-> +respectively.
-> +.TP
-> +.BR TIME_THREAD_ACTIVE " (since glibc 2.43)"
-> +A thread-specific time base that measures CPU time consumed by
-> +the calling thread.
-> +The time and resolution in this time base
-> +are the same as those retrieved by
-> +.I clock_gettime(CLOCK_THREAD_CPUTIME_ID,\~res)
-> +and
-> +.IR clock_getres(CLOCK_THREAD_CPUTIME_ID,\~tp) ,
-> +respectively.
->  .SH RETURN VALUE
->  .BR timespec_get ()
->  returns the nonzero
-> @@ -78,9 +130,9 @@ .SH ATTRIBUTES
->  .SH STANDARDS
->  .TP
->  .BR timespec_get ()
-> -.TQ
-> +C23 (though ISO C doesn't specify the
->  .B TIME_UTC
-> -C23 (though ISO C doesn't specify the time epoch),
-> +epoch),
+mpage=3D"$1"
+shift 1
+[ $# -eq 0 ] && fail "No page sections specified."
 
-I don't understand this change.  Could you please clarify?
+# Check man page exists before getting the same "No manual Entry" error
+# for each user-specified page section.
+man -w $msect "$mpage" > /dev/null || fail "Failed to find $mpage."
 
->  POSIX.1-2024.
->  .TP
->  .BR timespec_getres ()
-> @@ -88,8 +140,6 @@ .SH STANDARDS
->  .SH HISTORY
->  .TP
->  .BR timespec_get ()
-> -.TQ
-> -.B TIME_UTC
->  C11, POSIX.1-2024, glibc 2.16, musl 1.1.10.
+for psect
+do
+	psect=3D$(printf '%s\n' "$psect" | tr [:lower:] [:upper:])
+	# If MAN_KEEP_FORMATTING is set, the section headers should be
+	# in bold.  So wrap regex in the corresponding ANSI escape codes
+	# in this case.
+	man $msect "$mpage" |
+	if [ -n "$MAN_KEEP_FORMATTING" ]
+	then
+		sed -En $'/^\e\[1m'"$psect"$'\e\[0?m$/,/^\e\[1m[A-Z][A-Z ]*\e\[0?m$/p'
+	else
+		sed -En '/^'"$psect"'$/,/^[A-Z][A-Z ]*$/p'
+	fi |
+	sed '$d' # Remove trailing section headers.
+done
+-- >8 --
 
-I'd like to have the new bases documented in HISTORY, which will allow
-documenting also support in musl and other libraries.
+Then I made it behave acceptably thusly:
+-- >8 --
+#!/bin/sh
+# Copyright, the authors of the Linux man-pages project
+# SPDX-License-Identifier: GPL-3.0-or-later
 
+# Some pages' names start with a digit;
+# they require specifying the section explicitly.
+msect=3D
+if [ "${1#[0-9]}" !=3D "$1" ]
+then
+	msect=3D"$1"; shift
+fi
 
-Have a lovely day!
-Alex
+[ $# -ge 2 ] || {
+	printf 'usage: %s [man-section] man-page page-section...\n' "$0" >&2
+	exit 1
+}
+mpage=3D"$1"; shift
 
->  .TP
->  .BR timespec_getres ()
-> --=20
-> 2.52.0
->=20
->=20
+# Check man page exists before getting the same "No manual Entry" error
+# for each user-specified page section.
+man -w $msect "$mpage" > /dev/null || exit
 
---=20
-<https://www.alejandro-colomar.es>
+for psect
+do
+	psect=3D$(printf '%s\n' "$psect" | tr [:lower:] [:upper:])
+	# If MAN_KEEP_FORMATTING is set, the section headers will be in bold.
+	man $msect "$mpage" |
+	sed -En $'/^(\e\[1m)?'"$psect"$'(\e\[0?m)?$/,/^(\e\[1m)?[A-Z][A-Z ]*(\e\[0=
+?m)?$/p' |
+	head -n-1 # Remove trailing section headers.
+done
+-- >8 --
 
---kuy7kx2fwmh26lek
+Observe the following:
+ 1. your comment about sections is obviously false:
+      $ find /usr/share/man | grep '/[0-9]'
+      /usr/share/man/man8/30-systemd-environment-d-generator.8.gz
+      /usr/share/man/man1/7za.1.gz
+      /usr/share/man/man1/411toppm.1.gz
+      /usr/share/man/man1/2ff.1.gz
+      /usr/share/man/man1/7z.1.gz
+      /usr/share/man/man1/7zr.1.gz
+    the way I'd validate my assumption a priori
+    (if my system didn't have pages like this) is with
+      curl https://deb.debian.org/debian/dists/sid/main/Contents-all.gz   |=
+ zgrep share/man/man./[0-9]
+      curl https://deb.debian.org/debian/dists/sid/main/Contents-amd64.gz |=
+ zgrep share/man/man./[0-9]
+ 2. you allowed inheriting msect
+ 3. 80% of your exit conditions were redundant and impossible to hit
+ 4. man(1) has already logged the relevant error, don't dump garbage after =
+it
+ 5. usage string always goes to the standard error stream because it's not =
+the output
+ 6. if [ -n "$MANwhatever" ], then it's in the environment, so export MANwh=
+atever is a no-op
+ 7. MAN_KEEP_FORMATTING is documented as being "nonempty is set"
+    (exactly how you use it), so there's no need to mangle that, either
+ 8. man not existing gets you a standard error from the shell
+ 9. sed not existing is not a real condition; but even if it was, you get
+    a real error (also, why were those tests "which"?)
+10. MAN_KEEP_FORMATTING doesn't actually do anything anyway for me
+    (as in it breaks the output entirely because the headers are in bold:
+     S^HSY^HYN^HNO^HOP^HPS^HSI^HIS^HS$ (cat -A format)),
+    so re-test the expression for your formatter, but I identified the
+    common subexpression and put the bolding thing in "()?"
+
+The utility of the other transformations is hopefully obvious.
+
+If you were shipping this you'd want to do the filtering in one pass
+because the UX of the sections being out of order is IMO suboptimal.
+And also processing and fully-bufferring the /whole/ rendered output,
+for big pages, is so slow
+(I tested on voreutils ls(1) =E2=80=92 <https://ro.ws.co.ls/man1/ls.1.pdf>
+ time man ls > /dev/null takes 0m0.513s wall clock;
+ multiply this for each section, and you see how this is suboptimal;
+ similarly, voreutils stty(1) measures 0m1.620s;
+ this is especially suboptimal since big complex pages are exactly the
+ ones you'd want to filter;
+ also, I think this wants a negative section filter as well
+ (to remove HISTORY or STANDARDS which may be less relevant))
+you can work around this a little by sticking a load of stdbuf -oL
+on the pipeline, but, again, I think the final for loop should be
+representable as a one-shot AWK program.
+
+Best,
+
+--ezu5rc7d52pn3n7j
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIyBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAml6I94ACgkQ64mZXMKQ
-wqn80g/3a5Q5spTlmEgrvDM/0z2u8kDe9Q1jvsRzM4mqWnKFd1V0f1M7Uqj+NMFc
-trsXaSLJxJNbAfqIQ9DSxkXoXfSnlz00LTU89HiJNznOwB3Uz+wBN6sL8qpJ5W6q
-2pd5dkzAzODlQ9HaO7uaOrDOCDAwIOVHqB/atHxyXkSpt3arDfwB/T8VkHo5Ul0i
-4jlm74uHxzednLQBQ+Flh+iUX+T1PV+lRqCU0kt5BktAUuJCEtUnFm4X3avigUwd
-YGNU9nJNaNFosPy9sy9Bjd8Ag+mreX3QfmXB+JD3gXKTEr4iQhEEnuEymyaOxxO9
-j7UB1XIxXVjSlh1cLn2q0eZlHsO9on5e9/ZFs0j35AagVFjWY3zTawOallFi3Hms
-Ki9MlJffAaoUHw7cR6FeH5gDkPGWxhRtNh2RI2wdDv076tXHcqBMXg+eIYvMzrr8
-veDLesFvLiwZu2uh8I0ClKUGj2apwcot/rDIXeXdW+IGMgpYhLE7hsiZzsDcrIeE
-f8XYBJSKx3JXI05ZJOaNM4vDg8zlhSQI+YZkjfFR2TfZHgXekRtwdvtTcrUY8ld1
-a8b0EKzy3PX+WW9/7Y6hTGYTxrLgXPFMXhEu/i5ij/fQmy4i4rrU312XszSApzos
-Rs34JKttiCsdM16rD8Dbk5AV1y/YKHsHt9uVljI0RF2aaVTREQ==
-=Dix+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAml6PrwACgkQvP0LAY0m
+WPF8dg/7BpqFZ1ggV4tv26dPWVDlT/ZBD//VRENKxY0cCO0AbxLHf4v0tpmF4hs4
+8TMVteov5DfyJhgYuncSQOtjNrvSS0fx2/taWZvJbsQqEiQZUfl8BHMI0Ic6XmDS
+cf7x0optwJBlSDRFez8joVPzPx9kPUXFbrwvAzgKsNHwh7oEqGCneAtxYJA5shw2
+MpDKMzQ1yq8aUZDe+tYDLmgTyy2EZ6qlqcEK/Lq+YH9iKwgIvgSbbQ8KC4vwDA6Z
+aGLf+1UL+ZX8tRfo3/APWKaZJyGStMSTWQqezVHZo7eKm3Y+a1HtfT1eLPOGhlTt
+ksLx2Du8m4D/grHn9cWS3e6rqmUtXiX/xu6GqVVPr6Lq6QsjqCvdkuAO8aIPsUyE
+fbvah7izHqBb4UkwlvAw8k3fZnFz9R4M/IekntYiCHdNqoZWZmufba4H0baP3TJz
+FPwPf4KP2zzo3O7oGdCmOV/+Usegwqzy7ULcL5qn44+CDwbfKMXLamBsA7hZD/32
+ZCjpwi0HYtufXYgRa9NhN9oTxGeycHNbUuhU3F0SRXke2cptzJm1y5DKbSV0DS4c
+y2+qOjHbfRgquOhCFzGnnvj/ptvbLTUIeNbHElAUQuJkDhsjfPpK5HJ9Q+TXomGs
+nF5eriMtWdxXiMc42MIvZ2NmlZWB7M0DZni0PhddEkA72WDlN7Q=
+=N/i0
 -----END PGP SIGNATURE-----
 
---kuy7kx2fwmh26lek--
+--ezu5rc7d52pn3n7j--
 
