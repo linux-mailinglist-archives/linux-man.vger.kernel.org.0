@@ -1,185 +1,184 @@
-Return-Path: <linux-man+bounces-4999-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5000-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GGMhCV+Oeml+7wEAu9opvQ
-	(envelope-from <linux-man+bounces-4999-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 23:31:59 +0100
+	id sCqEFKr1emnDAAIAu9opvQ
+	(envelope-from <linux-man+bounces-5000-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 06:52:42 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8127CA9916
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 23:31:58 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id A7656AC1AF
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 06:52:41 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 3B11B30160D9
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jan 2026 22:31:57 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 4946C3035D76
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 05:50:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 758E62857CD;
-	Wed, 28 Jan 2026 22:31:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8089364049;
+	Thu, 29 Jan 2026 05:50:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kfxSlRmZ"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="pvixlrnN"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013D01DE3A4
-	for <linux-man@vger.kernel.org>; Wed, 28 Jan 2026 22:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D97C359FAA
+	for <linux-man@vger.kernel.org>; Thu, 29 Jan 2026 05:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769639516; cv=none; b=TATHSLOKk+7VdEvUVNDK0FZa6sSJd2B5v6xprrN2q2O7NJJCpSWE2Am5GHzetX0vqI1FsVSCMbFYY5lVtCb0Y/Yr1ElL8Eh/XGn8hoZs7XEen80en9CrG+iCL9HXfOp2bJv1AK+hvqW7Kmuxw0ltoY9LCXXscTa+H1aQRWtiFp4=
+	t=1769665841; cv=none; b=MhAIWB5LefQvM67OBfYLJsaB0QG5to/ECO9RDkPU6WXnPqlyx4lP2sXovap7jyQA0jam68C2Wl8QcmdIFhs4sTsn/SWC+moEnQX9aFlKD/aLTHEV4Jxb1+dC5gWEfySSFce88yo100MDtygrMF69+Q1xv1t9EKCRqfPJOEXpXtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769639516; c=relaxed/simple;
-	bh=ai/UB6znAawlPcYHnTCHKxY7Vnw5O2aSzGqT8hh4r+g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CvL09DoEAKp5IK2edxYZgG48OWsDnZMb4tqJR/yzgP8oeb47VkJW+MuRC5ZWc76AQgkeJRWESgvxuccwkndCaz4H0E+orrfhoSnhs8Pjpldsb0HfD1+kRICIZ0yEPPfLxprPa+kXSXWMjfq4Dd6/EJ5q61eHi2fM9mNLJUz6iDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kfxSlRmZ; arc=none smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-64965ee303dso357604d50.0
-        for <linux-man@vger.kernel.org>; Wed, 28 Jan 2026 14:31:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769639514; x=1770244314; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=DFDXKiN7WpY433XIBS7qIGMwPXDOw8fYEknwFUMXUZw=;
-        b=kfxSlRmZ8KX7BOflk1E+Lk8jS4z0mnvJdWQJ22MNWUe1D3ACTOJV7orKPLLf73swQx
-         J8CJIMUonrQpNTA1HJLTTKDPMTq/PiuL9wDjGg6Ys3J3m8sdAlRRXoZ0jvfQ+L+6rgNv
-         pb8yQYvHk4/rzqB3LM7J3G6xXifmFLoazpZezP8hs/sWOC3NvbfhzfjLYfVXh/YCyMBs
-         W0vmU68rJqp0idR181xS/04iSAsGChTVsRMHF8cge/YPxTzAFzzRVMcvQUeyM1L7gwdi
-         OCGR9OkqOtxd77XDJTZwyzfuzxt8pyxdeH/VtAoHlznlLxuqeg4dxdsYHkKORc+RgPrJ
-         8LqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769639514; x=1770244314;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DFDXKiN7WpY433XIBS7qIGMwPXDOw8fYEknwFUMXUZw=;
-        b=OVNQOaD5pGpHBRMx5WdsfAAkoxmlOfxOnHiAMGbKJM2TegrPlydhwsK/KulF3vzOx2
-         Wty0lima+6TVpblLucutlcLZv617dqJeSAkNgX1jzhQ2z/dQFiTbXdgYUgyJxHoe3JrY
-         uORcA5RMF9ML6EXrrpT5Z28CsoEbSmu2fNXyzW5FjEvAU3Sk9YEzbfM8VeHw43E3bw7j
-         1tlXuFceVz7+75pZSrGlYhfYQ1l1MqSLKiDbBsLwXCqtnCktKscC1N5Rw7VeGFv773mN
-         XxSo0/oRrJ7hi6ggqH0Pe1tgU6AHZwNu/tNekVkJ4vPtdDa/4BBEhecHUHJ+Dn8HnyM4
-         OgWw==
-X-Forwarded-Encrypted: i=1; AJvYcCXb5d/b4zNL4coSzSI5Gw3i8yxNc0mCrHAyzysT4pVIu+kiZYcNu7+677atDD69YRgq63mZCeWp3oM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDgjS33I/wf79zwgFy0AWzIyRlDeZnMTsIERGO3ljOFmcYLdUp
-	vxO46l8smH2Ipz0VD3pdOaMlXekWd6tYOvHqYW9wUQl071t6JgDKchCJ
-X-Gm-Gg: AZuq6aJQ6nXw8Daw6QGRCIErJOFTUGEbdmAA34S5h1A8MhgWHQ9o677tbfLyji0Gmi+
-	p99cBhwasS2BvnFeh3lqGRPBcZDfB/OdNzlpECeasnh2vMzTbuJyG4tiNFu6f9y7kCeY8PgzKKB
-	58UL0D09wrEtTtnKG180kZNuYO5Iw+jpyFcyG8ua7o6ydhRSxMZAxPwZhTANLaJFdWJ9ZkP5DUi
-	hzo21NJXkqF76y4CusoscWqkrLn7p52Ik518+PWy7atahS26KmW2B+IBDsF9EXgGUKAvPYgW30Q
-	AGKo5y92CzsKu7bPMBitFQ5xBtbMO/W14HWlVjdyU66HPH6SARQRA4TZJw42gaepGF/J4pXQePH
-	XFQ0kCNaiDerVSh7AswEOp9Hj2mS5Jlv3himPJlnRQilFbrVYhRvxDr55Ws3HVJTLErwS5G6ykJ
-	Um/QZ4Kj2rjbo=
-X-Received: by 2002:a05:690e:134b:b0:641:f5bc:6975 with SMTP id 956f58d0204a3-6498fc76b6amr5052834d50.81.1769639513759;
-        Wed, 28 Jan 2026 14:31:53 -0800 (PST)
-Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64996105c96sm1432553d50.23.2026.01.28.14.31.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Jan 2026 14:31:52 -0800 (PST)
-Date: Wed, 28 Jan 2026 16:31:51 -0600
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: Seth McDonald <sethmcmail@pm.me>, Alejandro Colomar <alx@kernel.org>,
-	linux-man@vger.kernel.org
-Subject: Re: [RFC PATCH v1 1/2] src/bin/sman: Add script
-Message-ID: <20260128223151.tkp6urusx7wtrpyo@illithid>
-References: <cover.1769497513.git.sethmcmail@pm.me>
- <d093a884e5fbe60d62c35189ac38de5a6b0005e1.1769497513.git.sethmcmail@pm.me>
- <xclnrhc3q3kub6gqhd64difkyls74zcqmhnpwov2dwzrsghjg3@tarta.nabijaczleweli.xyz>
- <20260128190730.aylqwn55b6bo63xi@illithid>
- <tl5pjzy56c5f4ce5smzbvjlbiblld6vjhrcg3u5ahmcvphgnur@tarta.nabijaczleweli.xyz>
+	s=arc-20240116; t=1769665841; c=relaxed/simple;
+	bh=asTAFC4gjDhmLZUU6ke/E3OkMQ/BhHpqmg3zQ1qjssg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AZHh2mpIuCCH5f7VCXjZFTy0l6c900ViEfrKEdkvE4DrvmIDDUQM4NgDpKNsjhGJ9zO9r3y+x1j1hiLUaOEwkYrhAw1xvyu38036LQGkRfn+rrivviMK6L/hK5z/DeZbkrvRQpL4BNsGkdf483/RyI4LTM/bAf3uFxBb/Sq+yqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=pvixlrnN; arc=none smtp.client-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1769665831; x=1769925031;
+	bh=/cKhf/pt8s2XPULxMGR6TfIiePPgAsfN9JhMZuGDZlo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=pvixlrnNKTlH4/DN3+A42gUEHOppRfDWZJRzQs573ji1hs0Ssr2HyqQ9EFY0daJjD
+	 DLaG4COr8/1PONPWteWxQRY2L+sqi27kLca067TqZHh1bsSE9f6dfw6RV3bpLSJcoe
+	 rKlSVRYW8XKN40VEffy9ezDJtHO8xvoyr1gmoReeZEs/hU91+wgmvpeyhZW1mH5SqN
+	 VYiF8ydb5dATNV7gw8Z+gdM29blzCLzH+t/q3p8uX5dC9KBnT+xj8Qn4APmgISwi3g
+	 V7QAAqwaw7b9AlxoWC5F0j+spFvKpOeTok6GO4pjgtMeiXrpPnUA1GurgVCGnwFQR6
+	 4D1lJvvfchIFg==
+Date: Thu, 29 Jan 2026 05:50:26 +0000
+To: Alejandro Colomar <alx@kernel.org>
+From: Seth McDonald <sethmcmail@pm.me>
+Cc: linux-man@vger.kernel.org, Douglas McIlroy <douglas.mcilroy@dartmouth.edu>, "G. Branden Robinson" <branden@debian.org>, =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Subject: Re: [PATCH v2] src/bin/mansectf, man/man1/mansectf.1: Add program and manual page
+Message-ID: <aXr1G4Y2VZZO0t3N@McDaDebianPC>
+In-Reply-To: <c5da437ce6c8a41c4e5c26ee969170254b49dcab.1769626502.git.alx@kernel.org>
+References: <cover.1769497513.git.sethmcmail@pm.me> <c5da437ce6c8a41c4e5c26ee969170254b49dcab.1769626502.git.alx@kernel.org>
+Feedback-ID: 171233811:user:proton
+X-Pm-Message-ID: 9c59b2128915c5e9a3f43d85ae413a80b2eeac49
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="hvivjdpnp7yv6dyk"
-Content-Disposition: inline
-In-Reply-To: <tl5pjzy56c5f4ce5smzbvjlbiblld6vjhrcg3u5ahmcvphgnur@tarta.nabijaczleweli.xyz>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------7ea5ba926be01b22ccb4fb50b2ce5e4c4180da834bf66ed464888c53e7265982"; charset=utf-8
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[pm.me,quarantine];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_DKIM_ALLOW(-0.20)[pm.me:s=protonmail3];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-4999-lists,linux-man=lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
-	MISSING_XM_UA(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gbrandenrobinson@gmail.com,linux-man@vger.kernel.org];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5000-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com]
-X-Rspamd-Queue-Id: 8127CA9916
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[pm.me:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sethmcmail@pm.me,linux-man@vger.kernel.org];
+	HAS_ATTACHMENT(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: A7656AC1AF
 X-Rspamd-Action: no action
 
-
---hvivjdpnp7yv6dyk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH v1 1/2] src/bin/sman: Add script
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------7ea5ba926be01b22ccb4fb50b2ce5e4c4180da834bf66ed464888c53e7265982
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 29 Jan 2026 15:50:19 +1000
+From: Seth McDonald <sethmcmail@pm.me>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Douglas McIlroy <douglas.mcilroy@dartmouth.edu>,
+	"G. Branden Robinson" <branden@debian.org>,
+	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Subject: Re: [PATCH v2] src/bin/mansectf, man/man1/mansectf.1: Add program
+ and manual page
+Message-ID: <aXr1G4Y2VZZO0t3N@McDaDebianPC>
+Mail-Followup-To: Seth McDonald <sethmcmail@pm.me>,
+	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+	Douglas McIlroy <douglas.mcilroy@dartmouth.edu>,
+	"G. Branden Robinson" <branden@debian.org>,
+	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+References: <cover.1769497513.git.sethmcmail@pm.me>
+ <2LCP4REyNFpOfnmZJzfDKxZP6Sf7QMtwVIE3T-9qIAmSmYEZAnCPLPlv2j2ea57aQ8bZqGFX7ijFFK8dfqY4kg==@protonmail.internalid>
+ <c5da437ce6c8a41c4e5c26ee969170254b49dcab.1769626502.git.alx@kernel.org>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <c5da437ce6c8a41c4e5c26ee969170254b49dcab.1769626502.git.alx@kernel.org>
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-At 2026-01-28T23:02:24+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> On Wed, Jan 28, 2026 at 01:07:30PM -0600, G. Branden Robinson wrote:
-> > B) (While the foregoing discusses GNU Bash specifically, I have
-> >    read--but not seen a proof, and can't promise that I'd understand
-> >    a proof if I saw one--that POSIX shell is undecidable as well,
-> >    the "alias" feature being a sufficient condition to produce
-> >    thus.)
->=20
-> If, AIUI, "undecidable" in this case means "the parser depends on the
-> execution of the program being parsed", then alias is sufficient do
-> ensure this property, but I think it's the only feature that lets you
-> inject macros into the parser, or otherwise interact with it directly
-> like this.
+Hi Alex,
 
-That sounds plausible to me, and consistent with my occasional,
-undisciplined, and inadequate research on the topic.
+On Wed, 28 Jan 2026 at 19:55:43 +0100, Alejandro Colomar wrote:
+[...]
+> +.SH PARAMETERS
+> +See
+> +.BR mansect (1).
 
-Shall we organize a movement to get "alias" taken out of POSIX
-202y/203x?  I don't care if implementations keep it around, but it sure
-seems like a dreadful thing for the standard to _mandate_.
+(If this isn't a problem then feel free to skip this)
 
-Regards,
-Branden
+AFAICT, 'PARAMETERS' isn't a heading used anywhere else.  Running
 
---hvivjdpnp7yv6dyk
+	~/Code/Linux/man-pages$ grep -Fnr 'PARAMETERS' man/
+
+comes up empty for me (besides mansectf(1) of course).  Perhaps instead
+the DESCRIPTION can explicitly state this.  Something akin to "This
+command uses the same interface as mansect(1)."
+
+[...]
+> +#!/bin/bash
+> +#
+> +# Copyright, the authors of the Linux man-pages project
+> +# SPDX-License-Identifier: GPL-3.0-or-later
+> +
+> +set -Eefuo pipefail;
+> +
+> +mansect "$@" \
+> +| man /dev/stdin;
+
+Thinking about it, one thing I did like from v1 that would be nice to
+keep is the specified sections being case-insensitive.  Since the
+section headers should always be in uppercase, specifying them in
+lowercase when invoking mansectf(1) shouldn't introduce any ambiguity
+(i.e. "Does the user want the 'NAME' or 'Name' section?").
+
+-- 
+Take care,
+	Seth McDonald.
+
+On-list:  2336 E8D2 FEB1 5300 692C  62A9 5839 6AD8 9243 D369
+Off-list: 82B9 620E 53D0 A1AE 2D69  6111 C267 B002 0A90 0289
+
+--------7ea5ba926be01b22ccb4fb50b2ce5e4c4180da834bf66ed464888c53e7265982
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAml6jlcACgkQ0Z6cfXEm
-bc5wTQ//Vfymg66zXwH80mzdVcExMZp/vsDaKQaro+el4hgG5X4p4SfpEbD2y/FZ
-bx6F2jN2MnOHa0EguyeCgKWLeLRrxEDtWwkYRlcGm2mp6UyKgKF3S9+3qMh9uQ0x
-IlQGafu9B3BJ62QOikBNtiCXnts7QZ7II+7nqnLdlZ2z7b8itPmW+GFuPx1Ehd1F
-xyVGXiLChUYWD0ywn8LHiFie0IlOx1D78tugryB7wCg/DY0MWdO7mct1+zkbeD2b
-ueAyryJqqXJCQ3Cw5SQrMMoyzIbH5os7BqA27qOaHFeXZqFO+/v3wm8hQ7lmBLFa
-s5fmvmu89Tnm3FX9Zi/12BWuWBR7cMRlx3E4e2rvA+IhACjcq2P/w/48uvDLBHbT
-X/vQ0wvXK6xld6tQsXWfh/yI69xHAiURy3LRX4nhC3rPWhI5IurRrQ8z1s6QFw8H
-nKn0xWwa/tk/BS59xOq7C2D5l4wXeucbatIGZu+NWftK7BLya8K/NrV9pDkVD40o
-hWPaPgH1nt+PchSvyx2R24u+MkUsX74x4Hqtpvr8m4e26SQI77Wc646/ytz+T4Ni
-HGLoNtelVmYAHFTsqM3+pY8Ahu62IqTUAa6YQZshqzbkwYQrSP7u0rVS4lglZ7J+
-Io6+S5zXH9guD/cVAVX9hSgOBDwUPGMDW9CLy2yf8/+cJ8aUBRc=
-=5vnh
+wqsEARYIAF0Fgml69SIJkFg5atiSQ9NpNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmf9eAut1rnOKoePMQOLdkA9FiEEIzbo0v6xUwBp
+LGKpWDlq2JJD02kAAMn4AQDFF89/WG6V7KIovi/ioNaxB91bt23iScmeU/rG
+iW1W4AD/VXd/JG9isAN/M9cr3VBmB2Og9wOxT0AJOa+gamYCdAo=
+=f9+3
 -----END PGP SIGNATURE-----
 
---hvivjdpnp7yv6dyk--
+
+--------7ea5ba926be01b22ccb4fb50b2ce5e4c4180da834bf66ed464888c53e7265982--
+
 
