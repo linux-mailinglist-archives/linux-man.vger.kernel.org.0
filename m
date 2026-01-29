@@ -1,169 +1,200 @@
-Return-Path: <linux-man+bounces-5006-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5007-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8By/AWmKe2mlFQIAu9opvQ
-	(envelope-from <linux-man+bounces-5006-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 17:27:21 +0100
+	id wPXIEsyRe2nOGAIAu9opvQ
+	(envelope-from <linux-man+bounces-5007-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 17:58:52 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77EFEB2298
-	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 17:27:20 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68040B28DD
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 17:58:51 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 72ED23008E01
-	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 16:27:19 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 5A559300E143
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jan 2026 16:58:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97C0025485A;
-	Thu, 29 Jan 2026 16:27:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7C103446AF;
+	Thu, 29 Jan 2026 16:58:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="St2Qm26h";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RQ3Okfvi"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eAAl2bhi"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2BF1DC997
-	for <linux-man@vger.kernel.org>; Thu, 29 Jan 2026 16:27:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A88296BC1
+	for <linux-man@vger.kernel.org>; Thu, 29 Jan 2026 16:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769704036; cv=none; b=NjGBbn2wc1kWvNsa6o1xx3C4mNd0L3JAdUtOEy94q57/PS7ykuYGPICVb0Kc7cTRdL8Fl5XTr7VfAhGzK9Ob3xnb1AtWO1AJLNNIokFOqcdhA45z5v4KIe/L0w8P71yOc/4YEuSBfz6NKNR0NfwijxduSBOvy+NsZGrgfq2Y9d8=
+	t=1769705928; cv=none; b=L4guzEzqvr8fCt30jgvzAyKNq3ekaiCeNTVNUE3bd3nIO94xHHYHeNKuqw3nwYjXzbcdPCdtKphpr9+35vYF2wRPLq89Wn+toC3BmTqndQaQzI1nhly1Oi2Zt4pKOnpMzi1zWJZe3zZ8c0nktFdftTWnjPrA1zjDzjSl1h/OMF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769704036; c=relaxed/simple;
-	bh=aqAzwqGiQpl1M00Z/MYAokvGFujRNZ0lesQPZTxF05I=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Cdd71QIb2OoxReEBSCWyDcpxRowaTsOOnouZUNj3oV0Lh0EVooqTx4dQgCLRKo/Rj5wiEdO2oHLBc6tH47/s9j1E5AHz5ElKbayhVewuUF+q78LrHQAu+287OqVb12fveoPWe5wxhNjCK5liTYkzBNtM1zF5JJAsacwiFlKj4z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=St2Qm26h; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RQ3Okfvi; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1769704034;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O0L46XtTKmBGmc7x2iAHtGSsHCazKxhc6q1qm/AQ0ZM=;
-	b=St2Qm26hqdsY63cMQIldWEi+j1Sgv0y3LZd8ld7Ky/MD0n/qg6Z6zstBhOrwU1iAE2jsJK
-	H9aRZxjZzKAr1NG9nLrEHPdEPd6huqkE7wWtPHn1ohHl37dSnFZg7l3xOUcYWiO1GZ+plu
-	adHkt5aZTCPz2oZLDCrSuGZq7S2Q6oU=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-629-5BTTjzW-Pniwap160x44bQ-1; Thu, 29 Jan 2026 11:27:07 -0500
-X-MC-Unique: 5BTTjzW-Pniwap160x44bQ-1
-X-Mimecast-MFC-AGG-ID: 5BTTjzW-Pniwap160x44bQ_1769704026
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-b870d3327baso94909066b.3
-        for <linux-man@vger.kernel.org>; Thu, 29 Jan 2026 08:27:07 -0800 (PST)
+	s=arc-20240116; t=1769705928; c=relaxed/simple;
+	bh=Cr2B93EZRlncDPFJAObBAigN33ajjmldRBPlz10Luas=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AZ9tT/tnfzy492CbXMDY89Watga3bnZFvsfBVVBSYNmXlUH/tIMPpVxXDJzL9/WvdTwEbiWtKYi35VPJ4QBKkaeAIyE6dfD2m2YSqKhYhuyn0hz1Xm3SbPe0JfVlOi1jGlYZq82k44bUu/JhWBgfBn6EEjgP4xyHmek82GOi1yM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eAAl2bhi; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-124566b6693so3214101c88.0
+        for <linux-man@vger.kernel.org>; Thu, 29 Jan 2026 08:58:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1769704026; x=1770308826; darn=vger.kernel.org;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=O0L46XtTKmBGmc7x2iAHtGSsHCazKxhc6q1qm/AQ0ZM=;
-        b=RQ3OkfviSyBAcmlNDafTNSITQq9FLwvY/TXGUtSvXi8BbWuwhr6q3BmfUPzODqF7UW
-         9nXktICO7BcOSbRU2hTgfprNTeDyOefBmfLmclmzX+siALPM6Ye+m4W+n78KS/uKG/ni
-         cg0+PbIozx0gGuF4Ow/ycqAKRLX6T/3wN88p17jeBHRLj6jx308AEZd+irnd7nW7FGCb
-         SmsWQ14LDQHZ3Bi1j49EWx+lfE7F6hYIHh0AFhPOFTMEugZzt74on8MDIqjyAbmkGGfk
-         3CK7Osgut4/YaNa4DHBtK+f0EFnQmcDCDT7GTTnDPwx3qiK9pd/Osra/t1JWUhMLotm2
-         z+Nw==
+        d=gmail.com; s=20230601; t=1769705926; x=1770310726; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LjHdVGvORgsw5sxbjn9kqu8QvfHRdWNKecWA69mK8Dc=;
+        b=eAAl2bhiD3eLtblaZnHKZqThrmJMbXGPmz1HTiEQHit06BsnSx1iVmq/PwKEYsuOhS
+         fhhhcUy5/qnT7BihAIXunQ9FpDshSo6/QVOcvb4whX26BOG9Fz+bKtqHuHIDloyWnxy+
+         BhE4mlghJrlFvYqdcWxZnCqI/S628+uM0Ld0C9NsCy6DDKE6M8syjCK5cv/8ampdZe1S
+         Zm9N85AhO5rGrxvDR9/aYWUQmqbG7ZmbJ8VG4VS7X+5IZyfOO5Twi/VsLO9nW2gwIxid
+         0ywHYoGMcM2m1YkH5k3vy3nK5J3+iGdURn06ltT36nOk7Vfj7ZH9k0DlxcLhRaRrhYef
+         H+kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769704026; x=1770308826;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=O0L46XtTKmBGmc7x2iAHtGSsHCazKxhc6q1qm/AQ0ZM=;
-        b=st5jWtRANmRLOKrHXA4Vebf5zXXvt8/VOwBfM2m5vyxbAvl8LvzeZ1iR+JLFfZ14og
-         vn+R7R/uWGsH4ZMt+LXERLCyJMQ/X64L7QOCAs08SvB+FPsBks3vCFIKvW6JV1ZrKezl
-         bMjP8xxDMRBJ0IEtE3AMGrJWcVO+2UoM7PwYJksRZJRi+SHueBlXSGNPe7h4soopgSww
-         1FMy5LblexBB2StDnlseEzJ/U9ZGezgByhzE/RluHGYyGq2+MDsEMYdVskuPps9IBLfs
-         yZqltVPmWXrOozARbzlZ31cIPiF9R7p43Cgip6GhsBgt9EvHpY8IR4/CEif23GV/TX6k
-         ZHJw==
-X-Forwarded-Encrypted: i=1; AJvYcCXyx5T6AskefK40mq6PxqwPtgTN2OIQWZIG/tOAy4jYFMx/AP76G2u0Y8qUinpZqxDPNSBrfk1YkNM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/HPMn4pK+Ss1LWoDFwYuMkDrsVFvAl9NP7zEcj7jhc6KOLZuw
-	p6SRyyqkuCWnz/D+HHX/77vqtsHXy35lx73oxeMZVGHS279KKSiTwa4PMHKKjIhFB43ILtbePZF
-	eSR276MB6/lYFUElVRaa1DQTe/+cRA8zkMXWgNgKkEzdOnHOuTmjBOpzNB+uA2g==
-X-Gm-Gg: AZuq6aLwRRtdbk3/wpBS9kHYnhvazg1qHW68v7uwEU72Ieno1tWWMYQ+iWuELff771c
-	dAJ7HTfKoIwhsac+x4c7wzC3J//0QJbAn2235kaY1p63NWv43b61cIR4Yj+9Z9u1xdgglOQOZ3F
-	se2ztJ8r4mRVSY1NQzd3BgSLZhv3DneqHpoBZ9AvJdevlaHBTPswbTT7QeNzupAQAKo7/L7zrSn
-	hyTbxlb6x5/nsvvZs0O4yruig4MDH1xTE06eQmpkggBf8x4UwKeEvsV1ubAeExH/HfMLi0OXOWD
-	SKsloAbi9EE1uvXKbI4tfBBD/s/rU+4f/8uzG9ob0qJyDjmDXx4QeBVF90SLBbdykUsqgWF3qLo
-	jVc1CmtAhRFJhICxyfi3ya65IMab8rhet0KFpb6Wb
-X-Received: by 2002:a17:907:97c5:b0:b73:544d:ba2e with SMTP id a640c23a62f3a-b8dab1cf2f9mr667467966b.25.1769704026367;
-        Thu, 29 Jan 2026 08:27:06 -0800 (PST)
-X-Received: by 2002:a17:907:97c5:b0:b73:544d:ba2e with SMTP id a640c23a62f3a-b8dab1cf2f9mr667466066b.25.1769704025921;
-        Thu, 29 Jan 2026 08:27:05 -0800 (PST)
-Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-658b4691d15sm2998928a12.19.2026.01.29.08.27.05
+        d=1e100.net; s=20230601; t=1769705926; x=1770310726;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=LjHdVGvORgsw5sxbjn9kqu8QvfHRdWNKecWA69mK8Dc=;
+        b=HedxOemqhyenWiYegCTO2Wo2J6aoNMEgRppbmrGVWFc+6hI8AlbPPolRaupQXVi5o9
+         KLyn6fpQfHubaB0OQZVBUP+jCs8J02qab0sLDaUXdvcgq8cqbwwcdNYpHYM6aayhDi80
+         rPlxYYFRG/pRsAIaV/5umFBG4jNnAC2/yLfzDc6NfAQBiga8YfCe4m14VLXllXbWVaZl
+         n/k8I1sBPTgYBJ+N0CwCUHUquPxT7SVQY/+luINyBF9kN4LovdrW+htpsEkxdVex5up+
+         oEo7dmBZsHkUfp+BV73rgdcbko6ayYVtNpTBYji5Z67onFhPy1eAoR71NxpL7K5BoH2y
+         VAHw==
+X-Forwarded-Encrypted: i=1; AJvYcCW7GqOPMv/z/yJNDbpKodRegVJWfXS19n3HbRi4RU2sDlPPEcP3iIQNeqlUefso3RmkhPpves6AD3M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzdNjvuX6c1ZIEApNKE8fib81+fBntIgFOATg/GH1acR40GyW0X
+	jRlaNpwIrobq63d7bAbAnzss4/whI5VsAefbs0lkhPirp7t0IlOx1bo0
+X-Gm-Gg: AZuq6aIOUvplcz31QGfy+RtV2fearzpSjZ4lm9gKPYanT2kSA6ddxrS7ZIGGPB9g2Nu
+	0ZQaa0Q6bJg6WddVOaM0cFvkk1b85vl5fgCJUMHmcx1rfKhWzweMjWUqDVZ48gerE93JsfOamqC
+	H3CzBtMmXvugDZIg3WFa7jCfl4tCJKCl8t1wjxO5DMcZkxQmSlKB5nD5xfEgUpuX2+O0MtzX9up
+	HKxSkQcMLMyJjya9Tw9UBYH7nA2nOwyWA8kfMlU+xrWQ3bVfOR7O80ytGlVAa8itJQEdyNwgNxV
+	3hpl0f8qVihWv9BBtQALoNgZPk0cKyTMgmZ+YzwVNkVDzbhZp6McHx/oxBDMZqwbTTxClHF7ygH
+	EGYf2w1x2b0PyEhOYtUT4OmmnjEVfphV+vWkbOhGYo29lTEEmdwPJTeTT1E24y7yI2HvUhFjxJ0
+	bPZHXLrkDHj4sK+xcR/NPWB6j8dQE=
+X-Received: by 2002:a05:7022:2219:b0:11e:354:32cb with SMTP id a92af1059eb24-125c1059127mr68276c88.49.1769705926303;
+        Thu, 29 Jan 2026 08:58:46 -0800 (PST)
+Received: from kira.gmail.com ([2601:646:9e01:94:c9b:f7d:bf05:d23e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2b7a16ee7d3sm7422015eec.11.2026.01.29.08.58.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jan 2026 08:27:05 -0800 (PST)
-Received: from jsm28 (helo=localhost)
-	by digraph.polyomino.org.uk with local-esmtp (Exim 4.98.2)
-	(envelope-from <josmyers@redhat.com>)
-	id 1vlUrI-0000000AZfw-2Kkk;
-	Thu, 29 Jan 2026 16:27:04 +0000
-Date: Thu, 29 Jan 2026 16:27:04 +0000 (UTC)
-From: Joseph Myers <josmyers@redhat.com>
+        Thu, 29 Jan 2026 08:58:45 -0800 (PST)
+Sender: Mark Harris <markh.sj@gmail.com>
+From: Mark Harris <mark.hsj@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
-cc: Morten Welinder <mwelinder@gmail.com>, linux-man@vger.kernel.org, 
-    libc-help@sourceware.org
-Subject: Re: floor/ceil man pages
-In-Reply-To: <aXt9Cad8zPxKEWHx@devuan>
-Message-ID: <af74fa04-e25a-7300-bdc5-bd3092ecc3ff@redhat.com>
-References: <CANv4PNkbi35JzgKump4zdNSUEwSjCpS7pQLZ8LTm+kKZ_4vtyw@mail.gmail.com> <aXt9Cad8zPxKEWHx@devuan>
+Cc: Mark Harris <mark.hsj@gmail.com>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v3 1/2] man/man3/timespec_get.3: Refactor to prepare for new time bases
+Date: Thu, 29 Jan 2026 08:52:23 -0800
+Message-ID: <ec8dfdc495cb8d58e945b370658c6945cb424327.1769705123.git.mark.hsj@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <1b8aea00296c530f2a3a79158a98d44a46a795e5.1769581372.git.mark.hsj@gmail.com>
+References: <1b8aea00296c530f2a3a79158a98d44a46a795e5.1769581372.git.mark.hsj@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.16 / 15.00];
+X-Spamd-Result: default: False [-1.66 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719,redhat.com:s=google];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,sourceware.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	TAGGED_FROM(0.00)[bounces-5006-lists,linux-man=lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5007-lists,linux-man=lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[josmyers@redhat.com,linux-man@vger.kernel.org];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[markhsj@gmail.com,linux-man@vger.kernel.org];
+	RCPT_COUNT_THREE(0.00)[3];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[linux-man];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 77EFEB2298
+	FROM_HAS_DN(0.00)[]
+X-Rspamd-Queue-Id: 68040B28DD
 X-Rspamd-Action: no action
 
-On Thu, 29 Jan 2026, Alejandro Colomar wrote:
+Add Feature Test Macro Requirements to document functions and macros
+that require ISO C11 or C23, and arrange supported time bases as a list.
 
-> > "ceil(-0.5) is 0.0".  I can't find a reference, but (1) this looks
-> > weird, and (2) it looks like libc actually returns -0.0 which makes
-> > more sense.  As noted above, ceil(-0.0) is required to be -0.0 if if
-> > ceil(-0.5) were to return +0.0 it would make ceil a non-monotonic
-> > function.
-> 
-> I have no idea.  It doesn't seem to be specified by the standard.
-> Joseph, do you know if the floating-point group has talked anything
-> about this recently?
+Signed-off-by: Mark Harris <mark.hsj@gmail.com>
+---
+v3: Use .TQ for time bases in STANDARDS and HISTORY
+v2: Split into two patches, add time bases to History section
 
-round, floor, ceil, trunc and roundeven (of non-NaN) always return a 
-result with the sign of their input, including when that result is zero.  
-This is not anything new.
+ man/man3/timespec_get.3 | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
 
+diff --git a/man/man3/timespec_get.3 b/man/man3/timespec_get.3
+index 79bb82226..67da4858c 100644
+--- a/man/man3/timespec_get.3
++++ b/man/man3/timespec_get.3
+@@ -17,6 +17,22 @@ .SH SYNOPSIS
+ .BI "int timespec_get(struct timespec *" res ", int " base );
+ .BI "int timespec_getres(struct timespec *" tp ", int " base );
+ .fi
++.P
++.RS -4
++Feature Test Macro Requirements for glibc (see
++.BR feature_test_macros (7)):
++.RE
++.P
++.BR timespec_get (),
++.BR TIME_UTC :
++.nf
++    _ISOC11_SOURCE
++.fi
++.P
++.BR timespec_getres ():
++.nf
++    _ISOC23_SOURCE
++.fi
+ .SH DESCRIPTION
+ The
+ .BR timespec_get ()
+@@ -39,16 +55,18 @@ .SH DESCRIPTION
+ For a particular time base,
+ the resolution is constant for the lifetime of the calling process.
+ .P
++The time base
++.I base
++is one of the following:
++.TP
+ .B TIME_UTC
+-is always a supported time base,
+-and is the only time base supported on Linux.
++A system-wide time base that measures real (i.e., wall-clock) time.
+ The time and resolution in this time base
+ are the same as those retrieved by
+ .I clock_gettime(CLOCK_REALTIME,\~res)
+ and
+ .IR clock_getres(CLOCK_REALTIME,\~tp) ,
+ respectively.
+-Other systems may support additional time bases.
+ .SH RETURN VALUE
+ .BR timespec_get ()
+ returns the nonzero
+@@ -78,6 +96,7 @@ .SH ATTRIBUTES
+ .SH STANDARDS
+ .TP
+ .BR timespec_get ()
++C23, POSIX.1-2024.
+ .TQ
+ .B TIME_UTC
+ C23 (though ISO C doesn't specify the time epoch),
 -- 
-Joseph S. Myers
-josmyers@redhat.com
+2.52.0
 
 
