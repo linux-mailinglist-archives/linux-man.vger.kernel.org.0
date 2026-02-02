@@ -1,185 +1,119 @@
-Return-Path: <linux-man+bounces-5018-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5019-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UCjnBF2rgGkFAQMAu9opvQ
-	(envelope-from <linux-man+bounces-5018-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 02 Feb 2026 14:49:17 +0100
+	id +HlTKwmsgGkFAQMAu9opvQ
+	(envelope-from <linux-man+bounces-5019-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 02 Feb 2026 14:52:09 +0100
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8407FCCEDA
-	for <lists+linux-man@lfdr.de>; Mon, 02 Feb 2026 14:49:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07B1DCCF2E
+	for <lists+linux-man@lfdr.de>; Mon, 02 Feb 2026 14:52:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 49AE6303CC35
-	for <lists+linux-man@lfdr.de>; Mon,  2 Feb 2026 13:43:20 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 1B261302D5C7
+	for <lists+linux-man@lfdr.de>; Mon,  2 Feb 2026 13:48:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BCE6C274B3A;
-	Mon,  2 Feb 2026 13:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2CBF19D093;
+	Mon,  2 Feb 2026 13:48:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ED3kNYir"
+	dkim=pass (1024-bit key) header.d=b1-systems.de header.i=@b1-systems.de header.b="Jrhv041/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx1.b1-systems.de (mx1.b1-systems.de [159.69.135.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809AE35EDC9
-	for <linux-man@vger.kernel.org>; Mon,  2 Feb 2026 13:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CA72D23B6
+	for <linux-man@vger.kernel.org>; Mon,  2 Feb 2026 13:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.135.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770039799; cv=none; b=F6h2pg2Q2dQIMOdzoLrC8ptfn9Gw4sDYVVKlk19oaPqsxHDCOJHYbGFi6IsQyn3ooKo9Q2DaYMIcUxsiHpVYQUz0SVI06Li3vPdoXOJRdsQIzdHt0jTq8xb6GQeXoc4z6zdtqdinV6KsBiS1SRpsh9P3ZaYINUIVfDo+PaE6JDg=
+	t=1770040093; cv=none; b=u52HIkgL8veJhixdcTVYQ5UpVrAJcUFI7fRXWMb61vlaUnt7vz4qUagflMsyBmeBqBnKvzpdmkf+YFvTdwWm0jK4b3KZ+wVGOxCJUEyvlAm6YQttE65PJlSt2rlfcJ8Jx2obJk7rErp4SWEZ5LHzvH5JMQJ0whwrgzs+dsjX9XA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770039799; c=relaxed/simple;
-	bh=0kcyFaLkVEz0qqeAOzBIzB/o/dfrjjJAcyYUu/a6vwo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UOxNs3eySdjmXoK5fMV6H6miMY92EJ0TOFwj3ThcXLZkGyxmIDLcKOJm5+RTD7VLFGm5FolB7jb6QYFxzWimNDAieEfOWOgn7rn/yM1gz598AWnlp6QcF1i6KiariZmHdrXAp2x+XQL1ViSy7arD9m8puzCcOS6KsQUljathqGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ED3kNYir; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7B7C116C6;
-	Mon,  2 Feb 2026 13:43:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770039799;
-	bh=0kcyFaLkVEz0qqeAOzBIzB/o/dfrjjJAcyYUu/a6vwo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ED3kNYirRucFjTiyJxWvzPsLfryqcnkNuQwn/URiYL0WoHxLlifKRtQJR69wxEMHI
-	 DCUX+bYMozqbRACfFwdlT6YIPvfcoZsIwb7VbxHJg+KuNMm4DUr5cjNLMJ0sdTxOje
-	 pTN5OxwN56cfRKJwZIzo30v1wmc8Cp3BJIV9tqfqWV7/nmO9BakBvrGkRxf2CvQ0cx
-	 cr/T1h9LOQFskGpCC+urDdCJ9H1WWu3iOunIpXaa2MDoOwrqHqgHwAM82mCABqPypo
-	 mbyxIJN2tuEHPdKoZPuyWkrluFDFkagF6fQ5Zq23IGmz6MG5CQjqtVAfAu/SywmzUK
-	 vcbpJ/KHNqIGQ==
-Date: Mon, 2 Feb 2026 14:43:16 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Thorsten Glaser <tglaser@b1-systems.de>
-Cc: linux-man@vger.kernel.org
+	s=arc-20240116; t=1770040093; c=relaxed/simple;
+	bh=uBOt5Po4Kdps8n35sag5/b2+aj9beXB+mHSviTvhcHg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=AyQu2BkuBaedFfa2tWp9DwOCqH97YZsMQsuTrBL6/uf9ugLQwokF1YqC/sGJLInSCStX+w1nPH0oHVJGJQJU/s1atLOP12iQCoFrJXajIJguxeuYHpv2Tcpf9OnV553bG/XVFtIHBZ3115heqGBEl0b6Qw302VXK1r4QXZN13KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1-systems.de; spf=pass smtp.mailfrom=b1-systems.de; dkim=pass (1024-bit key) header.d=b1-systems.de header.i=@b1-systems.de header.b=Jrhv041/; arc=none smtp.client-ip=159.69.135.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1-systems.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=b1-systems.de
+Date: Mon, 2 Feb 2026 14:48:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=b1-systems.de;
+	s=default; t=1770040090;
+	bh=uBOt5Po4Kdps8n35sag5/b2+aj9beXB+mHSviTvhcHg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Jrhv041//mIhqvaSXernQOBhY3tWeAGpBTjiplCD2qh4MFpmlPIbP8LRrzQbkdBpT
+	 Gi9LBVibSBTJLuAoBZlopzTcHiFznRvvRqcC9PVx3rSlD9J/0FjwDaYGmWJfE7hYyH
+	 /MoFJCRGp74i2t5H9Bvjl8hY4/SDOxB5nhR2iujY=
+From: Thorsten Glaser <tglaser@b1-systems.de>
+To: Alejandro Colomar <alx@kernel.org>
+cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH] man/man2/syscall.2: fix numbering for notes
-Message-ID: <aYCnGFboK-95B8AY@devuan>
-References: <7b1b7c56-ad07-40b7-5387-08a4b60e3078@b1-systems.de>
+In-Reply-To: <aYCnGFboK-95B8AY@devuan>
+Message-ID: <726e286f-22e9-086c-fc0b-f1eb5c7afc70@b1-systems.de>
+References: <7b1b7c56-ad07-40b7-5387-08a4b60e3078@b1-systems.de> <aYCnGFboK-95B8AY@devuan>
+X-Zitierstil: Wir wechseln gerne von TOFU auf den Usenet-Zitierstandard; sprechen Sie uns einfach an!
+X-Quoting-Style: We will gladly switch from top-posting to Usenet standard quoting style; please just ask!
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ngrcdleloytosxbp"
-Content-Disposition: inline
-In-Reply-To: <7b1b7c56-ad07-40b7-5387-08a4b60e3078@b1-systems.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	DMARC_POLICY_ALLOW(-0.50)[b1-systems.de,quarantine];
 	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_DKIM_ALLOW(-0.20)[b1-systems.de:s=default];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5018-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5019-lists,linux-man=lfdr.de];
 	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[b1-systems.de:+];
 	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[tglaser@b1-systems.de,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 8407FCCEDA
+	DBL_BLOCKED_OPENRESOLVER(0.00)[b1-systems.de:dkim,b1-systems.de:email,b1-systems.de:url,b1-systems.de:mid,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 07B1DCCF2E
 X-Rspamd-Action: no action
 
+Hi Alex,
 
---ngrcdleloytosxbp
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Thorsten Glaser <tglaser@b1-systems.de>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/syscall.2: fix numbering for notes
-Message-ID: <aYCnGFboK-95B8AY@devuan>
-References: <7b1b7c56-ad07-40b7-5387-08a4b60e3078@b1-systems.de>
-MIME-Version: 1.0
-In-Reply-To: <7b1b7c56-ad07-40b7-5387-08a4b60e3078@b1-systems.de>
+>Thanks!  I've applied the patch, and amended the commit to change the
+>format.  It's pushed already.
 
-Hi Thorsten,
+Thanks.
 
-On 2026-02-02T12:39:00+0100, Thorsten Glaser wrote:
-> Hi,
->=20
-> the table refers to numbered notes, but the notes just have
-> bullets. The attached patch fixes that.
+>See man-pages(7):
 
-Thanks!  I've applied the patch, and amended the commit to change the
-format.  It's pushed already.
+Sure, if you have a =E2=80=9Chouse style=E2=80=9D, by all means. I didn=E2=
+=80=99t see that one.
 
-See man-pages(7):
+I tend to just =E2=80=9C.Bl -enum=E2=80=9D in mdoc(7) =E2=98=BB and I was a=
+ bit=E2=80=A6 left hanging
+at the use of the legacy man(7) format in these manpages.
 
-	   Lists
-	     There are different kinds of lists:
-
-	     Tagged paragraphs
-		...
-	     Ordered lists
-		...
-	     Positional lists
-		    Elements are preceded by a number (index) in square
-		    brackets [4], [5].  These  represent  fields  in  a
-		    set.  The first index will be:
-
-		    0      When it represents fields of a C data struc=E2=80=90
-			   ture, to be consistent with arrays.
-		    1      When  it  represents fields of a file, to be
-			   consistent with tools like cut(1).
-
-	     Alternatives list
-		...
-	     Bullet lists
-		...
-	     Numbered notes
-		    Not  really  a list, but the syntax is identical to
-		    "positional lists".
-
-	     There should always be exactly 2 spaces between  the  list
-	     symbol  and  the  elements.  This doesn=E2=80=99t apply to "tagged
-	     paragraphs", which use the default indentation rules.
-
-Have a lovely day!
-Alex
-
->=20
-> bye,
-> //Thorsten (with $dayjob hat)
-
-:-)
-
+bye,
+//Thorsten
 --=20
-<https://www.alejandro-colomar.es>
+Thorsten Glaser
+Linux / Unix Developer
+Tel.: +49 160 91168501
+E-Mail: tglaser@b1-systems.de
 
---ngrcdleloytosxbp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmAqfMACgkQ64mZXMKQ
-wql1yQ/8DDp6xVmrXm9/MfYm6O8ofX6SXDacnIqUNHtoKm5x5KECFXsWkjYj8p27
-5wyp1XPf1Eabf0aOVd3zh5yCx1LYhyoiJVzNzUUcWzpWs+1Oaqe3c52im9aAihrF
-y2TLQLiAgjK6N2VzzIyqvypm9WCuQFmCsLnU+nKXiEtXA9ULA4EZHOndu7rCaelB
-JB7Is+qY1Hg8tSC5XWgfuvZB6O0HKCJhls5bt9NU4PwOO4KD/d1al07j/XTlm30e
-lp4pdG8/YPot4psx+ohazi/JlcOH1A5YgKmv0wRZFsy9e/7cuwn5vxOMfJZsHplp
-PE4Yg6mx0rTWc1hkVjdwU6suQBpv2CaksLaMUtEtKF7hJzsmUqfdBSDrutypC0Gg
-e4DmwY+j2wMa3+iSe0GzbBfC7+y9dMgbL0Enkz5NtGHSfn/CYEEyzTOgfNORr4Nf
-UkuaNC/UgXuPwcm5XK1pZnbPVqGwKFp8MDeCnczkp5k0puoSFz2guc6+9cLdzpvV
-goite3Hy83iYcjMaXZfhfj/0LfJiWXV2Yh9wyMoTAk/r7x95nXXraxFCCkdu2n1T
-X1MxOzvl/CsO8+gG7Z0G4YlNnk6wJFmM1wSLun5yFJfwQsq1IZZG0Nw5sxQXiVKx
-kehDApCwD45ZmtOpwVo/TlHeM/UaiNz9mXA+PGSxYZgV2x9FXpw=
-=Qnsx
------END PGP SIGNATURE-----
-
---ngrcdleloytosxbp--
+B1 Systems GmbH
+Osterfeldstra=C3=9Fe 7 / 85088 Vohburg / https://www.b1-systems.de/
+GF: Ralph Dehner / Unternehmenssitz: Vohburg / AG: Ingolstadt, HRB 3537
 
