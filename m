@@ -1,176 +1,233 @@
-Return-Path: <linux-man+bounces-5024-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5025-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8CVxLUdagmlhSwMAu9opvQ
-	(envelope-from <linux-man+bounces-5024-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 03 Feb 2026 21:27:51 +0100
+	id 8JawDkRfgmnTTAMAu9opvQ
+	(envelope-from <linux-man+bounces-5025-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 03 Feb 2026 21:49:08 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33444DE7CC
-	for <lists+linux-man@lfdr.de>; Tue, 03 Feb 2026 21:27:51 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E4E9DEA31
+	for <lists+linux-man@lfdr.de>; Tue, 03 Feb 2026 21:49:07 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 10D3A3033276
-	for <lists+linux-man@lfdr.de>; Tue,  3 Feb 2026 20:27:50 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 32CF2300B13D
+	for <lists+linux-man@lfdr.de>; Tue,  3 Feb 2026 20:49:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 96CFC36E466;
-	Tue,  3 Feb 2026 20:27:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DFFD2DCF61;
+	Tue,  3 Feb 2026 20:49:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fzl2/udT"
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=xypron.glpk@gmx.de header.b="bNjnBB0o"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1DB36D516;
-	Tue,  3 Feb 2026 20:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2398A23EA8B;
+	Tue,  3 Feb 2026 20:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770150468; cv=none; b=pj6GmsYJpqd2VL1TKohdUmNy05jwd8orlpPja9fMxky1cOuDQ2/BDarHzSRkVjtEbsphUqioKW9UZIWMpYZm/5NbT3dIQ7NOEDkdy+D7xlOjsaBE3dyMlSapQf45NE5xbC7JNESDoKwreGUlPt5OWzP2iQ4ZHVSjhfhPyw9mkJw=
+	t=1770151745; cv=none; b=oP4nkbEpkaWU8OI3rXkvEZ/+OXKQLMJ/8Q71U0MotA1gN8zLj/ewpJod0FmlicO/UiVdNJWdoTUERdX9oHeTkyOSMIgrVircnQvxXJjXF1I96fSyz6MbLLrAagjeuy1b1Ri8HNqjqOL3y2pP7G+C3YQnnA3R+tPkrE4bBirf5Xs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770150468; c=relaxed/simple;
-	bh=6OsBdxQODrn04NwJWl4huUhSCW8tP4Rt3kI0ZcQ+9HA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bKqpJXP9IpLv/o5/5JwarmM4HvOFwl7Y91gsShQYBRAe11K0A4Y1/ZDggxx/YtWrKVrsQJMgWswnHz3lOCjOMak/VtK2Qo1+FstAsP6YYLF8BXgsy+DRk5PSWZOboAlRLNoYhw5tZSIEzOM13rprebVrIexw4RSVbXSUtqjI8es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fzl2/udT; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F0CC116D0;
-	Tue,  3 Feb 2026 20:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770150468;
-	bh=6OsBdxQODrn04NwJWl4huUhSCW8tP4Rt3kI0ZcQ+9HA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fzl2/udTaKsiQEd8GMwlEAWzHXrcjx2ggVW6j0kNWheTxg8LoN6xJMOTc1NZXZ8lT
-	 sXn2g03aLtHhvoqHBphNg89+O47KjOVro/cdZy4GgFxmJ0ALylyOYOgmG3r3GaQJ/9
-	 R8zVNQZ4BNM+ESi3AuKcS6tKX86jgTmYAfZwPHv4Ti9/t8f1Odoljvqu+2wDJYg4KK
-	 jl+2NkZzeA9Xd1VFNA5UUE9a/hE2mhMk9QTodVeTTjQIcx4spf3pmet8Mhj52UkmPG
-	 Ij3xS9uqgxTyggeV5EgLhnYeRfJ9FJ13sfOR8tgCO8bypZF3t44LQCLnDhOoO3kS8F
-	 aVxZVfT3YEm3g==
-Date: Tue, 3 Feb 2026 21:27:44 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Alyssa Ross <hi@alyssa.is>
-Cc: Heinrich Schuchardt <xypron.glpk@gmx.de>, 
-	David Howells <dhowells@redhat.com>, Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>, 
-	Xiu Jianfeng <xiujianfeng@huawei.com>, linux-security-module@vger.kernel.org, linux-man@vger.kernel.org
+	s=arc-20240116; t=1770151745; c=relaxed/simple;
+	bh=IjGCZDebeQkY8CceFOvPOiUIdFw/RMJTa2nVlFHEzwo=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=p0paqkjMyheEw+9qs5yJClWN1prQwpG9Wtj+vqsoQLlqcDk0/ffEgYMJBhBsUOCYM3akD3nIrAqyT0K6OXinSBerYNfu5ztu7FDebBt7wfueYVY6WQPd9Cpxr/pTxE/xErA2XYXQDvwWXjSJQIfgocqGZTjbHbsy2jU+y7LthsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=xypron.glpk@gmx.de header.b=bNjnBB0o; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1770151683; x=1770756483; i=xypron.glpk@gmx.de;
+	bh=ThsPpkC4aMXUOpQI4UcxEqC3RckygJbZiD5bSdbscZE=;
+	h=X-UI-Sender-Class:Date:From:To:CC:Subject:In-Reply-To:References:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=bNjnBB0o15bMhbFFIWEvrFcd7nkMzpqjCGE16ARH3Tvgef3jzz05GLMyURUSW45r
+	 IYGCUv+gHZEig8p+iEUAsBu7RMSp5/o9tmyMtFv7WdMUYSZ4aytlKf1+hfz1+GZf2
+	 jzzHKC8BQN8QQO1tqf6igEGBk+f7wvQ8q4t03+mI3xB3xlQ3obqmeAozE5n9PcNgu
+	 chg2que6CxP/qVhv8eq8Uws24EepGj3jY3ZxNIZhUZNSBooGjZ7vweuItrsR/ZB3f
+	 PJAxCkYpQSSti6anTTQ/Lpx7UmeMnrArExImPJYlh9+W0gaDvTNiAluI4Gi92A/0I
+	 Wso0tSU7DoV/zapUQw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from ehlo.thunderbird.net ([46.114.202.174]) by mail.gmx.net
+ (mrgmx004 [212.227.17.190]) with ESMTPSA (Nemesis) id
+ 1MaJ7v-1wJUXP35Qj-00PrIi; Tue, 03 Feb 2026 21:48:03 +0100
+Date: Tue, 03 Feb 2026 21:47:57 +0100
+From: Heinrich Schuchardt <xypron.glpk@gmx.de>
+To: Alejandro Colomar <alx@kernel.org>, Alyssa Ross <hi@alyssa.is>
+CC: David Howells <dhowells@redhat.com>,
+ Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>,
+ Xiu Jianfeng <xiujianfeng@huawei.com>, linux-security-module@vger.kernel.org,
+ linux-man@vger.kernel.org
 Subject: Re: [PATCH] man/man7/kernel_lockdown.7: remove Secure Boot untruth
-Message-ID: <aYJZ31jO5ZE1Z6Xp@devuan>
-References: <20260203195001.20131-1-hi@alyssa.is>
- <aYJSDDwK1T9xxca1@mbp.qyliss.net>
+User-Agent: Thunderbird for Android
+In-Reply-To: <aYJZ31jO5ZE1Z6Xp@devuan>
+References: <20260203195001.20131-1-hi@alyssa.is> <aYJSDDwK1T9xxca1@mbp.qyliss.net> <aYJZ31jO5ZE1Z6Xp@devuan>
+Message-ID: <252F93CE-E2C6-4D5A-9B2B-1B4907EEE0BA@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mg2i3vktgjonbmr3"
-Content-Disposition: inline
-In-Reply-To: <aYJSDDwK1T9xxca1@mbp.qyliss.net>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:XbXmkgbDx63TLLig0YHFpQvJ7GXM3MUzc2lYb1fJcmetS7WWNeR
+ HyMGxgCcyOOA+qwt6wSO5TEMfSnDhiPb2ISCmib2o7NsGinPoSqi3ef08z5oty7H27eIaox
+ Xfbfx3hJ0K51ctN/IIJmCQg/MAvwqSEh4jKiq395ZZ7nYKIH3/awnGnDCPJ3DNO4gmSpBOP
+ eCgYAE2cVRTz0zEMMVHZA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:0vKUCeotHhc=;3ivgGXoXa7iyN4ylnG70NK823K9
+ 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
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [-2.15 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	DMARC_POLICY_ALLOW(-0.50)[gmx.de,quarantine];
+	R_DKIM_ALLOW(-0.20)[gmx.de:s=s31663417];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[gmx.de,redhat.com,oss.cyber.gouv.fr,huawei.com,vger.kernel.org];
-	TAGGED_FROM(0.00)[bounces-5024-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5025-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmx.de:+];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	FREEMAIL_FROM(0.00)[gmx.de];
+	NEURAL_HAM(-0.00)[-0.994];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	FROM_NEQ_ENVFROM(0.00)[xypron.glpk@gmx.de,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
 	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,archlinux.org:url,alyssa.is:email,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 33444DE7CC
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,gmx.de:mid,gmx.de:dkim,alyssa.is:email]
+X-Rspamd-Queue-Id: 8E4E9DEA31
 X-Rspamd-Action: no action
 
+Am 3=2E Februar 2026 21:27:44 MEZ schrieb Alejandro Colomar <alx@kernel=2Eo=
+rg>:
+>Hi Alyssa,
+>
+>On 2026-02-03T20:53:33+0100, Alyssa Ross wrote:
+>> On Tue, Feb 03, 2026 at 08:50:01PM +0100, Alyssa Ross wrote:
+>> > This is true for Fedora, where this page was sourced from, but I don'=
+t
+>> > believe it has ever been true for the mainline kernel, because Linus
+>> > rejected it=2E
+>> >
+>> > Link: https://bbs=2Earchlinux=2Eorg/viewtopic=2Ephp?pid=3D2088704#p20=
+88704
+>> > Link: https://lore=2Ekernel=2Eorg/lkml/CA+55aFzYbpRAdma0PvqE+9ygySuKz=
+NKByqOzzMufBoovXVnfPw@mail=2Egmail=2Ecom/
+>> > Fixes: bb509e6fc ("kernel_lockdown=2E7: New page documenting the Kern=
+el Lockdown feature")
+>
+>I've now CCed you in an email documenting the format we use for these=2E
+>It should be:
+>
+>Fixes: bb509e6fcbae (2020-10-16; "kernel_lockdown=2E7: New page documenti=
+ng the Kernel Lockdown feature")
+>
+>I'll amend that myself=2E
+>
+>> > Signed-off-by: Alyssa Ross <hi@alyssa=2Eis>
+>>=20
+>> Just noticed there's a long-open bug for this as well, so additionally:
+>>=20
+>> Closes: https://bugzilla=2Ekernel=2Eorg/show_bug=2Ecgi?id=3D213577
+>
+>Thanks!  I'll keep the patch for a few days, in case anyone wants to
+>comment=2E
+>
+>
+>Have a lovely night!
+>Alex
+>
 
---mg2i3vktgjonbmr3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Alyssa Ross <hi@alyssa.is>
-Cc: Heinrich Schuchardt <xypron.glpk@gmx.de>, 
-	David Howells <dhowells@redhat.com>, Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>, 
-	Xiu Jianfeng <xiujianfeng@huawei.com>, linux-security-module@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man7/kernel_lockdown.7: remove Secure Boot untruth
-Message-ID: <aYJZ31jO5ZE1Z6Xp@devuan>
-References: <20260203195001.20131-1-hi@alyssa.is>
- <aYJSDDwK1T9xxca1@mbp.qyliss.net>
-MIME-Version: 1.0
-In-Reply-To: <aYJSDDwK1T9xxca1@mbp.qyliss.net>
+Can we move the information from the Notes section to replace the removed =
+statement? What causes lockdown is central for users=2E
 
-Hi Alyssa,
+Best regards
 
-On 2026-02-03T20:53:33+0100, Alyssa Ross wrote:
-> On Tue, Feb 03, 2026 at 08:50:01PM +0100, Alyssa Ross wrote:
-> > This is true for Fedora, where this page was sourced from, but I don't
-> > believe it has ever been true for the mainline kernel, because Linus
-> > rejected it.
-> >
-> > Link: https://bbs.archlinux.org/viewtopic.php?pid=3D2088704#p2088704
-> > Link: https://lore.kernel.org/lkml/CA+55aFzYbpRAdma0PvqE+9ygySuKzNKByqO=
-zzMufBoovXVnfPw@mail.gmail.com/
-> > Fixes: bb509e6fc ("kernel_lockdown.7: New page documenting the Kernel L=
-ockdown feature")
+Heinrich
 
-I've now CCed you in an email documenting the format we use for these.
-It should be:
-
-Fixes: bb509e6fcbae (2020-10-16; "kernel_lockdown.7: New page documenting t=
-he Kernel Lockdown feature")
-
-I'll amend that myself.
-
-> > Signed-off-by: Alyssa Ross <hi@alyssa.is>
->=20
-> Just noticed there's a long-open bug for this as well, so additionally:
->=20
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D213577
-
-Thanks!  I'll keep the patch for a few days, in case anyone wants to
-comment.
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---mg2i3vktgjonbmr3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmCWkAACgkQ64mZXMKQ
-wqkuhxAAsXvExNIPM/FgAa8Ye39Wh0QZlIdKWhDuwn/Pcwfxf81CZLk5G3SoQdG/
-wAUpbMX/9bwWIxaLOQV7CM6377s8l6KLomrXKJJO11flple9UknyYQ70gW1Pm6/X
-ekuKX/mbDNNL2BJBOEeLCeFIa+oJ9D0VAz4pkXZR9sNXlkcaT4nX+4nzbFRcwN5g
-RDLsyEpcGIfnA8DKWSJWGnClN2hLilvPrdfHo3QY8156LgvpWCvLVw9OKRFH+Mxc
-PxmTSRSqugxtww/0AqBMYIQxhXApa80kM7TqmSwrW0K/N7m4Yp9kmYaN4g9Rsgs8
-LkhidBvi1GOdaKUOwvF03rCx/0YayWnTWhFzZa0zIVS3Krpi2TTAbP8Z8gG0evH2
-9gHm+PeDuNrFQyChEB3HwX1DwoHkUyPUfBbiAF1iq32avQheFCrqutCeGe6DY7G6
-EWD7KPz8rXUtSIDkjC57MejQ4UayuUyXugotsgA5CWiGawG7VIT9e5RXtx/CsRB9
-zir+O83VgjNQ7MkRItszpGyRC3uEyLtgmEr/yEKkR6oBZ+uSup9TRNc5hiRIgpkH
-Gnp2SeX5Pz9NZVFxLWf0VN9OZm0ZiGzoXc0e90zw1rgLxVnTvR2GXaE7mxqAW/pv
-il4AdVtVhZpq0ypmXzw3WFHkiU68A27ILsbWPLPVZhagyV86Wr0=
-=j9+F
------END PGP SIGNATURE-----
-
---mg2i3vktgjonbmr3--
 
