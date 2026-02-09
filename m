@@ -1,169 +1,180 @@
-Return-Path: <linux-man+bounces-5061-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5062-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6OjWESB9iWnk9wQAu9opvQ
-	(envelope-from <linux-man+bounces-5061-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 09 Feb 2026 07:22:24 +0100
+	id YEEqFoQcimmtHAAAu9opvQ
+	(envelope-from <linux-man+bounces-5062-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 09 Feb 2026 18:42:28 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2B0E10C01E
-	for <lists+linux-man@lfdr.de>; Mon, 09 Feb 2026 07:22:23 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0E98113254
+	for <lists+linux-man@lfdr.de>; Mon, 09 Feb 2026 18:42:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 3F5F13001FC3
-	for <lists+linux-man@lfdr.de>; Mon,  9 Feb 2026 06:22:23 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id CC86E301BC3D
+	for <lists+linux-man@lfdr.de>; Mon,  9 Feb 2026 17:40:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 380972E22BD;
-	Mon,  9 Feb 2026 06:22:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B22A3859D5;
+	Mon,  9 Feb 2026 17:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NNRasaN/"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="HytsLoCG"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CCA238C23
-	for <linux-man@vger.kernel.org>; Mon,  9 Feb 2026 06:22:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14733803D6
+	for <linux-man@vger.kernel.org>; Mon,  9 Feb 2026 17:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770618142; cv=none; b=dWZGlhi0c53zLaXp+tHWhwg3Kf81Y/7P1aDRAguHZ1fJHSXCC+PEbHVihzHCf5LV5Tanf0qBd+11yELHnUiHWA6O0OATmZavP2sSsELJ8PxNJhkwISod61gXc0KjjtU58Cs6gNQs7O9js1u1/CDa4VhthdbEbNNVPRYgoLsSHsU=
+	t=1770658809; cv=none; b=SkCMmjJmM/EvMtTdaI0hrcNQLzcldAbYformgFADS1KN6jQqHLd/WyTh5Y0IS5TBkhq/xY7tHAdwsrGYEq/euBDYDJIrYajq1fFAqoeIw0I/3t8j7pWEIGdCf2FQ1keGFL/cmvct/H6MgVdET8LJZ3n2NdhQLWYBXkl99Uut/CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770618142; c=relaxed/simple;
-	bh=+YpkUnV7B4fjbcPPnqKXey67C18iDzp+k2qplXPR9vg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=L1svBXI/jgIz/wu/ABUjoX4WCkkiwWaUmiFxEmgEn0vDsvGfYoznkwZG+EveV/c8VFFkxAen70f108HwwqYmicrb+ihInpLYAMcOjKFce6q/sXX/AAvPlK3mbV42zu4pVj3DunAVwQ1BZLy5mfSV5pPfr44IHNhGV5pTEItc/DE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NNRasaN/; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1770618140;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=969A660wnBmi5Jo+aDxO7MSnGtfVFKZ6jX7xHYWcr3I=;
-	b=NNRasaN/3YdOWx9wbnD/dOecF5fHQeE3c00zmb1Uy/ofAsA9fRO21IlhMwZBOIKfT0yPnw
-	zKaJlEQNQjjNpJk7cIVQib3wxfX4GXIo6VHRoTk2Tn3Vnh99UkBkYXxGs+QxrBg33Q0nOs
-	wbXAOfBrKW/bsi0wfBN+7kAygF/L3CM=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-344-1juauVwLP46eYre_8A09Dg-1; Mon,
- 09 Feb 2026 01:22:17 -0500
-X-MC-Unique: 1juauVwLP46eYre_8A09Dg-1
-X-Mimecast-MFC-AGG-ID: 1juauVwLP46eYre_8A09Dg_1770618136
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 70E9C1800451;
-	Mon,  9 Feb 2026 06:22:15 +0000 (UTC)
-Received: from fweimer-oldenburg.csb.redhat.com (unknown [10.45.224.84])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 77870180066C;
-	Mon,  9 Feb 2026 06:22:12 +0000 (UTC)
-From: Florian Weimer <fweimer@redhat.com>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: Alejandro Colomar <alx@kernel.org>,  mario.blaettermann@gmail.com,
-  linux-man@vger.kernel.org,  libc-alpha@sourceware.org
+	s=arc-20240116; t=1770658809; c=relaxed/simple;
+	bh=HJWF+Md0MWti7Jo5RLAQxsPMPql/8cpaZBGiuOiaPhw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cNYYv00UMbIfB4+UiP9xP1MbamWUmuiwN7fI9abKqs23qaG2OrYGsTEfjyKSx6XxzuiEk/KkYZASJUZk1IJR1PGIzxix2RRJ/vwVKB6YmgKSeZQ1hPZmXj6POVg9nsH0V1Dy01pMA2XWgxg4RIDDABW5dE/FskvrQuOBOGX2YGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=HytsLoCG; arc=none smtp.client-ip=142.132.201.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
+	s=selector.helgefjell; t=1770658800;
+	bh=ZwwtCP8oIkvDBFtVmdQ+4axg7RU0z4rXkknc9ESVFJ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HytsLoCGGBxHNiXLg8KVYs2TnQpwJHH7E8s0Ly5i/tvO9zIA8Y3ZofyLlQ/ANcRPh
+	 3In+acCFOAS2juoHTen5J9duCVoVgH6h435w36gDwyMKjJSipgjKGqfbYm+LD8tge5
+	 Zo4Xp96YmWas74Ym7fYyck4pLcgat/TK+zNcKr5tAsWgbJhqwnb9f5HjXxMuAgWk25
+	 e0UJRyQTKdxtYJCOfQa6AVdg4aVMB2eZGNrB50wVy3V9eLY1DEyHd+0ZatRWxG5e/K
+	 u/iDBqQ8nQhDA/PFLzdw3B/qRsfxUXo1jds1dojPpATxwTQkIW9QnDxrX9DVrKYbV1
+	 LKpQ2QFNsDO+g==
+Original-Subject: Re: Issue in man page sprof.1
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Original-Cc: Alejandro Colomar <alx@kernel.org>, mario.blaettermann@gmail.com,
+  linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Received: from localhost (localhost [127.0.0.1])
+  (uid 1002)
+  by mail.helgefjell.de with local
+  id 000000000002004C.00000000698A1BF0.0013D118; Mon, 09 Feb 2026 17:40:00 +0000
+Date: Mon, 9 Feb 2026 17:40:00 +0000
+From: Helge Kreutzmann <debian@helgefjell.de>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: Alejandro Colomar <alx@kernel.org>, mario.blaettermann@gmail.com,
+  linux-man@vger.kernel.org, libc-alpha@sourceware.org
 Subject: Re: Issue in man page sprof.1
-In-Reply-To: <aYjV0n96GmH-lZl-@meinfjell.helgefjelltest.de> (Helge
-	Kreutzmann's message of "Sun, 8 Feb 2026 18:28:34 +0000")
+Message-ID: <aYob8JOv64u7tVtt@meinfjell.helgefjelltest.de>
 References: <ZznJf0DLo7CVHddl@meinfjell.helgefjelltest.de>
-	<xdv6pfasrfbegf3pb34ktupjcjao7kunwj65zmmbgwt53jdy6x@fnarmmxyzgpr>
-	<87mshxxyol.fsf@oldenburg.str.redhat.com>
-	<aYjV0n96GmH-lZl-@meinfjell.helgefjelltest.de>
-Date: Mon, 09 Feb 2026 07:22:09 +0100
-Message-ID: <lhuqzquv3la.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ <xdv6pfasrfbegf3pb34ktupjcjao7kunwj65zmmbgwt53jdy6x@fnarmmxyzgpr>
+ <87mshxxyol.fsf@oldenburg.str.redhat.com>
+ <aYjV0n96GmH-lZl-@meinfjell.helgefjelltest.de>
+ <lhuqzquv3la.fsf@oldenburg.str.redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-1298712-1770658800-0001-2"
+Content-Disposition: inline
+In-Reply-To: <lhuqzquv3la.fsf@oldenburg.str.redhat.com>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.16 / 15.00];
+X-Spamd-Result: default: False [-1.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
-	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
+	MV_CASE(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[helgefjell.de:s=selector.helgefjell];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,gmail.com,vger.kernel.org,sourceware.org];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_FROM(0.00)[bounces-5061-lists,linux-man=lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[fweimer@redhat.com,linux-man@vger.kernel.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DMARC_NA(0.00)[helgefjell.de];
+	TO_DN_SOME(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5062-lists,linux-man=lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	DKIM_TRACE(0.00)[helgefjell.de:+];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[debian@helgefjell.de,linux-man@vger.kernel.org];
+	FREEMAIL_CC(0.00)[kernel.org,gmail.com,vger.kernel.org,sourceware.org];
 	TAGGED_RCPT(0.00)[linux-man];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: E2B0E10C01E
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,helgefjell.de:dkim,helgefjell.de:url,helgefjell.de:email,twentytwo:email,ffii.de:url,meinfjell.helgefjelltest.de:mid]
+X-Rspamd-Queue-Id: A0E98113254
 X-Rspamd-Action: no action
 
-* Helge Kreutzmann:
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-> Hello Florian,
-> Am Sun, Nov 17, 2024 at 11:50:18PM +0100 schrieb Florian Weimer:
->> * Alejandro Colomar:
->> 
->> > Hi Helge,
->> >
->> > On Sun, Nov 17, 2024 at 10:46:23AM GMT, Helge Kreutzmann wrote:
->> >> Without further ado, the following was found:
->> >> 
->> >> Issue:    Inconsistency detected by ld.so: dl-open.c: 930: _dl_open: Assertion `_dl_debug_update (args.nsid)->r_state == RT_CONSISTENT' failed!
->> >
->> > IIUC, this report is that running the example shell session resulted in
->> > that problem.  I've CCed glibc in case they can help.
->> >
->> > It would be interesting to know if this can be reproduced, and a full
->> > reproducer.
->> 
->> Hasn't this been fixed in glibc 2.38?  Via:
->> 
->> commit ab5aa2ee3d3f978e474803cbbc5fe805ad30e293
->> Author: Andreas Schwab <schwab@suse.de>
->> Date:   Thu Mar 23 16:46:20 2023 +0100
->> 
->>     dlopen: skip debugger notification for DSO loaded from sprof (bug 30258)
->>     
->>     Avoid inconsistent state in the debugger interface.
->
-> Apologies that I missed that question.
->
-> In Debian stable (Trixie), glibc 2.41-12+deb13u1, this error is no
-> longer present.
+--=_meinfjell-1298712-1770658800-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I think we should then assume that your issue was bug 30258.
+Hello Florian,
+On Mon, Feb 09, 2026 at 07:22:09AM +0100, Florian Weimer wrote:
+> > Am Sun, Nov 17, 2024 at 11:50:18PM +0100 schrieb Florian Weimer:
+> >> * Alejandro Colomar:
+=20
+> > I can run all commands of sprof(1), however none produces any content,
+> > i.e. something beyond the header lines. As I'm not a programmer, I
+> > don't know if this is something to worry about.
+> >
+> > helge@twentytwo:/tmp$ sprof -p libdemo.so.1 $LD_PROFILE_OUTPUT/libdemo.=
+so.1.profile
+> > Flat profile:
+> >
+> > Each sample counts as 0,01 seconds.
+> >   %   cumulative   self              self     total
+> >  time   seconds   seconds    calls  us/call  us/call  name
+>=20
+> Is it possible that no profiling events have been recorded?
+> How do you call functions in libdemo.so.1?
+=20
+I simply copied the instructions in the man page one by one and
+observed the output, without really understanding what I'm doing. So
+yes, the problem may be perfectly on my side, that I should have
+generated some events.
 
-> I can run all commands of sprof(1), however none produces any content,
-> i.e. something beyond the header lines. As I'm not a programmer, I
-> don't know if this is something to worry about.
->
-> helge@twentytwo:/tmp$ sprof -p libdemo.so.1 $LD_PROFILE_OUTPUT/libdemo.so.1.profile
-> Flat profile:
->
-> Each sample counts as 0,01 seconds.
->   %   cumulative   self              self     total
->  time   seconds   seconds    calls  us/call  us/call  name
+But since I'm not a programmer but a translator, I don't think this is
+worth further investigating.
 
-Is it possible that no profiling events have been recorded?
-How do you call functions in libdemo.so.1?
+Greetings
 
-Thanks,
-Florian
+          Helge
 
+
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_meinfjell-1298712-1770658800-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmmKG+gACgkQQbqlJmgq
+5nC9ohAAmE3NfZMV/RykpbTCObQdmkpRrgTC7QQp08gqYkYV8gxuhQj4IQ3rierO
+cLydIrnzjWn4mfLPI78O/mcGAMv5JLQac3DuidhM4X2liy9wqq3GU2GYlmC/d63c
+yu2ndTA2U2UMvtAD5maCH1e8Zevgsd8yECuix3ehSjZrLq8AB7MjSxV7Avt8d6nZ
+VA4xCf0xGLYFBQ8csj9AVAPyZSRVR6olLElthe+di9b9VvfoHmcJVvKlVqVWuPQu
+yAd8nulSJ/OuKOlvpc4YCwAX5jbBjmNIE1vI1LEksofLOViCllWYDr5KtL/27TUG
+I5DH5z9Y6ooGZwZ8XpCgjUNpcyjDB1P2pfdVErjmW/jvFtwtjhUA4sHnEz0SQLxw
+3wzzRU29Hcaux2y+3QISZ92LyGa+X+2/SGDoE6UUARPzTOS038f2NNPzo92sStfF
+KVXDQeDsp7phtF/n8/ZjNojHGDuziQtx/3DT9w8awtdH7qENEsyUpIT8If33S3/g
+pfHTiRwch7vaaEGh7kdKYQc+AWI+T/wfymdSr0lT9hYSXTXVNOHJ37hQt3WXy/zW
+9If+7EdoXyFDoc+R/2e7b97CZQVhmrTnmuh2cxv5gK8DuMnm8ILwLqptP5A7b02Q
+8qo/vnaZ6GcmNN1uqlSmjx5G1zAcifewDoRvcfZEnueM0INAFYk=
+=IyJd
+-----END PGP SIGNATURE-----
+
+--=_meinfjell-1298712-1770658800-0001-2--
 
