@@ -1,58 +1,57 @@
-Return-Path: <linux-man+bounces-5101-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5102-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KHK0BgK5i2kUZwAAu9opvQ
-	(envelope-from <linux-man+bounces-5101-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 00:02:26 +0100
+	id EFp3Cvy8i2mHaAAAu9opvQ
+	(envelope-from <linux-man+bounces-5102-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 00:19:24 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C12911FDFB
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 00:02:25 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F3FF11FE7C
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 00:19:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id C18833014648
-	for <lists+linux-man@lfdr.de>; Tue, 10 Feb 2026 23:01:53 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 16A41301FFBD
+	for <lists+linux-man@lfdr.de>; Tue, 10 Feb 2026 23:19:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E60313148A7;
-	Tue, 10 Feb 2026 23:01:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F0703128CF;
+	Tue, 10 Feb 2026 23:19:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t+8gfWKM"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VFGSpTAI"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8071C8EB
-	for <linux-man@vger.kernel.org>; Tue, 10 Feb 2026 23:01:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EDD226D18
+	for <linux-man@vger.kernel.org>; Tue, 10 Feb 2026 23:19:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770764512; cv=none; b=HYV02GjD7yjy0wLIm8XeTHQj28STqRJg8Hv1gFaeT204bQmNeJnbVF4NnHEdLyH0Vr3scQ8JWpmm85WO2Ijw9HNaJLxLlR34nHA6WdJNc9k6osWvjMD30aRs2JxgykRLvTDmkLq4xsXQPuF23lcMuj4W6CPeRnnkMKl2qcNru6U=
+	t=1770765561; cv=none; b=AhNKrx958c3/Q3cRSgrc1IENF2BI1VCRtLlG4zTKGNK9R8QQyBTM2HQPCeeFK7wIgogWItwtkMdK39WMLcMzDD2fN9G/Dr7uk+bkN7Zfhl8MqW8pyvXXBR1zPWulTAy4bb0Uegu8wAJnOw9Qc5T27udyKqMktOKSvf6hZtgtkHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770764512; c=relaxed/simple;
-	bh=Ma9fuw9/WsRRYLUcZnWaZZvto/f1o+OtbCOIl7SHl1Q=;
+	s=arc-20240116; t=1770765561; c=relaxed/simple;
+	bh=ScWuB9JJuNEAMZg6Ob32PrT4DxZIPjcD9DR0MuWTKV4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vb2fvVkrxU3jZjEzTcj+0Tv/aJeqK8EVRwG9dumrxNjngQI9L1wKB7717oACwncfsG50CPx0zQ7/fO7+IoLnOamgJmQnQIGrqc6WFdr9UC7TAA+XVforXpwUyJuufK0XuPSWHojy6tmAHXACp2VcnQRnf4p/5Xz+wlhVH0EsjZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t+8gfWKM; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA41C116C6;
-	Tue, 10 Feb 2026 23:01:51 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Beiu1O2whAIZBrCF1H0uKFwlA0IMujHXFldknGKmDcusSah/gpEQ1A5kWp3LuvR2APvyHsDdO5G4DiwWe5+huRhurd5AZhMbK1lbiuB3XhMa5guDyyw7mcz08PBdn/jOQ2K6qCvcKcJ3u1hvP+YKEr55OdzUfE+WKlsmzjXZjPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VFGSpTAI; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF227C116C6;
+	Tue, 10 Feb 2026 23:19:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770764512;
-	bh=Ma9fuw9/WsRRYLUcZnWaZZvto/f1o+OtbCOIl7SHl1Q=;
+	s=k20201202; t=1770765561;
+	bh=ScWuB9JJuNEAMZg6Ob32PrT4DxZIPjcD9DR0MuWTKV4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=t+8gfWKMuFe2/MpWnQdQ8Odz/qUsqmWgcFqccBoIOA+Ic3wCrG30WzQHwCWXcS96F
-	 +hwYh5buj5ogIHe3iDYvAJaxPQhnb+UJIWn9RlJD1k99ODnv2vDAetg5Jb2kfuxAN8
-	 7le4CDSbAgwW4rELUz/wMyTWX3o+OLHL9od/gg9gGAwTmomxWOl4TARGMzDjS4B8ir
-	 HtEyLuitfAAZ3YeYXNZeHewsq8SIsNsPpaw0Xi7C4CRDP+RkBwlR1lGhI8hJl2SoPY
-	 9mT5VoNrnCr+hRZaAAryCjXp88P6NDDDgLKu94+e8hsFfRzho8gedsqQGMap+TXbK/
-	 S55PnmUtG7xww==
-Date: Wed, 11 Feb 2026 00:01:49 +0100
+	b=VFGSpTAIuxSb/9/Rk3Od8adOjXznoYpgRQT3WsbD0TU0vCty8eIQvO6t1iSaUN5qF
+	 EGLKrYZ5BsWIUonaWMNsCmEXMBb/73aoD+yrcr134hjKJeR5M6D/r2g6/tYmyXsnLT
+	 BLM0mCSRgr3soApu9QjnuKD6s5gtEGCDACGxSyBxJh0GqPyiMWH675tA77kotyvyVr
+	 Dbj6UvuaIdn8ZEk84J4GVfKJ6UZxT8c+dISTsXHMgGnv7/wN8UXwGtB8Ldqpna5Mgg
+	 s8IFhjieQ9AFcUDfOAayriDavGpXr+dqvefA3tUxtysdxG/rx/xLqOYLPZumQQ/bRj
+	 n8bKIH4bhhZuQ==
+Date: Wed, 11 Feb 2026 00:19:17 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	Adhemerval Zanella <adhemerval.zanella@linaro.org>
-Subject: Re: [PATCH v3 2/2] man/man3/timespec_get.3: Add ISO C23 time bases
-Message-ID: <aYu3tjoB57cJHBxe@devuan>
-References: <ec8dfdc495cb8d58e945b370658c6945cb424327.1769705123.git.mark.hsj@gmail.com>
- <1955d9507d6ab4e482f92a4d7717872c98f39f8a.1769705123.git.mark.hsj@gmail.com>
+To: me@black-desk.cn
+Cc: linux-man@vger.kernel.org, CAI Qian <caiqian@redhat.com>, 
+	"Eric W. Biederman" <ebiederm@xmission.com>
+Subject: Re: [PATCH v2] man/man2/mount.2: add ENOSPC
+Message-ID: <aYu845Smj2aepWud@devuan>
+References: <20260201-add-enospc-for-mount-v2-1-43c990199cc6@black-desk.cn>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,194 +59,141 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pedlbpxx3orvol7s"
+	protocol="application/pgp-signature"; boundary="fqenypq6a6xpke4a"
 Content-Disposition: inline
-In-Reply-To: <1955d9507d6ab4e482f92a4d7717872c98f39f8a.1769705123.git.mark.hsj@gmail.com>
+In-Reply-To: <20260201-add-enospc-for-mount-v2-1-43c990199cc6@black-desk.cn>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[bounces-5102-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5101-lists,linux-man=lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
 	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,sourceware.org:url]
-X-Rspamd-Queue-Id: 6C12911FDFB
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 7F3FF11FE7C
 X-Rspamd-Action: no action
 
 
---pedlbpxx3orvol7s
+--fqenypq6a6xpke4a
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	Adhemerval Zanella <adhemerval.zanella@linaro.org>
-Subject: Re: [PATCH v3 2/2] man/man3/timespec_get.3: Add ISO C23 time bases
-Message-ID: <aYu3tjoB57cJHBxe@devuan>
-References: <ec8dfdc495cb8d58e945b370658c6945cb424327.1769705123.git.mark.hsj@gmail.com>
- <1955d9507d6ab4e482f92a4d7717872c98f39f8a.1769705123.git.mark.hsj@gmail.com>
+To: me@black-desk.cn
+Cc: linux-man@vger.kernel.org, CAI Qian <caiqian@redhat.com>, 
+	"Eric W. Biederman" <ebiederm@xmission.com>
+Subject: Re: [PATCH v2] man/man2/mount.2: add ENOSPC
+Message-ID: <aYu845Smj2aepWud@devuan>
+References: <20260201-add-enospc-for-mount-v2-1-43c990199cc6@black-desk.cn>
 MIME-Version: 1.0
-In-Reply-To: <1955d9507d6ab4e482f92a4d7717872c98f39f8a.1769705123.git.mark.hsj@gmail.com>
+In-Reply-To: <20260201-add-enospc-for-mount-v2-1-43c990199cc6@black-desk.cn>
 
-Hi Mark,
+Hi Chen,
 
-On 2026-01-29T08:52:24-0800, Mark Harris wrote:
-> Document new time bases TIME_MONOTONIC, TIME_ACTIVE, and
-> TIME_THREAD_ACTIVE, introduced in ISO C23 and supported by
-> glibc 2.43.[1]
+On 2026-02-01T11:59:33+0800, Chen Linxuan via B4 Relay wrote:
+> From: Chen Linxuan <me@black-desk.cn>
 >=20
-> [1] <https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommit;h=3Df28a11e43f4=
-0>
+> After linux commit d29216842a85 ("mnt: Add a per mount namespace limit
+> on the number of mounts"), mount(2) might return ENOSPC.
 >=20
-> Signed-off-by: Mark Harris <mark.hsj@gmail.com>
+> Signed-off-by: Chen Linxuan <me@black-desk.cn>
 
 Thanks!  I've applied the patch.
-
-> ---
-> v3: Use .TQ for time bases in STANDARDS and HISTORY
-> v2: Split into two patches, add time bases to History section
->=20
->  man/man3/timespec_get.3 | 49 ++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 48 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man3/timespec_get.3 b/man/man3/timespec_get.3
-> index 67da4858c..4f0fe1a96 100644
-> --- a/man/man3/timespec_get.3
-> +++ b/man/man3/timespec_get.3
-> @@ -29,7 +29,10 @@ .SH SYNOPSIS
->      _ISOC11_SOURCE
->  .fi
->  .P
-> -.BR timespec_getres ():
-> +.BR timespec_getres (),
-> +.BR TIME_MONOTONIC ,
-> +.BR TIME_ACTIVE ,
-> +.BR TIME_THREAD_ACTIVE :
->  .nf
->      _ISOC23_SOURCE
->  .fi
-> @@ -67,6 +70,37 @@ .SH DESCRIPTION
->  and
->  .IR clock_getres(CLOCK_REALTIME,\~tp) ,
->  respectively.
-> +.TP
-> +.BR TIME_MONOTONIC " (since glibc 2.43)"
-
-I've removed the "(since..." part, as it's redundant with HISTORY, and
-I prefer the HISTORY section.
 
 
 Have a lovely night!
 Alex
 
-> +A time base that measures time since an unspecified point in the past,
-> +where the time within a process will not decrease even if the
-> +system's real time clock is set or adjusted.
-> +The time and resolution in this time base
-> +are the same as those retrieved by
-> +.I clock_gettime(CLOCK_MONOTONIC,\~res)
-> +and
-> +.IR clock_getres(CLOCK_MONOTONIC,\~tp) ,
-> +respectively.
-> +.TP
-> +.BR TIME_ACTIVE " (since glibc 2.43)"
-> +A process-specific time base that measures CPU time consumed by
-> +the calling process.
-> +The time and resolution in this time base
-> +are the same as those retrieved by
-> +.I clock_gettime(CLOCK_PROCESS_CPUTIME_ID,\~res)
-> +and
-> +.IR clock_getres(CLOCK_PROCESS_CPUTIME_ID,\~tp) ,
-> +respectively.
-> +.TP
-> +.BR TIME_THREAD_ACTIVE " (since glibc 2.43)"
-> +A thread-specific time base that measures CPU time consumed by
-> +the calling thread.
-> +The time and resolution in this time base
-> +are the same as those retrieved by
-> +.I clock_gettime(CLOCK_THREAD_CPUTIME_ID,\~res)
-> +and
-> +.IR clock_getres(CLOCK_THREAD_CPUTIME_ID,\~tp) ,
-> +respectively.
->  .SH RETURN VALUE
->  .BR timespec_get ()
->  returns the nonzero
-> @@ -103,6 +137,12 @@ .SH STANDARDS
->  POSIX.1-2024.
+> ---
+> Changes in v2:
+> - Apply changes suggested by Alejandro:
+>   - Correct the sign-off line;
+>   - Use semantic newlines.
+> - Link to v1: https://lore.kernel.org/r/20260130-add-enospc-for-mount-v1-=
+1-85b45f0ce3d8@black-desk.cn
+> ---
+>  man/man2/mount.2 | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+>=20
+> diff --git a/man/man2/mount.2 b/man/man2/mount.2
+> index d5a68cb836b2..35fef946a6d6 100644
+> --- a/man/man2/mount.2
+> +++ b/man/man2/mount.2
+> @@ -793,6 +793,21 @@ A pathname was empty or had a nonexistent component.
+>  .B ENOMEM
+>  The kernel could not allocate a free page to copy filenames or data into.
 >  .TP
->  .BR timespec_getres ()
-> +.TQ
-> +.B TIME_MONOTONIC
-> +.TQ
-> +.B TIME_ACTIVE
-> +.TQ
-> +.B TIME_THREAD_ACTIVE
->  C23.
->  .SH HISTORY
->  .TP
-> @@ -113,6 +153,13 @@ .SH HISTORY
->  .TP
->  .BR timespec_getres ()
->  C23, glibc 2.34.
+> +.B ENOSPC
+> +Number of mounts will exceed the limit after this syscall
+> +in some mount namespaces.
+> +This limit is controlled by
+> +.IR /proc/sys/fs/mount-max ,
+> +see
+> +.BR proc_sys_fs (5)
+> +for details of this limit.
+> +Note that this limit applies
+> +both to the mount namespace where the mount operation occurs
+> +and to any mount namespaces to which the mount will propagate.
+> +See
+> +.BR mount_namespaces (7)
+> +for details for mount namespace and mount propagation.
 > +.TP
-> +.B TIME_MONOTONIC
-> +.TQ
-> +.B TIME_ACTIVE
-> +.TQ
-> +.B TIME_THREAD_ACTIVE
-> +C23, glibc 2.43.
->  .SH SEE ALSO
->  .BR clock_gettime (2),
->  .BR clock_getres (2)
+>  .B ENOTBLK
+>  .I source
+>  is not a block device (and a device was required).
+>=20
+> ---
+> base-commit: 6754bd1a126ed1e9b7d9c2bc1d221681f5182bb3
+> change-id: 20260130-add-enospc-for-mount-3ea1e87af6ee
+>=20
+> Best regards,
 > --=20
-> 2.52.0
+> Chen Linxuan <me@black-desk.cn>
 >=20
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---pedlbpxx3orvol7s
+--fqenypq6a6xpke4a
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmLuNwACgkQ64mZXMKQ
-wqmAihAAocHvSsRNjau2yI0VL+lI6yNu4urq1HFPbrO/CLQTvLzyybvZvxpdOLM9
-hLKj7A6tlfXEqdcmxC6hpjs87rMSDnUG0YwA6xEvZXxh9+1aPk07F5iLbPmxKROC
-TmAVOrTm2dnYfJXfUJhR6ye4PbpgmNmGF/Qo5BQ0Lj83KRQeh455VctzBohJzvNa
-QSBSfpYuOTurfXwCNCB/01xBxMF00pPy53PUBaOpxqc9tp2msVmz5pMd56tMMXux
-htBsvditUOY0XSsHmHsPxAbDBt4c/yrkHCk8cfYPdxcjo3okKsF2lbpSz36efHJe
-F1XDgt4JIoa7LDOsGy6+JhT0UDmpr9aEI+piJTQl1y91NjEeBC8Uf3fADrVYUM7O
-C6jjgGcRTr/xkXijimYrzuqAz5W3wvBaQpe0JfHtX/vk7M0S8R3qamytZ/U0GLoV
-RIwHyVfkizYV3DPeNAz9VCnbqy/MyajPkaXB+pkKf5hH659UoSGpLHPCVTfLce3P
-+NnA/elq+LXeN+W9awx0J4Cz68d0j4FwO0Q5qVSXzDz3fB8yGXeISOQrYdq5UNTQ
-BvzSTq4x//3Q5GIlw3bBQIcTTkwqH6HBZc51t5fexC9oo529u7As0ny2gYYaPhFt
-P4ohcqIv8LGfX8pZRAxrYPT8c1Zkjj2WtX6jZhisvA7M3lPzGLo=
-=AUxY
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmLvPUACgkQ64mZXMKQ
+wqkvUg//boQjdTFucQJUsHK7TROp5PaFlKH3NL4S7AhPQpqtw420XA12z6TzKU0b
+4FQK15vNGKO3K5lSucF2bGzMX138e1VxxnvJFBoEbGMRv5YA+x0W10agINoh9JmF
+TiOoYNz0hazSbt+KKcUnA52SjxBaC1ng56B2GX6mCdPN81uE6RyM/c1JUAVY5XO5
+VRJaTOh64moVgdyOD5j/zgzJHKdGI/bM03uKxpX5esyiaBfawgw6PIyE5Ss1khBf
+PIjg2LnMakevuMqeO/li+rZD6i6qCUyH8cpSaMQoG5Ujj66ckerlLUfBUVbf0Ls8
+n9/QJDiG3Npbo4pUwdnuxMvtcrB1rt2qHWhN6Q445Q9uXgvhqpilHqCqVGNw9gEH
+AqriN7ExQq3inR+4FLuaLRzpzct64lh0px2yrL5zxeL1NU3LJZh2VR11aT0adEJc
+HJ4Bt9XgFWGSA1upgUy/HdC8BqWr9PNPFWKBUTRxrtx1X3EgzIX3iXCvvkvGqhKj
+KwY7PXsKUo7A0jOECMNGPRXqf/VlrBQtN/5EKhwFITyjkRzgW23hcGQgmb4D2jJC
+eUSu+jN9VzHD4PH1h2aILNcJyqZf1IQp65oOIr7TxMdy4VvYvXMZhIgmuNNYKkZY
+EWIT604nD8I3vMesxA4ZoEYvjxjuCxtoHAu9VtRxhomxMAgTEqQ=
+=0PTl
 -----END PGP SIGNATURE-----
 
---pedlbpxx3orvol7s--
+--fqenypq6a6xpke4a--
 
