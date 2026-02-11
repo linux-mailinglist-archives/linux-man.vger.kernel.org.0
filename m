@@ -1,61 +1,61 @@
-Return-Path: <linux-man+bounces-5112-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5113-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iAd4FnCHjGmHqgAAu9opvQ
-	(envelope-from <linux-man+bounces-5112-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:43:12 +0100
+	id aJk0KRGIjGmHqgAAu9opvQ
+	(envelope-from <linux-man+bounces-5113-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:45:53 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3914124DFD
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:43:11 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AE5E124E90
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:45:53 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 5F259301475F
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 13:43:10 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id ED22F3023B92
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 13:45:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9496B287265;
-	Wed, 11 Feb 2026 13:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 577A0260565;
+	Wed, 11 Feb 2026 13:45:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MBBQxWvP"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EFnIV7rH"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5854D191F94;
-	Wed, 11 Feb 2026 13:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38FE352C2B;
+	Wed, 11 Feb 2026 13:45:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770817387; cv=none; b=Qp2OgXklh9OsZIvvZUYoLX65FxEyR5Xd2r16XD2qeW8BFARVy1m8HW4p9J8meBIF65dWRJ9py4WoA6tEwy7PP+ZUDItzOAExajOWQczpisIFJKhJXkdmyOAjUuC6SkpPu4Uy7CwSbibC2qMvXaVC2L7AxM2SbkzSou8jAkDpZ/E=
+	t=1770817513; cv=none; b=kdD+b9GWliGnqqzB8mDx9NIEuiPs5uxLsca32vXzTAoWBbsEEgz4iOHgLjQ2qcHy7afi8utHVy+OiPPJGBqFBbpfOdIjn8kayz7MBAbGf5Ywp/3lzhAnONbOIcmFP5Lgy/rUbZYDous+ZnABWocawg6y7zvOoqYOR6NQ5ktvwzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770817387; c=relaxed/simple;
-	bh=rY7k/jfLnHX1EgXcp7pZxKu13oHQf/obv0PCxyZ3Z3s=;
+	s=arc-20240116; t=1770817513; c=relaxed/simple;
+	bh=mQE349Ek+9unzmcg+rjmIRBM+5Iw9QvQD4dcRmR7EzQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TVmPTdzsS2WkrQB4tv2JoXTjmaXw13ZDFZBylvMUVtKVJeSaGLbejS2eSH/r8COnZ//UzbqMNiBzYb3iKBxP5lxQkmqmmss5Ugv52FfUoPSRAxgB90Zol9rkPYyt+iiTRpb6VhmyPSXdJISxgRELsgBBBmsdq4L5Iutv5NLgnZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MBBQxWvP; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4423C4CEF7;
-	Wed, 11 Feb 2026 13:43:04 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=esCvZsr5jx2HoPMyEUdLIqqoidLNbgCsy/SVxIUQmlbyfXH+BkEZHnjemz5xWUnFZzdxytVWTsPIDXMRJ/ZvlX8TIzgNESVGybH6Jzd6Dx09dLuOvIaffvTejgG2vMqREzJqfGAPK0m2FunkHsiMvMceRiAp0hptIJAajqu02tM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EFnIV7rH; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B00C19424;
+	Wed, 11 Feb 2026 13:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770817386;
-	bh=rY7k/jfLnHX1EgXcp7pZxKu13oHQf/obv0PCxyZ3Z3s=;
+	s=k20201202; t=1770817512;
+	bh=mQE349Ek+9unzmcg+rjmIRBM+5Iw9QvQD4dcRmR7EzQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MBBQxWvP2btKVpvr23qSRuk1vDX0iCGCJiFXhU7warpV8WSjC51UG6iCnLeRRcSB7
-	 Sil1jdG4yBBakKoDbdLWMp2H4ykIw1YRgWBf0yCEiOM98S8ya3dwpx4qgzeQqsuu2X
-	 FBSnah1B80dZo50ey7p58He0nbWQAF6O2tp0iof9XgAwbUZDqPgQVxOFeSSXAUkzrw
-	 frmgw9i8+AgMIpfI88VMcpNcB89h/d1ijZsmdXKP1mUSHbH6kD4Tp3o82CZ8t4LWHv
-	 kf+4x+llYDCOUyuwi/pf/+ptZWC5+jIzQFUNOjihnhwRKWDMOh3eindKhcWlXtLW0Q
-	 cDkSwPn2bPjYg==
-Date: Wed, 11 Feb 2026 14:43:02 +0100
+	b=EFnIV7rHohIWPdYPOv4QlTAfdPkE/xUvxqA/NntNNgoGWUyPHzxEDXw2DSdSTMIXw
+	 u6R9sUhYqADHfdnq0pQBVSjKcV2VQ4FZ2ETtppTqIFIeo0hK1hsMjFnuxRxZk4fnRq
+	 9O/LAN3JijFSCCQzQJm6Nr9OTPy7lVcXjiHziaJzTHfaasFnhcYHwET0dKlQBDg9MG
+	 L3GRtqxDnay9ntbAMmjbBjT4tPTUlcKK+SNnuUmeMvFf8Fxn13pXWxCDhXP+jKyfy6
+	 IyJU3/P+NmMvFY2JrCtckzqeE+zWt4LQJ4q4dI9GxzWpKti95zkv8LANHB9jcdZxhQ
+	 KMRCY0/onJX3g==
+Date: Wed, 11 Feb 2026 14:45:08 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Bhavik Sachdev <b.sachdev1904@gmail.com>
 Cc: linux-man@vger.kernel.org, criu@lists.linux.dev, 
 	Andrei Vagin <avagin@gmail.com>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
 	Jeff Layton <jlayton@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
 	Josef Bacik <josef@toxicpanda.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v1 02/10] man/man2/statmount.2: Document
- STATMOUNT_MNT_OPTS
-Message-ID: <aYyGsFC5xew1S5MW@devuan>
+Subject: Re: [PATCH v1 05/10] man/man2/statmount.2: Document
+ STATMOUNT_OPT_ARRAY
+Message-ID: <aYyHt246ioAg2X3k@devuan>
 References: <cover.1770671863.git.b.sachdev1904@gmail.com>
- <ece6d92155a289a30e316ff0c52bb279ec9f1186.1770671863.git.b.sachdev1904@gmail.com>
+ <91f613b422c405f77993c2d9c993495a30fb7e53.1770671863.git.b.sachdev1904@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -63,9 +63,9 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5p3l3hujhjjpoqlj"
+	protocol="application/pgp-signature"; boundary="3jxd2s26ytcdeimu"
 Content-Disposition: inline
-In-Reply-To: <ece6d92155a289a30e316ff0c52bb279ec9f1186.1770671863.git.b.sachdev1904@gmail.com>
+In-Reply-To: <91f613b422c405f77993c2d9c993495a30fb7e53.1770671863.git.b.sachdev1904@gmail.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.26 / 15.00];
 	SIGNED_PGP(-2.00)[];
@@ -75,11 +75,11 @@ X-Spamd-Result: default: False [-2.26 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5112-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5113-lists,linux-man=lfdr.de];
 	FROM_HAS_DN(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -93,15 +93,15 @@ X-Spamd-Result: default: False [-2.26 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: C3914124DFD
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 4AE5E124E90
 X-Rspamd-Action: no action
 
 
---5p3l3hujhjjpoqlj
+--3jxd2s26ytcdeimu
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -111,106 +111,102 @@ Cc: linux-man@vger.kernel.org, criu@lists.linux.dev,
 	Andrei Vagin <avagin@gmail.com>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
 	Jeff Layton <jlayton@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
 	Josef Bacik <josef@toxicpanda.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v1 02/10] man/man2/statmount.2: Document
- STATMOUNT_MNT_OPTS
-Message-ID: <aYyGsFC5xew1S5MW@devuan>
+Subject: Re: [PATCH v1 05/10] man/man2/statmount.2: Document
+ STATMOUNT_OPT_ARRAY
+Message-ID: <aYyHt246ioAg2X3k@devuan>
 References: <cover.1770671863.git.b.sachdev1904@gmail.com>
- <ece6d92155a289a30e316ff0c52bb279ec9f1186.1770671863.git.b.sachdev1904@gmail.com>
+ <91f613b422c405f77993c2d9c993495a30fb7e53.1770671863.git.b.sachdev1904@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <ece6d92155a289a30e316ff0c52bb279ec9f1186.1770671863.git.b.sachdev1904@gmail.com>
+In-Reply-To: <91f613b422c405f77993c2d9c993495a30fb7e53.1770671863.git.b.sachdev1904@gmail.com>
 
-Hi Bhavik,
-
-On 2026-02-10T02:47:35+0530, Bhavik Sachdev wrote:
-> Document STATMOUNT_MNT_OPTS flag and the corresponding field introduced
-> by it.
+On 2026-02-10T02:47:38+0530, Bhavik Sachdev wrote:
+> Document STATMOUNT_OPT_ARRAY flag and the corresponding fields
+> introduced by it. This text is based on this commit message [1].
 >=20
-> STATMOUNT_MNT_OPTS is used to get all mount options on the mount
-> separated by commas. Similiar to how they are displayed in
-> /proc/[pid]/mountinfo.
->=20
-> This text is based on this commit [1].
+> Retrieve only file system options, separated by null bytes. For security
+> opts STATMOUNT_OPT_SEC_ARRAY is used.
 >=20
 > Link [1]:
 > <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
-t/?id=3Df9af549d1fd31487bbbc666b5b158cfc940ccc17>
+t/?id=3D2f4d4503e9e5ab765a7948f98bc5deef7850f607>
 >=20
 > Signed-off-by: Bhavik Sachdev <b.sachdev1904@gmail.com>
 > ---
->  man/man2/statmount.2 | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  man/man2/statmount.2 | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 >=20
 > diff --git a/man/man2/statmount.2 b/man/man2/statmount.2
-> index f5c4da122..fee37069a 100644
+> index dd1f1f17d..e47af22c3 100644
 > --- a/man/man2/statmount.2
 > +++ b/man/man2/statmount.2
-> @@ -31,6 +31,7 @@ .SH SYNOPSIS
->  .P
->  .B struct statmount {
->  .B "    __u32  size;"
-> +.B "    __u32  mnt_opts;"
->  .B "    __u64  mask;"
->  .B "    __u32  sb_dev_major;"
->  .B "    __u32  sb_dev_minor;"
-> @@ -108,6 +109,7 @@ .SS The mnt_id_req structure
->  STATMOUNT_MNT_POINT	/* Want/got mnt_point */
->  STATMOUNT_FS_TYPE	/* Want/got fs_type */
->  STATMOUNT_MNT_NS_ID	/* Want/got mnt_ns_id */
-> +STATMOUNT_MNT_OPTS	/* Want/got mnt_opts */
+> @@ -52,6 +52,8 @@ .SH SYNOPSIS
+>  .B "    __u64  mnt_ns_id;"
+>  .B "    __u32  fs_subtype;"
+>  .B "    __u32  sb_source;"
+> +.B "    __u32  opt_num;"
+> +.B "    __u32  opt_array;"
+>  .B "    char   str[];"
+>  .B };
+>  .EE
+> @@ -114,6 +116,7 @@ .SS The mnt_id_req structure
+>  STATMOUNT_MNT_OPTS	/* Want/got mnt_opts */
+>  STATMOUNT_FS_SUBTYPE	/* Want/got fs_subtype */
+>  STATMOUNT_SB_SOURCE	/* Want/got sb_source */
+> +STATMOUNT_OPT_ARRAY	/* Want/got opt_... */
 >  .TE
 >  .in
 >  .P
-> @@ -159,6 +161,13 @@ .SS The returned information
->  structure,
->  including any of the strings fields that were filled.
->  .TP
-> +.I smbuf.mnt_opts
+> @@ -274,6 +277,16 @@ .SS The returned information
+>  .I smbuf.str
+>  the source for the mount.
+>  It is a null-terminated string.
+> +.TP
+> +.I smbuf.opt_num
+> +The number of filesystem options set on the mount.
+> +.TP
+> +.I smbuf.opt_array
 > +The offset to the location in the
 > +.I smbuf.str
-> +buffer that contains a comma separated list of mount options,
-> +similiar to those in /proc/[pid]/mountinfo.
+> +buffer that contains file system options separated by null bytes.
+> +They can be iterated over the help of
 
-The path should be marked up:
-
-	.IR /proc/ pid /mountinfo .
-
-Though you may want to refer to proc_pid_mountinfo(5).
+Missing word? "iterated over _with_ the help of"
 
 
 Cheers,
 Alex
 
-> +It is a null-terminated string.
-> +.TP
->  .I smbuf.mask
->  The ORed combination of
->  .BI STATMOUNT_ *
+> +.IR smbuf.opt_num .
+>  .SH RETURN VALUE
+>  On success, zero is returned.
+>  On error, \-1 is returned, and
 > --=20
 > 2.53.0
+>=20
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---5p3l3hujhjjpoqlj
+--3jxd2s26ytcdeimu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmMh2YACgkQ64mZXMKQ
-wqlihQ//axG23wFzS8eY2QBhIdCrxU1gGKqXKBKf3oD6pCBt8EUzTSIPwsxdEQc+
-Nqsscf2IJfNSXy0pGenvq//AGwyh/TOvF0whoh3biU+yhFkRGt8uA0nwVwamViGx
-vj31nUEbfZ9irE7aiygGVep4JhaTLI/zj3wWOnZf/RnI2Xd9MbAn51TKLtArbQwq
-zb3OjCEhodmfCvJWma8EYKOYB11ZDIlvh378RcXy2ltEu3oUQbnQxxVE5mCN13Nb
-5U+TPN7ZXyaTel5QhXRkIWw0k6tfBusR9lokSXK0XSc1R/Rdwx1thHOe/SiV9qwf
-5bd15b9rwv+163Ww8gWo+47o7fWg5bFWIraYu2eRg7J3/HuIPEl2gfNIgebjEjjb
-azsyNGBdLNQz6huAG3/RwCtcKBmoGwnrc3Q6oeNsxUDSI352rHtetslBYclKsdoE
-8gT8dU5sQwhfQGzHYFTHHdR53d5Wz8tcV+PEp7u28iGGlmz2KAvlDM+Wyaw4JXHh
-y3tzei1Ky+GEtn6lwc+nmrM6L/gez+XDpdYQHj7AMV7R74u9klrFH/b2EvXCr0rx
-+W0XrkfWGJTz3PZRGx+sXjCPcx92LNZeSbNNKHeZDZrwYLAV5Nnr1iPg3UPws3WP
-4FPW6sWEXfBaGnE1HUnHSweUNhL5a7/kFeoukzgBETqCPC7RHOo=
-=xt8/
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmMh+QACgkQ64mZXMKQ
+wqkKGg/+JKQvAZ3bt43iyCS29U7m7GX3wD5IwTC7qy2oG6LiAzR5GVx+fBy2JOUx
+PBNRKhEFAYkvLEfQZNPS/tZy+fahZHPFpc/PHtTpu7vUbSq9acHpLN8pREMz+ggd
+bA7U9uegDxMBGuRNpCbdTHs8hY1CkZzY8lr2aXYW71BZYloUbBBNATSn8Kgf+mZT
+9QaqNGN7WOS5Ff5s0c0Xq7hnrzal13HVoV2AX31fz+yI1rfiTBC+MvSd5jZMqzG6
+XP2nK7co4ODpOmFbd6q9dGMdNLdQB++d9W7VqxCvPPYKCdNBPfQ5WuttcQ1x380G
+eVpCnUFVzMDXWvch1iWEDre5+ZtVfhQ8URJeouAqus9cE4rZklc94aOCh/AOqFI4
+4g70ZWAz3x5Qq5ATZl72k1efwEJzt+Sxq9IoiYKRxTCqoXXwW/so/FTtuS6l1KPy
+ORTAzzQqkojC+R/gXDV8euILJZx2aOVS/oMI5cI01/jBhvK4QzIB5MGW7xsqhWwK
+TNMCkEV0ofDxsaOJQZLh9tSrfkJfbu5SRqlVwb3+kMZhSE6uc+of1IoWesa0YXvi
+VRq4ISVHoqAYPy3CYqVy99YbMODjl3rp+7d8Iv0s1BUlkK2hYQMlweZm0liRlg6L
+Psp3131nouLPXFrQzAm4J+AhYGh+wBFa1+1pvZsNKR1+ZJ6ksyE=
+=dVny
 -----END PGP SIGNATURE-----
 
---5p3l3hujhjjpoqlj--
+--3jxd2s26ytcdeimu--
 
