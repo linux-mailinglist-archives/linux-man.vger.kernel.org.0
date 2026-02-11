@@ -1,58 +1,56 @@
-Return-Path: <linux-man+bounces-5105-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5106-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MM0bAFvEi2mEagAAu9opvQ
-	(envelope-from <linux-man+bounces-5105-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 00:50:51 +0100
+	id TFSACY3Hi2nyawAAu9opvQ
+	(envelope-from <linux-man+bounces-5106-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 01:04:29 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A46B1202F0
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 00:50:50 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD9512034A
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 01:04:28 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 41C943046F23
-	for <lists+linux-man@lfdr.de>; Tue, 10 Feb 2026 23:50:49 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id B8EB1303EAAC
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 00:04:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94D50329C77;
-	Tue, 10 Feb 2026 23:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9ED7C1C01;
+	Wed, 11 Feb 2026 00:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrMqWoVU"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PP8MzRr+"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5882A3191C8
-	for <linux-man@vger.kernel.org>; Tue, 10 Feb 2026 23:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C59173
+	for <linux-man@vger.kernel.org>; Wed, 11 Feb 2026 00:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770767446; cv=none; b=X1AnF6z9hQAuoBJYMbqsf77Il0/KhykRE2Sjr71zUOEdJb1I36TeLJwW9MS512NLcI9CmxvCfnSqC+dm0xyjV7BU+GG/yVfNTTT1228Nk0tpBZ4Crr74Cc52tQxPl1E3mtza5/y/SSTYtcFE+XJ7n04h9YFm65Joz8sIkhVe+6I=
+	t=1770768265; cv=none; b=KTvX+Tbq7XJFrQPGa80Ks5hr8BPEL8xzTc9veOGnD6tixWkumVIvzRvDVmipKybUeDPCGvS5LdU+KHZfrARALClWpa7XWFgSOtCgbN1TbK9x30XLByLonbbD93rUwgI0iVKKJfTvQe+aum/61d6pr+8WK895J8qH2UkDAUBa9MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770767446; c=relaxed/simple;
-	bh=ZAfX8w4i7LtJTVm4M4JRLrQOWjCrpqtBRjB/xToJPC4=;
+	s=arc-20240116; t=1770768265; c=relaxed/simple;
+	bh=+l+gzLz1xLu4ko4tHpNbrPGI/MRTncdwNB6kACF/QhA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XJEi07s8EeGJmvXk9rxQJRCTDBGSAererKcDbYZLzZF65hxxXNXtipca4y28G8CmqVqtlPB0uOQGqo1kAwNWmLIuKX/iGmAERtYHBgMODt3sqoTTDHSslxw5lpizDn0bEKI8VoZ5ugsruprUNvyM/ATS/CuIuO7zrkC9des57bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrMqWoVU; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A3BEC116C6;
-	Tue, 10 Feb 2026 23:50:44 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=QMp6uEwtqE9QOq29BPpZDziE60YtXe6KAw9awnWAjdV+/sFZEiIQc3Ci+KVsNgWzBwok1G63kYmewZuojRkCg2gWCIElRLtUVQ28+T+1Zz8Su6c/9Lb+mOOtZS4Xc4qkoYojBPgRx4OUIqexcNncOON1rhlgAV69WDbfCv2QRG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PP8MzRr+; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 543C5C116C6;
+	Wed, 11 Feb 2026 00:04:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770767446;
-	bh=ZAfX8w4i7LtJTVm4M4JRLrQOWjCrpqtBRjB/xToJPC4=;
+	s=k20201202; t=1770768265;
+	bh=+l+gzLz1xLu4ko4tHpNbrPGI/MRTncdwNB6kACF/QhA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YrMqWoVUM9DdLna1/gZiteUkXAmjJ6iLu1Ig/LaeQUnQiq8NzQnohwpS/0uG3FjWW
-	 6q2iRZXtZrVGA1lg0VtTkjZvvHqayw6hZRO2PlRlPHXanoSeIlo3zqqHYzwkJ9/Xa4
-	 /V080gbLATy7raft9HmBX54DQBpTj3VF2LqjU35u59WL6YFdOyjacnWKtn8e/Sb7P/
-	 JYkcXJObJU83gd8EYPfGOcLTKgJjS1eKvrKVoZFvKmRWQ/l0WqdmcdZkoevffpKsPN
-	 mXVx61Dyev4K3Wx8tsatVnb0wyiY9KJrnPPXtwFfj4pf845keV45szxeUE/df9O6q0
-	 NXs31/BEGwTBw==
-Date: Wed, 11 Feb 2026 00:50:41 +0100
+	b=PP8MzRr+8ZoGT5cf3HoDrNyW/Lyba3A/hWuiwYRJmEDm+HKd3rwZYdcARSK5CayD+
+	 JvEQF7jCCw0R5N6ZpDjBJK9ewjbL1jAWHizPiDgtbJ6xhYy8Q6xMt3f2NRZkSrbjnf
+	 8XB0aX1VXCZcXVsGmW7FfGNf8fzJ/4ChJcbU9xrE+9y2mnRmEEuDPZBWSSPnzV1gW4
+	 cwlBR44b85rAseYo5NGhWinoKtKd/XQiWVKX30CZrUmZxvi+G5zvMz38c/N3zBnHbb
+	 oBxBNMhM70SsAnTt6k3Va1k7zAQgXDrEujHpcihNts6zPyrTS0CW+cwhPP8lG7IUCT
+	 r/Ukou+gWFspA==
+Date: Wed, 11 Feb 2026 01:04:22 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 08/21] man/man2/mincore.2: HISTORY: Update appearances
- of mincore(2)
-Message-ID: <aYvD7NCbo2n0PJHT@devuan>
+Subject: Re: [PATCH v1 00/21] man/man2/*: Update history of syscalls H-M
+Message-ID: <aYvHQ0ZQh9NqITHM@devuan>
 References: <cover.1769429341.git.sethmcmail@pm.me>
- <817af323707ec44ec1b78dedbb07a7c09ab0104d.1769429341.git.sethmcmail@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,23 +58,23 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6fcrzjwcbk6u77fv"
+	protocol="application/pgp-signature"; boundary="uj6n2p5vwx5bttnc"
 Content-Disposition: inline
-In-Reply-To: <817af323707ec44ec1b78dedbb07a7c09ab0104d.1769429341.git.sethmcmail@pm.me>
+In-Reply-To: <cover.1769429341.git.sethmcmail@pm.me>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5105-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5106-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -87,121 +85,139 @@ X-Spamd-Result: default: False [-3.76 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,alejandro-colomar.es:url,pm.me:email]
-X-Rspamd-Queue-Id: 6A46B1202F0
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: 6FD9512034A
 X-Rspamd-Action: no action
 
 
---6fcrzjwcbk6u77fv
+--uj6n2p5vwx5bttnc
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <sethmcmail@pm.me>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 08/21] man/man2/mincore.2: HISTORY: Update appearances
- of mincore(2)
-Message-ID: <aYvD7NCbo2n0PJHT@devuan>
+Subject: Re: [PATCH v1 00/21] man/man2/*: Update history of syscalls H-M
+Message-ID: <aYvHQ0ZQh9NqITHM@devuan>
 References: <cover.1769429341.git.sethmcmail@pm.me>
- <817af323707ec44ec1b78dedbb07a7c09ab0104d.1769429341.git.sethmcmail@pm.me>
 MIME-Version: 1.0
-In-Reply-To: <817af323707ec44ec1b78dedbb07a7c09ab0104d.1769429341.git.sethmcmail@pm.me>
+In-Reply-To: <cover.1769429341.git.sethmcmail@pm.me>
 
 Hi Seth,
 
-On 2026-01-26T12:29:17+0000, Seth McDonald wrote:
-> mincore(2) was implemented in FreeBSD on 1995-10-21,[1] which was first
-> included in the FreeBSD 2.2 release on 1997-03.[2]
+On 2026-01-26T12:28:10+0000, Seth McDonald wrote:
+> Hi all,
+>=20
+> This set updates the history of system calls H to M.
+>=20
+> While I have been thorough with my research, I would encourage those
+> interested to double-check that my edits make sense given the listed
+> sources.  Particularly for linkat(2), SEEK_DATA/SEEK_HOLE, mkdirat(2),
+> and mincore(2), since they took significantly more time and research
+> than other functions.
+>=20
+> Seth McDonald (21):
 
-Sorry for taking so much time to respond.  I was busy with a meeting of
-the C Committee.  I'm back.  I've merged already patches 01..07.
-
-This patch seems to be corrupt.
-
-	warning: quoted CRLF detected
-	Applying: man/man2/mincore.2: HISTORY: Update appearances of mincore(2)
-	error: patch failed: man/man2/mincore.2:112
-	error: man/man2/mincore.2: patch does not apply
-	Patch failed at 0001 man/man2/mincore.2: HISTORY: Update appearances of mi=
-ncore(2)
-	hint: Use 'git am --show-current-patch=3Ddiff' to see the failed patch
-	hint: When you have resolved this problem, run "git am --continue".
-	hint: If you prefer to skip this patch, run "git am --skip" instead.
-	hint: To restore the original branch and stop patching, run "git am --abor=
-t".
-	hint: Disable this message with "git config set advice.mergeConflict false"
-	Press any key to continue...
-
-I could manually apply it, but it's probably worth checking why this is
-happening.  Probably another issue with protonmail, I guess.
+I've applied all patches, except the mincore.2 one (it was corrupt).
+Thanks a lot!  I'll release very soon; probably tomorrow.  :)
 
 
 Have a lovely night!
 Alex
 
+>   man/man2/ioctl_eventpoll.2: HISTORY: ffix
+>   man/man2/kill.2: HISTORY: Update POSIX appearances of kill(2)
+>   man/man2/link.2: HISTORY: Change order of linkat(2)
+>   man/man2/link.2: HISTORY: Update POSIX appearances of link(2)
+>   man/man2/listen.2: HISTORY: Change order
+>   man/man2/lseek.2: HISTORY: Update appearances of SEEK_{DATA,HOLE}
+>   man/man2/lseek.2: HISTORY: Update POSIX appearances of lseek(2)
+>   man/man2/mincore.2: HISTORY: Update appearances of mincore(2)
+>   man/man2/mkdir.2: HISTORY: Change order of mkdirat(2)
+>   man/man2/mkdir.2: HISTORY: Update BSD and POSIX appearances of
+>     mkdir(2)
+>   man/man2/mknod.2: HISTORY: Change order of mknodat(2)
+>   man/man2/mknod.2: HISTORY: Update POSIX appearances of mknod(2)
+>   man/man2/mknod.2: STANDARDS: Update
+>   man/man2/mlock.2: HISTORY: Update POSIX appearances of
+>     m(un)lock(all)(2)
+>   man/man2/mmap.2: HISTORY: Update POSIX appearances of m(un)map(2)
+>   man/man2/{mount_setattr,move_mount}.2: HISTORY: ffix
+>   man/man2/mprotect.2: HISTORY: Update POSIX appearances of mprotect(2)
+>   man/man2/msgctl.2: STANDARDS, HISTORY: Update POSIX appearances of
+>     msgctl(2)
+>   man/man2/msgget.2: STANDARDS, HISTORY: Update POSIX appearances of
+>     msgget(2)
+>   man/man2/msgop.2: STANDARDS, HISTORY: Update POSIX appearances of
+>     msg{rcv,snd}(2)
+>   man/man2/msync.2: HISTORY: Update POSIX appearances of msync(2)
 >=20
-> It was implemented in NetBSD on 1999-06-15,[3] which was first included
-> in the NetBSD 1.5 release on 2000-12-06,[4] (despite the commit message
-> stating its intended inclusion in NetBSD 1.4.1).
+>  man/man2/ioctl_eventpoll.2 |  2 +-
+>  man/man2/kill.2            |  4 +++-
+>  man/man2/link.2            | 10 ++++++----
+>  man/man2/listen.2          |  4 ++--
+>  man/man2/lseek.2           | 10 +++++++---
+>  man/man2/mincore.2         | 13 ++++++++-----
+>  man/man2/mkdir.2           |  8 +++++---
+>  man/man2/mknod.2           | 11 +++++++----
+>  man/man2/mlock.2           |  3 ++-
+>  man/man2/mmap.2            |  5 ++++-
+>  man/man2/mount_setattr.2   |  2 +-
+>  man/man2/move_mount.2      |  2 +-
+>  man/man2/mprotect.2        |  4 +++-
+>  man/man2/msgctl.2          |  6 ++++--
+>  man/man2/msgget.2          |  6 ++++--
+>  man/man2/msgop.2           |  6 ++++--
+>  man/man2/msync.2           |  3 ++-
+>  17 files changed, 64 insertions(+), 35 deletions(-)
 >=20
-> It was implemented in OpenBSD on 2001-03-09,[5] which was first included
-> in the OpenBSD 2.9 release on 2001-06-01.[6]
+> Range-diff against v0:
+>  -:  ------------ >  1:  d109f3dc06e2 man/man2/ioctl_eventpoll.2: HISTORY=
+: ffix
+>  -:  ------------ >  2:  55de16b213bf man/man2/kill.2: HISTORY: Update PO=
+SIX appearances of kill(2)
+>  -:  ------------ >  3:  17eacf0f2d3e man/man2/link.2: HISTORY: Change or=
+der of linkat(2)
+>  -:  ------------ >  4:  bec317b8ee88 man/man2/link.2: HISTORY: Update PO=
+SIX appearances of link(2)
+>  -:  ------------ >  5:  2024c82a058d man/man2/listen.2: HISTORY: Change =
+order
+>  -:  ------------ >  6:  bcf9f5113f3c man/man2/lseek.2: HISTORY: Update a=
+ppearances of SEEK_{DATA,HOLE}
+>  -:  ------------ >  7:  2dd12d136bf0 man/man2/lseek.2: HISTORY: Update P=
+OSIX appearances of lseek(2)
+>  -:  ------------ >  8:  817af323707e man/man2/mincore.2: HISTORY: Update=
+ appearances of mincore(2)
+>  -:  ------------ >  9:  8b25a256e60f man/man2/mkdir.2: HISTORY: Change o=
+rder of mkdirat(2)
+>  -:  ------------ > 10:  347e36c11666 man/man2/mkdir.2: HISTORY: Update B=
+SD and POSIX appearances of mkdir(2)
+>  -:  ------------ > 11:  d3da8260e1bc man/man2/mknod.2: HISTORY: Change o=
+rder of mknodat(2)
+>  -:  ------------ > 12:  b0feda20f21d man/man2/mknod.2: HISTORY: Update P=
+OSIX appearances of mknod(2)
+>  -:  ------------ > 13:  32bd25fd3630 man/man2/mknod.2: STANDARDS: Update
+>  -:  ------------ > 14:  67bf0c1aa133 man/man2/mlock.2: HISTORY: Update P=
+OSIX appearances of m(un)lock(all)(2)
+>  -:  ------------ > 15:  57292b4f60c4 man/man2/mmap.2: HISTORY: Update PO=
+SIX appearances of m(un)map(2)
+>  -:  ------------ > 16:  b8f4e6fa54e7 man/man2/{mount_setattr,move_mount}=
+=2E2: HISTORY: ffix
+>  -:  ------------ > 17:  4e1acc0f5e00 man/man2/mprotect.2: HISTORY: Updat=
+e POSIX appearances of mprotect(2)
+>  -:  ------------ > 18:  024ce32c9da5 man/man2/msgctl.2: STANDARDS, HISTO=
+RY: Update POSIX appearances of msgctl(2)
+>  -:  ------------ > 19:  975e61bea29f man/man2/msgget.2: STANDARDS, HISTO=
+RY: Update POSIX appearances of msgget(2)
+>  -:  ------------ > 20:  86e7c24b1428 man/man2/msgop.2: STANDARDS, HISTOR=
+Y: Update POSIX appearances of msg{rcv,snd}(2)
+>  -:  ------------ > 21:  d106bca86ec1 man/man2/msync.2: HISTORY: Update P=
+OSIX appearances of msync(2)
 >=20
-> All other listed systems are taken at face value and rearranged in
-> chronological-ish order.
->=20
-> [1] Dyson, John (21 Oct 1995).  "Implement mincore system call."
-> FreeBSD source tree (Git repository).
-> <https://cgit.freebsd.org/src/commit/?id=3D02c04a2f6c83ee28ed637d120296d0=
-4da8f03372>
-> [2] The FreeBSD Project (29 Nov 2025).  "Prior Releases =E2=80=93 EOL".
-> <https://www.freebsd.org/releases>
-> [3] Thorpe, Jason (15 Jun 1999).  "Several changes, developed and tested
-> concurrently:".  NetBSD src (CVS repository).
-> <https://cvsweb.netbsd.org/bsdweb.cgi/src/sys/uvm/uvm_mmap.c?rev=3D1.22>
-> [4] The NetBSD Foundation (2026).  "History of NetBSD releases".
-> <https://www.netbsd.org/releases/formal.html>
-> [5] art (9 Mar 2001).  "More syncing to NetBSD."  OpenBSD src (CVS
-> repository).
-> <https://cvsweb.openbsd.org/src/sys/uvm/uvm_mmap.c?rev=3D1.7&content-type=
-=3Dtext/x-cvsweb-markup>
-> [6] de Raadt, Theo (1 Jun 2001).  "OpenBSD 2.9".
-> <https://www.openbsd.org/29.html>
->=20
-> Signed-off-by: Seth McDonald <sethmcmail@pm.me>
-> ---
->  man/man2/mincore.2 | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
->=20
-> diff --git a/man/man2/mincore.2 b/man/man2/mincore.2
-> index 8574ed1922d9..a9a1974466a6 100644
-> --- a/man/man2/mincore.2
-> +++ b/man/man2/mincore.2
-> @@ -112,13 +112,16 @@ .SH ERRORS
->  .SH STANDARDS
->  None.
->  .SH HISTORY
-> +SunOS 4.1,
-> +4.4BSD,
-> +FreeBSD 2.2,
-> +Solaris 8,
->  Linux 2.3.99pre1,
-> -glibc 2.2.
-> +glibc 2.2,
-> +NetBSD 1.5,
-> +OpenBSD 2.9,
-> +AIX 5.1.
->  .P
-> -First appeared in 4.4BSD.
-> -.P
-> -NetBSD, FreeBSD, OpenBSD, Solaris 8,
-> -AIX 5.1, SunOS 4.1.
->  .SH BUGS
->  Before Linux 2.6.21,
->  .BR mincore ()
+> base-commit: 6754bd1a126ed1e9b7d9c2bc1d221681f5182bb3
 > --=20
 > 2.47.3
 >=20
@@ -211,25 +227,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es>
 
---6fcrzjwcbk6u77fv
+--uj6n2p5vwx5bttnc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmLxFEACgkQ64mZXMKQ
-wqk9RQ/7BPSfdPhO7OXeUbJKqmwVHqquIoDYOB7PudW3ddij2ZSP7nqQ+iqHW5wZ
-/T6BpxS6siYxcQ/5Vvbf0xcvE5f+l8g8V74BFe1P5uzKBVbCRPOSizq4n9uhGC58
-nlBb84R+Y9lAbzrTMrJFPNXxq0rZnVc9magR9Qr1mQZbMbN31t5AiXrclQB9q93b
-LGOYd5YJmr5KGiuEsdzIa/W9vRlruV54j+/SygFJ4pnyx3nTqKbJfBzOQHqtJIJN
-K3XCH9CqsTQAwHmWBxR4H4AjXxvtAemVmYK9KmVArUC/eQR+ppe5ClVm1NzZjYWC
-NlNCvJ1vUgqRFKHk7buEpr7ML88sSMmRSy5q1PvJedY/AYYSHg/kwZXRF1uY4k7S
-IYj9oI2pekaXAG1NgRA+LkyYy5tO2FRHS5oQaG9m3vyn4sSUO0Koxw6ZKn5H2WV9
-L5IGOnw8ymaurtUIFaAq+mpfQPxyL7boY63ldFvPB+q2O8Ox7nUA6a3DII/ETCTH
-PvZacrOVNXJq5xz0r8KYy8fJAUsW6OHsFNHgmY669nL9XMejGRRPSXTMoEsqkCZl
-DwrEIC6uAFKe3PXg/KmzqE59cP0GJPf7o0r0riddcG0jXl2BJZlUXajg8iXRH6jv
-ghntfSlt7emcu8OoBRDdCuBbKYfynbu2sWR67KsT/ctteI1Kl5o=
-=4O4X
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmLx4UACgkQ64mZXMKQ
+wqlERw/+KUyvIdFXyog7Bb1VcybICcfKxABJodRopvqzRSJ487o6bvyFnRVsE6Su
+xWIpJniYa7UEnVypaFpxLFjyYMj/qKkQVm1pQj/V8VhCltrQG+cTxJ74E4vnz4rp
+yN0L9X8B9PPDe3Dr/zBhsNm73w+ff+1ew5OlZXyMwHSkN6K2ktSGa1aCrSZlfE84
+RKQ1xnessY6p0sJR41DOSYSnZBYCMbvhAwljVMLCPeFyHOJOzLGTP9UwJLztWLHK
+ZCZjWuKFkgOMvgME1eYu/GNLoQ7k4g9FaavuHGRM5XFBb3oqSdwra+wDmVCaa1Xs
+I7POiCQJbSEkaS4NoSEtZ/hAu0vMNT/oXrz3OEt+/BO7TLnE4lKVlN9vrMR1Q1St
+rL9RqMrdvohXoHIbjMyZKFziGqm/3fadI0ozo+JhDeCJevtHuHDG/0iAUgufDi+8
+FZ0yuBDR00RWNwPszMeTHD7q3oKMDg6SP/azzN2mmOsP5SH/U+Num6EpK892XA8G
+ir2CXWJ01+8Iu89b+HgUuZkMqw/l02a8HYJu3hGKMT41RU4MN8LntobUoQdO2kzM
+THbJqMlZZngKAvZ9EGBVFXxrbL3Ir99S6Hx6m6fWhEVikOEDn60ez3aOLIf32MCD
+mTJ2j/5/V+DWFI/vMPAh/ZOXdJ73zjdFYPKp2zD3rJZpNzgjrBU=
+=EMod
 -----END PGP SIGNATURE-----
 
---6fcrzjwcbk6u77fv--
+--uj6n2p5vwx5bttnc--
 
