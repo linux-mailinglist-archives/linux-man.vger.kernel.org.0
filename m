@@ -1,61 +1,59 @@
-Return-Path: <linux-man+bounces-5123-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5124-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YM26CGeZjGkhrgAAu9opvQ
-	(envelope-from <linux-man+bounces-5123-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:59:51 +0100
+	id OJsAHXOdjGmPrgAAu9opvQ
+	(envelope-from <linux-man+bounces-5124-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 16:17:07 +0100
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF311255BF
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:59:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDED51258A1
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 16:17:06 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id AAAB73011BEF
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:59:47 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 4693D303A264
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:13:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 318CE2727E2;
-	Wed, 11 Feb 2026 14:59:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7DFD2C029C;
+	Wed, 11 Feb 2026 15:13:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="RIJU5UXo"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XxJyRaSL"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAA51D5147
-	for <linux-man@vger.kernel.org>; Wed, 11 Feb 2026 14:59:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE942857FC
+	for <linux-man@vger.kernel.org>; Wed, 11 Feb 2026 15:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770821986; cv=none; b=bGOxkY7Bshn6Rz85K3vGH2B3tbqIctyXYO7fRtS92dOttqh6C8E+BOSjflG0qMPQyxzzp+h1cdiQNSTlZpqL/GTRCztKMeRJTKt4mDmENs88q96kfitKqxi/MuqaROt9Y1PU4Si2Z0wNMCnjZIrsOuZQI9jdseeMMBRkkEyD12k=
+	t=1770822817; cv=none; b=oHQeStKlMYstAphBRRiCp0tryegiktpORnizGFayfGWldelWEOd5ebhmyH2n/F8P8qGOODoGkqnFDnF4JPh/leSuq7UAzdZX0CobSgqQJUk6x079TYquL4MuyxfFN9aPjy8vRRiihcS1rhQUStRvZrL7nAwWGAfL+FZdxpSbB0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770821986; c=relaxed/simple;
-	bh=CGbpZgtumfQEscv7gHDzqRjJccNcfrYOvYTFjV9Eys8=;
+	s=arc-20240116; t=1770822817; c=relaxed/simple;
+	bh=08kty1dsjguXnnuuBEGhLuMU9+SYqNoia9CrmgK6PCQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iGATJXvivSiv0jrQWZKxaIRcEXJglXP5cQOzrv7DP6XuxUa84mlEPk36mHrMNy3576zH66jCg6edgio+HlyPH7oeK5FlY2jTKCHsUhVg3W3/xTZ5VfodohYxuZyWbV0zfGw+CBMBkB61VSumz7fUWZFMSRnSXrZ9pendyO8KkQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=RIJU5UXo; arc=none smtp.client-ip=139.28.40.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202505; t=1770821981;
-	bh=CGbpZgtumfQEscv7gHDzqRjJccNcfrYOvYTFjV9Eys8=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=CEyx6MDdk/tWXeg0tLiSDsFxY66iVIKKbnL7Fk0Mb+0s3p1cSVXhdpYEaHV8q63oacXECiInWvxfUiCJm5VMFDDquwcDyrVmR5a/ibXLuxl1Y1I8DLytrpU8l5Eb4spBGDzX9JIZo+lwmXJp+lkWRdo6NzwzmaomaswaRtQ7u5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XxJyRaSL; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609BBC4CEF7;
+	Wed, 11 Feb 2026 15:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1770822817;
+	bh=08kty1dsjguXnnuuBEGhLuMU9+SYqNoia9CrmgK6PCQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RIJU5UXoowsPSMIj7E5YBeqBgjJNfk/PjJJ1R/8jtGPuLYS7f1+2T8owFjSPjkHCh
-	 o9SpAAmCEjZHeSD7YiWbydnNl2isRne7svniIGk+iGs+rArteHKZj8BbE4Roak4vMs
-	 VbfK29M9erhLGIRrzYa1nbCp2CA00YMedrbeW4yqBKVn+LXgF+8+U6ZgfkKpNBtXRh
-	 Sz2IQBojHQRTHI7RGQUyNmxk9YZ5bsAi+KJHqKoyoqZ8lWSmBzWhu5hXJ6OO72A3Lg
-	 UIfUNxpV5qr7ji9vT8YtW+mo/Zco+hUt9QCSY9VQW8EaNjUzHUVA1pUiztVZS/EDn5
-	 z/RfQCmvzfPhA==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id AD3731872;
-	Wed, 11 Feb 2026 15:59:41 +0100 (CET)
-Date: Wed, 11 Feb 2026 15:59:41 +0100
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To: Alejandro Colomar <alx@kernel.org>
+	b=XxJyRaSLY/5nMpXlxlmy6STB2zMQgqISCaERPWTVUTYSx673PnQZSP6Sdlld/ivh+
+	 5S/w8m0IzQJ2S4/xVyZtL6vMBf6OarH6tAV4PBpnsHX5qEVadjk0AdZOOqN8G1Ab4k
+	 yWKbk5QIIFriotGsNN8UbMJK9pImsk+cdKaqRNMe6UM4mdFlK01CVuci/HuEXpb9LY
+	 mP8Aadir23Bion34H3RxBnbDPH0TbwgPgr27/xic+w0IgIQPnsVRYo6+AXOAE6R+Wj
+	 KgrZtIqORBjnEepr1gOiE1ujYNiQsdzN8UXXEaKP7q9onDNI9J+zfAMq4hZ62qp/wC
+	 Mkab2C8o4Cy1w==
+Date: Wed, 11 Feb 2026 16:13:34 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH v7] futex_waitv.2: new page
-Message-ID: <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
+Message-ID: <aYycRq-sA6QVt-xk@devuan>
 References: <aYySf9HuORRCchje@devuan>
  <3e2gme6737jjnklm37pmgdlhl3zfxbdtvi5po254czvwuvn3cj@tarta.nabijaczleweli.xyz>
  <aYyYAqzaRovxMMEB@devuan>
+ <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -63,80 +61,104 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="huazex6ojqg7n44z"
+	protocol="application/pgp-signature"; boundary="lrqxuzmsnlyiz55n"
 Content-Disposition: inline
-In-Reply-To: <aYyYAqzaRovxMMEB@devuan>
-User-Agent: NeoMutt/20231221-2-4202cf-dirty
+In-Reply-To: <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-4.26 / 15.00];
+X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[nabijaczleweli.xyz,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	R_DKIM_ALLOW(-0.20)[nabijaczleweli.xyz:s=202505];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5123-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5124-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[nabijaczleweli@nabijaczleweli.xyz,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[nabijaczleweli.xyz:+];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[nabijaczleweli.xyz:dkim,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,tarta.nabijaczleweli.xyz:mid]
-X-Rspamd-Queue-Id: 6CF311255BF
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: CDED51258A1
 X-Rspamd-Action: no action
 
 
---huazex6ojqg7n44z
-Content-Type: text/plain; charset=utf-8
+--lrqxuzmsnlyiz55n
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v7] futex_waitv.2: new page
+Message-ID: <aYycRq-sA6QVt-xk@devuan>
+References: <aYySf9HuORRCchje@devuan>
+ <3e2gme6737jjnklm37pmgdlhl3zfxbdtvi5po254czvwuvn3cj@tarta.nabijaczleweli.xyz>
+ <aYyYAqzaRovxMMEB@devuan>
+ <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
+MIME-Version: 1.0
+In-Reply-To: <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
 
-On Wed, Feb 11, 2026 at 03:55:54PM +0100, Alejandro Colomar wrote:
-> On 2026-02-11T15:44:20+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> >     -+	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val, timeou=
-t);
-> >     ++	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val);
-> I don't think it's valid to call futex(2) with FUTEX_WAIT without
-> a timeout.  Is it?
-Correct, it is not. However,
+On 2026-02-11T15:59:41+0100, =D0=BD=D0=B0=D0=B1 wrote:
+> On Wed, Feb 11, 2026 at 03:55:54PM +0100, Alejandro Colomar wrote:
+> > On 2026-02-11T15:44:20+0100, =D0=BD=D0=B0=D0=B1 wrote:
+> > >     -+	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val, time=
+out);
+> > >     ++	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val);
+> > I don't think it's valid to call futex(2) with FUTEX_WAIT without
+> > a timeout.  Is it?
+> Correct, it is not. However,
+>=20
+> > I think we need to pass NULL explicitly.
+> if you pay particular attention to the second pair of letters in the
+> futex operation, you will no doubt come to the conclusion that we don't.
 
-> I think we need to pass NULL explicitly.
-if you pay particular attention to the second pair of letters in the
-futex operation, you will no doubt come to the conclusion that we don't.
+Ohhh, I had the same problem when splitting the futex(2) page.
+I confused those two rather often.  :D
 
->_<
+Cheers,
+Alex
 
---huazex6ojqg7n44z
+>=20
+> >_<
+
+
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--lrqxuzmsnlyiz55n
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmmMmV0ACgkQvP0LAY0m
-WPGWWA//Q9CT9zlh7gRbIpK5aY/5qlPfs3hAgqBb/Wv83y5M/6N/osev2xVYdlNh
-lp9dzgPR8PEItB7H6uHKO6qBQ5MNMdSOLwp3M9d5hdcAFONK3fqQt0wwWsedpS8s
-SL2Iaf/puCkGr3h+37wFTrjsUJ9gfN9SRunXTn/foANSh+pVsl8/eSvQaVPuo1wv
-q9/vyKFcHCYkQYJVwsiryk5rG69OcvK0WIHhZr9/RGJrFjmXOO61OLYEi92pVKF8
-H+JKPB14yZSqI/3ADX92c68UsaMXnhW8P4Z252QlMLVAicC5dbHYQS7fluDNNlf3
-N+/87OUqk2m0C0hDdWXMxkth4uFYLiyrBizwPI0+40p/XvNWiF5tU6PzdmvqLFy8
-bPlep729jQvi7AwxjG8qEKJxeRuPQ9fBbZHepwDBfV1SonBtWDC9UavQmyt+pykZ
-zS1mq7KKQy08PGLXDrcXFWHYJ+9jV961jaUDDoifl3ydtLvGzzM82QNNS+dSlHm6
-YGFzP7Idz8E9TZdDroY1h6o5SPPZN8p4CE+U6aMObB0MuvlkOSJEtpIlSz49g/iF
-9eYFKJHESbl4lrle2DncuMY3vDv8en5agL1z79T1NI87sKopSLaYGgbvOfedNGCY
-cZt/XTmLAycU7/miAPcZwZcjc0Kc7antiIq/qTKQULdZUwBKGo4=
-=RA+f
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmMnJ0ACgkQ64mZXMKQ
+wql7vQ//f7xruguW9y4E7jlAnnpDBbp5md6rOQgNGZzcMdMbi5sUBsMfexdg0j/6
+cg+TzcAsW3XKiew6oNpsVSArdzS/7nLnYeK1/mFy0sz4wte/nQXf1kDUB118nV7G
+iya9nGGVPWj9UW33/i5yrPR8gX2s6TC159xhs+V6h1U29M5/6FyruCgEi9V0JvM1
+deFMtVX/iS+GIuDCtwp/+rqdwjtz/wW85pxmgItx7zSNewB38KZlAqbsH9nAVr8V
+Zk2SflL/ZuaW5ARgGpnVFvatpwqyuQRMVzIYxdRMCqDc2aTi34hqtUH303XnoF17
+lhHWompk9oQDshJhDnFdSVF0RtR3kBYgG+dh8NmTsZwWpaN2h/cRYdDoSbF5LCVr
+dMDmm8TRqcWLQ121dMs1ym6UbhNNb9VVsjmEyoSXjoDcnu48pWouXTljivJqeR2k
+4Q1EfLkEHusVs/8CjSqrDgkCkPuZIyBbMaBD4dDigt3iG4LjA81I9IY4mewpLKDb
+oUmQvyMHSwxsUSMnUP2xbl9TI8BdS4x7wJBrAahFXPXq627JVD3YAmm+x7Zh3C5c
+QRY11h40R31w0C7er2+Jy0KZzPxP+g5W/dtWQl2aoLQEWBafElC0jwxHdqB/Yi3g
+giBGc3AKxVh3f5/gvTEQWngyJeLwfoMEFIJO/2sVDA1E5ILTCPA=
+=ey/4
 -----END PGP SIGNATURE-----
 
---huazex6ojqg7n44z--
+--lrqxuzmsnlyiz55n--
 
