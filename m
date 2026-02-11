@@ -1,59 +1,57 @@
-Return-Path: <linux-man+bounces-5119-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5120-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iNwdACiSjGlQrAAAu9opvQ
-	(envelope-from <linux-man+bounces-5119-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:28:56 +0100
+	id KLNZAuGSjGlQrAAAu9opvQ
+	(envelope-from <linux-man+bounces-5120-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:32:01 +0100
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42AC412539C
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:28:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70BD41253E2
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:31:56 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 1B8493014550
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:28:53 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 0B7473008D1A
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:31:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED0FA1DF748;
-	Wed, 11 Feb 2026 14:28:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B95C20D4FF;
+	Wed, 11 Feb 2026 14:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Egz1CCYY"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rBbMs/ee"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B5814A8E
-	for <linux-man@vger.kernel.org>; Wed, 11 Feb 2026 14:28:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBBA153598
+	for <linux-man@vger.kernel.org>; Wed, 11 Feb 2026 14:31:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770820131; cv=none; b=HI0sqjTNE54JF8q21SY94BkVYvTgA9X24kgDw0rWZsCGrRrkVMonpUWIFXVxGAuomG5Pyqjhqv8uyVB/KROj6fcLcx9WcBJZdWJPFZ7jdo0Fc8qMxftcQO7cQ4gbU6oDTkzlgFtwDO9jkNRoNzV6Gdy0kC5YGuWZJV6E0E3Mz50=
+	t=1770820282; cv=none; b=QoO8dcYuEzQiZOy//ykiIR3XEibO1YvDCf5D3Cx3Yys5bUZVRcD/GXr+2SXR9nWtu7j+V/CDdQSATqqaWQToePKzo9XpuApb+nd9tke/Qy3C7Q4DBN5jaFFVWk/XZs2KJE1C7OBugRrEhvn0Czvkc96JOYowLEW8avWfMQ1RKmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770820131; c=relaxed/simple;
-	bh=ntpT2uzH7lWURSWert95e1SmVSCBTLXyjBF1KC0M0B4=;
+	s=arc-20240116; t=1770820282; c=relaxed/simple;
+	bh=37e7BgsowUPKUn9Wnl0xi0fkWhUq0v2xjcOB0KTu1LY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QjPfi4I5dXkxmksXV2O+YPSDoHzx+PwrS9riEeev7RmrQ19+9STgUPT8egWJKE+VrTKVh3f7gL6cSQXou+fRshyVmWhvj/hQwQ1o4k2niR893HH9wbXz37fkyqoNtnhJXgVgXdUH+c7+ZMLEjusGsCQteV7lhyobOQXjFIJarLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Egz1CCYY; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4426C4CEF7;
-	Wed, 11 Feb 2026 14:28:50 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=UP1qpepIY53yA/h6q6UpOmRQNc9Zwcp7wsM/j0BKxB3BzjR2IQduxhX4gz5nWfTBKLGhb2ixf9eUO8fG2Uh3RCEpNY0SIHmjWarlVGJQW1El4QxykzgtxnoObUZGWl6cqsiphcodHL0YxfTVW+2cNdDGxfiuy1usqb7K60EShCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rBbMs/ee; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01FE0C4CEF7;
+	Wed, 11 Feb 2026 14:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770820131;
-	bh=ntpT2uzH7lWURSWert95e1SmVSCBTLXyjBF1KC0M0B4=;
+	s=k20201202; t=1770820281;
+	bh=37e7BgsowUPKUn9Wnl0xi0fkWhUq0v2xjcOB0KTu1LY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Egz1CCYYgczkf0wYqQ8VlsZdIzDQkbnZSXcsBmEPJRO2kXB/dXARcV1MpkxQz/hBC
-	 iI5oldW38CUYPlEB2HR/Dch0eQ3w9Ksz8G2hLx2OzRyGrWL9YZlAPIUV9UcCh5v2y9
-	 gs2ZAk/bX0Y5nrWAAGu+ONRdg0+/lh9Sq43b5+F9qN8f64bNrZF2+lzxyKMhXmwL+j
-	 r+Zn+qoFUy19Sj9bDSO2yWUcagee0xMQ+nNVhCQVySoxB29ywNbs+SBeQ343oUj4re
-	 6MXSDPPFxsCbBxBsF1EEVSu+9h5zCofRuCcwAzv2300vzC0s4KJWcqam/J86+YAn0J
-	 ZRWvKsjYf8RTg==
-Date: Wed, 11 Feb 2026 15:28:48 +0100
+	b=rBbMs/eedhNUCmy2cE5L7J1U+r2Sc5CJZktseuOuTCvjygNkyxyE7geLIcLS8IG8c
+	 41GvAjwvUB4qZtDNNR6DssPjNOjRvDgxesSKSndFKm8LY+RBUn/3eRD7Kz2NzXcF+4
+	 zxW+WJRo/Nn/qVQRhxA7HtlTaoQhD057N+wI2jawGfyzfg3G+7AZkhLjaYBQqK/K2V
+	 6081Tp7ID6O3hHFisGthQBz7EdBBuh05L8rua7AswV2ADt79I8V0IgqGCBo/ZlITYI
+	 2froXgohqIPv/Zma/8B24jXIgD3Zaplnv7I6CIw0nlmfW++aV/rPgp47EdVaY0hxpt
+	 tPTOUmr6Avh+g==
+Date: Wed, 11 Feb 2026 15:31:18 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v5] futex_waitv.2: new page
-Message-ID: <aYyQlJmhDY4nHGU5@devuan>
-References: <aYuXZUwh09hVHm3R@devuan>
- <mlooycjkz6pfdvket6f2gwet76aar3zsihtvpm7klt2wl2z3y4@tarta.nabijaczleweli.xyz>
- <aYx8Ghyq8E76xx9c@devuan>
- <u7iv57v7palhlpu5vllrxzvjo2iz4rgxjjeqksqnsgb3t6gm6w@tarta.nabijaczleweli.xyz>
+Subject: Re: [PATCH v6] futex_waitv.2: new page
+Message-ID: <aYySf9HuORRCchje@devuan>
+References: <u7iv57v7palhlpu5vllrxzvjo2iz4rgxjjeqksqnsgb3t6gm6w@tarta.nabijaczleweli.xyz>
+ <pdsolic43phov7twd32ubgsqi7s2ixanxvdsemvoghlxa6usxj@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -61,9 +59,9 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bzcbaptg4gpxzseq"
+	protocol="application/pgp-signature"; boundary="zakuhrhcgovkkxeq"
 Content-Disposition: inline
-In-Reply-To: <u7iv57v7palhlpu5vllrxzvjo2iz4rgxjjeqksqnsgb3t6gm6w@tarta.nabijaczleweli.xyz>
+In-Reply-To: <pdsolic43phov7twd32ubgsqi7s2ixanxvdsemvoghlxa6usxj@tarta.nabijaczleweli.xyz>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
@@ -77,7 +75,7 @@ X-Spamd-Result: default: False [-3.76 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5119-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5120-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -91,245 +89,51 @@ X-Spamd-Result: default: False [-3.76 / 15.00];
 	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,infradead.org:email,igalia.com:email,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 42AC412539C
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,igalia.com:email]
+X-Rspamd-Queue-Id: 70BD41253E2
 X-Rspamd-Action: no action
 
 
---bzcbaptg4gpxzseq
+--zakuhrhcgovkkxeq
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v5] futex_waitv.2: new page
-Message-ID: <aYyQlJmhDY4nHGU5@devuan>
-References: <aYuXZUwh09hVHm3R@devuan>
- <mlooycjkz6pfdvket6f2gwet76aar3zsihtvpm7klt2wl2z3y4@tarta.nabijaczleweli.xyz>
- <aYx8Ghyq8E76xx9c@devuan>
- <u7iv57v7palhlpu5vllrxzvjo2iz4rgxjjeqksqnsgb3t6gm6w@tarta.nabijaczleweli.xyz>
+Subject: Re: [PATCH v6] futex_waitv.2: new page
+Message-ID: <aYySf9HuORRCchje@devuan>
+References: <u7iv57v7palhlpu5vllrxzvjo2iz4rgxjjeqksqnsgb3t6gm6w@tarta.nabijaczleweli.xyz>
+ <pdsolic43phov7twd32ubgsqi7s2ixanxvdsemvoghlxa6usxj@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
-In-Reply-To: <u7iv57v7palhlpu5vllrxzvjo2iz4rgxjjeqksqnsgb3t6gm6w@tarta.nabijaczleweli.xyz>
+In-Reply-To: <pdsolic43phov7twd32ubgsqi7s2ixanxvdsemvoghlxa6usxj@tarta.nabijaczleweli.xyz>
 
-Hi,
-
-On 2026-02-11T14:51:27+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> On Wed, Feb 11, 2026 at 02:23:13PM +0100, Alejandro Colomar wrote:
-> > On 2026-02-11T05:00:26+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> > > +.P
-> > > +C programs should assign to
-> > > +.I uaddr
-> > > +by casting a pointer to
-> > > +.B uintptr_t
-> > > +to ensure the top bits are cleared on 32-bit systems.
-> >=20
-> > I'm not sure the paragraph above is correct.
-> > What code are you worried about exactly?  Could you show an example?
->=20
-> I couldn't because I repeat this kernel recommendation verbatim here.
-
-Heh.  Kernel people are funny sometimes.  :)
-
-> I don't think this is an issue, I don't think there's an ILP32 universe
-> where a pointer-to-u64 assignment fails as described.
-> I'll just cut it off at _t.
-
-Agree.
-
-> =20
-> > > +static inline long
-> > > +my_futex_wait_private(_Atomic uint32_t  *uaddr, uint32_t  val,
-> >=20
-> > Should this be atomic?  If so, should we document futex(2) as taking
-> > a pointer to atomic element?
-> It needs to be _Atomic-tagged to match the caller type
-> (compare passing a const uint32_t to a uint32_t *).
-
-Makes sense.
-
-> futexes are u32s accessed atomically, which we document everywhere.
-
-Okay.
-
->=20
-> Scissor-patch below.
-
-I found a few things I'd improve.  Please apply these changes.  I'd like
-to look at it again before merging, so please send a revision.
-
-	diff --git i/man/man2/futex_waitv.2 w/man/man2/futex_waitv.2
-	index d2997a94bf92..555dd42c6598 100644
-	--- i/man/man2/futex_waitv.2
-	+++ w/man/man2/futex_waitv.2
-	@@ -76,25 +76,27 @@ .SH DESCRIPTION
-	 and is guaranteed not to expire early.
-	 If
-	 .I timeout
-	-is NULL, the call blocks indefinitely.
-	+is NULL,
-	+the call may block indefinitely.
-	 .P
-
-(semantic newlines)
-
-	 Futex words to monitor are given by
-	 .IR "struct futex_waitv" ,
-	 whose fields are analogous to
-	 .BR FUTEX_WAIT (2const)
-	-parameters, except
-	+parameters,
-	+except
-	 .I .__reserved
-	 must be 0
-	 and
-	 .I .flags
-	 must contain one of
-	-.BR FUTEX2_SIZE_*
-	+.BI FUTEX2_SIZE_ *
-	 ORed with some of the flags below.
-
-* is variable part, so it should be in italics.
-
-	 .TP
-	 .BR FUTEX2_SIZE_U32
-	 .I .val
-	 and
-	-.I *.uaddr
-	+.I .uaddr[]
-	 are 32-bit unsigned integers.
-
-[] better represents that it's an array.
-
-	 .TP
-	 .B FUTEX2_NUMA
-	@@ -139,7 +141,8 @@ .SH DESCRIPTION
-	 .TP
-	 .B FUTEX2_PRIVATE
-	 By default, the futex is shared
-	-.RB "(like " FUTEX_WAIT (2const)),
-	+(like
-	+.BR FUTEX_WAIT (2const)),
-	 and can be accessed by multiple processes;
-	 this flag waits on a private futex word,
-	 where all users must use the same virtual memory map
-	@@ -148,7 +151,7 @@ .SH DESCRIPTION
-	 this most often means they are part of the same process).
-	 Private futexes are faster than shared ones.
-	 .P
-	-C programs should assign to
-	+Programs should assign to
-	 .I .uaddr
-	 by casting a pointer to
-	 .BR uintptr_t .
-
-We assume all programs are C programs, or similar enough.
-
-	@@ -189,7 +192,7 @@ .SH ERRORS
-	 .IR waiters []. uaddr
-	 field does not point to a valid object\[em]that is,
-	 the address is not aligned appropriately for the specified
-	-.BR FUTEX2_SIZE_* .
-	+.BR FUTEX2_SIZE_\f[I]*\f[] .
-	 .TP
-	 .B EINVAL
-	 .I flags
-	@@ -197,10 +200,9 @@ .SH ERRORS
-	 .TP
-	 .B EINVAL
-	 .I n
-	-was not in
-	-[1,
-	-.B FUTEX_WAITV_MAX
-	-(128)].
-	+was not in the range
-	+.RB [ 1 ,
-	+.IR FUTEX_WAITV_MAX(128) ].
-
-This is an expression, so it should be in italics.  1 is a constant, so
-bold.
-
-	 .TP
-	 .B EINVAL
-	 .I timeout
-	@@ -226,7 +228,7 @@ .SH ERRORS
-	 Any
-	 .IR waiters []. flags
-	 field is missing a
-	-.B FUTEX2_SIZE_*
-	+.BI FUTEX2_SIZE_ *
-	 flag or has a size flag different than
-	 .BR FUTEX2_SIZE_U32
-	 set.
-	@@ -287,7 +289,7 @@ .SH NOTES
-	 where
-	 .I .val
-	 and
-	-.I *.uaddr
-	+.I .uaddr[]
-	 are 8, 16, or 64 bits are defined, but not implemented
-	 .RB ( EINVAL ).
-	 .SH HISTORY
-	@@ -328,6 +330,7 @@ .SH EXAMPLES
-	 #include <linux/futex.h>
-	 #include <pthread.h>
-	 #include <stdatomic.h>
-	+#include <stdcountof.h>
-	 #include <stdint.h>
-	 #include <stdio.h>
-	 #include <stdlib.h>
-
-<stdcountof.h> provides countof(3).
-
-	@@ -344,7 +347,8 @@ .SH EXAMPLES
-	 }
-	 \&
-	 static inline long
-	-my_futex_waitv(struct futex_waitv *waiters, unsigned int n,
-	+my_futex_waitv(unsigned int n;
-	+               struct futex_waitv waiters[n], unsigned int n,
-			unsigned int flags, const struct timespec *timeout,
-			clockid_t clockid)
-
-Let's use actual array notation, as GCC supports it.  Clang is too bad,
-and either it should improve, or people should stop considering Clang
-a serious C compiler.
-
-
-Have a lovely day!
-Alex
-
-	 {
-
->=20
-> Best,
-> -- >8 --
-> From d221a28a34645cf1d3aab7a962de1c755d500841 Mon Sep 17 00:00:00 2001
-> From: =3D?UTF-8?q?=3DD0=3DBD=3DD0=3DB0=3DD0=3DB1?=3D <nabijaczleweli@nabi=
-jaczleweli.xyz>
-> Date: Tue, 10 Feb 2026 21:32:19 +0100
-> Subject: [PATCH v5] futex_waitv.2: new page
-> MIME-Version: 1.0
-> Content-Type: text/plain; charset=3DUTF-8
-> Content-Transfer-Encoding: 8bit
-> X-Mutt-PGP: OS
-> To: Alejandro Colomar <alx@kernel.org>
-> Cc: <linux-man@vger.kernel.org>
->=20
+On 2026-02-11T15:15:35+0100, =D0=BD=D0=B0=D0=B1 wrote:
 > Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
 z>
 > ---
->  man/man2/futex_waitv.2 | 419 +++++++++++++++++++++++++++++++++++++++++
+> Same as v5 but FUTEX_WAKE_PRIVATE is no longer given a timeout argument
+> it doesn't use.
+
+I'd appreciate range-diffs to be able to understand what actually
+changes in patch revisions.  See <CONTRIBUTING.d/patches/range-diff>.
+
+
+Cheers,
+Alex
+
+>=20
+>  man/man2/futex_waitv.2 | 418 +++++++++++++++++++++++++++++++++++++++++
 >  man/man7/futex.7       |   9 +-
->  2 files changed, 426 insertions(+), 2 deletions(-)
+>  2 files changed, 425 insertions(+), 2 deletions(-)
 >  create mode 100644 man/man2/futex_waitv.2
 >=20
 > diff --git u/man/man2/futex_waitv.2 p/man/man2/futex_waitv.2
 > new file mode 100644
-> index 000000000..261cb010c
+> index 000000000..bc6f7528c
 > --- /dev/null
 > +++ p/man/man2/futex_waitv.2
-> @@ -0,0 +1,419 @@
+> @@ -0,0 +1,418 @@
 > +.\" Copyright, the authors of the Linux man-pages project
 > +.\"
 > +.\" SPDX-License-Identifier: MIT
@@ -673,10 +477,9 @@ t.
 > +#include <unistd.h>
 > +\&
 > +static inline long
-> +my_futex_wait_private(_Atomic uint32_t *uaddr, uint32_t val,
-> +                      const struct timespec *timeout)
+> +my_futex_wait_private(_Atomic uint32_t *uaddr, uint32_t val)
 > +{
-> +	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val, timeout);
+> +	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val);
 > +}
 > +\&
 > +static inline long
@@ -694,7 +497,7 @@ t.
 > +\&
 > +	usleep(*futex * 10000);
 > +	*futex *=3D 2;
-> +	my_futex_wait_private(futex, 1, NULL);
+> +	my_futex_wait_private(futex, 1);
 > +	return NULL;
 > +}
 > +\&
@@ -790,32 +593,31 @@ MONOTONIC);
 >  .BR set_tid_address (2),
 > --=20
 > 2.39.5
->=20
 
 
 
 --=20
 <https://www.alejandro-colomar.es>
 
---bzcbaptg4gpxzseq
+--zakuhrhcgovkkxeq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmMkhoACgkQ64mZXMKQ
-wqn+JQ/9HFldZWu4ukQ9w6p2WXDdEIb/DWrh00vHqME7JxEZjPOoZgHFiwKs9RCK
-gwO9wKJlcLxja+02sCDkRv38ap+Jz8dilZK9Y65fHWinjIlTad0LOVcnoNhEwEmJ
-C2/9rs9545xZU8SLiYe/DTA6w6Qn13yOiZpGNUN5ebcm7251oO4PSy1Uym/iltde
-cMXAdz320/OJl823tv+7bM4tIXiujJeiTYqewwu3eA80/L5o/pHGTYaXvaSTJOq0
-oq2/FAZK/SDYzwquPscvmzjpqJykRtqwHSHIlFKYuZZAhl0IFjSrDj01SdLv/XBi
-DX205qW8lieQ4E/kQOqD6PkNl41YNY1QWM9hpnIz+TkywBdeJQzkvOxK2iyTFFEh
-sgRXNmjeRt9ouowdav92g2y3MLecs4rpVduZvYrBxQ3cfE+IQ7dfFubnWBUYkC2s
-aZYXi1THBIXmiR86c6WCYDMv4YD7JkypnV3AfSlzUhaYXhBkCvWE4gWk2C2Fy22L
-yGDsVUvbtUzb3BuPHew+Y3RHloiKoYZouOSxdEdSnZp/fhyYRnlRjT0sYzEEEyuA
-CQuL01UVqBFnFIFId58lbxnu30IMUClVx+5mr4GmMAF7ux3ZGPIeadmcUlUtJS2Q
-fEnwGirMli39qj3YDXAwgWyx8TrTHcHpTtN9Wbw5idkeTtiqWSM=
-=YucZ
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmMkrYACgkQ64mZXMKQ
+wqnkrQ//SiBa0KRzyE1t6hwXnrb9srlNdMtkznxM1L0k4u3m2LJ3VZfmX7I60CXf
+rqkHWCuoud/3FkxZOJqyBOGVhGITcIzO0Mcjemlh3D4uemlgBPdDH67MTA2w6rRB
+REVhbxkm6AozP+7e1ZErhEndnOmsn8Tmuo7v/X6d4q3yn1hH6Wm+rJn2sWzy83y4
+oqbDOfQBAM05FWo8my8dc6qEPD1lbyUvsIKpdJQICPcbOMC8K3AJxhKzNnXIfKJg
+FArcf+lObzipRnoSWXOuzaZ4dHd/6MIpM3E+Lv2LbpUyl5hs4tzOznT/RobAgkja
+ilvREFeaCI+kLwWAjlj6sVSvr7jjR4EzeFBrAQ1AUyGRroE9gT2GZ+TGMQFzYFPz
+YDSGHX1OeI1O8y2faElb8FmfWYrkiIBAEUkgaACHE1prgNuu5LVb5X3CRYcHygdk
+8oNq8ppJ1YPGWuRX0z4DCLoX7VRyEk05OGwaPOfSc2gDaqpHGAfqI1eenPwyyXdN
+NgkvMcw7Fklea5bfcUDv9xAzSzNsHttFMD/GndrQ02HmiUbezyEAP3UjxHIAsyeF
+2lRDAFwbNBIIIN3U94tbsAh7HG4BmYjZL5HBOBdCfNq85Cxc/Wz7gLBin7Oc1e5N
+cUvIk27sf85RnUxS8e4RBNaGeQ04p407U2+4ZGPJcinchYL8YUk=
+=D0OG
 -----END PGP SIGNATURE-----
 
---bzcbaptg4gpxzseq--
+--zakuhrhcgovkkxeq--
 
