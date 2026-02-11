@@ -1,57 +1,61 @@
-Return-Path: <linux-man+bounces-5110-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5111-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ynnBNsmCjGlrqAAAu9opvQ
-	(envelope-from <linux-man+bounces-5110-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:23:21 +0100
+	id KFJOCuWGjGmfqAAAu9opvQ
+	(envelope-from <linux-man+bounces-5111-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:40:53 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BDBD124B57
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:23:21 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A46F124DDE
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 14:40:52 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id B10013016250
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 13:23:19 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 4FAF0303A10A
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 13:39:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2DAF22B5AC;
-	Wed, 11 Feb 2026 13:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2FDA3285C88;
+	Wed, 11 Feb 2026 13:39:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERu8mOOS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVZpNavX"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60BD222565
-	for <linux-man@vger.kernel.org>; Wed, 11 Feb 2026 13:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CD827EC80;
+	Wed, 11 Feb 2026 13:39:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770816196; cv=none; b=mFMnr5axX27GQN3IgDE6JjEdv1SZyTnSXOZ1HuGjxnuj/Y/j2e0OXH/G/eChcIKrsJWww+G7g6gxcH9EFw1iLxCCGgpN69VrDzhNq1uWMCWEcXxnj+rA/mB3zcyvmxxLp5tkLxv9/051Lu74Sk6lLnWg5xMqzeQKG7WqVZPkjgQ=
+	t=1770817178; cv=none; b=MV70mD3IsWptPppj8IREDWdFVNc5pultTuq6wMXoqSO8J4lIzO5r5coXzzXabJLKJXYrLue3JxvbfUCSs7inpH59kTRdIuwp+DQVhLRDNz3FzBUbaA8TOsENeF83HhLFs45FKU8UcSH4ZvKl1KEZ9o/CXt1BzE//viZYEcuq4GI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770816196; c=relaxed/simple;
-	bh=JcQ+CTEL/lHWNFuYEMN/9SGhwKOoHjOvUBDU6QmKVDU=;
+	s=arc-20240116; t=1770817178; c=relaxed/simple;
+	bh=rImrNh7+9ksbLADxI8P82jlPY48QUOcwA3gyJvPm6UM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LKKPfWmozPwNojoc6+0iuXZVDcatNxVW5R1PycMNQpU6ifyOewdbVAFRfQm2BFp04ZWXH9Ur1n3Da/3oEFq9AAI1EUl1NsQRQ+/LDq0bXlmO3QPM7nWQll+Am2S8m+wOTnG0eyowXDCHWxfBtvmi94fONX+nA1/XQBr8xlOl3oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERu8mOOS; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFBCFC4CEF7;
-	Wed, 11 Feb 2026 13:23:15 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=h2DgW05+bUF88WhlQxSRRa4b8yyMrOLtkK8aSSb5VVPDXotLhzlJSXKSlB6GaFgNMalxB8+cxHY6DfUMdKgVYCs791ztUE9rXXJ6SNcDQ5qKGUoNql45voYwJebFKwk3gvn0Z8D3pwQAOJ+/0NhM9sydor+4IMa4ecUElazNerA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVZpNavX; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94BB9C19421;
+	Wed, 11 Feb 2026 13:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770816196;
-	bh=JcQ+CTEL/lHWNFuYEMN/9SGhwKOoHjOvUBDU6QmKVDU=;
+	s=k20201202; t=1770817177;
+	bh=rImrNh7+9ksbLADxI8P82jlPY48QUOcwA3gyJvPm6UM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ERu8mOOSqrzNYSaiaD4GvnZaaNtHi68Zn8LUz0taczUebqfTT+27RdUMVAnKpv9Ue
-	 GCBmgQdnxJ8tgfHrTbL7Txfkvi5249aNhxf77JZmoUQwRLPUixt4bhZgQdmzHghPwu
-	 UdsmTbeToQBQF46+G52fmI60hzl0hPGm+EvVLKpylHrFoVqNvBLvDUfZ3HjrvPm9rT
-	 KSze6JpMzhORMvvPB9CBMBOsrTJ07cFKXFYOK4eaKO5Gi73wzx/XYd+o2B8D47Vs1U
-	 4XuEQICXwKG6XD1uyeXiZZQLgtc2B6j2xUAUEoh5ISa32ZQwr/EFHpo5arbq02BwTp
-	 FGHnxeWZwsmhQ==
-Date: Wed, 11 Feb 2026 14:23:13 +0100
+	b=MVZpNavXbXcL1bl7tovdQbM8DsaC8G5pTvTmmceB3Y6GdV5UCIP33NTORnQwAEiay
+	 89Yh7FArUqyt9SZ+Wfnc1DFInYDhOdHZExq4d8gos9J2Fzkd1VfIQC5ohy+u2fgjxy
+	 0z8RYN0JE/c72TGORuPHO6JJxo21UApqt1K6yrtTJOwXTER+e6Aa01lo4hoTawq2GZ
+	 Ch7+JtYmG2aPxjCrtTHle7s4AUUlwDuCWE4lFhfmG7eHHv3qJXUTzPrcr72DVpt4PK
+	 fUcgAScdsNl4lJ/N9Of0j8Us7RclOuCQePJ3hO8eJCfNKxCKlXF8WOWhO0DfKX7z6L
+	 6LHrDeOlY1y+Q==
+Date: Wed, 11 Feb 2026 14:39:33 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v4] futex_waitv.2: new page
-Message-ID: <aYx8Ghyq8E76xx9c@devuan>
-References: <aYuXZUwh09hVHm3R@devuan>
- <mlooycjkz6pfdvket6f2gwet76aar3zsihtvpm7klt2wl2z3y4@tarta.nabijaczleweli.xyz>
+To: Bhavik Sachdev <b.sachdev1904@gmail.com>
+Cc: linux-man@vger.kernel.org, criu@lists.linux.dev, 
+	Andrei Vagin <avagin@gmail.com>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
+	Jeff Layton <jlayton@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+	Josef Bacik <josef@toxicpanda.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v1 01/10] man/man2/statmount.2: Document req.mnt_ns_id
+ and STATMOUNT_MNT_NS_ID
+Message-ID: <aYyF1NWuzxTPr5pE@devuan>
+References: <cover.1770671863.git.b.sachdev1904@gmail.com>
+ <5cf41ebf2abbcf767807be999790e0e5a6bd5865.1770671863.git.b.sachdev1904@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,619 +63,202 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lwdsusy5xlmxar4g"
+	protocol="application/pgp-signature"; boundary="3ga4xpv7gdxfjujx"
 Content-Disposition: inline
-In-Reply-To: <mlooycjkz6pfdvket6f2gwet76aar3zsihtvpm7klt2wl2z3y4@tarta.nabijaczleweli.xyz>
+In-Reply-To: <5cf41ebf2abbcf767807be999790e0e5a6bd5865.1770671863.git.b.sachdev1904@gmail.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
+X-Spamd-Result: default: False [-2.26 / 15.00];
 	SIGNED_PGP(-2.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5110-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5111-lists,linux-man=lfdr.de];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FREEMAIL_CC(0.00)[vger.kernel.org,lists.linux.dev,gmail.com,virtuozzo.com,kernel.org,szeredi.hu,toxicpanda.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,alejandro-colomar.es:url,infradead.org:email]
-X-Rspamd-Queue-Id: 3BDBD124B57
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: 7A46F124DDE
 X-Rspamd-Action: no action
 
 
---lwdsusy5xlmxar4g
+--3ga4xpv7gdxfjujx
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v4] futex_waitv.2: new page
-Message-ID: <aYx8Ghyq8E76xx9c@devuan>
-References: <aYuXZUwh09hVHm3R@devuan>
- <mlooycjkz6pfdvket6f2gwet76aar3zsihtvpm7klt2wl2z3y4@tarta.nabijaczleweli.xyz>
+To: Bhavik Sachdev <b.sachdev1904@gmail.com>
+Cc: linux-man@vger.kernel.org, criu@lists.linux.dev, 
+	Andrei Vagin <avagin@gmail.com>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
+	Jeff Layton <jlayton@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+	Josef Bacik <josef@toxicpanda.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v1 01/10] man/man2/statmount.2: Document req.mnt_ns_id
+ and STATMOUNT_MNT_NS_ID
+Message-ID: <aYyF1NWuzxTPr5pE@devuan>
+References: <cover.1770671863.git.b.sachdev1904@gmail.com>
+ <5cf41ebf2abbcf767807be999790e0e5a6bd5865.1770671863.git.b.sachdev1904@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <mlooycjkz6pfdvket6f2gwet76aar3zsihtvpm7klt2wl2z3y4@tarta.nabijaczleweli.xyz>
+In-Reply-To: <5cf41ebf2abbcf767807be999790e0e5a6bd5865.1770671863.git.b.sachdev1904@gmail.com>
 
-Hi =D0=BD=D0=B0=D0=B1,
+Hi Bhavik,
 
-On 2026-02-11T05:00:26+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
-z>
-> ---
->  man/man2/futex_waitv.2 | 426 +++++++++++++++++++++++++++++++++++++++++
->  man/man7/futex.7       |   9 +-
->  2 files changed, 433 insertions(+), 2 deletions(-)
->  create mode 100644 man/man2/futex_waitv.2
+On 2026-02-10T02:47:34+0530, Bhavik Sachdev wrote:
+> Document the new mnt_ns_id parameter to struct mnt_id_req and the
+> STATMOUNT_MNT_NS_ID flag.
 >=20
-> diff --git u/man/man2/futex_waitv.2 p/man/man2/futex_waitv.2
-> new file mode 100644
-> index 000000000..b05eb08ef
-> --- /dev/null
-> +++ p/man/man2/futex_waitv.2
-> @@ -0,0 +1,426 @@
-> +.\" Copyright, the authors of the Linux man-pages project
-> +.\"
-> +.\" SPDX-License-Identifier: MIT
-> +.\"
-> +.TH futex_waitv 2 (date) "Linux man-pages (unreleased)"
-> +.SH NAME
-> +futex_waitv \- wait for FUTEX_WAKE operation on multiple futexes
-> +.SH LIBRARY
-> +Standard C library
-> +.RI ( libc ,\~ \-lc )
-> +.SH SYNOPSIS
-> +.nf
-> +.BR "#include <linux/futex.h>" "  /* Definition of " "struct futex_waitv=
-" " */"
-
-The comment should mention the FUTEX_ constants, and not the structure
-(which should be documented next to the structure).
-
-> +.BR "#include <sys/syscall.h>" "  /* Definition of " SYS_* " constants *=
-/"
-> +.B #include <unistd.h>
-> +.B #include <time.h>
+> req.mnt_ns_id can be used to query for a mount in a foreign mount
+> namespace.
+>=20
+> STATMOUNT_MNT_NS_ID can be used to retreive the mnt_ns_id of the mount
+> being queried.
+>=20
+> The mnt_ns_id parameter description is based on this commit message [1]
+> and STATMOUNT_MNT_NS_ID text is based on [2].
+>=20
+> Link [1]:
+> <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
+t/?id=3D71aacb4c8c3d19da053363a5fe7538a8af082d56>
+> Link [2]:
+> <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
+t/?id=3D09b31295f833031c88419550172703d45c5401e3>
+>=20
+> Signed-off-by: Bhavik Sachdev <b.sachdev1904@gmail.com>
+> ---
+>  man/man2/statmount.2 | 22 +++++++++++++++++++---
+>  1 file changed, 19 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/man/man2/statmount.2 b/man/man2/statmount.2
+> index cdc96da92..f5c4da122 100644
+> --- a/man/man2/statmount.2
+> +++ b/man/man2/statmount.2
+> @@ -23,9 +23,10 @@ .SH SYNOPSIS
+>  .P
+>  .EX
+>  .B struct mnt_id_req {
+> -.BR "    __u32  size;" "    /* sizeof(struct mnt_id_req) */"
+> -.BR "    __u64  mnt_id;" "  /* The mnt_id being queried */"
+> -.BR "    __u64  param;" "   /* An ORed combination of the STATMOUNT_ con=
+stants */"
+> +.BR "    __u32  size;" "        /* sizeof(struct mnt_id_req) */"
+> +.BR "    __u64  mnt_id;" "      /* The mnt_id being queried */"
+> +.BR "    __u64  param;" "       /* An ORed combination of the STATMOUNT_=
+ constants */"
+> +.BR "    __u32  mnt_ns_id;" "   /* The id of mnt_ns to query the mnt_id =
+in */"
+>  .B };
+>  .P
+>  .B struct statmount {
+> @@ -47,6 +48,7 @@ .SH SYNOPSIS
+>  .B "    __u64  propagate_from;"
+>  .B "    __u32  mnt_root;"
+>  .B "    __u32  mnt_point;"
+> +.B "    __u64  mnt_ns_id;"
+>  .B "    char   str[];"
+>  .B };
+>  .EE
+> @@ -59,6 +61,9 @@ .SH SYNOPSIS
+>  .SH DESCRIPTION
+>  To access a mount's status,
+>  the caller must have CAP_SYS_ADMIN in the user namespace.
+> +In case of accessing a mount in a foreign mount namespace (specified via
+> +.IR req.mnt_ns_id ),
+> +the foreign mount namespace should be child of the current namespace.
+>  .P
+>  This function returns information about a mount,
+>  storing it in the buffer pointed to by
+> @@ -102,6 +107,7 @@ .SS The mnt_id_req structure
+>  STATMOUNT_MNT_ROOT	/* Want/got mnt_root  */
+>  STATMOUNT_MNT_POINT	/* Want/got mnt_point */
+>  STATMOUNT_FS_TYPE	/* Want/got fs_type */
+> +STATMOUNT_MNT_NS_ID	/* Want/got mnt_ns_id */
+>  .TE
+>  .in
+>  .P
+> @@ -130,6 +136,13 @@ .SS The mnt_id_req structure
+>  as one or more bits may,
+>  in the future,
+>  be used to specify an extension to the buffer.
 > +.P
-> +.BR "long syscall(" "unsigned int nr_futexes;"
+> +.I req.mnt_ns_id
+> +can be obtained from
+> +.B NS_GET_MNTNS_ID
 
-Let's call this just 'n'.  I have been wanting to globally trim
-parameter names that are unnecessarily verbose.  Let's not add more.
+Should this ioctl(2) be documented?  I don't find it in any manual page.
+You don't need to do it in this patch set, though.
 
-> +.BI "             SYS_futex_waitv, struct futex_waitv " waiters [ nr_fut=
-exes ],
-> +.BI "             unsigned int " nr_futexes ", unsigned int " flags ,
-> +.BI "             const struct timespec *_Nullable " timeout ", clockid_=
-t " clockid ");"
-> +.fi
-> +.P
-> +.EX
-
-Please include a header for this structure (consider as if the other
-headers were not included).
-
-> +struct futex_waitv {
-> +    u64 val;        /* Expected value at \f[I]uaddr\f[] */
-> +    u64 uaddr;      /* User address to wait on */
-> +    u32 flags;      /* Flags for this waiter */
-> +    u32 __reserved; /* Align to u64 */
-> +};
-> +.EE
-> +.SH DESCRIPTION
-> +.\" This name is used internally in the kernel
-> +Implements the FUTEX_WAIT_MULTIPLE operation,
-> +analogous to a synchronous atomic parallel
-> +.BR FUTEX_WAIT (2const)
-> +or
-> +.B FUTEX_WAIT_PRIVATE
-> +on up to
-> +.B FUTEX_WAITV_MAX
-> +futex words.
-> +For an overview of futexes, see
-> +.BR futex (7);
-> +for a description of the general interface, see
-> +.BR futex (2);
-> +for general minutiae of futex waiting, see the page above.
-> +.P
-> +This operation tests that the values at the
-> +futex words pointed to by the addresses
-> +.IR waiters []. uaddr
-> +still contain respective expected values
-> +.IR waiters []. val ,
-> +and if so, sleeps waiting for a
-> +.BR FUTEX_WAKE (2const)
-> +operation on any of the futex words,
-> +and returns the index of
-> +.I a
-> +waiter whose futex was woken.
-> +.P
-> +If the thread starts to sleep,
-> +it is considered a waiter on all given futex words.
-> +If any of the futex values do not match their respective
-> +.IR waiters []. val ,
-> +the call fails immediately with the error
-> +.BR EAGAIN .
-> +.P
-> +If
-> +.I timeout
-> +is not NULL,
-> +.I *timeout
-> +specifies a deadline measured against clock
-> +.IR clockid .
-> +This interval will be rounded up to the system clock granularity,
-> +and is guaranteed not to expire early.
-> +If
-> +.I timeout
-> +is NULL, the call blocks indefinitely.
-> +.P
-> +Futex words to monitor are given by
-> +.IR "struct futex_waitv" ,
-> +whose fields are analogous to
-> +.BR FUTEX_WAIT (2const)
-> +parameters, except
-> +.I __reserved
-
-Please use .__reserved syntax for struct members (also with other
-members).
-
-> +must be 0
-> +and
-> +.I flags
-> +must contain one of
-> +.BR FUTEX2_SIZE_*
-> +ORed with some of the flags below.
-
-I expect the flags should start immediately after 'below'.
-
-> +.P
-> +C programs should assign to
-> +.I uaddr
-> +by casting a pointer to
-> +.B uintptr_t
-> +to ensure the top bits are cleared on 32-bit systems.
-
-I'm not sure the paragraph above is correct.
-What code are you worried about exactly?  Could you show an example?
-
+> +.BR ioctl (2)
+> +operation and is used to specify a foreign mount namespace in which to q=
+uery
+> +.IR req.mnt_id .
+>  .SS The returned information
+>  The status information for the target mount is returned in the
+>  .I statmount
+> @@ -232,6 +245,9 @@ .SS The returned information
+>  relative to the current root (ie if you are in a
+>  .BR chroot ).
+>  It is a null-terminated string.
 > +.TP
-> +.BR FUTEX2_SIZE_U32
-> +.I val
-> +and
-> +.I *uaddr
-> +are 32-bit unsigned integers.
-> +.TP
-> +.B FUTEX2_NUMA
-> +The futex word is followed by another word of the same size
-> +.RI ( uaddr
-> +points to
-> +.IR uint N _t[2]
-> +rather than
-> +.IR uint N _t .
-> +The word is given by
-> +.IR uaddr[1] ),
-> +which can be either
-> +.B FUTEX_NO_NODE
-> +(all bits set)
-> +or a NUMA node number.
-> +.IP
-> +If the NUMA word is
-> +.BR FUTEX_NO_NODE ,
-> +the node number of the processor the syscall executes on is written to i=
-t.
-> +(Except in an
-> +.B EINVAL
-> +or
-> +.B EFAULT
-> +condition, this happens to all waiters whose
-> +.I flags
-> +have
-> +.B FUTEX2_NUMA
-> +set.)
-> +.IP
-> +Futexes are placed on the NUMA node given by the NUMA word.
-> +Futexes without this flag are placed on a random node.
-> +.\" commit cec199c5e39bde7191a08087cc3d002ccfab31ff
-> +.\" Author: Peter Zijlstra <peterz@infradead.org>
-> +.\" Date:   Wed Apr 16 18:29:16 2025 +0200
-> +.\"
-> +.\"     futex: Implement FUTEX2_NUMA
-> +.\"
-> +.\" FUTEX2_MPOL is not documented or used anywhere;
-> +.\" it's unclear to me what it does
-> +.\" (defined in commit c042c505210dc3453f378df432c10fff3d471bc5
-> +.\"  "futex: Implement FUTEX2_MPOL")
-> +.TP
-> +.B FUTEX2_PRIVATE
-> +By default, the futex is shared
-> +.RB "(like " FUTEX_WAIT (2const)),
-> +and can be accessed by multiple processes;
-> +this flag waits on a private futex word,
-> +where all users must use the same virtual memory map
-> +(like
-> +.BR FUTEX_WAIT_PRIVATE ;
-> +this most often means they are part of the same process).
-> +Private futexes are faster than shared ones.
-> +.\"
-> +.\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +.\"
-> +.SH RETURN VALUE
-> +Returns an index to an arbitrary entry in
-> +.I waiters
-> +corresponding to some woken-up futex.
-> +This implies no information about other waiters.
-> +.P
-> +On error,
-> +\-1 is returned,
-> +and
-> +.I errno
-> +is set to indicate the error.
-> +.\"
-> +.\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +.\"
-> +.SH ERRORS
-> +.TP
-> +.B EFAULT
-> +.I waiters
-> +points outside the accessible address space.
-> +.TP
-> +.B EFAULT
-> +.I timeout
-> +was not NULL and did not point to a valid user-space address.
-> +.TP
-> +.B EFAULT
-> +Any
-> +.IR waiters []. uaddr
-> +field is not a valid user-space address.
+> +.I smbuf.mnt_ns_id
 
-Please homogenize the wording of this and the first EFAULT.
-(I don't have a preference for which language is best).
+We should document the Linux version in which this was added.  It should
+be something like this
 
-> +.TP
-> +.B EINVAL
-> +Any
-> +.IR waiters []. uaddr
-> +field does not point to a valid object\[em]that is,
-> +the address is not aligned appropriately for the specified
-> +.BR FUTEX2_SIZE_* .
-> +.TP
-> +.B EINVAL
-> +.I flags
-> +was not 0.
-> +.TP
-> +.B EINVAL
-> +.I nr_futexes
-> +was not in
-> +[1,
-> +.B FUTEX_WAITV_MAX
-> +(128)].
-> +.TP
-> +.B EINVAL
-> +.I timeout
-> +was not NULL and
-> +.I clockid
-> +was not a valid clock
-> +.RB ( CLOCK_MONOTONIC
-> +or
-> +.BR CLOCK_REALTIME ).
-> +.TP
-> +.B EINVAL
-> +.I *timeout
-> +is denormal (before epoch or
-> +.I tv_nsec
-> +more than 999'999'999).
-
-' should actually be \[aq].
-
-> +.TP
-> +.B EINVAL
-> +Any
-> +.IR waiters []. flags
-> +field contains an unknown flag.
-> +.TP
-> +.B EINVAL
-> +Any
-> +.IR waiters []. flags
-> +field is missing a
-> +.B FUTEX2_SIZE_*
-> +flag or has a size flag different than
-> +.BR FUTEX2_SIZE_U32
-> +set.
-> +.TP
-> +.B EINVAL
-> +Any
-> +.IR waiters []. __reserved
-> +field is not 0.
-> +.TP
-> +.B EINVAL
-> +Any
-> +.IR waiters []. value
-> +field has more bits set than permitted than the size flags.
-> +.TP
-> +.B EINVAL
-> +.B FUTEX2_NUMA
-> +was set in
-> +.IR waiters []. flags ,
-> +and the NUMA word
-> +(which is the same size as the futex word)
-> +is too small to contain the index of the biggest NUMA domain
-> +(for example,
-> +.B FUTEX2_SIZE_U8
-> +and there are more than 255 NUMA domains).
-> +.TP
-> +.B EINVAL
-> +.B FUTEX2_NUMA
-> +was set in
-> +.IR waiters []. flags ,
-> +and the NUMA word is larger than the maximum possible NUMA node and not
-> +.BR FUTEX_NO_NODE .
-> +.TP
-> +.B ETIMEDOUT
-> +.I timeout
-> +was not NULL and no futex was woken before the timeout elapsed.
-> +.TP
-> +.BR EAGAIN " or " EWOULDBLOCK
-> +The value pointed to by
-> +.I uaddr
-> +was not equal to the expected value
-> +.I val
-> +at the time of the call.
-> +.TP
-> +.B EINTR
-> +The
-> +operation was interrupted by a signal (see
-> +.BR signal (7)).
-> +.\"
-> +.\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +.\"
-> +.SH STANDARDS
-> +Linux.
-> +.SH NOTES
-> +.BR FUTEX2_SIZE_U8 ,
-> +.BR FUTEX2_SIZE_U16 ,
-> +and
-> +.B FUTEX2_SIZE_U64
-> +where
-> +.I val
-> +and
-> +.I *uaddr
-> +are 8, 16, or 64 bits are defined, but not implemented
-> +.RB ( EINVAL ).
-> +.SH HISTORY
-> +.\" commit bf69bad38cf63d980e8a603f8d1bd1f85b5ed3d9
-> +.\" Author: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> +.\" Date:   Thu Sep 23 14:11:05 2021 -0300
-> +.\"
-> +.\"     futex: Implement sys_futex_waitv()
-> +Linux 5.16.
-> +.SH EXAMPLES
-> +The program below executes a linear-time operation on 10 threads,
-> +displaying the results in real time,
-> +waiting at most 1 second for each new result.
-> +The first 3 threads operate on the same data (complete in the same time).
-> +.B !\&
-> +indicates the futex that woke up each
-> +.BR futex_waitv ().
-> +.in +4
-> +.EX
-> +.RB $\~ ./futex_waitv
-> +153	153	153	237	100	245	177	127	215	61
-> +									122!
-> +				200!
-> +							254!
-> +306	306!
-> +		306!
-> +						354!
-> +								430!
-> +			474!
-> +					490!
-> +Connection timed out
-> +.EE
-> +.P
-> +.\" SRC BEGIN (futex_waitv.c)
-> +.EX
-> +#include <errno.h>
-> +#include <inttypes.h>
-> +#include <linux/futex.h>
-> +#include <pthread.h>
-> +#include <stdatomic.h>
-> +#include <stdint.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <sys/syscall.h>
-> +#include <time.h>
-> +#include <unistd.h>
-> +\&
-> +static inline long
-> +my_futex_wait_private(_Atomic uint32_t  *uaddr, uint32_t  val,
-
-Should this be atomic?  If so, should we document futex(2) as taking
-a pointer to atomic element?
-
-> +                      const struct timespec *_Nullable  timeout)
-
-The two spaces are for variables, but not for function parameters.
-
-Also, my bad: this shouldn't have _Nullable.  We don't use it in
-actual code (because Clang's _Nullable is really broken, and only serves
-documentation purposes).  Actually, Clang is still sub-par in many ways;
-it's a C++ compiler, after all, where the C part is just a side-effect.
-
-> +{
-> +	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val, timeout);
-> +}
-> +\&
-> +static inline long
-> +my_futex_waitv(struct futex_waitv  *waiters, unsigned int  nr_futexes,
-> +               unsigned int  flags, const struct timespec *_Nullable  ti=
-meout,
-> +               clockid_t  clockid)
-> +{
-> +	return syscall(SYS_futex_waitv, waiters, nr_futexes, flags, timeout, cl=
-ockid);
-> +}
-> +\&
-> +void *
-> +worker(void  *arg)
-> +{
-> +	_Atomic uint32_t  *futex =3D arg;
-> +\&
-> +	usleep(*futex * 10000);
-> +	*futex *=3D 2;
-> +	my_futex_wait_private(futex, 1, NULL);
-> +	return NULL;
-> +}
-> +\&
-> +int
-> +main(void)
-> +{
-> +	_Atomic uint32_t  futexes[10];
-> +	uint8_t  init[countof(futexes)];
-> +	struct futex_waitv waiters[countof(futexes)] =3D {};
-> +	int  i;
-> +\&
-> +	getentropy(init, sizeof(init));
-> +	init[0] =3D init[1] =3D init[2];
-> +	for (i =3D 0; i < countof(futexes); ++i) {
-> +		printf("%" PRIu8 "\[rs]t", init[i]);
-> +		atomic_init(&futexes[i], init[i]);
-> +		pthread_create(&(pthread_t){}, NULL, worker, &futexes[i]);
-> +	}
-> +	putchar('\[rs]n');
-> +\&
-> +	for (i =3D 0; i < countof(futexes); ++i) {
-> +		waiters[i].val   =3D futexes[i];
-> +		waiters[i].uaddr =3D (uintptr_t)&futexes[i];
-> +		waiters[i].flags =3D FUTEX2_SIZE_U32 | FUTEX2_PRIVATE;
-> +	}
-> +	for (;;) {
-> +		struct timespec  timeout;
-> +		int  woke;
-> +\&
-> +		clock_gettime(CLOCK_MONOTONIC, &timeout);
-> +		timeout.tv_sec +=3D 1;
-> +\&
-> +		woke =3D my_futex_waitv(waiters, countof(futexes), 0, &timeout, CLOCK_=
-MONOTONIC);
-> +		if (woke =3D=3D -1 && (errno !=3D EAGAIN && errno !=3D EWOULDBLOCK))
-> +			break;
-> +\&
-> +		for (i =3D 0; i < countof(futexes); ++i) {
-> +			if (futexes[i] !=3D waiters[i].val)
-> +				printf("%" PRIu32 "%s", futexes[i], i =3D=3D woke ? "!" : "");
-> +			putchar('\[rs]t');
-> +		}
-> +		putchar('\[rs]n');
-> +\&
-> +		for (i =3D 0; i < countof(futexes); ++i)
-> +			waiters[i].val =3D futexes[i];
-> +	}
-> +	fprintf(stderr, "%s\[rs]n", strerror(errno));
-> +}
-> +.EE
-> +.\" SRC END
-> +.SH SEE ALSO
-> +.ad l
-
-What's the effect of this ad l, and why do we want it?
-
-> +.BR futex (2),
-> +.BR FUTEX_WAIT (2const),
-> +.BR FUTEX_WAKE (2const),
-> +.BR futex (7)
-> +.P
-> +The following kernel source files:
-> +.IP \[bu]
-> +.I Documentation/userspace-api/futex2.rst
-
-I'd remove the below, and only point to the rst.
+=2EIR smbuf.mnt_ns_id " (since Linux 1.23)"
 
 
 Have a lovely day!
 Alex
 
-> +.IP \[bu]
-> +.I kernel/futex/syscall.c
-> +.IP \[bu]
-> +.I kernel/futex/waitwake.c
-> +.IP \[bu]
-> +.I kernel/futex/futex.h
-> diff --git u/man/man7/futex.7 p/man/man7/futex.7
-> index 51c5d5d9b..d271144ff 100644
-> --- u/man/man7/futex.7
-> +++ p/man/man7/futex.7
-> @@ -45,7 +45,9 @@ .SS Semantics
->  Any futex operation starts in user space,
->  but it may be necessary to communicate with the kernel using the
->  .BR futex (2)
-> -system call.
-> +or
-> +.BR futex_waitv (2)
-> +system calls.
->  .P
->  To "up" a futex, execute the proper assembler instructions that
->  will cause the host CPU to atomically increment the integer.
-> @@ -72,7 +74,9 @@ .SS Semantics
->  .P
->  The
->  .BR futex (2)
-> -system call can optionally be passed a timeout specifying how long
-> +and
-> +.BR futex_waitv (2)
-> +system calls can optionally be passed a timeout specifying how long
->  the kernel should
->  wait for the futex to be upped.
->  In this case, semantics are more complex and the programmer is referred
-> @@ -107,6 +111,7 @@ .SH NOTES
->  .SH SEE ALSO
->  .BR clone (2),
->  .BR futex (2),
-> +.BR futex_waitv (2),
->  .BR get_robust_list (2),
->  .BR set_robust_list (2),
->  .BR set_tid_address (2),
+> +The unique ID of the mount namespace the mount belongs to.
+>  .SH RETURN VALUE
+>  On success, zero is returned.
+>  On error, \-1 is returned, and
 > --=20
-> 2.39.5
-
-
+> 2.53.0
+>=20
+>=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---lwdsusy5xlmxar4g
+--3ga4xpv7gdxfjujx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmMgrsACgkQ64mZXMKQ
-wqmx3g/+OTpXig9Przatiy/bIJFqisJbF8IX2XTeXR2Ei8BsM2BS6Cfcf/tdrhft
-BhtMHSBWPolRWuIoASLaj2EvLr48IiFMBHEMG6xdPQtPpt2pneLbw4pdWn+jznkF
-9INqzmaAJC6MR3BfVy/gmKweqCvBq2MuHdv1C2kHg63QNegHbPz4Tky0vSzEZ47F
-vVYdQE8hMiXSB/8Zxo72O9JeBWO6xI6ohZENpAWA/4+lWzzkwjYXfWA/vYgTDjN1
-q3rRXkB54DB7BLpOxealrHgfdjRZgmDOwRw65fjpWuFCrE2VL7mIirL0qXDLPB4S
-1XTrjGo4gn+AcWoR1nRXn8ze5F7kWjyCT+zNWzEf5bFH7szxAHCUSF+55gTSaPT/
-DLxEl8HP3N/TnBS5OyRaJF7nPhtBw016QvCWjEQxDybp4/pLl7nC+MeogjoK2JBP
-1GvM6EgYcaKq3NHTADQD28A8j/Yx1iPsAQ7JM/mEIIF1nlc+X6pIXq9985BUKnas
-0wXnQtoACALl/n6R6XmqEG9sXVTr0lzc1Sbbp/qfcsB4pI7z1yp0i3jGGh/lw4hV
-2BDCQGfVVGp3IGG3aeMHwb0C56+0fdd2xhyh7TUsk9dU9VWgYyNvZ+5Ij7T3AGK8
-dKoUchtztgNW9ggWTJAFNX1iL42RLhwSG1lFNvN37KFN/2Qyq8U=
-=ophU
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmMhpQACgkQ64mZXMKQ
+wqlDBA/+Nr3IuKqY2THokCmpcqtIiPLXta+YlRlx1fG00uNBe42A8F7h4RRrrx6P
+IZQncpwWsb/2PMWzL2p4/LOXgyZrJM3z4RhNvkkXOtZEMkTbKx84VTZAyKe452qg
+K3foWHka9ulWkXDvUrDAMw4YoOFa6fbJziB/4ul9DSc2tpvX02c7y/KLktQgUnp4
+8ruEg4fBpdrhyWMqM2X5BUJ6xl3hTE5driz99LStbHoVELM5KdLAFtsqU+sLPHME
+Tt+M+4QW078TEFb6gnF4uVxJc0ir5Uitc7KIcKu1+n/f/8vOesiBz3VNRrgm2nhp
+h7ru9mf0MA+AB8yJS/XUiZJIrnJDuXFlsmli0ki6xxBv/n3eVlJ3xbD3pbmHjkcF
+xsmruKWhyp8cwyxXD7WM5woqG/aZhSw3meMchAjjDzcP2+RxdFCZgNA3VTUWjWj6
+OZIQLH5c/PFSHcBNOORXr9cVqfIq+wWK1W2aH44WVpmIYfeSGBXYIdjyf/d4mLEf
+VGsIatOSg8HxtJU4GEAd4Vwq5TdSlqIogOBB4K3OE9jTrHs7PmQ5k71wJPQEeZ5W
+5kmf3gUO5zzicZuqcNdqDris9WH/geEJ3WXmGXVATL1uMJXl8Fpx3wjciLI3QgGc
+jLFMwXOBJad8nqBExOYIDmW9Wskz2kzxvu5YOK90VU6TeRzf0ys=
+=WSCN
 -----END PGP SIGNATURE-----
 
---lwdsusy5xlmxar4g--
+--3ga4xpv7gdxfjujx--
 
