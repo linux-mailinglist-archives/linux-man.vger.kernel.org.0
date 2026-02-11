@@ -1,164 +1,196 @@
-Return-Path: <linux-man+bounces-5124-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5125-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OJsAHXOdjGmPrgAAu9opvQ
-	(envelope-from <linux-man+bounces-5124-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 16:17:07 +0100
+	id 2Lr8ONyjjGlhrwAAu9opvQ
+	(envelope-from <linux-man+bounces-5125-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 16:44:28 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDED51258A1
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 16:17:06 +0100 (CET)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 877E6125CE3
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 16:44:28 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 4693D303A264
-	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:13:38 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id 30B073008254
+	for <lists+linux-man@lfdr.de>; Wed, 11 Feb 2026 15:44:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7DFD2C029C;
-	Wed, 11 Feb 2026 15:13:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E78152D9EF0;
+	Wed, 11 Feb 2026 15:43:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XxJyRaSL"
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="iyMhqxuK";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qrFLGKMj"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE942857FC
-	for <linux-man@vger.kernel.org>; Wed, 11 Feb 2026 15:13:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820C330DD22;
+	Wed, 11 Feb 2026 15:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770822817; cv=none; b=oHQeStKlMYstAphBRRiCp0tryegiktpORnizGFayfGWldelWEOd5ebhmyH2n/F8P8qGOODoGkqnFDnF4JPh/leSuq7UAzdZX0CobSgqQJUk6x079TYquL4MuyxfFN9aPjy8vRRiihcS1rhQUStRvZrL7nAwWGAfL+FZdxpSbB0k=
+	t=1770824638; cv=none; b=pV/LEW1qpBkTWolT0DnzyvvDLXsGHITxzCnShBSDgB/omeLLnkvsBnzpQRGUEmtg0B+/JCVw06EwHThi2K6Ie4X6WSfTnjasZU3aPgasmvtldYrMyI+fV5kl8Qfb2+di5X/Zmhj15zKUfRZ9NTK8HGARfPwtLYngeFddKD1pMT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770822817; c=relaxed/simple;
-	bh=08kty1dsjguXnnuuBEGhLuMU9+SYqNoia9CrmgK6PCQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CEyx6MDdk/tWXeg0tLiSDsFxY66iVIKKbnL7Fk0Mb+0s3p1cSVXhdpYEaHV8q63oacXECiInWvxfUiCJm5VMFDDquwcDyrVmR5a/ibXLuxl1Y1I8DLytrpU8l5Eb4spBGDzX9JIZo+lwmXJp+lkWRdo6NzwzmaomaswaRtQ7u5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XxJyRaSL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609BBC4CEF7;
-	Wed, 11 Feb 2026 15:13:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770822817;
-	bh=08kty1dsjguXnnuuBEGhLuMU9+SYqNoia9CrmgK6PCQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XxJyRaSLY/5nMpXlxlmy6STB2zMQgqISCaERPWTVUTYSx673PnQZSP6Sdlld/ivh+
-	 5S/w8m0IzQJ2S4/xVyZtL6vMBf6OarH6tAV4PBpnsHX5qEVadjk0AdZOOqN8G1Ab4k
-	 yWKbk5QIIFriotGsNN8UbMJK9pImsk+cdKaqRNMe6UM4mdFlK01CVuci/HuEXpb9LY
-	 mP8Aadir23Bion34H3RxBnbDPH0TbwgPgr27/xic+w0IgIQPnsVRYo6+AXOAE6R+Wj
-	 KgrZtIqORBjnEepr1gOiE1ujYNiQsdzN8UXXEaKP7q9onDNI9J+zfAMq4hZ62qp/wC
-	 Mkab2C8o4Cy1w==
-Date: Wed, 11 Feb 2026 16:13:34 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v7] futex_waitv.2: new page
-Message-ID: <aYycRq-sA6QVt-xk@devuan>
-References: <aYySf9HuORRCchje@devuan>
- <3e2gme6737jjnklm37pmgdlhl3zfxbdtvi5po254czvwuvn3cj@tarta.nabijaczleweli.xyz>
- <aYyYAqzaRovxMMEB@devuan>
- <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
+	s=arc-20240116; t=1770824638; c=relaxed/simple;
+	bh=sOjpaBGaEI9wogZqbwVjQXovrEu2YNYdYffaIwQciJk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=U0xLCa5a/u7akOpGJy1EcCavrlG1x1i4qZMhAGsxJIVWUXf/kljcK9wFg8fMQaTBjOvFUcm9m2SBYrTlrkEbv1kmzrLEjro6ArsOdK6LC47WOIm/KvhOKVrDHjgTsqUN0UswVpGH65AiKAi8fm6+DMWSZivJIK4a0sw9nLFu2ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=iyMhqxuK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=qrFLGKMj; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id BAF2114000BE;
+	Wed, 11 Feb 2026 10:43:56 -0500 (EST)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-04.internal (MEProxy); Wed, 11 Feb 2026 10:43:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1770824636;
+	 x=1770911036; bh=XeLTB6PnAWwhW4H3RkaeiODjEYyCHXzmYRybX5V/Fwo=; b=
+	iyMhqxuK8OLe6eyV5WOQf4a/CNZAJAXhoTuafg+5vHjxgmBgg8ok2Jmp4LgE+Nux
+	LI7RiQaw1MypJWvdGTOxO0MXCipQWgMCIUkOaISvXAQq1vJR58vfcaOD1N82RYgp
+	5F4tbvj2wsiwRPonJRzvS2hYl/vni00f+P+kAH1fXts3jiGbV8ksQS+xSM8/NqHG
+	vorWAJLtzZyM4NhNRDgNT5eWxcZBX5ZPHmSz+ViFW7ep3dOgk3CugV5amQS8v/r3
+	59uRZ0XZk8vrHX/Zo8pnrPyLzWf2X+cevniAfAbvZ0dHYu69pmm7x2F4xnfWmfw2
+	roqlfNMpZP/j8mJaRxvOzA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1770824636; x=
+	1770911036; bh=XeLTB6PnAWwhW4H3RkaeiODjEYyCHXzmYRybX5V/Fwo=; b=q
+	rFLGKMj7uKU+wpXim+Wz5k2KTyA+tC/YOCikiIa5gR8FBHwIK/hQAlVxDdyqcgvb
+	OKwWyLVs4uCEvZ9NvtKL3n3jbtL+XQNz/pZh0k9bteL3rPHCDozYP1MOSXapvc6q
+	3VdTzpumvMiMYnQ7DK8rr//7iJOcmzk3iqmOZ1y8MME/5c483D1qmEpuMKKQeGXj
+	KQxgaGNlgopY8X6XuiGA4Mh9rY7QWx7bn9gwvnB+nOD/HJ8bnxSyiL0g9mZhAy22
+	lwFTgs6vcj/wrpT80NQHK96r81rfT0YX+10lQ7TbCmGw3UBHJl52F2X7j6SEh2s+
+	9z8GpzGQecEQTmqE65Zzg==
+X-ME-Sender: <xms:vKOMaZUYMlviDKxiZBFkC36NIu-U8p7-UbEq2UuLHte9d_gNNi9wKg>
+    <xme:vKOMaaTDdUSHGAMNgEl67awCPUX3g9ebrekJ0PZXWf7AbAFlcWG2ReupUZIOqJu1z
+    vYWhX_cXcZkcaaBc5goWl5-n87Vtz5mdZioGIDx-QM16WObb_zA>
+X-ME-Received: <xmr:vKOMaTl5zs604948jtM5w0SqDDK2eXXUWBmPgsw_yThTF9bZGzoWUNJQWV_-WPFjDgPmjRAbtzcW67wu3JDUM8cIZwVRYM1BGQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvtddvleegucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhephffvvefujghffffkfgggtgfgsehtkefotddtreejnecuhfhrohhmpefluhhnihho
+    ucevucfjrghmrghnohcuoehgihhtshhtvghrsehpohgsohigrdgtohhmqeenucggtffrrg
+    htthgvrhhnpeehhedtvdethfduheffudehudeitdevvedvvdduffelgfffhfdtueeikeeg
+    vdeghfenucffohhmrghinhepnhhophhrvghfihigrdhithenucevlhhushhtvghrufhiii
+    gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehgihhtshhtvghrsehpohgsohigrdgt
+    ohhmpdhnsggprhgtphhtthhopeejpdhmohguvgepshhmthhpohhuthdprhgtphhtthhope
+    hpvghffhesphgvfhhfrdhnvghtpdhrtghpthhtohepkhhrihhsthhofhhfvghrhhgruhhg
+    shgsrghkkhesfhgrshhtmhgrihhlrdgtohhmpdhrtghpthhtoheprghlgieskhgvrhhnvg
+    hlrdhorhhgpdhrtghpthhtohepghhithesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgt
+    phhtthhopehnrggsihhjrggtiihlvgifvghlihesnhgrsghijhgrtgiilhgvfigvlhhird
+    ighiiipdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhr
+    ghdprhgtphhtthhopehgihhtshhtvghrsehpohgsohigrdgtohhm
+X-ME-Proxy: <xmx:vKOMaQ4zrA8b-XUAzO1mn8K0H-i295QjrSPfMYStyNEdUwE5W4VJjg>
+    <xmx:vKOMaZis8gpUjSNxlgF-P64ZkiJEx3sHR8JpRK9CWTQziNtEx49ZKw>
+    <xmx:vKOMadEH7SqRKTEGeWG0UzJmfXecF7hdmG5q5jRAcL3y6l8np82Akg>
+    <xmx:vKOMafTXKkKOGtdjsJcTHUpeQkRj_2jjD1q61h454Pm5odIn_O0Dfw>
+    <xmx:vKOMadxZ8tjXwdfTmvYmh9LGnan2YSZ52gZpgjNotTP3rjZObEGBI8Rb>
+Feedback-ID: if26b431b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Feb 2026 10:43:55 -0500 (EST)
+From: Junio C Hamano <gitster@pobox.com>
+To: Jeff King <peff@peff.net>
+Cc: Kristoffer Haugsbakk <kristofferhaugsbakk@fastmail.com>,  Alejandro
+ Colomar <alx@kernel.org>,  git@vger.kernel.org,  =?utf-8?B?0L3QsNCx?=
+ <nabijaczleweli@nabijaczleweli.xyz>,  linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] futex_waitv.2: new page
+In-Reply-To: <20260211073553.GA1867915@coredump.intra.peff.net> (Jeff King's
+	message of "Wed, 11 Feb 2026 02:35:53 -0500")
+References: <jpyv367v4jdxfxebxw6wh7rgqdfeswzp44dzsycfjt5k2pxe4j@tarta.nabijaczleweli.xyz>
+	<se6hm5gnd7cyjsby5q6pctkrws5ecp5gpnfjuy3zh2shd2abyj@tarta.nabijaczleweli.xyz>
+	<aYpg1XelZBzpw4ZL@devuan>
+	<rqshygydxwpfs2mi5cwxl3wvztgctj3nvu3y5bpo5s32owucna@tarta.nabijaczleweli.xyz>
+	<aYtAknObJpjszCaj@devuan>
+	<55bd6ad3-cd19-4839-a808-eceae802d3c8@app.fastmail.com>
+	<20260211073553.GA1867915@coredump.intra.peff.net>
+Date: Wed, 11 Feb 2026 07:43:55 -0800
+Message-ID: <xmqqecmrwais.fsf@gitster.g>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lrqxuzmsnlyiz55n"
-Content-Disposition: inline
-In-Reply-To: <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	DMARC_POLICY_ALLOW(-0.50)[pobox.com,none];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
+	R_DKIM_ALLOW(-0.20)[pobox.com:s=fm2,messagingengine.com:s=fm3];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5125-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5124-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[fastmail.com,kernel.org,vger.kernel.org,nabijaczleweli.xyz];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	FROM_NEQ_ENVFROM(0.00)[gitster@pobox.com,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[pobox.com:+,messagingengine.com:+];
+	RCVD_COUNT_FIVE(0.00)[6];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: CDED51258A1
+	TAGGED_RCPT(0.00)[linux-man];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns,peff.net:email,gitster.g:mid]
+X-Rspamd-Queue-Id: 877E6125CE3
 X-Rspamd-Action: no action
 
+Jeff King <peff@peff.net> writes:
 
---lrqxuzmsnlyiz55n
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v7] futex_waitv.2: new page
-Message-ID: <aYycRq-sA6QVt-xk@devuan>
-References: <aYySf9HuORRCchje@devuan>
- <3e2gme6737jjnklm37pmgdlhl3zfxbdtvi5po254czvwuvn3cj@tarta.nabijaczleweli.xyz>
- <aYyYAqzaRovxMMEB@devuan>
- <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
-MIME-Version: 1.0
-In-Reply-To: <ok7zluffntc26pdbaz6smbpm3rl2o5gj62o7pd5atznzzxhsj2@tarta.nabijaczleweli.xyz>
+> On Tue, Feb 10, 2026 at 04:54:02PM +0100, Kristoffer Haugsbakk wrote:
+>
+>> An aside but `format.noprefix` is not a boolean like `diff.noprefix`.
+>> It will be enabled with any value.
+>
+> Huh, that's weird. Indeed, the code is:
+>
+>           if (!strcmp(var, "format.noprefix")) {
+>                   format_no_prefix = 1;
+>                   return 0;
+>           }
+>
+> which seems just wrong. I cannot think of any other case where the
+> _existence_ of a config variable determines the outcome, rather than the
+> assigned value. So I would be inclined to call this a bug and switch it
+> to use git_config_bool().
 
-On 2026-02-11T15:59:41+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> On Wed, Feb 11, 2026 at 03:55:54PM +0100, Alejandro Colomar wrote:
-> > On 2026-02-11T15:44:20+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> > >     -+	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val, time=
-out);
-> > >     ++	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val);
-> > I don't think it's valid to call futex(2) with FUTEX_WAIT without
-> > a timeout.  Is it?
-> Correct, it is not. However,
->=20
-> > I think we need to pass NULL explicitly.
-> if you pay particular attention to the second pair of letters in the
-> futex operation, you will no doubt come to the conclusion that we don't.
-
-Ohhh, I had the same problem when splitting the futex(2) page.
-I confused those two rather often.  :D
-
-Cheers,
-Alex
-
->=20
-> >_<
+Very true.  It is surprising that nobody noticed it during the review.
 
 
-
---=20
-<https://www.alejandro-colomar.es>
-
---lrqxuzmsnlyiz55n
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmMnJ0ACgkQ64mZXMKQ
-wql7vQ//f7xruguW9y4E7jlAnnpDBbp5md6rOQgNGZzcMdMbi5sUBsMfexdg0j/6
-cg+TzcAsW3XKiew6oNpsVSArdzS/7nLnYeK1/mFy0sz4wte/nQXf1kDUB118nV7G
-iya9nGGVPWj9UW33/i5yrPR8gX2s6TC159xhs+V6h1U29M5/6FyruCgEi9V0JvM1
-deFMtVX/iS+GIuDCtwp/+rqdwjtz/wW85pxmgItx7zSNewB38KZlAqbsH9nAVr8V
-Zk2SflL/ZuaW5ARgGpnVFvatpwqyuQRMVzIYxdRMCqDc2aTi34hqtUH303XnoF17
-lhHWompk9oQDshJhDnFdSVF0RtR3kBYgG+dh8NmTsZwWpaN2h/cRYdDoSbF5LCVr
-dMDmm8TRqcWLQ121dMs1ym6UbhNNb9VVsjmEyoSXjoDcnu48pWouXTljivJqeR2k
-4Q1EfLkEHusVs/8CjSqrDgkCkPuZIyBbMaBD4dDigt3iG4LjA81I9IY4mewpLKDb
-oUmQvyMHSwxsUSMnUP2xbl9TI8BdS4x7wJBrAahFXPXq627JVD3YAmm+x7Zh3C5c
-QRY11h40R31w0C7er2+Jy0KZzPxP+g5W/dtWQl2aoLQEWBafElC0jwxHdqB/Yi3g
-giBGc3AKxVh3f5/gvTEQWngyJeLwfoMEFIJO/2sVDA1E5ILTCPA=
-=ey/4
------END PGP SIGNATURE-----
-
---lrqxuzmsnlyiz55n--
+> Technically that is not backwards-compatible, but I really think the
+> existing behavior is just a bug. It was not something intended and is
+> contrary to how the rest of Git works. Presumably nobody noticed because
+> why in the world would you set it to false in the first place?
+>
+>> Is it standard to indicate this with the existing “If set,”, perhaps? Or
+>> should it say “enabled with any value”?
+>> 
+>> (+Cc Peff)
+>> 
+>>     format.noprefix::
+>>             If set, do not show any source or destination prefix in patches.
+>>             This is equivalent to the `diff.noprefix` option used by `git
+>>             diff` (but which is not respected by `format-patch`). Note that
+>>             by setting this, the receiver of any patches you generate will
+>>             have to apply them using the `-p0` option.
+>
+> We usually use "if set" in the config documentation to refer to options
+> being set to the true value. So I think the documentation text is OK and
+> would match the code, once fixed.
+>
+> Kristoffer, do you want to produce a patch to fix the code? I feel like
+> finding it was 99% of the work. ;)
+>
+> -Peff
 
