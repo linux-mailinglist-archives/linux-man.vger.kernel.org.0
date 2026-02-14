@@ -1,57 +1,57 @@
-Return-Path: <linux-man+bounces-5132-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5133-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id icKyFY5rkGmoZQEAu9opvQ
-	(envelope-from <linux-man+bounces-5132-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sat, 14 Feb 2026 13:33:18 +0100
+	id iBciFrWxkGldcQEAu9opvQ
+	(envelope-from <linux-man+bounces-5133-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sat, 14 Feb 2026 18:32:37 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id A810F13BE02
-	for <lists+linux-man@lfdr.de>; Sat, 14 Feb 2026 13:33:17 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id A7E3013C9EA
+	for <lists+linux-man@lfdr.de>; Sat, 14 Feb 2026 18:32:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 3EF01300D440
-	for <lists+linux-man@lfdr.de>; Sat, 14 Feb 2026 12:33:16 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id BE88F3013A4D
+	for <lists+linux-man@lfdr.de>; Sat, 14 Feb 2026 17:32:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8017554758;
-	Sat, 14 Feb 2026 12:33:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 064342C11D6;
+	Sat, 14 Feb 2026 17:32:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CP8ZgTbC"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uhch/eHj"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FCE3EBF2D
-	for <linux-man@vger.kernel.org>; Sat, 14 Feb 2026 12:33:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA6F220F38
+	for <linux-man@vger.kernel.org>; Sat, 14 Feb 2026 17:32:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771072395; cv=none; b=RN40hey/EYRjRk42tUYHQEriT5JxvJrkmpYk91JQKDCSF/5LKqNuOhyy3Cxjwx7xJeQSwY3Dnjinl3VTo1QkRCD6vIzoit1UicXuC5szA+/zWe4/gxS1zIF0x5N4qzK/50fvBQeJnoW8HWZyvoSJmmd6rO9cx4S5aYquz3TsEkc=
+	t=1771090340; cv=none; b=tiU27J4i1uK0JTA/yNYN2rtpKXTrgbOuLZedr1jk+1V//fhZNm0NIUXxTxSf8oQBXuShJ0Ho9/6/4CtVDq6sX8thNsFX4OCYEvSGXni8SGiEnUwWPfo6G7F3lwQ/WUfh4q54rG2sUCm+Otst8dFW96D3Xq0JVowWSJXuI7uKtjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771072395; c=relaxed/simple;
-	bh=qN9r7eo9JebyBxQna5Wei4HMOpXO5cx0XwFv2PxyZso=;
+	s=arc-20240116; t=1771090340; c=relaxed/simple;
+	bh=Pm1/0nqupnhDOJpT0UjoExEnhurLM0xaK6X5CMnXGtk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BGQqT7ziE85MZ6cjiSLxro0CnqlZ4KajpIQADCFJEIZExvhuEq8WpipwAjQf90HpCg/3ca0xQI1fpVpsqT1KPAOM1cELvh5C7oAcBtEqqSBYP5S/1+0XiV/5RmO3xkYW7/tlRU8gOPMA0sF+6poocnAOQ6SdIy6ZV13d3tpR1wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CP8ZgTbC; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2607FC16AAE;
-	Sat, 14 Feb 2026 12:33:13 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=ureeeb1chj8h1RSaTucvMgiqSyqlNMdWgXOXV3N6vYdSLMq7pivVSQqJYBdu5whQgt14MKO0MTD5nuSJb2gyiJCZ5grTHaWyQcXj3ezZ8VPwk44BFQIdFjGkBFl/CpeNHPppgS/NeqEjY+8kcDIzDCfntpMHB1kJidgg+qrCAXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uhch/eHj; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A831EC16AAE;
+	Sat, 14 Feb 2026 17:32:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771072394;
-	bh=qN9r7eo9JebyBxQna5Wei4HMOpXO5cx0XwFv2PxyZso=;
+	s=k20201202; t=1771090340;
+	bh=Pm1/0nqupnhDOJpT0UjoExEnhurLM0xaK6X5CMnXGtk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CP8ZgTbCr5XJAmwx9MpE7wapeY97JuJKgiwo8+/2QRNpU45U2AZuAoiON41femuP9
-	 JybHjiHdC1jfFw2h/u+I95B33iBDKRDVSOPVBfNK5gYem4VLhqL0JPouvjb+QWc/0E
-	 pTgemx5F37QEoS+nZIBsoPUX5SGQIncrGtpr6lSfsExf4QEX1twxtagm6+yGokJr4H
-	 V/PXEIOEPtjs/7J66kd2og2XlFNzQpGErI7j8MmssthpW+z5V4QDLvvstBo5PtV3Qa
-	 icoIni0iFVVV/0+upniXFsqM5FuHLjO6AMaUqamS2SUeLlRDHvv/hpg2a70rcMeXwt
-	 ZX9ivy4bkhT5w==
-Date: Sat, 14 Feb 2026 13:33:11 +0100
+	b=uhch/eHj2kG6vO+PM+QYidRWm8Z4Ek0kJ47SXfTyYJzCT7mSyFqT3I/kb4UBZLAN5
+	 phtZsrP5F71dg6PGxwgaFgD1FlyBAKWCw64nKIGDA6Ibm+DmcfaiD496CsCwEje3dr
+	 3VzTAxCBV2w2JLNB35TuE6w0xd4MP9+0yGBlCdw7RhX5Lfn4iVYDU1zX93hLkfs5LC
+	 O3dHDBZavhAC/zGTiJfbxQ9CDfek6pwlp+W9/c186urTi5W/uJx6kKWT1ZkgUuYb7V
+	 WEktlQgezhzKDuD1tPzsbtiVcwx6XCTGMHCu+NkdRFpuIgl1iwxzQ4Qh5YpWAW09tS
+	 DAzFBRpg7K65g==
+Date: Sat, 14 Feb 2026 18:32:17 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Jonathan Wakely <jwakely@redhat.com>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: Should aiocb(3type) say something about the order of fields?
-Message-ID: <aZBreHEOOKWUGWVN@devuan>
-References: <CACb0b4=GZ_pCtuVNTmo9v3XhKVzBB-08xm=af+Ju=iE4Uc_uWQ@mail.gmail.com>
- <aZBoYIj4D_jcMjDO@devuan>
+Subject: Re: [PATCH v7] futex_waitv.2: new page
+Message-ID: <aZCpWitr7ioKU1C-@devuan>
+References: <aYySf9HuORRCchje@devuan>
+ <3e2gme6737jjnklm37pmgdlhl3zfxbdtvi5po254czvwuvn3cj@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,24 +59,23 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ds5gbqim24w6iger"
+	protocol="application/pgp-signature"; boundary="g2nrgfoovtjx3ddx"
 Content-Disposition: inline
-In-Reply-To: <aZBoYIj4D_jcMjDO@devuan>
+In-Reply-To: <3e2gme6737jjnklm37pmgdlhl3zfxbdtvi5po254czvwuvn3cj@tarta.nabijaczleweli.xyz>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.76 / 15.00];
+X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
-	SUBJECT_ENDS_QUESTION(1.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5132-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5133-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -87,131 +86,326 @@ X-Spamd-Result: default: False [-2.76 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[man7.org:url,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: A810F13BE02
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,nabijaczleweli.xyz:email]
+X-Rspamd-Queue-Id: A7E3013C9EA
 X-Rspamd-Action: no action
 
 
---ds5gbqim24w6iger
+--g2nrgfoovtjx3ddx
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Jonathan Wakely <jwakely@redhat.com>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: Should aiocb(3type) say something about the order of fields?
-Message-ID: <aZBreHEOOKWUGWVN@devuan>
-References: <CACb0b4=GZ_pCtuVNTmo9v3XhKVzBB-08xm=af+Ju=iE4Uc_uWQ@mail.gmail.com>
- <aZBoYIj4D_jcMjDO@devuan>
+Subject: Re: [PATCH v7] futex_waitv.2: new page
+Message-ID: <aZCpWitr7ioKU1C-@devuan>
+References: <aYySf9HuORRCchje@devuan>
+ <3e2gme6737jjnklm37pmgdlhl3zfxbdtvi5po254czvwuvn3cj@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
-In-Reply-To: <aZBoYIj4D_jcMjDO@devuan>
+In-Reply-To: <3e2gme6737jjnklm37pmgdlhl3zfxbdtvi5po254czvwuvn3cj@tarta.nabijaczleweli.xyz>
 
-On 2026-02-14T13:30:05+0100, Alejandro Colomar wrote:
-> Hi Jonathan,
->=20
-> On 2026-02-14T11:51:36+0000, Jonathan Wakely wrote:
-> > https://man7.org/linux/man-pages/man3/aiocb.3type.html doesn't tell
-> > you that the order shown there is not the real order used on linux.
->=20
-> Hmmm, this was explained in system_data_types(7).  When the page was
-> split into many, that information remained there (and I still have
-> pending the move of the remaining two types in that page).
->=20
-> That page says:
->      The structures described in this manual  page  shall  contain,  at
->      least, the members shown in their definition, in no particular or=E2=
-=80=90
->      der.
->=20
-> My intention was (and still is) to move that page to intro(3type), and
-> keep system_data_types as a link page to intro(3type).
->=20
-> > It
-> > does tell you to look at aio(7), which says:
-> >=20
-> >     struct aiocb {
-> >        /* The order of these fields is implementation-dependent */
->=20
-> How about '/* members in no particular order */'?
->=20
-> >        ...
-> >        /* Various implementation-internal fields not shown */
->=20
-> I'd replace the second comment by '/* ... */'
+Hi =D0=BD=D0=B0=D0=B1,
 
-How about this?
-
-	$ diffman-git=20
-	--- HEAD:man/man3type/aiocb.3type
-	+++ ./man/man3type/aiocb.3type
-	@@ -10,6 +10,7 @@ SYNOPSIS
-	      #include <aio.h>
-	=20
-	      struct aiocb {
-	+         /* members in no particular order */
-		  int             aio_fildes;     /* File descriptor */
-		  off_t           aio_offset;     /* File offset */
-		  volatile void  *aio_buf;        /* Location of buffer */
-	@@ -17,6 +18,7 @@ SYNOPSIS
-		  int             aio_reqprio;    /* Request priority offset */
-		  struct sigevent aio_sigevent;   /* Signal number and value */
-		  int             aio_lio_opcode; /* Operation to be performed */
-	+         /* ... */
-	      };
-	=20
-	 DESCRIPTION
+On 2026-02-11T15:44:20+0100, =D0=BD=D0=B0=D0=B1 wrote:
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
+z>
+> ---
+> Range-diff against v5:
+[...]
+Thanks!
 
 >=20
-> >     };
-> >=20
-> > I think it would be helpful to repeat that in aiocb(3type) so you
-> > don't need to go to a second page to get that info. If aiocb(3type)
-> > shows actual C code with a struct definition it's reasonable to assume
-> > that it is accurate, which isn't the case here. The comments in the
-> > aio(7) page make that clearer.
-> >=20
-> > The Glibc manual
-> > <https://sourceware.org/glibc/manual/latest/html_node/Asynchronous-I_00=
-2fO.html>
-> > just names the fields (not showing an actual struct definition) and
-> > doesn't imply anything about the order.
+>  man/man2/futex_waitv.2 | 421 +++++++++++++++++++++++++++++++++++++++++
+>  man/man7/futex.7       |   9 +-
+>  2 files changed, 428 insertions(+), 2 deletions(-)
+>  create mode 100644 man/man2/futex_waitv.2
 >=20
-> I prefer the actual struct definition.  I think it's more readable.
->=20
->=20
-> Have a lovely day!
-> Alex
->=20
+> diff --git u/man/man2/futex_waitv.2 p/man/man2/futex_waitv.2
+> new file mode 100644
+> index 000000000..a1eeb8ce8
+> --- /dev/null
+> +++ p/man/man2/futex_waitv.2
+> @@ -0,0 +1,421 @@
+[...]
+> +.SH SYNOPSIS
+> +.nf
+> +.BR "#include <linux/futex.h>" "  /* Definition of " FUTEX* " constants =
+*/"
+
+Out of curiosity, why are some macros FUTEX2_* instead of FUTEX_*?
+(if you know)
+
+> +.BR "#include <sys/syscall.h>" "  /* Definition of " SYS_* " constants *=
+/"
+> +.B #include <unistd.h>
+> +.B #include <time.h>
+> +.P
+> +.SH ERRORS
+[...]
+> +.TP
+> +.B EINVAL
+> +.I n
+> +was not in the range
+> +.RB [ 1 ,
+> +.I FUTEX_WAITV_MAX
+> +(128)].
+
+Ahhh, so 128 is the value of FUTEX_WAITV_MAX, not its argument.
+I prefer not showing that value here.  Let's just say
+
+	.IR FUTEX_WAITV_MAX ].
+
+In general, we don't hard-code magic values unless users *need* to know
+them.  This makes it more evident that if users rely on a specific
+value, that may carry portability problems.
+
+[...]
+> +.TP
+> +.B EINVAL
+> +.B FUTEX2_NUMA
+> +was set in
+> +.IR waiters []. flags ,
+> +and the NUMA word
+> +(which is the same size as the futex word)
+> +is too small to contain the index of the biggest NUMA domain
+> +(for example,
+> +.B FUTEX2_SIZE_U8
+> +and there are more than 255 NUMA domains).
+
+Is it 255 or 256?  I assume it's a 0-based index, so I'd expect there to
+fit 256 indices in a u8.
+
+[...]
+> +.SH NOTES
+> +.BR FUTEX2_SIZE_U8 ,
+> +.BR FUTEX2_SIZE_U16 ,
+> +and
+> +.B FUTEX2_SIZE_U64
+> +where
+> +.I .val
+> +and
+> +.I *.uaddr
+
+This should also be .uaddr[]
+
+> +are 8, 16, or 64 bits are defined, but not implemented
+> +.RB ( EINVAL ).
+[...]
+> +.SH EXAMPLES
+[...]
+> +.EX
+> +.RB $\~ ./futex_waitv
+> +153	153	153	237	100	245	177	127	215	61
+> +									122!
+> +				200!
+> +							254!
+> +306	306!
+> +		306!
+> +						354!
+> +								430!
+> +			474!
+> +					490!
+> +Connection timed out
+> +.EE
+> +.P
+> +.\" SRC BEGIN (futex_waitv.c)
+> +.EX
+> +#include <errno.h>
+> +#include <inttypes.h>
+> +#include <linux/futex.h>
+> +#include <pthread.h>
+> +#include <stdatomic.h>
+> +#include <stdcountof.h>
+> +#include <stdint.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <sys/syscall.h>
+> +#include <time.h>
+> +#include <unistd.h>
+> +\&
+> +static inline long
+> +my_futex_wait_private(_Atomic uint32_t *uaddr, uint32_t val)
+> +{
+> +	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val);
+> +}
+> +\&
+> +static inline long
+> +my_futex_waitv(unsigned int n;
+> +               struct futex_waitv waiters[n], unsigned int n,
+> +               unsigned int flags, const struct timespec *timeout,
+> +               clockid_t clockid)
+> +{
+> +	return syscall(SYS_futex_waitv, waiters, n, flags, timeout, clockid);
+> +}
+> +\&
+> +void *
+> +worker(void *arg)
+> +{
+> +	_Atomic uint32_t  *futex =3D arg;
+> +\&
+> +	usleep(*futex * 10000);
+> +	*futex *=3D 2;
+> +	my_futex_wait_private(futex, 1);
+> +	return NULL;
+> +}
+> +\&
+> +int
+> +main(void)
+> +{
+> +	_Atomic uint32_t  futexes[10];
+> +	uint8_t  init[countof(futexes)];
+> +	struct futex_waitv waiters[countof(futexes)] =3D {};
+> +	int  i;
+> +\&
+> +	getentropy(init, sizeof(init));
+
+$ make -R lint build-all check CC=3D/opt/local/gnu/gcc/cap4/bin/gcc=20
+=2E..
+=2Etmp/man/man2/futex_waitv.2.d/futex_waitv.c:50:6: error: ignoring return =
+value of =E2=80=98getentropy=E2=80=99 declared with attribute =E2=80=98warn=
+_unused_result=E2=80=99 [-Werror=3Dunused-result]
+   50 |      getentropy(init, sizeof(init));
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+At top level:
+cc1: note: unrecognized command-line option =E2=80=98-Wno-reserved-identifi=
+er=E2=80=99 may have been intended to silence earlier diagnostics
+cc1: all warnings being treated as errors
+make: *** [/srv/alx/src/linux/man-pages/man-pages/contrib/share/mk/build/ex=
+amples/cc.mk:30: .tmp/man/man2/futex_waitv.2.d/futex_waitv.o] Error 1
+
+> +	init[0] =3D init[1] =3D init[2];
+> +	for (i =3D 0; i < countof(futexes); ++i) {
+> +		printf("%" PRIu8 "\[rs]t", init[i]);
+> +		atomic_init(&futexes[i], init[i]);
+> +		pthread_create(&(pthread_t){}, NULL, worker, &futexes[i]);
+> +	}
+> +	putchar('\[rs]n');
+
+Here and elsewhere in the example: \[aq] instea of '
+
+> +\&
+> +	for (i =3D 0; i < countof(futexes); ++i) {
+> +		waiters[i].val   =3D futexes[i];
+> +		waiters[i].uaddr =3D (uintptr_t)&futexes[i];
+
+Please add a space between casts and the expression their operand.
+
+> +		waiters[i].flags =3D FUTEX2_SIZE_U32 | FUTEX2_PRIVATE;
+> +	}
+> +	for (;;) {
+> +		struct timespec  timeout;
+> +		int  woke;
+> +\&
+> +		clock_gettime(CLOCK_MONOTONIC, &timeout);
+> +		timeout.tv_sec +=3D 1;
+> +\&
+> +		woke =3D my_futex_waitv(waiters, countof(futexes), 0, &timeout, CLOCK_=
+MONOTONIC);
+> +		if (woke =3D=3D -1 && (errno !=3D EAGAIN && errno !=3D EWOULDBLOCK))
+
+$ make -R lint-man-dash
+make: warning: undefined variable 'GNUMAKEFLAGS'
+PCRE2GREP	.tmp/man/man2/futex_waitv.2.lint-man.dash.touch
+lint-man-dash: .tmp/man/man2/futex_waitv.2: Unescaped dash:
+    397:			if (woke =3D=3D -1 && (errno !=3D EAGAIN && errno !=3D EWOULDBLO=
+CK))
+make: *** [/srv/alx/src/linux/man-pages/man-pages/contrib/share/mk/lint/man=
+/dash.mk:26: .tmp/man/man2/futex_waitv.2.lint-man.dash.touch] Error 1
+
+
+Have a lovely day!
+Alex
+
+> +			break;
+> +\&
+> +		for (i =3D 0; i < countof(futexes); ++i) {
+> +			if (futexes[i] !=3D waiters[i].val)
+> +				printf("%" PRIu32 "%s", futexes[i], i =3D=3D woke ? "!" : "");
+> +			putchar('\[rs]t');
+> +		}
+> +		putchar('\[rs]n');
+> +\&
+> +		for (i =3D 0; i < countof(futexes); ++i)
+> +			waiters[i].val =3D futexes[i];
+> +	}
+> +	fprintf(stderr, "%s\[rs]n", strerror(errno));
+> +}
+> +.EE
+> +.\" SRC END
+> +.SH SEE ALSO
+> +.BR futex (2),
+> +.BR FUTEX_WAIT (2const),
+> +.BR FUTEX_WAKE (2const),
+> +.BR futex (7)
+> +.P
+> +Kernel source file
+> +.I Documentation/userspace-api/futex2.rst
+> diff --git u/man/man7/futex.7 p/man/man7/futex.7
+> index 51c5d5d9b..d271144ff 100644
+> --- u/man/man7/futex.7
+> +++ p/man/man7/futex.7
+> @@ -45,7 +45,9 @@ .SS Semantics
+>  Any futex operation starts in user space,
+>  but it may be necessary to communicate with the kernel using the
+>  .BR futex (2)
+> -system call.
+> +or
+> +.BR futex_waitv (2)
+> +system calls.
+>  .P
+>  To "up" a futex, execute the proper assembler instructions that
+>  will cause the host CPU to atomically increment the integer.
+> @@ -72,7 +74,9 @@ .SS Semantics
+>  .P
+>  The
+>  .BR futex (2)
+> -system call can optionally be passed a timeout specifying how long
+> +and
+> +.BR futex_waitv (2)
+> +system calls can optionally be passed a timeout specifying how long
+>  the kernel should
+>  wait for the futex to be upped.
+>  In this case, semantics are more complex and the programmer is referred
+> @@ -107,6 +111,7 @@ .SH NOTES
+>  .SH SEE ALSO
+>  .BR clone (2),
+>  .BR futex (2),
+> +.BR futex_waitv (2),
+>  .BR get_robust_list (2),
+>  .BR set_robust_list (2),
+>  .BR set_tid_address (2),
 > --=20
-> <https://www.alejandro-colomar.es>
+> 2.39.5
 
 
 
 --=20
 <https://www.alejandro-colomar.es>
 
---ds5gbqim24w6iger
+--g2nrgfoovtjx3ddx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmQa4cACgkQ64mZXMKQ
-wqmRRw/+L03rP3TKxQhLjNJVMDyakJv7tQZSIWeYQRVKSro8wXKOcrGO1Nm307HZ
-6DM7f+r2M+I2ka8JWK7mbuAiELnZAwZD6LoyAzrxHwnH5laWSHAzqABjwOXvcoaz
-mG2Z4ErWdJbvqkV/HVams6QRR9VIf6kzp0Y9ZHvdnBpTs4t8IdkGqZFGKMwe7euM
-aR5cv0FuxVk/mdbgFVss5NwofXAfTiRhc8rtGghBtuYUjYe+FJq/2JZeL7QHR2Eu
-0CqiZt7gJH9OSXSC9HQOM06kn9hh4xU2VN+g0OhbZe4Q5ryroQ5WDpflI+bxCQpR
-lIczm1PSz39heXbp6rqx8gKy6u7CkcBanTu1XVwTfR3M2zk+aZ32L6ILZAcrtrtN
-QgD8YSkrRwJRBlDdyRdsFGdTigFeagvrxiXsVerJk0qnoGwS+jLwuIttHS6Am3Ba
-pCBhYL+deJb6jslIsPZbOomL/liJT/LRTRwblaA6l0txk3x6D6DCHqME8zd7fG6M
-F45GduQCdKT5QJ6oPwi6GdswCGW15rUg0Q3qRsII/COEEJ3984RIMUZa5iD4a4IT
-wyBHwovHFf6dbc+aKhcz89j/dyY/pgwQXaSkkiSROF9K9w15XHfDeigw811HuyW4
-OZqrXxpGDkDjsU2AwXkVQMopqMHzYTfqv60CxZxGxz4UTrovD5U=
-=0csq
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmQsZsACgkQ64mZXMKQ
+wqlhVA/9FPJT3DQQZT9ygYBFFFjjSP+6wIN5CHm0/tJZWLWMBT7wOHDOFaQ/X0a/
+0Vo+zcpwrr0naE6iXBRH1eQwSW5JHp7G8wGVB/cGzyO43fl++uAbhWr4/dGkYcwG
+ALnahnkPNLi9k6Hrzb6ml4goOzM3wgp8y7fQibr8kXb7V3XiPEk1V3eoYwG3cb7r
+Yv7jwdGEkrcsO+2xIUcv35DH7fI6RitcbvM48wliDEbbG7gTE4bc7Gb3X+6Mjfn+
+66f2ixqUcq7QxekZAe/YE1YD5cIaWx2yYuDsuKIqwSnXJOxt48mzc7i0udCfB+hf
+0cfJyy4Yh19Tdk0Cvik3CFQNK+iLHOQdQVPIK6nw95YABns3sawui+GQhqJorPGJ
+1Wa/QMO2tArJx8Uq4KzSSfClTLArYsF31LTRIZd/VjV5Nfb5vobriSRrDrLh5uJe
+A7vyxvhugIdU5X9HDU6QmJEuisreJhCvdFUeVG0PDVEIbTPBFElFmexZDQLw8G1F
+l4i17xcVeGWtk0i3mwO6W2zGJoHbHsGOxy8R9LTn71pXdRWnxkZNSIHtXgK2s3mj
+cmz7h2dPM7pzjG4twLOfDhPHRDAUgZD2BHzcjEVhO/oMkIc589bwsky/ASC/+jNj
+BC/Nsuvc7lAYTvZ5bXY6Prf/TZxSgj0szAbHBiwWLyaZBO14klo=
+=XGwb
 -----END PGP SIGNATURE-----
 
---ds5gbqim24w6iger--
+--g2nrgfoovtjx3ddx--
 
