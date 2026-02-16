@@ -1,57 +1,61 @@
-Return-Path: <linux-man+bounces-5143-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5144-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SGfRFUgjk2kX1wEAu9opvQ
-	(envelope-from <linux-man+bounces-5143-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 16 Feb 2026 15:01:44 +0100
+	id SGw/B+cnk2kI2AEAu9opvQ
+	(envelope-from <linux-man+bounces-5144-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 16 Feb 2026 15:21:27 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B01D1445C7
-	for <lists+linux-man@lfdr.de>; Mon, 16 Feb 2026 15:01:38 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9361447E9
+	for <lists+linux-man@lfdr.de>; Mon, 16 Feb 2026 15:21:26 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 052F13015480
-	for <lists+linux-man@lfdr.de>; Mon, 16 Feb 2026 13:57:13 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id A351630078EB
+	for <lists+linux-man@lfdr.de>; Mon, 16 Feb 2026 14:21:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA0852FFDD5;
-	Mon, 16 Feb 2026 13:57:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6043F30E0EF;
+	Mon, 16 Feb 2026 14:21:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JhGZx+xL"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="B1qUqSQF"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5782C0F8E
-	for <linux-man@vger.kernel.org>; Mon, 16 Feb 2026 13:57:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D7D3101BC
+	for <linux-man@vger.kernel.org>; Mon, 16 Feb 2026 14:20:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771250229; cv=none; b=fe0ycl5VgSwXO2ROnSF4b4bK3D9GdiPlmRyJuLlx/oilcNlHOdkgxa1cGq5tyIukXuh8Ky9wrZATb+Xk1kWZEtjmWKf7GKmUjUXuIBSgseRSJ6Eoi5UyNl+BeS8I0CEmwohAL2uY17EROjCBmDSQBEnpy3q5AGEncSsGWlUmY0o=
+	t=1771251663; cv=none; b=lLH2/IsraWhGfNGLTVPJZZXZszvcLJy4G0kI9Y6JuHIXBROys0vLY108+lv88xmNxNBRktewGvW7wk1ToEdgvtuWGyuoBj7U1IhQXpI96ZTGX6k2S/CB7LmUAvIEJ5RjryFRnAOKXpVX9dz/XF/sMErLDh8e5Pwz5tJOmoHV5cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771250229; c=relaxed/simple;
-	bh=FRNlLfmAEwOPkzGxbkCIlMaZJhzaV5seTZ6cMCRBXJs=;
+	s=arc-20240116; t=1771251663; c=relaxed/simple;
+	bh=11vlPnagoxRa95ItddES9CYxHCPbYfZMZ69s03lTCvw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jyZi4WMstuHi0S06cqMGJN+yCqgw3R+gFPMuw5P8q1AWhEaWSa6h2DeDWG2nobhsgBratIYz/Eexzd9dUwYNN8Ep8wTNDhUBKoJH0KuidhgUrM6VuJMswWn6hxApked6wdx0Cb2P4RQTAgmHPvfmUSVMO8DKT9roZH9lKskLM8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JhGZx+xL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A229FC116C6;
-	Mon, 16 Feb 2026 13:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771250229;
-	bh=FRNlLfmAEwOPkzGxbkCIlMaZJhzaV5seTZ6cMCRBXJs=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=S/XbaxSUWIvmDTK+14jlAMKnUcu6uZ8BLqzoGCsnSPjcS+yyuCdmAdCkND/GK6Y/b3K4sIYKoqekPkopZCjoVFsmUVcwyFZTPk7/JJp972Rh7JSiiRk6tpOBXzBZrJbsk24lIhbUQ2KjB+MR2f3YyOKHfY0opMjQzVog5224jVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=B1qUqSQF; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202505; t=1771251650;
+	bh=11vlPnagoxRa95ItddES9CYxHCPbYfZMZ69s03lTCvw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JhGZx+xLTZY+KH4WHp/2Vwg8DaC5cuK6/ZKH2sgbovqiHrJVLDMYh2UYe2OJQmkQ2
-	 58fYyDDpCk7aUpoiJAkmaShasfWv34K7k+J1/NnyvqTBxGwQHtf5gGOntZwO1KXVrj
-	 TPfYfPCrt21P83b4NDHb0VH3IgtxBXCavAcd9HsfcGRyAHf0eQpP1vtEIodUdyysmc
-	 YfZse17Th4NJkNpHygqjNVOBoLIR7lWj43Vvqo/2GWoy2hZca9hYpFJjk8yyMRZ6rw
-	 AhZkEzvueN0nZuVRY0NUNvys5YbmWLYRTYlkp2BRXCAIpUzynuGHnf24Bjw+BF8vLs
-	 V6GR0KCs7bPoA==
-Date: Mon, 16 Feb 2026 14:57:06 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <dev@sethm.id.au>
+	b=B1qUqSQFX/M0JGD1OnzEhpMuHFjDPoxthsOYVB2UCHe4goHttWGwK0lEoAiWawxDk
+	 1eJbq5ybrGMsv+WR6pY19ZKRWHUL3a5JJTidQflHDrAtg/oVMWJ+anMx5URHdf553e
+	 RV/UKCgYZAgkRbSvaF7/CzRy9yDqArqC8W2BxB9RcSRqY7TpEJcufKOesL+W1pKSlB
+	 tEw4gdEo2xXa7mE6HsLRLmHsEdBu+7gWjymPGy09Ys5DqeBI42/xjya9Lbq0c6P2sF
+	 FO4dmqs3XQa9fqFM3iIjAkNMvxwu2FlIcgR/XjetG7phzn/26iWuUH3qTBcgOoDOaG
+	 vYJLVM2rsJeiA==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 207F329D8;
+	Mon, 16 Feb 2026 15:20:50 +0100 (CET)
+Date: Mon, 16 Feb 2026 15:20:49 +0100
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 0/1] man/man2/*: Update history of syscalls H-M
-Message-ID: <aZMeuDza3H4tVbgu@devuan>
-References: <cover.1769429341.git.sethmcmail@pm.me>
- <cover.1771232583.git.dev@sethm.id.au>
+Subject: [PATCH v11] futex_waitv.2: new page
+Message-ID: <turvfc7e6ojztx6557qo75tqjdxmmr535ns2d25v2w3c3k2aal@tarta.nabijaczleweli.xyz>
+References: <aZILB86QfGuXJng4@devuan>
+ <xxvaao4cg7v45kkkprdkg5qeaqqpjxfkmyk5lufqidv5vsvyxi@tarta.nabijaczleweli.xyz>
+ <aZJfEf6Pq6dYCHVr@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,240 +63,673 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rz25vftbclpgxpdk"
+	protocol="application/pgp-signature"; boundary="zyd4l77ahydoowj4"
 Content-Disposition: inline
-In-Reply-To: <cover.1771232583.git.dev@sethm.id.au>
+In-Reply-To: <aZJfEf6Pq6dYCHVr@devuan>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
+X-Spamd-Result: default: False [-4.26 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW(-0.50)[nabijaczleweli.xyz,none];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_DKIM_ALLOW(-0.20)[nabijaczleweli.xyz:s=202505];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5143-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5144-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	FROM_NEQ_ENVFROM(0.00)[nabijaczleweli@nabijaczleweli.xyz,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[nabijaczleweli.xyz:+];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 1B01D1445C7
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,infradead.org:email]
+X-Rspamd-Queue-Id: 6B9361447E9
 X-Rspamd-Action: no action
 
 
---rz25vftbclpgxpdk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--zyd4l77ahydoowj4
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <dev@sethm.id.au>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 0/1] man/man2/*: Update history of syscalls H-M
-Message-ID: <aZMeuDza3H4tVbgu@devuan>
-References: <cover.1769429341.git.sethmcmail@pm.me>
- <cover.1771232583.git.dev@sethm.id.au>
-MIME-Version: 1.0
-In-Reply-To: <cover.1771232583.git.dev@sethm.id.au>
 
-On 2026-02-16T21:44:09+1000, Seth McDonald wrote:
-> Hi Alex,
+On Mon, Feb 16, 2026 at 01:32:29AM +0100, Alejandro Colomar wrote:
+> On 2026-02-15T20:00:50+0100, =D0=BD=D0=B0=D0=B1 wrote:
+> > +struct futex_waitv {
+> > +    u64 val;        /* Expected value at \f[I]uaddr\f[] */
+> Should we say at .uaddr[0] to be more precise?
+I think in general it's between "of *pointer" or "at pointer",
+and "Expected value of .uaddr[0]/*.uaddr" read really poorly to me.
 
-Hi Seth,
-
-> Apologies on my end also for my delayed response.  I've made some large
-> but hopefully beneficial changes to my email workflow =E2=80=93 as can be=
- seen
-> with the different email address.
-
-:)
-
-> > This patch seems to be corrupt. [...] Probably another issue with
-> > protonmail, I guess.
+> > +This operation tests that the values at the
+> > +futex words pointed to by the addresses
+> > +.IR waiters []. uaddr
 >=20
-> Yeah at this point I give up with ProtonMail.  I shouldn't have to fix
-> all their issues for them just to send in a patch.  Hopefully Fastmail
-> serves me better.
-
-So far it works.  I could apply the patch.
-
-I personally use Migadu <https://migadu.com/>.  I've had a very good
-experience with them, and they're very quick in fixing any bugs I report
-to them.  If Fastmail works fine for you, that's great!
-
-> Anyhow, this is just the patch for mincore(2) with a few minor
-> adjustments on the commit message.  I won't PGP sign it yet as I first
-> want to ensure everything works before adding things on top.  But if all
-> is well, I'll continue to sign my patches with my more secure key:
+> Should we maybe say?:
 >=20
-> E9D1 26A5 F0D4 9DF7 792B  C2E2 B4BF 4530 D39B 2D51
+> 	futex words
+> 	.IR waiters []. uaddr [0]
 
-Ok.
+It does read unwieldy, but I think that's too cut-down...
 
-BTW, the ubuntu keyserver shows the existence of a non-revoked key that
-is probably old?
-
-	pub (4)eddsa263/82b9620e53d0a1ae2d696111c267b0020a900289 2024-12-06T06:53:=
-33Z
-
-It contains two UIDs, one of which is revoked, but the other is not
-revoked:
-
-	uid mcdonald_seth@pm.me <mcdonald_seth@pm.me>
-	sig cert  c267b0020a900289 2024-12-06T06:53:33Z ____________________ _____=
-_______________ [selfsig]
-
-	uid Seth McDonald (email encryption) <mcdonald_seth@pm.me>
-	sig revok c267b0020a900289 2026-02-11T08:27:33Z ____________________ _____=
-_______________ [selfsig]
-
-Is it intentionaly that you revoked the UID instead of the key?  If you
-want to revoke the entire key, you should probably use gpg(1)'s
---gen-revoke flag, which generates a revocation certificate for the
-master key.
-
->=20
-> Let me know if it's still corrupt, and I'll =CC=B6k=CC=B6i=CC=B6c=CC=B6k=
-=CC=B6 =CC=B6m=CC=B6y=CC=B6 =CC=B6P=CC=B6C calmly figure out
-> what's going on.
-
-It worked.  :)
+	futex words at
+	.IR waiters []. uaddr
 
 
-Cheers,
-Alex
+> > +If the NUMA word is
+> > +.BR FUTEX_NO_NODE ,
+> > +the node number of the processor the syscall executes on is written to=
+ it.
+> > +(Except in an
+> Maybe 'Except that' would be easier to read?
+I don't think that works, but maybe "Except for an"...
 
->=20
-> Seth McDonald (1):
->   man/man2/mincore.2: HISTORY: Update appearances of mincore(2)
->=20
->  man/man2/mincore.2 | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
->=20
-> Range-diff against v1:
->  1:  d109f3dc06e2 <  -:  ------------ man/man2/ioctl_eventpoll.2: HISTORY=
-: ffix
->  2:  55de16b213bf <  -:  ------------ man/man2/kill.2: HISTORY: Update PO=
-SIX appearances of kill(2)
->  3:  17eacf0f2d3e <  -:  ------------ man/man2/link.2: HISTORY: Change or=
-der of linkat(2)
->  4:  bec317b8ee88 <  -:  ------------ man/man2/link.2: HISTORY: Update PO=
-SIX appearances of link(2)
->  5:  2024c82a058d <  -:  ------------ man/man2/listen.2: HISTORY: Change =
-order
->  6:  bcf9f5113f3c <  -:  ------------ man/man2/lseek.2: HISTORY: Update a=
-ppearances of SEEK_{DATA,HOLE}
->  7:  2dd12d136bf0 <  -:  ------------ man/man2/lseek.2: HISTORY: Update P=
-OSIX appearances of lseek(2)
->  8:  817af323707e !  1:  b1b6f011a7d3 man/man2/mincore.2: HISTORY: Update=
- appearances of mincore(2)
->     @@ Metadata
->       ## Commit message ##
->          man/man2/mincore.2: HISTORY: Update appearances of mincore(2)
->     =20
->     -    mincore(2) was implemented in FreeBSD on 1995-10-21,[1] which wa=
-s first
->     +    mincore(2) was implemented in FreeBSD on 1995-10-21,[1] and was =
-first
->          included in the FreeBSD 2.2 release on 1997-03.[2]
->     =20
->     -    It was implemented in NetBSD on 1999-06-15,[3] which was first i=
-ncluded
->     -    in the NetBSD 1.5 release on 2000-12-06,[4] (despite the commit =
-message
->     +    It was implemented in NetBSD on 1999-06-15,[3] and was first inc=
-luded in
->     +    the NetBSD 1.5 release on 2000-12-06,[4] (despite the commit mes=
-sage
->          stating its intended inclusion in NetBSD 1.4.1).
->     =20
->     -    It was implemented in OpenBSD on 2001-03-09,[5] which was first =
-included
->     +    It was implemented in OpenBSD on 2001-03-09,[5] and was first in=
-cluded
->          in the OpenBSD 2.9 release on 2001-06-01.[6]
->     =20
->          All other listed systems are taken at face value and rearranged =
-in
->          chronological-ish order.
->     =20
->          [1] Dyson, John (21 Oct 1995).  "Implement mincore system call."
->     -    FreeBSD source tree (Git repository).
->     -    <https://cgit.freebsd.org/src/commit/?id=3D02c04a2f6c83ee28ed637=
-d120296d04da8f03372>
->     +    FreeBSD source tree (Git repository).  Commit
->     +    02c04a2f6c83ee28ed637d120296d04da8f03372.
->          [2] The FreeBSD Project (29 Nov 2025).  "Prior Releases =E2=80=
-=93 EOL".
->          <https://www.freebsd.org/releases>
->          [3] Thorpe, Jason (15 Jun 1999).  "Several changes, developed an=
-d tested
->  9:  8b25a256e60f <  -:  ------------ man/man2/mkdir.2: HISTORY: Change o=
-rder of mkdirat(2)
-> 10:  347e36c11666 <  -:  ------------ man/man2/mkdir.2: HISTORY: Update B=
-SD and POSIX appearances of mkdir(2)
-> 11:  d3da8260e1bc <  -:  ------------ man/man2/mknod.2: HISTORY: Change o=
-rder of mknodat(2)
-> 12:  b0feda20f21d <  -:  ------------ man/man2/mknod.2: HISTORY: Update P=
-OSIX appearances of mknod(2)
-> 13:  32bd25fd3630 <  -:  ------------ man/man2/mknod.2: STANDARDS: Update
-> 14:  67bf0c1aa133 <  -:  ------------ man/man2/mlock.2: HISTORY: Update P=
-OSIX appearances of m(un)lock(all)(2)
-> 15:  57292b4f60c4 <  -:  ------------ man/man2/mmap.2: HISTORY: Update PO=
-SIX appearances of m(un)map(2)
-> 16:  b8f4e6fa54e7 <  -:  ------------ man/man2/{mount_setattr,move_mount}=
-=2E2: HISTORY: ffix
-> 17:  4e1acc0f5e00 <  -:  ------------ man/man2/mprotect.2: HISTORY: Updat=
-e POSIX appearances of mprotect(2)
-> 18:  024ce32c9da5 <  -:  ------------ man/man2/msgctl.2: STANDARDS, HISTO=
-RY: Update POSIX appearances of msgctl(2)
-> 19:  975e61bea29f <  -:  ------------ man/man2/msgget.2: STANDARDS, HISTO=
-RY: Update POSIX appearances of msgget(2)
-> 20:  86e7c24b1428 <  -:  ------------ man/man2/msgop.2: STANDARDS, HISTOR=
-Y: Update POSIX appearances of msg{rcv,snd}(2)
-> 21:  d106bca86ec1 <  -:  ------------ man/man2/msync.2: HISTORY: Update P=
-OSIX appearances of msync(2)
->=20
-> base-commit: e2cc229b7551a63bb51853c849ce1a9e95946637
-> --=20
-> 2.53.0.1
->=20
+Scissor-patch below.
 
+Best,
+-- >8 --
+Subject: [PATCH v11] futex_waitv.2: new page
+
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+Range-diff against v10:
+1:  267b3c008 ! 1:  39abafa84 futex_waitv.2: new page
+    @@ man/man2/futex_waitv.2 (new)
+     +.P
+     +If
+     +.I timeout
+    -+is not NULL,
+    ++is NULL,
+    ++the call blocks indefinitely.
+    ++Otherwise,
+     +.I *timeout
+     +specifies a deadline measured against clock
+     +.IR clockid .
+     +This interval will be rounded up to the system clock granularity,
+     +and is guaranteed not to expire early.
+    -+If
+    -+.I timeout
+    -+is NULL,
+    -+the call blocks indefinitely.
+     +.P
+     +Futex words to monitor are given by
+     +.IR "struct futex_waitv" ,
+    @@ man/man2/futex_waitv.2 (new)
+     +If the NUMA word is
+     +.BR FUTEX_NO_NODE ,
+     +the node number of the processor the syscall executes on is written t=
+o it.
+    -+(Except in an
+    ++(Except for an
+     +.B EINVAL
+     +or
+     +.B EFAULT
+    @@ man/man2/futex_waitv.2 (new)
+     +.IP
+     +Futexes are placed on the NUMA node given by the NUMA word.
+     +Futexes without this flag are placed on a random node.
+    -+.\" commit cec199c5e39bde7191a08087cc3d002ccfab31ff
+    -+.\" Author: Peter Zijlstra <peterz@infradead.org>
+    -+.\" Date:   Wed Apr 16 18:29:16 2025 +0200
+    -+.\"
+    -+.\"     futex: Implement FUTEX2_NUMA
+    ++.\" linux.git cec199c5e39b (2025-05-03; "futex: Implement FUTEX2_NUMA=
+")
+     +.\"
+     +.\" FUTEX2_MPOL is not documented or used anywhere;
+    -+.\" it's unclear to me what it does
+    -+.\" (defined in commit c042c505210dc3453f378df432c10fff3d471bc5
+    -+.\"  "futex: Implement FUTEX2_MPOL")
+    ++.\" it's unclear to me what it does (defined in
+    ++.\" linux.git c042c505210d (2025-05-03; "futex: Implement FUTEX2_MPOL=
+"))
+     +.TP
+     +.B FUTEX2_PRIVATE
+     +By default, the futex is shared
+    -+.RB "(like " FUTEX_WAIT (2const)),
+    ++(like
+    ++.BR FUTEX_WAIT (2const)),
+     +and can be accessed by multiple processes;
+     +this flag waits on a private futex word,
+     +where all users must use the same virtual memory map
+    @@ man/man2/futex_waitv.2 (new)
+     +Programs should assign to
+     +.I .uaddr
+     +by casting a pointer to
+    -+.BR uintptr_t .
+    ++.IR uintptr_t .
+     +.\"
+     +.\"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""=
+"""
+     +.\"
+    @@ man/man2/futex_waitv.2 (new)
+     +.I n
+     +was not in the range
+     +.RB [ 1 ,
+    -+.IR FUTEX_WAITV_MAX ].
+    ++.BR FUTEX_WAITV_MAX ].
+     +.TP
+     +.B EINVAL
+     +.I timeout
+    @@ man/man2/futex_waitv.2 (new)
+     +.IR waiters []. flags ,
+     +and the NUMA word
+     +(which is the same size as the futex word)
+    -+is too small to contain the index of the biggest NUMA domain
+    ++is too small to contain the highest possible index of a NUMA domain
+     +(for example,
+     +.B FUTEX2_SIZE_U8
+     +and there are at least 255 possible NUMA domains).
+    @@ man/man2/futex_waitv.2 (new)
+     +.BR FUTEX_NO_NODE .
+     +.TP
+     +.B ETIMEDOUT
+    -+.I timeout
+    -+was not NULL and no futex was woken before the timeout elapsed.
+    ++The timeout elapsed before any futex was woken.
+     +.TP
+     +.BR EAGAIN " or " EWOULDBLOCK
+    -+The value pointed to by
+    -+.I .uaddr
+    ++The value in
+    ++.I .uaddr[0]
+     +was not equal to the expected value
+     +.I .val
+     +at the time of the call.
+
+ man/man2/futex_waitv.2 | 413 +++++++++++++++++++++++++++++++++++++++++
+ man/man7/futex.7       |   9 +-
+ 2 files changed, 420 insertions(+), 2 deletions(-)
+ create mode 100644 man/man2/futex_waitv.2
+
+diff --git u/man/man2/futex_waitv.2 p/man/man2/futex_waitv.2
+new file mode 100644
+index 000000000..f26c10656
+--- /dev/null
++++ p/man/man2/futex_waitv.2
+@@ -0,0 +1,413 @@
++.\" Copyright, the authors of the Linux man-pages project
++.\"
++.\" SPDX-License-Identifier: MIT
++.\"
++.TH futex_waitv 2 (date) "Linux man-pages (unreleased)"
++.SH NAME
++futex_waitv \- wait for FUTEX_WAKE operation on multiple futexes
++.SH LIBRARY
++Standard C library
++.RI ( libc ,\~ \-lc )
++.SH SYNOPSIS
++.nf
++.BR "#include <linux/futex.h>" "  /* Definition of " FUTEX* " constants */"
++.BR "#include <sys/syscall.h>" "  /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
++.B #include <time.h>
++.P
++.BR "long syscall(" "unsigned int n;"
++.BI "             SYS_futex_waitv, struct futex_waitv " waiters [ n ],
++.BI "             unsigned int " n ", unsigned int " flags ,
++.BI "             const struct timespec *_Nullable " timeout ", clockid_t =
+" clockid ");"
++.fi
++.P
++.EX
++.B "#include <linux/futex.h>"
++.P
++struct futex_waitv {
++    u64 val;        /* Expected value at \f[I]uaddr\f[] */
++    u64 uaddr;      /* User address to wait on */
++    u32 flags;      /* Flags for this waiter */
++    u32 __reserved; /* Align to u64 */
++};
++.EE
++.SH DESCRIPTION
++.\" This name is used internally in the kernel
++Implements the FUTEX_WAIT_MULTIPLE operation,
++analogous to a synchronous atomic parallel
++.BR FUTEX_WAIT (2const)
++or
++.B FUTEX_WAIT_PRIVATE
++on up to
++.B FUTEX_WAITV_MAX
++futex words.
++For an overview of futexes, see
++.BR futex (7);
++for a description of the general interface, see
++.BR futex (2);
++for general minutiae of futex waiting, see the page above.
++.P
++This operation tests that the values at the
++futex words pointed to by the addresses
++.IR waiters []. uaddr
++still contain respective expected values
++.IR waiters []. val ,
++and if so, sleeps waiting for a
++.BR FUTEX_WAKE (2const)
++operation on any of the futex words,
++and returns the index of
++.I a
++waiter whose futex was woken.
++.P
++If the thread starts to sleep,
++it is considered a waiter on all given futex words.
++If any of the futex values do not match their respective
++.IR waiters []. val ,
++the call fails immediately with the error
++.BR EAGAIN .
++.P
++If
++.I timeout
++is NULL,
++the call blocks indefinitely.
++Otherwise,
++.I *timeout
++specifies a deadline measured against clock
++.IR clockid .
++This interval will be rounded up to the system clock granularity,
++and is guaranteed not to expire early.
++.P
++Futex words to monitor are given by
++.IR "struct futex_waitv" ,
++whose fields are analogous to
++.BR FUTEX_WAIT (2const)
++parameters, except
++.I .__reserved
++must be 0
++and
++.I .flags
++must contain one of
++.BI FUTEX2_SIZE_ *
++ORed with some of the flags below.
++.TP
++.B FUTEX2_SIZE_U32
++.I .val
++and
++.I .uaddr[]
++are 32-bit unsigned integers.
++.TP
++.B FUTEX2_NUMA
++The futex word is followed by another word of the same size
++.RI ( .uaddr
++points to
++.IR uint N _t[2]
++rather than
++.IR uint N _t .
++The word is given by
++.IR .uaddr[1] ),
++which can be either
++.B FUTEX_NO_NODE
++(all bits set)
++or a NUMA node number.
++.IP
++If the NUMA word is
++.BR FUTEX_NO_NODE ,
++the node number of the processor the syscall executes on is written to it.
++(Except for an
++.B EINVAL
++or
++.B EFAULT
++condition, this happens to all waiters whose
++.I .flags
++have
++.B FUTEX2_NUMA
++set.)
++.IP
++Futexes are placed on the NUMA node given by the NUMA word.
++Futexes without this flag are placed on a random node.
++.\" linux.git cec199c5e39b (2025-05-03; "futex: Implement FUTEX2_NUMA")
++.\"
++.\" FUTEX2_MPOL is not documented or used anywhere;
++.\" it's unclear to me what it does (defined in
++.\" linux.git c042c505210d (2025-05-03; "futex: Implement FUTEX2_MPOL"))
++.TP
++.B FUTEX2_PRIVATE
++By default, the futex is shared
++(like
++.BR FUTEX_WAIT (2const)),
++and can be accessed by multiple processes;
++this flag waits on a private futex word,
++where all users must use the same virtual memory map
++(like
++.BR FUTEX_WAIT_PRIVATE ;
++this most often means they are part of the same process).
++Private futexes are faster than shared ones.
++.P
++Programs should assign to
++.I .uaddr
++by casting a pointer to
++.IR uintptr_t .
++.\"
++.\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
++.\"
++.SH RETURN VALUE
++Returns an index to an arbitrary entry in
++.I waiters
++corresponding to some woken-up futex.
++This implies no information about other waiters.
++.P
++On error,
++\-1 is returned,
++and
++.I errno
++is set to indicate the error.
++.\"
++.\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
++.\"
++.SH ERRORS
++.TP
++.B EFAULT
++.I waiters
++points outside the accessible address space.
++.TP
++.B EFAULT
++.I timeout
++is not NULL and points outside the accessible address space.
++.TP
++.B EFAULT
++Any
++.IR waiters []. uaddr
++field points outside the accessible address space.
++.TP
++.B EINVAL
++Any
++.IR waiters []. uaddr
++field does not point to a valid object\[em]that is,
++the address is not aligned appropriately for the specified
++.BI FUTEX2_SIZE_ * .
++.TP
++.B EINVAL
++.I flags
++was not 0.
++.TP
++.B EINVAL
++.I n
++was not in the range
++.RB [ 1 ,
++.BR FUTEX_WAITV_MAX ].
++.TP
++.B EINVAL
++.I timeout
++was not NULL and
++.I clockid
++was not a valid clock
++.RB ( CLOCK_MONOTONIC
++or
++.BR CLOCK_REALTIME ).
++.TP
++.B EINVAL
++.I *timeout
++is denormal (before epoch or
++.I tv_nsec
++more than 999\[aq]999\[aq]999).
++.TP
++.B EINVAL
++Any
++.IR waiters []. flags
++field contains an unknown flag.
++.TP
++.B EINVAL
++Any
++.IR waiters []. flags
++field is missing a
++.BI FUTEX2_SIZE_ *
++flag or has a size flag different than
++.B FUTEX2_SIZE_U32
++set.
++.TP
++.B EINVAL
++Any
++.IR waiters []. __reserved
++field is not 0.
++.TP
++.B EINVAL
++Any
++.IR waiters []. value
++field has more bits set than permitted than the size flags.
++.TP
++.B EINVAL
++.B FUTEX2_NUMA
++was set in
++.IR waiters []. flags ,
++and the NUMA word
++(which is the same size as the futex word)
++is too small to contain the highest possible index of a NUMA domain
++(for example,
++.B FUTEX2_SIZE_U8
++and there are at least 255 possible NUMA domains).
++.TP
++.B EINVAL
++.B FUTEX2_NUMA
++was set in
++.IR waiters []. flags ,
++and the NUMA word is larger than the maximum possible NUMA node and not
++.BR FUTEX_NO_NODE .
++.TP
++.B ETIMEDOUT
++The timeout elapsed before any futex was woken.
++.TP
++.BR EAGAIN " or " EWOULDBLOCK
++The value in
++.I .uaddr[0]
++was not equal to the expected value
++.I .val
++at the time of the call.
++.TP
++.B EINTR
++The
++operation was interrupted by a signal (see
++.BR signal (7)).
++.\"
++.\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
++.\"
++.SH STANDARDS
++Linux.
++.SH NOTES
++.BR FUTEX2_SIZE_U8 ,
++.BR FUTEX2_SIZE_U16 ,
++and
++.B FUTEX2_SIZE_U64
++where
++.I .val
++and
++.I .uaddr[]
++are 8, 16, or 64 bits are defined, but not implemented
++.RB ( EINVAL ).
++.SH HISTORY
++.\" commit bf69bad38cf63d980e8a603f8d1bd1f85b5ed3d9
++.\" Author: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
++.\" Date:   Thu Sep 23 14:11:05 2021 -0300
++.\"
++.\"     futex: Implement sys_futex_waitv()
++Linux 5.16.
++.SH EXAMPLES
++The program below executes a linear-time operation on 10 threads,
++displaying the results in real time,
++waiting at most 1 second for each new result.
++The first 3 threads operate on the same data (complete in the same time).
++.B !\&
++indicates the futex that woke up each
++.BR futex_waitv ().
++.in +4
++.EX
++.RB $\~ ./futex_waitv
++153	153	153	237	100	245	177	127	215	61
++									122!
++				200!
++							254!
++306	306!
++		306!
++						354!
++								430!
++			474!
++					490!
++futex_waitv: my_futex_waitv: Connection timed out
++.EE
++.P
++.\" SRC BEGIN (futex_waitv.c)
++.EX
++#include <err.h>
++#include <errno.h>
++#include <linux/futex.h>
++#include <pthread.h>
++#include <stdatomic.h>
++#include <stdcountof.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/syscall.h>
++#include <time.h>
++#include <unistd.h>
++\&
++static inline long
++my_futex_wake_private(_Atomic uint32_t *uaddr, uint32_t val)
++{
++	return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, val);
++}
++\&
++static inline long
++my_futex_waitv(unsigned int n;
++               struct futex_waitv waiters[n], unsigned int n,
++               unsigned int flags, const struct timespec *timeout,
++               clockid_t clockid)
++{
++	return syscall(SYS_futex_waitv, waiters, n, flags, timeout, clockid);
++}
++\&
++void *
++worker(void *arg)
++{
++	_Atomic uint32_t  *futex =3D arg;
++\&
++	usleep(*futex * 10000);
++	*futex *=3D 2;
++	my_futex_wait_private(futex, 1);
++	return NULL;
++}
++\&
++int
++main(void)
++{
++	_Atomic uint32_t  futexes[10];
++	uint8_t  init[countof(futexes)];
++	struct futex_waitv waiters[countof(futexes)] =3D {};
++	int  i;
++\&
++	if (getentropy(init, sizeof(init)))
++		err(EXIT_FAILURE, "getentropy");
++	init[0] =3D init[1] =3D init[2];
++	for (i =3D 0; i < countof(futexes); ++i) {
++		printf("%w8u\[rs]t", init[i]);
++		atomic_init(&futexes[i], init[i]);
++		pthread_create(&(pthread_t){}, NULL, worker, &futexes[i]);
++	}
++	putchar(\[aq]\[rs]n\[aq]);
++\&
++	for (i =3D 0; i < countof(futexes); ++i) {
++		waiters[i].val   =3D futexes[i];
++		waiters[i].uaddr =3D (uintptr_t) &futexes[i];
++		waiters[i].flags =3D FUTEX2_SIZE_U32 | FUTEX2_PRIVATE;
++	}
++	for (;;) {
++		struct timespec  timeout;
++		int  woke;
++\&
++		clock_gettime(CLOCK_MONOTONIC, &timeout);
++		timeout.tv_sec +=3D 1;
++\&
++		woke =3D my_futex_waitv(waiters, countof(futexes), 0, &timeout, CLOCK_MO=
+NOTONIC);
++		if (woke =3D=3D \-1 && (errno !=3D EAGAIN && errno !=3D EWOULDBLOCK))
++			err(EXIT_FAILURE, "my_futex_waitv");
++\&
++		for (i =3D 0; i < countof(futexes); ++i) {
++			if (futexes[i] !=3D waiters[i].val)
++				printf("%w32u%s", futexes[i], i =3D=3D woke ? "!" : "");
++			putchar(\[aq]\[rs]t\[aq]);
++		}
++		putchar(\[aq]\[rs]n\[aq]);
++\&
++		for (i =3D 0; i < countof(futexes); ++i)
++			waiters[i].val =3D futexes[i];
++	}
++}
++.EE
++.\" SRC END
++.SH SEE ALSO
++.BR futex (2),
++.BR FUTEX_WAIT (2const),
++.BR FUTEX_WAKE (2const),
++.BR futex (7)
++.P
++Kernel source file
++.I Documentation/userspace-api/futex2.rst
+diff --git u/man/man7/futex.7 p/man/man7/futex.7
+index 51c5d5d9b..d271144ff 100644
+--- u/man/man7/futex.7
++++ p/man/man7/futex.7
+@@ -45,7 +45,9 @@ .SS Semantics
+ Any futex operation starts in user space,
+ but it may be necessary to communicate with the kernel using the
+ .BR futex (2)
+-system call.
++or
++.BR futex_waitv (2)
++system calls.
+ .P
+ To "up" a futex, execute the proper assembler instructions that
+ will cause the host CPU to atomically increment the integer.
+@@ -72,7 +74,9 @@ .SS Semantics
+ .P
+ The
+ .BR futex (2)
+-system call can optionally be passed a timeout specifying how long
++and
++.BR futex_waitv (2)
++system calls can optionally be passed a timeout specifying how long
+ the kernel should
+ wait for the futex to be upped.
+ In this case, semantics are more complex and the programmer is referred
+@@ -107,6 +111,7 @@ .SH NOTES
+ .SH SEE ALSO
+ .BR clone (2),
+ .BR futex (2),
++.BR futex_waitv (2),
+ .BR get_robust_list (2),
+ .BR set_robust_list (2),
+ .BR set_tid_address (2),
 --=20
-<https://www.alejandro-colomar.es>
+2.39.5
 
---rz25vftbclpgxpdk
+
+--zyd4l77ahydoowj4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmTIiwACgkQ64mZXMKQ
-wqnb5g//c2GdNAqwFNOQn0DTiZSSkpPE3dVwlxKcYBPBH/XSVNfwvjcUHFedg+Fq
-2uC22XxWT7q07eOV6nCk5aUuv5fEkRpILfSiRQaOgwkf6U2Hrl3/+lvFvj0BmodO
-LB37B0mNnVeXqw9gC3sdck1sIR8tgAs5gZ1DyhmIUb4xJ3cEn1U9ROs0EbrEm0Xa
-/Fab2w5TLZGmyII0A5V9nkRfvLTkq0BulIsuuOvB4EBkMzQWfO2uMmd9ftX4xMBw
-pmJRs0cBYRQdGZpBHblPNE+KjV4yY8ZriAvH1m5A+XaXgMFnjTEukvO3tYyDQcXV
-VzpENXqmYWnDz00e3Ub+uaI3NOv8nJ2lNBnmckKfWAyhT7kVSv4eGKW++1J+Lc9R
-tPnA/SQfLkVH0ASsdvFlHDjPW2yz2JQ83wZ37bAJ0p5sA6S31WkFQ6cNZZ7Rb9WH
-4ih7/95z+9Lh/r/h1dwkyE5Dp3vWnT1RExDZ2b5z8Y/ATir8L3rZ3wjujGqANQ/x
-Dg/VdFhSYI16MffUBhtMZal4hqT0chyAgZsD38k9ZxLougsJdx8aX6rO/eg29UdQ
-0ic3CnNWih8ZFG9RB7AVL0n/46Dr8w2CBo8iiyyWyIVjvEqJ2nYogL9X/Mw26krI
-93ET3pCgL1/Qobr3b8YzvU5U03t0kgse4fYBT1P9ipttHxZydRs=
-=twMd
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmmTJ8EACgkQvP0LAY0m
+WPEZ5w//fcGu2XX4y2ZfpHITDGZlBmb6pTeVTMp2xvCh093vTfh9UkShZaMEeTPz
+4uAR7396I3IA9Sp6AQ5uuvK5vELm3wOeSwDht5uaJ1soETqn5S8NMiFTp9OxpPHc
+W/Nq13OOXdQr5U4qA5nK0NMdff2GONh4ax7Jz8WuZWIUY1dCbR7yYd/+wDk4zkzP
+Y/fElxBhEC3pdgbjRvymgy6LbzhFwjvvgrzDz9z1Nf+HTHz/VLi1wmV/vfK2og2I
+akuw3PTyaicGmkz53mf0B6b6duOMkMPc+r7YP9Nm7o/sm4fZo4J23dpXK1HWFr4X
+dXOEtLeRwscEPvnUlwJMRWcuJPV11NzuwSaH8iALjvFz1fqAQdDBKAlLvlw5vzk+
+fJLrt4C6inqKFyEmAE1yXZAp99yr8f4wIj919tsCxnE+nBq/AOMEBnYtxdGiKUP/
+ErqlFxaIOkLSN2TpJ2GWt8u4pFgzwjccHriX5lFeueQyuG7ZFUoGLUbXOr0e9wMk
+6Z2VopQDLFptmzZ/vacWG5de3WTg/x0xwFoxRpEVMI+jiVPh9cZOuDHcgnJDs5zu
+OZ1aorSDXIsKLAJbnDXkqjZV5Cycvw3FdLooqEwScuI7iSWvQFHUyLAtCzKeo7ym
+gs0g7pZBqaK5n8q38Z43SfxtAnF3M+P98lVLogDVJr5iYnCftOk=
+=AVF1
 -----END PGP SIGNATURE-----
 
---rz25vftbclpgxpdk--
+--zyd4l77ahydoowj4--
 
