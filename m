@@ -1,59 +1,63 @@
-Return-Path: <linux-man+bounces-5151-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5152-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gCTaDVuNlGn6FQIAu9opvQ
-	(envelope-from <linux-man+bounces-5151-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 16:46:35 +0100
+	id mLfDHouUlGl3FgIAu9opvQ
+	(envelope-from <linux-man+bounces-5152-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 17:17:15 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B36014DAC6
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 16:46:34 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
+	by mail.lfdr.de (Postfix) with ESMTPS id A111314DFE3
+	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 17:17:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id DF562301BCD5
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 15:46:32 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 2D3443007222
+	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 16:17:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65B331D90DF;
-	Tue, 17 Feb 2026 15:46:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D291E36D515;
+	Tue, 17 Feb 2026 16:17:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOx4o4ff"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="F3w1zAFi"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B1AC2FF
-	for <linux-man@vger.kernel.org>; Tue, 17 Feb 2026 15:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49FD36B07A
+	for <linux-man@vger.kernel.org>; Tue, 17 Feb 2026 16:17:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771343192; cv=none; b=F3VRcddkNfjOn/ttEO9siywftyPWqRkbXQFgumAQ460OUPs0lXKxOoccXVRwTR5AK2cZxNdQ5AnrikKS3nYKvdR0Q18z/pqPH2pWAukE6tt1uXmRRv2KUxxLlQNPV4JyEICtpHghFANPRdyFiwHLu2g74D/29LpCYqOxAlPCd4M=
+	t=1771345028; cv=none; b=kv9Nm4ywEIKfHTEgQ5I1FiskdgkT6/LVWMUE2Vd9gM3bKS1A4SufGycygGPn94Y828R7tAwxy73sOkjqR1UGKNNsS16ZGfKuJZuI6i31CssB8L9k0Hbd6Tag9pAOJF5G/4T+35ZdrXfu+zyf4FSj3WVrN5DlDMz37APBHOpTiW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771343192; c=relaxed/simple;
-	bh=M0ZqPrC1odPNZw5g+/w4V9re6qtHijy7qViXepjd6Ok=;
+	s=arc-20240116; t=1771345028; c=relaxed/simple;
+	bh=lOLWCuAb1KhYH9K1PbOvWMalYBu07Pye9yrsZ/97XuE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ga2J6tzW73JtvADC79OglaP0pbPmoOs+UnWqVc5KsYyJjAO5/2hrgzx3yMFhTFE4A9soLlf8VsUCOG7+SPtIOIEV27w+52hhTs8N5MGrEVBMdPSYpDmFRo/QzBCyFDWWXyZ1hecOOEUmlvOTgpPFvLaG1bAgU4iCVLFSygdKqr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOx4o4ff; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1800DC4CEF7;
-	Tue, 17 Feb 2026 15:46:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771343191;
-	bh=M0ZqPrC1odPNZw5g+/w4V9re6qtHijy7qViXepjd6Ok=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=nN6LSl/C4LSexa59vYBfMuFoqDxjrsT7T1nk9ZlcPpqBUGfEsAUth0r4ZQw2CkW/ZDP5FJgF+t2eOFuCQr+3nAsPEqDMNHNZ57XYzCsoLIMgBGE57zHMF+PI0EnPgB5I1h3/F93fmj0KlI2zVFBSsKPVTjjVvHrOf4IhYY8yyeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=F3w1zAFi; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202505; t=1771345023;
+	bh=lOLWCuAb1KhYH9K1PbOvWMalYBu07Pye9yrsZ/97XuE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LOx4o4ffLsV7fq0534B5tuQhEss/lizzBvX6O+ipJiGtwRsS2JWCFqbAOl6DZHJuZ
-	 gngwQ//0zy8esMnQnMxQeC9eYqQQX6EqFeO7PC5saLf0j8+N+CxlMZCfgELMBe0Sdy
-	 4U2Z3ntbPauuxKwUPOJfrr6g0MhQCW8MgSPEOWS7JXxgN9rGuexeGYfiKOzdwweZp/
-	 BYy7Ie1QrU53kB+3T0/GztjtjLj0udCgd0iXlC75RTgOxmY9wlIKBYKgwpsao+m8WG
-	 pg82gwtjLbSP+9/0LLQUsPT31fljCBsO+8DXhPRLogGkwP/rrWmC2oG9OkWaN40BpR
-	 vM7RmoCN4X70w==
-Date: Tue, 17 Feb 2026 16:46:28 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+	b=F3w1zAFijdvf6SbXxndbA/d343J9pDjR+6uZN9DcCWxuJOePWUZq6sqOJT6jGGhWM
+	 AmWttOrhNuqymO3xp22VbZndfUj9/zVFNDsz92jo39PwcudCgZ61VUlNjJ5T1/N5Jk
+	 UYyDBOPPdkeL8t8gdr81SwYjrL8E0j/2ADCAKtYTFF9o0NXrfXRdzQKUAWdC1sieBT
+	 wD1WRQeVRfZf8+eWhhoKF5Lb3cvPJ1Dm9Wu/GjjTkY5Bvdf23BD13Dzd+oQVEHi6SU
+	 5ID8KLdtbrsNAurkDlJ5RrQAAOwblTjmcQuiLiHc6FcWUS6dj3ulsWUnPRUP4UUOBr
+	 VyUUG5xb2H6Ng==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 8C8162740;
+	Tue, 17 Feb 2026 17:17:03 +0100 (CET)
+Date: Tue, 17 Feb 2026 17:17:03 +0100
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH v13] futex_waitv.2: new page
-Message-ID: <aZSK5oo7o_jF85zP@devuan>
+Message-ID: <wxji2qjbiexzhd7ckmvyussimy3j44gaedm77zczycvn7esn4n@tarta.nabijaczleweli.xyz>
 References: <aZMtRBfvVxkvu9Nd@devuan>
  <cpwlz44rbvyilhpyrxb7bghsrmojbcoljmssluonivqbq2qsmx@tarta.nabijaczleweli.xyz>
  <aZRnXT1Zwmtt0eIr@devuan>
  <y2tytznhy5c6grvzvtw7px3a3qmj2u7evwaax4qzc2lf44sawd@tarta.nabijaczleweli.xyz>
+ <aZSK5oo7o_jF85zP@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -61,251 +65,90 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dalxvr2q5l2r6arj"
+	protocol="application/pgp-signature"; boundary="keucpt2mupawv6hc"
 Content-Disposition: inline
-In-Reply-To: <y2tytznhy5c6grvzvtw7px3a3qmj2u7evwaax4qzc2lf44sawd@tarta.nabijaczleweli.xyz>
+In-Reply-To: <aZSK5oo7o_jF85zP@devuan>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
+X-Spamd-Result: default: False [-4.26 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW(-0.50)[nabijaczleweli.xyz,none];
+	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
+	R_DKIM_ALLOW(-0.20)[nabijaczleweli.xyz:s=202505];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5151-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5152-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	FROM_NEQ_ENVFROM(0.00)[nabijaczleweli@nabijaczleweli.xyz,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[nabijaczleweli.xyz:+];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 8B36014DAC6
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: A111314DFE3
 X-Rspamd-Action: no action
 
 
---dalxvr2q5l2r6arj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--keucpt2mupawv6hc
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v13] futex_waitv.2: new page
-Message-ID: <aZSK5oo7o_jF85zP@devuan>
-References: <aZMtRBfvVxkvu9Nd@devuan>
- <cpwlz44rbvyilhpyrxb7bghsrmojbcoljmssluonivqbq2qsmx@tarta.nabijaczleweli.xyz>
- <aZRnXT1Zwmtt0eIr@devuan>
- <y2tytznhy5c6grvzvtw7px3a3qmj2u7evwaax4qzc2lf44sawd@tarta.nabijaczleweli.xyz>
-MIME-Version: 1.0
-In-Reply-To: <y2tytznhy5c6grvzvtw7px3a3qmj2u7evwaax4qzc2lf44sawd@tarta.nabijaczleweli.xyz>
 
-Hi,
-
-On 2026-02-17T15:31:29+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> On Tue, Feb 17, 2026 at 02:07:42PM +0100, Alejandro Colomar wrote:
-> > On 2026-02-16T21:43:14+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> > > +.TP
-> > > +.B EINVAL
-> > > +.I *timeout
-> > > +is denormal (before epoch or
-> > > +.I tv_nsec
-> > > +more than 999\[aq]999\[aq]999).
-> > I suspect .tv_nsec < 0 is also denormal, and it being a long, that's
-> > certainly possible, right?  Should we specify a range?
-> Hm, yeah:
-[...]
-> I hadn't considered the cast also checks for <0.
+On Tue, Feb 17, 2026 at 04:46:28PM +0100, Alejandro Colomar wrote:
+> silence; let me know your opinion:
 >=20
-> Scissor-patch below.
+> 	.tmp/man/man2/futex_waitv.2.d/futex_waitv.c:36:13: error: implicit use o=
+f sequentially-consistent atomic may incur stronger memory barriers than ne=
+cessary [clang-diagnostic-atomic-implicit-seq-cst,-warnings-as-errors]
+> 	   36 |      usleep(*futex * 10000);
+> 	      |             ^
+>=20
+>=20
+> 	.tmp/man/man2/futex_waitv.2.d/futex_waitv.c:37:13: error: implicit use o=
+f sequentially-consistent atomic may incur stronger memory barriers than ne=
+cessary [clang-diagnostic-atomic-implicit-seq-cst,-warnings-as-errors]
+> 	   37 |      *futex *=3D 2;
+> 	      |             ^
+>=20
+> I have little knowledge about atomics, so can't judge, but the code
+> seems good to me.  Please confirm.
+Yeah, that's okay. Worst-case is it'll be marginally slower than
+something more verbose that specifies... acqrel? which would be minimal her=
+e.
+But that doesn't matter for example code.
 
-I'm applying the patch, amended with the following.
+Best,
 
-	diff --git c/man/man2/futex_waitv.2 i/man/man2/futex_waitv.2
-	index f0553698e42a..7e336fec830d 100644
-	--- c/man/man2/futex_waitv.2
-	+++ i/man/man2/futex_waitv.2
-	@@ -4,7 +4,7 @@
-	 .\"
-	 .TH futex_waitv 2 (date) "Linux man-pages (unreleased)"
-	 .SH NAME
-	-futex_waitv \- wait for FUTEX_WAKE operation on multiple futexes
-	+futex_waitv \- wait for FUTEX_WAKE operation on a vector of futexes
-
-The NAME section should try to explain the name.  Thus, using the word
-'vector' in the description of the name seems better, as it clarifies
-why it has a trailing 'v'.
-
-	 .SH LIBRARY
-	 Standard C library
-	 .RI ( libc ,\~ \-lc )
-	@@ -15,20 +15,20 @@ .SH SYNOPSIS
-	 .B #include <unistd.h>
-	 .B #include <time.h>
-	 .P
-	-.BR "long syscall(" "unsigned int n;"
-	-.BI "             SYS_futex_waitv, struct futex_waitv " waiters [ n ],
-	-.BI "             unsigned int " n ", unsigned int " flags ,
-	-.BI "             const struct timespec *_Nullable " timeout ", clockid_t=
- " clockid ");"
-	+.BR long\~syscall( unsigned\~int\~n;
-	+.BI "             SYS_futex_waitv, struct\~futex_waitv\~" waiters [ n ],
-	+.BI "             unsigned\~int\~" n ", unsigned\~int\~" flags ,
-	+.BI "             const\~struct\~timespec\~*_Nullable\~" timeout ", clock=
-id_t\~" clockid );
-
-I'm planning a global change in SYNOPSIS to use SY/YS.  This will reduce
-the work.
-
-	 .fi
-	 .P
-	 .EX
-	 .B "#include <linux/futex.h>"
-	 .P
-	 struct futex_waitv {
-	-    u64 val;        /* Expected value at \f[I]uaddr\f[] */
-	-    u64 uaddr;      /* User address to wait on */
-	-    u32 flags;      /* Flags for this waiter */
-	-    u32 __reserved; /* Align to u64 */
-	+       u64  val;         /* Expected value at \f[I]uaddr\f[] */
-	+       u64  uaddr;       /* User address to wait on */
-	+       u32  flags;       /* Flags for this waiter */
-	+       u32  __reserved;  /* Align to u64 */
-
-I used a tab.  Also, two spaces between type and name, and between code
-and comment.
-
-	 };
-	 .EE
-	 .SH DESCRIPTION
-	@@ -300,6 +300,7 @@ .SH EXAMPLES
-	 .B !\&
-	 indicates the futex that woke up each
-	 .BR futex_waitv ().
-	+.P
-
-You forgot the P.
-
-	 .in +4
-	 .EX
-	 .RB $\~ ./futex_waitv
-	@@ -361,29 +362,28 @@ .SH EXAMPLES
-	 int
-	 main(void)
-	 {
-	-       _Atomic uint32_t  futexes[10];
-	-       uint8_t  init[countof(futexes)];
-	-       struct futex_waitv waiters[countof(futexes)] =3D {};
-	-       int  i;
-	+       _Atomic uint32_t    futexes[10];
-	+       uint8_t             init[countof(futexes)];
-	+       struct futex_waitv  waiters[countof(futexes)] =3D {};
-
-Aligned the names.
-
-	 \&
-		if (getentropy(init, sizeof(init)))
-			err(EXIT_FAILURE, "getentropy");
-		init[0] =3D init[1] =3D init[2];
-	-       for (i =3D 0; i < countof(futexes); ++i) {
-	+       for (int i =3D 0; i < countof(futexes); ++i) {
-
-I prefer C99 loop variables.
-
-			printf("%w8u\[rs]t", init[i]);
-			atomic_init(&futexes[i], init[i]);
-			pthread_create(&(pthread_t){}, NULL, worker, &futexes[i]);
-		}
-		putchar(\[aq]\[rs]n\[aq]);
-	 \&
-	-       for (i =3D 0; i < countof(futexes); ++i) {
-	+       for (int i =3D 0; i < countof(futexes); ++i) {
-			waiters[i].val   =3D futexes[i];
-			waiters[i].uaddr =3D (uintptr_t) &futexes[i];
-			waiters[i].flags =3D FUTEX2_SIZE_U32 | FUTEX2_PRIVATE;
-		}
-		for (;;) {
-	+               int              woke;
-			struct timespec  timeout;
-	-               int  woke;
-	 \&
-			clock_gettime(CLOCK_MONOTONIC, &timeout);
-			timeout.tv_sec +=3D 1;
-	@@ -392,14 +392,14 @@ .SH EXAMPLES
-			if (woke =3D=3D \-1 && (errno !=3D EAGAIN && errno !=3D EWOULDBLOCK))
-				err(EXIT_FAILURE, "my_futex_waitv");
-	 \&
-	-               for (i =3D 0; i < countof(futexes); ++i) {
-	+               for (int i =3D 0; i < countof(futexes); ++i) {
-				if (futexes[i] !=3D waiters[i].val)
-					printf("%w32u%s", futexes[i], i =3D=3D woke ? "!" : "");
-				putchar(\[aq]\[rs]t\[aq]);
-			}
-			putchar(\[aq]\[rs]n\[aq]);
-	 \&
-	-               for (i =3D 0; i < countof(futexes); ++i)
-	+               for (int i =3D 0; i < countof(futexes); ++i)
-				waiters[i].val =3D futexes[i];
-		}
-	 }
-
-I see some diagnostics from Clang, which I suspect I should just
-silence; let me know your opinion:
-
-	.tmp/man/man2/futex_waitv.2.d/futex_waitv.c:36:13: error: implicit use of =
-sequentially-consistent atomic may incur stronger memory barriers than nece=
-ssary [clang-diagnostic-atomic-implicit-seq-cst,-warnings-as-errors]
-	   36 |      usleep(*futex * 10000);
-	      |             ^
-
-
-	.tmp/man/man2/futex_waitv.2.d/futex_waitv.c:37:13: error: implicit use of =
-sequentially-consistent atomic may incur stronger memory barriers than nece=
-ssary [clang-diagnostic-atomic-implicit-seq-cst,-warnings-as-errors]
-	   37 |      *futex *=3D 2;
-	      |             ^
-
-I have little knowledge about atomics, so can't judge, but the code
-seems good to me.  Please confirm.
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---dalxvr2q5l2r6arj
+--keucpt2mupawv6hc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmUjVQACgkQ64mZXMKQ
-wqlrmxAAsXgxhBzBVqvfjrKF8u9Jvzg93WxOIYZFboc1bkE7qTfoge9A2MC6E5/n
-WPVvA7abBinE5fkc9T++PiXnhE0/oBi6tLhu+RZyKt9aqRvPmgkQRt8I3il49xQq
-jYEe0EeJFvdXGHegYmyIijp8dzEqh5QHqrbvzeDfTcW2qImLBqmTEW8v8Qk8zbq0
-VaqRU6h179npB3Oyu2GpS2Qxo+ONUmQcdgaIu/bKINada/USaqyGyaLO+jXLXNiz
-CSmYROeHgcpUjKI+qKCvGcrrWPOrqRcf6uh9y2S5kxjr5gQG0fMc/trU8DWs7nSr
-xTO6Mswjpaxekw0S/eVsDP6RR2GUf1VgxzyCe4yCCOVnLt5uT43EhNd69VLJWnTI
-E1hc9eJAD1dLLjRdYrO+hw7Up+FcIcR785wa8re3K3ZUYLTrx+j47y3Lmt35ICo5
-EfuDgvolXaqRA5EGy+VdEuAyfGO6r9wULnScJvwv3XkJ3BrvcAWaYxdjiSOURm4A
-lQW28siffRvfOFMJHFi7YP6w0n+TnsX12uQwpyxvaJwx6d3L/YCTbmZq8Iuo+O2P
-V5z4MOgB3wgwKlIgWN4AaPm6WxNiIc18x67wZiaKIU/Fc9Y+SAXvPo8ZCY2vuRXU
-pbwSixtx/K5J8NNU0Mautqaoqt6pqRGTkR36v9EBJobM2oo/x+I=
-=+gf5
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmmUlHwACgkQvP0LAY0m
+WPEIUA//VImxAQF9ugXU9mQphz4wlFnWjmBLkap810bm0G13JzT0AB8tXsnHnTlB
+ELvb7mlO42owYagmFkA4ia+uCfjd35EuEkPFO7w63nKC3heW2p1rg1vZROSmJAOa
+p7/1iLq77+kjad7Sht3Ag/1llMDY9QWuE9N7h9jVIMpEL034mmR/ZgXIwTScxNYT
+yxUA93fDznw1GIxg5zhSCTawfY2QKjh1J6AE+CfI8h7RbDW+uTuA2+wnJAjxMAQL
+tWrYwSL8CsN2Tz4mtRU8IIvfwdGDM4jnKJxOwDwoYPDjspKuDC4J3Uz13MehDEfx
+9mSbOVydbWAFZNDuLthdbmrU+KX0eWilDVPA9+43N1nTWDvVqrEedGD0YpsUCHfR
+ogZ3b5m4hbIZZvL1YrBFOdagdrMmDktTclS8rcoNUnWJrTw21NrHxQYNL+FLRv7t
+/nK+IPkFNCYYRw5LjebFMjcaynm+dP27S5N6EQOD/X19Or/bo2bPuQoctwevoD8j
+AdeQ+DKH5F3ZTdPjSunG955KcrBU/6534iDYuBwhcOqkSgec0k/7Q2S+o+zlwchU
+P4JqwiGulHMzoVLfdE35vXYkZVmt2EKOLTWhNDhbrk9gfE4sgum7WzmTvJGExV26
+0u1YE1fs3Q6+zzEQ2GrZFYZhxb1QyCYRMO3RxY3ejeA+JOt8dE8=
+=0HOl
 -----END PGP SIGNATURE-----
 
---dalxvr2q5l2r6arj--
+--keucpt2mupawv6hc--
 
