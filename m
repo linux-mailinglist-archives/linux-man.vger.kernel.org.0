@@ -1,58 +1,57 @@
-Return-Path: <linux-man+bounces-5148-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5149-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id n9iiGFdklGkFDgIAu9opvQ
-	(envelope-from <linux-man+bounces-5148-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 13:51:35 +0100
+	id yFWtOSVolGlFDgIAu9opvQ
+	(envelope-from <linux-man+bounces-5149-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 14:07:49 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id C80CE14C1BC
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 13:51:34 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CD1014C637
+	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 14:07:49 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id EF35B3024291
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 12:51:27 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id C1797302BEA1
+	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 13:07:47 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9243355056;
-	Tue, 17 Feb 2026 12:51:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B132135BDC9;
+	Tue, 17 Feb 2026 13:07:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCRPSLxj"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHJLSu5Y"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C56435504D
-	for <linux-man@vger.kernel.org>; Tue, 17 Feb 2026 12:51:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F175735C183
+	for <linux-man@vger.kernel.org>; Tue, 17 Feb 2026 13:07:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771332685; cv=none; b=KqNGSIGCzxxLohpvXcShcQQw2Cesi8ePWk50Y+0fIhUeG40zQ2B+NbMbotYecr64dOOMwhqEKNBK1fux5+BG/OtOXxgt2F5ikWVydmRqYEaz/hQ5+d5DulUsD4/lnhldcsVA9VjjqLQoxHJBqP/jWm7UEPw8eaF2NcOcC/OJ+K4=
+	t=1771333666; cv=none; b=eCVvH16NENkgXmC3lOQveLqbVb/PEiT6gswD5gj6Voc8eiKy507zhwJjcFmfCgLkIB+6yakrezJNZ0fcZhnQET6nStTx5yQJuon2O9ppLbcasIHOFPJ3tzrGfs1lsrJY/+xNzYltJpfGrjpI0c02nulmGGg4vNosmqJA8bt2ucM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771332685; c=relaxed/simple;
-	bh=ye2khyikktF1SFUvvW3ypeoqIyIdt/SfKEdIRecdMfA=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZFkQHekkKPYBgeTp5sRlprOcYR0lqzFUWOf3mgvFfIXkBHTkS5ivF5UaQ4zPEdPIJG8dVPLvIItG3FXZRwk76QbEm9QvgcJ2rpJyya09BpGcM/LOf6hX+kgjm+maqZbRyW9HhPJOTCoSRCMWl1V/+8+YzdikyZeu9zzrLQjO8Rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCRPSLxj; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8443EC4CEF7;
-	Tue, 17 Feb 2026 12:51:24 +0000 (UTC)
+	s=arc-20240116; t=1771333666; c=relaxed/simple;
+	bh=qYWMHK8gZ9YkvYKCwe3gouUS0Ibse4SRGBIeFv+TwFg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KZh6E70ykYTHW2cyGXXnruVLN/kOxsqMP8BPl1Qxh1lIhVM4/VfiDmncMEmYMxzX/G2tkYHgIpYbVIqwNu9tTIaCdsFw+yg1DZQl8MYG2ppY2rmNXZNgdk0dmUOV+KCrD7uUbebTZQJSiLVg0+fR7P7R7lscEiMP0C+DoW69CBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHJLSu5Y; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51A9C4CEF7;
+	Tue, 17 Feb 2026 13:07:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771332685;
-	bh=ye2khyikktF1SFUvvW3ypeoqIyIdt/SfKEdIRecdMfA=;
-	h=Date:From:To:Subject:References:In-Reply-To:From;
-	b=hCRPSLxjpfFyBqZzqk/2h4Pj8lzL5RrJ+uks7z6iPNO7gjVahyFEgAm0sfgVHk/c4
-	 ksxmzF4iA65PzCyHhC0cjIzgSfvTuxpjgUW2yOjbukKFhy/yiYtiDDG95qL4ES7GGM
-	 89ZF1fkoBAohI0+c+F8P8SWK9rUzvNjs62gkBix7YSc0d60lYsqxO5ndrHnbCoIeJU
-	 uHOpGBIiXJqoVb5VZ71oBOzNbpI3JlKRtPWP0YlJdrrmcn60kWNXuqDVVU/TZEgDcO
-	 dP70DatIFTQuKaeo4NSrXoWumCd0kLnsp7zzBDWGrQe4M0KS1NFz412iNcvSvZwgaQ
-	 w9EykZyf+EcGw==
-Date: Tue, 17 Feb 2026 13:51:22 +0100
+	s=k20201202; t=1771333665;
+	bh=qYWMHK8gZ9YkvYKCwe3gouUS0Ibse4SRGBIeFv+TwFg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UHJLSu5YF6bY/F1O4sMFrujWuUmfoglAHg9rREn2wRa9G3qio0hO9ftcC2tXt7oo9
+	 GkY78bTtb3nexKsQwFR9jD2hMwHZYTkdGNtgPZh748BpxfYWl0uhgdIpjqQmKKbrnO
+	 aKfBdyt5IPZpu0onvhWS6MtM0YzWqk5r5/yfpfkulG+/cFfhlq/JrapR+EoTo3KnTq
+	 MQhrHX3E+iYnLR7PAd5HXD72zFVFhd5qc8R4Z4OvrKWUqLMC6/MpI3NF57yUHlE3hJ
+	 PUcBpTC6e3TBc11t9h6kmiJ3QZP5GB9jpecGdWamOwcVXqtGBw/ifSFR669qtkRPEO
+	 DFyOvdve7MQLQ==
+Date: Tue, 17 Feb 2026 14:07:42 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <dev@sethm.id.au>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 0/1] man/man2/*: Update history of syscalls H-M
-Message-ID: <aZRjzZ6XNrudqDyH@devuan>
-References: <cover.1769429341.git.sethmcmail@pm.me>
- <cover.1771232583.git.dev@sethm.id.au>
- <aZMeuDza3H4tVbgu@devuan>
- <019c6b7c-ba8d-72e1-be96-ab6e6b8eb535@sethm.id.au>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v12] futex_waitv.2: new page
+Message-ID: <aZRnXT1Zwmtt0eIr@devuan>
+References: <aZMtRBfvVxkvu9Nd@devuan>
+ <cpwlz44rbvyilhpyrxb7bghsrmojbcoljmssluonivqbq2qsmx@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,23 +59,23 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xppw4yt3qkyiy7w7"
+	protocol="application/pgp-signature"; boundary="dwowheqhnsmkk3ij"
 Content-Disposition: inline
-In-Reply-To: <019c6b7c-ba8d-72e1-be96-ab6e6b8eb535@sethm.id.au>
+In-Reply-To: <cpwlz44rbvyilhpyrxb7bghsrmojbcoljmssluonivqbq2qsmx@tarta.nabijaczleweli.xyz>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5148-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5149-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -87,119 +86,90 @@ X-Spamd-Result: default: False [-3.76 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: C80CE14C1BC
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: 4CD1014C637
 X-Rspamd-Action: no action
 
 
---xppw4yt3qkyiy7w7
+--dwowheqhnsmkk3ij
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Seth McDonald <dev@sethm.id.au>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 0/1] man/man2/*: Update history of syscalls H-M
-Message-ID: <aZRjzZ6XNrudqDyH@devuan>
-References: <cover.1769429341.git.sethmcmail@pm.me>
- <cover.1771232583.git.dev@sethm.id.au>
- <aZMeuDza3H4tVbgu@devuan>
- <019c6b7c-ba8d-72e1-be96-ab6e6b8eb535@sethm.id.au>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v12] futex_waitv.2: new page
+Message-ID: <aZRnXT1Zwmtt0eIr@devuan>
+References: <aZMtRBfvVxkvu9Nd@devuan>
+ <cpwlz44rbvyilhpyrxb7bghsrmojbcoljmssluonivqbq2qsmx@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
-In-Reply-To: <019c6b7c-ba8d-72e1-be96-ab6e6b8eb535@sethm.id.au>
+In-Reply-To: <cpwlz44rbvyilhpyrxb7bghsrmojbcoljmssluonivqbq2qsmx@tarta.nabijaczleweli.xyz>
 
-Hi Seth,
+Hi,
 
-On 2026-02-17T22:37:28+1000, Seth McDonald wrote:
-> Hi Alex,
+On 2026-02-16T21:43:14+0100, =D0=BD=D0=B0=D0=B1 wrote:
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
+z>
+> ---
+> Range-diff against v11:
+[...]
 >=20
-> On Mon, 16 Feb 2026 at 14:57:06 +0100, Alejandro Colomar wrote:
-> > I personally use Migadu <https://migadu.com/>.  I've had a very good
-> > experience with them, and they're very quick in fixing any bugs I report
-> > to them.  If Fastmail works fine for you, that's great!
+>  man/man2/futex_waitv.2 | 413 +++++++++++++++++++++++++++++++++++++++++
+>  man/man7/futex.7       |   9 +-
+>  2 files changed, 420 insertions(+), 2 deletions(-)
+>  create mode 100644 man/man2/futex_waitv.2
 >=20
-> I'm actually quite surprised I didn't come across them.  I tried looking
-> at every email provider (even considered Purelymail, which I believe is
-> currently a 2-3 person project).  Migadu do look great from their
-> website, so I'll keep them in mind as a good backup.
->=20
-> > BTW, the ubuntu keyserver shows the existence of a non-revoked key that
-> > is probably old?
-> >=20
-> > 	pub (4)eddsa263/82b9620e53d0a1ae2d696111c267b0020a900289 2024-12-06T06=
-:53:33Z
-> >=20
-> > It contains two UIDs, one of which is revoked, but the other is not
-> > revoked:
-> [...]
-> > Is it intentionaly that you revoked the UID instead of the key?
->=20
-> That actually was intentional.  The two signatures on my key are of the
-> keys I used with my Proton emails; I signed it to show that I'm indeed
-> the same person despite the different email address.
->=20
-> I added the second UID to imply that of the two keys, if someone wanted
-> to send me encrypted email, they should use the one whose UID states
-> "email encryption".  But since I'm no longer planning on those being my
-> main email addresses, I revoked the "email encryption" UID.  But my
-> Proton address does still use that key, so I didn't revoke the whole
-> thing.
+> diff --git u/man/man2/futex_waitv.2 p/man/man2/futex_waitv.2
+> new file mode 100644
+> index 000000000..9790779ab
+> --- /dev/null
+> +++ p/man/man2/futex_waitv.2
+> @@ -0,0 +1,413 @@
+[...]
+> +.TP
+> +.B EINVAL
+> +.I *timeout
+> +is denormal (before epoch or
+> +.I tv_nsec
+> +more than 999\[aq]999\[aq]999).
 
-Ahh, makes sense.
+I suspect .tv_nsec < 0 is also denormal, and it being a long, that's
+certainly possible, right?  Should we specify a range?
 
->=20
-> > > Let me know if it's still corrupt, and I'll =CC=B6k=CC=B6i=CC=B6c=CC=
-=B6k=CC=B6 =CC=B6m=CC=B6y=CC=B6 =CC=B6P=CC=B6C calmly figure out
-> > > what's going on.
-> >=20
-> > It worked.  :)
->=20
-> Well that's certainly a relief!
->=20
-> Btw, did the strikethrough text render correctly for you?
+The rest looks good to me; I think this is the last question.
 
-Yup, it looks correct on mutt(1) and neomutt(1).
+(I'll still apply some editorial changes, but don't want to bother you
+ more with them.)
 
 
 Have a lovely day!
 Alex
 
->  It renders as
-> strikethrough for me on mutt(1) and vim(1), but it looks -l-i-k-e-=20
-> -t-h-i-s on the lore.kernel.org archive.
->=20
-> Take care,
-> 	Seth McDonald.
->=20
-> --=20
-> E9D1 26A5 F0D4 9DF7 792B  C2E2 B4BF 4530 D39B 2D51
-
-
-
 --=20
 <https://www.alejandro-colomar.es>
 
---xppw4yt3qkyiy7w7
+--dwowheqhnsmkk3ij
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmUZEMACgkQ64mZXMKQ
-wqmJ1w/+Jw8+16dhUnRWXg3mQEQ46rhVrMzVNNIYZiLbso5Ife6Sflwne5X1nDoq
-rnX3WdDmXiTk+sk+XsO82OHNoEXekmwYle2WrsH192dm3lImKXdY13Q8O0+Ea55F
-QDu/C5q4b0pMAE77sgMIm/oWGgX16qWQSIvgR/Wu9ZaSKWseNjEMnkq6UcG4SoU7
-PHRbLicR+df0kBMj3ewQ9LptvSQ/ImO0FdWiE7YxYgKxhL7fbiZVVdLREYCyHV7z
-DOb8mi114/HE1dN3gyvRQfhQDH1awxe/ckwW7UJfYgcOXmpLCqlqzg++1M7HwEQ2
-irX1iLYjReVVxMc0R/1tvfnc+V4l0fCp3iXbOkpWnS7ei96uP6K38RiWYjuaqPkF
-bu+FKBRCwGj5Z8KSFYeZ75/89BF0bt6iNdPBfN1Rn+XO0zhjHuV1G5OLjq26PHEv
-Pro5VDTDGW/L+bC3C9EqOM8SsAd2sCkB6txGv6KJwPShKiKIpRcqq25rLE903Qd+
-sgZL7qoh9YpvA0DjEYEorraJf/I71YrpEdEgjcygpJ18wI+JNQPu/wx1fNLpD2th
-UNs530jaYwAq91u+T6Lq8OVtdcyWF6C8BFs2I30dUUOtf4oyD8076Qm0WF4N6JZc
-nUqNbFjaSJdRO8GgitE9EOThJpiU4tIrdChVU4tpYhdNeZph1qk=
-=I+mo
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmUaB4ACgkQ64mZXMKQ
+wqn7Mw//Q8c5UN1urBb2BQ1E12wll0BdsVRuSTC5j2BxPP3AzPcOhQJpEwTfiiqK
+K+VL98ixGG9J3N3HbLi18KJym0r6S/lCG2CxwimJ1gkkHKnOotkX72eN/pTyJR5U
+EKrfoLQ8X1/d70SpAtHdTY0ofhVRz9uzwMo6CzetJbOt/EG2yGOc7lrAK2Un2GZE
+OGL5ON6t/+mwuSELO2xzezXTTkRCgHQrKdN3pu7ghCRIU+PUxts59jMP5krghr6g
+2rbJAv35LiPhWehPsM8a2btYinsWv4/oZcm7LmzSdgf5NZ4HgWd7lMYZoDetzNZc
+zeaMN/AGhmVp+x1jNntZsiaARc+7M1YEhgVIdQZTKz7l5fELoD9vQX5W6GnEnf5v
+TWJ1PqMHnNTDT7V+DIevE4pWvu6tI2HLJ4R0ToZIAiVAJ4ight06u5F2MwIQr8Mf
+rHxht7OOiW3BbEysfJpQnKHGooZTYhggqpFEczZGm4D54adMpESwUg7X0wYjr5hZ
+7VMI8r87mYnOn3LSqyTHULlh/FKGkCGatYWlu7Z6kzmKSKF7nygSkZYTglQKpR0h
+J0jjlsYSX4/tFG9qzZZM6I7JIimVTuxzjijKy2GVdFpTOC/rRi4Rfc6e0jphLCEu
+lYCpDIBP5F5hCuOtmxo1mVDgdn5bc1ZsL9G/+THng82q3P2iRuo=
+=Py5Y
 -----END PGP SIGNATURE-----
 
---xppw4yt3qkyiy7w7--
+--dwowheqhnsmkk3ij--
 
