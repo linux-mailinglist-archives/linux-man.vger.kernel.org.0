@@ -1,63 +1,61 @@
-Return-Path: <linux-man+bounces-5152-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5153-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mLfDHouUlGl3FgIAu9opvQ
-	(envelope-from <linux-man+bounces-5152-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 17:17:15 +0100
+	id vYQuAU4IlWk2KQIAu9opvQ
+	(envelope-from <linux-man+bounces-5153-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 01:31:10 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id A111314DFE3
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 17:17:14 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id 649E5152465
+	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 01:31:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 2D3443007222
-	for <lists+linux-man@lfdr.de>; Tue, 17 Feb 2026 16:17:12 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 459D43034CBB
+	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 00:31:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D291E36D515;
-	Tue, 17 Feb 2026 16:17:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B24CB1EB5F8;
+	Wed, 18 Feb 2026 00:31:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="F3w1zAFi"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LY0jX+/j"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49FD36B07A
-	for <linux-man@vger.kernel.org>; Tue, 17 Feb 2026 16:17:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A9417C211
+	for <linux-man@vger.kernel.org>; Wed, 18 Feb 2026 00:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771345028; cv=none; b=kv9Nm4ywEIKfHTEgQ5I1FiskdgkT6/LVWMUE2Vd9gM3bKS1A4SufGycygGPn94Y828R7tAwxy73sOkjqR1UGKNNsS16ZGfKuJZuI6i31CssB8L9k0Hbd6Tag9pAOJF5G/4T+35ZdrXfu+zyf4FSj3WVrN5DlDMz37APBHOpTiW4=
+	t=1771374665; cv=none; b=P8UywsLetK8MDxcyD4XU25DZy94rxCIznB7Vk0jh+h+TxZ1ekPpxahfCNosqURtHJ4nX4MyOay17itK7BiubTQk3b1c4QaLA+6pMN3/BF/inRRTBVNwgJ8YFeCjn1eDgHAhvTImudsRnUg9EkfCyhfLxrp2UwopSZjo0r02gxfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771345028; c=relaxed/simple;
-	bh=lOLWCuAb1KhYH9K1PbOvWMalYBu07Pye9yrsZ/97XuE=;
+	s=arc-20240116; t=1771374665; c=relaxed/simple;
+	bh=eIpUHpxrlVS/XjTTatE02UCR6KEypG1WtKfQZrxLVCg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nN6LSl/C4LSexa59vYBfMuFoqDxjrsT7T1nk9ZlcPpqBUGfEsAUth0r4ZQw2CkW/ZDP5FJgF+t2eOFuCQr+3nAsPEqDMNHNZ57XYzCsoLIMgBGE57zHMF+PI0EnPgB5I1h3/F93fmj0KlI2zVFBSsKPVTjjVvHrOf4IhYY8yyeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=F3w1zAFi; arc=none smtp.client-ip=139.28.40.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202505; t=1771345023;
-	bh=lOLWCuAb1KhYH9K1PbOvWMalYBu07Pye9yrsZ/97XuE=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z54n+c8ej/y2/w0EhjAwWEHya6qX9zHXeHSTbBuAUQb8pHR8mbtlWbWiOrlpUVlRwejjP8HcTbb5ZJrIvDRypiTY/6DMGqJSGlsY0jUkWd3/Sp2bEz7mC5FcjEuYr27Z1cBtrfqNhYeRmU4HUKt9hr02nhdoxvmTYwM9U2GYpSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LY0jX+/j; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640AAC4CEF7;
+	Wed, 18 Feb 2026 00:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1771374665;
+	bh=eIpUHpxrlVS/XjTTatE02UCR6KEypG1WtKfQZrxLVCg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=F3w1zAFijdvf6SbXxndbA/d343J9pDjR+6uZN9DcCWxuJOePWUZq6sqOJT6jGGhWM
-	 AmWttOrhNuqymO3xp22VbZndfUj9/zVFNDsz92jo39PwcudCgZ61VUlNjJ5T1/N5Jk
-	 UYyDBOPPdkeL8t8gdr81SwYjrL8E0j/2ADCAKtYTFF9o0NXrfXRdzQKUAWdC1sieBT
-	 wD1WRQeVRfZf8+eWhhoKF5Lb3cvPJ1Dm9Wu/GjjTkY5Bvdf23BD13Dzd+oQVEHi6SU
-	 5ID8KLdtbrsNAurkDlJ5RrQAAOwblTjmcQuiLiHc6FcWUS6dj3ulsWUnPRUP4UUOBr
-	 VyUUG5xb2H6Ng==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 8C8162740;
-	Tue, 17 Feb 2026 17:17:03 +0100 (CET)
-Date: Tue, 17 Feb 2026 17:17:03 +0100
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To: Alejandro Colomar <alx@kernel.org>
+	b=LY0jX+/jppMh3b8v2at3sdq3E/Y7z6JaYz5UT7FsII5QQKlCMMcsHajrBTuSad/1s
+	 OnqQRQZN6FYVIfWUCh7p3m5yMsm4pmmeZILxn0InrxW2wB7mmbbWNNLpnrTtBI1NJw
+	 DQzDA6BJ3C+EFLDdMRZz7ZQfSzOvzCCgu9n70AISuYDaXNtpVXwNfnDzfYYQYzrOVA
+	 DHWV0jS9Kh9JTG717QmyUkFEe4HDWgKrTSTZlE1g+YBJ/LE1pYCdhDioB18ajUV9IT
+	 gHF4otAuqn6qqu7PZwdKT97fEcWpER34IfaLfyIVBa3PHut3FL+QV18apG/WdmTlUq
+	 ggiLOkw68A2tQ==
+Date: Wed, 18 Feb 2026 01:31:01 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH v13] futex_waitv.2: new page
-Message-ID: <wxji2qjbiexzhd7ckmvyussimy3j44gaedm77zczycvn7esn4n@tarta.nabijaczleweli.xyz>
+Message-ID: <aZUIDEVpG1t9sIp6@devuan>
 References: <aZMtRBfvVxkvu9Nd@devuan>
  <cpwlz44rbvyilhpyrxb7bghsrmojbcoljmssluonivqbq2qsmx@tarta.nabijaczleweli.xyz>
  <aZRnXT1Zwmtt0eIr@devuan>
  <y2tytznhy5c6grvzvtw7px3a3qmj2u7evwaax4qzc2lf44sawd@tarta.nabijaczleweli.xyz>
  <aZSK5oo7o_jF85zP@devuan>
+ <wxji2qjbiexzhd7ckmvyussimy3j44gaedm77zczycvn7esn4n@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,90 +63,115 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="keucpt2mupawv6hc"
+	protocol="application/pgp-signature"; boundary="h2qbxpgtmmpowwr3"
 Content-Disposition: inline
-In-Reply-To: <aZSK5oo7o_jF85zP@devuan>
-User-Agent: NeoMutt/20231221-2-4202cf-dirty
+In-Reply-To: <wxji2qjbiexzhd7ckmvyussimy3j44gaedm77zczycvn7esn4n@tarta.nabijaczleweli.xyz>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-4.26 / 15.00];
+X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[nabijaczleweli.xyz,none];
-	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
-	R_DKIM_ALLOW(-0.20)[nabijaczleweli.xyz:s=202505];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5153-lists,linux-man=lfdr.de];
+	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5152-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
+	URIBL_MULTI_FAIL(0.00)[alejandro-colomar.es:server fail,tor.lore.kernel.org:server fail];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[nabijaczleweli@nabijaczleweli.xyz,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[nabijaczleweli.xyz:+];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: A111314DFE3
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	TAGGED_RCPT(0.00)[linux-man];
+	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 649E5152465
 X-Rspamd-Action: no action
 
 
---keucpt2mupawv6hc
-Content-Type: text/plain; charset=us-ascii
+--h2qbxpgtmmpowwr3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v13] futex_waitv.2: new page
+Message-ID: <aZUIDEVpG1t9sIp6@devuan>
+References: <aZMtRBfvVxkvu9Nd@devuan>
+ <cpwlz44rbvyilhpyrxb7bghsrmojbcoljmssluonivqbq2qsmx@tarta.nabijaczleweli.xyz>
+ <aZRnXT1Zwmtt0eIr@devuan>
+ <y2tytznhy5c6grvzvtw7px3a3qmj2u7evwaax4qzc2lf44sawd@tarta.nabijaczleweli.xyz>
+ <aZSK5oo7o_jF85zP@devuan>
+ <wxji2qjbiexzhd7ckmvyussimy3j44gaedm77zczycvn7esn4n@tarta.nabijaczleweli.xyz>
+MIME-Version: 1.0
+In-Reply-To: <wxji2qjbiexzhd7ckmvyussimy3j44gaedm77zczycvn7esn4n@tarta.nabijaczleweli.xyz>
 
-On Tue, Feb 17, 2026 at 04:46:28PM +0100, Alejandro Colomar wrote:
-> silence; let me know your opinion:
->=20
-> 	.tmp/man/man2/futex_waitv.2.d/futex_waitv.c:36:13: error: implicit use o=
-f sequentially-consistent atomic may incur stronger memory barriers than ne=
-cessary [clang-diagnostic-atomic-implicit-seq-cst,-warnings-as-errors]
-> 	   36 |      usleep(*futex * 10000);
-> 	      |             ^
->=20
->=20
-> 	.tmp/man/man2/futex_waitv.2.d/futex_waitv.c:37:13: error: implicit use o=
-f sequentially-consistent atomic may incur stronger memory barriers than ne=
-cessary [clang-diagnostic-atomic-implicit-seq-cst,-warnings-as-errors]
-> 	   37 |      *futex *=3D 2;
-> 	      |             ^
->=20
-> I have little knowledge about atomics, so can't judge, but the code
-> seems good to me.  Please confirm.
-Yeah, that's okay. Worst-case is it'll be marginally slower than
-something more verbose that specifies... acqrel? which would be minimal her=
-e.
-But that doesn't matter for example code.
+Hi =D0=BD=D0=B0=D0=B1,
 
-Best,
+On 2026-02-17T17:17:03+0100, =D0=BD=D0=B0=D0=B1 wrote:
+> On Tue, Feb 17, 2026 at 04:46:28PM +0100, Alejandro Colomar wrote:
+> > silence; let me know your opinion:
+> >=20
+> > 	.tmp/man/man2/futex_waitv.2.d/futex_waitv.c:36:13: error: implicit use=
+ of sequentially-consistent atomic may incur stronger memory barriers than =
+necessary [clang-diagnostic-atomic-implicit-seq-cst,-warnings-as-errors]
+> > 	   36 |      usleep(*futex * 10000);
+> > 	      |             ^
+> >=20
+> >=20
+> > 	.tmp/man/man2/futex_waitv.2.d/futex_waitv.c:37:13: error: implicit use=
+ of sequentially-consistent atomic may incur stronger memory barriers than =
+necessary [clang-diagnostic-atomic-implicit-seq-cst,-warnings-as-errors]
+> > 	   37 |      *futex *=3D 2;
+> > 	      |             ^
+> >=20
+> > I have little knowledge about atomics, so can't judge, but the code
+> > seems good to me.  Please confirm.
+> Yeah, that's okay. Worst-case is it'll be marginally slower than
+> something more verbose that specifies... acqrel? which would be minimal h=
+ere.
+> But that doesn't matter for example code.
 
---keucpt2mupawv6hc
+Thanks!  Applied and pushed.  In a moment, I'll send a patch to refactor
+the page, to see what you think of it.
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--h2qbxpgtmmpowwr3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmmUlHwACgkQvP0LAY0m
-WPEIUA//VImxAQF9ugXU9mQphz4wlFnWjmBLkap810bm0G13JzT0AB8tXsnHnTlB
-ELvb7mlO42owYagmFkA4ia+uCfjd35EuEkPFO7w63nKC3heW2p1rg1vZROSmJAOa
-p7/1iLq77+kjad7Sht3Ag/1llMDY9QWuE9N7h9jVIMpEL034mmR/ZgXIwTScxNYT
-yxUA93fDznw1GIxg5zhSCTawfY2QKjh1J6AE+CfI8h7RbDW+uTuA2+wnJAjxMAQL
-tWrYwSL8CsN2Tz4mtRU8IIvfwdGDM4jnKJxOwDwoYPDjspKuDC4J3Uz13MehDEfx
-9mSbOVydbWAFZNDuLthdbmrU+KX0eWilDVPA9+43N1nTWDvVqrEedGD0YpsUCHfR
-ogZ3b5m4hbIZZvL1YrBFOdagdrMmDktTclS8rcoNUnWJrTw21NrHxQYNL+FLRv7t
-/nK+IPkFNCYYRw5LjebFMjcaynm+dP27S5N6EQOD/X19Or/bo2bPuQoctwevoD8j
-AdeQ+DKH5F3ZTdPjSunG955KcrBU/6534iDYuBwhcOqkSgec0k/7Q2S+o+zlwchU
-P4JqwiGulHMzoVLfdE35vXYkZVmt2EKOLTWhNDhbrk9gfE4sgum7WzmTvJGExV26
-0u1YE1fs3Q6+zzEQ2GrZFYZhxb1QyCYRMO3RxY3ejeA+JOt8dE8=
-=0HOl
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmVCEUACgkQ64mZXMKQ
+wqk6HhAAgwxQJ1wcquS6HnhzwkN7vpl5OvlPYw0klpCkPZXBxFh/qYlYlIwgTwDd
+uuiDnW7vHY+sTQCgdhyT91HPZhyTmdsmgy5PmRXNqUxmJXRgZNoTFvcfuusSvuUu
+q0wdL7p0cY76YboWt4Kg3H2JrufKFRaaM3lztq1LhryQAXSRwCypl4G12VycBH/L
+rI3qeJHatpAjE5yqvkXR2b90IfUImPNCzsRQe2NBlyEDuxncDj79iT0V3dKRSXNU
+VglqLCMKHZInjKv8Kl/bKGcQ7fZf/+imEzn216MEtrUDIdx3bR10iMwhTWA0pJN9
+K1bl7dOIRyH2+FOTN2VC4srfA6PAwTV8wGI2SqufHH7xRbqcmdE830l2OFYTK8sr
+7C8SK/7iXTilFDtDcECe3MUA215OGxzeR2Td/SFUJOB42IwpqdYmXDYtgS8PRUKZ
+Q1KDdtupOi+7dj+0rQ+M6AU0kMGa/sTqk3awm2lXxndJ2odAoBWfAEKJFdCm48Iq
+n7xzFAQxpCWGEPAmVl5bXTwixxV7MAoU7xDb06cwvFVUcbmoLRzBJnGG96iFgEWo
+nKKRjNqLxwvpoRgxmmEEPKssWFjRy9EqCYaAdhrto55lvG+BEkteGdEVNydNAXV+
+lLWl5/6TqlY+9z102hJIaGaI8B9P9pWaTDVwsIipRp1xoE9jSVk=
+=0y3o
 -----END PGP SIGNATURE-----
 
---keucpt2mupawv6hc--
+--h2qbxpgtmmpowwr3--
 
