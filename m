@@ -1,190 +1,219 @@
-Return-Path: <linux-man+bounces-5160-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5161-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yHP+AbcjlmkXbAIAu9opvQ
-	(envelope-from <linux-man+bounces-5160-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 21:40:23 +0100
+	id UOXDJAswlmktcAIAu9opvQ
+	(envelope-from <linux-man+bounces-5161-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 22:32:59 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33E1E1597DA
-	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 21:40:22 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0088715A24A
+	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 22:32:58 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id E406E3003720
-	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 20:40:19 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 0E7C4304743D
+	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 21:28:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0062F318BA6;
-	Wed, 18 Feb 2026 20:40:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3E3F3314BF;
+	Wed, 18 Feb 2026 21:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BcJnjCvX"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bE6KIVGl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09852F1FEA
-	for <linux-man@vger.kernel.org>; Wed, 18 Feb 2026 20:40:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63B8330D22
+	for <linux-man@vger.kernel.org>; Wed, 18 Feb 2026 21:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771447218; cv=none; b=KxNOuiEhjLY15Y2s7KugSCo12cPtJzzDfI4Di1O4DFUqsPQdJ24Zl18vMZeoXQU+Blu3WWUeLsM6jgsb/GJkS66lDnh16ck+A0Ncq5bnHNOZrrsRFIqsdYq1LCJAanmN9yk/UxzULylhlWbTN89kYyBijCizpUrMqDrPv/JIPBI=
+	t=1771450096; cv=none; b=ll4c0Tzf0cnIS60qI4z/JUlGE2eMqt8A0DaXT6uigRu63Li8zYyma9K3N7w8mt3txQnN3gSImC203t1X5Iv6PppuYMtjREYtcfJDhwOXa2PMw9NfPmbfZhxfMEleQoyziFtE/B3Coj+tozuwxX3o51FGlbtiflpHxRG3IDEj3gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771447218; c=relaxed/simple;
-	bh=J5ltA3mD19KkWL1P4yVgVC9+2JJs+vMcbztONlSk1E0=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LOYx7pTIdcKoQWXTkwhVcxq/rh7zW03NnpKDdHb7n+f4KuuzhdwGz4Nz5rC6yipzWXZCb0EQ6Gnk/EH1uifjUS7uspWPA5LUbiWPuQpnfTf1v7mdEaJQFTom+GGjjrQDX7qlEndFQf9UAWWbalRZMB8Vfw8V3bX0JdYSPfmNzQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BcJnjCvX; arc=none smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-463ba60966aso79328b6e.1
-        for <linux-man@vger.kernel.org>; Wed, 18 Feb 2026 12:40:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771447215; x=1772052015; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=kIwi8qrwhqXia9PLUjFGmQxrJFVr8CmWnd8j5RNjIIU=;
-        b=BcJnjCvX28CZVtOge5ou5wd8AoqWLCs1vthvDMbCly++O5SjEkUpizwr8tbDAi5Zzu
-         m5t5U2B+c/z/Pj7seLvCtOpPld8Xn+ENJLx8jzYlTza1yFRvZnWgCyIYVSHb/kjPQ2b9
-         wZbbnsbRanI1KdHzRr+h23MSSm8IujZxxxgHW/BqSdaNn3zExgQE0MO5t211A+nFyqWi
-         HfmxlvXUGQvw8iQfAgEb9EBD2Y50CUHzfpnl/nojbA+m03iKabcOrNSbUZg6Ec0Ug0Lc
-         ELPH+KRngidX1FqSzJR3v5KejlL7SaIyxc8XgVTtqfOEUxL+c4Xf7LlX8pCONYIlVSNR
-         +5aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771447215; x=1772052015;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=kIwi8qrwhqXia9PLUjFGmQxrJFVr8CmWnd8j5RNjIIU=;
-        b=LbPHVdGAsIMlJo2NZxjQWF7nSrTGIH+vhAe51ssEo0u6x33Ma1DlvVvCoY4Kd6F5jE
-         L/iEjjdguCq3Gnq6NOL+meHZtoe/ld7A4jCAZrKRlu+t2yIzHU5bK1kzIbKQQwnkt70U
-         8RZ5EX8OBd4GzsZwwMUAubAbTVHPmDfVtrrWv5FsFaBllwu36CFw/9UJcHoj6WOsfPTt
-         VOuWQGpISnimG1ddFK64n44JkbbBKnSU+Lr5xKqTANGqVGlI8mnEmw0XS5pTbwiew9o8
-         Rh+saJffg69U9lgksM5ItZGeR3foT/iJbfDWOcFnTyZ3zkxRE68u9YCn24kiaxO+jYBE
-         FHJQ==
-X-Gm-Message-State: AOJu0YwfkKpvtEdVU+uX5wXibgJYXAoyPCFdnN4bb3I2o22BlkDPP1VV
-	qcQBpe29jzi5ugfl78f7kirp30D3/0VzRE24HY/RmPRGe7uXYsJ74XROmrIMlw==
-X-Gm-Gg: AZuq6aKVPWZOS7caSCjXYPNYX+s1GpOJDqG1oVlf126NpgI7cFwXYFNFOvE/24WlTjS
-	THKFCNGFgai87J/r5hY1qdSwrnGa8fXxO8WdMzJoxbxqxvOtCE+9s1nEAinR85WqT9GlDU1wBsA
-	gMVKfi9fY7JiO5Xo0x4XZJzyTldTWqlcm7BZsHwU+cPbNYoyVl+sNYtdRBp/NrchYvKe4QxW4Sz
-	pFHcnGj1Z1+jstT7QBW+7jzmmS4UMkVxnLXdedj9LzM6KVuGG7R45+cFcwBWQ+QCHuPvtMEMutv
-	D40T/NssaOQnPjI/yrJ6HJYfjb+D30Abvni0UEBvplnGmzwPpFgLqY6INlCOA+bS2VO6tZwIskY
-	lj7wmopFBB53shGw9HEJh4wZ8Tq9tO7lc98HB7333IlgPX1FLbQDc1p0UJffQOYGwhdKW5aZwsE
-	j4UIbrhcY2Njb+
-X-Received: by 2002:a05:6808:6f86:b0:44d:a817:2d72 with SMTP id 5614622812f47-463b40cf722mr7538520b6e.60.1771447215424;
-        Wed, 18 Feb 2026 12:40:15 -0800 (PST)
-Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7d4a76f98cesm18613693a34.22.2026.02.18.12.40.13
-        for <linux-man@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Feb 2026 12:40:14 -0800 (PST)
-Date: Wed, 18 Feb 2026 14:40:12 -0600
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: linux-man@vger.kernel.org
+	s=arc-20240116; t=1771450096; c=relaxed/simple;
+	bh=hFDlbhcxiQWmOkpJXx1x37qWjIEHD4wn8U5LVm5kGyk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rdQq4cwm3zjJXJp0AP1WGxBAh2n63w9EjUZ4mTsflMfR4aMMAd1I6xB0fkejX6HHLKeigHCy3XABYvxk/byA7xsiB9c5oa8whqHfyjxTqzFPSjUWNfVvddG6+OYP5QffZ62vQaf6DSjxYBNW3I6IqNYk77lT4fEa7V6H29YA86k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bE6KIVGl; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5D1C116D0;
+	Wed, 18 Feb 2026 21:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1771450096;
+	bh=hFDlbhcxiQWmOkpJXx1x37qWjIEHD4wn8U5LVm5kGyk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bE6KIVGlFlwjxpEUeZkB4taSX354FcKeubYrE7UeBCthJJWThnPj/OvncrBbum2dt
+	 eRZJqc5e+WctILBdsWcN+VvLMbHf+9cFKcZSxQ1U7WVkcTWxQ6MHAvNfECsMmqkugV
+	 nD2kGKu5IUUTnRWCImWvTIwl41tNLGhf7LECrNtv5J/GDnfnJLCSk5krZalVxPF4Tp
+	 cLOIDYEHT9Kcm8ptb3LtdfLFIpY1QR6zxpAestw/3VOFV+lv13+RcH7w/U5xEYUJyN
+	 5sOcDQa4Gv+oGmYTPRz1qnaE0ToF8vVPWcvxYx2Xf2FDhv7/v76t/+G2wYjK2TI2kx
+	 dGwL737EcFF+w==
+Date: Wed, 18 Feb 2026 22:28:13 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, 
+	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Subject: Re: [PATCH v1 0/1] futex_waitv.2: Move text to a new PARAMETERS
  section
-Message-ID: <20260218204012.nzeqnwfgi2vdyi5n@illithid>
+Message-ID: <aZYuPv3a1ONEi_nB@devuan>
 References: <jpyv367v4jdxfxebxw6wh7rgqdfeswzp44dzsycfjt5k2pxe4j@tarta.nabijaczleweli.xyz>
  <cover.1771374933.git.alx@kernel.org>
  <wkb6g6eqsjol24fyermtgntg3yuzgrbs6z3bz5vfy5x6psy57r@tarta.nabijaczleweli.xyz>
  <aZYgLav9DxDExlQL@devuan>
  <cieq4a5bknvcu6oykfehgc76djihdiy6fuats2nqbcnznojdyx@tarta.nabijaczleweli.xyz>
+ <20260218204012.nzeqnwfgi2vdyi5n@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="slhucakryrl3do2s"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3njaarf6q6r6ztff"
 Content-Disposition: inline
-In-Reply-To: <cieq4a5bknvcu6oykfehgc76djihdiy6fuats2nqbcnznojdyx@tarta.nabijaczleweli.xyz>
+In-Reply-To: <20260218204012.nzeqnwfgi2vdyi5n@illithid>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TAGGED_FROM(0.00)[bounces-5160-lists,linux-man=lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	RCPT_COUNT_ONE(0.00)[1];
+	TAGGED_FROM(0.00)[bounces-5161-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[gmail.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gbrandenrobinson@gmail.com,linux-man@vger.kernel.org];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_NONE(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
-	NEURAL_HAM(-0.00)[-1.000];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-0.999];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	TAGGED_RCPT(0.00)[linux-man];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 33E1E1597DA
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: 0088715A24A
 X-Rspamd-Action: no action
 
 
---slhucakryrl3do2s
+--3njaarf6q6r6ztff
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, 
+	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Subject: Re: [PATCH v1 0/1] futex_waitv.2: Move text to a new PARAMETERS
  section
+Message-ID: <aZYuPv3a1ONEi_nB@devuan>
+References: <jpyv367v4jdxfxebxw6wh7rgqdfeswzp44dzsycfjt5k2pxe4j@tarta.nabijaczleweli.xyz>
+ <cover.1771374933.git.alx@kernel.org>
+ <wkb6g6eqsjol24fyermtgntg3yuzgrbs6z3bz5vfy5x6psy57r@tarta.nabijaczleweli.xyz>
+ <aZYgLav9DxDExlQL@devuan>
+ <cieq4a5bknvcu6oykfehgc76djihdiy6fuats2nqbcnznojdyx@tarta.nabijaczleweli.xyz>
+ <20260218204012.nzeqnwfgi2vdyi5n@illithid>
 MIME-Version: 1.0
+In-Reply-To: <20260218204012.nzeqnwfgi2vdyi5n@illithid>
 
-At 2026-02-18T21:30:53+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> On Wed, Feb 18, 2026 at 09:26:38PM +0100, Alejandro Colomar wrote:
-> > On 2026-02-18T21:16:06+0100, =D0=BD=D0=B0=D0=B1 wrote:
-> > > On Wed, Feb 18, 2026 at 01:41:38AM +0100, Alejandro Colomar wrote:
-> > > > Please let me know what you think of this patch?
-> > > > Here's how the patch changes the page:
-> > [...]
-> > > > What do you think?  I think the formatted page is more readable.
-> > > I really hate it.
-> > Okay.  Do you like any part, or is it all hateful?  :-)
-> The format annoys me, the layout infuriates me, I find the tone
-> insulting.
+Hi Branden, =D0=BD=D0=B0=D0=B1,
 
-When dealing with formally complex (meaning: decomposable) proposals,
-rapprochement is difficult with a binary oracle.
+On 2026-02-18T14:40:12-0600, G. Branden Robinson wrote:
+> At 2026-02-18T21:30:53+0100, =D0=BD=D0=B0=D0=B1 wrote:
+> > On Wed, Feb 18, 2026 at 09:26:38PM +0100, Alejandro Colomar wrote:
+> > > On 2026-02-18T21:16:06+0100, =D0=BD=D0=B0=D0=B1 wrote:
+> > > > On Wed, Feb 18, 2026 at 01:41:38AM +0100, Alejandro Colomar wrote:
+> > > > > Please let me know what you think of this patch?
+> > > > > Here's how the patch changes the page:
+> > > [...]
+> > > > > What do you think?  I think the formatted page is more readable.
+> > > > I really hate it.
+> > > Okay.  Do you like any part, or is it all hateful?  :-)
+> > The format annoys me, the layout infuriates me, I find the tone
+> > insulting.
+>=20
+> When dealing with formally complex (meaning: decomposable) proposals,
+> rapprochement is difficult with a binary oracle.
+>=20
+> Alex,
+>=20
+> The onus might be on you to correspondingly decompose =D0=BD=D0=B0=D0=B1'=
+s black box.
+>=20
+> Some obvious candidates include the two hunks of the end of the
+> diff of the formatted document that change only a few words, and the
+> existence of a "PARAMETERS" section of the page.
 
-Alex,
+Hmmm, I've now pushed a much smaller change:
 
-The onus might be on you to correspondingly decompose =D0=BD=D0=B0=D0=B1's =
-black box.
+	$ MANWIDTH=3D64 diffman-git HEAD
+	--- HEAD^:man/man2/futex_waitv.2
+	+++ HEAD:man/man2/futex_waitv.2
+	@@ -54,11 +54,16 @@ DESCRIPTION
+	      Futex words to monitor are given by struct futex_waitv,
+	      whose fields are analogous to FUTEX_WAIT(2const) parame=E2=80=90
+	      ters, except .__reserved must be 0 and .flags must contain
+	-     one of FUTEX2_SIZE_* ORed with some of the flags below.
+	+     exactly one size flag, ORed with some other flags.
+	=20
+	      FUTEX2_SIZE_U32
+		     .val and .uaddr[] are 32=E2=80=90bit unsigned integers.
+	=20
+	+     FUTEX2_SIZE_U8
+	+     FUTEX2_SIZE_U16
+	+     FUTEX2_SIZE_U64
+	+            These are defined, but not supported (EINVAL).
+	+
+	      FUTEX2_NUMA
+		     The futex word is followed by another word of the
+		     same size (.uaddr points to uintN_t[2] rather than
+	@@ -132,9 +137,8 @@ ERRORS
+		     Any waiters[].flags field contains an unknown flag.
+	=20
+	      EINVAL
+	-            Any waiters[].flags field is missing a FU=E2=80=90
+	-            TEX2_SIZE_* flag or has a size flag different than
+	-            FUTEX2_SIZE_U32 set.
+	+            Any waiters[].flags field does not contain exactly
+	+            one size flag, or it contains an unsupported one.
+	=20
+	      EINVAL
+		     Any waiters[].__reserved field is not 0.
 
-Some obvious candidates include the two hunks of the end of the
-diff of the formatted document that change only a few words, and the
-existence of a "PARAMETERS" section of the page.
+I think this one should be uncontroversial.
 
-Regards,
-Branden
 
---slhucakryrl3do2s
+Cheers,
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--3njaarf6q6r6ztff
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmmWI6QACgkQ0Z6cfXEm
-bc7hxg//c/xuVo9JGjEZ8kRpraglLVsXNLFl6rLIed2D+g89cA04hNnZUvoVWEab
-+ESMVustlDj81Gn4LDM1VHWiO/5l0JXnd7ZmepYO4Em89x59qZK9Z26Uj7HNVN2h
-6UaBcrt2xork08ybSnWHYOnpIKX0iIFhBBRMJ7eTfbwLw9gX3sUIv5y/g6UbbKNs
-zg02V0GtX7O+vJlSIpn8VNeYbRMWDU5U0Ib91imeQ6D6c8MBRK2QgfTledxquBTH
-ZMpafBl0mdJNGI2xaWUCwBYDBeq9HxuxvX+dyF5c2sQUjcVgbVM0kWmyaLXYZhe2
-57DMMvPQnqy8NnRaxPas1v+0bSH4/iQnio6H3JGQh1JAOnSesZx6MZTl8me2/Z4d
-uUqkszQW3+/Vxe7DZYuNKtqDMxZgoF//42vSHzHrSNE0zmK/jbNcBLOOebC3cKNf
-4u8R1l0xp2lyznhSoFvFygl1qd716DFK2w9OwjdQqZh5lBLVjdKM61D0Vfp41ORj
-Jn0ak8HO3BK3N49DUxv/6XlKARfx55UIEzDMTvKyxhUljyq0ddbKqTPNxeVUfMaX
-SjjGmP/Z6n6KiGLQ/OWNJpwAebopgidjk9Nf9nCOyab/KalIxiC4Sf862YdlhFCs
-e7XIhsoxjfrzOB/tvy01m7BMWfkMh5mACb9HUrB3+6XFdcL4nME=
-=g8is
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmWLuwACgkQ64mZXMKQ
+wqkXZg/8D42Mhd0MPK9i+dtp40FNnIVPckk2RB7t8c/AnZJRuRWMEQO5+UKeeI52
+vLRYo+DQ1T2OH/NhV6DdqsMKHcDoUcz6DRy0muB9M5INBAmt6fQYMOTU4myOzT/q
+7BBE9ZtmXeHnQOnVhUWy2+dlGpbtu5tbziGg1roqDOGYcaUHcnzsMsoFHJqyNd/k
+F8G6R+fbMnag+liw7vXbzaU0Y/E7kwlFa1t0prIdx9Xc+QkBubW02UdsFxZE4tDF
+tA3pLS0ulro+Vd1YCCdp45ZSRkBmmx+5dbauHfYZcos08vNZqs9sKqDbg28rESjH
+fBAQyu5PhpsDO8l3SCGE2c0WU8kZl4VvDq6AaHXI/wZnpPFynX9kzEGZoKZwh54f
+aRO8QNbZJz+QBbdEZ+HaFUd6i4NZN15UPyql51EMXyYI44+0SO1pt+6mkwaPMHzV
+vU272jyCn/O+6EQf8F6MBVRwPO0LXPSUQS5UT0St+LknI159b+9nEZ6P9226cLTT
+QV/wHDTiP/lvtgpKtadORV0SRhj2d9/ZNc9IRGNArzU5orUyzFymIcg+6keo2NYn
+wuGkUoanJmJ/atoGOWjRLJ+ejk0ErLNgU4rm4c0iPt6XZZcE9dVV8r8aVUJiBsOQ
+7RG2l+s2wR6kW/N/Y7rf5e8rpQo4TjWPAqrFxWfO5KAvcBUYHCM=
+=+GFu
 -----END PGP SIGNATURE-----
 
---slhucakryrl3do2s--
+--3njaarf6q6r6ztff--
 
