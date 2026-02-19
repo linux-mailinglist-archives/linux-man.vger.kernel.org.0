@@ -1,181 +1,158 @@
-Return-Path: <linux-man+bounces-5162-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5163-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oGQYC143lmkkcQIAu9opvQ
-	(envelope-from <linux-man+bounces-5162-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 23:04:14 +0100
+	id 4POrIDsRl2n7uAIAu9opvQ
+	(envelope-from <linux-man+bounces-5163-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 19 Feb 2026 14:33:47 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A03F15A8D9
-	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 23:04:13 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15CE815F1C6
+	for <lists+linux-man@lfdr.de>; Thu, 19 Feb 2026 14:33:46 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 1D7C23013705
-	for <lists+linux-man@lfdr.de>; Wed, 18 Feb 2026 22:04:12 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 975D6302412F
+	for <lists+linux-man@lfdr.de>; Thu, 19 Feb 2026 13:33:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 288AE5474F;
-	Wed, 18 Feb 2026 22:04:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6466233AD98;
+	Thu, 19 Feb 2026 13:33:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXOu192B"
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="hsXiEdxl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE7530648C
-	for <linux-man@vger.kernel.org>; Wed, 18 Feb 2026 22:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6ECD28DC4
+	for <linux-man@vger.kernel.org>; Thu, 19 Feb 2026 13:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771452250; cv=none; b=aP3Hz9+HKeyeBb2JAw1jmt4e7eNgV/0uVkzcfOfdLKO/psJKjQmWZefBl2R9Tg9PuwHXawDCV7McMMQSko5qbFZbLbC85GqfTfTeUPylQe9za59ggzhIF0MCH++0+r1r1nVLKTZvtOxogjAqobAHdVpOk6Fua1z1SeVzqkmhlX0=
+	t=1771507982; cv=none; b=nrR8faTSUTZajdaqqtAMVljgGyQe37o0XmI+tHspd/X/3Z6qvWqqaVd4L9qO+QqZu2bqQ5fawF/FAuf24fAiURWv1iHEBf8vprtMOm14QeWSk3V/qnxUilxcdRPMKNNAerS87h1MbKPhbNAjAjWF9+cQ2ZnMOagZcSWewb+YiEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771452250; c=relaxed/simple;
-	bh=0WN00E09GJWSY5L8u4AkHttXfoDX3IgITS592B/Apvg=;
+	s=arc-20240116; t=1771507982; c=relaxed/simple;
+	bh=dCck66s0v47ULUUYdlp/cXV9epUOrVjReuinnGfUWx4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EUhWul75ynRcwXdZPGtkKTG9iEV7Gm4XdENU1bQ3WpqdWvuRZtpS5Benbz1riGfIiZ0Qx7GTIZl+7ZYA1ZvAwh7e4oHz2KA3nFqAzCh8ZqGv5NagKaCx1aBJjxkz45EIAN+KMQmpieXwHuPLKErBSiZYuRz9hLGMzKDwE13JL7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXOu192B; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9DC2C116D0;
-	Wed, 18 Feb 2026 22:04:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771452250;
-	bh=0WN00E09GJWSY5L8u4AkHttXfoDX3IgITS592B/Apvg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GXOu192BAZbPMucr3R3xrFkan/V/l7/29WFYMOv55BWr2jDaO/Ss4nhdU86/NyJt1
-	 BLTWW7FpalNaR3Vp7pBn7PbBKu0brfHYQUWpN48CqdVqUuL+oY9icsznZi8F6S3mon
-	 RBr8rHm5l9r/c3luzPzDfCqBEKuv3lcufhHJwj9wiW3DGQxd0EXO1Wlct05SAL44BJ
-	 m0ev+b2XDMJCkAQfceqKwUD0lx6ymXO4KkjUaOsYIN6cb5uk7ICNb7W9UM7G+Z8gid
-	 rvznKj9Gjj7VHyt2o3DHKYhYAD9fOq5SOIa/JpmSXdSGE7GIdJdaPEmcEhInIQzuWb
-	 o1bxH/rLRKVNA==
-Date: Wed, 18 Feb 2026 23:04:07 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Subject: Re: [PATCH v1 0/1] futex_waitv.2: Move text to a new PARAMETERS
- section
-Message-ID: <aZY3F6GDm6vZZ6Hg@devuan>
-References: <jpyv367v4jdxfxebxw6wh7rgqdfeswzp44dzsycfjt5k2pxe4j@tarta.nabijaczleweli.xyz>
- <cover.1771374933.git.alx@kernel.org>
- <wkb6g6eqsjol24fyermtgntg3yuzgrbs6z3bz5vfy5x6psy57r@tarta.nabijaczleweli.xyz>
- <aZYgLav9DxDExlQL@devuan>
- <cieq4a5bknvcu6oykfehgc76djihdiy6fuats2nqbcnznojdyx@tarta.nabijaczleweli.xyz>
- <20260218204012.nzeqnwfgi2vdyi5n@illithid>
- <aZYuPv3a1ONEi_nB@devuan>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uxgdr01z45+H5/B94GdgryGi/lzFaNml3oPMNgWWDagE31/KXUIbYOJmcpjlcDLx2lWbN45aUbN+pnLtbFt8jMPFPhzImA3mxAmOK1LyzCK5D0IUbiCf3tNnCUdbwKqUaXmLtsfgGVnJPFmNdObnnkYb8gveXegQTrW/U100JqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=hsXiEdxl; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+Received: from macsyma.thunk.org (pool-173-48-113-47.bstnma.fios.verizon.net [173.48.113.47])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 61JDWjIB023264
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 19 Feb 2026 08:32:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1771507967; bh=VdHBiExKqlXg6NHpKYC77q0+QKRJ4W9ibO9DGh60Ubg=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=hsXiEdxlYaQs13CoTCPwt3iFEy7NpbLKlmR8Sk+gZIVAz2t2DmMyhFfvaIcXphnVd
+	 c7wTxGBfiWYx0JCoJexiOb48wwvhDpBcmnwxx/NPs4ly2AD4ilvVk13ino/I0khsv9
+	 AqlHGnujhAH1p12zGhWOLRa254Zu/hMjubLZiK349mc+yjRAeI5F+Aqp0eyVhnfmn2
+	 d/5RQueX4k1GuU6qJ58t9YV1C2Clg+EpfI2Itt+9atyHEChslNfKGKWYWSz95ncCWU
+	 +88OUw9uhHoC65v/JPH3Qs3wdiKkkh+l3ZISdRQ76ueqt1dAjy4Cxtcg0LyFAdsy2W
+	 m1Vc3y/LQHnag==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id DFD0F591998E; Thu, 19 Feb 2026 08:32:44 -0500 (EST)
+Date: Thu, 19 Feb 2026 08:32:44 -0500
+From: "Theodore Tso" <tytso@mit.edu>
+To: Andreas Dilger <adilger@dilger.ca>
+Cc: Vyacheslav Kovalevsky <slava.kovalevskiy.2014@gmail.com>,
+        linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-man@vger.kernel.org
+Subject: Re: Writing more than 4096 bytes with O_SYNC flag does not persist
+ all previously written data if system crashes
+Message-ID: <20260219133244.GB69183@macsyma-wired.lan>
+References: <3d8f73f4-3a64-4a86-8fc9-d910d4fa3be1@gmail.com>
+ <174A8D06-B9B6-4546-A528-7A814D538208@dilger.ca>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g5rjb2luwrkokbq6"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aZYuPv3a1ONEi_nB@devuan>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <174A8D06-B9B6-4546-A528-7A814D538208@dilger.ca>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW(-0.50)[mit.edu,none];
+	R_DKIM_ALLOW(-0.20)[mit.edu:s=outgoing];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5162-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5163-lists,linux-man=lfdr.de];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	NEURAL_HAM(-0.00)[-0.999];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 8A03F15A8D9
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[mit.edu:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[tytso@mit.edu,linux-man@vger.kernel.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	TAGGED_RCPT(0.00)[linux-man];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,macsyma-wired.lan:mid]
+X-Rspamd-Queue-Id: 15CE815F1C6
 X-Rspamd-Action: no action
 
++linux-man
 
---g5rjb2luwrkokbq6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Subject: Re: [PATCH v1 0/1] futex_waitv.2: Move text to a new PARAMETERS
- section
-Message-ID: <aZY3F6GDm6vZZ6Hg@devuan>
-References: <jpyv367v4jdxfxebxw6wh7rgqdfeswzp44dzsycfjt5k2pxe4j@tarta.nabijaczleweli.xyz>
- <cover.1771374933.git.alx@kernel.org>
- <wkb6g6eqsjol24fyermtgntg3yuzgrbs6z3bz5vfy5x6psy57r@tarta.nabijaczleweli.xyz>
- <aZYgLav9DxDExlQL@devuan>
- <cieq4a5bknvcu6oykfehgc76djihdiy6fuats2nqbcnznojdyx@tarta.nabijaczleweli.xyz>
- <20260218204012.nzeqnwfgi2vdyi5n@illithid>
- <aZYuPv3a1ONEi_nB@devuan>
-MIME-Version: 1.0
-In-Reply-To: <aZYuPv3a1ONEi_nB@devuan>
+On Wed, Feb 18, 2026 at 02:55:13PM -0700, Andreas Dilger wrote:
+> If anything, the man page should be updated to be more concise, like:
+> 
+>     "the *just written* output data *on that file descriptor* and associated
+>      file metadata have been transferred to the underlying hardware (i.e.
+>      as though each write(2) was followed by a call to sync_file_range(2)
+>      for the corresponding file offset(s))"
 
-On 2026-02-18T22:28:16+0100, Alejandro Colomar wrote:
-> I think this one should be uncontroversial.
+Yeah, this is an inaccuracy in the man page; the definition of O_SYNC
+from the Single Unix Specification states:
 
-And here's another one I'll push in a moment:
+    O_SYNC    Write I/O operations on the file descriptor shall complete
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+              as defined by synchronized I/O file integrity completion.
 
-	$ MANWIDTH=3D64 diffman-git=20
-	--- HEAD:man/man2/futex_waitv.2
-	+++ ./man/man2/futex_waitv.2
-	@@ -51,6 +51,11 @@ DESCRIPTION
-	      clockid.  This interval will be rounded up to the system
-	      clock granularity, and is guaranteed not to expire early.
-	=20
-	+     The following clocks are supported:
-	+
-	+     CLOCK_MONOTONIC
-	+     CLOCK_REALTIME
-	+
-	      Futex words to monitor are given by struct futex_waitv,
-	      whose fields are analogous to FUTEX_WAIT(2const) parame=E2=80=90
-	      ters, except .__reserved must be 0 and .flags must contain
-	@@ -127,7 +132,7 @@ ERRORS
-	=20
-	      EINVAL
-		     timeout was not NULL and clockid was not a valid
-	-            clock (CLOCK_MONOTONIC or CLOCK_REALTIME).
-	+            clock.
-	=20
-	      EINVAL
-		     *timeout is denormal (before epoch or tv_nsec not
+Compare and contrast this to what's in the Linux manpage:
 
---=20
-<https://www.alejandro-colomar.es>
+       O_SYNC Write  operations  on the file will complete according to the re‐
+              quirements of synchronized I/O file integrity completion (by con‐
+              trast with the synchronized I/O data  integrity  completion  pro‐
+              vided by O_DSYNC.)
 
---g5rjb2luwrkokbq6
-Content-Type: application/pgp-signature; name="signature.asc"
+              By  the  time  write(2) (or similar) returns, the output data and
+              associated file metadata have been transferred to the  underlying
+              hardware (i.e., as though each write(2) was followed by a call to
+              fsync(2)).  See VERSIONS.
 
------BEGIN PGP SIGNATURE-----
+The parenthetical comment in the second paragraph needs to be removed,
+since fsync specifices that all dirty information in the page cache
+will be flushed out.  From the fsync man page:
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmWN1cACgkQ64mZXMKQ
-wqkDFxAAuEsVYYq33hxyZGZ+pU9BvxCI3oVWjzwt51Ye+l2OLLd7yKLqL0gKCB2y
-OljXuQwRFrHUpSI1z3VrE1YvUR/Z+2MLX8yuRYRcoz/nNOGX5mC7x94UpUFQ8AWV
-HCAZuh5n+wbzNPdg87GajeHEdsqQlRbihVaTzubn0AfJzFa1vcu2jzSiXAPntJSk
-0Y2Zkz/x/se46Oj/W0tum75iSxa8IDaVGjgRAS7+7kKc4KcY/j0YtJx9ZbVQVzxQ
-NBJgswJ8Lq5ahZXQTJEd09SYYzIXbIzWFDvpitqfYaGlY9XTwuO4qwsBs74MmNUC
-c1m2J5lgjt7RfUq5t3lTgX6a0wZWkcQLVtbq1E2aWvnOevAwGULG70zWxte9zHKE
-EqBCrjXqMGeMUmjhCIJ3CatKzonkJZPLL+dzKaW5O6QPKnXB6sTfY2HNihV4HeGb
-R8EPr8N0cApz3VxS8NuEiTpf5tYsEnS2zXr7HvH6lnm5hpJxK0rd5nDAPuKvYgnl
-KE7OyvBQhhrX8LK2RqceNWlpa/a7i19sMkYImdOLiTHifKb9dwy/WKtpg6auebn+
-q6YMGaT1AGMMXC3qgvaLJnoDx0/PYADXRyFFn8PUKxQ3X7CmXHB9yze8KTkTqWly
-KEf1LpWYwhdZR+2Zz34DejuEW5/uWp2auGlA6bUNk7jdh5E5kTA=
-=UJYg
------END PGP SIGNATURE-----
+       fsync() transfers ("flushes") all modified in-core data of (i.e.,  modi‐
+       fied buffer cache pages for) the file referred to by the file descriptor
+       fd  to  the  disk device (or other permanent storage device) so that all
+       changed information can be retrieved even if the system  crashes  or  is
+       rebooted.   This  includes  writing  through or flushing a disk cache if
+       present.  The call blocks until the device reports that the transfer has
+       completed.
 
---g5rjb2luwrkokbq6--
+I'll also mention that the fsync man page doesn't really talk about
+its interaction with O_DIRECT writes.  This is mentioned in the
+open(2) man page, and in general, people who use O_DIRECT are
+generally expected to know what they are doing.  But in the context of
+O_DIRECT writes, the fsync(2) call is also used to make sure that a
+CACHE FLUSH or equivalent command is sent to the storage device, such
+that the O_DIRECT write is guaranteed to persist after a power
+failure.
+
+Cheers,
+
+					- Ted
 
