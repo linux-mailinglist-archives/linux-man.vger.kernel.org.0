@@ -1,56 +1,57 @@
-Return-Path: <linux-man+bounces-5201-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5202-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wDS3C4Z0m2lkzwMAu9opvQ
-	(envelope-from <linux-man+bounces-5201-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 22:26:30 +0100
+	id e5Z9GPp0m2lwzwMAu9opvQ
+	(envelope-from <linux-man+bounces-5202-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 22:28:26 +0100
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4470C1706DA
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 22:26:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85EFF1706E3
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 22:28:25 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 9868C30091DC
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 21:26:26 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 43DC530091EF
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 21:28:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1BE8F23BF83;
-	Sun, 22 Feb 2026 21:26:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F11DF1A2C04;
+	Sun, 22 Feb 2026 21:28:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="neGtcO6X"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2xI+ycB"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AC21A2C04
-	for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 21:26:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47B179CD
+	for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 21:28:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771795582; cv=none; b=fPCI9eCYEK1GFwK5wrep80ETixXUUPTZrM4sR6vsnbp9OOQlyQgyxKuZB3vyLl3fJUSponqXmtgYt50deBasX10iQzFcJ9/C9fYKmp19+reajUipxHT7f5S3AmG9nip6GRp31d+nN/NPB9YAC2vgKqH/vV03jo2QfvMb2wfGBHc=
+	t=1771795699; cv=none; b=u5tDCk6pI57F7oVDbr7puxwVb8uUshzgdiopDedJrJOK4RXOGyodH9vGC5xnSrg7gOpvJ0ZbaCW4zKZk5SG4JpgFPu4b+f6j0I86JeEVg9MbMIYXYXZuQ9w5uddzCgtgdhAhG/WyY6Jq5F6NBm9do4ejSQyY+hFHAAy6wXAZOBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771795582; c=relaxed/simple;
-	bh=lVh5MU1vFbsCKDImpZJ7jriGfzQyVA5qm7PBzQKqRSA=;
+	s=arc-20240116; t=1771795699; c=relaxed/simple;
+	bh=nxpvK8XkiJ+MwT8VstwFAbWzUtuZnbLhzmaeJrnqMe4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z5nqKGK8Ksuj88ppMeX1q+SvskHG7qK4OvFT74iMcPuRn8K6fe48c9xMaVyaTgFxVy806xjkwgbHnsi2ORalCJe0MJUGJBGBleFhjLOz0azTp4EtJwc3L0I/Sm/bYuoQkdzpqDwOmcivk0PzuSS6WzOFHi8VWPgZ8p+4/PCN1OE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=neGtcO6X; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2EFFC116D0;
-	Sun, 22 Feb 2026 21:26:21 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=UssXvUKmYfu3vPjHlCCe2ubp29kaj6QcDbNhWwYNPx+V1QsRXu/77MzG0ikX2jQq4vGJXt226gYsbvtV39ubJZOLSoY1itAupy8AXRK7WmdLs+6Tf2uF1RnYqwLoxnB1w/biVr56Tf/h53MRI8TAbhld0eAcBIAK3hG7R1FKUP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2xI+ycB; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94C59C116D0;
+	Sun, 22 Feb 2026 21:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771795582;
-	bh=lVh5MU1vFbsCKDImpZJ7jriGfzQyVA5qm7PBzQKqRSA=;
+	s=k20201202; t=1771795699;
+	bh=nxpvK8XkiJ+MwT8VstwFAbWzUtuZnbLhzmaeJrnqMe4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=neGtcO6XLoUW2oPYgwRPNN866Xfh7LrHK9kkoPLt3GKaTXYVW/EZWu5ovsdzbrTru
-	 wT/9rOWL24pH0Oy3cI7phI8DyH7h7gl/d6nlamupgiXAxHtWxP6H6CoQuD5LmOSrJR
-	 xQBIcRfxKQjPf8SN9OH9J0zg+F8rIB3w8+ZkJqd+ayXr+Ii6U5apWH4gzgtEcyFAml
-	 EjOoLtgC8L4ie73OXC4pvw2Op3Cj7g7OlME0Cp3V3ojvJ89QmCUrTQO894ylDeM963
-	 LeUZYwrLrqqWQakS5xvNgCmDAW9wdp+ztgQR6YaiScyu9J3f/oEg8IoDbm6kSfx9Ie
-	 GLhUlgXA2sY2A==
-Date: Sun, 22 Feb 2026 22:26:19 +0100
+	b=T2xI+ycBMbVKTn3eUAnZuIwI5jvC+Izirk6UxhXbmoq08dncBxI1Vj2AAJAHz5sx1
+	 7hcrOYZ6GoAM+p0RKhryX4/nPk9xVm/Rr+4PWXBmvBcow/dRs04wmSvJc4egZ7JGRW
+	 9aLhmairMznhGrmeJtsrQhLY/a738zM1lSWv0utP2YzEFfh2ozgmdOqUMVCo2nTmRm
+	 Yr/TW2SVthtAQy1Ps6eukf+Da7beACn2iI2aAmHrlPlu9qxdPz1EqjltArPbgjqtuh
+	 /qpJ7lXNt56hMwk+VwoA6DWleT7npV8Kyp6Zm8uNhNX2i6Yl2FXaUc+AJ2FYRqpPJH
+	 uMoIeAnhM+1Ow==
+Date: Sun, 22 Feb 2026 22:28:16 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <dev@sethm.id.au>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 0/5] man/man2/*: Miscellaneous fixes
-Message-ID: <aZt0aDVJB3KnaXfe@devuan>
+Subject: Re: [PATCH 4/5] man/man2/readv.2: HISTORY: ffix
+Message-ID: <aZt0yjophKW3Jltt@devuan>
 References: <cover.1771750388.git.dev@sethm.id.au>
+ <f336517a9084b23f49da379a4d2a73f7a86c2e32.1771750388.git.dev@sethm.id.au>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,9 +59,9 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3kr2llvchnuhmjwh"
+	protocol="application/pgp-signature"; boundary="rdwm7zl2fsc2mrys"
 Content-Disposition: inline
-In-Reply-To: <cover.1771750388.git.dev@sethm.id.au>
+In-Reply-To: <f336517a9084b23f49da379a4d2a73f7a86c2e32.1771750388.git.dev@sethm.id.au>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
@@ -74,14 +75,14 @@ X-Spamd-Result: default: False [-3.76 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5201-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5202-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	NEURAL_HAM(-0.00)[-0.999];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
@@ -89,67 +90,90 @@ X-Spamd-Result: default: False [-3.76 / 15.00];
 	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 4470C1706DA
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,sethm.id.au:email,sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 85EFF1706E3
 X-Rspamd-Action: no action
 
 
---3kr2llvchnuhmjwh
+--rdwm7zl2fsc2mrys
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Seth McDonald <dev@sethm.id.au>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 0/5] man/man2/*: Miscellaneous fixes
-Message-ID: <aZt0aDVJB3KnaXfe@devuan>
+Subject: Re: [PATCH 4/5] man/man2/readv.2: HISTORY: ffix
+Message-ID: <aZt0yjophKW3Jltt@devuan>
 References: <cover.1771750388.git.dev@sethm.id.au>
+ <f336517a9084b23f49da379a4d2a73f7a86c2e32.1771750388.git.dev@sethm.id.au>
 MIME-Version: 1.0
-In-Reply-To: <cover.1771750388.git.dev@sethm.id.au>
+In-Reply-To: <f336517a9084b23f49da379a4d2a73f7a86c2e32.1771750388.git.dev@sethm.id.au>
 
-Hi Seth,
+On 2026-02-22T20:12:14+1000, Seth McDonald wrote:
+> Signed-off-by: Seth McDonald <dev@sethm.id.au>
+> ---
+>  man/man2/readv.2 | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/man/man2/readv.2 b/man/man2/readv.2
+> index 765d487b9ff1..51549cf8214a 100644
+> --- a/man/man2/readv.2
+> +++ b/man/man2/readv.2
+> @@ -462,13 +462,17 @@ .SH HISTORY
+>  .\" The readv/writev system calls were buggy before Linux 1.3.40.
+>  .\" (Says release.libc.)
+>  .P
+> -.BR preadv (),
+> -.BR pwritev ():
+> +.TP
+> +.BR preadv ()
+> +.TQ
+> +.BR pwritev ()
+>  Linux 2.6.30,
+>  glibc 2.10.
+>  .P
+> -.BR preadv2 (),
+> -.BR pwritev2 ():
+> +.TP
+> +.BR preadv2 ()
+> +.TQ
+> +.BR pwritev2 ()
+>  Linux 4.6,
+>  glibc 2.26.
+>  .SS Historical C library/kernel differences
 
-On 2026-02-22T20:12:10+1000, Seth McDonald wrote:
-> Hi Alex,
->=20
-> This is just a handful of minor fixes I came across, mainly for making
-> some formatting more consistent.
->=20
-> Btw, could you let me know if these patches' *PGP signatures are valid?
-> I've written a script to help with signing outgoing patches and want to
-> make sure it's working correctly.
->=20
-> Seth McDonald (5):
->   man/man2/open_tree.2: HISTORY: ffix
->   man/man2/perfmonctl.2: HISTORY: wfix
->   man/man2/process_madvise.2: HISTORY: ffix
->   man/man2/readv.2: HISTORY: ffix
->   man/man2/s390_guarded_storage.2: HISTORY: ffix
+This patch had issues:
 
-I've applied all the patches; thanks!
+	remote: mandoc: .tmp/man/man2/readv.2:464:2: WARNING: skipping paragraph m=
+acro: PP empty
+	remote: mandoc: .tmp/man/man2/readv.2:471:2: WARNING: skipping paragraph m=
+acro: PP empty
+	remote: make: *** [/home/alx/src/linux/man-pages/man-pages/contrib/share/m=
+k/lint/man/mandoc.mk:31: .tmp/man/man2/readv.2.lint-man.mandoc.touch] Error=
+ 1
 
+So I amended it:
 
-Cheers,
-Alex
+	diff --git i/man/man2/readv.2 w/man/man2/readv.2
+	index 51549cf8214a..cbfc1e0ffa83 100644
+	--- i/man/man2/readv.2
+	+++ w/man/man2/readv.2
+	@@ -461,14 +461,12 @@ .SH HISTORY
+	 .\" as the return type.
+	 .\" The readv/writev system calls were buggy before Linux 1.3.40.
+	 .\" (Says release.libc.)
+	-.P
+	 .TP
+	 .BR preadv ()
+	 .TQ
+	 .BR pwritev ()
+	 Linux 2.6.30,
+	 glibc 2.10.
+	-.P
+	 .TP
+	 .BR preadv2 ()
+	 .TQ
 
->=20
->  man/man2/open_tree.2            |  8 +++++---
->  man/man2/perfmonctl.2           |  6 +++---
->  man/man2/process_madvise.2      |  2 +-
->  man/man2/readv.2                | 12 ++++++++----
->  man/man2/s390_guarded_storage.2 |  2 +-
->  5 files changed, 18 insertions(+), 12 deletions(-)
->=20
-> Range-diff:
-> -:  ------------ > 1:  3b27c0e095e3 man/man2/open_tree.2: HISTORY: ffix
-> -:  ------------ > 2:  5be05e964e14 man/man2/perfmonctl.2: HISTORY: wfix
-> -:  ------------ > 3:  e0ecd2307cf9 man/man2/process_madvise.2: HISTORY: =
-ffix
-> -:  ------------ > 4:  f336517a9084 man/man2/readv.2: HISTORY: ffix
-> -:  ------------ > 5:  464d2acd9d62 man/man2/s390_guarded_storage.2: HIST=
-ORY: ffix
->=20
-> base-commit: 8f299601fb600d305279acc03a92437a8378d0b6
 > --=20
 > 2.53.0.1
 
@@ -158,25 +182,25 @@ ORY: ffix
 --=20
 <https://www.alejandro-colomar.es>
 
---3kr2llvchnuhmjwh
+--rdwm7zl2fsc2mrys
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmbdHoACgkQ64mZXMKQ
-wqknZhAAkvgQjFQKQyRC8FpomJiP0J9Vr52m33vQEg4OVcXB5SMWZgw0XxI9vE7l
-RWbuBLyjoh78KFjV6ulspJUo4LJeEb1tX479BEdAcHuf3/ju6cmEcF/JVSEEPp2H
-WCqAc1m3HAmi4XcB0UQxm4k6S61wjpsj2T41SWQ4PfZjbi7iJNS969jR31DJbFB6
-GnwOyP3pvZa1WVfKdhbxaN4VEgu0OUKFH9UlaNROwTF/NrKgafUJJ6GEHinXtMqv
-xz9P+Xjwb5kEtCdljyf+38aJmRPlDor4OcQWSYhP/+gCKyjrZRqP9BwkT0N1JIvh
-bd2/o61cIvVWhukpVKfai/RGtGSImUiep7n074Rwjwg8CZCqI79ynBeRAngVTyc1
-dTqclgnph8F4BAiUPAH8O2+EhgQIsIoKpGhPcFv0yp3YBS02R5RGFF+GgGzaXAIE
-R5SxcMHAs2LaUBBgDkQIa3bor5A7w35igLOl09CY2pSBEZD1yIeocWXAmfEOYf1n
-AwA6crIFOsa5/OcWcQ1FD+ZHbVL2i68d0oS4UpdcuoEp6JzXs/pPXYcKT7aOKR8O
-60INhGuiV7lKK6yRysanV95F4CKqH6VDNVIStXtruXP9Az62BnOht39JDwXeOa37
-MN+Mzm/MLOoEbJ1EEScoG6/LMzHZUJ0J0c9H00W12qPpGMk68Lo=
-=GdFY
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmbdPAACgkQ64mZXMKQ
+wqlOLg//R71NeUYxmAlNc6kZLZO5m/AlcrjagVnXLOPM7BC8whsZnxhMKZayJ1vE
+ROKQ24wXZ5VmNqoCkulIxxeTH0opG1x1pOr9kwcSdSPt10R0mBrfBnjq7dvXAHTY
+shNWidLX6D2VEI11z6kwLxeJ2JlxVDZtMhDj8GOeZQ8Ept60wIl2LHKID490y1JA
+qhSXaxg7wxgqFcnLcz2cmGme4onBR28nZDVuoeUtQ2ttjXfW85mcqlcKCcLftCJm
+tO2M1eq+wju2AvG3UN2KOTVTfSRK37NssPlvkKlS3f4eul4C8Y91omsKSkOc1awt
+HUO99weWTQJb+PDFSxktotzszfuoF15JqSyX2Orzw/aol4theQ/L+hi49NppS5Dd
+EF3g2U8AQrM8cuRv1pSwIoC2L42Eyl3J7bpg3Btqx1fL1R/zMbINmA5FUCMG7Wkb
+eWgiiuOQw3yxzIFlUVT+JKhx6BF7WVmV+vUpi7pnWO8sJBoC0dy7RXKzIllt+ehA
+6KyF5kV/bb7oomliZex11TdwQlBdqk2hiIpmYjm06A3eTN20o7D4QfoJF11PUY+p
+hyGPkklA5tmuXr2HNhZv6Lbv9Abg8FWK9yjyYrFD3Mh46VWo7bd32olrkYaizLtl
+IkSZk9f5dzsLZBpqdU8EZK3FgAmqXZp2L+0PGu75BZJygh3zktI=
+=TGBc
 -----END PGP SIGNATURE-----
 
---3kr2llvchnuhmjwh--
+--rdwm7zl2fsc2mrys--
 
