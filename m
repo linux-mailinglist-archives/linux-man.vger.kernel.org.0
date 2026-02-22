@@ -1,96 +1,96 @@
-Return-Path: <linux-man+bounces-5180-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5181-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oHHjD83WmmkYkwMAu9opvQ
-	(envelope-from <linux-man+bounces-5180-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 11:13:33 +0100
+	id qDnnJ93WmmkYkwMAu9opvQ
+	(envelope-from <linux-man+bounces-5181-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 11:13:49 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id B477A16ED49
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 11:13:32 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id F30E216ED50
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 11:13:48 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 72E6A3012251
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 10:13:31 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id A21DB3012258
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 10:13:47 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DE41223336;
-	Sun, 22 Feb 2026 10:13:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3902223336;
+	Sun, 22 Feb 2026 10:13:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sethm.id.au header.i=@sethm.id.au header.b="yl5CTESY";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KzZE5PE3"
+	dkim=pass (2048-bit key) header.d=sethm.id.au header.i=@sethm.id.au header.b="qGxOOnbk";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Nt3Xhdbn"
 X-Original-To: linux-man@vger.kernel.org
 Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32EA2147F9
-	for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 10:13:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410492147F9
+	for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 10:13:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771755210; cv=none; b=r4OxTu+PRsobzDp9KuWtKaZLmm1d7/Z+bDMPK/F7/V4meQ7qEH0S2rCGT3m17djwQW5XAm3kQPN477E4/X1ey8+ooGv/6t2FzW4GBdHxY2w2QOo69XlovaJPSmDUWL/WqDxfuZA+UW06l7mTERl5Ie5asc8jw2frZEFqjdH8l8Y=
+	t=1771755226; cv=none; b=TDxC9fMgyUBGGg/+MV/fCXkTIL9SiHNQ7dyPPCAU7Ud0CELeYuu83w3MNHtishd1tBqVEYgoFnZ9dwe/EqhVFNePCf/5+CdnligmuSrD8voc6wkZwi7mJlmWJVpRqNQ6f5bDRynwR1phjmFGLx7+zkkgV0rbqHom76IE+7QRAK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771755210; c=relaxed/simple;
-	bh=7rLMvI5AVzNrOzJGfOy7IbKXhyojNAWoeaI/YsJBiH4=;
+	s=arc-20240116; t=1771755226; c=relaxed/simple;
+	bh=643CZOrvN7zHOHNwYF8lEgwial83ZqSeWTP4zBMEH+Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tjDEQDPeSa4BXVAW7YUbQQuCTEsWgysEnN6VSyp3WNm8bLiCEOSo4G3VH1TQ6aGrlTj2CsLwLOrpwLCG69VQXFHTMwfntL1RVkWsgTc6+4gr9n+LP1H2l5nyRQVSp3YyfZS3nSf2rf8emD24dsLz91lInJKKrh+bx14q09esQT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sethm.id.au; spf=pass smtp.mailfrom=sethm.id.au; dkim=pass (2048-bit key) header.d=sethm.id.au header.i=@sethm.id.au header.b=yl5CTESY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KzZE5PE3; arc=none smtp.client-ip=202.12.124.137
+	 MIME-Version:Content-Type; b=pmw/4hBmKwK82Ct5jjSp9syZMDvsibnBdhLTFSkzE9PXeRX2DlujS4/z47fLN5qRHjyVysvmJcv+NHVzAWr2bO9ylpBVz8gYdh1SkkerAO7rJHTsTAPILkiAdcUxtMvMkmN7XoAtcHCAEEWh1g4uUDoNiBU06SdlB4SDbSfWJkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sethm.id.au; spf=pass smtp.mailfrom=sethm.id.au; dkim=pass (2048-bit key) header.d=sethm.id.au header.i=@sethm.id.au header.b=qGxOOnbk; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Nt3Xhdbn; arc=none smtp.client-ip=202.12.124.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sethm.id.au
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sethm.id.au
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.stl.internal (Postfix) with ESMTP id 3D1471300D39;
-	Sun, 22 Feb 2026 05:13:28 -0500 (EST)
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailflow.stl.internal (Postfix) with ESMTP id 8CE131300D3B;
+	Sun, 22 Feb 2026 05:13:44 -0500 (EST)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Sun, 22 Feb 2026 05:13:28 -0500
+  by phl-compute-10.internal (MEProxy); Sun, 22 Feb 2026 05:13:44 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sethm.id.au; h=
 	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1771755208; x=1771758808; bh=rlqrFGB1Ly
-	kf9URcQ/E8fQ5V2oWfAuPOxx1JABdlkPA=; b=yl5CTESY5BLYUh0lW8e/fmXMbK
-	J4O6IsZI+XYND6Lic9+3DBH2dflBnPPlZOqcgYJnj3x7d7JRap7PvVXWrUale2t5
-	JNa9HO7QdgJVuVe/+fF7HR1CXS8SOYfeDJifIAuD9MRVVVLBnC0LB5CIF+Udz5Bs
-	4n5uoAKrF7OHEvxwIHcw7cFmBZkENYxiodXSdaBbXWxYzI5ZvptGmbGz+QGoxdul
-	VtC+XsLlSmCDu5DWIC4rOiNkNCd2Ls/NTHFqGEHcH8/c3VfhVSmEp/FxM75fMewZ
-	WV6Xb2lsyrPZDPXTCI2Q/FWtaJ4SfbwwGDGHvRRx5BfyZzxrUVSpjLr4wS1w==
+	:subject:to:to; s=fm1; t=1771755224; x=1771758824; bh=I2IuJhhG1c
+	tKKP3EujivpMNZGSl8YMB8ly0zfVWo6xU=; b=qGxOOnbkCtod2mKgIR9H1kBIpV
+	vdwgzM+wdbxipf6oezF0iH3BUS/Vdm2T5oDnrPjYJFldGoeO332z+kioz8V2XNKJ
+	DKWdUNX+caLvQOXbgb4gnzEGRrlh/OOHpK97TGqmlhS4Bo/fr16sKXYwBnuESJF6
+	ULWC6en28zAseRBs142Tvh3uQ059QMKX7+FEok5t+/IFJQAG+Q+5V0JwuPZXOhH0
+	3yc3da3r9QjmiQ0Mk45Z6YJ7C/iMxE2eXUQegfeewfb5RSoUV+b+zoTp1TaSCrC5
+	X0c21jmLXjSbLGySkTis/0lYQslpT4XmticMzDTcoh29s7qSdChRXrHnngJw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1771755208; x=1771758808; bh=rlqrFGB1Lykf9URcQ/E8fQ5V2oWfAuPOxx1
-	JABdlkPA=; b=KzZE5PE3VPKzzG7fUlkR0wq21OYUmG9909WcEcYu81qAUwEAJ9D
-	voOEb9xJwnx3PE/ocIepMO3uR5BFsbKOAjPm8+/T5U0CwOA7erIMAGyefNfl6bx1
-	Aktl4YyF+6heB0ipUbu1ScMJGre3jPB7l2df5prf6Hiq/jO5ss7XQ1apF35lkHaB
-	aIVzAsvw4DASmAjTVS8hW1OqQI23Q9It6n/2Z5CtBU7GsUDIyo7jfNKCuGhQ3R8s
-	jCG60C60nmahR1RCjPf80CM5Y500/U/zfpILfsZQxXcV9/JwLDXciKOpR2hPrljC
-	rstmN5JZ5qU0Jd5uBCq5PySSSHQ9p7VQKrg==
-X-ME-Sender: <xms:x9aaaXSfCZvHuc8cJ6EyqX-bSM5XfQaJGm8_Cfsde7W_cT2dsVbgOw>
-    <xme:x9aaaQigFShNpz9rmHfbJbutj8XIWCvEMKzdYTuSTdLPvYAAuKf4FVBVj2zpy6d56
-    L9KfLEpUHRjJD7UoRB9LgXBe2R-UDioHMqzxFTuVFXCXvdMaWYS3PU>
-X-ME-Received: <xmr:x9aaaf7OvWCir8eWk6I9WH47ABncpKV2E_OB5ucgTICinxte3L7uAmuG4GsK8kk>
+	1771755224; x=1771758824; bh=I2IuJhhG1ctKKP3EujivpMNZGSl8YMB8ly0
+	zfVWo6xU=; b=Nt3XhdbnZsfHZ3ElCE520YOQ/EFecMmjzba55cJwcquQ2lOcADm
+	Fr2z6EnmjdoK2T9i94PHSWKAs/1AM9DUSML853tnl3pe7W/caB8oFBV855LTPzrq
+	H0KOUCKR7Zoybb8BN29WTWurexEzkMVjjctKgwveOFxzWQl2m+A2yQ+Vd9XNL6wp
+	cSnI62884jw9KI8ygov3sDYwwrhDoInJtOPmvtPo012HADqPQmKfoSDV2zBkx+cb
+	q53xEYlaxWyXT7f+bBYtPbSVGWQBAvwZwt4/XyT9oORVOhlzey3DyyeuautuWyMu
+	NvW53/QUMsKM/ofVTA8XjWiySQY0ur3oSmQ==
+X-ME-Sender: <xms:2Naaafib-TC_K-jlitiDPj1a7nhwdLT9UE5SIP_HxO7zysFonB80zw>
+    <xme:2NaaaTy80t0goIsL4esvEgZuye3Ceqcz_x7eyN3mzotMqtOZElMhXtl1BWJlfoXnH
+    rvPMyvaxa3FIsPQfExG6LI_2Vm8nw27XCsRkSbD0czHFowtal-JwDVN>
+X-ME-Received: <xmr:2NaaaSKJicExoqNUDl8BWq1g5WtKK1tm3-mA-gLa-lIVs5Yaw5T3yUCjgSu2TvA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvfeegtdefucetufdoteggodetrf
     dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
     rghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkfgjfhggtgesghdtreertd
     dttdenucfhrhhomhepufgvthhhucfotgffohhnrghlugcuoeguvghvsehsvghthhhmrdhi
     ugdrrghuqeenucggtffrrghtthgvrhhnpeeiueffgfethedtvdetueefhfejveeggeetje
-    ektdetieduiedvheejtefhueefveenucevlhhushhtvghrufhiiigvpedunecurfgrrhgr
+    ektdetieduiedvheejtefhueefveenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
     mhepmhgrihhlfhhrohhmpeguvghvsehsvghthhhmrdhiugdrrghupdhnsggprhgtphhtth
     hopeefpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrlhigsehkvghrnhgvlhdr
     ohhrghdprhgtphhtthhopeguvghvsehsvghthhhmrdhiugdrrghupdhrtghpthhtoheplh
     hinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:x9aaaVDXgtkWbmGgMyka7SRcLKa9ulIaFJLM0Pm6mt4QCiQrd6fA2Q>
-    <xmx:x9aaaeaWunXDX7tF0pBkN-zldQgryg3UTuhbKAPl31ZdalLJtE6NNg>
-    <xmx:x9aaaYakO7dWKM_8ve8fCeuk9rRZ-9EbM4xzA-DmqUDQX4izILB6oA>
-    <xmx:x9aaad9-p-fqYXxZw3qiOUnNtXzgyD7ogoX3HWYdveYQ-Exhwpswrw>
-    <xmx:yNaaaX6m9UKwILbxfYd8W8Y4O5uaTVX0rUJrHfJ_unsAIAI78Dl17mLI>
+X-ME-Proxy: <xmx:2NaaaaRwrepnStc0QyAG44mNAaaVrMEaWOoE7maGqt0kqOzSjSNZaQ>
+    <xmx:2NaaaapXDzwCAFHUgpq8Y1Q0M6bPc7fsQdhUO7RKI-khMxHlS5LzLA>
+    <xmx:2NaaafrPMftCtnXW2O6kRQfb5vCZDWDkCK6fV0R1uAzMyNMFhC8_ig>
+    <xmx:2NaaaUM3cqlhSgSXYLwDBuDxJzhbvMIn7cqQ7NwbN8L_VG8bMmMewA>
+    <xmx:2NaaaaKT7CALj8yFBZTUTJp5WfnDscGLX3bbBg8fT1OYLLcyzJkpNvNZ>
 Feedback-ID: i35064beb:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 22 Feb 2026 05:13:26 -0500 (EST)
+ 22 Feb 2026 05:13:41 -0500 (EST)
 From: Seth McDonald <dev@sethm.id.au>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Seth McDonald <dev@sethm.id.au>,
 	linux-man@vger.kernel.org
-Subject: [PATCH 2/5] man/man2/perfmonctl.2: HISTORY: wfix
-Date: Sun, 22 Feb 2026 20:12:12 +1000
-Message-ID: <5be05e964e1443e036e18acbb8c497052d524259.1771750388.git.dev@sethm.id.au>
+Subject: [PATCH 3/5] man/man2/process_madvise.2: HISTORY: ffix
+Date: Sun, 22 Feb 2026 20:12:13 +1000
+Message-ID: <e0ecd2307cf922ec0a7ad34d6524f0a62bfc67e0.1771750388.git.dev@sethm.id.au>
 In-Reply-To: <cover.1771750388.git.dev@sethm.id.au>
 References: <cover.1771750388.git.dev@sethm.id.au>
 Precedence: bulk
@@ -110,19 +110,19 @@ X-Spamd-Result: default: False [-2.76 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[sethm.id.au,reject];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	R_DKIM_ALLOW(-0.20)[sethm.id.au:s=fm1,messagingengine.com:s=fm3];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5180-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5181-lists,linux-man=lfdr.de];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[sethm.id.au:+,messagingengine.com:+];
 	HAS_ATTACHMENT(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	MISSING_XM_UA(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[dev@sethm.id.au,linux-man@vger.kernel.org];
@@ -134,7 +134,7 @@ X-Spamd-Result: default: False [-2.76 / 15.00];
 	TO_DN_SOME(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,sethm.id.au:mid,sethm.id.au:dkim,sethm.id.au:email]
-X-Rspamd-Queue-Id: B477A16ED49
+X-Rspamd-Queue-Id: F30E216ED50
 X-Rspamd-Action: no action
 
 --thoushaltnotpass
@@ -142,9 +142,9 @@ From: Seth McDonald <dev@sethm.id.au>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Seth McDonald <dev@sethm.id.au>,
 	linux-man@vger.kernel.org
-Subject: [PATCH 2/5] man/man2/perfmonctl.2: HISTORY: wfix
-Date: Sun, 22 Feb 2026 20:12:12 +1000
-Message-ID: <5be05e964e1443e036e18acbb8c497052d524259.1771750388.git.dev@sethm.id.au>
+Subject: [PATCH 3/5] man/man2/process_madvise.2: HISTORY: ffix
+Date: Sun, 22 Feb 2026 20:12:13 +1000
+Message-ID: <e0ecd2307cf922ec0a7ad34d6524f0a62bfc67e0.1771750388.git.dev@sethm.id.au>
 X-Mailer: git-send-email 2.53.0.1
 In-Reply-To: <cover.1771750388.git.dev@sethm.id.au>
 References: <cover.1771750388.git.dev@sethm.id.au>
@@ -153,29 +153,22 @@ Content-Transfer-Encoding: quoted-printable
 
 Signed-off-by: Seth McDonald <dev@sethm.id.au>
 ---
- man/man2/perfmonctl.2 | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ man/man2/process_madvise.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man/man2/perfmonctl.2 b/man/man2/perfmonctl.2
-index 08d052cd3eaa..b84aac5e97e0 100644
---- a/man/man2/perfmonctl.2
-+++ b/man/man2/perfmonctl.2
-@@ -181,12 +181,12 @@ .SH RETURN VALUE
+diff --git a/man/man2/process_madvise.2 b/man/man2/process_madvise.2
+index 446617c4a4a5..7aa36b197487 100644
+--- a/man/man2/process_madvise.2
++++ b/man/man2/process_madvise.2
+@@ -184,7 +184,7 @@ .SH ERRORS
  .SH STANDARDS
- Linux on IA-64.
+ Linux.
  .SH HISTORY
--Added in Linux 2.4;
-+Linux 2.4.
- .\" commit ecf5b72d5f66af843f189dfe9ce31598c3e48ad7
--removed in Linux 5.10.
-+Removed in Linux 5.10.
- .P
- This system call was broken for many years,
--and ultimately removed in Linux 5.10.
-+and was ultimately removed in Linux 5.10.
- .P
- glibc does not provide a wrapper for this system call;
- on kernels where it exists, call it using
+-Linux 5.10.
++Linux 5.10,
+ .\" Linux commit ecb8ac8b1f146915aa6b96449b66dd48984caacc
+ glibc 2.36.
+ .\" glibc commit d19ee3473d68ca0e794f3a8b7677a0983ae1342e
 --=20
 2.53.0.1
 
@@ -189,10 +182,10 @@ Content-Disposition: attachment;
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2.4.7
 
-iHUEARYKAB0WIQTp0Sal8NSd93krwuK0v0Uw05stUQUCaZrWtgAKCRC0v0Uw05st
-UagtAP95Kth95NEspcX1u3qGDYTfzusHSkR6+AHgW9fjABXnwQEAgmLhqPQyd26M
-ryVPZ8Q60TLYfmAQBEqbU+tnvcg5QAM=
-=cZ9a
+iHUEARYKAB0WIQTp0Sal8NSd93krwuK0v0Uw05stUQUCaZrWyQAKCRC0v0Uw05st
+UQvuAP9WElL8bDDp47uifMUPlqpQ0wiZTv3Cwczc5QMAalHqkwD+M9msGvAImQ2q
+QLhmt20eES6QwIPnNSbFPsaAXXaUZw8=
+=VJdn
 -----END PGP SIGNATURE-----
 
 --thoushaltnotpass--
