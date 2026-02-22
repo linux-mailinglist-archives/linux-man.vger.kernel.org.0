@@ -1,196 +1,180 @@
-Return-Path: <linux-man+bounces-5188-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5189-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kC9INIYRm2lArgMAu9opvQ
-	(envelope-from <linux-man+bounces-5188-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 15:24:06 +0100
+	id 8OnCIQ8Ym2lasQMAu9opvQ
+	(envelope-from <linux-man+bounces-5189-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 15:51:59 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3856316F5AF
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 15:24:06 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4919F16F766
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 15:51:59 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 3B09C300EFA5
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 14:21:32 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 30994300B9B4
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 14:51:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E42353502AB;
-	Sun, 22 Feb 2026 14:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2B9934F48D;
+	Sun, 22 Feb 2026 14:51:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMc3Xi8M"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OjfsT6+6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com [209.85.214.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A816C3502A4
-	for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 14:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23192253EC
+	for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 14:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771770091; cv=none; b=mExuxZAIJFvksdUQCR1+yTXIL6hYR3Tc9fiCAfBqzpTemhCwsMFLDyBArpmGnOTPNmhuj+kwZHk4FezAkrOB3rTIhAGU2lTIEMXTJ4lWL2uLPHQ4tiTm+BVYQ0QvIwczCku5k24gHPgpYCrzZ3+IOxXklqQ7zZp7nPjI5Lr7okA=
+	t=1771771895; cv=none; b=QL3Qd2rZtE7ZwY6GYulZ8bzt5xx2EiNNAZY/a0807pT/2NNEiGTcSgv3EDVS3mf/riRRDLH+WpWb5E37wc5sI4LJNUIW54XxsboeIyj5d8Vw8y1oHOpxh3uLgxAjSaOlE5QEO8TDl5RxQz0nmEpz6dEmIz68chrk7v06lpG/6Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771770091; c=relaxed/simple;
-	bh=FW4zMSQMNOMse9BYCBEHlre7cRiaW/ryDEbv882yhh8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nmjx2GyyMbJjmGjoXF4T5vDFodkWJ1C/TZbdgBElrR4UBof/E+/WmQmUSxz3frcTD6IXu0ll0VCoqNFTcyYpzxWkZLpGE3EUjyc1K5l2eYnK13GNl/iB1FjcNBap76qhoacKDDjyDa/psrccT4ehYrJ8X8DtuljYEl3b4D9Xdhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMc3Xi8M; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EAB4C116D0;
-	Sun, 22 Feb 2026 14:21:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771770091;
-	bh=FW4zMSQMNOMse9BYCBEHlre7cRiaW/ryDEbv882yhh8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FMc3Xi8MoO3sGtef8Rz5MsvheWdTsIoOBltIikMRrCQitfIj4intV85dsJvDz2UeM
-	 XXRhIMxTElFlvXNFuxqXxbibxhrRR5m2JLWk8KVTJd5C4bSjaA8CEAyClNIpVWlVQ1
-	 /Y32sZfvKTDo51LMlF39hOSuVwNxcXDvNBDFkR4RQ62+7fpl5FzfLPUdReH80F/e4M
-	 dd5Di78/PYcUbEiTVLNcu6fD4PJqZPu+tbC41I82XahDQzjBOvHedzFo9DOhlEJngm
-	 LUIrLR7aYQtXBVXH3OTwR+m/jzLv8vjlt+pu7saj4I8Itf+3AOLLLnOleDaEoBSxYd
-	 qgceByS04UZHQ==
-Date: Sun, 22 Feb 2026 15:21:28 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Bruno Haible <bruno@clisp.org>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, bug-gnulib@gnu.org, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] man/man3/strnul.3: New page
-Message-ID: <aZsQ1ARSAsTm7dnb@devuan>
-References: <cover.1771686088.git.alx@kernel.org>
- <aZrmh5XLcUcKJz4b@devuan>
- <aZsIJhUxHa1L1cme@devuan>
- <2947259.IIHS8v3jeM@nimes>
- <aZsPpWJ7yZ1nG2RJ@devuan>
+	s=arc-20240116; t=1771771895; c=relaxed/simple;
+	bh=CB+5hAnFHph5CkHxoGfzScoXU7a1U0Cz0/Mr6ta5MC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n0S89IlfC3RP/kD9rgB21vx8uqInNKU97NB1iVsmcKA6fdXADkclLOi5BsFrHoVX5tQkl6yQk+MtZCLgYhjWbMix3T8chw4rG5B5e0RiDPYW7ideX1kZy+0yomSp3j4dUtHnepC+mw+36U70mV3QzViRC1Z/7FUYZolfviGlcqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OjfsT6+6; arc=none smtp.client-ip=209.85.214.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f193.google.com with SMTP id d9443c01a7336-2a95de4b5cbso32747665ad.1
+        for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 06:51:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771771894; x=1772376694; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AsRzc0Ag3RIJloCiWeBshJe5TmAfUBC0XU+aMhJBAkU=;
+        b=OjfsT6+6UIUIhlf0N9BQt0jWsV1yBiD74nrmHg+6a7qdZQVUc1Adzsz2Yb8D0V4BsJ
+         xKwCn1f7AwdHYSdbN960LPAaQNP1sJ0cxmEvFvFCS83apRySOig5ZIRKPBvP9v14AMIH
+         PlNrgmDERiJit9VRz6nRUZ56P3R5XdU+NukMkjRzrgMiiLAyfZ4y8fp2Twt+5N5wJPN6
+         NzMlunxvorbdpF3I+1Mnb7a4V+zSm31rS7Hf1p9yxl666Z6d/qlow8Y6tvnBLlRtWti1
+         xH1kQf9AA16Uu8QNcyW/kG+CHz+ABeo/uCnGlUP/KTJelQs4WqKSvsJHWaum0E3oUDs8
+         TAYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771771894; x=1772376694;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AsRzc0Ag3RIJloCiWeBshJe5TmAfUBC0XU+aMhJBAkU=;
+        b=cDZqXkpooG8MIxxTo0SYydCqpQ6bbOOwAKqHSuPFypEhRrDpGS7wy9ppwNEVyQS0mE
+         FvTT/lrHMQiq00gGCOUr1D2WiTIJy4RmbJ/pcCGIEdrh0ZFC14GNb/fbpO3aQzkCxm8k
+         g1eqCjiAzkPDabTafM81SoqFETsa6RRLNT3O4d3uV1KuPYYUXFIEXa9a/CZUPCIOKbbD
+         WL26cphMsG08VRYHQ27bqU0z7D2ZZPSlW3NjCwUgKS3P1dsQTZ5/TVYq029v6RvoxWCD
+         +wDhB/kfxtZ1OV1Tn8Ut3ABzdKSop0Gf6iX4kHlUBClEbJ1w/yu1s3q0LJTkbEhZb9oJ
+         2z6g==
+X-Forwarded-Encrypted: i=1; AJvYcCVgF9XSKIJoWHHuGqNMesgmhIqU2CUzjcEx0WwOeo/0rgY/G/jJ4Y+kaUeb4gj2sn7isCAwCRL69Tk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYrSOTQq/5O3hnyHarpHbIkwht7q265c1BktFsCKuffM21e38u
+	Q75vuK/NwFb+NOjAVNbR5pZK5zVO4yZSL5XcLF++4Z64GkZXQ1wxuSP5
+X-Gm-Gg: AZuq6aKX/Ed7FNfFTQBDq2sUETUoYIGDUQ4KZ/+3ixgfNmm934PSvZG9B/AueeaiOG/
+	/824coTPD498GmdmKQJrhugIaj5Szcbw9hkJ0pcSGHvjS/3SFSYI9nIayHpL7PmS5Qk1olnjPxA
+	OGeXZz5RS6DgT80Xjk2Vo9NQzY+wkVWQDNYJrnwgparMwSYy7DlRbRtU3VnM+ZxtFBdOGeRWQpR
+	iK/IunnTjOlwg9ATyAH3vRrsvbM0hjMDZ1hngTGlOZ3wwfUKnyoTeiNf6rsEbSJy2YAbs+ESuXn
+	SeOvQTFQsat4qBo9F1MVTCXzsTnyfwTnYnxMEMhfKOv1PKu1IQoPWzLr6p5jMjJy66YcXBJCDwy
+	WQFlHy4ymePg6xEEM66gX5ecKIQ7oTChUPSE9KBodE5tDZ/AlBNPWyGJGcyGtVVxsUnIczBVjjc
+	WW9c0siR4dDa9U2xYe+tG4gvkHbGeG2u/lLKxpXysYQzSXEfDC6AojKJU=
+X-Received: by 2002:a17:902:cf4c:b0:2a9:5b48:2b50 with SMTP id d9443c01a7336-2ad743e281bmr60810845ad.3.1771771894035;
+        Sun, 22 Feb 2026 06:51:34 -0800 (PST)
+Received: from fedora ([2405:201:3017:184:52f5:ed80:f874:1efc])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ad7500e02asm45355415ad.56.2026.02.22.06.51.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Feb 2026 06:51:33 -0800 (PST)
+From: Bhavik Sachdev <b.sachdev1904@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Bhavik Sachdev <b.sachdev1904@gmail.com>,
+	linux-man@vger.kernel.org,
+	criu@lists.linux.dev,
+	Andrei Vagin <avagin@gmail.com>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Christian Brauner <brauner@kernel.org>
+Subject: [PATCH v2 00/10] man/man2/statmount.2: Document New Features
+Date: Sun, 22 Feb 2026 20:15:50 +0530
+Message-ID: <cover.1771771560.git.b.sachdev1904@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bjmcdbbkjx74saee"
-Content-Disposition: inline
-In-Reply-To: <aZsPpWJ7yZ1nG2RJ@devuan>
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [-0.16 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5188-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5189-lists,linux-man=lfdr.de];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,lists.linux.dev,virtuozzo.com,kernel.org,szeredi.hu,toxicpanda.com];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,clisp.org:email]
-X-Rspamd-Queue-Id: 3856316F5AF
+	FROM_NEQ_ENVFROM(0.00)[bsachdev1904@gmail.com,linux-man@vger.kernel.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	TAGGED_RCPT(0.00)[linux-man];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 4919F16F766
 X-Rspamd-Action: no action
 
+Hello Everyone!
 
---bjmcdbbkjx74saee
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Bruno Haible <bruno@clisp.org>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, bug-gnulib@gnu.org, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] man/man3/strnul.3: New page
-Message-ID: <aZsQ1ARSAsTm7dnb@devuan>
-References: <cover.1771686088.git.alx@kernel.org>
- <aZrmh5XLcUcKJz4b@devuan>
- <aZsIJhUxHa1L1cme@devuan>
- <2947259.IIHS8v3jeM@nimes>
- <aZsPpWJ7yZ1nG2RJ@devuan>
-MIME-Version: 1.0
-In-Reply-To: <aZsPpWJ7yZ1nG2RJ@devuan>
+This patchset documents all the new features added to statmount() since
+the syscall was first introduced.
 
-On 2026-02-22T15:19:35+0100, Alejandro Colomar wrote:
-> Hi Bruno,
->=20
-> On 2026-02-22T15:10:03+0100, Bruno Haible wrote:
-> > Alejandro Colomar wrote:
-> > > 	 .B #include <string.h>
-> > > 	 .P
-> > > 	-.BI char\~*strnul(const\~char\~* s );
-> > > 	+.BI QChar\~*strnul(QChar\~* s );
-> > > 	 .fi
-> >=20
-> > Ouch. This is not understandable. Why should a user learn about what 'Q=
-Char'
-> > is??
-> >=20
-> > It's basically like a C++ template with 2 instantiations. Just list them
-> > explicitly; this will be much clearer.
-> >=20
-> > It's common that the SYNOPSIS section has several lines. For example,
-> > man1/locale.1 has 4 separate lines.
->=20
-> Hmmm; sounds reasonable.  I'll do that.
+I did work on the STATMOUNT_BY_FD changes and I have tried my best to
+understand rest of the features and document them.
 
-I've amended the commit to do that:
+I have cc'ed the authors of all these new features, please let me know
+your thoughts.
 
-	commit 0dffb0e8afdd3b025a6001a342b2f49f179a8914 (HEAD -> contrib)
-	Author: Alejandro Colomar <alx@kernel.org>
-	Date:   2026-02-22 14:34:36 +0100
+This patchset is also available on github [1].
 
-	    man/man3/strnul.3: SYNOPSIS: Document that it's a const-generic API
-	   =20
-	    Document it as two overloads (C++-style).
-	   =20
-	    Reported-by: Paul Eggert <eggert@cs.ucla.edu>
-	    Suggested-by: Bruno Haible <bruno@clisp.org>
-	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+Changes from v1 to v2:
 
-	diff --git a/man/man3/strnul.3 b/man/man3/strnul.3
-	index 714b4d191cae..a92ced866a02 100644
-	--- a/man/man3/strnul.3
-	+++ b/man/man3/strnul.3
-	@@ -12,7 +12,8 @@ .SH SYNOPSIS
-	 .nf
-	 .B #include <string.h>
-	 .P
-	-.BI char\~*strnul(const\~char\~* s );
-	+.BI char\~*strnul(char\~* s );
-	+.BI const\~char\~*strnul(const\~char\~* s );
-	 .fi
-	 .SH DESCRIPTION
-	 .BR strnul ()
+- Appended Linux versions to document in which version new fields were
+  introduced.
+- Fixed formatting issues and wording problems pointed out by Alex
+  during review.
+- Reworded STATMOUNT_{UIDMAP,GIDMAP} to better explain the feature.
 
---=20
-<https://www.alejandro-colomar.es>
+Changes from RFC to v1:
 
---bjmcdbbkjx74saee
-Content-Type: application/pgp-signature; name="signature.asc"
+- Document req.mnt_ns_fd as well.
+- Fix all lint errors generated by running
+`make -R lint-man man/man2/statmount.2`.
 
------BEGIN PGP SIGNATURE-----
+[1]: https://github.com/bsach64/man-pages/tree/man.2.statmount.v2
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmbEOgACgkQ64mZXMKQ
-wqmPtA//cBQGjo9RxMxND8+gp2MVwhLTpGQJJwC+ECMb19KGV88CQL1xzUhID4Am
-p8Nwk9mYfkcLHxtrI42qay0S5uAM/Tem0QwBjkrpym9/Lig3louD32PwQMt/e+jy
-fnJ4yM2PruZ9yLMYGl5c7Csrkf3h03qNk/R/8UwJj2HA/+3ZP7kVadvw6egg4FzD
-h78Sy4sNgTtlZ7XOV4YR2AYGYGL8ZXDGypBAzqH6mr/dZVevTE2c7ky7NarKg1Rg
-TD7NlYcR/3hWMppcUWa5zBob+/Wi16SISaj0Qd52CeeH7UBK/P2VwFZlkI3afq2W
-mjLsAHuL3L0Z5evGdMhULDTR6oky0/pNnqVH4kKYLJ16eB9jT4cYt0hIVHjPQu8m
-lO5OW5sG3ncfha99JgciFNuOB8TKj8CFIXL+eO3tvCqgy6fENkzT1KUjkfqH/TwP
-/821OOMrXFkJBSc2uE5R9xeDBBT1yiw58ZiU2mqXP4+f+dJBmC+w5XQ/hJNPMx95
-CiCDF0uckgcK0LAJ4MxR16rmCu5m+fE6tz0Y/Ts6FGHlbo1PZsNUNfOYWLsF0Ldf
-QJKXQqgHfwbZRtUV2z3jFZURFMUcqDrgeZCk4n2t6eAsJ2uHm/LlbVrFyXnGHEMU
-azCvJdr2zfxGPl184TDH9k48ZukE3q+CWzVUHz7HaoBWC1a1HzM=
-=MXvn
------END PGP SIGNATURE-----
+Bhavik Sachdev (10):
+  man/man2/statmount.2: Document req.mnt_ns_id and STATMOUNT_MNT_NS_ID
+  man/man2/statmount.2: Document STATMOUNT_MNT_OPTS
+  man/man2/statmount.2: Document STATMOUNT_FS_SUBTYPE
+  man/man2/statmount.2: Document STATMOUNT_SB_SOURCE
+  man/man2/statmount.2: Document STATMOUNT_OPT_ARRAY
+  man/man2/statmount.2: Document STATMOUNT_OPT_SEC_ARRAY
+  man/man2/statmount.2: Document STATMOUNT_{UIDMAP,GIDMAP}
+  man/man2/statmount.2: Document STATMOUNT_SUPPORTED_MASK
+  man/man2/statmount.2: Document req.mnt_ns_fd
+  man/man2/statmount.2: Document STATMOUNT_BY_FD
 
---bjmcdbbkjx74saee--
+ man/man2/statmount.2 | 176 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 172 insertions(+), 4 deletions(-)
+
+-- 
+2.53.0
+
 
