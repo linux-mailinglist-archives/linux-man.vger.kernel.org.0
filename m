@@ -1,221 +1,205 @@
-Return-Path: <linux-man+bounces-5199-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5200-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uJl7LTgYm2lasQMAu9opvQ
-	(envelope-from <linux-man+bounces-5199-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 15:52:40 +0100
+	id sN4fCyxzm2kizwMAu9opvQ
+	(envelope-from <linux-man+bounces-5200-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 22:20:44 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C9A16F7A8
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 15:52:40 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75765170681
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 22:20:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 473E0300C816
-	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 14:52:39 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id D08C9300E3B3
+	for <lists+linux-man@lfdr.de>; Sun, 22 Feb 2026 21:20:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2F8D3502B4;
-	Sun, 22 Feb 2026 14:52:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8371B11CAF;
+	Sun, 22 Feb 2026 21:20:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PdsX2qEb"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWJx6XLL"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com [209.85.215.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C6A2253EC
-	for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 14:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468351B983F
+	for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 21:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771771956; cv=none; b=agr4jqTDt+dv4IS93FqrMUkDjU8BRL0GxdW5tQ/Oif7yvAlWrBLbhrzsSdDReb3Y66uwTjKFnFMAD8AjQAJv6XRKDNswcDph/tqTrpQC9zKsAVvf2hbpwuKIzyCvMJEH3jWlmD/58WuTfjcJWR/pn/06actSZEGRee3rCZMAo8I=
+	t=1771795239; cv=none; b=lXV+TQ0VwJMaz9FI3tRns5BSJ6F7RsyMwSakYFRcy/9FEvwzL2pWHoFQUO3BekQhGUfP8DOJ/FJYLISrj9HDzBM0Ck35I/55ylmXQqzWGKEv38Omcfs03LogOkcumCzVIelGG3osA2okZqgcQgMD9LtgZrzUOxmrlOvUQtdb4nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771771956; c=relaxed/simple;
-	bh=5dmlYxN368buXyULhBgm9nALSlTsfZpjP/Y3kgqmyz8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oja0UrOhII89wYE98bGWU/ieD6YTBgyOPtB60QtbriLZxLmqAwpp7iK6ww/V3C5SaivpeRdVbELn6YYcu+P68anIs2dqrOP5Su39TsMCaK+T+H6M4UaAbuLe0+W4kZxhGMe5I8nYxAGPkdQWFnbY7Q78MzIxstztKt9CnMY5VuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PdsX2qEb; arc=none smtp.client-ip=209.85.215.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f195.google.com with SMTP id 41be03b00d2f7-c6e266a3572so1166443a12.0
-        for <linux-man@vger.kernel.org>; Sun, 22 Feb 2026 06:52:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771771955; x=1772376755; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/Gg7F7q6A5fZgNHOjOVz1Sbpoju5gV/tPPFqBOTskbg=;
-        b=PdsX2qEbgLfUntXkJpYsw44uSVcG/C1CZQ1AQx5T4HD/IxV2tGvPWaY+isM29BPzl1
-         gYpvjgvvr6NEKfWfAn+sy66AzKSW9N363TCPYcuwwjMWwwD4pkVSFRg5QB20cwzT1+tr
-         IBQc/KbWfZxmatiKPfneH1JFvMDJpFQVo8jxZdyJME6IPpPnIl6mZaCNrJWbdr+KrREt
-         YEgZ27xG7eZNYdIq7qgVMXMHHfxIe3gqtfdLZrdQD76icxBXaT/FWlFLZ5ZHm+Zpr5u9
-         IQU9KQudHog4abNMEnkOSDDwZlBy9CLQgNWInUZehQBYskbsDJomax7K6UpLk87B2CYt
-         p2Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771771955; x=1772376755;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/Gg7F7q6A5fZgNHOjOVz1Sbpoju5gV/tPPFqBOTskbg=;
-        b=vwN8Cz6wk0BJP8niEpzuZoVdig7MS6aFOhthIP68fmdpPvVz5f+lNjsF3+797DuGqE
-         bR2CXN5HkFdEF4dLCV/ON2BO+SuQdmOfn65QhB3OpU/M9ZWDgbGBk0R43m4jvuh/d0YP
-         Wg4RWbcXBXIumxn1FfYDt86KPSMfuj5jnLneK6OZSbV9BINNcUT/Y9hw+XX/L/Mtnz80
-         OG0eGAS3J+uZ28eYXlr6h7V01rxOOTg8Jj5UDOXxzas/5QPAcnP3XJSBKMiVPy0cW09f
-         ShuXNW0pd9880Rco3Mjj7zf9E3ASJThq6kdDiRpZIjDQ47ECStnXL8WXjkaMzDTQkkuL
-         1DFA==
-X-Forwarded-Encrypted: i=1; AJvYcCU/AVUUZvzHcCNEurEyiRW9BSA+m/LLRcJA0pc/xZdncnXINr40Djq78iZdlh4/X6/aqHauQSewkWw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzL6eWULPjiwiSgqIiZV3HxE4+ZQ5B6/QxjftvmvdJEz+SKIQo6
-	Gc6u3gMzgqrsZCIbgoYt/dug9tUhP2nHkilMskvU5TWkvwbdU70g4RBD
-X-Gm-Gg: AZuq6aLQdb6wNFb3Dv2vOjfnyShEhewMBTGaMDV7IexZ2b83EOHNOHT/iANCLznGwqj
-	HDKvpAixi+bUJxAVpB0Spscn0eDUgFzPGFbVlOs6oPmuMevACgbL6qbEvQcpbMji+tk+GmHdeHa
-	z2EYYLAkSRBxQb/FtQR6/ZUleQUMmdcCCQATD+NaPRjVHAC4zf/QmOHplGsdW/rQzr2Qbd58T4s
-	A0INnw0U1wyk6Q0XzP9rH8aDKpw5YrDdMPRJOJ2pnI5sW1FL+PaLVDykNMWWEgca01FoD3YbkUF
-	7MbP9wTH3LqlRzmu/aAIzzV0C7uX1uVhFuoGLkxjGAGdfyiOnJ7xWEQN9zbPLsYPTaoHrHics6j
-	gkcQcSYVT1aAtoTdfA+sRaC+QN3rWx94H7pknhCjZZlWyB6zd1hZYtcaNOXqWQquk3rMCWAI7Wx
-	S7MGv/s77byR2P/hvaMd/ExmZOt9Xfj9JMATH97Q39inXWZH4PCU70zXs=
-X-Received: by 2002:a17:903:32cb:b0:296:2b7a:90cd with SMTP id d9443c01a7336-2ad744edc14mr58475855ad.32.1771771954786;
-        Sun, 22 Feb 2026 06:52:34 -0800 (PST)
-Received: from fedora ([2405:201:3017:184:52f5:ed80:f874:1efc])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ad7500e02asm45355415ad.56.2026.02.22.06.52.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Feb 2026 06:52:34 -0800 (PST)
-From: Bhavik Sachdev <b.sachdev1904@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Bhavik Sachdev <b.sachdev1904@gmail.com>,
-	linux-man@vger.kernel.org,
-	criu@lists.linux.dev,
-	Andrei Vagin <avagin@gmail.com>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Christian Brauner <brauner@kernel.org>
-Subject: [PATCH v2 10/10] man/man2/statmount.2: Document STATMOUNT_BY_FD
-Date: Sun, 22 Feb 2026 20:16:00 +0530
-Message-ID: <57c96336ccfbdc05f60b7875c315a8c1dd0d14b8.1771771560.git.b.sachdev1904@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1771771560.git.b.sachdev1904@gmail.com>
-References: <cover.1771771560.git.b.sachdev1904@gmail.com>
+	s=arc-20240116; t=1771795239; c=relaxed/simple;
+	bh=1dDHUB6dm8F/UvAhNl4eqqF5u5GgB9A6KJ8+4Xyg5OU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rwBKqN64FbVsPl2YlbfMpkRxtdhJviaBYKxQRKtsV+imuzxHd3XhkNmMBD/i+P9tnY0aoHL0jxTFREcJkqYgF6RBJZEO1UKU8fQuJjaUMLm8n8VYUAjZMGGDl/HYnG3XAC+8gW75aEZkDsy1CetZfgXa+s3WovUSUFutWTKQtF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWJx6XLL; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AE2C116D0;
+	Sun, 22 Feb 2026 21:20:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1771795239;
+	bh=1dDHUB6dm8F/UvAhNl4eqqF5u5GgB9A6KJ8+4Xyg5OU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SWJx6XLL5M+PykFBpzQ/SA62WwTJCRWx7uwCOZmDCOR/Zevn4T0jaMFVbGpFDH+Pw
+	 chnD+jAacHbBxGCJ5+QOT+btMigDNrynAi9us35h8F8zvJt686eMO5nFpqpkPGm7jn
+	 UkAlVCOrq/AULOWxHmBW7lGBxH9bu8hkCffbSZfFQR3Merfpp94y5j7h+F93fFagya
+	 GRQP0evdF/9kFyKPR1GYRZRBDyL7kXFlPzq7JvsQnO+F25CiUr2EkRb6Ws+mXDClpb
+	 gvk7k1eoQDV2T0bvjrVbzdZddtKFPIR9rOIkcj9wy7bqq1kfkLJ0+slE5b2o1LwvJB
+	 q+uwm1QWhoLHQ==
+Date: Sun, 22 Feb 2026 22:20:35 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Seth McDonald <dev@sethm.id.au>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 0/5] man/man2/*: Miscellaneous fixes
+Message-ID: <aZty1r8GlNalQAYP@devuan>
+References: <cover.1771750388.git.dev@sethm.id.au>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rl6tmw44babu3fs7"
+Content-Disposition: inline
+In-Reply-To: <cover.1771750388.git.dev@sethm.id.au>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.16 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-3.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5199-lists,linux-man=lfdr.de];
-	RCVD_COUNT_FIVE(0.00)[5];
+	RCPT_COUNT_TWO(0.00)[2];
+	TAGGED_FROM(0.00)[bounces-5200-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,lists.linux.dev,virtuozzo.com,kernel.org,szeredi.hu,toxicpanda.com];
-	TO_DN_SOME(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[bsachdev1904@gmail.com,linux-man@vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 53C9A16F7A8
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,sethm.id.au:email]
+X-Rspamd-Queue-Id: 75765170681
 X-Rspamd-Action: no action
 
-STATMOUNT_BY_FD introduces the ability to get information about a mount
-using a fd on the mount. This functionality is currently in linux-next
-[1].
 
-Link [1]:
-<https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20260126&id=d5bc4e31f2a3f301b4214858bec834c67bb2be5c>
+--rl6tmw44babu3fs7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Seth McDonald <dev@sethm.id.au>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 0/5] man/man2/*: Miscellaneous fixes
+Message-ID: <aZty1r8GlNalQAYP@devuan>
+References: <cover.1771750388.git.dev@sethm.id.au>
+MIME-Version: 1.0
+In-Reply-To: <cover.1771750388.git.dev@sethm.id.au>
 
-Signed-off-by: Bhavik Sachdev <b.sachdev1904@gmail.com>
----
- man/man2/statmount.2 | 37 +++++++++++++++++++++++++++++++++++--
- 1 file changed, 35 insertions(+), 2 deletions(-)
+Hi Seth,
 
-diff --git a/man/man2/statmount.2 b/man/man2/statmount.2
-index 0b3a65bb3..761df60dc 100644
---- a/man/man2/statmount.2
-+++ b/man/man2/statmount.2
-@@ -24,7 +24,10 @@ .SH SYNOPSIS
- .EX
- .B struct mnt_id_req {
- .BR "    __u32  size;" "        /* sizeof(struct mnt_id_req) */"
--.BR "    __u32  mnt_ns_fd;" "   /* fd of mnt_ns to query the mnt_id in */"
-+.BR "    union {"
-+.BR "           __u32  mnt_ns_fd;" "   /* fd of mnt_ns to query the mnt_id in */"
-+.BR "           __u32  mnt_fd;" "      /* fd on the mount being queried */"
-+.BR "    };"
- .BR "    __u64  mnt_id;" "      /* The mnt_id being queried */"
- .BR "    __u64  param;" "       /* An ORed combination of the STATMOUNT_ constants */"
- .BR "    __u32  mnt_ns_id;" "   /* The id of mnt_ns to query the mnt_id in */"
-@@ -89,7 +92,7 @@ .SH DESCRIPTION
- .I bufsize
- with the fields filled in as described below.
- .I flags
--must be 0.
-+must either be 0 or STATMOUNT_BY_FD.
- .P
- (Note that reserved space and padding is omitted.)
- .SS The mnt_id_req structure
-@@ -110,6 +113,25 @@ .SS The mnt_id_req structure
- .I req.mnt_id
- (Since Linux 6.18).
- .P
-+.I req.mnt_fd
-+is a file descriptor on a mount.
-+If STATMOUNT_BY_FD flag is specified,
-+.I req.mnt_id
-+and
-+.I req.mnt_ns_id
-+are zeroed, the function will return information about the mount the fd is on
-+(Since Linux 7.0).
-+.P
-+The fd can also be on a mount that has been lazily unmounted (see
-+.BR umount2 (2)
-+with
-+.BR MNT_DETACH ).
-+In this case,
-+.BR STATMOUNT_MNT_POINT
-+and
-+.BR STATMOUNT_MNT_NS_ID
-+will be unset, since an unmounted mount is no longer a part of the filesystem.
-+.P
- .I req.mnt_id
- can be obtained from either
- .BR statx (2)
-@@ -392,6 +414,17 @@ .SH ERRORS
- .I req.mnt_ns_fd
- were set.
- .TP
-+.B EINVAL
-+.I req.mnt_id
-+or
-+.I req.mnt_ns_id
-+was specified alongside
-+.IR req.mnt_fd .
-+.TP
-+.B EBADF
-+.I req.mnt_fd
-+is an invalid file descriptor.
-+.TP
- .B E2BIG
- .I req
- is too large.
--- 
-2.53.0
+On 2026-02-22T20:12:10+1000, Seth McDonald wrote:
+> Hi Alex,
+>=20
+> This is just a handful of minor fixes I came across, mainly for making
+> some formatting more consistent.
 
+Thanks!
+
+> Btw, could you let me know if these patches' *PGP signatures are valid?
+> I've written a script to help with signing outgoing patches and want to
+> make sure it's working correctly.
+
+The signatures seem correct.  Here's part what I see in the first patch:
+
+	[-- Begin signature information --]
+	Good signature from: Seth McDonald <dev@sethm.id.au>
+		    created: Sun Feb 22 11:12:52 2026
+	WARNING: We have NO indication whether the key belongs to the person named=
+ as shown above
+	Fingerprint: E9D1 26A5 F0D4 9DF7 792B  C2E2 B4BF 4530 D39B 2D51
+	[-- End signature information --]
+
+	[-- The following data is signed --]
+	Date: Sun, 22 Feb 2026 20:12:11 +1000
+	From: Seth McDonald <dev@sethm.id.au>
+	To: Alejandro Colomar <alx@kernel.org>
+	Cc: Seth McDonald <dev@sethm.id.au>, linux-man@vger.kernel.org
+	Subject: [PATCH 1/5] man/man2/open_tree.2: HISTORY: ffix
+	Message-ID: <3b27c0e095e33180f26181043f64f1a52a6066e8.1771750388.git.dev@s=
+ethm.id.au>
+	References: <cover.1771750388.git.dev@sethm.id.au>
+	In-Reply-To: <cover.1771750388.git.dev@sethm.id.au>
+
+	Signed-off-by: Seth McDonald <dev@sethm.id.au>
+	---
+
+Have a lovely night!
+Alex
+
+>=20
+> Seth McDonald (5):
+>   man/man2/open_tree.2: HISTORY: ffix
+>   man/man2/perfmonctl.2: HISTORY: wfix
+>   man/man2/process_madvise.2: HISTORY: ffix
+>   man/man2/readv.2: HISTORY: ffix
+>   man/man2/s390_guarded_storage.2: HISTORY: ffix
+>=20
+>  man/man2/open_tree.2            |  8 +++++---
+>  man/man2/perfmonctl.2           |  6 +++---
+>  man/man2/process_madvise.2      |  2 +-
+>  man/man2/readv.2                | 12 ++++++++----
+>  man/man2/s390_guarded_storage.2 |  2 +-
+>  5 files changed, 18 insertions(+), 12 deletions(-)
+>=20
+> Range-diff:
+> -:  ------------ > 1:  3b27c0e095e3 man/man2/open_tree.2: HISTORY: ffix
+> -:  ------------ > 2:  5be05e964e14 man/man2/perfmonctl.2: HISTORY: wfix
+> -:  ------------ > 3:  e0ecd2307cf9 man/man2/process_madvise.2: HISTORY: =
+ffix
+> -:  ------------ > 4:  f336517a9084 man/man2/readv.2: HISTORY: ffix
+> -:  ------------ > 5:  464d2acd9d62 man/man2/s390_guarded_storage.2: HIST=
+ORY: ffix
+>=20
+> base-commit: 8f299601fb600d305279acc03a92437a8378d0b6
+> --=20
+> 2.53.0.1
+
+
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--rl6tmw44babu3fs7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmbcyMACgkQ64mZXMKQ
+wqkJOg//RC/XBb/HtdUB1vcc8WKa9Waiwu4Kbw0e8/Or0AwQWoF2omrO6hPafaLw
+7BBE6uDEACQjQEWfkpSqvvw7Okv7ihyBGes0j1UgCQTZHJaaN5kRVtu3PlDPsb6X
+tQDSswleFkFO4TOO4Gc3S1X8w6c6mCd/CNvGHNhGWnTB9LBv5/nbCbg+l97/N6LN
+X3BzJEdy3jEXKtuXUjJxgYB3zTnofQLRzEM+WxcjqTkCQZXJlIoX2QDBt+FAZ/h4
+f0pVVZLZb0JETCIO96w87ldwTZs17zXklfmoBrQwvSsnX7tDB9FMuQ6xMp4QlH+X
+nwIlTBuP74v2rlM5kDsec0dWyVP94I9JeU+4RMuWfPpW7jYZ38ks7KfwJ8jobKfu
+AR+trUa7EArYXK5gdPyaGglFRKe8Mavo/LRFdi3/CRXyrPp7ePbFFNAgtcOBX+l4
+kwRiNFhQ78i7zymGeebXvmR8KufunJWcs/tfieo6liALG7zAqKMoGL/Hm4ZMKSiS
+RPiuMm/pxss0J9CTPZV0CV2KfsvK05e2vXQt+N73Qt+4wQY/qhO9yoiqd9InxH6s
+vcUnhVK338VOE/dFKJlJT4SkckNVpFMMRFi/UWKpDtYukf/qWQvTDkc50xgnt8Gd
+vzMEMhQbPOv2VNJVCdk4TiqQCIL7Pm5asQXk909kTD0qUdGgcpA=
+=sJhW
+-----END PGP SIGNATURE-----
+
+--rl6tmw44babu3fs7--
 
