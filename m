@@ -1,81 +1,81 @@
-Return-Path: <linux-man+bounces-5206-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5207-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yHQ8CdBgnGntFQQAu9opvQ
-	(envelope-from <linux-man+bounces-5206-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 15:14:40 +0100
+	id iNVuC71gnGntFQQAu9opvQ
+	(envelope-from <linux-man+bounces-5207-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 15:14:21 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C272177DE3
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 15:14:39 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80BE4177DBD
+	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 15:14:20 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 0BCF43031DAD
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 14:13:11 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 17E6D305F3C7
+	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 14:13:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0A6228134C;
-	Mon, 23 Feb 2026 14:13:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB91D283C83;
+	Mon, 23 Feb 2026 14:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lWtV+kKP"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FZbwhqAs"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com [209.85.216.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1E5281358
-	for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 14:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4DB27FD49
+	for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 14:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771855989; cv=none; b=Gy7cwMaebyTZo/xdOR76ZJlRqm+WyuxPVOhxtA5aC2MoDvkgVHartg4Otoqn2EIA88LJyL1f75rNrj+zvlRH/6eql66wYU0f2xf62AhuOuvigMO38aOb75sgwIGweoOduvICVIXAkkYZqkeFNoWnAWaKs5vKPaD655Vvo+Ssg10=
+	t=1771855999; cv=none; b=Gyf1F853hT6Vsht/b/gcXYaqj3XJgdF+tXj7aTW8euQ9fyppCTYswt6mQSUBFitudwBeGapOZVQFVky1gi/UN2VDKmhFfXuQ/0S4ajwsRZMrsUDArAGS5Xh3lWeP92KxfVEADl/Mn0B3erAQcqALVnwHTjab9ygnRZuHF9nyEqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771855989; c=relaxed/simple;
-	bh=Gan8EMZJMwrISMsbQhJLJEqpR1sO1WNX/Qo+7akQL4I=;
+	s=arc-20240116; t=1771855999; c=relaxed/simple;
+	bh=ZJtC3FDug6GwTbgLmwt1ZJwyohNX22MnvVuo5NuozfA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pv8wvGqnMxLtWYgvXi9jVuTsHFNVNgGwJEbMq4lhgdlmNqeNFvEi2j2CRX/Eotw7G/lyB6FDC4Fm1Lk1/+dTTLExaG8ooJ+4RYROLjBfMeV2oVas1U42H8zEpdd6h/O3TgN9jI17EdfBE5CwbMVkzGZM6I19tmWzxTbynr4KWs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lWtV+kKP; arc=none smtp.client-ip=209.85.210.196
+	 MIME-Version; b=Ce7eOIhTMU3FZm4b3gfOfzNg0jpASq5xYulYmZNpE9HGt/DBVo+LLO0g2lt/0FuQiFbwl89BkbXMKzKjAdd21qYwRRoS+VJUAYtzAyJotd3nQOsYTyFwtpwcR+i9mS1IENSAh4mg9Si4iICMiDHySorURgTUDWXU4IFQ6W6XzJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FZbwhqAs; arc=none smtp.client-ip=209.85.216.68
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-824b5f015bcso4172450b3a.1
-        for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 06:13:08 -0800 (PST)
+Received: by mail-pj1-f68.google.com with SMTP id 98e67ed59e1d1-354b79a9ad5so1820224a91.1
+        for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 06:13:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771855988; x=1772460788; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1771855998; x=1772460798; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pwSY0A2DzZC+MhpFPLGLVgfNdRTHV7vuOqmWH+det+Q=;
-        b=lWtV+kKPAhL/lyBlN+ju1oAmoXlSXh358hQfft3x5WOMFgI+QJSx5jILyDqzpOHV/3
-         COMpg6T3tCYDfnQsvhtMLeby7weLsKJf/mcPIM+E8LRY7s/xM4GGDvwRREtPVirze/R1
-         r6PQenv+j98eMY+R6RyBfHxHDkaAOekyrEkw7H/01NNQ1j0CWPDAWEzpXfu667aUr0ky
-         V27Ox1/ednhOdJzl8NG7AQqjMErh4LUEiTdSVzP298whofE+2zQvFedmtIooIAlAdEpm
-         QlmeeovY3+y2GsDUxCoGae5SiT2c8ST7cTkgkDA0gsYUJ4r6aJhImRranhLgXIv1CJ7Z
-         87mQ==
+        bh=9G7DmoijMxl3yMGRQlxMeHtefSDJwV8Nl76N+tV6wBc=;
+        b=FZbwhqAsNMGca6fusHrB99RmWbTq6Cwav5w3qpQzyRCqXiEgPyDZQ/Esr3J/GnHygc
+         tszonJ1YPLZtDWtoUOsrdO3xD1y1KF6DNujo/SlyxcOSOzOH1xRewL6FP06+IkzvsO9p
+         NFj3hZSsPVSITIqGV+tghD/LmgzQ7NaKFoJuAAUwNTByelmgpGVCUoCct2EzzSPpiAat
+         aqgynr+XLAK8qa8oNkA3zBIKKOTkvpmO/DK5RKNkQMomr9RmmviIf4hK0gioSZ6pF4Vx
+         TLyJgYdxG3K+BbMUO5DdVmDZf+fRcifwHeNezd2EAeZ8b3D+IFxlijfv+VFVeuKzt81c
+         mR7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771855988; x=1772460788;
+        d=1e100.net; s=20230601; t=1771855998; x=1772460798;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=pwSY0A2DzZC+MhpFPLGLVgfNdRTHV7vuOqmWH+det+Q=;
-        b=oa/0M+SOSlxY4oJyzb0aQ5XR2FBGHZ5IkE6LnvSytNcZxtcXLUbxOIaG430YtITwBl
-         YoaZ7nA1CdqVzz2z01E//qP1hkqy90ODNbjo2/UxlRx3FzJJbzaFeGVtTpB8fR0lKGxf
-         txzB347iKsnxUaX/zV7jgAZEwKfZNq6P1jscWQxjWAHDwhKvZyMIuvnuNU1QVtLwmmOM
-         adOR6U4v3xsyN70829ygF/047p1pF3slKitHzKG11TQVhEitzshqf37bMjucqAbxU/Ex
-         CCBAQbiWUeuVtZSarxlWYJH1A/rUqslyIYYZHY2L7NIOrdMKPR7qPpqL0DYMrrn9mplU
-         NrCA==
-X-Forwarded-Encrypted: i=1; AJvYcCVgGJJK64KAs7MAub7k0WSk4+fNi+kv33+MV9sEK2oEkpmI8YrbdQdJewupWoUG5QYxITfnskNuwEw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqpqjwYweTwGWYwzJpITauy3TseRDPC3H0URkmrWleJZX2Z9jo
-	NiRjNBf2lzZk9NrVpHZVQcikcqox9q7oxzJrwmre20ldYujTlSQ6H7KR
-X-Gm-Gg: AZuq6aIjTd8sV4r90kw9ewUzWjpYdDvzLH0EiQVMoBWLz7riNISsb/+tF3QQz4BjMMW
-	lyBS0rl3IbX9ihbJVz/hSTYzQ6qZk889bsvrizMEdJIn+1QhbrRXE/hB++nKmbHQxw1c0jytHtD
-	Im3pqCahUP6Y151k2t/UVuGHnoJZ+VOll8R0hhULylrXdN1mN8KJRKWG67i4oxOF9RkGRqWZwqK
-	CeAvYAP2Tpuk12GERBa6MvF/GUG585Cn4p/axBnRe/q5kRQTVOyjKb4FVTh7/R7e0Jfw0tRTxEE
-	nYtoT3BYbFAoaILdKEnNrBVhpt9rkdNJow4l8KaDHcInfB9oBTr4Y3XzqYHPeTa+pl/1r2x06nD
-	Ej8Xf1HvBgSd08EOsEzGHkYPvG9JWbKW9Dt0MLcOiqCWma/2sFhqsU/5GezYK3hOrNF0rmvZNaL
-	Q3J9HTut8eTRKdBRhnBfpdshcYTQVqnZSyxY5DgAyQUtinuMWI3pc5uz8=
-X-Received: by 2002:a05:6a20:d523:b0:38d:ebc4:b545 with SMTP id adf61e73a8af0-39545fca6e7mr7615239637.57.1771855987884;
-        Mon, 23 Feb 2026 06:13:07 -0800 (PST)
+        bh=9G7DmoijMxl3yMGRQlxMeHtefSDJwV8Nl76N+tV6wBc=;
+        b=YdG2oHj+3w7b4Xa20UmmUKVHiWqsXm1v0wCuqJZ1QLvlc1G5tmVf0/J49NHu/lGTD1
+         /HYRY8iIRCFrs0d+NhQc60PIkDxK3Ryby5KXWcD3cHIM3Hys/PNAIrj7d90qOP6p65HO
+         bULOR0wMdB9inKN8PLI82iFZO2tjHJYuF6VUltmGS6TDAShM2gHmBAXCnadmYzc0fUcT
+         fT2Ir18JGP72pKaEfSlrDuHcgplO54PCxOXzjPAXdJZ/UMNirwFD2zLXnGYRBjjRA2NM
+         DjMoFWPUxz678Eww5YMyPwSmNIknAfETCOZGObu/EesTFiMOjepWqkuCe72024JMHrRx
+         lxJg==
+X-Forwarded-Encrypted: i=1; AJvYcCUWPXT+TEOhU5iBL37aiXlfUJjvkDcA6a3tqaAd3xoJnGsVeBbi8oPpagES0TI4f87J0JlW2zon2Cc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx950R4P9DI5Y1HQkXrLfh74OwK/sqh1rr8swXYq0c+gpVo2t1c
+	blVtjGzn1Eks+3c2unBiiS5PikqfWrCjd6v5+0bXUiWZFHkNKxnxoArz
+X-Gm-Gg: ATEYQzxtQ2NKNd/NO2KE09CjWPw9+mWv9Wc5ILypVmhC7Taeyz7QuwP2h1iCZqoLWaV
+	KmHmGkJbTWkBa/b4iPdSEZCOvYrBiW0Z+lY+XAh0S5RLbiET53LAVBMSO+4C8ztUvS+b3OixgPw
+	RL2XsLu9GpP+0Mb9FX9Oo1fiJjMQ2xT0WcHdwI4i+UYYrhq+qck5IgnQCf3n74feIDPN0Kz9We+
+	QtyvJ6WyhRdL4IoDoX9vfs3LTgRW7eAjLKvVT1l3rx5Z9wLNT8ThmjzvJGSYzlqhZ5ReHa7n56x
+	AzSkLRFDATwTRNcfiASi/JaJEhKNUO4xPUzO3PKRpUsoMdpsgBmhaw0RcRBtc3vDuIrOremYvN/
+	TQYAo6tOd/34cYY+YxHJqYhc3U3iX6I8SYojEWZFNrmYh/lKtsHOJXSGAY8QDh4G6410xFxWia0
+	SJONqnT0K4raadIIV3eJFBLt7JiaIf0N7TaNyVx8GE3mmF0wQwRKZ3M4o=
+X-Received: by 2002:a17:90b:3fc4:b0:354:aa76:8283 with SMTP id 98e67ed59e1d1-358ae7c948emr7594864a91.3.1771855997909;
+        Mon, 23 Feb 2026 06:13:17 -0800 (PST)
 Received: from fedora ([2405:201:3017:184:52f5:ed80:f874:1efc])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c70b71a75e7sm7214260a12.14.2026.02.23.06.13.03
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c70b71a75e7sm7214260a12.14.2026.02.23.06.13.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Feb 2026 06:13:07 -0800 (PST)
+        Mon, 23 Feb 2026 06:13:17 -0800 (PST)
 From: Bhavik Sachdev <b.sachdev1904@gmail.com>
 To: alx@kernel.org
 Cc: avagin@gmail.com,
@@ -87,9 +87,9 @@ Cc: avagin@gmail.com,
 	linux-man@vger.kernel.org,
 	miklos@szeredi.hu,
 	ptikhomirov@virtuozzo.com
-Subject: [PATCH v2 2/4] man/man2/statmount.2: Document STATMOUNT_SUPPORTED_MASK
-Date: Mon, 23 Feb 2026 19:40:24 +0530
-Message-ID: <2bf71bae60b181c206326417047ece49f1113940.1771855680.git.b.sachdev1904@gmail.com>
+Subject: [PATCH v2 3/4] man/man2/statmount.2: Document req.mnt_ns_fd
+Date: Mon, 23 Feb 2026 19:40:25 +0530
+Message-ID: <a250e5c44e03428b5817ee863ebe6b47977ec9ab.1771855680.git.b.sachdev1904@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <aZt6WFt5uATpgPDY@devuan>
 References: <aZt6WFt5uATpgPDY@devuan>
@@ -106,7 +106,7 @@ X-Spamd-Result: default: False [-0.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -117,8 +117,8 @@ X-Spamd-Result: default: False [-0.16 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linux.dev,toxicpanda.com,vger.kernel.org,szeredi.hu,virtuozzo.com];
-	TAGGED_FROM(0.00)[bounces-5206-lists,linux-man=lfdr.de];
-	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
+	TAGGED_FROM(0.00)[bounces-5207-lists,linux-man=lfdr.de];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
 	PRECEDENCE_BULK(0.00)[];
@@ -130,55 +130,80 @@ X-Spamd-Result: default: False [-0.16 / 15.00];
 	TO_DN_NONE(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[10];
 	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 6C272177DE3
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 80BE4177DBD
 X-Rspamd-Action: no action
 
-Document STATMOUNT_SUPPORTED_MASK flag and the corresponding field
-introduced by it. It is used to determine the flags supported by the
-current kernel. The text is based on this commit message [1].
+Document the new mnt_ns_fd parameter to struct mnt_id_req.
+
+req.mnt_ns_fd can be used to query for a mount in a foreign mount
+namespace.
+
+The mnt_ns_fd parameter description is based on this commit message [1].
 
 Link [1]:
-<https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=8f6116b5b77b0536d2ad7482ee42bfe58b8fac01>
+<https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9020d0d844ad58a051f90b1e5b82ba34123925b9>
 
 Signed-off-by: Bhavik Sachdev <b.sachdev1904@gmail.com>
-Message-ID: <b537e03ab73d8677a53730311b5a3c11ff29a51b.1771855135.git.b.sachdev1904@gmail.com>
+Message-ID: <6577568b31ba8700214af1696d740d3b6aa1869d.1771855135.git.b.sachdev1904@gmail.com>
 ---
- man/man2/statmount.2 | 7 +++++++
- 1 file changed, 7 insertions(+)
+ man/man2/statmount.2 | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/man/man2/statmount.2 b/man/man2/statmount.2
-index f5a3721eb..843293e43 100644
+index 843293e43..816ddc24b 100644
 --- a/man/man2/statmount.2
 +++ b/man/man2/statmount.2
-@@ -60,6 +60,7 @@ .SH SYNOPSIS
- .B "    __u32  mnt_uidmap;"
- .B "    __u32  mnt_gidmap_num;"
- .B "    __u32  mnt_gidmap;"
-+.B "    __u64  supported_mask;"
- .B "    char   str[];"
- .B };
- .EE
-@@ -126,6 +127,7 @@ .SS The mnt_id_req structure
- STATMOUNT_OPT_SEC_ARRAY	/* Want/got opt_sec_{num,array} */
- STATMOUNT_MNT_UIDMAP	/* Want/got uidmap... */
- STATMOUNT_MNT_GIDMAP	/* Want/got gidmap... */
-+STATMOUNT_SUPPORTED_MASK	/* Want/got supported mask flags */
- .TE
- .in
+@@ -24,6 +24,7 @@ .SH SYNOPSIS
+ .EX
+ .B struct mnt_id_req {
+ .BR "    __u32  size;" "        /* sizeof(struct mnt_id_req) */"
++.BR "    __u32  mnt_ns_fd;" "   /* fd of mnt_ns to query the mnt_id in */"
+ .BR "    __u64  mnt_id;" "      /* The mnt_id being queried */"
+ .BR "    __u64  param;" "       /* ORed combination of the STATMOUNT_ constants */"
+ .BR "    __u32  mnt_ns_id;" "   /* The id of mnt_ns to query the mnt_id in */"
+@@ -74,7 +75,9 @@ .SH DESCRIPTION
+ To access a mount's status,
+ the caller must have CAP_SYS_ADMIN in the user namespace.
+ In case of accessing a mount in a foreign mount namespace (specified via
+-.IR req.mnt_ns_id ),
++.I req.mnt_ns_id
++or
++.IR req.mnt_ns_fd ),
+ the foreign mount namespace should be child of the current namespace.
  .P
-@@ -340,6 +342,11 @@ .SS The returned information
- .IR smbuf.mnt_gidmap_num .
- The whole range of gid mappings must be resolvable in the user namespace
- of the caller.
+ This function returns information about a mount,
+@@ -97,6 +100,16 @@ .SS The mnt_id_req structure
+ it should always be set to
+ .IR sizeof(struct\~mnt_id_req) .
+ .P
++.I req.mnt_ns_fd
++can be obtained from
++.B PIDFD_GET_MNT_NAMESPACE
++.BR ioctl (2)
++operation or by opening a file descriptor to
++.IR /proc/ pid /ns/mnt
++and is used to specify a foreign mount namespace in which to query
++.I req.mnt_id
++(Since Linux 6.18).
++.P
+ .I req.mnt_id
+ can be obtained from either
+ .BR statx (2)
+@@ -372,6 +385,13 @@ .SH ERRORS
+ .I req
+ is of insufficient size to be utilized.
+ .TP
++.B EINVAL
++Both
++.I req.mnt_ns_id
++and
++.I req.mnt_ns_fd
++were set.
 +.TP
-+.IR smbuf.supported_mask " (since Linux 6.15)"
-+The ORed combination of
-+.BI STATMOUNT_ *
-+flags supported by the current kernel.
- .SH RETURN VALUE
- On success, zero is returned.
- On error, \-1 is returned, and
+ .B E2BIG
+ .I req
+ is too large.
 -- 
 2.53.0
 
