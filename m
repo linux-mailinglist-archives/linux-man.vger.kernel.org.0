@@ -1,90 +1,98 @@
-Return-Path: <linux-man+bounces-5210-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5211-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MAWhC6V8nGm6IQQAu9opvQ
-	(envelope-from <linux-man+bounces-5210-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 17:13:25 +0100
+	id iKL3ACmanGmKJgQAu9opvQ
+	(envelope-from <linux-man+bounces-5211-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 19:19:21 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0D917978C
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 17:13:24 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B8A117B6AB
+	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 19:19:20 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id E842E3069666
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 16:02:55 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 0791430440A8
+	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 18:17:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE6C930648A;
-	Mon, 23 Feb 2026 16:02:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0BBB33B6FD;
+	Mon, 23 Feb 2026 18:17:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b="LOw6u1J9"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X2jYT930"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com [209.85.160.195])
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0266B28C869
-	for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 16:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB41533C198
+	for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 18:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771862556; cv=none; b=ASJoiSEgkCocKArjelkt2qo154L5278V3GWXJLj1bEL2rIXN/EJNJ00C5Q98COmatEgRbxn8vgw8tyt/oM4EIKy3MyuzUT6/ZtXnp7N2tShk5268LKnb4SiMzuoMZ4LzaKrZYOQFXGYiJZWMRthgKLHAj74PZuMN24j2D6WksUI=
+	t=1771870654; cv=none; b=YFZHXCHWwIVxHMJDBtGQhk9lcwWsaT4SiBXd0DDNOKaYsJ51qQOOKEkaWYz9caqFs3zOSf1EYgUu+GY0u53g+4rdhPsuGQuIwIPL5BeBZPKF5LDi1VE7dfyoT3fLTwLj567KpHbMn/kJpgtXmMWJUboFa2CWLXE+ryb1gp3Qbqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771862556; c=relaxed/simple;
-	bh=BSsS04poKZIzoK8vcB2Vg1vte25UHnyai9IKJDu+LZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DJxnkGePcF9gBIjER9W33STOQ8hTdV6oVAT3Np/ZhRqp/cLUTwS7l3IGb7gyJEBab3qRYNRsSBAu69vzY0qF1NYHWR+Xce6GSWy/JDOqtfhR1KAOKQrfgkEysOR/KETlnBROstumaEX4jdfV3M/KRjmJVRtVAYd1Dzn7eTVT3zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu; spf=pass smtp.mailfrom=dartmouth.edu; dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b=LOw6u1J9; arc=none smtp.client-ip=209.85.160.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dartmouth.edu
-Received: by mail-qt1-f195.google.com with SMTP id d75a77b69052e-506a297c14bso38642391cf.2
-        for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 08:02:34 -0800 (PST)
+	s=arc-20240116; t=1771870654; c=relaxed/simple;
+	bh=rKiSJpvHzC26gNwUv7SOHcviwsTuEgBEO4AKEmH7x5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WTa3ooMMFTJnoGrdfLGtB0l7SQqYE+bqbrkVB+21h1hqu1sGyTiqhXBYun57tdfgM9xVgkz3QF59WquK6JCxcvsRRDIewAgTbtRNlXJHl7rQ1wOu/sA+F7p5OG5Qlx5PT79AWmDxOQqfbX2qIAyCUzjK9EcJOgLfMP3qzq0Vpbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X2jYT930; arc=none smtp.client-ip=209.85.210.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-824a3ba5222so2466472b3a.2
+        for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 10:17:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dartmouth.edu; s=google1; t=1771862554; x=1772467354; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TP+HBayWxpzX8/2lINoEWSN0CwPelyV6qMPZVMmmH7s=;
-        b=LOw6u1J9AJGUWjAenaKksO6haBYS9D8Q4PaDosigZacsNdvXSWcOos4ZneHuqHp4As
-         +l7t/JSkV7pA9xB/bvcWOIkLQdDSg4/cu39MOxkDG4zsGTZbtfcslPllGP0xHV0cw+Gk
-         UdTiaXHTE76sjB543owGAR/JRD5IQdUo1zoOV0MTbYf7QopsAiKYeQHqzAZ3mu7Iwe+M
-         5JsbfigujZJBiMA+ClCvnoePimNn7iUm3spzlHs6NtF7i0ytuP5lHhlE+3SpGgxSZ2OG
-         1VqnnEbo/2wNY3JTxc8EfC32HnO72iJYXELBCFex/ifyFoYjJva09F9Pu2UETgK0/8M4
-         o9tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771862554; x=1772467354;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1771870652; x=1772475452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TP+HBayWxpzX8/2lINoEWSN0CwPelyV6qMPZVMmmH7s=;
-        b=O6UXmwUcWxYvJBHdtLxv+oK4HPQn7pOSzoi7m9pmI/vQU6eXZwkanvslbPWlfpchQU
-         E3uN5V8m0YKp8cJWf5tSv+Bc/LKjQI8sffTVtQl1WC6YkXWyAkUJ/2xaLtlwKP82SXLo
-         AzaFYv+qvQ6CSdk1qcMZN04IrB8jW11cX4J/9Z/IWx9GCw4i5ITxOi+YPRpFLT4VDQ+G
-         nZp6Joh31F7qurNpdzMiiVE61lHBaRj0iobi4k4GXTBLSpBz9sbD1hSl2DNZDtmjtMVP
-         cPAN5LEIoJ/4AOCG7lY55rJKm0W4VcKWJqkexG1AwDDZM0kEnCq+tKiQU7DljT1QLAIl
-         lE8Q==
-X-Gm-Message-State: AOJu0Yz53MM5VjD8yyGDjxXSLakaKnabpWGtxpsSOnegipiyB90o3frg
-	hCH9pNhpA59arHuDoAQgSLOkJ5T1ZiUc96D0au5M8+L5GJFjckva4vFaDqREyFHugbRdxmUlcKo
-	RJ3PfJGQ=
-X-Gm-Gg: AZuq6aJJyE/widGpJOaMafMXGAs6ARNq/AVWtcIygioiezkzi4mC7cVwBvrWOA9oGW3
-	ahbDXU0XDUk2rdEd/wQibdedLAjqBNPErWia5rLAM0NQuryPcWrDJeK2WMZmB6AXKn8yXnYekXA
-	w3HoEGW3xeKBzMDQSz7Td7My+T9Vu1kCpn+nv4TIvywVo5ok9NmlmKWiG+7U4yRhONhZ9IX4b4X
-	y6ZZ5sgwnFguv/FPSWjRmJu4ECtd6X1NeLo9M/CrHI+KdZ6tAqNDzmSdourqoGVXzX+1r0SX1QM
-	yEB5GuVkxVBDdX+Sopo1I1pQ7l9uX9mkzDfWSXVKZ6gAY82FnPNuRS6UOTGuPe6KKMHX0/B+B/c
-	fUBU7DTGzZE443UkK6jJT+Z1F3rRWqBj2hxNHEHEuLi2fs4wT6KsgquFs/PV31r8JGpJkzvLMLj
-	YSSDi5TOuLU8hmb1washCH4FcomV5w1dK2WCdSVf7bH9HOe3tIrmQ4PvzztnJe2imlfLobSTAFD
-	nEPLSJ1B7/Vy5LOLLc1mXsu7ORXWmhGvgLcGQ5QXBkLvRpUTNHgT/daAEzQRnI5Bc+Zu3UHu2pX
-	soCLhngMaxen9zznzrwJM/XZ7TQIpekIUW/r/AhOO7fIhMi88BM2yZHgnCqOubfHyiueCqopJna
-	bNaseTOiFLorjMkZlxICR1stBfCtKRSx/gHxMlHfIeH78CUY3ddwNtvx2mg8VHuz7QQdv
-X-Received: by 2002:a05:622a:14ca:b0:4ee:1e63:a4e0 with SMTP id d75a77b69052e-5070bd278efmr127828581cf.74.1771862552383;
-        Mon, 23 Feb 2026 08:02:32 -0800 (PST)
-Received: from localhost ([129.170.197.119])
-        by smtp.gmail.com with UTF8SMTPSA id d75a77b69052e-5070d550785sm84454521cf.11.2026.02.23.08.02.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Feb 2026 08:02:31 -0800 (PST)
-From: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+        bh=Wcw/PqwocRM5Id4EKWOCJb15MR8JyYwObAk/H/U2vB8=;
+        b=X2jYT930/V+2gdwjI3iPO9X2AgghWDu8pN/nGxVjnQNS0H2MkIUn4zCsTJ+pK+oTAs
+         4c6GOPILO89nbqrNKVJmYrUW5DHB+ulb/T0C4P3YeK3MyX+XcQk5QiWhlb2EE1RoB3at
+         Ni8H23gfhza+UviAgpD/cf+g99qZizuoJ+KyHb1H5/sVFGIxqltgd/hUnI2uDTG6Osmv
+         +a90ySOtImMKtbXgysDB99s9hLhr7rngctYV03t/8n5tZNHBCPVdx4/Iowd6Ht5eDOJE
+         q8iL0h6/LBZHLGCD6tdzMPX6PhtfUoXLdn31JQiKrK/cXZCxT8U1wRWHL+wbgjNfBauX
+         02aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771870652; x=1772475452;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Wcw/PqwocRM5Id4EKWOCJb15MR8JyYwObAk/H/U2vB8=;
+        b=cCM8ajc441gzRz1WEv1V2E08Vwp5M5sDxSt++w7IMSasDHSOwJVZErDinsVKHkQpP9
+         O8uolnWdixxt9E9M8+8S5DBPQwmyZgrraG/HgX9aB04LPQUG+oN0EJDIYgkGLrXbovP2
+         qVm42iUkWNAKLDIyTtZyh/R3jLWGu0gRcahF1IVOsbTqGW41K4uMcxSar9pyspqXKJIN
+         nyQztgt+Zbg3izOwbMCIH2koLd0+bJHnvKaD0wJAXZLe9OfxzwTFRK0aI3LmV7XSo3Tl
+         F/JqwQ4qs+0IJPqn3eHuIcAFmAPkO6T5zCc7vyCYXd7+uM8EV5LbiIGdBhW5AobSCGRh
+         3cbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUQXMvVVegHqqpYXluDZtDVvKpobhLDDt1HevxYBZ5Jc4NE62CS1E4AVhve4RSnXKa5xg25uJ0Zmhs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywg0nsfobZadH7ai7PfdOBwbKFddYamidHfXAKtCmtAPLGxXi7L
+	O/3DMJflVKoXd48I+XDCLGl4r9zKrFNy2kKJz92RG1yI5zs754R3ptg3
+X-Gm-Gg: AZuq6aIBrGN/E9jGlwVj0Tl56MilmAMNPctHiK6OeUtooCGT/vQoGbKK97saJeXdtYa
+	D88TBEredfBVezgW5RtnVU9umn6enpjLqNm2xy2NDLGzRv4we7ua81dBjZUccBgzF19Eb+JPNkm
+	JTOTWdWeXKdufvpM6SyQ8gClcpWT+TK3ckFRLdlm2hsVLrd+dvGi1gRG++x56xRC/fOuseR3f7u
+	gMCtYV7SozR2yd6eaD1w5v9RHpcMkArKPhsqATHQlQHzB18PBBf6jVqd9ajQTkQ5b1cxDztZTJF
+	6dtPK3nLl/UEpg2ynDD9U5vOf99Bp6oKMEDgTOnPEPhXGO83nKCFlKs96MXdpJKXsUnbZslM8Tl
+	RqH6RZWia2rU1U4kF9y/XGKI4FJnou0l5C9YOHtvK6MuDj/6dLy1p5ooDpZedGlhD1HFzKVpfA+
+	ZLJrD9zyjHhi2LA0UZeDqGxMBLrfEbLOZMDz+v0PvxjknwCCZTyjeK15zbB+jZZAbO
+X-Received: by 2002:a05:6a21:e0a4:b0:395:7fb:9362 with SMTP id adf61e73a8af0-39545ec9972mr8379963637.19.1771870651808;
+        Mon, 23 Feb 2026 10:17:31 -0800 (PST)
+Received: from fedora ([2405:201:3017:184:8df:188f:bb44:232b])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c70b726eb92sm7888784a12.33.2026.02.23.10.17.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Feb 2026 10:17:31 -0800 (PST)
+From: Bhavik Sachdev <b.sachdev1904@gmail.com>
 To: alx@kernel.org
-Cc: linux-man@vger.kernel.org,
-	Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Subject: [PATCH] man/man2/mmap.2: Document that MAP_GROWSDOWN doesn't affect mmap return value.
-Date: Mon, 23 Feb 2026 11:02:19 -0500
-Message-ID: <20260223160219.1015364-1-benjamin.p.kallus.gr@dartmouth.edu>
+Cc: avagin@gmail.com,
+	b.sachdev1904@gmail.com,
+	brauner@kernel.org,
+	criu@lists.linux.dev,
+	jlayton@kernel.org,
+	josef@toxicpanda.com,
+	linux-man@vger.kernel.org,
+	miklos@szeredi.hu,
+	ptikhomirov@virtuozzo.com
+Subject: [PATCH v2] man/man2/statmount.2: Document STATMOUNT_BY_FD
+Date: Mon, 23 Feb 2026 23:47:03 +0530
+Message-ID: <7d4b22c595feeadb3be6df8a8781344597120f7e.1771870502.git.b.sachdev1904@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <aZx02VGlW2GfBdce@devuan>
+References: <aZx02VGlW2GfBdce@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -93,59 +101,121 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.66 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-0.16 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[dartmouth.edu,none];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
-	R_DKIM_ALLOW(-0.20)[dartmouth.edu:s=google1];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5210-lists,linux-man=lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
-	RCPT_COUNT_THREE(0.00)[3];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[benjamin.p.kallus.gr@dartmouth.edu,linux-man@vger.kernel.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[dartmouth.edu:+];
-	RCVD_COUNT_FIVE(0.00)[5];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linux.dev,toxicpanda.com,vger.kernel.org,szeredi.hu,virtuozzo.com];
+	TAGGED_FROM(0.00)[bounces-5211-lists,linux-man=lfdr.de];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	NEURAL_HAM(-0.00)[-0.998];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 6A0D917978C
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[bsachdev1904@gmail.com,linux-man@vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_COUNT_FIVE(0.00)[5];
+	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_NONE(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 6B8A117B6AB
 X-Rspamd-Action: no action
 
-The man page states that the MAP_GROWSDOWN flag causes the kernel to return an
-address one page lower than the mapping created. This is not true; the kernel
-returns the base address of the mapping created, just as it does when
-MAP_GROWSDOWN is not passed. This can be confirmed by inspecting
-/proc/self/maps after making a gd mapping, and comparing it to the returned
-value from mmap.
----
- man/man2/mmap.2 | 2 --
- 1 file changed, 2 deletions(-)
+STATMOUNT_BY_FD introduces the ability to get information about a mount
+using a fd on the mount. This functionality is currently in linux-next
+[1].
 
-diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
-index 09e7933d3..20b94c243 100644
---- a/man/man2/mmap.2
-+++ b/man/man2/mmap.2
-@@ -276,8 +276,6 @@ should check the returned address against the requested address.
- This flag is used for stacks.
- It indicates to the kernel virtual memory system that the mapping
- should extend downward in memory.
--The return address is one page lower than the memory area that is
--actually created in the process's virtual address space.
- Touching an address in the "guard" page below the mapping will cause
- the mapping to grow by a page.
- This growth can be repeated until the mapping grows to within a
+Link [1]:
+<https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20260126&id=d5bc4e31f2a3f301b4214858bec834c67bb2be5c>
+
+Signed-off-by: Bhavik Sachdev <b.sachdev1904@gmail.com>
+Message-ID: <57c96336ccfbdc05f60b7875c315a8c1dd0d14b8.1771870334.git.b.sachdev1904@gmail.com>
+---
+ man/man2/statmount.2 | 37 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 35 insertions(+), 2 deletions(-)
+
+diff --git a/man/man2/statmount.2 b/man/man2/statmount.2
+index 5ac96796c..a5b135bee 100644
+--- a/man/man2/statmount.2
++++ b/man/man2/statmount.2
+@@ -24,7 +24,10 @@ .SH SYNOPSIS
+ .EX
+ .B struct mnt_id_req {
+ .BR "    __u32  size;" "        /* sizeof(struct mnt_id_req) */"
+-.BR "    __u32  mnt_ns_fd;" "   /* fd of mnt_ns to query the mnt_id in */"
++.BR "    union {"
++.BR "           __u32  mnt_ns_fd;" "   /* fd of mnt_ns to query the mnt_id in */"
++.BR "           __u32  mnt_fd;" "      /* fd on the mount being queried */"
++.BR "    };"
+ .BR "    __u64  mnt_id;" "      /* The mnt_id being queried */"
+ .BR "    __u64  param;" "       /* ORed combination of the STATMOUNT_ constants */"
+ .BR "    __u32  mnt_ns_id;" "   /* The id of mnt_ns to query the mnt_id in */"
+@@ -89,7 +92,7 @@ .SH DESCRIPTION
+ .I bufsize
+ with the fields filled in as described below.
+ .I flags
+-must be 0.
++must either be 0 or STATMOUNT_BY_FD.
+ .P
+ (Note that reserved space and padding is omitted.)
+ .SS The mnt_id_req structure
+@@ -110,6 +113,25 @@ .SS The mnt_id_req structure
+ .I req.mnt_id
+ (since Linux 6.18).
+ .P
++.I req.mnt_fd
++is a file descriptor on a mount.
++If STATMOUNT_BY_FD flag is specified,
++.I req.mnt_id
++and
++.I req.mnt_ns_id
++are zeroed, the function will return information about the mount the fd is on
++(Since Linux 7.0).
++.P
++The fd can also be on a mount that has been lazily unmounted (see
++.BR umount2 (2)
++with
++.BR MNT_DETACH ).
++In this case,
++.BR STATMOUNT_MNT_POINT
++and
++.BR STATMOUNT_MNT_NS_ID
++will be unset, since an unmounted mount is no longer a part of the filesystem.
++.P
+ .I req.mnt_id
+ can be obtained from either
+ .BR statx (2)
+@@ -392,6 +414,17 @@ .SH ERRORS
+ .I req.mnt_ns_fd
+ were set.
+ .TP
++.B EINVAL
++.I req.mnt_id
++or
++.I req.mnt_ns_id
++was specified alongside
++.IR req.mnt_fd .
++.TP
++.B EBADF
++.I req.mnt_fd
++is an invalid file descriptor.
++.TP
+ .B E2BIG
+ .I req
+ is too large.
 -- 
 2.53.0
 
