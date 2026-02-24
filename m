@@ -1,228 +1,240 @@
-Return-Path: <linux-man+bounces-5212-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5213-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mH9hIhysnGlnJwQAu9opvQ
-	(envelope-from <linux-man+bounces-5212-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 20:35:56 +0100
+	id oNE9KAzvnGkSMQQAu9opvQ
+	(envelope-from <linux-man+bounces-5213-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 24 Feb 2026 01:21:32 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6FDF17C6FC
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 20:35:55 +0100 (CET)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF4E018030C
+	for <lists+linux-man@lfdr.de>; Tue, 24 Feb 2026 01:21:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 018F7309137B
-	for <lists+linux-man@lfdr.de>; Mon, 23 Feb 2026 19:33:06 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 1E1CD300C3A0
+	for <lists+linux-man@lfdr.de>; Tue, 24 Feb 2026 00:21:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D2E2371043;
-	Mon, 23 Feb 2026 19:33:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D0CB2135AD;
+	Tue, 24 Feb 2026 00:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="OKVoAKAR"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKZreMnF"
 X-Original-To: linux-man@vger.kernel.org
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB3823EA8B
-	for <linux-man@vger.kernel.org>; Mon, 23 Feb 2026 19:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23691DA0E1;
+	Tue, 24 Feb 2026 00:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771875185; cv=none; b=uyFUCeqEefKT6Ug7XSwPy2FJtzmO1VxJgn+ZggQVQ/rHlgGEO3imzMe4SRPcj6qudHDIx3QtL0KRBsmueWWHH0W0qJsP3+4+07vVbnkkjRWaUDwV5hu5lCtAYZm5ydv4qVes9qT2p2kB2DwwAGFQfW6FYQZLCoVqQUnKH4GM2IA=
+	t=1771892488; cv=none; b=WUwjfbm8YPjdswrvTuvKZ9+ipKtJ4QEB3zSTPUwQHMdBuvfSKBVTiCeW6LtZXR43kAjsdFfboCcv77x0DEucQw4QbYrzlKQJo/DGZE2YubzU1aQbDjAsyxGr+ShldSunMkXNGLarX9Nix/RIZ0qTUWf4Sz/EL4cFnELBZ77y/w8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771875185; c=relaxed/simple;
-	bh=usNK/zvyCaerlGBXc9jYU8qDGmXmsiEK6u2ZpiaHrvA=;
+	s=arc-20240116; t=1771892488; c=relaxed/simple;
+	bh=MMMhkd33YJZrOlAzw/e+SKjsKAkJ2Dokk+GmA7qJ9dE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bqKb3JQGL3YvSZPpxtA4twEwpx+dyWGyDlSm/MYaf7bRaiPUZi4t+8vUmKSZwXb3RS9MJGLRgLXfpG4lKgMrCpa7rXMNhsHxva+Fwveccz35eFOU6hYYKXtS9soZvY28asA6Vm/0a0OdQdM7VhxTvK8gN0bBrc+erIaHi28ST5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=OKVoAKAR; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
-Received: from macsyma.thunk.org (pool-173-48-102-240.bstnma.fios.verizon.net [173.48.102.240])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 61NJWduK027285
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 23 Feb 2026 14:32:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1771875161; bh=BLlZWeQmVc4glY+Q7q8WWVsq7D4lh0/EuVs6l5yEUZU=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=OKVoAKAR554ckn0Zj/PlN8NcunMiawuFfr5wz21LpjowPfIQ3nHHiK8WuLrrkToX7
-	 cJIO6OFosfFq0zNfC0/vRK4HgYivd1mh9Y8Ytemu7/YqNSWpY8qfHeXHpPgdJrrB4h
-	 4N2s9Beem6+eeJhGKrUj4OvCmCxMrNKWdpjR54QXrEl0LHgG8kJqj/Pw++TSoRujGr
-	 ueVL+JQHfbUm8Sh22TfBY5kCnuwltueof7kw1buMN4t4UFqHcOwWp46PYgGbw5xNpX
-	 UREskjgnGBHayvJ4xixtWGRs4g9G3XVnNBecWnlDxXd2W/EJ37puVeDMi9RhzX0rdC
-	 ILUC4XslTIJ8g==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 1106659912F9; Mon, 23 Feb 2026 14:32:39 -0500 (EST)
-Date: Mon, 23 Feb 2026 14:32:38 -0500
-From: "Theodore Tso" <tytso@mit.edu>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Andreas Dilger <adilger@dilger.ca>,
-        Vyacheslav Kovalevsky <slava.kovalevskiy.2014@gmail.com>,
-        linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-man@vger.kernel.org
-Subject: Re: Writing more than 4096 bytes with O_SYNC flag does not persist
- all previously written data if system crashes
-Message-ID: <20260223193238.GA63263@macsyma-wired.lan>
-References: <3d8f73f4-3a64-4a86-8fc9-d910d4fa3be1@gmail.com>
- <174A8D06-B9B6-4546-A528-7A814D538208@dilger.ca>
- <20260219133244.GB69183@macsyma-wired.lan>
- <aZxLxum4WFYKbx2O@devuan>
+	 Content-Type:Content-Disposition:In-Reply-To; b=YqXeh8vdaujeYfV1ia2qkqPlkS52W8Uj40fuw3lt1MpspzLeIKBvCZboSsaD3LnBfhwqHm7PrW75430eDrBhNjuz40W+MHOLFBAyBlh8Ro1lJ5cZIZqb9B1LmBc+KDkiF0nTYMF7ekb5Wk3uz2gZCWSSDrK/V28Xe34P4/X/3HU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKZreMnF; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1A5AC116C6;
+	Tue, 24 Feb 2026 00:21:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1771892487;
+	bh=MMMhkd33YJZrOlAzw/e+SKjsKAkJ2Dokk+GmA7qJ9dE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jKZreMnFc2NR8xo7NHrBNZQaaubr4HkM4qKEpmoPcgRV9uOYdJoMVQNT5tyMccRqM
+	 sQU0z5eGOH6DkTBhcqiutEmiOQe1I5qyCbMjbGag7l7TRpgsD7bUeC9L832v3sfJIA
+	 KYnEHPLATHIR/wgdwetEjbxY55cSd2pVRclaX992yl7NczECAdjg9OIqMSokjVercY
+	 mTIq7GY4tMoTztz+Icu2Vc89bkqsf9FYPRG8csvGM76G36zqUUKnF2eXH2ea7bGQTQ
+	 MhDAzAczVzCPInFUECMz6DOn3vwRHQQScwy0uYXnPRyIL1H+j/fjqrx6V00IHArKJP
+	 96TDbjCR4P4EQ==
+Date: Tue, 24 Feb 2026 01:21:23 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Bhavik Sachdev <b.sachdev1904@gmail.com>
+Cc: avagin@gmail.com, brauner@kernel.org, criu@lists.linux.dev, 
+	jlayton@kernel.org, josef@toxicpanda.com, linux-man@vger.kernel.org, 
+	miklos@szeredi.hu, ptikhomirov@virtuozzo.com
+Subject: Re: [PATCH v2] man/man2/statmount.2: Document STATMOUNT_BY_FD
+Message-ID: <aZzuI5pPe19gFvPf@devuan>
+References: <aZx02VGlW2GfBdce@devuan>
+ <7d4b22c595feeadb3be6df8a8781344597120f7e.1771870502.git.b.sachdev1904@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="k3hsmvwmdtwrh4gy"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aZxLxum4WFYKbx2O@devuan>
+In-Reply-To: <7d4b22c595feeadb3be6df8a8781344597120f7e.1771870502.git.b.sachdev1904@gmail.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.66 / 15.00];
+X-Spamd-Result: default: False [-2.26 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[mit.edu,none];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	R_DKIM_ALLOW(-0.20)[mit.edu:s=outgoing];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5212-lists,linux-man=lfdr.de];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[dilger.ca,gmail.com,vger.kernel.org];
 	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5213-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linux.dev,toxicpanda.com,vger.kernel.org,szeredi.hu,virtuozzo.com];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[tytso@mit.edu,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[mit.edu:+];
 	NEURAL_HAM(-0.00)[-0.999];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[macsyma-wired.lan:mid]
-X-Rspamd-Queue-Id: E6FDF17C6FC
+	TO_DN_SOME(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: AF4E018030C
 X-Rspamd-Action: no action
 
-On Mon, Feb 23, 2026 at 01:46:54PM +0100, Alejandro Colomar wrote:
-> Hi Ted, Andreas,
-> 
-> > The parenthetical comment in the second paragraph needs to be removed,
-> > since fsync specifices that all dirty information in the page cache
-> > will be flushed out.
-> 
-> Would you mind checking the text in VERSIONS (since there's a reference
-> to it right next to the text you're proposing to remove)?  I suspect it
-> will also need to be updated accordingly.  I don't feel qualified to
-> touch that text by myself.
 
-The text in VERSIONS is not incorrect, in that it is talking about the
-distinction of O_SYNC and O_DSYNC in terms of which kinds of metadata
-will be persisted.
+--k3hsmvwmdtwrh4gy
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Bhavik Sachdev <b.sachdev1904@gmail.com>
+Cc: avagin@gmail.com, brauner@kernel.org, criu@lists.linux.dev, 
+	jlayton@kernel.org, josef@toxicpanda.com, linux-man@vger.kernel.org, 
+	miklos@szeredi.hu, ptikhomirov@virtuozzo.com
+Subject: Re: [PATCH v2] man/man2/statmount.2: Document STATMOUNT_BY_FD
+Message-ID: <aZzuI5pPe19gFvPf@devuan>
+References: <aZx02VGlW2GfBdce@devuan>
+ <7d4b22c595feeadb3be6df8a8781344597120f7e.1771870502.git.b.sachdev1904@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <7d4b22c595feeadb3be6df8a8781344597120f7e.1771870502.git.b.sachdev1904@gmail.com>
 
-However, the reason why all of this information regarding Synchronized
-I/O is in VERSIONS is describing the historic behaviour of Linux
-version 2.6.33 versus more modern versions of Linux.  But 2.6.33 dates
-from February 24, 2010 --- 16 years ago.  So it might be simpler if we
-simply dropped this kind of historical information.  But if you do
-want to keep it, we should move the bulk of that inforamtion into
-O_SYNC and O_DSYNC.
+Hi Bhavik,
 
-So maybe:
+On 2026-02-23T23:47:03+0530, Bhavik Sachdev wrote:
+[...]
+> diff --git a/man/man2/statmount.2 b/man/man2/statmount.2
+> index 5ac96796c..a5b135bee 100644
+> --- a/man/man2/statmount.2
+> +++ b/man/man2/statmount.2
+> @@ -24,7 +24,10 @@ .SH SYNOPSIS
+>  .EX
+>  .B struct mnt_id_req {
+>  .BR "    __u32  size;" "        /* sizeof(struct mnt_id_req) */"
+> -.BR "    __u32  mnt_ns_fd;" "   /* fd of mnt_ns to query the mnt_id in *=
+/"
+> +.BR "    union {"
+> +.BR "           __u32  mnt_ns_fd;" "   /* fd of mnt_ns to query the mnt_=
+id in */"
+> +.BR "           __u32  mnt_fd;" "      /* fd on the mount being queried =
+*/"
+> +.BR "    };"
+>  .BR "    __u64  mnt_id;" "      /* The mnt_id being queried */"
+>  .BR "    __u64  param;" "       /* ORed combination of the STATMOUNT_ co=
+nstants */"
+>  .BR "    __u32  mnt_ns_id;" "   /* The id of mnt_ns to query the mnt_id =
+in */"
+> @@ -89,7 +92,7 @@ .SH DESCRIPTION
+>  .I bufsize
+>  with the fields filled in as described below.
+>  .I flags
+> -must be 0.
+> +must either be 0 or STATMOUNT_BY_FD.
 
-       O_DSYNC
-              Write  operations  on the file will complete according to the re‐
-              quirements of synchronized I/O data integrity completion.
+The macro should go in bold (.B, .BR) here and elsewhere.
 
-              By the time write(2) (and similar) return, the  output  data  has
-              been  transferred to the underlying hardware, along with any file
-              metadata that would be required to retrieve that data.
+Also, should we say the same as elsewhere?:
 
-	      See VERSIONS for a description of how historial versions
-	      of the Linux kernes from 2010 behaved.
+	"It is an ORed combination of the following constants"
 
-       O_SYNC Write  operations  on the file will complete according to the re‐
-              quirements of synchronized I/O file integrity completion (by con‐
-              trast with the synchronized I/O data  integrity  completion  pro‐
-              vided by O_DSYNC.)
+and then a list which contains only STATMOUNT_BY_FD?
 
-              By the time write(2) (or similar) returns, the output
-              data and all file metadata associated inode for the
-              opened file have been transferred to the underlying
-              hardware.
-	      
-	      See VERSIONS for a description of how historial versions
-	      of the Linux kernes from 2010 behaved.
 
-    VERSIONS
-       Before Linux 2.6.33, Linux implemented only the O_SYNC flag for
-       open().  However, when that flag was specified, most
-       filesystems actually pro‐ vided the equivalent of synchronized
-       I/O data integrity completion (i.e., O_SYNC was actually
-       implemented as the equivalent of O_DSYNC).
+Have a lovely night!
+Alex
 
-I'd suggest dropping everything else in VERSIONS, including the
-discussion of O_RSYNC.  All of that is much more appropriate for a
-tutorial.
+>  .P
+>  (Note that reserved space and padding is omitted.)
+>  .SS The mnt_id_req structure
+> @@ -110,6 +113,25 @@ .SS The mnt_id_req structure
+>  .I req.mnt_id
+>  (since Linux 6.18).
+>  .P
+> +.I req.mnt_fd
+> +is a file descriptor on a mount.
+> +If STATMOUNT_BY_FD flag is specified,
+> +.I req.mnt_id
+> +and
+> +.I req.mnt_ns_id
+> +are zeroed, the function will return information about the mount the fd =
+is on
+> +(Since Linux 7.0).
+> +.P
+> +The fd can also be on a mount that has been lazily unmounted (see
+> +.BR umount2 (2)
+> +with
+> +.BR MNT_DETACH ).
+> +In this case,
+> +.BR STATMOUNT_MNT_POINT
+> +and
+> +.BR STATMOUNT_MNT_NS_ID
+> +will be unset, since an unmounted mount is no longer a part of the files=
+ystem.
+> +.P
+>  .I req.mnt_id
+>  can be obtained from either
+>  .BR statx (2)
+> @@ -392,6 +414,17 @@ .SH ERRORS
+>  .I req.mnt_ns_fd
+>  were set.
+>  .TP
+> +.B EINVAL
+> +.I req.mnt_id
+> +or
+> +.I req.mnt_ns_id
+> +was specified alongside
+> +.IR req.mnt_fd .
+> +.TP
+> +.B EBADF
+> +.I req.mnt_fd
+> +is an invalid file descriptor.
+> +.TP
+>  .B E2BIG
+>  .I req
+>  is too large.
+> --=20
+> 2.53.0
+>=20
 
-If you really want to keep all of that text, perhaps it could be moved
-into a synchronized-io man page in section 7.  In that we can talk
-about the difference of fsync() and fdatasync(), which is interesting
-as a conceptual model, and conceptually it is similar to the O_SYNC
-and O_DSYNC.  But the difference of what data will be written back
-(the data that was written in the file descriptor where the
-O_SYNC/O_DSYNC flag was set, eitehr via open or fcntl, versus all
-buffered data in the buffer cache).  The synchronized-io man page
-could also have more of the information around O_DIRECT in one place.
+--=20
+<https://www.alejandro-colomar.es>
 
-> If you'd write a patch, I'd appreciate that.
+--k3hsmvwmdtwrh4gy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Well, there's a question of what's the minimal change that is needed
-to fix out-and-out inaccuracies, and we can just delete some
-parenthetical comments.
+-----BEGIN PGP SIGNATURE-----
 
-BTW, if we want to delete inaccurate information, I'd also suggest
-deleting the following text in the O_DIRECT section of the man page:
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmmc7wMACgkQ64mZXMKQ
+wql+/RAAqryzGdIji6M+3G8Tu+zvk4658+Ku7udijh3x4E/XySiyjfpTkumwyTWT
+lW88GPVWO1u5sweQGjpyN53Zlb48w5lle0oibZCVAHcioM+yvHaCFMhzDJL6N5eI
+RQhrp3kz3glwPMsNb8/YK8H0xdQ8Mva81Eb1/dnm2Ek4rUrFJz92gXxmowgl2+ox
+Jl4KWeWmzAsr6AYJJs3RAuePDrowZad5mA4eoL8EY2ncylMzAofF6nES3UjoD3Ef
+Q2STz2/q9kWJbomTKwez3uLhms+aGuAeGKoqcVxAT9E3ltfHJrYcyjpIuBzjzdgD
+4DJbHKCjlRifCV4Ucc8icMRzjKRC4i1gqREJK7UY9UD5scFAux98u5iq7IoMym68
+xSWFzZrtY3GpohXBcvlzu5esCCXpFfkXhtIoPjvUKwube/s8SBRSb6xqxooS1eiw
+9vSQ0rm2HQAURmsUZhz+tCF9GclzswR+X6GjG0EW3WT4LTdWAdhLRNUaHWVPEZIj
++uxuuZyASl83GOtlTAzDCLNyIT9td3IFGdg4wfdsXBjpEiEFlMJlBiziNPx5l/uq
+9t4Fat0QLHRlGhAjD9A30WG8ZvjpgJTxNTL8hsCKabhHSjjWxfvSMQwKFIXDCqJT
+fII4MGcpJl2vGGN5hP9c05OIQ39vM+eleUdAW+S1L0OFHqgPDvE=
+=qrJT
+-----END PGP SIGNATURE-----
 
-      A semantically similar (but deprecated) interface for block
-      devices is described in raw(8).
-
-----
-
-Then there's trying to rearrange the tutorial-style information for
-people who want to implement code which needs data persistence
-guarantees.  That's quite a lot more work, and while I'm happy to
-review or assist someone to write that more expansive tutorial
-material, it's not something I'm willing to sign up to do.
-
-----
-
-Finally, there are some philosophical questions about what the goals
-of the Linux kernel man pages --- how important is having historical
-information (for exmaple O_DIRECT has a "since 2.4.10", which is 25
-years ago --- really)? and how important is there to have tutorial
-infomation and where should that information should be organized in
-the man page.
-
-My personal opinion is that the primary priority of the Linux man page
-is to document the specification of the kernel interfaces that we
-expose to user space.  Things like tutorial material and a descriptive
-of historical versions are of secondary importance.
-
-I'd also advocate dropping historical information for kernel versions
-which are older than say, 7 years.  Curretly the oldest LTS kernel
-which is supported upstream is 5.10, which was originally released in
-2020, and will EOL by end of 2026.  The Linux kernel 5.0 was released
-on March 3, 2019, so using a 7 year lookback means that explanation
-about how the Linux kernel in 2.4.x, 2.6.y, 3.x, 4.x, etc. can be
-dropped from the man pages, since IMHO it will reduces a lot of noise
-that will likely confuse readers.
-
-But that's a call for Alex and the man pages project to make.
-
-Cheers,
-
-					- Ted
+--k3hsmvwmdtwrh4gy--
 
