@@ -1,180 +1,164 @@
-Return-Path: <linux-man+bounces-5234-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5235-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iEc2O95gqGmduAAAu9opvQ
-	(envelope-from <linux-man+bounces-5234-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 04 Mar 2026 17:42:06 +0100
+	id eMXdJS/LqGlBxQAAu9opvQ
+	(envelope-from <linux-man+bounces-5235-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 05 Mar 2026 01:15:43 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70E982047F2
-	for <lists+linux-man@lfdr.de>; Wed, 04 Mar 2026 17:42:06 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F2402095ED
+	for <lists+linux-man@lfdr.de>; Thu, 05 Mar 2026 01:15:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 8BF2F307AFFA
-	for <lists+linux-man@lfdr.de>; Wed,  4 Mar 2026 16:39:19 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 0D83B30247DD
+	for <lists+linux-man@lfdr.de>; Thu,  5 Mar 2026 00:15:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D73336F420;
-	Wed,  4 Mar 2026 16:38:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 598521A262A;
+	Thu,  5 Mar 2026 00:15:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b="b5XB5qUe"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P+4SIpzI"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E61A36B059
-	for <linux-man@vger.kernel.org>; Wed,  4 Mar 2026 16:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772642297; cv=pass; b=YzXTjEIa6a2wsMCJsECnQDyPH0GWUae4k3ndFxYk0EEpPHIO0fpJYEeeT+J4vlbTwaL1uaZgFB3+8wCayioz2Iyf86kQww8DAmWfRieM/EO0iE2O5gHI5kn16b6w4vp14dwWTE08mEh4znXQHBBVdazvQNCPvuKZzQszPVXKo4Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772642297; c=relaxed/simple;
-	bh=TfFAAHamHIm6MUpYjFByFk76f/IVjsmcAqm/upNl0hc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DMbmAhnHwCchbhfh2Te/x2LcuLwU+H7kqgr2SaqZYOZHgHVMLTHQMaadb+NtrRoExdxgHFC5XSL8HTwTtkCEb6lBCcTuP0iSKWVU8KRnD2SA70dxD7pmC+nshBFGsuxurXQAc86Lhockk8AmXhkjU8BPp1wh9ZSfErhnphJKjtE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu; spf=pass smtp.mailfrom=dartmouth.edu; dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b=b5XB5qUe; arc=pass smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dartmouth.edu
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-439b7a87fb5so2238171f8f.3
-        for <linux-man@vger.kernel.org>; Wed, 04 Mar 2026 08:38:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772642294; cv=none;
-        d=google.com; s=arc-20240605;
-        b=NHQ8dPvak5F52NfRtnKUzIU/VTloqMCh/uzVqB7p6ivexexLHjgEW/V9Jc2wYK9jgI
-         OGleWjF8ot4vBCVOYejrH/jvNPCAXTro5HR3MoJoq2EX13h0Cw7ylTHGk1qzh159LoUB
-         CtKAKsqhbe7EYxVJQBLeePogT3tKdYoiEIJLGzan+jd4BtGuK1YfDGMA86S4H5U/Yoas
-         OpEn6KCqXbpb6/HUwN4DkZevNu0xyGmQbkXAhqzFu85jiSIsvIF90K3UM7zIpjjQFaCG
-         wuoF7TMw8rx0UrwSNhSnzobQxh/lfv9e2B+7LwuDa86N8sA2nZn4wYJ+avrjMTDhKMxg
-         KSlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=GPGD77Jvh7wapwgXdjZpGkxoZ8XMHwpmcVghpJ/JNVk=;
-        fh=kTbk4pccRQ7ywKItoF6eFeVMUIye+84NI5zbIP4rQ9Q=;
-        b=A7aKo4R+ui8oROIHVd/JcBV1h+f7obCR0H82i1hVv7do6SGDH4KbGzIVpMz9XLRR1D
-         xP7x+kcK6fKYAV2vQERFEjUv4Y3ATfklC5XH52GoGN7+svpiWXszVeGfTuT4qx4ThY1K
-         OcpVPBxqa0gbEbWNifHxb7XE4BMUsClqKkZQCWkz7oH5rQ1cGWDHB2VU9dSmH1fkd0Q0
-         tg2Y7FZp1DAL8fLnP19/jcuPzcQmAHgfwPaiRBZWufM8MwT4ZMmU7fiHe8b2Bp9mEuAs
-         gmFnAJ/yDBnDDeHO/9bKAglsJCE+OBbCaKLTqPGadX42PSgMLg2sxubcS6Pw0kKsKNQo
-         aOZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CFA1A3172
+	for <linux-man@vger.kernel.org>; Thu,  5 Mar 2026 00:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1772669736; cv=none; b=txy8VJnQ0cKJsjgiuFRRsb5D7OtFsYE4dTyMb1U8Ny9ewLugnqITVVzxkQg6VC6RByQVlJGXPJY4/fLc8ShqF2Tnzg1Q6MruQwgkvgQN0Fu68ej1yKf+zUjptsnZ6j3CbLadN2v68fVopuHG5wzp6+FYlSpKla2dlZ7g2dMQ4/Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1772669736; c=relaxed/simple;
+	bh=oD1ZD/6HP/nXTFl57YIkdx3LbG5nu9lngbzxRBW0wa4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kqe8OSnXkfDmdtEUBESKBS89Mnn+shT1+3RldvtIvZtjAf50dUb2jBKGESX6UAUWguoxCg7FPZMn07M8t/Swy2+Vxx3ZpP005fmW6Neyd2fMxy923SiLpTTRjsp3g653WAd8UgbqTptyrwazahlml+Cc3uvprevn1kQ+AIuIo9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P+4SIpzI; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4838c15e3cbso67552985e9.3
+        for <linux-man@vger.kernel.org>; Wed, 04 Mar 2026 16:15:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dartmouth.edu; s=google1; t=1772642294; x=1773247094; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=GPGD77Jvh7wapwgXdjZpGkxoZ8XMHwpmcVghpJ/JNVk=;
-        b=b5XB5qUeeNdFchDAGI7FREHu9WyAfzu1pZ6dYJokRlq+pRN9WBTxyBkJ2idbWPPnVf
-         d9YJn9F5fgjgYiFQdcGaO52e6VH7KchJZb5SbFz2tAtFt+UQk/Bmzp+SjUx7E1pH22Gs
-         Cy8wdjWF2IWtnZ61kH/QVdVal9yb1uZCu+l+/8wYMNMcnFisHefSfN4PXJ7OrvqEB95/
-         FSvhSs9HL8182/KEPGbnwceibRPgMO+z9zCsJNGxWpBPwxi5XfJy5ZWVYpWnwXTsPItP
-         G4Yn76rPlUIrake3kQFjHS1eAh7+s+BDexUwLBRe+tZwHN3O6K66exo84nltuA+xISUo
-         idiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772642294; x=1773247094;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1772669733; x=1773274533; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GPGD77Jvh7wapwgXdjZpGkxoZ8XMHwpmcVghpJ/JNVk=;
-        b=YLGjnxdu8fcTjFY2KlMALtXd6nJM/p5T9dpXILAC15TERNJM7XGpZ88nMZpxoujudA
-         qIJmK3hQ04tUSiB/0q/fMgSaIG0yTZVLhBB5Ld5ii8J2yDAMpt/aklmVB9qx3aLW0J8z
-         vMLhttuB4nbsRM1mYArKkwnptS2cILiSUxb49miH5Fm19Zy6AeSndXzkunIzzFstJaTg
-         HTvZOxvSvY5dR/XnWKGku47s3SlE4nkcgr6AExabepF1ulckzU8BvQT4fi+hwtNE7Gl2
-         zuvi16fjzWPXxJyHbpNbuNMvEvLA8wSaP5rvTY8CnIILWz+FWiObkZpkKLA57QMB2ogx
-         Hz5A==
-X-Gm-Message-State: AOJu0YzbxKIjctLO6o/TlclcJFHCMb7QCtEO2hcIgalvJnhkJZByRyLB
-	Pie5u+iJnF+AYDLNTMoj2Y4sBBgF45Z3DLg3Qf/9wn+RXgi//rRuSyOJvD5kQK78Cu1lGCGDx6E
-	wmK6ilPRGP3WwGzFcKM4gfL1s2IESqyPoyjZKV5NNIw==
-X-Gm-Gg: ATEYQzxab+UtGeviEYPXr6+hzV+STohwAkBXPtozfyceTCoPCX13zOwEXrnwiPOdxQc
-	lyj1OgJe1Ezt7EjO0UaYEt2vmwhwB9Mkb+QeVE8M+7LCq6EaYOwDR5WGITPNDJkKMkP+imjQpw4
-	33/1yk5SUMqYMxsBj7OWYAaCJRGoU1OW9FEd6K7VIBce9vtZ6WuDygTL54Paf6nUlFDVfVa9fB4
-	+INBwfVmdZjqLatG8UXraGSmufJV37BAJI7A0JWJV9fXizWuRRReBf2HXhWs94uZ5MlJrd/riJn
-	1OXf/x0CAQH6uzcPXwfmYSBJ1KB7Hfwx8fn8Gi525rVoZUQp+V5+zkesp6t75c+LYEfhufsIGWT
-	YFOpalkWowRfsiZUZ0pQJtFxof/WNT4yKrlsZ71POsEIENJHy0611sBV/YMJ/PaEP7hmvO7jzPi
-	QcvpzTCr4nqn713edsVLyf4fZcoNp2rBfOKPb8WPu5BWerqmdogHRedZNH8RnU3/IATk2LPk1kA
-	uYdzK1s86VjWN4/3ZVNwGc=
-X-Received: by 2002:a05:6000:144f:b0:439:b929:cc85 with SMTP id
- ffacd0b85a97d-439c7ec327emr5279662f8f.0.1772642293884; Wed, 04 Mar 2026
- 08:38:13 -0800 (PST)
+        bh=eW1HMLHLxb1c8A3SBvmOdc4iVelN6+5jzeePEBn/8lI=;
+        b=P+4SIpzIkymBy/ReUxV1RvTDUWY0u7PefuEgc2+ew+PHs1f9Jh6/c9FHIyQdgEggme
+         56llx8unghls9ACtceDQ6K5NeIb09aKWBN5ZmsqYhbIH1dyMokO97gsySJw8yGfN6hSC
+         XM9r4uYM6izbqab1tx6FNBsZ26lsMSVH1Y9R/lEUM/k0HiVWoG0vxt5qsoSpl7eq173J
+         gzuAueRaQ8kdQwHfJ5pVE2JMO3QZxJ/PByKXLpNWUYSYc93qmFG01bE9Lmu+cUj4ReT9
+         CXB9nCr1u3isiaohfgB4KqYN93XKK7tCxCJV0V+EOgoetfkLPuwEcIhaMB4vOo9jNd94
+         230Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772669733; x=1773274533;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=eW1HMLHLxb1c8A3SBvmOdc4iVelN6+5jzeePEBn/8lI=;
+        b=SBWo5aQ79WsmFqbw6Jac3f4KAg4jKByP6BV/mbIS6sMEXzwvrYdOkIxINAFCYExbLW
+         RSx4iZF9x2taCOAKnekNXB91oxtCK+0iEF+KZViEyrCwKLH5UxuXkEgBsF1+jm/UDs7U
+         eGx7tUIKNCfuL2SJbEIDers+Sg4Q7uqYUIkS0Avtl84J2mZ0+t6lM4MK/YdjqFy6Vpdi
+         zO0BNv2GCZgOKpk7iNwha3AqydXlirsDquHnTwcTMo7OR2kOYonEgKWVwP9yFriW0ErG
+         OP6SNTEe4EUyaT34oMBhBHclHSh0sFM6/9lVC6Vv4Czz7v9/sGSDhXQJqTpYj97AEclT
+         M/2g==
+X-Forwarded-Encrypted: i=1; AJvYcCWUyp5Ydpi+hmy/+P9qwRX/7qXXXNKf2li7IltdsycVkP6u2J49OFvulYOYDrYUgRX6so8tBYEcPao=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGKTWoPqVMsWCFER3R/mPBTOq6JA3LIB8T9i74GeU7r8rAa+6i
+	bva0TJVpmkNPfoaEv7h8/11DfweSi5eLQjIVaaPdsrazSPbcT4NIljg1sR/tyg==
+X-Gm-Gg: ATEYQzyi8pexWWTcTLHjynLbVRNtBQt22GWZT0Gm+TMRGlnmu0S5qVXO7EdFKIk00zL
+	7yx8XK1T+LeAUIzw4d0r27Ln+ADJYBYrY5jXuXL3fFsS7IQnriMUUNEoTYU/gFMkPqBjs53uKSR
+	I9pUaPNAgByDAuIN6qJjn27w+BmcBhHMhCMQGSwy2Bf054WkFZzM9X0eVH5Mwl9NmGMDr9bzOjD
+	1hRpr8r/FjG6OMXqZmvs9dseYp71GDe04e7vBKnXn/svv5i9Ido2q4iYAhl+61+1EBdEVUjtzaV
+	KMEz119w4egBdIUNIZEXHC0rvvc8h5KhpWi/Sn0TswL3DKuMQ+5Ac0KrAVZSjA6qSuF/+z4d7YM
+	zNOMHxsKEKmL/sJ2P9HEiPdNBiuHKXCsnCR9eeR5Pz9IVEC7qvK/jyTlp5ofVr73CfPZ4um0OTD
+	QK4tbDdRIYV/rFjJL3TC8=
+X-Received: by 2002:a05:600c:6217:b0:480:39ad:3b7c with SMTP id 5b1f17b1804b1-48519888c8bmr70433095e9.16.1772669733019;
+        Wed, 04 Mar 2026 16:15:33 -0800 (PST)
+Received: from localhost ([212.73.77.104])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-439c2f8c0e7sm13884101f8f.29.2026.03.04.16.15.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Mar 2026 16:15:32 -0800 (PST)
+From: Askar Safin <safinaskar@gmail.com>
+To: alx@kernel.org
+Cc: avagin@gmail.com,
+	b.sachdev1904@gmail.com,
+	brauner@kernel.org,
+	criu@lists.linux.dev,
+	cyphar@cyphar.com,
+	jlayton@kernel.org,
+	josef@toxicpanda.com,
+	linux-man@vger.kernel.org,
+	miklos@szeredi.hu,
+	ptikhomirov@virtuozzo.com
+Subject: Re: [PATCH v3] man/man2/statmount.2: Document STATMOUNT_BY_FD
+Date: Thu,  5 Mar 2026 03:13:37 +0300
+Message-ID: <20260305001337.3323169-1-safinaskar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <aahG1Mb0oRBEG6sy@devuan>
+References: <aahG1Mb0oRBEG6sy@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260223160219.1015364-1-benjamin.p.kallus.gr@dartmouth.edu> <aahJQb1CMG2kT59S@devuan>
-In-Reply-To: <aahJQb1CMG2kT59S@devuan>
-From: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Date: Wed, 4 Mar 2026 16:38:02 +0000
-X-Gm-Features: AaiRm51wxo6p-ougeuKdW_ACEBBEuNjsnjvajqe3jvTQmKmj1McB5E-2TcVGUAw
-Message-ID: <CAB6pCSaoZPq8q9j2A9e==v1ErKUPErTrU8NJtUMdu7+DM6n=PA@mail.gmail.com>
-Subject: Re: [PATCH] man/man2/mmap.2: Document that MAP_GROWSDOWN doesn't
- affect mmap return value.
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Rspamd-Queue-Id: 70E982047F2
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 0F2402095ED
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.16 / 15.00];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[dartmouth.edu,none];
-	R_DKIM_ALLOW(-0.20)[dartmouth.edu:s=google1];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
+X-Spamd-Result: default: False [0.84 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5234-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linux.dev,cyphar.com,toxicpanda.com,vger.kernel.org,szeredi.hu,virtuozzo.com];
+	TAGGED_FROM(0.00)[bounces-5235-lists,linux-man=lfdr.de];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[benjamin.p.kallus.gr@dartmouth.edu,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[dartmouth.edu:+];
-	NEURAL_HAM(-0.00)[-0.998];
-	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
+	FROM_NEQ_ENVFROM(0.00)[safinaskar@gmail.com,linux-man@vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_NONE(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,sto.lore.kernel.org:rdns,sto.lore.kernel.org:helo,dartmouth.edu:dkim]
+	RCPT_COUNT_SEVEN(0.00)[11];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url,sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo]
 X-Rspamd-Action: no action
 
-Thanks for the feedback.
+Alejandro Colomar <alx@kernel.org>:
+> Is this the same as a "mount object file descriptor" as describer in
+> fsopen(2)?  If so, we should use the same language, I think.
 
-> Okay, the patch looks good to me.  However, would you mind showing
-> a minimal C program that demonstrates the behavior?
+The term "mount object file descriptor" is probably confusing. In fact
+fsmount simply creates detached mount and returns O_PATH fd, referring
+to the root of the new detached mount. (Note: I'm talking about fsmount here,
+not fsopen.) This fd is similar to what open(O_PATH)
+creates. So probably we should just replace this "mount object file
+descriptor" in fsopen(2) with "O_PATH fd".
 
-Sure. Here's one:
+The only difference between fd, returned by fsmount, and normal O_PATH
+descriptor is that fd, returned by fsmount, has FMODE_NEED_UNMOUNT flag
+on file description:
+https://elixir.bootlin.com/linux/v7.0-rc1/source/fs/namespace.c#L4495 .
 
-#include <stdio.h>    // for printf, putchar, fopen, fgetc
-#include <sys/mman.h> // for MAP_*, PROT_*, mmap
-int main(void) {
-  printf("mmap return value: %p\n",
-         mmap(nullptr, 1 /* rounds up to page */, PROT_READ | PROT_WRITE,
-              MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN, -1, 0));
-  FILE *const f = fopen("/proc/self/maps", "r");
-  while (1) {
-    int const c = fgetc(f);
-    if (c < 0) {
-      break;
-    }
-    putchar(c);
-  }
-}
-
-If you run this, you'll see that the value returned from mmap is the
-lowest address in one of the mappings from /proc/self/maps.
-
-Reading/writing into this mapping works the way you'd expect. (I
-tested this in gdb.)
-
-> And if it was correct but the kernel has changed behavior, it would be
-> interesting to document when that happened (if we know).
-
-I don't have access to any older kernels at the moment. I'll set up
-some VMs later today and check this.
+This FMODE_NEED_UNMOUNT means that when we close fd, the mount is unmounted.
 
 
--Ben
+This statmount patch refers to any fd inside mount in question. I. e. any
+fd referring to any file inside the mount. This may include O_PATH descriptors
+and, yes, descriptors returned by fsmount. So, current wording in this
+statmount patch is correct.
+
+-- 
+Askar Safin
 
