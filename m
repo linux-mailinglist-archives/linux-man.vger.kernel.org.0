@@ -1,177 +1,214 @@
-Return-Path: <linux-man+bounces-5246-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5248-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oD26Oqg8rGkJngEAu9opvQ
-	(envelope-from <linux-man+bounces-5246-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sat, 07 Mar 2026 15:56:40 +0100
+	id yP9RE/qSrGlsqwEAu9opvQ
+	(envelope-from <linux-man+bounces-5248-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sat, 07 Mar 2026 22:04:58 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E06822C3E6
-	for <lists+linux-man@lfdr.de>; Sat, 07 Mar 2026 15:56:40 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4F0622D9F4
+	for <lists+linux-man@lfdr.de>; Sat, 07 Mar 2026 22:04:56 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 4ABE63010147
-	for <lists+linux-man@lfdr.de>; Sat,  7 Mar 2026 14:56:34 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 3FBED300D60E
+	for <lists+linux-man@lfdr.de>; Sat,  7 Mar 2026 21:04:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE31C9460;
-	Sat,  7 Mar 2026 14:56:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6BD030E842;
+	Sat,  7 Mar 2026 21:04:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWdXNYhp"
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="erJXq5tH"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0AAE19AD8B
-	for <linux-man@vger.kernel.org>; Sat,  7 Mar 2026 14:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D652F8BD3
+	for <linux-man@vger.kernel.org>; Sat,  7 Mar 2026 21:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.179.128.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772895393; cv=none; b=GSod5v8f2McEYQ/neIVZvHsP5vJhfL9E6Q3gdK3/0hBGcaQCdKLct2m/ajZL5BIom1hM2j+h1NDrQbheak7Mnydq/8+diTk932VBYC9045T8SHP5mpVOW8cq/iTmo/+jsZal/eLz43ufJ98rk4ugPb9W6IYQStZRwJZKHdioc3o=
+	t=1772917483; cv=none; b=rn19q9R3NQTEaYTF3oFd+MdciTCR+kmR4JSl7AIWhJGs99bJouyNTJpuphbOE5nqn/Y8r1Y1+dKpNxsfUtYY1AXBxpIxwm+90dXDsdIxPmDmm9f2XpEu62LL2MMqN+4SKYVwzo/uGsDEmbTojzX2RwbszCLCrcC2V659KwSNKs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772895393; c=relaxed/simple;
-	bh=MPK5eF2FzS1+haWDfWGg5WOu53Jh0yyEEFP/NmE2kyM=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kIGguHHDqsy3GdwZjhkS27Rc9t6+9e4SwQX39hg1V1GnhI56VyThsuysX4hz3l6o7u6fgXHvTozsBp5eZwO4kUSuLlbFAx/4GgUzdkXtiBGpuFZ/zEZ1VcO0Z3BWE8FODoVUKv4em50gTUF5o0hpbwNF1NoBG4LShlKdpWYUI8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWdXNYhp; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 37C12C2BCAF
-	for <linux-man@vger.kernel.org>; Sat,  7 Mar 2026 14:56:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772895393;
-	bh=MPK5eF2FzS1+haWDfWGg5WOu53Jh0yyEEFP/NmE2kyM=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=VWdXNYhpsGAI9uttLKPgQ8ADjYzu25rfrgSacRnDXyF7ByVDRMfynLkkACABeZ6vy
-	 r/6CIDTdHgpVpIPSzIKqKzmpVlUZUpH6EHDs8gvnkRE4KmWJYtY3UKLaFzGiUCA5Wh
-	 H4ciBOH80TYSS32pC1rAawA4yC6p0FnCFvWON5eaJrjynpp+EZ1YigwamMD5fj0+xD
-	 25jQxxn4yRu+RqQrsCNr3rKYwBu1ed/J5Urk2mgt3J0XCgoz5NZMUWeuFYc9Mdmceh
-	 mt5rZfjPeyUqaAADhQAiotbwXI3/HEhmqJK134gW11Bcv7+b9eSmSxPs/EZAY5jv/W
-	 AmQ70hz8xyZow==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 2B3F9C53BC9; Sat,  7 Mar 2026 14:56:33 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: linux-man@vger.kernel.org
-Subject: [Bug 221186] clock_gettime CLOCK_TAI is incorrectly specified
-Date: Sat, 07 Mar 2026 14:56:32 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alx@kernel.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-221186-11311-suuU8DZ6Ke@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-221186-11311@https.bugzilla.kernel.org/>
-References: <bug-221186-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+	s=arc-20240116; t=1772917483; c=relaxed/simple;
+	bh=sFOMfIQFT442qrNAcGiE1R8lDt/nqz6m9j5DBLSCI4A=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=akHkswAlXtUrFzp8CpI+uBhCQ5wZDwKwbvee7Jt3gQRZ0XGeKQ9mVDfoqRQ4xI+HnoF3Mp2Rw0uBQbWZTzlMlMFus1KUYcgoO/mdz/aA8c+oBqoUJ8c1ZSR044uQwMUhyNGqihtuXBHH13jzaGeDSniM/+daKvAlRvg0W2TUvhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu; spf=pass smtp.mailfrom=cs.ucla.edu; dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b=erJXq5tH; arc=none smtp.client-ip=131.179.128.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.ucla.edu
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 7BD273C01EBB8;
+	Sat,  7 Mar 2026 12:59:11 -0800 (PST)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10032) with ESMTP
+ id WqEJEgjDmz2Z; Sat,  7 Mar 2026 12:59:11 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 4E4243C082C91;
+	Sat,  7 Mar 2026 12:59:11 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 4E4243C082C91
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1772917151;
+	bh=2t6XIIrrzTVX3zOopSoNRofd6wRqWlc+GdT30uCBVVg=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=erJXq5tHuvkKxk1eZguuLZgmwmc9RhAUdJmbEbqZM7VhmHD2UnzStpvdQcm5ctRhM
+	 QuaMOAfv5e2z3Apv7B55ym/x107nRn79K8ihlOGiXg2xWd55mbtPd/aiD2symMqKTH
+	 p0BzAohTcPMBgrFiKZRsDBJMx3HlaRJRBMh3AR/A/oHv1arIkSty2+8dIXUtb4o16y
+	 fM7BF1vRU/rCqDegLiyE+M2bChp+xVPuAJNoszvSB5EM2wInlDFKat0n9JmdCG06aQ
+	 6FesOzhUujGLdDDhagO/wGpTvUm6zE8ZajhwbUfB7GcOUD8UkucOt1DAdVu2pVPzUY
+	 OlaDEPTgd5eSw==
+X-Virus-Scanned: amavis at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id THTKpVntBRFJ; Sat,  7 Mar 2026 12:59:11 -0800 (PST)
+Received: from penguin.cs.ucla.edu (unknown [172.91.100.140])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 158983C01EBB8;
+	Sat,  7 Mar 2026 12:59:11 -0800 (PST)
+Content-Type: multipart/mixed; boundary="------------0BHiLGRPsulkkoXOFNvxNql0"
+Message-ID: <d3b5a021-9299-466c-b939-c54143034e86@cs.ucla.edu>
+Date: Sat, 7 Mar 2026 12:59:10 -0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 3E06822C3E6
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Bug 221186] New: clock_gettime CLOCK_TAI is incorrectly
+ specified
+To: Alejandro Colomar <alx@kernel.org>, bugzilla-daemon@kernel.org
+Cc: linux-man@vger.kernel.org
+References: <bug-221186-11311@https.bugzilla.kernel.org/>
+ <aaw8SLhwjSGR0X4m@devuan>
+Content-Language: en-US
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <aaw8SLhwjSGR0X4m@devuan>
+X-Rspamd-Queue-Id: E4F0622D9F4
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.16 / 15.00];
+X-Spamd-Result: default: False [-2.06 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	DMARC_POLICY_ALLOW(-0.50)[cs.ucla.edu,none];
+	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
+	R_DKIM_ALLOW(-0.20)[cs.ucla.edu:s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5246-lists,linux-man=lfdr.de];
-	FROM_NEQ_ENVFROM(0.00)[bugzilla-daemon@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5248-lists,linux-man=lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
-	FROM_NO_DN(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:rdns,tor.lore.kernel.org:helo,ucla.edu:email];
+	HAS_ORG_HEADER(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+];
+	DKIM_TRACE(0.00)[cs.ucla.edu:+];
+	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[eggert@cs.ucla.edu,linux-man@vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[linux-man];
-	NEURAL_HAM(-0.00)[-0.992];
-	RCPT_COUNT_ONE(0.00)[1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo]
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221186
+This is a multi-part message in MIME format.
+--------------0BHiLGRPsulkkoXOFNvxNql0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
-Hi,
+On 2026-03-07 06:56, Alejandro Colomar wrote:
+> BTW, Paul, would you mind reviewing this bug report and suggestion?
 
-On 2026-03-07T14:21:17+0000, bugzilla-daemon@kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D221186
->=20
->             Bug ID: 221186
->            Summary: clock_gettime CLOCK_TAI is incorrectly specified
->            Product: Documentation
->            Version: unspecified
->           Hardware: All
->                 OS: Linux
->             Status: NEW
->           Severity: normal
->           Priority: P3
->          Component: man-pages
->           Assignee: documentation_man-pages@kernel-bugs.osdl.org
->           Reporter: mpatocka@redhat.com
->         Regression: No
->=20
-> The man page for clock_gettime says "CLOCK_TAI (since Linux 3.10;
-> Linux-specific)
-> A nonsettable system-wide clock derived from wall-clock time but ignoring
-> leap
-> seconds."
->=20
-> When UTC was announced, it was already 10 seconds behind TAI. Since that,=
- 27
-> leap seconds have been added. According to the man page, the difference
-> between
-> wall clock an CLOCK_TAI should be 27 seconds, but in it is 37 seconds in
-> fact.
-> The kernel is correct (it returns 37 as the difference between TAI and UT=
-C),
-> but the man page should be fixed to reflect that.
->=20
-> I suggest to change the man page to:
->=20
-> CLOCK_TAI (since Linux 3.10; Linux-specific)
-> A nonsettable system-wide clock showing physical time elapsed since Jan 1
-> 1970
-> 0:00:00.00 TAI (Dec 31 1969 23:59:50.00 UTC). This clock does not experie=
-nce
-> discontinuities and backwards jumps caused by NTP inserting leap seconds =
-as
-> CLOCK_REALTIME does. This clock changes when system time is adjusted by t=
-he
-> user or NTP for the purpose of correcting wrong time setting. TAI means t=
-emps
-> atomique international (International Atomic Time).
+Although it's a start, we should add more detail about TAI and leap 
+seconds, and the neighboring area could use some cleanup too. Proposed 
+patch attached.
+--------------0BHiLGRPsulkkoXOFNvxNql0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-man-man2-clock_getres.2-modernize-leapsec-doc.patch"
+Content-Disposition: attachment;
+ filename="0001-man-man2-clock_getres.2-modernize-leapsec-doc.patch"
+Content-Transfer-Encoding: base64
 
-Would you mind sending a patch?
+RnJvbSBhMTZhNTlmZDFjOGI3ZjRkOGM1YmVmYzAxNGUzMmI3NTg4NzY3MmZlIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBTYXQsIDcgTWFyIDIwMjYgMTI6NTQ6NTMgLTA4MDAKU3ViamVjdDogW1BBVENI
+XSBtYW4vbWFuMi9jbG9ja19nZXRyZXMuMjogbW9kZXJuaXplIGxlYXBzZWMgZG9jCk1JTUUt
+VmVyc2lvbjogMS4wCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD1VVEYtOApD
+b250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiA4Yml0CgpDbGFyaWZ5IHdoZW4gY2xvY2tzIGFy
+ZSBpbmRpcmVjdGx5IHNldHRhYmxlLCBieSBzZXR0aW5nIENMT0NLX1JFQUxUSU1FLgpUaWdo
+dGVuIHVwIHRoZSBsYW5ndWFnZS4KR2l2ZSBtb3JlIGRldGFpbHMgYWJvdXQgQ0xPQ0tfVEFJ
+LCBzdWNoIGFzIGl0cyBlcG9jaCwgaXRzCmNvbm5lY3Rpb24gdG8gTlRQLCB0aGUgcGFzdCBh
+bmQgcGxhbm5lZCBmdXR1cmUgb2YgbGVhcCBzZWNvbmRzLAphbmQgd2hhdCDigJxUQUnigJ0g
+c3RhbmRzIGZvci4KClNpZ25lZC1vZmYtYnk6IFBhdWwgRWdnZXJ0IDxlZ2dlcnRAY3MudWNs
+YS5lZHU+Ci0tLQogbWFuL21hbjIvY2xvY2tfZ2V0cmVzLjIgfCA0OSArKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKystLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDM2IGluc2Vy
+dGlvbnMoKyksIDEzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL21hbi9tYW4yL2Nsb2Nr
+X2dldHJlcy4yIGIvbWFuL21hbjIvY2xvY2tfZ2V0cmVzLjIKaW5kZXggOTFhZjQ4NmYxLi41
+YjY0ODMzNjUgMTAwNjQ0Ci0tLSBhL21hbi9tYW4yL2Nsb2NrX2dldHJlcy4yCisrKyBiL21h
+bi9tYW4yL2Nsb2NrX2dldHJlcy4yCkBAIC0xMTUsMTYgKzExNSwxOCBAQCB0byBzdGF5IHJv
+dWdobHkgaW4gc3luYyB3aXRoIFVUQy4KIC5CUiBDTE9DS19SRUFMVElNRV9BTEFSTSAiIChz
+aW5jZSBMaW51eCAzLjA7IExpbnV4LXNwZWNpZmljKSIKIExpa2UKIC5CUiBDTE9DS19SRUFM
+VElNRSAsCi1idXQgbm90IHNldHRhYmxlLgorYnV0IHNldHRhYmxlIG9ubHkgaW5kaXJlY3Rs
+eSBieSBzZXR0aW5nCisuQlIgQ0xPQ0tfUkVBTFRJTUUgLAorYW5kIGJlaGF2ZXMgZGlmZmVy
+ZW50bHkgaWYgdGhlIHN5c3RlbSBpcyBzdXNwZW5kZWQuCiBTZWUKLS5CUiB0aW1lcl9jcmVh
+dGUgKDIpCi1mb3IgZnVydGhlciBkZXRhaWxzLgorLkJSIHRpbWVyX2NyZWF0ZSAoMikuCiAu
+VFAKIC5CUiBDTE9DS19SRUFMVElNRV9DT0FSU0UgIiAoc2luY2UgTGludXggMi42LjMyOyBM
+aW51eC1zcGVjaWZpYykiCiAuXCIgQWRkZWQgaW4gY29tbWl0IGRhMTVjZmRhZTAzMzUxYzY4
+OTczNmY4ZDE0MjYxODU5MmUzY2ViYzMKIEEgZmFzdGVyIGJ1dCBsZXNzIHByZWNpc2UgdmVy
+c2lvbiBvZgogLkJSIENMT0NLX1JFQUxUSU1FIC4KLVRoaXMgY2xvY2sgaXMgbm90IHNldHRh
+YmxlLgorSXQgaXMgc2V0dGFibGUgb25seSBpbmRpcmVjdGx5IGJ5IHNldHRpbmcKKy5CUiBD
+TE9DS19SRUFMVElNRSAuCiBVc2Ugd2hlbiB5b3UgbmVlZCB2ZXJ5IGZhc3QsIGJ1dCBub3Qg
+ZmluZS1ncmFpbmVkIHRpbWVzdGFtcHMuCiBSZXF1aXJlcyBwZXItYXJjaGl0ZWN0dXJlIHN1
+cHBvcnQsCiBhbmQgcHJvYmFibHkgYWxzbyBhcmNoaXRlY3R1cmUgc3VwcG9ydCBmb3IgdGhp
+cyBmbGFnIGluIHRoZQpAQCAtMTMyLDE1ICsxMzQsMzYgQEAgYW5kIHByb2JhYmx5IGFsc28g
+YXJjaGl0ZWN0dXJlIHN1cHBvcnQgZm9yIHRoaXMgZmxhZyBpbiB0aGUKIC5UUAogLkJSIENM
+T0NLX1RBSSAiIChzaW5jZSBMaW51eCAzLjEwOyBMaW51eC1zcGVjaWZpYykiCiAuXCIgY29t
+bWl0IDFmZjNjOTY3N2JmZjdlNDY4ZTBjNDg3ZDBmZmVmZTRlOTAxZDMzZjQKLUEgbm9uc2V0
+dGFibGUgc3lzdGVtLXdpZGUgY2xvY2sgZGVyaXZlZCBmcm9tIHdhbGwtY2xvY2sgdGltZQor
+QSBzeXN0ZW0td2lkZSBjbG9jayBkZXJpdmVkIGZyb20gd2FsbC1jbG9jayB0aW1lCiBidXQg
+Y291bnRpbmcgbGVhcCBzZWNvbmRzLgotVGhpcyBjbG9jayBkb2VzCi1ub3QgZXhwZXJpZW5j
+ZSBkaXNjb250aW51aXRpZXMgb3IgZnJlcXVlbmN5IGFkanVzdG1lbnRzIGNhdXNlZCBieQor
+VGhpcyBjbG9jayBkb2VzIG5vdCBleHBlcmllbmNlIGNsb2NrIGFkanVzdG1lbnRzIGNhdXNl
+ZCBieQogaW5zZXJ0aW5nIGxlYXAgc2Vjb25kcyBhcwogLkIgQ0xPQ0tfUkVBTFRJTUUKIGRv
+ZXMuCitJdCBjb3VudHMgc2Vjb25kcyBzaW5jZSAxOTcwLTAxLTAxIDAwOjAwIFRBSSAoMTk2
+OS0xMi0zMSAyMzo1OTo1MCBVVEMpLAorc28gaXRzIGVwb2NoIGlzIHRlbiBzZWNvbmRzIGJl
+Zm9yZQorLkJSIENMT0NLX1JFQUxUSU1FICdzLgorSG93ZXZlciwgaXRzIGltcGxlbWVudGF0
+aW9uIHJlcXVpcmVzIGhlbHAgZnJvbSBOVFAsCithbmQgaWYgdGhhdCBoZWxwIGlzIG5vdCBh
+dmFpbGFibGUgaXQgYmVoYXZlcyBsaWtlCisuQiBDTE9DS19SRUFMVElNRQoraW5zdGVhZC4K
+Ky5JUAorSXRzIHJlbGF0aW9uc2hpcCB0bworLkIgQ0xPQ0tfUkVBTFRJTUUKK2ZvciB0aW1l
+c3RhbXBzIGJlZm9yZSAxOTcyIGlzIG9ubHkgYXBwcm94aW1hdGUsCithcyB0aGUgbGVhcCBz
+ZWNvbmQgcmVnaW1lIHdhcyBpbnRyb2R1Y2VkIG9uIDE5NzItMDEtMDEuCitCZWNhdXNlIGxl
+YXAgc2Vjb25kcyBhcmUgcGxhbm5lZCB0byBiZSBkaXNjb250aW51ZWQsCitpdHMgdmFsdWUg
+ZnJvbSBub3cgb24gd2lsbCBsaWtlbHkgcmVtYWluIGV4YWN0bHkgMzcgc2Vjb25kcyBncmVh
+dGVyIHRoYW4KKy5CUiBDTE9DS19SRUFMVElNRSAncworZm9yIG1hbnkgeWVhcnMsIGFmdGVy
+IHdoaWNoIGl0cyBvZmZzZXQgZnJvbQorLkJSIENMT0NLX1JFQUxUSU1FICdzCit3aWxsIGxp
+a2VseSBiZSBhZGp1c3RlZCBieSBzb21lIG90aGVyIG1lY2hhbmlzbSBhcyB5ZXQgdW5zcGVj
+aWZpZWQuCitJdCBpcyBzZXR0YWJsZSBvbmx5IGluZGlyZWN0bHkgYnkgc2V0dGluZworLkJS
+IENMT0NLX1JFQUxUSU1FIC4KIC5JUAotVGhlIGFjcm9ueW0gVEFJIHJlZmVycyB0byBJbnRl
+cm5hdGlvbmFsIEF0b21pYyBUaW1lLgorVGhlIGFjcm9ueW0gVEFJIHN0YW5kcyBmb3IgdGhl
+IEZyZW5jaAorLklSICJ0ZW1wcyBhdG9taXF1ZSBpbnRlcm5hdGlvbmFsIiAsCitvciBJbnRl
+cm5hdGlvbmFsIEF0b21pYyBUaW1lLgogLlRQCiAuQiBDTE9DS19NT05PVE9OSUMKIEEgbm9u
+c2V0dGFibGUgc3lzdGVtLXdpZGUgY2xvY2sgdGhhdApAQCAtMTkzLDE4ICsyMTYsMTggQEAg
+b3Igc2ltaWxhci4KIC5UUAogLkJSIENMT0NLX0JPT1RUSU1FX0FMQVJNICIgKHNpbmNlIExp
+bnV4IDMuMDsgTGludXgtc3BlY2lmaWMpIgogTGlrZQotLkJSIENMT0NLX0JPT1RUSU1FIC4K
+Ky5CIENMT0NLX0JPT1RUSU1FCitidXQgYmVoYXZlcyBkaWZmZXJlbnRseSBpZiB0aGUgc3lz
+dGVtIGlzIHN1c3BlbmRlZC4KIFNlZQotLkJSIHRpbWVyX2NyZWF0ZSAoMikKLWZvciBmdXJ0
+aGVyIGRldGFpbHMuCisuQlIgdGltZXJfY3JlYXRlICgyKS4KIC5UUAogLkJSIENMT0NLX1BS
+T0NFU1NfQ1BVVElNRV9JRCAiIChzaW5jZSBMaW51eCAyLjYuMTIpIgotVGhpcyBpcyBhIGNs
+b2NrIHRoYXQgbWVhc3VyZXMgQ1BVIHRpbWUgY29uc3VtZWQgYnkgdGhpcyBwcm9jZXNzCitU
+aGlzIGNsb2NrIG1lYXN1cmVzIENQVSB0aW1lIGNvbnN1bWVkIGJ5IHRoaXMgcHJvY2Vzcwog
+KGkuZS4sIENQVSB0aW1lIGNvbnN1bWVkIGJ5IGFsbCB0aHJlYWRzIGluIHRoZSBwcm9jZXNz
+KS4KIE9uIExpbnV4LCB0aGlzIGNsb2NrIGlzIG5vdCBzZXR0YWJsZS4KIC5UUAogLkJSIENM
+T0NLX1RIUkVBRF9DUFVUSU1FX0lEICIgKHNpbmNlIExpbnV4IDIuNi4xMikiCi1UaGlzIGlz
+IGEgY2xvY2sgdGhhdCBtZWFzdXJlcyBDUFUgdGltZSBjb25zdW1lZCBieSB0aGlzIHRocmVh
+ZC4KK1RoaXMgY2xvY2sgbWVhc3VyZXMgQ1BVIHRpbWUgY29uc3VtZWQgYnkgdGhpcyB0aHJl
+YWQuCiBPbiBMaW51eCwgdGhpcyBjbG9jayBpcyBub3Qgc2V0dGFibGUuCiAuUAogTGludXgg
+YWxzbyBpbXBsZW1lbnRzIGR5bmFtaWMgY2xvY2sgaW5zdGFuY2VzIGFzIGRlc2NyaWJlZCBi
+ZWxvdy4KLS0gCjIuNTMuMAoK
 
-BTW, Paul, would you mind reviewing this bug report and suggestion?
-
-
-Have a lovely day!
-Alex
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+--------------0BHiLGRPsulkkoXOFNvxNql0--
 
