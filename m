@@ -1,205 +1,287 @@
-Return-Path: <linux-man+bounces-5259-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5260-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gJqVMcB5tGmOogAAu9opvQ
-	(envelope-from <linux-man+bounces-5259-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Fri, 13 Mar 2026 21:55:28 +0100
+	id wLrJEFu3tWkj4AAAu9opvQ
+	(envelope-from <linux-man+bounces-5260-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sat, 14 Mar 2026 20:30:35 +0100
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FED1289EE5
-	for <lists+linux-man@lfdr.de>; Fri, 13 Mar 2026 21:55:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B967E28E9AF
+	for <lists+linux-man@lfdr.de>; Sat, 14 Mar 2026 20:30:34 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 311EF30F0E75
-	for <lists+linux-man@lfdr.de>; Fri, 13 Mar 2026 20:52:13 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 3CB3C302BEBB
+	for <lists+linux-man@lfdr.de>; Sat, 14 Mar 2026 19:30:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AE06537F755;
-	Fri, 13 Mar 2026 20:52:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B480A2EC0A2;
+	Sat, 14 Mar 2026 19:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MA2Q0i+M"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLHzLLAV"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3762337CD4C
-	for <linux-man@vger.kernel.org>; Fri, 13 Mar 2026 20:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773435132; cv=pass; b=e21r5Zi8wieJCtQadKsh3vaek/OQl2KzjBYGy5Tcm/a/3NRAP7lwIt5cd61DN3kPztoIrYsGr1H/JrrMCNEKPabyWeifNS+iWcBb3ZGUpIBGV7Ncd8qJUUfv1a7R/4hLdTZYTCm3bN6l5eMUp32jWKhX6Hfu8aEkjV6xdaVZQ24=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773435132; c=relaxed/simple;
-	bh=HhdMuMqI/TLdZMuIrRLsO5/cABeL8vWpbq2Z+ktbd/c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=so2L+n9S1oMhtv+378XjiVut1d/bjFup5RcEf1AVcrT5CSTVmWRHHmR0wlKJ5GZvEiAttdALht3wZblJ9wajOIr2OSi+NKP8eOA3OTT6aZiMe6PgihQbiq29pjG/ChbgEW+m9dvrZgjWyaxmqBZaVyGk2gJRyisEu+2ifhmEAHg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MA2Q0i+M; arc=pass smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39779277037
+	for <linux-man@vger.kernel.org>; Sat, 14 Mar 2026 19:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1773516610; cv=none; b=r/hqsfcPlChTQAryk+d0yVu7AcY86U3s57bvjUDOcYYD3d3Mz4CuTiFQp9ilWMBJvnFhiufCAvZUC1iuqnMl3krVijTPghY/nccnRxlBpqVQHExmY3MMFxkEa5wjTBdOIP59metbiXqPb7+NJrlHh0M0Y0Mc30nnoJcbnEBfuvw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1773516610; c=relaxed/simple;
+	bh=g8xVOwmK2NT6UO+NHfvWslvEfe3FiqybJNKRLDB86dA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=fL8ovdFEIBpif6LlE6o9BiZj+Ux76HCOW2WoQ6GP7Pt5VEA1jQqotGtjzIU9NreKrh/E0cI17aIlnWqBVMC47j23DL5sJQJRST1xYbwsT2gDO4FbLcQ3C62rJZyS76h1AO/9yoR3xDHv9bw0xouz5xcqXTx8l5hPZw18KEHs1BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLHzLLAV; arc=none smtp.client-ip=209.85.128.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-b97610d8bd3so24600066b.0
-        for <linux-man@vger.kernel.org>; Fri, 13 Mar 2026 13:52:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773435128; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ScbXs6b3qczybY1L5YjXPYJ3tVHAA7TzDOpZUSj7Wu54R1uRGaXfjMEsoiqIBA6yig
-         kw1zSUa507dmz2m7tVgXS0Ur9zUGCFembqD2+UUG3CmpIIsgi5h2+TLSRsWw6VxEayYh
-         eFWH1jfQuSOSTRZqXgpWitcJKj8Tj9LkiGsgGRvpfzH8W476Avmdo0mikslMbe7vhB3Q
-         8s9HNR1LvHACaJOm1gB7JyKJi0a0x/t6i94UBM+qlxjMJ90YUjHFEC8vSdv/3nUhO371
-         Xmr8JTegNBtyZ6fyp4NJ6bHmq/ICSGdDDk+dTEq+HdBaPUV7nXUMK8WCMHx/s5xioDTX
-         D/zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zODJp3Q/ylJKtuOCWeTiMp9ZrT7Y7L+dmGvHafNLJ/A=;
-        fh=pd+tqJfRw1Up3Al65mPLlj17jcqqWJUj+8rVsWp4NT8=;
-        b=BVIuc66MQC7svSIXE2asudtAaEzfXn87snX2vvcWOg/h6QwPnCnNfQXxKXqxPLQlg+
-         VAnNlB04asd9TgaZG37fz/gf+pf5XrmgdWdEBNt1umfTDUMCM8kdBvvTYUl0IZAFPpZp
-         lKHO6bdZVYaFv+jqycpV/TQsfISJ42sdFEYfmAppb+77uJ4fEeGJU4VuGl7+YJKOL1ry
-         R1I7SMDwut8d6lQvlBQ2Xdd9lByRE9KNvSw8/QUHvCA/Rg0cvuAPA2ktO5xab3YYh5ok
-         w3Sbr6EIjMUhdDcoGZ1OWJvatSX0t3CIMT8hy4h19hO+4t0LkmG2bmOQrSwXylZC0HYG
-         73sg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-79495b1aaa7so31331587b3.1
+        for <linux-man@vger.kernel.org>; Sat, 14 Mar 2026 12:30:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773435128; x=1774039928; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zODJp3Q/ylJKtuOCWeTiMp9ZrT7Y7L+dmGvHafNLJ/A=;
-        b=MA2Q0i+MwziPC1R8tNrCJkgiQYLIZLM8R0iEjKBNrWwE0UzSzIlpB7nS00ZfFGc20x
-         7dxDXPy/jbe1aAE0S7LlY8KJunKDJVszc90/f4qD0b09w5HYn76oBuFQz8lE+ULOqFEt
-         j/PiLTQq6ogjxSUUppIFp40TXnSRHEnGg7QETO9IjYFqIqoalFdBCgvazimG0kkyjaUf
-         BbVUq2mtYPdeqWRK7DN3N3LzC/Q68ypIWtuYWrX343miwZeWrOPZ5xOVYD006tnaQwMM
-         0GXWkB0IiKlP1LBxoSooh7rpvD3FYfjx24cu6pvprA8829zibjtsoSatIx9CJ+2LLgBP
-         ZY2Q==
+        d=gmail.com; s=20230601; t=1773516608; x=1774121408; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4TdekW8bewpUiLIHG/0EsQ8Yxood8bGS2d7ZxnTaMz0=;
+        b=ZLHzLLAVbsYmLxbASKHSFCA2LPynxC9diPuWZaIN08sGLEA/9Iv+tpjQ4O05Nas/WD
+         4qbx6EwNIXEpe+pgcBAUNW8lSJExJIA7IivQhONTvgEgwCH+KjVI+Zzqbxc+hg8MVjVZ
+         4fArMr8d6xpk2src6ZyPB1/YynyaMlnHYOUvyvCE/HDTZPbetfFM9up8O8lCu385ONIt
+         /fz/jLt98ykpRrs0K+kfikH5iLCXGg5th1i+3KQVard7n9w6zHF/UwGhDWOul8tKCAyZ
+         FNgNY/3Hn2lYet/0SaaIGBYXEUVGF2ykfUKGbMqtga1UK1eHQUmHBJEdTDvKaJ4hyVfH
+         DyQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773435128; x=1774039928;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=zODJp3Q/ylJKtuOCWeTiMp9ZrT7Y7L+dmGvHafNLJ/A=;
-        b=bvDHpwYavK/yi5mif638igJgXSqx6MKADga/2lSFHLpc/iKGUaeHXwFFX1aKI/iCxv
-         dIbEqcpqIiUXxdhQyxGGpVISPNEd5h2oucOQPF7OfPlwsSlnuPVhXI8oskkA+s/ZmHqd
-         gZ5f8jpsGctTk32p7D4O5ZczeUeB3tcOpN0mZEKV4J0skB2CJTp8ID9El2CupA73UHfz
-         6/Y6KGRhtgENVdlNAEg0grR+iOhugw+Sz9QcCGUfB4OYF/HfUbIapCz7gK6LMDeMDPsr
-         6r8jed6GR35FsOZo5rxmJcFDX8/pz1Fgx/tNvus83JpplJ/RnQij9Lwtpl1PJDzS3Okg
-         ULHw==
-X-Forwarded-Encrypted: i=1; AJvYcCXQyqx3VpkCsfsRNxP2wKwPvmdOivb/CDCg2cH6tflCEtP0pjtWuqymSTMOacE9+I6WesFHsejKpzk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwaW4WT6uoq7EAWovVZ4h6y33n2qtFIpwwegN5F6dyrKZSXjHkK
-	GHrzZ5MLfcBdCblP9HPrmBvZ64BspuDdby0i20TMJlTx+K7c/aoy68H+YVmOjjYkTYpuf59wp3z
-	NScFPGfUXnxtk57GO5Y7+ydFrI7bezlh87CbL6PI=
-X-Gm-Gg: ATEYQzzZL52OLsmXM83atOCnJ9x9G8T6/plk2R2AabLV7uNXahjyGGYe6O/INN3E/zX
-	y78XrC4mTrbf2VOH7v10cOg/TdgtR370hEbSNyqabioQeWGvE372e5zvo6EL/l/erR9M6XV+ifI
-	FoUZP1b//VLgbyPFHMtV5wSaHvy+XUtH1cCbOzHYbdjam3ktiBh/R1nkmALbbvg0aunlkoK4ud0
-	iMFUAemGs1P6G0xAGUYNeBwkorxAQw/8lYAirYvW1sMm9Ew1vc+wqm8xhZcuF+joOyRPeBjYlvG
-	zBXLjRN7xvFR93A7mCktApbf320jnlFuHvhvzBb/qsRmM3xw
-X-Received: by 2002:a17:907:c11:b0:b94:1740:7311 with SMTP id
- a640c23a62f3a-b97650efde9mr139385166b.4.1773435128062; Fri, 13 Mar 2026
- 13:52:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1773516608; x=1774121408;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4TdekW8bewpUiLIHG/0EsQ8Yxood8bGS2d7ZxnTaMz0=;
+        b=AUiOuIKIpj7rCuyt4vUqzMYSw7azNt8juRS7k0y2BzIvE0zr7/w8KM6mKqvAY4Sur8
+         lPAqoQYpqBOegvq/vb35BVZ723q0Q3rMEXRdt7YPKnOeEJnsFr7VSNGfbMOOfozUW4Gq
+         ZGXg0i4Miu45V1dZZWmiCc9Ki5umbHZXTkbJKXA8tKYbFWsdUQSoTygmrIdUXPAyGZpE
+         hy1d0uON8/iWvXuVP45YB/ips8cnYxXLFMFnRJz9LcRwxV216ecUs9UtbrwMO2lrXl70
+         /J7QT2iyTYInJ1s7iGpOZdapZk7JeuWGkNCQCR21cMFvK+uT+yQlqA4vE9gWaYsB/eXO
+         9mpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVf/4EPIdjmC9OPHXuNtpHHACywTq0Tp3F4jNIlCKm3C/Go7ZFUKpUqPFszJS3jWFeUMdbIqUJSG8E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCRnxZpvWlVxQ7xjfhtH943R11sdX4QAsxPno+1X3VbEJ0s17F
+	6Hw4Oo6BM8WshMtOZpicgEMZOtDowkHoSH6VVpgkyUYPlplc7kr+6erh6aRZOA==
+X-Gm-Gg: ATEYQzzHbANtSmd1q/r1jNAFLe3Uw+uXUhXUVlHnFmJGms8Ff5G8yrEgj4RBM48ud7g
+	gf2HB6R9sVL7k+OzRy5PACtg2/9PDxA1zWiBvnLbtT8VtTSgwEEhnAaU46EFkNzbvUsfSFB9X8W
+	wxx2vnYpkC3aWbElfloZvTDiUM09elH8T8L8vk7/xXCx78NXszPjS/jHs2TnyG4SmYi2DfA3Rt7
+	nLL1R+NoHbByyOzdL8K2goFCOGwpYnSilGZDUitN+3IJVMyd7Slj0ZILhQcupW8fyJ8akp2gNNb
+	Gl6BDFKjE6pdmVTGpl//hbeKayimq2GwbTIgs3YizugWTJU68T6S71Wso5xQj61wbLp+l9MlqCK
+	5AHYzkkqA+8NbNrKKaiGq28H4s282k15BNiTC7+sKH2wLAd4lQx4nwAQXKdKR33VKhzLbvOCmxo
+	a+6VbMcRgYd7Gq
+X-Received: by 2002:a05:690c:6891:b0:79a:3d7f:e8e0 with SMTP id 00721157ae682-79a3d7ffc32mr11263587b3.19.1773516608068;
+        Sat, 14 Mar 2026 12:30:08 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-79917ee5845sm65539977b3.33.2026.03.14.12.30.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Mar 2026 12:30:06 -0700 (PDT)
+Date: Sat, 14 Mar 2026 14:30:05 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: info-gnu@gnu.org, info-groff@gnu.org
+Cc: groff@gnu.org, linux-man@vger.kernel.org
+Subject: groff 1.24.1 released
+Message-ID: <20260314193005.v3rbph3hcks2oltm@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <abRiap_UrhFzNxPs@NH27D9T0LF> <4718783.LvFx2qVVIh@natalenko.name>
-In-Reply-To: <4718783.LvFx2qVVIh@natalenko.name>
-From: lepton <ytht.net@gmail.com>
-Date: Fri, 13 Mar 2026 13:51:56 -0700
-X-Gm-Features: AaiRm502kuUKxqbPMLwMbzJyeLHRFqy7-lRiT7dJZm_SGOfIKYvF86HPsrY9LdQ
-Message-ID: <CALqoU4xVdo_-W+yv7Rf77+G0wG6Dvit5dqZyhmPHpU+Qhbsm=Q@mail.gmail.com>
-Subject: Re: [PATCH] core.5: document the %f and %C core_pattern specifiers
-To: Oleksandr Natalenko <oleksandr@natalenko.name>
-Cc: Alejandro Colomar <alx@kernel.org>, Emanuele Rocca <emanuele.rocca@arm.com>, linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spamd-Result: default: False [-2.16 / 15.00];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="pr6zursdv6yeuu7j"
+Content-Disposition: inline
+X-Spamd-Result: default: False [-3.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	TAGGED_FROM(0.00)[bounces-5259-lists,linux-man=lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ythtnet@gmail.com,linux-man@vger.kernel.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[linux-man];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5260-lists,linux-man=lfdr.de];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
-	FREEMAIL_FROM(0.00)[gmail.com]
-X-Rspamd-Queue-Id: 2FED1289EE5
+	RCVD_COUNT_FIVE(0.00)[5];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[gbrandenrobinson@gmail.com,linux-man@vger.kernel.org];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_NONE(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
+	NEURAL_HAM(-0.00)[-1.000];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,gnu.org:url]
+X-Rspamd-Queue-Id: B967E28E9AF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, Mar 13, 2026 at 1:29=E2=80=AFPM Oleksandr Natalenko
-<oleksandr@natalenko.name> wrote:
->
-> On p=C3=A1tek 13. b=C5=99ezna 2026 20:15:54, st=C5=99edoevropsk=C3=BD sta=
-ndardn=C3=AD =C4=8Das Emanuele Rocca wrote:
-> > Whilst going through the relevant kernel code in fs/coredump.c, I notic=
-ed that
-> > two core pattern specifiers supported by Linux are missing from man5/co=
-re.5.
-> > Document them now.
-> >
-> > Signed-off-by: Emanuele Rocca <emanuele.rocca@arm.com>
-> > ---
-> >  man/man5/core.5 | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> >
-> > diff --git a/man/man5/core.5 b/man/man5/core.5
-> > index 8c26aa07e..4da5819b6 100644
-> > --- a/man/man5/core.5
-> > +++ b/man/man5/core.5
-> > @@ -154,6 +154,11 @@ A single % character.
-> >  %c
-> >  Core file size soft resource limit of crashing process (since Linux 2.=
-6.24).
-> >  .TP
-> > +%C
-> > +CPU the task ran on
-> > +.\" commit 8603b6f58637ce196d68f7749633ea81af196d66
-> > +(since Linux 6.2).
-> > +.TP
->
-> For this part:
->
-> Acked-by: Oleksandr Natalenko <oleksandr@natalenko.name>
->
-> Thank you.
->
-> >  %d
-> >  .\" Added in git commit 12a2b4b2241e318b4f6df31228e4272d2c2968a1
-> >  Dump mode\[em]same as value returned by
-> > @@ -179,6 +184,11 @@ Pathname of executable,
-> >  with slashes (\[aq]/\[aq]) replaced by exclamation marks (\[aq]!\[aq])
-> >  (since Linux 3.0).
-> >  .TP
-> > +%f
-> > +Actual filename of executable, which may differ from %e
-> > +.\" commit f38c85f1ba6902e4e2e2bf1b84edf065a904cdeb
-> > +(since Linux 5.9).
-> > +.TP
-For this part:
 
-Acked-by: Lepton Wu <ytht.net@gmail.com>
+--pr6zursdv6yeuu7j
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: groff 1.24.1 released
+MIME-Version: 1.0
 
-Thanks!
-> >  %F
-> >  PIDFD of dumped process
-> >  .\" commit b5325b2a270fcaf7b2a9a0f23d422ca8a5a8bdea
-> >
->
->
-> --
-> Oleksandr Natalenko, MSE
+We are pleased to announce the availability of groff 1.24.1.  Obtain
+it from the GNU mirror network,
+
+  https://ftpmirror.gnu.org/groff/groff-1.24.1.tar.gz
+
+or, if the network is for some reason inoperative, directly from GNU.
+
+  https://ftp.gnu.org/gnu/groff/groff-1.24.1.tar.gz ]]
+
+Ensure the integrity of your download by checking this source code
+archive's cryptographic signature; see "Obtaining groff" below.
+
+
+What is groff?
+==============
+
+groff (GNU roff) is a typesetting system that reads plain text input
+that includes formatting commands to produce output in PostScript,
+PDF, HTML, or DVI formats or for display to a terminal.  Formatting
+commands can be low-level typesetting primitives, macros from a
+supplied package, or user-defined macros.  All three approaches can be
+combined.
+
+A reimplementation and extension of troff and other programs from AT&T
+Unix, groff is widely available on POSIX and other systems owing to its
+long association with Unix manuals, including man pages.  It and its
+predecessor have produced several best-selling software engineering
+texts.  groff can create typographically sophisticated documents while
+consuming minimal system resources.
+
+  https://www.gnu.org/software/groff/
+
+
+Changes
+=======
+
+This release corrects bugs in the groff 1.24.0 release that regressed
+working 1.23.0 features, adds automated test scripts, revises unclear or
+misleading diagnostic messages, and improves documentation.  There are
+no new features.
+
+Details
+-------
+
+Since groff 1.24.0 was released on 28 February 2026, 3 people have
+authored a total of 60 commits.
+
+$ git shortlog --summary 1.24.0..1.24.1
+     2  Deri James
+    57  G. Branden Robinson
+     1  Rocket Ma
+
+The most noteworthy of the foregoing commits are as follows.
+
+f9420c7b0 tmac/troffrc: Fix misleading diagnostic message.
+ba0908298 [troff]: Improve error diagnostic.
+c71b99984 Use sequential tag names to avoid possible random duplicates.
+9c4e2c8c6 [troff]: Fix Savannah #68132.
+45afde2cb [troff]: Regression-test Savannah #68132.
+37f0060be groff(7): Document `.S` register as reserved.
+b9d07e0cf eqn(1): Add "roff interface" subsection.
+eee74c1a8 [eqn]: Fix Savannah #68115.
+6e467c234 [eqn]: Regression-test Savannah #68115.
+
+Another way of capturing the amount of revision is as follows.
+
+$ git diff --stat 1.24.0 1.24.1 | tail -n 1
+ 87 files changed, 784 insertions(+), 282 deletions(-)
+
+
+Obtaining groff
+===============
+
+Here are the compressed sources and a GPG detached signature[*].
+  https://ftp.gnu.org/gnu/groff/groff-1.24.1.tar.gz
+  https://ftp.gnu.org/gnu/groff/groff-1.24.1.tar.gz.sig
+
+Use a mirror for higher download bandwidth.
+  https://ftpmirror.gnu.org/groff/groff-1.24.1.tar.gz
+  https://ftpmirror.gnu.org/groff/groff-1.24.1.tar.gz.sig
+
+Here are the SHA-1 and SHA-256 checksums.
+
+6bba283f8b55b74bbcafd56653876ec5d567de63  groff-1.24.1.tar.gz
+dOKBl5W2r/QxrqyYPWOpyJaO6roqLrp9+LpMe0Hnz9g=  groff-1.24.1.tar.gz
+
+The SHA-256 checksum is encoded in Base64 instead of the hexadecimal
+form that most checksum tools default to.  The mechanism follows.
+
+sha256sum < groff-1.24.1.tar.gz | cut -f1 -d\  | xxd -r -p | base64
+
+(Because "base64" reads from a pipe, it doesn't know the file name, and
+so the file name will not appear in the output.)
+
+[*] Use a .sig file to verify that the corresponding file (without the
+    .sig suffix) is intact.  First, be sure to download both the .sig
+    file and the corresponding archive.  Then, verify the archive.
+
+      gpg --verify groff-1.24.1.tar.gz{.sig,}
+
+    If that command fails because you don't have the required public
+    key, you can import it.
+
+      wget -O 108747.asc \
+        'https://savannah.gnu.org/people/viewgpg.php?user_id=108747'
+      gpg --import 108747.asc
+
+    Re-run the 'gpg --verify' command above again subsequently.
+
+
+Caveats
+=======
+
+o GNU tools, or otherwise POSIX-conforming ones, are generally required
+  to build on Solaris 10 or 11.  See the "PROBLEMS" file in the
+  distribution archive.
+
+o Solaris 10 has known problems with automated tests; see the "PROBLEMS"
+  file in the distribution archive.
+
+
+Acknowledgements
+================
+
+We'd like to thank the following people for helping ensure the quality
+of this release.
+
+Bjarni Ingi Gislason
+Clem Cole
+Dave Kemper
+Peng Zhang
+Rocket Ma
+
+--pr6zursdv6yeuu7j
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmm1tzMACgkQ0Z6cfXEm
+bc4sHA/9HC9kHbCOFIOGuc7mxRWfzjLWR1b9049ejWGtopjnvBXhrCVOzwePTd0H
+rcZR/QaGXGd7/Erkimmm9L0m3lucU/HMehqqYIACaz4UMenqYvBCe5b/zdnvGxYs
+2RVOhEa3DisQfo6ELGXhbHudy+WnxMZdMvuwacFVY49btmYV8cRjo2J61DN9x2E1
+dc/4Wut5Xex9egUBEAnkwVoBUJDdPB5f84SHfSggXsTBoimh3+6CqsqgHZyYqEL1
+bVMPELcReX09sZV/QUuDHtXQGd49ta/00Zy3Bntfycv0lp6efivw91Zc1jILwOD8
+Cnc+sY9hju73BIwpgdfPxKf9ei3lmQdLnCTaGzI4kqVvofVfmaRxxZWNETVwy2BA
+oDzcBHY+cinONWalGe5cT0QnvRqT6IDY67iqzblZQmkwuxqbOxuxgB2fTZk71Fty
+wcEG9znSu5rfCA7tJmfkF7L7VKakmtiOV64za+Qk96GMucCf1S4Zm1jmhv1qGR/8
+UpI5cSmdF6FakoVAT99sPJFhUD5vncPky1XUVuh19QtjpKnOuGWSlMO8zFhCn5Qc
+Oc0ac8BsWj/8d0DArTNk46FH1mq7Dl3I9wnXUcSWncfos383Qnqa9i61xFINfwAs
+4mMDvZDzIrRPh2KSEqeFINJCUUh8q56oXgGr6Pc6PQ+7liyQ0uY=
+=3cS0
+-----END PGP SIGNATURE-----
+
+--pr6zursdv6yeuu7j--
 
