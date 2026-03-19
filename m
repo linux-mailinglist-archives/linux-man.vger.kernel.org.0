@@ -1,203 +1,138 @@
-Return-Path: <linux-man+bounces-5275-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5276-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oLm4KVFFu2miiAIAu9opvQ
-	(envelope-from <linux-man+bounces-5275-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 19 Mar 2026 01:37:37 +0100
+	id 8NPGGmdmu2lVjgIAu9opvQ
+	(envelope-from <linux-man+bounces-5276-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 19 Mar 2026 03:58:47 +0100
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C7712C4228
-	for <lists+linux-man@lfdr.de>; Thu, 19 Mar 2026 01:37:37 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id C4ED72C53A8
+	for <lists+linux-man@lfdr.de>; Thu, 19 Mar 2026 03:58:46 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 9F43430172E7
-	for <lists+linux-man@lfdr.de>; Thu, 19 Mar 2026 00:37:36 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 1F4F030AB8EC
+	for <lists+linux-man@lfdr.de>; Thu, 19 Mar 2026 02:58:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A8E521B192;
-	Thu, 19 Mar 2026 00:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B33C43876B8;
+	Thu, 19 Mar 2026 02:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SonAwcUi"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fqy6eXAP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1E41F03D9
-	for <linux-man@vger.kernel.org>; Thu, 19 Mar 2026 00:37:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5381386C9
+	for <linux-man@vger.kernel.org>; Thu, 19 Mar 2026 02:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773880652; cv=none; b=RVQL/yV/kv+k6EkeCk8NgSMGLw5jSmNbaazYAxXR7Hd+1ImAPTJpNJj853a185IurzVDQutR9OANG1+L5D+6G0ylpW8PLxAWcUi9rr5ym9Lrg19du2n3KjHrFjemDaCPM7aUfUkAJ7R/21R0RIn7HRXv7WQpv+4PazGW9J3bXns=
+	t=1773889093; cv=none; b=QNuJZhJgQcziczcLJ7RqaCnvsdEZNrxW0Q7GTkcmyjAnFesji/B1vDY2lM6Pf9X4rIPZbvg3Ln2gj1qTnXGpvZYAa0NtEpOoV0PaCds68G80yHiV9eVV4vUJnWqI3xyhw0fBUAiwPruhDy9MOaG0tfDU5Z6foJBEbpWftr/N4Bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773880652; c=relaxed/simple;
-	bh=9QY2N+IJZmUqOZWu7GwYMDwkzzJuiq3YO0S5lnv/nok=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SiZuh/8KyJCZtwl23G/wyo6bXpUlYRYrhkRewGU4I7bmc/m7xZBqTwTkJUwMkB8cm3HLXqRs4REGijPeRNGXhk1E1eKijJfWqMgmc3bEHBjbAKsP5m4MLeoqJAcQs79M5w0+lQaY5amjC6Bb2rxTyimLlmHS62GWcMdT/BzKZrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SonAwcUi; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C66C19421;
-	Thu, 19 Mar 2026 00:37:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773880651;
-	bh=9QY2N+IJZmUqOZWu7GwYMDwkzzJuiq3YO0S5lnv/nok=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SonAwcUihV2RUSxy86q8kQY9f/Rhfhzq8Nh93d9LF2JfketWLqS25NomQ1/Zv6Xas
-	 zSmqi/sksGb38H3H7bjOGsm4aXHARmWZYq+3cMcKGEfyKyZiRkYDPxg4wmOLRHWmdI
-	 aRuwhBrH5gD1vMJpk9dT7xqpKrrXdrM+mpRjTFHiMbsni+ZWtdQdTjbrnJKHZ3zKXW
-	 lqeb+JZoYAbWcClzK163nMxlr0fY0HV62vijrl3vKGlFKleAXvJuYyQc95pXHV8fbe
-	 EOJBMBrr26SUekfuhBuDYjis1G6hjA6g0RiaOFFPwxooX79seNk2jiavx/XBBwKmqH
-	 GW86RYZOZzBBw==
-Date: Thu, 19 Mar 2026 01:37:28 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+	s=arc-20240116; t=1773889093; c=relaxed/simple;
+	bh=DKYjPPIO3h8/3sQDvHJFrg5dgeXOS7375NW2uFn3AoA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SmRuuYPJy0cYWHE6VrTRW2QpZN5rJ3xQZNJfz92fXg+bhoPnTWmbYoHHzPinxvJpx4iNoSxj8ID8Kx69+cG1EF9PNFZmQExM9NybD477u6otxzqTXg9odxsSQ9igMB5XiLAW/Zky2cswzcFroJsvGTnDectFMn22PmS0VCq8/Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fqy6eXAP; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-35b905a05a8so112774a91.1
+        for <linux-man@vger.kernel.org>; Wed, 18 Mar 2026 19:58:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773889092; x=1774493892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BJTA9YYosNNVgNrSr87KeBfOvShhdFasbByJIoOQBjI=;
+        b=fqy6eXAPIMp7DoGq3nnc7CYZoH1femJK9viQPuHbsPn2EI7On3S+o6dVT12JsTMgFO
+         0E5d11d9b68IdQBV9Tf6lzEegOv1GXP4URkwdQjXSZrug1BNjnogjtnqyCiP84jFBd7h
+         qKFQSRkynErjiEcfeRCuVpqt2E2QrT01SizELck/9WVSpc2yldlQiNt4zTFNUg/mamKA
+         incpQjeHQk3L207dRuGL1L981xYJQv2Mc28BEgayJ7wKmTHzWmx8kcfl/cmOdBcPlId9
+         gN+nLgMWQg85jcxnG8TQD1m1wuRMB+JINl85gn/Rx9PimNE9/9zct50jkD0ljtjOOMwo
+         wawQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773889092; x=1774493892;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=BJTA9YYosNNVgNrSr87KeBfOvShhdFasbByJIoOQBjI=;
+        b=szkdsUXnH4GQa32aB8ofyh+KQfF9MfCmKA2lmgMfsHQ0MUAJ2Gjk2/egJrsbDs/g2M
+         576XSii/xM1zEmQb/IIhMB/BQ2UtUu7zVwrwNS1FjtI3UrHILl6AgHe+DfGLJWAs7u9G
+         9R64b/KPZDO2+fBUk5cvTU2VKtuHEpH59GAqLZAni9UZ6FV1JY3atAhW5iDA/CKyOlgi
+         Hcr/O4c6Q+TCyuusEQP9WOb7nNPRWB365zKNkOUsyDcaRu6p4CDEJpMzJRNCH9f/JzBI
+         mzEEFiM/9DQnJlICgteejiuIHj4vePpg81hAmnBg9aEabyruY7DbhvK+42iUzzhJO8qI
+         SOSw==
+X-Gm-Message-State: AOJu0YwdFaVM9o5hVD2CjlP5Qm2C4u50bTsaU0/4Kk8xpt7vVW8YMkxV
+	VYI8Zv1/CddMG6PTu1m2P7FchSB5XQvUqhaWB2qHhVmsd4UEwioYwN5n
+X-Gm-Gg: ATEYQzxBL0ernFksfdv98FrTt34P4egYQwA27EuK+j3lnt32i1Gdxxxqu0zotRCbaI1
+	1MhF4oRqc5xJMXiItGZxBYRcNKXhSOQp73Sn4nh9ev8na+RyE9kQVq+WfBRhGAKIWcyhzsVv49r
+	AH9ijxeIYUla+tZNKjR8zyZSWbGdjhi7hkIGXffp4/M8CjSM3DgeZkJ3+/+8WcRGu9EwJ/OEXR4
+	zed6HKvzBzL/R63IWjrU3RdZkncfQdl08Y0jGMdF2VS7fMOTflxerSdxBq0J5yVxUbHCNVwC6ur
+	WAQd5cAMavAc8Cqog1nB3agR87n0EpjJCfO3ZIu+tGNBR2km4Gkiy2hyq+yjEdtUOA+Z7N4E+af
+	22ND6HmS3YrxTyM6zdSzep68qzo2zuJBPLUIHoasI+ejk9+4QmakkCLsRJwHc+5Z+i+EhYZCVdz
+	+LS/DymKktwr2Aobnl1rPi
+X-Received: by 2002:a17:90b:3952:b0:359:fdc0:4621 with SMTP id 98e67ed59e1d1-35bb9e57e48mr5530173a91.11.1773889091730;
+        Wed, 18 Mar 2026 19:58:11 -0700 (PDT)
+Received: from Misaka ([2408:8340:2640:1b81:ea9e:b4ff:fe12:dd0b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35bb9e9b982sm2202024a91.0.2026.03.18.19.58.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Mar 2026 19:58:11 -0700 (PDT)
+From: Ben Song <bensongsyz@gmail.com>
+To: alx@kernel.org
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v3] man/man2/mmap.2: Document that MAP_GROWSDOWN doesn't
- affect mmap return value.
-Message-ID: <abtFKra8mJv1XwcJ@devuan>
-References: <20260317214652.2135374-1-benjamin.p.kallus.gr@dartmouth.edu>
- <20260318144937.2210447-1-benjamin.p.kallus.gr@dartmouth.edu>
+Subject: Re: Re: [PATCH] man/man3/strcmp.3: replace equal/less/greater words
+Date: Thu, 19 Mar 2026 10:57:59 +0800
+Message-ID: <21b3ebcd31a6f53968e2f987324d7d0c58c5243c.1773887744.git.bensongsyz@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <--in-reply-to=abdLnYA73AoL6e3P@devuan>
+References: <--in-reply-to=abdLnYA73AoL6e3P@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lf6d7oxyvduvksqd"
-Content-Disposition: inline
-In-Reply-To: <20260318144937.2210447-1-benjamin.p.kallus.gr@dartmouth.edu>
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-0.66 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[bounces-5276-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5275-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_NEQ_ENVFROM(0.00)[bensongsyz@gmail.com,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.992];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	NEURAL_HAM(-0.00)[-0.975];
+	TO_DN_NONE(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 4C7712C4228
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: C4ED72C53A8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+> Please don't go past the 80-column right margin.
 
---lf6d7oxyvduvksqd
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v3] man/man2/mmap.2: Document that MAP_GROWSDOWN doesn't
- affect mmap return value.
-Message-ID: <abtFKra8mJv1XwcJ@devuan>
-References: <20260317214652.2135374-1-benjamin.p.kallus.gr@dartmouth.edu>
- <20260318144937.2210447-1-benjamin.p.kallus.gr@dartmouth.edu>
-MIME-Version: 1.0
-In-Reply-To: <20260318144937.2210447-1-benjamin.p.kallus.gr@dartmouth.edu>
+Got it, I will pay attention next time.
 
-Hi Ben,
+> I think I prefer entirely removing this list.  We should defer to
+> memcmp(3) for the description of the way the comparison is done.
 
-On 2026-03-18T10:49:37-0400, Ben Kallus wrote:
-> The man page states that the MAP_GROWSDOWN flag causes the kernel to retu=
-rn an
-> address one page lower than the mapping created.  This is not true; the k=
-ernel
-> returns the base address of the mapping created, just as it does when
-> MAP_GROWSDOWN is not passed.  This can be confirmed by inspecting
-> /proc/self/maps after making a gd mapping, and comparing it to the return=
-ed
-> value from mmap.
->=20
-> You can confirm this by running this example program:
->=20
-> int main(void) {
->   printf("mmap return value: %p\n",
->          mmap(nullptr, 1 /* rounds up to page */, PROT_READ | PROT_WRITE,
->               MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN, -1, 0));
->   FILE *const f =3D fopen("/proc/self/maps", "r");
->   while (1) {
->     int const c =3D fgetc(f);
->     if (c < 0) {
->       break;
->     }
->     putchar(c);
->   }
-> }
->=20
-> ...and observing that the value returned from mmap is the base of a
-> mapping in /proc/self/maps.
->=20
-> Fixes: 176b1a76 (2016-11-21; "mmap.2: Add (much) more detail on MAP_GROWS=
-DOWN")
-> Signed-off-by: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+Yes, the newer version is more concise, and the description I wrote in
+strcmp is actually the same as what memcmp(3) describes.
 
-Thanks!  I've applied the patch.
-
-
-Have a lovely night!
-Alex
-
-> ---
->  man/man2/mmap.2 | 2 --
->  1 file changed, 2 deletions(-)
->=20
-> diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
-> index 09e7933d3..20b94c243 100644
-> --- a/man/man2/mmap.2
-> +++ b/man/man2/mmap.2
-> @@ -276,8 +276,6 @@ should check the returned address against the request=
-ed address.
->  This flag is used for stacks.
->  It indicates to the kernel virtual memory system that the mapping
->  should extend downward in memory.
-> -The return address is one page lower than the memory area that is
-> -actually created in the process's virtual address space.
->  Touching an address in the "guard" page below the mapping will cause
->  the mapping to grow by a page.
->  This growth can be repeated until the mapping grows to within a
-> --=20
-> 2.53.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---lf6d7oxyvduvksqd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmm7RUgACgkQ64mZXMKQ
-wqnKixAAncCi/zjnpsR5NbymAuRVqklamhD4qaVdRHdaZEl16NqQoVNhS8sG5sC7
-/hUlIP6HzAsxVOdIzyKkzt+mUvfhTCBS73FuSMinyfxxWhg/3NxJ29o87Y1GQCHn
-169J7ijuPAoSNsVdgyA2t1sfZahqIXxLVpUZ/X2VGM/hI4a7/J4L4c0tCPDiEonq
-9+Ld9Sz/L04aC0k0IIHfe+3d+oICE8Ia1xS2A+GvAUOOOV2GWFCTXWam2AVbGMIg
-qMn/IpqHGSVxU0GBWstaWu8pYp0op1YkEHK7Mde2j39ZY5kmt+RQ4HlqCKTDxazd
-WGng9GRl2MDaj91WDH2lPKd/DpG/uLksQ4VZImogt2n70UZGAVqcqyzJ9ogYY2ew
-nF403gi1v3FOak7P1ExfWUkFLBMXuePkXXqNptGZjfqNyMDWGY4hSIoJksaZ+LBN
-553k7RuqaIb0uk89rwqt0kHqVgUpwXvV9JaBReBiD35/IcbjR+HYZYjwdv/7CZ/u
-hlGfgYzZmThERFbtQ3pCp2vHtBu0w+EGEVEAwovSj4wr9OrZRHhSFSYdy6N8wPWM
-xwnbmR/g8q9GOgr1Ct7S2F9MicGLQ2mcpvhNg8AzA750ctWqdyQmFvMkPR/cXiyl
-uIV1cvNrIsZIumWckAeJosBplFWD7I5bNxtQKL31T2XN4Hi42Bg=
-=v5GO
------END PGP SIGNATURE-----
-
---lf6d7oxyvduvksqd--
+Best regards!
+Ben
 
