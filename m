@@ -1,252 +1,206 @@
-Return-Path: <linux-man+bounces-5289-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5290-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wGg2D6cfyWl/uwUAu9opvQ
-	(envelope-from <linux-man+bounces-5289-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 14:48:39 +0200
+	id CE8ZMD0syWknvgUAu9opvQ
+	(envelope-from <linux-man+bounces-5290-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 15:42:21 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACBCD35203E
-	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 14:48:38 +0200 (CEST)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id C499B352484
+	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 15:42:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 97BE5300B75F
-	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 12:48:37 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id B26CF3003BD2
+	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 13:42:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57C643128D4;
-	Sun, 29 Mar 2026 12:48:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15B5B309EE2;
+	Sun, 29 Mar 2026 13:42:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UGQBxIeS"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hKbLU+ua"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04F23C07A
-	for <linux-man@vger.kernel.org>; Sun, 29 Mar 2026 12:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CD12D3739
+	for <linux-man@vger.kernel.org>; Sun, 29 Mar 2026 13:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774788516; cv=none; b=kQEHz5AjW7n7YTYMWRAJZ5nlIZVhOgEVCADOrDrQjKw6DyKU2R2I6Cwwn0YJUrQeJ0+RRrFj31yNp+cuaZ37j1s/IIwQ2V0GtPReSqfDo+5rr2iAV+9BtUNy6JgwhxweQ/7n0YZrCvmTBNNVDoM8lNpPHVkRjdcQb+u0ntq+hjU=
+	t=1774791734; cv=none; b=t406ppRMxkpBLwP5xYOxFv6JW8mL+RmhDrgNBkj39eW50VHg68/EXSSWyvT0Msr8bsJDxYffiu55o9ro0J19zN3EW7iXurX/5HuK9CjfoUGnc67CDonsxG3oZgzomvNGvq0hCcgBeeQ+bZd3+HfoFPlzP7hqPuE4LL/bDSkZky4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774788516; c=relaxed/simple;
-	bh=kIZ0qU09g14vMFHT38EkbSdK9Fo9FTCtgyeevD2SHfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PE8O6fLM8eYYEjp44EkguvS5v/ACQ7xCxMRi+pYwN/LI/lvycYeuUc1+U3tKUbS9no4LEwf5253u0ox1jmZlI8XbRjhRnigTx6WBrnsjIZujhzP8sxjf6qPBBF1ND9R0x6eSLL1XAvd/IlL3kYzr4OKiyp/F9im/VlQzNDMR1JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UGQBxIeS; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1774791734; c=relaxed/simple;
+	bh=5gb2MMuVjg80rzVqhPeudbOgsOnIPsv96hW04N4fvKA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eM4oqGcxBGsnbnMJC5+qWaDbdasGv0WqMA5B5itKlGUAHxt1hUfzA9IHWtolxy6CJQIuSV8up/PIf57PVr5ALCiFC/s+3MyxOU+mrSjiSiopLDnhheI2Pm1xer+nVh96M2FfNwf43CBoGo2qdI6Z/aN70yzuz9oy3W9JdWRY7lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hKbLU+ua; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43cf906b007so266563f8f.0
-        for <linux-man@vger.kernel.org>; Sun, 29 Mar 2026 05:48:34 -0700 (PDT)
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4852e9ca034so34985055e9.2
+        for <linux-man@vger.kernel.org>; Sun, 29 Mar 2026 06:42:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774788513; x=1775393313; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3hH2ptul7v0u6aI6HR6t7vXL0C2Y4UDbG6CWiC92E0k=;
-        b=UGQBxIeS/4US4MQblw+GWrcjtxpAbJh2XnMrfQdOm75bLZvL9UcM6hGap1NyQXHpRA
-         Zvf7a+MM2KbbF4EQMVSjMQJdTAbp9GFgJqcjOCVNwP+4jn2iaOusJK1g1ONL4Cq9n92h
-         vraNo8sVatSDgJFBTdlPQl2pCnx7qDzmdjzjxl4FnbckvHl/tslSlWPI8pQRlLeGDGp1
-         dBuejtRYhKKjUjg5dRMIXUcj2O+eW7AwXTGELnjJufu/0CNKstnwKbCkCXdTm+ndnpxd
-         eYTkyEfsHo0NoSnKqp9Q1CO8gUyEIbSPQp3GzKZifQkERKTMRDw1105RhtfGUQkKk7Ry
-         Wd3A==
+        d=gmail.com; s=20251104; t=1774791732; x=1775396532; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ZblzpRVT+acIZQOj+1Z4a17RFxR0SzuQLEXOd2GDL8Q=;
+        b=hKbLU+uaVkXmd/RyKsp1O4mTyRwOiYCj+kVVsksU4M2mXcSggziJT9iyWcKCiJDD+U
+         fF6uxt5foyHyxPAXHOXUFfaldmNMSp8HXXFTTx7IM9UNAOqFlg3zeXrQFFxg7n6UzfLS
+         qtuYvPXwIDGHRdwl0z5o6VP7NJUjkco4al2cZEYwjinBw9Yh6PTuOPrDVWCq4tZ9mVp1
+         6v/p7+ruppDzUlaBk0tOLcjeG9Ot46mhOv3f9L7zBFO/BPqhPXIlG2Hp1pfU224b80mD
+         s3TfrgUdFlhNga/giRXFKNaMbTjxRF8DLIi12YkggDDZjwvjGWxtR4QEWP1uQBEQ6VAf
+         SytQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774788513; x=1775393313;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=3hH2ptul7v0u6aI6HR6t7vXL0C2Y4UDbG6CWiC92E0k=;
-        b=EXCLYsMEI0drB7TzxIA/+XUIcnEf40dqS2OgMPq2YF0zzbK53Ljw8YsEyoKnu2rQmt
-         C6HCSAg9HOguzTMlSfjfCzl+35UQDSc0oDqXQ7QHh9+IuewPyY/zRveyi6AYcIDXmj1s
-         0EkIXLD3qXjpvyEwV/4/lPzFT+N1Rmb7u7vVS4FiDvS1oKGwbskaAI0gwHA0SLIWgyI7
-         7gAlrNUUDlyLASG88o3goaP1J2wZ0Vp8aXl2ubK7spMF7RxaUO+rXlrzxeG8yjjBlDjT
-         S5TMV+LLe2MnO+jv38jcWKhDDjPv56ZtJ1RohWcaqJvDgwYxe9ETQj9dgYmvBi/3VCHT
-         fI7A==
-X-Gm-Message-State: AOJu0YzagI/ke93sa3qg6rAYwVlPhjUa1JQl0Vta3qaZfLxJOt2f0V+m
-	hdH2s3XaQUXRN7+BTqHxOAjV3+dmyPWnOJIrmB0Z/Ni/Ms8bGLauwaAy
-X-Gm-Gg: ATEYQzw6lmpfJnO6Ks/m/ZedBEh1vmymI+iIHFr0PaAc9cNx6zqvrdBmxmcmr+KCFKV
-	7sjqe09bbR1r5nYTtwE8pddbTUcNDOPrr/oSM9RMyW4ZR4ZWBjVgFy+RaDlGxCa0D9fY6c7ul93
-	vJDqUrSXqrg0B4QWTAxb6Gl17fDnJb5sTQYhQ5T8Yo8X6ru7ilwhl//OorI2EUA2FkCX47gl71t
-	jrOig2kZ5enZbBZJ4LCHfDapjLtrTjKIs06cnag43Skhew7gx2yHD3FIs6yTvZP2KU636A5DOjR
-	OCWZWx8dMZqPVDIsdXC3CjjR3U1rtIi9pJIEEILCSxf+IMCVPCEmtd4m16EQFSGbyKUu/V4wpvA
-	3SGmH2eMLCO7Gn/qhML1brInFMM1Qtj5RiqWiElPdybbAGJHUpgYwuKAZBftla5my4qbc3uVZBn
-	Pv9shMXvuAnaPidvn392Dzkd5zzn9p2mz6ni1Iv5aNprfTNXIg
-X-Received: by 2002:a05:6000:2511:b0:43b:4aba:8f35 with SMTP id ffacd0b85a97d-43b9e98db0fmr14978414f8f.12.1774788512637;
-        Sun, 29 Mar 2026 05:48:32 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1774791732; x=1775396532;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZblzpRVT+acIZQOj+1Z4a17RFxR0SzuQLEXOd2GDL8Q=;
+        b=oWFA/1Er6wMy4EVe/DmJPyXUupQ4Be/tqcwHgtZ/ZCu++ZqXrnOujnKztuBUtScyKq
+         3fKXjarGeIarzN3XsyRM+J/v3BKGFCm9vpIyu1ayxcZJHKFEoTpMY6F0aCkBy9bIp6ak
+         6xgH2RdVmrud+aGM+1SPne5jS9PJfHukr62oDWGZC9HBbOljUMsbLTX+zgwU9bxS3z0B
+         8QjX9oJHehuhmRx8wdUY8tunu0BlGAnlzDN+pdGP5PaBaKuuuArmch98SihKBdUZHGpJ
+         NtDR11nh1LU9RbYykNSbTW07S4BjADHdlaMqf7QgWGhZTwcXNSqVlmE+nWMJ4VhZinmk
+         04WA==
+X-Gm-Message-State: AOJu0YzpB2l+CsSrsBRF3T8vpTauL7tgbUvKPSj5DCifJ0ET7zcMEM8Z
+	MK3RwTZ2X6SZ61JNqkJfXlY1UrhLptCdaj8Y0MtgITUmrOW1szAkgidy
+X-Gm-Gg: ATEYQzzyMu2t5lKJmY9zE/br4lpCv++m4ks3VzAPuz+VctqhoQyOkHG/LrwIqesRWnS
+	ADgQH+2PA5H5HlbHUoy7E/R2AQJk6ei705jF5YC8Iidka9ZCtb4Bj4SFM1kl3tychvRPp2M4gu4
+	aLulxCd16rnQ5dBdUAgbUDjEi4Rrmk1xKowGjCu9kCqV9D4c9XPEUI01bqUjECsjOFEhhwfzFpb
+	TiPgX4xX4jJvndBwYHaTO5bZ6bVoBlbLH2tTBckWxuuAu5MCW9Jo93duDmfSV0CAO/o2uqZRLWK
+	HrKAPpmXpaIZZoPddXZdqyCDj1bAcdvfd8alv26wiEHXXs1WFqnMV5COg8YjrOZD27rN94ED4R/
+	HSI934qBXrbGoHoZAcS4meM0hcl4liLbErWM9o8SoWC9QYxA8dyZ1kPRvk8UwpyfafygvWgvmah
+	wMsEn9FMT+t/eCfjdcpHRXYG0VjYbsrX95/yvq/f94ojXIizui
+X-Received: by 2002:a05:600c:8489:b0:486:fbdb:b718 with SMTP id 5b1f17b1804b1-4872807483cmr154780355e9.25.1774791731765;
+        Sun, 29 Mar 2026 06:42:11 -0700 (PDT)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf330872asm10150867f8f.17.2026.03.29.05.48.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4873881c195sm18223395e9.9.2026.03.29.06.42.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 29 Mar 2026 05:48:32 -0700 (PDT)
-From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+        Sun, 29 Mar 2026 06:42:11 -0700 (PDT)
+Date: Sun, 29 Mar 2026 15:42:03 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH 3/3] man/man2/landlock_restrict_self.2, man/man7/landlock.7: Document audit logging (ABI v7)
-Date: Sun, 29 Mar 2026 14:48:16 +0200
-Message-ID: <20260329124815.92502-5-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260329124815.92502-2-gnoack3000@gmail.com>
-References: <20260329124815.92502-2-gnoack3000@gmail.com>
+	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Subject: Re: [PATCH] CONTRIBUTING.d/ai: Add guidelines banning AI for
+ contributing
+Message-ID: <20260329.5167693e9f38@gnoack.org>
+References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-1.16 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
+In-Reply-To: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5289-lists,linux-man=lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5290-lists,linux-man=lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[gnoack3000@gmail.com,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	NEURAL_HAM(-0.00)[-0.997];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-0.998];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[digikod.net:email,tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: ACBCD35203E
+	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns,gnoack.org:mid]
+X-Rspamd-Queue-Id: C499B352484
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-* Document the flags LANDLOCK_RESTRICT_SELF_LOG_SUBDOMAINS_OFF,
-  LANDLOCK_RESTRICT_SELF_LOG_SAME_EXEC_OFF and
-  LANDLOCK_RESTRICT_SELF_LOG_NEW_EXEC_ON.
-* List these flags in the compatibility table in landlock.7
+Hello!
 
-The documentation text is copied from the kernel documentation,
-originally authored by Mickaël Salaün in [1] and [2].
+On Tue, Oct 14, 2025 at 11:27:26PM +0200, Alejandro Colomar wrote:
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+> 
+> Hi!
+> 
+> I've already been DDoSed in my own home server by AI crawlers (which is
+> the reason I decided to move the HTTPS server to port 80, just to break
+> links and stop the madness.  I could install Anubis, but I'll resist for
+> some time.
+> 
+> So far, I haven't noticed any contributors using AI.  Probably, the
+> combination of relatively few people contributing documentation,
+> combined with still working on a mailing list, has helped us avoid the
+> wave of AI contributions.
+> 
+> However, it's better to take preventive measures.  AI is entirely banned
+> in this project.  The guidelines are clear and concise.
 
-Link[1]: <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/include/uapi/linux/landlock.h?id=ead9079f75696a028aea8860787770c80eddb8f9>
-Link[2]: <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/include/uapi/linux/landlock.h?id=12bfcda73ac2cf3083c9d6d05724af92da3a4b4b>
-Cc: Mickaël Salaün <mic@digikod.net>
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- man/man2/landlock_restrict_self.2 | 67 ++++++++++++++++++++++++++++++-
- man/man7/landlock.7               |  6 ++-
- 2 files changed, 70 insertions(+), 3 deletions(-)
+I know I'm late to the discussion, but for the record, I would like to
+throw a scenario into the discussion that I consider a compelling use
+case for AI-assisted man-page contributions.
 
-diff --git a/man/man2/landlock_restrict_self.2 b/man/man2/landlock_restrict_self.2
-index 530ef9a4cd25..9e80a40ee4a4 100644
---- a/man/man2/landlock_restrict_self.2
-+++ b/man/man2/landlock_restrict_self.2
-@@ -68,8 +68,71 @@ is a Landlock ruleset file descriptor obtained with
- and fully populated with a set of calls to
- .BR landlock_add_rule (2).
- .P
--.I flags
--must be 0.
-+By default,
-+denied accesses originating from programs that sandbox themselves
-+are logged via the audit subsystem.
-+Such events typically indicate unexpected behavior,
-+such as bugs or exploitation attempts.
-+However, to avoid excessive logging,
-+access requests denied by a domain not created by the originating program
-+are not logged by default.
-+The rationale is that programs should know their own behavior,
-+but not necessarily the behavior of other programs.
-+This default configuration is suitable for most programs
-+that sandbox themselves.
-+For specific use cases,
-+the following flags allow programs to modify this default logging behavior.
-+.P
-+The
-+.B LANDLOCK_RESTRICT_SELF_LOG_SAME_EXEC_OFF
-+and
-+.B LANDLOCK_RESTRICT_SELF_LOG_NEW_EXEC_ON
-+flags apply to the newly created Landlock domain.
-+.TP
-+.B LANDLOCK_RESTRICT_SELF_LOG_SAME_EXEC_OFF
-+Disables logging of denied accesses
-+originating from the thread creating the Landlock domain,
-+as well as its children,
-+as long as they continue running the same executable code
-+(i.e., without an intervening
-+.BR execve (2)
-+call).
-+This is intended for programs that execute unknown code
-+without invoking
-+.BR execve (2),
-+such as script interpreters.
-+Programs that only sandbox themselves should not set this flag,
-+so users can be notified of unauthorized access attempts
-+via system logs.
-+.TP
-+.B LANDLOCK_RESTRICT_SELF_LOG_NEW_EXEC_ON
-+Enables logging of denied accesses after an
-+.BR execve (2)
-+call,
-+providing visibility into unauthorized access attempts
-+by newly executed programs within the created Landlock domain.
-+This flag is recommended only when all potential executables
-+in the domain are expected to comply with the access restrictions,
-+as excessive audit log entries could make it more difficult
-+to identify critical events.
-+.TP
-+.B LANDLOCK_RESTRICT_SELF_LOG_SUBDOMAINS_OFF
-+Disables logging of denied accesses
-+originating from nested Landlock domains created by the caller
-+or its descendants.
-+This flag should be set according to runtime configuration,
-+not hardcoded, to avoid suppressing important security events.
-+It is useful for container runtimes or sandboxing tools
-+that may launch programs which themselves create Landlock domains
-+and could otherwise generate excessive logs.
-+Unlike
-+.BR LANDLOCK_RESTRICT_SELF_LOG_SAME_EXEC_OFF ,
-+this flag only affects future nested domains,
-+not the one being created.
-+It can also be used with a
-+.I ruleset_fd
-+value of \-1 to mute subdomain logs
-+without creating a domain.
- .SH RETURN VALUE
- On success,
- .BR landlock_restrict_self ()
-diff --git a/man/man7/landlock.7 b/man/man7/landlock.7
-index 05664b3d7cba..bcf06ea30ad4 100644
---- a/man/man7/landlock.7
-+++ b/man/man7/landlock.7
-@@ -445,7 +445,7 @@ users should query the Landlock ABI version:
- box;
- ntb| ntb| lbx
- nt| nt| lbx.
--ABI	Kernel	Newly introduced access rights
-+ABI	Kernel	Newly introduced constants
- _	_	_
- 1	5.13	LANDLOCK_ACCESS_FS_EXECUTE
- \^	\^	LANDLOCK_ACCESS_FS_WRITE_FILE
-@@ -472,6 +472,10 @@ _	_	_
- _	_	_
- 6	6.12	LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET
- \^	\^	LANDLOCK_SCOPE_SIGNAL
-+_	_	_
-+7	6.15	LANDLOCK_RESTRICT_SELF_LOG_SAME_EXEC_OFF
-+\^	\^	LANDLOCK_RESTRICT_SELF_LOG_NEW_EXEC_ON
-+\^	\^	LANDLOCK_RESTRICT_SELF_LOG_SUBDOMAINS_OFF
- .TE
- .P
- Users should use the Landlock ABI version rather than the kernel version
--- 
-2.53.0
+As you know, the Landlock man page work mainly consists of taking the
+existing kernel documentation text and putting it into the man page
+form.  That means that when producing the man page patches, the main
+additional work is:
 
+(a) formatting existing text in groff
+(b) adapting the structure to match the man page format
+(c) copy-and-pasting wording fixes between kernel and man page tree
+    (in either direction)
+
+Because this is tedious and time-consuming, and because the added
+value over the existing kernel documentation is low, Landlock's man
+pages tend to lag behind the kernel documentation by many months.
+
+Coding agents are very good at such reformatting tasks though, and
+that would make it potentially feasible to keep this up to date much
+faster.  (with the rough process being that you point a coding agent
+to the man page and Linux source trees and ask it to carry the
+documentation changes over in a way that respects existing man page
+style and structure). [^1]
+
+Since the submitted man page text is the same as on the kernel side,
+the main work done by the agent here is in Groff formatting, and in
+finding the text in the kernel tree and putting it into the right man
+page structure.
+
+For inspiration, the Linux kernel itself has, after substantial
+discussion, recently started adopting a different policy, where
+AI-generated contributions are permitted, but where it is still made
+clear that human contributors must review all AI-generated code and
+have the same responsibilities as for a normal human-authored patch:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/coding-assistants.rst
+
+I realize that the Landlock use case alone is maybe not enough to
+change your stance on this, but I feel it's worth at least pointing
+out that there are use cases with potential upsides.
+
+I think that with a Linux-like policy for coding assistants, it would
+be easier for us to keep the man pages up to date.
+
+–Günther
+
+
+Footnotes
+
+[^1] An alternative that has been considered in the past was to create
+     a mechanistic translation program to create the man pages from
+     kernel .rst and .h files, but this also seems brittle and would
+     mean that the man page structure would likely stay close to the
+     kernel documentation in structure.  In my understanding, Linux's
+     eBPF helpers use that approach.
 
