@@ -1,144 +1,149 @@
-Return-Path: <linux-man+bounces-5285-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5286-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OKP6AeuowmkyggQAu9opvQ
-	(envelope-from <linux-man+bounces-5285-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 24 Mar 2026 16:08:27 +0100
+	id YIIjBKEfyWl/uwUAu9opvQ
+	(envelope-from <linux-man+bounces-5286-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 14:48:33 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45007317B3A
-	for <lists+linux-man@lfdr.de>; Tue, 24 Mar 2026 16:08:26 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EA95352021
+	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 14:48:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id DEA803094240
-	for <lists+linux-man@lfdr.de>; Tue, 24 Mar 2026 14:59:39 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 7ADF9300AC0C
+	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 12:48:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1F34A3FFACC;
-	Tue, 24 Mar 2026 14:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EC0C3C07A;
+	Sun, 29 Mar 2026 12:48:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R49Jij+/"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i6ujAHmk"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69C23FEB32
-	for <linux-man@vger.kernel.org>; Tue, 24 Mar 2026 14:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70B423EAB8
+	for <linux-man@vger.kernel.org>; Sun, 29 Mar 2026 12:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774364378; cv=none; b=OFobhLfnvbON4zbiVn/ovHUMzK0TBPszyLMWmRUwcao8m3KzZA3oW3iKCL2Aoh0jsvpc0o0DMPkwUnXaCXTowZ1ez+bxym3aA7QtnwYHda2O6dZmvNk4D/tsgckfQVR3F/9TJZoPlt1lK1I7aWGgh6v+6AskZNJdINYXBdrLxzU=
+	t=1774788510; cv=none; b=rZvBMPaZiA335sG4iVgyo7s5COF6OQNbEIdr0q2Lf6ngywA7wzLo/+7upRDG0jVjvKQFSyfMSmdYhYAdFHrQdIlfxH+wQoh5qwCuFq2RecWQLxSfib/mvxCfrBxq4jTNakeIgJxc7yIp2Wyyzy2/cexcXHynSzY5fY8lcGwkvOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774364378; c=relaxed/simple;
-	bh=q8ilaWpYI16QmqHqWb4Lz7Muq08sHmaAJ4tj1oYQ/sU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jItEIcvoqa+dtavhMLhccLUURGN5cN667tkbyjNVl7KynQz5Jx4ardwqszOogdifd94Cyzo7ePV7V+3k63SqAvroAPAAhtFiFpPVrnVyVUD08YzaiMWPbmJQDDv1nTzn2oERhgK40NIelDuPhATqYVjHiOD9EAd+gYe44hgq+rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R49Jij+/; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1352C19424;
-	Tue, 24 Mar 2026 14:59:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774364378;
-	bh=q8ilaWpYI16QmqHqWb4Lz7Muq08sHmaAJ4tj1oYQ/sU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=R49Jij+/exxeedHr4Sye+6sYLUng5cUAnoVM6NwbClwyNEoGGn7jzNiaqzwIO+r3r
-	 XvYQENAzXAiX0ZE4CZtr/Rz8S1pnMAlmp0cHi10fPRae2U3oxn4UCgKAwkEvXEthy5
-	 xv/nSZjvk3Wq1OYCzLzFxZSQVpyRIgELBtv7rwMBYTiXMClaVn5zIsqmkTtE9rhAT+
-	 J2hWpfRQcApIhXIhLbv6VlR6G6UzqNdD1uwiAV2X4fHUpswgrFUUafTchmD3keoqCA
-	 jFgaUc+Ms0kMg4dL1sXciXWW8NQlLLtEHmGDxURIlkf2o+TQtjzeTRawKoU3cXYpee
-	 es+XUh951V9tQ==
-Date: Tue, 24 Mar 2026 15:59:35 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Michael Moses <michael@n90x.info>
-Cc: linux-man@vger.kernel.org
-Subject: Re: /proc/pid/smaps name fix
-Message-ID: <acKmuzd95kvGtAGr@devuan>
-References: <30ED175A-5E1A-49A8-811F-3F9E99C9D881@n90x.info>
- <11ECD8BB-BA3A-47A6-A86D-DBD2089B4146@n90x.info>
+	s=arc-20240116; t=1774788510; c=relaxed/simple;
+	bh=DXatHJScoipkVYl/Y2vHEc/o1IdRxha6xreWnc1NMAU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=n0SBPeHvbe0aeUnT0pzKE03/odGIIt5nj2H5jVAhML6mrVN8Zt8+t3zlJTaaDf1NUrUoOvLeyZB9JGxLxKM4TYSsGXUjPIckkfRYPyN4HI2YFM/7L4wSKi74udbutypErNCqVgXoijFbpk1dXfdW/HzSMGAMWXaZJM9NyxiygaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i6ujAHmk; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-43cf8fe9c2aso291569f8f.2
+        for <linux-man@vger.kernel.org>; Sun, 29 Mar 2026 05:48:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774788507; x=1775393307; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JAiUpewiA598rCxdLS+KoWOVVpYDIfm3zvHjLODNuZE=;
+        b=i6ujAHmkyhYNo+S6D+17p0fLZYotTr3h142o8vf9cMrfmk1KcMUMGRZOkyH3nE+7/o
+         KLxU9NTRza0Ox78OojBWXnyfqnASGd47uxyAuTjBDnnHFUqKtYaFQrrZq+QXqZFFYaGn
+         OfDS9JvFBuUyAMRKlWqikklgGB6vsBtarAW6HeOboiY3H6CMd9etFLBxsj2Zx+Sk9EDa
+         POdEBwXZzsKaqtuAC0/kafGRFb4v7sM8rB3UZyRDF4Rc8NQ57PAwgAjEWxf+5kl7bxrp
+         KgLWBxbXhyBZG54dDgTWLRtbg//lrK/bMr5hc79zTQlb6sQAyVZsyuMRMcvrfOO3C4MT
+         LiMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774788507; x=1775393307;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JAiUpewiA598rCxdLS+KoWOVVpYDIfm3zvHjLODNuZE=;
+        b=YMDLkhO6QJkvEqGhVqSGNyMw2/ixWj+RV6Ybu2DJqx/Ax2phCFzaPTjl3KmXgYcOOB
+         PxI8knn0sjOGZUp5eWvEauSHG0VhxFLblyCqu+iQRSH1YFiFGgvlo7E9lplnhKjuYOGF
+         7a+goLA5k+AIBrRujsQe2vBgnSID9IkRZqQWmjgo5t17VLxW6wFKrFyEgaPtDAFJEc0I
+         GcAZ1WZ6gCyFPjnJvqpYRti+fuVaALykSosynkcvZGy0oOewb/ytBKN2E4KfIl9j9sWq
+         joqs31ibbHhIfLKyCQ2MPxQoc5gI+tY7pkZb35qCbM8VyS8ryfC7TB1e19yMP4Y8OpKI
+         QWqQ==
+X-Gm-Message-State: AOJu0Yy8NX72mq9sHX1vl2Zj6rMtc5tuahRS4TRNNGiRjHVfOh2kSunw
+	K4ioBWNkrCHmmG15qQ/+4maJyBkCXUI5NuTgN7AgEBZbnGN0XPp1YaFC
+X-Gm-Gg: ATEYQzyUYX4ArQR5rAsWJvAj+W/qHS37OFuCfafayG2ckxHrasoO4eIifEKaIRM26xQ
+	eRzzuRye28iBzsHnbPNYhoI3og4pSI1CF72OLtVgDkytZyp+6ArnOed6cP67TdradohUj3ixFkl
+	n9UmUTDZsf51FaujNiFYGHnPFRLVkECZ8twHoYi3784TuoZxoWuc+HEeCSaCls7jvlzMP+nSAH+
+	KSiSVEXr1Q351pcMyzAg8APaLMe0Mp0PNxvY3UaZlc0xgs4asCczc7yy5oSpG/5z1MOmiLcrK3C
+	+HHRPxafjj4rAnwrYiOLEWnfM4fDkad8GRZP8qez3eu4PUJxNqwYipp6qHtMQoZt4btcYAMoRh/
+	8KpGvalHitoYDpRE2v8tifxTBOFg+k2FAbsZZYjx2NUlbFA04MKXgKiXXNL1Sh+5lHja0IOiyRv
+	9GXgMu6tZpxL8Yy+lZp7qhFaDSura3wCp57myOJIxKW9VEPd2q
+X-Received: by 2002:a05:6000:430e:b0:439:c5c5:4146 with SMTP id ffacd0b85a97d-43b9e9d5d0cmr15129220f8f.11.1774788506946;
+        Sun, 29 Mar 2026 05:48:26 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf245e4f5sm11779068f8f.19.2026.03.29.05.48.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 29 Mar 2026 05:48:26 -0700 (PDT)
+From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Cc: linux-man@vger.kernel.org,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+Subject: [PATCH 0/3] landlock: Document audit logging
+Date: Sun, 29 Mar 2026 14:48:13 +0200
+Message-ID: <20260329124815.92502-2-gnoack3000@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vo56hzialdpsxqkv"
-Content-Disposition: inline
-In-Reply-To: <11ECD8BB-BA3A-47A6-A86D-DBD2089B4146@n90x.info>
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.16 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5285-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5286-lists,linux-man=lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 45007317B3A
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_COUNT_FIVE(0.00)[5];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[gnoack3000@gmail.com,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 7EA95352021
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Hello!
 
---vo56hzialdpsxqkv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Michael Moses <michael@n90x.info>
-Cc: linux-man@vger.kernel.org
-Subject: Re: /proc/pid/smaps name fix
-Message-ID: <acKmuzd95kvGtAGr@devuan>
-References: <30ED175A-5E1A-49A8-811F-3F9E99C9D881@n90x.info>
- <11ECD8BB-BA3A-47A6-A86D-DBD2089B4146@n90x.info>
-MIME-Version: 1.0
-In-Reply-To: <11ECD8BB-BA3A-47A6-A86D-DBD2089B4146@n90x.info>
+This brings the Landlock man pages up to speed with Landlock's audit
+logging support (introduced in March last year, about a year ago).
 
-On 2026-03-24T15:45:22+0100, Michael Moses wrote:
+–Günther
 
-This is still HTML mail.
+Günther Noack (3):
+  man/man2/landlock*.2: Reorder errors alphabetically
+  man/man2/landlock_create_ruleset.2: Document scoped field in struct
+    landlock_ruleset_attr (ABI v6)
+  man/man2/landlock_restrict_self.2, man/man7/landlock.7: Document audit
+    logging (ABI v7)
 
+ man/man2/landlock_add_rule.2       | 38 ++++++-------
+ man/man2/landlock_create_ruleset.2 | 26 +++++----
+ man/man2/landlock_restrict_self.2  | 87 +++++++++++++++++++++++++-----
+ man/man7/landlock.7                |  6 ++-
+ 4 files changed, 116 insertions(+), 41 deletions(-)
 
-Cheers,
-Alex
+-- 
+2.53.0
 
---=20
-<https://www.alejandro-colomar.es>
-
---vo56hzialdpsxqkv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmnCpsoACgkQ64mZXMKQ
-wqlMCQ//b995S8qjY7ZP5i+Q64pkjW0HlHhZbFL12Gs5AqTRchpnK3opFwOiCX9Q
-PPq3KTYUh4rQyMnemh3O7f7EbLs8sCdfaMX19Y4LJisnZQ/3LZOgaep0VdWnzcQu
-DpRLukFhloG9XEscoW98x30DtwxXF/GILaMGq/V7m9Chp869YFe/vFgjcF0PPE0c
-/NljsKb1rq+UWuPEadzADcmdqootHqAkuDxoOh7g8FU9WlH3743wE1WLPVrOq/pj
-c4csAYk4pLz0UwceQriuEQ5wdSvaddDNWeqa09UEUYJFuo9TbDJI+U0HWLSRgiET
-JlP86hSxb9KAksrsxJMcLAZl4gIkJsFDicxsbkqhV3O5coMn/XTHxFXjuzHziRqn
-rKzQLXDK5U77+AxAzQjFZIqJd9xeZCabaACcDB0C/aCDRD0lnO8/Uy08fosMCvWP
-rYR35kkKaiBF6dtrhpIRqrDzOea2qV/WAq8vx1QwYgAVKS5OYWp+sy0zAuHSWrcT
-JA6IZuM9MarRA8Fq1wZvizKnvBYyq65PttSlvk6vr5VMt2sma0drIJ6M5bSLT6bT
-N+IAcRZr5mqMJF6x4rd6ij19yleJoX9uv8Mf1mHN5PVKmgKJ1CxNyYtVYYrr50ew
-sCae3VaC4bulsumsXo3sOOkZ7t6uD+Dzgnv9bnpnTfUImqgsors=
-=JvAl
------END PGP SIGNATURE-----
-
---vo56hzialdpsxqkv--
 
