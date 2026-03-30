@@ -1,234 +1,192 @@
-Return-Path: <linux-man+bounces-5291-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5292-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qJF/KIlnyWm4xwUAu9opvQ
-	(envelope-from <linux-man+bounces-5291-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 19:55:21 +0200
+	id mJyuA9HjymloBAYAu9opvQ
+	(envelope-from <linux-man+bounces-5292-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2026 22:57:53 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E28A35373F
-	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 19:55:20 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6571E361336
+	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2026 22:57:52 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 9F9FB3002B69
-	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2026 17:55:17 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id F3DAE3014102
+	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2026 20:51:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E770236404D;
-	Sun, 29 Mar 2026 17:55:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5674336E49F;
+	Mon, 30 Mar 2026 20:51:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUV7tXXN"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a27piD+l"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8C91A680A
-	for <linux-man@vger.kernel.org>; Sun, 29 Mar 2026 17:55:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774806914; cv=none; b=t4IHApq9SJlboBzMDaUlb0KptxSkdZPqnrTm7nYKFP3I/CodZT134lhFzzwXiufDx1eHUePBWN4L1pTXXWB3Lw6mzMla81fJ9XPPpin5uiEVybW1+/R0U9FYf8vccSG7GeOYGq/2WoFMWeMWfdaAeEmRx1Y0wvqD9EE3+Z8RmEY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774806914; c=relaxed/simple;
-	bh=0gZOik9rxEVJaQlhb/zQ6hr1GP5wEmn9mqhcCA+UXB0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gTYYE7p+lV4D8EIfyuAD7Y1+0VHQTZIi8l3YcgsWf9rBenX+FvX9TGL7hHtt2Rb+03Y+7+Bw+UO3wJRuQa+Y0mFQIRfNAQElxj77vcZr3b7T1MCd7ZaTmEkc7cmL3UslOe+RvXTSvW+D88/AqMm9TgC7C8uA7af9oMRKyBjCzAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUV7tXXN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF9AC116C6;
-	Sun, 29 Mar 2026 17:55:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774806914;
-	bh=0gZOik9rxEVJaQlhb/zQ6hr1GP5wEmn9mqhcCA+UXB0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RUV7tXXNHArJI+zncGnCKsK7UdpYEY5I5lc8iwf3SKIIrmVF+I30zv4B42Znfj9jk
-	 HXPngDoR/lTdMB5JMPqNi4UBAcGCuDmvTZvycMGQY2NY0dJoMPLlKi9s5cq3oYyVgF
-	 bvLDR2GRFz2wNwWXPwVZGA0wFejj+Q8T1Om8kdqMZsWUqQSe3ppa7V2RyQbzEQCtVU
-	 CU0qQs5fgPjBY6RLNqgKQoS/h9S1t3T2kJj3j+74QEwqjUEleF1RbUecdNTFDelCUy
-	 awFkBbQqWzt/3tTP7DbJmUa94DTv4tpxYZkac6hcQsZz5juvnQvY9sXQJJOyqEIl7s
-	 A4mYYXNqjTd/w==
-Date: Sun, 29 Mar 2026 19:55:11 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Subject: Re: [PATCH] CONTRIBUTING.d/ai: Add guidelines banning AI for
- contributing
-Message-ID: <aclluaJWyOGf3KEP@devuan>
-References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
- <20260329.5167693e9f38@gnoack.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A051C175A87
+	for <linux-man@vger.kernel.org>; Mon, 30 Mar 2026 20:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774903871; cv=pass; b=peUqDyNn7MJAYHifbg7ZW9oXdDYFw4yF1fDEpYExmzwicv0TpNOnkBLBNMOzdhmhXkJQYwH4+9QvRWKPufScmMSYqA/URdnZQ8OL3919lee4X9YWLJ3S8ZMV5np2sdQzCnHdAuwpFb19F5JR9Tio8waXsT97ZcaAlYLs9Iw/7Cg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774903871; c=relaxed/simple;
+	bh=a3JA+kG0Xh4aVokUuez8HSzM+zJivESVdbXktfvh2UA=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=eEwFxsP7ENJN4fOOpbI7EiQt9/mTC3nAWHnnRg7KHM39iDQxJ9RQWtjN9CIwb1Gws2R4RNpedQZiIzvJH7k9Tl0SB+wt3OHfUruVhxqc6p6bddST7Fe0RytIpfNKG4aZjc/X6dm3Rg6IEPYVuf1nFxCcMc3fGNCaNEOQNXkgZtE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a27piD+l; arc=pass smtp.client-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5a0faa0d15cso5265340e87.0
+        for <linux-man@vger.kernel.org>; Mon, 30 Mar 2026 13:51:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774903868; cv=none;
+        d=google.com; s=arc-20240605;
+        b=JT2B+49IL6KzuMvFZRRq39xSpVjaTJU7I9o+FSFFFNX0lV2bIorHtVHH0MGpsntzZa
+         iAe5a6wyBwv28WDFkxenN4OzlrJiDCE7DjNNauqBSYhJo/4DrLdHm+M/1/nffUjD4QRN
+         pb5Z4Y66Cb3me1P9aPcZXzR2uPX1VreY79UNlyLcIFacihDv4xMG5oVKRjwtwE2SjD2M
+         cK95uY0cAio2Sc0YSfYfDnz6zI+xV4VAZZrztHWWrMgQDFU1oANCK7DCbd4BAkd6NERV
+         iWoa1TUpBmRVSzMzrvOT/Z3u0LN50BdScfLJy533q4bLl0fOUQVFec/ftpwXvFtt40UG
+         Mo8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=SBN79HMpchm3MRpHL74HLNYWuKrs9lMRVEqYsX9eF1E=;
+        fh=HQrAeJGtoj0mrk18UcVkFyZbpURbuUn9DSibLkpCvQs=;
+        b=b8njYrQiB0MOuwjYtisUc9AIHJGKkrjTMF1EwaEYG7L0sgOozojrwVtA6GOTsKJkoK
+         5rB6TdGGnUGnAww0fXx3wzmrV+qXE+MrSwdZmOMRmxZwrOPh8piuQ73zaK+nsOz1S1C6
+         so0XuNSZgnFv6Z79BvBbkBacudJWWiMCy6tSVQLXtei4oG0dNeczdIu+UwBZtE/Gy92Q
+         psbPoRN+exwUPUk/MuJ6n4eAlPrP/DNND0ik+9GvJOrM+9SGYjCEBYpz9DI9HLHxhPvS
+         Aib11L/QccMr8wnn+CwPGxS6PM256OdSehJI/Vr3yixUuyr8qOaeYHni+N6Xku0inPYO
+         CZrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774903868; x=1775508668; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=SBN79HMpchm3MRpHL74HLNYWuKrs9lMRVEqYsX9eF1E=;
+        b=a27piD+lHcZqUXOuh99b9rmhjfLz3lkq1xZd7l05V75gL4/b7hI+IaTT9TYKP+KnVh
+         X+AU3Lij6Ww58WeUNNC8nSwn8J7Ac45TbQSB9n+LJY0BOL5aX8YUs1vygBJ5KC53E8cD
+         HJQy1iGnrCe8KtBCkCGzl1nk1zBmBUjsVHAim7AUzbs52Rw1iKZ0JgSD43+17Fhci/yf
+         ArFbToaQZtFLaHtAyqI2L1rjfFdRzmudsHssqL8ppHcG46017dUMtxkXJoykCca+phSn
+         uBgunxjLw+psyF6wEmNPO0XY+mP3HIgv9nH/QADZ0kr0H+QHMatoFYdAGnojvkipoQI2
+         4H1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774903868; x=1775508668;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SBN79HMpchm3MRpHL74HLNYWuKrs9lMRVEqYsX9eF1E=;
+        b=lmiT+4LUhsbclXA6ZfDnh2jzWgk9tI4RvuZqyO00tZxM9fK/V65tv1oDcJH2orwNNz
+         2/37UOHQhcT0ZIrVZ2WPXGM2aGYsGSH4X5c/Yz8WqKaM++LBb0+uorTJgK1qMCsrDSWk
+         j6EVTy/9Zz9O5RpRzt5euXR4sh14g4kFdk0VAw1ozhXYzuw/PdeK8sYkb2RPOOTHsIaJ
+         gDLRH3n9DiQBR+gyHs7OX7kxLLtzOF+7dPBjkA1zY9CJOiHTcPYZydawscFkO6O1sXxB
+         KOfUz8H+PB20mZTynN19aLIa0ppIqdGm1C8YHvxG12mC+rhU47sj63icf9lpQVhs+eDD
+         RblA==
+X-Gm-Message-State: AOJu0Yx/O/kCKOpIbt8RkbKmYxqkxVXY4LIKdM/jqW0gPq6Ti+ZGprOz
+	UGwR/WNqCnZXoJiVfTLWKrvuHJ7N2CfxyLjOOORMhwqODR/ghP13HYAf0XJgSPSwAoJb0SZJ737
+	4WtbF0bVBeL8TKD5Fcb9+fQ4K+3JbjJg=
+X-Gm-Gg: ATEYQzyIMCNiYrMVj1J7mpxLf1KDp+RIwloltv2rdXsxozJYOnBX2dPXNScx5BAsrKI
+	nS1ISW2uiHY21OMo9tNUY22tcOuFYds8HFChxZRuSEDt2NWrSmj+xTDS41BQ6NOQd6gxD9Ipdun
+	FkL9Muv3xiiPjJziaJEb36xI5pdDQToCU6MTZYmfEMYkUVjDSPWl0XOyRuT330p6Ai1FGBvpnD3
+	7GqKV9graKQpY3aOIH+L0d4gjlLs1oMMzb+IteqYN1MLwZSqWjmGgcmWNH6pnqjal7pSv/BtrJA
+	N+mRULT4fxSqgF1qOCIO8H3ke6VnESeIjErElpTxK+OgS7/uGJuLCpha1cBlztUVwe8Q8/hax0G
+	38c5WFgemhZNxkOi6u3UDfFTTD/o=
+X-Received: by 2002:ac2:482b:0:b0:5a2:a1aa:2b8a with SMTP id
+ 2adb3069b0e04-5a2ab92b48dmr4547458e87.31.1774903867458; Mon, 30 Mar 2026
+ 13:51:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p6vdhujg6sxjnj3m"
-Content-Disposition: inline
-In-Reply-To: <20260329.5167693e9f38@gnoack.org>
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+From: Stan Ulbrych <stanulbrych@gmail.com>
+Date: Mon, 30 Mar 2026 22:50:55 +0200
+X-Gm-Features: AQROBzAs0-xqUZArUad4WNujP62hFRE5aT2qo00scVhRmRMnGa2bZDEh9O7K-CU
+Message-ID: <CAEMnaZ+paJ5_Dc5FkibQSggqiR9hW7EYLtnn=wmbCz3Cb+iLVw@mail.gmail.com>
+Subject: [PATCH v1 0/1] man/man3/strptime.3: fix typos
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Spamd-Result: default: False [-2.16 / 15.00];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5291-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5292-lists,linux-man=lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_NONE(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	FROM_NEQ_ENVFROM(0.00)[stanulbrych@gmail.com,linux-man@vger.kernel.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: 9E28A35373F
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,mail.gmail.com:mid]
+X-Rspamd-Queue-Id: 6571E361336
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+A little patch to fix a few little issues I noticed in the doc. I've
+never contributed here before so I'm not sure if I'm doing it all
+right, if not, apologies!
 
---p6vdhujg6sxjnj3m
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Subject: Re: [PATCH] CONTRIBUTING.d/ai: Add guidelines banning AI for
- contributing
-Message-ID: <aclluaJWyOGf3KEP@devuan>
-References: <d6d3123c7271c11fc403906ee3971b22c2fe8e4c.1760476615.git.alx@kernel.org>
- <20260329.5167693e9f38@gnoack.org>
-MIME-Version: 1.0
-In-Reply-To: <20260329.5167693e9f38@gnoack.org>
+From 42228dd6c167dab1d0dd61d2d25b626d0fc2ecfb Mon Sep 17 00:00:00 2001
+From: Stan Ulbrych <stanulbrych@gmail.com>
+Date: Mon, 30 Mar 2026 22:41:23 +0200
+Subject: [PATCH v1 1/1] man/man3/strptime.3: fix typos
 
-Hi G=C3=BCnther!
+---
+ man/man3/strptime.3 | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-On 2026-03-29T15:42:03+0200, G=C3=BCnther Noack wrote:
-> Hello!
->=20
-> On Tue, Oct 14, 2025 at 11:27:26PM +0200, Alejandro Colomar wrote:
-> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > ---
-> >=20
-> > Hi!
-> >=20
-> > I've already been DDoSed in my own home server by AI crawlers (which is
-> > the reason I decided to move the HTTPS server to port 80, just to break
-> > links and stop the madness.  I could install Anubis, but I'll resist for
-> > some time.
-> >=20
-> > So far, I haven't noticed any contributors using AI.  Probably, the
-> > combination of relatively few people contributing documentation,
-> > combined with still working on a mailing list, has helped us avoid the
-> > wave of AI contributions.
-> >=20
-> > However, it's better to take preventive measures.  AI is entirely banned
-> > in this project.  The guidelines are clear and concise.
->=20
-> I know I'm late to the discussion, but for the record, I would like to
-> throw a scenario into the discussion that I consider a compelling use
-> case for AI-assisted man-page contributions.
->=20
-> As you know, the Landlock man page work mainly consists of taking the
-> existing kernel documentation text and putting it into the man page
-> form.  That means that when producing the man page patches, the main
-> additional work is:
->=20
-> (a) formatting existing text in groff
-> (b) adapting the structure to match the man page format
-> (c) copy-and-pasting wording fixes between kernel and man page tree
->     (in either direction)
->=20
-> Because this is tedious and time-consuming, and because the added
-> value over the existing kernel documentation is low, Landlock's man
-> pages tend to lag behind the kernel documentation by many months.
->=20
-> Coding agents are very good at such reformatting tasks though, and
-> that would make it potentially feasible to keep this up to date much
-> faster.  (with the rough process being that you point a coding agent
-> to the man page and Linux source trees and ask it to carry the
-> documentation changes over in a way that respects existing man page
-> style and structure). [^1]
->=20
-> Since the submitted man page text is the same as on the kernel side,
-> the main work done by the agent here is in Groff formatting, and in
-> finding the text in the kernel tree and putting it into the right man
-> page structure.
->=20
-> For inspiration, the Linux kernel itself has, after substantial
-> discussion, recently started adopting a different policy, where
-> AI-generated contributions are permitted, but where it is still made
-> clear that human contributors must review all AI-generated code and
-> have the same responsibilities as for a normal human-authored patch:
->=20
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/D=
-ocumentation/process/coding-assistants.rst
->=20
-> I realize that the Landlock use case alone is maybe not enough to
-> change your stance on this, but I feel it's worth at least pointing
-> out that there are use cases with potential upsides.
->=20
-> I think that with a Linux-like policy for coding assistants, it would
-> be easier for us to keep the man pages up to date.
-
-Thanks for the suggestion.  I'm certainly less worried about this
-specific use case than for anything else.  But I still don't think it
-would be a good idea.  And the ethical concerns remain.  Let's keep the
-anti-AI policy.
-
-> =E2=80=93G=C3=BCnther
->=20
->=20
-> Footnotes
->=20
-> [^1] An alternative that has been considered in the past was to create
->      a mechanistic translation program to create the man pages from
->      kernel .rst and .h files, but this also seems brittle and would
->      mean that the man page structure would likely stay close to the
->      kernel documentation in structure.  In my understanding, Linux's
->      eBPF helpers use that approach.
-
-Yes, bpf-helpers(7) does that.  I hate it, but I prefer it over AI.  :)
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---p6vdhujg6sxjnj3m
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmnJZ3gACgkQ64mZXMKQ
-wqnomA/+MzWi12YLbr33M94Cj1KSg0p71olw59Vv1r2KkbUch4S+lIz7GflqA4CR
-HQu2PmQGl+55Y2Za+EBCAa3ywCEEXYV58i1dPUA1ngSoh4qnZ8LqD+8A7ni+EhS0
-jufFVOyI8jCDM2TaU2QI9liiBQPQNpM5YtMhmjzzH5wsmaX78hjvDCsed7hwCTnJ
-cADs6rnLLhzIGQw1x4JM9q7O57aXKA8Q/np9A+RIEgIstVh6k+muMbYD8tZs/ZJT
-MpHW55L6XSmcsX6VobOfzOUllex9ngQtgTNLr95RET9Him/8/pD8uHaui2OrkpzB
-7ey3jkGwU7yhiREx7e2JuTWka0tEkcCISpgBNsreyxAxCTnF7mpZdaCu3ksNLgwV
-Q4P0OiA725VL4mLoIOrM9kPwy3LUS1EZDrVSh0fUZQY2P1fEw61wTVwsMIz2RarB
-NWcf1ZdxCPMsOXSaXfuU+c48AezoS+hf0cXpQ+eaCKzLQ8Sk1OtXsBuyr/wp5sb5
-BtaBlL6rFigALfwgF1+2Z6WuIgGvld4mNbwMOILhcGrzxmg/KX/cGKiMUjpwkUJO
-xKH4sL62YFyv6qpSGT/9aB0JENlBdqlIcvfD9Hfz0xZdEQqOgVZF700piNQUS/rh
-3Def7H/zPo6v+9NCHpj6OJ2Rab17WLTIZHOr20qqXuxGA6WKHpI=
-=Mw97
------END PGP SIGNATURE-----
-
---p6vdhujg6sxjnj3m--
+diff --git a/man/man3/strptime.3 b/man/man3/strptime.3
+index b969a2a..979bffe 100644
+--- a/man/man3/strptime.3
++++ b/man/man3/strptime.3
+@@ -60,7 +60,7 @@ The
+ function processes the input string from left
+ to right.
+ Each of the three possible input elements (whitespace,
+-literal, or format) are handled one after the other.
++literal, or format) is handled one after the other.
+ If the input cannot be matched to the format string, the function stops.
+ The remainder of the format and input strings are not processed.
+ .P
+@@ -288,7 +288,7 @@ explicitly specified, except that it recomputes the
+ .I tm_wday
+ and
+ .I tm_yday
+-field if any of the year, month, or day elements changed.
++fields if any of the year, month, or day elements changed.
+ .\" .P
+ .\" This function is available since libc 4.6.8.
+ .\" Linux libc4 and libc5 includes define the prototype unconditionally;
+@@ -319,7 +319,7 @@ the same format characters as for
+ (In most cases, the corresponding fields are parsed, but no field in
+ .I tm
+ is changed.)
+-This leads to
++This leads to:
+ .TP
+ .B %F
+ Equivalent to
+@@ -364,7 +364,7 @@ and
+ .B %P
+ is accepted as a synonym for
+ .BR %p .
+-Finally
++Finally:
+ .TP
+ .B %s
+ The number of seconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC).
+-- 
+2.53.0
 
