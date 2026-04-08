@@ -1,56 +1,57 @@
-Return-Path: <linux-man+bounces-5310-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5311-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OApQLPcd1mluBAgAu9opvQ
-	(envelope-from <linux-man+bounces-5310-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 08 Apr 2026 11:20:55 +0200
+	id kG3wOfgd1mluBAgAu9opvQ
+	(envelope-from <linux-man+bounces-5311-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 08 Apr 2026 11:20:56 +0200
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D9D3B9C83
-	for <lists+linux-man@lfdr.de>; Wed, 08 Apr 2026 11:20:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 760D83B9C8B
+	for <lists+linux-man@lfdr.de>; Wed, 08 Apr 2026 11:20:56 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id EBE7A302BE2E
-	for <lists+linux-man@lfdr.de>; Wed,  8 Apr 2026 09:18:51 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 710D2302D0A2
+	for <lists+linux-man@lfdr.de>; Wed,  8 Apr 2026 09:18:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F8A9397E99;
-	Wed,  8 Apr 2026 09:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F071C390220;
+	Wed,  8 Apr 2026 09:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bYTbN+TM"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sUDHhmvG"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1163F2EACF2
-	for <linux-man@vger.kernel.org>; Wed,  8 Apr 2026 09:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29A1385528
+	for <linux-man@vger.kernel.org>; Wed,  8 Apr 2026 09:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775639931; cv=none; b=p5+Nqx+z0P+/BG5FBihtLe1dOjnwN/ohq2qyAUKsMTUOSzSc/krx8masbCuubfecd98jI3xqqxbFKuwXWkvbzuapR/l17q7mVYWOMipAv7OTN9B9HFgotlqkW47jHXQfT/BidK5WKJEhFo06X9AySTUqmCsO7toeh4PmcHr65N4=
+	t=1775639935; cv=none; b=Od/lf0CYfEKBz60ocOHkG1+7kexmHnzJ8QlTNQ140vpmRdhlUvDLe+8IdryRxKkLQiOqwd7dg6J2/rOau8n9530QmEBZNIIVce/P86JdELwXn8e5T3i8MeqnEV9cRN/E4pnTdc3zsrrnBCp1b0la3g71Hb3e9T/5Vs1SlrWioD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775639931; c=relaxed/simple;
-	bh=YabhF7Ed6uCPjz0w+AElT2oTSHd9flZCtUhdUMRAk8U=;
+	s=arc-20240116; t=1775639935; c=relaxed/simple;
+	bh=DIwdz+P41LdclakCAp8Fc0pKxIFQnq+Y2xQ8UQhihuQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XPgEjsfsh4gOmtzee2nNeS6HAJX10NtiVoMOT4UYZ8qMD0Gba0hS8Or0O2OnJ/Wfb4pWaFirQmuGYDcfGmqQxNK+AuOHDhKFhHVoN1Qon910HvHvxn2G5P3DJOLNRgcyvFZMp9fTPGqlJf09Dum1yP4j8EdckQYr1+qT2SKbPqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bYTbN+TM; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A711C19424;
-	Wed,  8 Apr 2026 09:18:49 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=a2pM9xi0SZ6itCMUFeu8sy82pHLo77qQDqQtg7na4nlTwDKtLE8yzWm5YHtX2sCf7egUv4KmwDwDZNhYcooL3YC7guEEMlfPOgy6C6fr3EBdTsPwnIZcKzMKSb4oP9D6K3ygl7EIjcFD3bcb4cFU3R4jQ05RXseh7sHvtd1VGP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sUDHhmvG; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1F4C19421;
+	Wed,  8 Apr 2026 09:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775639930;
-	bh=YabhF7Ed6uCPjz0w+AElT2oTSHd9flZCtUhdUMRAk8U=;
+	s=k20201202; t=1775639935;
+	bh=DIwdz+P41LdclakCAp8Fc0pKxIFQnq+Y2xQ8UQhihuQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bYTbN+TM1j65PtCwI5FAr3GfEMoIpa2xDA7jnDmgZsLHpAcMvGe4FHC5ARF107YEZ
-	 pCU531BUykgQqOzRNfH6rp+O49VdY0M4tK6ZuwRw1q/zXYCAstXPoZLKJJsJ3S8Txh
-	 l4PNYT/pW1aCSKZPoL/FUniT1ImQ+Lpnsj7+5mJ+zpv5q7qFDuWsBxbrUU12Sngd4S
-	 Hg77p0IcJfS8iSqfwovlpFiAiYZUMnMTfotbGtjD6bovQpQ6Szmyck0+rjVcDjSP7P
-	 9dcmr3yuL/0X/nXVu5528kVqlpUfGMOEhl6ZyF2hbtrhg9YX4ra+mFKIUk3o2OOdIG
-	 WPSzYGk04lvYQ==
-Date: Wed, 8 Apr 2026 11:18:46 +0200
+	b=sUDHhmvGgROMQgzYg9yubvxtwV+bMFVGeYF9/HsJChXclysIcmF6FU3TlBAbA+8IQ
+	 ogO6G0b7m7r/7h5DfUQieFeKFceOODe47xjjfhSFqe1dvQDU+RNwnZZU12XcuNhPCj
+	 ePeZZa3q8jZ2V1Kefy27PhxiONVqakUW+VPhYvHDww2wc8AOMavdtlDI/IzV578eoR
+	 ulAW4jBo3Hk8SbwWdjYuAHp95ndfWu7etVpW7QNmA+K5s60YLS3U+nxWnXTTdJMvJv
+	 hWR+TVtJNtjtVZ5iRHJp+2JKYcVzox54glc1xq12yJlazyM6RP6c8n/rm/kHZ/RnGZ
+	 XAdzpBt7VuAIQ==
+Date: Wed, 8 Apr 2026 11:18:51 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>, Guillem Jover <guillem@debian.org>, 
 	linux-aio@kvack.org
-Subject: [PATCH v1 5/6] man/man2/io_setup.2: Use syscall(2) in the SYNOPSIS
-Message-ID: <7811fd45149427135d6f35938c10ba258e885b0a.1775639353.git.alx@kernel.org>
+Subject: [PATCH v1 6/6] man/man*/io_setup.[23]: Split io_setup(3) from
+ io_setup.2
+Message-ID: <c6fcae43d95ef9d96e156d295ee72a2b5563dbce.1775639353.git.alx@kernel.org>
 X-Mailer: git-send-email 2.53.0
 References: <cover.1775639353.git.alx@kernel.org>
 Precedence: bulk
@@ -71,7 +72,7 @@ X-Spamd-Result: default: False [-1.16 / 15.00];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5310-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5311-lists,linux-man=lfdr.de];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
@@ -87,40 +88,171 @@ X-Spamd-Result: default: False [-1.16 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
 	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 22D9D3B9C83
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,fedorahosted.org:url,pagure.io:url,kvack.org:email]
+X-Rspamd-Queue-Id: 760D83B9C8B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-That's what we do when there's no glibc wrapper.
+This simplifies the documentation of the system call.
+Let the wrapper be documented as io_setup(3).
 
-Also, remove the comment on the existing include, as we usually don't
-comment when includes are needed for types; we only comment for
-constants.
-
+Cc: Guillem Jover <guillem@debian.org>
+Cc: <linux-aio@kvack.org>
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
- man/man2/io_setup.2 | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ man/man2/io_setup.2 | 60 ++++++++++++---------------------------------
+ man/man3/io_setup.3 | 40 ++++++++++++++++++++++++++++++
+ 2 files changed, 56 insertions(+), 44 deletions(-)
+ create mode 100644 man/man3/io_setup.3
 
 diff --git a/man/man2/io_setup.2 b/man/man2/io_setup.2
-index f2f59c61..398101fb 100644
+index 398101fb..f58cb45b 100644
 --- a/man/man2/io_setup.2
 +++ b/man/man2/io_setup.2
-@@ -15,9 +15,11 @@ .SH LIBRARY
- see VERSIONS.
+@@ -9,10 +9,6 @@ .SH NAME
+ .SH LIBRARY
+ Standard C library
+ .RI ( libc ,\~ \-lc )
+-.P
+-Alternatively, Asynchronous I/O library
+-.RI ( libaio ,\~ \-laio );
+-see VERSIONS.
  .SH SYNOPSIS
  .nf
--.BR "#include <linux/aio_abi.h>" "          /* Defines needed types */"
-+.B #include <linux/aio_abi.h>
-+.BR "#include <sys/syscall.h>" "    /* Definition of SYS_* constants */"
-+.B #include <unistd.h>
+ .B #include <linux/aio_abi.h>
+@@ -21,19 +17,13 @@ .SH SYNOPSIS
  .P
--.BI "long io_setup(unsigned int " n ", aio_context_t *" ctx_idp );
-+.BI "long\~syscall(SYS_io_setup, unsigned int " n ", aio_context_t *" ctx_idp );
+ .BI "long\~syscall(SYS_io_setup, unsigned int " n ", aio_context_t *" ctx_idp );
  .fi
- .P
+-.P
+-.IR Note :
+-There is no glibc wrapper for this system call;
+-see VERSIONS.
+ .SH DESCRIPTION
  .IR Note :
+-this page describes the raw Linux system call interface.
+-The wrapper function provided by
+-.I libaio
+-uses a different type for the
+-.I ctx_idp
+-argument.
+-See VERSIONS.
++you probably want to use the
++.BR io_setup (3)
++wrapper function provided by
++.IR libaio ;
++see VERSIONS.
+ .P
+ The
+ .BR io_setup ()
+@@ -53,7 +43,11 @@ .SH RETURN VALUE
+ On success,
+ .BR io_setup ()
+ returns 0.
+-For the failure return, see VERSIONS.
++On error,
++\-1 is returned,
++and
++.I errno
++is set to indicate the error.
+ .SH ERRORS
+ .TP
+ .B EAGAIN
+@@ -87,35 +81,12 @@ .SH ERRORS
+ .BR io_setup ()
+ is not implemented on this architecture.
+ .SH VERSIONS
+-glibc does not provide a wrapper for this system call.
+-You could invoke it using
+-.BR syscall (2).
+-But instead, you probably want to use the
+-.BR io_setup ()
+-wrapper function provided by
+-.\" http://git.fedorahosted.org/git/?p=libaio.git
+-.IR libaio .
+-.P
+-Note that the
++.UR https://pagure.io/libaio
+ .I libaio
+-wrapper function uses a different type
+-.RI ( "io_context_t\ *" )
+-.\" But glibc is confused, since <libaio.h> uses 'io_context_t' to declare
+-.\" the system call.
+-for the
+-.I ctx_idp
+-argument.
+-Note also that the
+-.I libaio
+-wrapper does not follow the usual C library conventions for indicating errors:
+-on error it returns a negated error number
+-(the negative of one of the values listed in ERRORS).
+-If the system call is invoked via
+-.BR syscall (2),
+-then the return value follows the usual conventions for
+-indicating an error: \-1, with
+-.I errno
+-set to a (positive) value that indicates the error.
++.UE
++provides a wrapper function with the same name,
++but different prototype and return value.
++You probably want to use that wrapper.
+ .SH STANDARDS
+ Linux.
+ .SH HISTORY
+@@ -125,6 +96,7 @@ .SH SEE ALSO
+ .BR io_destroy (2),
+ .BR io_getevents (2),
+ .BR io_submit (2),
++.BR io_setup (3),
+ .BR aio (7)
+ .\" .SH AUTHOR
+ .\" Kent Yoder.
+diff --git a/man/man3/io_setup.3 b/man/man3/io_setup.3
+new file mode 100644
+index 00000000..28b59550
+--- /dev/null
++++ b/man/man3/io_setup.3
+@@ -0,0 +1,40 @@
++.\" Copyright, the authors of the Linux man-pages project
++.\"
++.\" SPDX-License-Identifier: GPL-2.0-or-later
++.\"
++.TH io_setup 3 (date) "Linux man-pages (unreleased)"
++.SH NAME
++io_setup \- create an asynchronous I/O context
++.SH LIBRARY
++Asynchronous I/O library
++.RI ( libaio ,\~ \-laio )
++.SH SYNOPSIS
++.nf
++.B #include <libaio.h>
++.P
++.BI "long\~io_setup(unsigned int " n ", io_context_t *" ctx_idp );
++.fi
++.SH DESCRIPTION
++.BR io_setup ()
++creates an asynchronous I/O context suitable for concurrently processing
++.I n
++operations.
++.SH RETURN VALUE
++On success,
++.BR io_setup ()
++returns 0.
++On error,
++a negative error code is returned to indicate the error.
++.SH ERRORS
++See
++.BR io_setup (2).
++.SH STANDARDS
++libaio.
++.SH HISTORY
++libaio.
++.SH SEE ALSO
++.BR io (3),
++.BR io_setup (2),
++.BR aio (7)
++.\" .SH AUTHOR
++.\" Kent Yoder.
 -- 
 2.53.0
 
