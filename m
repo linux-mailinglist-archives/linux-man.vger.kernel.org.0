@@ -1,56 +1,59 @@
-Return-Path: <linux-man+bounces-5316-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5317-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SpYiCBUD2GnoWAgAu9opvQ
-	(envelope-from <linux-man+bounces-5316-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 09 Apr 2026 21:50:45 +0200
+	id +L7VCXoO2GmlWwgAu9opvQ
+	(envelope-from <linux-man+bounces-5317-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 09 Apr 2026 22:39:22 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DB743CF1DF
-	for <lists+linux-man@lfdr.de>; Thu, 09 Apr 2026 21:50:44 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B46C3CF903
+	for <lists+linux-man@lfdr.de>; Thu, 09 Apr 2026 22:39:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id A8BEB300DE3C
-	for <lists+linux-man@lfdr.de>; Thu,  9 Apr 2026 19:49:08 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 32176301050A
+	for <lists+linux-man@lfdr.de>; Thu,  9 Apr 2026 20:39:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1C65320CD3;
-	Thu,  9 Apr 2026 19:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA6DC315D3B;
+	Thu,  9 Apr 2026 20:39:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hiOqnU66"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxTaxfyp"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95946307AC6
-	for <linux-man@vger.kernel.org>; Thu,  9 Apr 2026 19:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D88A239E75
+	for <linux-man@vger.kernel.org>; Thu,  9 Apr 2026 20:39:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775764147; cv=none; b=OhBSkaTv6zLcFCwdI6WPk6Rexw1dcYnvHf8MeenS+N5SQCyjhmDCmhfomhlrPvXF4ySV7NwLOgK+otlT7oREBr5a38vcrAJcNAVnM4rNmElYAHR38LoSJli0Nkgx93T9/SJPIwT2ENplApFebwSpz8Rfwi9SaWPccYD0avfzav4=
+	t=1775767155; cv=none; b=nPOr3gHpCb9UDW70+5kVUx6IkE09giPfzALJR2Vx0gMLs7DM4jcroKB+01Av02qS5kaqsMsbc0EX/vC7GfvZbhF17HHReksRxtrZbvb6ZEAiW7Mfj9FYKFG4g/030VtMOFvfiuW/txwdQtQxkkFzQtEjgax8MZdl4sHoEoIaqS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775764147; c=relaxed/simple;
-	bh=vSNdi9fczniKYFRVIOE5Usuql70CEyLsdtbPjkpIB1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZW9KZvJvqjYnO2vbxOE0UPIjsvZ/U266i8Mn3OySG8svvnJc8mg5zbVVRhakZWW35b877hAz23W9hQLsk+tzbe74AjAL2/HnGsqQEOTiq2gerQ6Jxtmk0p0gHcDs7AH+uRcb4aAnQZ0ZUX5cQIO4E9kLHqSqTxFh2JJLlVmMCLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hiOqnU66; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13849C4CEF7;
-	Thu,  9 Apr 2026 19:49:05 +0000 (UTC)
+	s=arc-20240116; t=1775767155; c=relaxed/simple;
+	bh=1LcxTP6ZlSde3ZBdqtK6U+TJdBzcZFJXKqlLLopiJH8=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AAyCFDARGjZQ4jp0ckdYIS4+nDkk2GMIVOllL6BwgI6LX7ggpZHGPQ+Mlzvtb/cRGwNbCcdCRA0HkC3h3fj2JQ7wAD/084WG445pmUWof7Zn+UuRcFyrZuxOzsOQ8pLFq/46a2EcSg8cdQWVLXiy8ykpgdlVD3C5AtchOpAt39A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxTaxfyp; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9661C4CEF7;
+	Thu,  9 Apr 2026 20:39:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775764147;
-	bh=vSNdi9fczniKYFRVIOE5Usuql70CEyLsdtbPjkpIB1Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hiOqnU667Z1/zKLTmgSMt9VzBso5ABbqtEbirAvDHCYhp9khjl5akXdq1qtxU5xvw
-	 xVqIveLB0hLueIQF5+kxEwcgFsmdUX2k/+gb1UCRtMU+FPfl7M1bDmialwHeBwRLU5
-	 154CZ5jtR0YApo30pLtHsnQxh0tQIWWV4zJZLtIb6vg8p7PYkt8VqlVyGJeJnFMP6+
-	 qX/J2CjTiJ7KrCVN7gCi4NyAQm2nr8F1dYwYEpXP0NOB6o46cuRCJ8pSu6JKQflY7T
-	 hXb1w5cfvY+EwtL4vvpwoDVcslfQu5+T8d27zclfnk6AkZ0tihNREuOkCcJGVifs74
-	 dgNCXcQG7DCFg==
-Date: Thu, 9 Apr 2026 21:49:02 +0200
+	s=k20201202; t=1775767155;
+	bh=1LcxTP6ZlSde3ZBdqtK6U+TJdBzcZFJXKqlLLopiJH8=;
+	h=Date:From:To:Subject:References:In-Reply-To:From;
+	b=gxTaxfypToREQ36rwKAw6WNABNx+pn7YvEkbF0HFjzz8IpUb72964DDQau4F5e7AB
+	 RkBhv5cs8hS7feY5WYHj8+haVf5dJNn0gxz7c7/SHT0yt5inLjc/KPlAhT4HRzH1r9
+	 oH5aXBj7R6rcdboWwPXojqhHe3TbfQK/WpSScfxkzDsZg2OKY/wYn4E03WHYTnGyhr
+	 G+qqRz1XKQveJPR4W2+yoY804AA5L7gNGwvlYs/gwGWH3oUbpLJDnsC6TTBlz8Tqr7
+	 es+WBDfKSBTWYlF5SUOokYz5ZBYpBGtDPhIcwsJ1dgT58uXXgrkKnEcjFCX+c3FfWg
+	 eVa9jb47R8cxQ==
+Date: Thu, 9 Apr 2026 22:39:10 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: GIquadrat <ts@gi2.de>
-Cc: linux-man@vger.kernel.org
-Subject: Re: bug in signature of getnameinfo()
-Message-ID: <adgCK_a_UVVMtMMS@debian>
-References: <280D0348-17CF-4A16-87BC-18D884101324@gi2.de>
+To: Guillem Jover <guillem@debian.org>, linux-man@vger.kernel.org, 
+	linux-aio@kvack.org
+Subject: Re: [PATCH v1 6/6] man/man*/io_setup.[23]: Split io_setup(3) from
+ io_setup.2
+Message-ID: <adgMl9ixFGs04eiM@debian>
+References: <cover.1775639353.git.alx@kernel.org>
+ <c6fcae43d95ef9d96e156d295ee72a2b5563dbce.1775639353.git.alx@kernel.org>
+ <adfY40InKCShuLlE@thunder.hadrons.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,110 +61,203 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fsbyhodwxrod325n"
+	protocol="application/pgp-signature"; boundary="qyw7wdyltmoetcmh"
 Content-Disposition: inline
-In-Reply-To: <280D0348-17CF-4A16-87BC-18D884101324@gi2.de>
+In-Reply-To: <adfY40InKCShuLlE@thunder.hadrons.org>
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MID_RHS_NOT_FQDN(0.50)[];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[bounces-5317-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5316-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	NEURAL_HAM(-0.00)[-1.000];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gnu.org:url,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url,man7.org:url]
-X-Rspamd-Queue-Id: 6DB743CF1DF
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,kvack.org:email,fedorahosted.org:url]
+X-Rspamd-Queue-Id: 7B46C3CF903
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---fsbyhodwxrod325n
+--qyw7wdyltmoetcmh
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: GIquadrat <ts@gi2.de>
-Cc: linux-man@vger.kernel.org
-Subject: Re: bug in signature of getnameinfo()
-Message-ID: <adgCK_a_UVVMtMMS@debian>
-References: <280D0348-17CF-4A16-87BC-18D884101324@gi2.de>
+To: Guillem Jover <guillem@debian.org>, linux-man@vger.kernel.org, 
+	linux-aio@kvack.org
+Subject: Re: [PATCH v1 6/6] man/man*/io_setup.[23]: Split io_setup(3) from
+ io_setup.2
+Message-ID: <adgMl9ixFGs04eiM@debian>
+References: <cover.1775639353.git.alx@kernel.org>
+ <c6fcae43d95ef9d96e156d295ee72a2b5563dbce.1775639353.git.alx@kernel.org>
+ <adfY40InKCShuLlE@thunder.hadrons.org>
 MIME-Version: 1.0
-In-Reply-To: <280D0348-17CF-4A16-87BC-18D884101324@gi2.de>
+In-Reply-To: <adfY40InKCShuLlE@thunder.hadrons.org>
 
-Hi Thorsten,
+Hi Guillem!
 
-On 2026-04-09T16:42:27+0200, GIquadrat wrote:
-> Hi,
+On 2026-04-09T18:50:43+0200, Guillem Jover wrote:
+> Hi!
 >=20
-> https://www.man7.org/linux/man-pages/man3/getnameinfo.3.html
+> On Wed, 2026-04-08 at 11:18:51 +0200, Alejandro Colomar wrote:
+> > This simplifies the documentation of the system call.
+> > Let the wrapper be documented as io_setup(3).
+> >=20
+> > Cc: Guillem Jover <guillem@debian.org>
+> > Cc: <linux-aio@kvack.org>
+> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> > ---
+> >  man/man2/io_setup.2 | 60 ++++++++++++---------------------------------
+> >  man/man3/io_setup.3 | 40 ++++++++++++++++++++++++++++++
+> >  2 files changed, 56 insertions(+), 44 deletions(-)
+> >  create mode 100644 man/man3/io_setup.3
 >=20
-> shows a strange signature of getnameinfo:
+> > @@ -87,35 +81,12 @@ .SH ERRORS
+> >  .BR io_setup ()
+> >  is not implemented on this architecture.
+> >  .SH VERSIONS
+> > -glibc does not provide a wrapper for this system call.
+> > -You could invoke it using
+> > -.BR syscall (2).
+> > -But instead, you probably want to use the
+> > -.BR io_setup ()
+> > -wrapper function provided by
+> > -.\" http://git.fedorahosted.org/git/?p=3Dlibaio.git
+> > -.IR libaio .
+> > -.P
+> > -Note that the
+> > +.UR https://pagure.io/libaio
 >=20
-> int getnameinfo(socklen_t hostlen, socklen_t servlen;
->                        const struct sockaddr *restrict addr, socklen_t ad=
-drlen,
->                        char host[_Nullable restrict hostlen],
->                        socklen_t hostlen,
->                        char serv[_Nullable restrict servlen],
->                        socklen_t servlen,
->                        int flags);
+> The pagure.io site is being decommissioned in few months, and I've
+> been meaning to ask where the project will be moved for its hosting.
 
-That's fine.  You could try compiling it and you'll see it works as it
-should.  Just ignore everything before the ';' within the parameter
-list (those are forward declarations of parameters).
+Thanks!  Please let me know if you learn anything about this.
 
-That's documented in
-<https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html>.
+> > diff --git a/man/man3/io_setup.3 b/man/man3/io_setup.3
+> > new file mode 100644
+> > index 00000000..28b59550
+> > --- /dev/null
+> > +++ b/man/man3/io_setup.3
+> > @@ -0,0 +1,40 @@
+> > +.\" Copyright, the authors of the Linux man-pages project
+> > +.\"
+> > +.\" SPDX-License-Identifier: GPL-2.0-or-later
+> > +.\"
+> > +.TH io_setup 3 (date) "Linux man-pages (unreleased)"
+> > +.SH NAME
+> > +io_setup \- create an asynchronous I/O context
+> > +.SH LIBRARY
+> > +Asynchronous I/O library
+> > +.RI ( libaio ,\~ \-laio )
+> > +.SH SYNOPSIS
+> > +.nf
+> > +.B #include <libaio.h>
+> > +.P
+> > +.BI "long\~io_setup(unsigned int " n ", io_context_t *" ctx_idp );
+> > +.fi
+> > +.SH DESCRIPTION
+> > +.BR io_setup ()
+> > +creates an asynchronous I/O context suitable for concurrently processi=
+ng
+> > +.I n
+> > +operations.
+> > +.SH RETURN VALUE
+> > +On success,
+> > +.BR io_setup ()
+> > +returns 0.
+> > +On error,
+> > +a negative error code is returned to indicate the error.
+> > +.SH ERRORS
+> > +See
+> > +.BR io_setup (2).
+> > +.SH STANDARDS
+> > +libaio.
+> > +.SH HISTORY
+> > +libaio.
+> > +.SH SEE ALSO
+> > +.BR io (3),
+> > +.BR io_setup (2),
+> > +.BR aio (7)
+> > +.\" .SH AUTHOR
+> > +.\" Kent Yoder.
+>=20
+> I think it makes sense to split the syscall from the actual library
+> function man pages,
+
+Thanks!  I'll go on with this.
+
+> and IMO it would make sense to move the .3 man pages
+> for the wrapper functions to libaio, as it's the project providing them.
+
+On the other hand, it depends on how much work a project will spend on
+their manual pages.  To me, it's just a small percentage of extra pages,
+so I'm fine handling them if it would mean a lot of work to the project.
+
+I might need their feedback every now and then, but since I don't expect
+the APIs to change much if at all, I guess I won't need that much help.
+
+We can do whatever they prefer to do.
+
+> I think though it would be nice to have them being self-contained, and
+> only refer to the syscall man page for reference, but not to delegate
+> content.
+
+This means more maintenance work.  It's harder to keep them in sync.
+
+And it's also harder to spot the actual differences.  I tend to prefer
+referencing other pages.  Of course, there's a limit to that; you don't
+want to read 10 or 20 pages to understand an API; but 2 pages could be
+reasonable, depending on the case.
 
 
 Have a lovely night!
 Alex
 
 >=20
-> Best regards
-> Torsten
+> Thanks,
+> Guillem
 
 --=20
 <https://www.alejandro-colomar.es>
 
---fsbyhodwxrod325n
+--qyw7wdyltmoetcmh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmnYAqgACgkQ64mZXMKQ
-wqksbxAAtmrdOIM40eE50eJ6UuXQtXB/dC1EhN3QSVz4OVlP56xKg/JDkM3mfdJS
-HhGn/cRFDASAyesjESZzuZxf3QvFYLPiSAVk8VnVASjRcyh8pyYJBQwwXH0Jj84/
-BDiDj/sUsNttyzcwkQt8DMG8oChSpr9WnNBuJntoLaGVtI16t0PWLAYS/mpfHhrD
-aP6kGK/NKtAsPjW1688OyOw8zEHj8bj/ZddlzNKqj3RqeOkRLoZ11JmjHFkaOGzN
-+G8XYUuoM+7dVSPjn7xiezl6BFvAbnR9mrcpMQ7OdYv/wz99r8vOuYkEbTJPSNcQ
-7dzW7+vzCudRObi3l3MKDI+iUkVLxKcHemLfQrTVshZK5+TRaxxreAAEetS/GsnU
-maG2Ch5aGoLwkxfzEzuzC+mI0MlV445uGPlL0hRvYZodjo3oKGIauToiVGxzpZYa
-QadTXQABw9NMxUrI1/BXRAWuKmhmPfQVczI/akNN2s+DCPR6YBDzXwHKmAsWyEoc
-ZEokwPZgoRGIVc/niab0CeBuO8Oqw3VzzvTLoI5ysmLar1X/UaH+xoWDApxTaHB6
-PS/1fLXZRg9coVcM0HPdhoGUIVzGkVSp6S9kJyE2kswX8X+0ZlXhuXI0rbeIIHoo
-S5jj5PIXX0gL9T2ZSLz1ro82dSmKrGMA8U1SWElwAOG6rYD31bY=
-=TzUt
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmnYDmcACgkQ64mZXMKQ
+wqnAlA//cT63ScAl7vZmtXsw8oQKUiNAQUlUCG88wMZ/wkkS87JJBs4aZZEtBXgm
+M35wQuyLrwKzIrxWoKb7N9JbWd3rUbiJoMmNF1FRduIdOe0pH93t42NBGquzeric
+ItDPMInjenq2Sldo+2t4npl5UGQhYRRApW3e/1REgLeoZsl4VEt95dFp6f+f9FCg
+t9KTyFU2vGgMyJu62KuXUAsI6tVHslPX8KY4xGn69jUiEQi0dswy32Zv1eZGMDMj
+gyb/NiJSOqT6GxrblJ4dNWkNCvOIaBe2KnAwH+B5v39qbxuA3WZ+nE/1h8pIn3EI
+mmiPxy5EGgn93c6BWOdsKhNrfkspzb9cqVpa82msUFa7C3RBb2yg/b0PgWFBsA+I
+C7XR8qO2rmClpyT4AjBNkLblKacSxAl+rEGLCu644IeFoKm93jy+YQYrnFOcng/c
+sT5FHj9Qs3yMyRHlY5zjgOoXETtT21ed4TojaTsy2fcr0vfYqc3RQh9Ejzs2d9aN
+0mbaIHfxjPCByRbGPHSYjI7DZAsdSJXMlO1zPTYtkXY/29IvkhFwBNOQyNPAy4Nm
+m0xLYwD2Szbedhet7cv/Bij4OnexOjhHkilR3+pvMbMhNRJfv8B5KnxX5Dp+JmEY
+cyMmqkxpPQcWuAgKAnhV9pVy65v1QdjIpUxHGAQE4vSq/dpBQ2E=
+=Hb0q
 -----END PGP SIGNATURE-----
 
---fsbyhodwxrod325n--
+--qyw7wdyltmoetcmh--
 
