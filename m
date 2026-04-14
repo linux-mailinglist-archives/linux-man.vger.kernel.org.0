@@ -1,156 +1,142 @@
-Return-Path: <linux-man+bounces-5330-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5331-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aA1TBR1G3WkrbwkAu9opvQ
-	(envelope-from <linux-man+bounces-5330-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2026 21:38:05 +0200
+	id 4P3ODIZ03mkqEgAAu9opvQ
+	(envelope-from <linux-man+bounces-5331-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 14 Apr 2026 19:08:22 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 833663F2CE0
-	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2026 21:38:04 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CC313FCD6C
+	for <lists+linux-man@lfdr.de>; Tue, 14 Apr 2026 19:08:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 6B2DA302961F
-	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2026 19:38:03 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 7A002307AAC0
+	for <lists+linux-man@lfdr.de>; Tue, 14 Apr 2026 17:06:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97CDD38D6BD;
-	Mon, 13 Apr 2026 19:38:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C30DA2D97B5;
+	Tue, 14 Apr 2026 17:06:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5WYjP1F"
+	dkim=pass (2048-bit key) header.d=joshtriplett.org header.i=@joshtriplett.org header.b="Ut/KY46o";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VD7ui6g/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2349638D688
-	for <linux-man@vger.kernel.org>; Mon, 13 Apr 2026 19:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DC22D73B5
+	for <linux-man@vger.kernel.org>; Tue, 14 Apr 2026 17:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776109080; cv=none; b=TXK+QTcAexZaeTmD+QRvRwG14os9YtDzFGlHl6/TJuaOgjv93dEHl90guCzLqPVRo3JwwQPuZ9cs+GSZk/1QeU6y65CQQ13e+eERDybHonQVnP0iOYV+WYqxplz98yrIOqFI/z1f6hODE4ITfGfMTPkP3sUQvMkgmhwZEil4+Yc=
+	t=1776186381; cv=none; b=BccDU96dxNmjStxgeao0xvk5zbdxR5jWIEcUhGcUX4PHmQYSv9Wm8XGyy/e7ucwMQA16hecXn/azWKzQEtLxprq5Yf3osZ2M4ME0BQZ1yL6U6f0v/P8dIksJVR1ZjoKJESWsceQRR8UFlZYJUnhdDmhVoqnGeP7r1YhgKB0Uz+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776109080; c=relaxed/simple;
-	bh=hRbpTAwPvs+DRRbZHMQZxfFGb4xjIxTg4plCpNMARnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ONwd0THmo43AjJ2mT4BptjLypaszoV0vNJppsocqpbhgtkjxE0w+q4D+ppLMal42/rqooASgRUfS/eErgNNPa5fObQHrPCcAtEJMr3QHkOHgXX5/97fBYeXaAxZcWEQosN6iKnDsKindk7caJLpCGjg2BKBynjbAmajjTDgDZN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5WYjP1F; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-48374014a77so66768535e9.3
-        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2026 12:37:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776109077; x=1776713877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NtwtIjmwj+TGdnS2S003W7/q4l3nh+2Sw3xFCP8Wjrc=;
-        b=P5WYjP1FvzNCaEImWc2kgTOxJ4cB++UJV82qzis386+37TKAjkM3K9+2GRZ/tY86oK
-         YYU7fmu3l7bQcQhzp42UsRBYhKuzHiI7PduAfbcaN+NPIUyGZNFtoexZHNEHaMVRaN3U
-         euiGxwaNz2i5AgGk2pzwRkRp/MobeyJXHQWXlzfMEy5HaKmEZZt6hPuS1/46pAgjlHKJ
-         AOn4pP96+K/9lh0SzQqiJ/CUM0hRf78wcsiaTRW7gpRL3kCRV6zaCz6IviMVFhdKguVw
-         rDH7SWuuF7RCmqHGd0b+R7UB/YaGmY+7P45r0Cq/a3n8riL03fLhECf0uATYfbByOEug
-         ktLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776109077; x=1776713877;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=NtwtIjmwj+TGdnS2S003W7/q4l3nh+2Sw3xFCP8Wjrc=;
-        b=YOBNoIC9x+J7xzXSsyQubmUiZJUATh3N+isCFyLVvEe+j2a1Dzn+yPQvIqQc8+vP9v
-         KrKeQS/zrf38Pz0mldhMSOq1fOrnulkL1mh22nS/ennd7VPL70NdeNMhn0Sb8G/TjsUT
-         KKAbxgkhpmdrhfH7ec8nbZd0wg86i/c0WVj0QoolvtT0Ysr4xFmnQgS8iZLGC056nimE
-         OxNG4w6yF7fcFt5KXhDg1L2ycquNL641G2c4QoOX8JzPXy7AjW6lRPT8Nimt/VwPtSq1
-         D4JfsQNJpyKRviLEwfUf9SPjwfgfm9RgDIH2I8mkkN6WI7NcgkFxTYwDfgEeMTCY2gRH
-         ot5A==
-X-Gm-Message-State: AOJu0Yw/iaQrm0D1lLmm0SV6Ud/N+TtQNAtuZ7uPgeiQMmJuW2COxoNM
-	JWDmrROX/rE5s1qmnxBORaKV5lTZPN+8o4lnMswTOuB1WhF+3XsrxsttbTP34mks
-X-Gm-Gg: AeBDietwa1n5frYTXpWxd9ego1VrP8hmlR3ZQz6lDui5/Mekd83XsLpoKNsEIYYQkiA
-	nSZ3s/uD/1aR/PE5acnv6x3iNMaYs5gD5m9/zQqN2k2xH1mQoz3LYW6k8zi2Z+HMd1SOOp08orG
-	QgKZCxsm0br7rWzGar1SqGZ2bZd/0sCrXEJyfKgDYQd8UTg6urRWrUTw6Vp2rz027U+PiDrkNef
-	kpO9afFjolTPCjwNW1M1pe/PLMrYBafcvxB6AOyM4I5lkl8up+Vs103XmC43QfVsC4xNIK5Fot5
-	eLvNACxCvbthEgBRbzhLXBun0Qaeupr2KljO6JobsGJtKAdnpylTakhfOlNVh6giSVU28a9Betu
-	PXAYNx8iHixsXr+tPjcZRTCBk+Ea7FOQEKYfZBPMqjumV3M2nCvZqod6cQeQHQubnVZV8aLQnGJ
-	NRNFhVgt2Hmis0KOcTMDhKi5J6q8lD2j48Epx7NDzS3SMPTeLK
-X-Received: by 2002:a05:600c:c10f:b0:487:cd8:4c9 with SMTP id 5b1f17b1804b1-488d689ca8dmr138946025e9.27.1776109077307;
-        Mon, 13 Apr 2026 12:37:57 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d5d6ee98sm140869615e9.1.2026.04.13.12.37.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2026 12:37:57 -0700 (PDT)
-From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Cc: linux-man@vger.kernel.org,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH 4/4] man/man2/landlock_restrict_self.2: Document ABI requirement for logging flags
-Date: Mon, 13 Apr 2026 21:34:51 +0200
-Message-ID: <20260413193446.24328-9-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260413193446.24328-2-gnoack3000@gmail.com>
-References: <20260413193446.24328-2-gnoack3000@gmail.com>
+	s=arc-20240116; t=1776186381; c=relaxed/simple;
+	bh=Nj6xfprvYm1XtToADQ/Ro5P8Vp3FTee4hy+f1Rcx6QM=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=syAWesfXKDeTJZnUahq7ut+3b7adgvGmM1DyzYJJwyPkGESjFXNKgCMAyUvAtj04DflNhpT12MXLOi9mT/Pv+LUWho5qR42CSFgMBwG+dlBWgfy2x2rInknNvxkyyyzoCEfc448ku+u0Zh8lmhu2GMt3nV6Doi/nsHW8z9JPDss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org; spf=pass smtp.mailfrom=joshtriplett.org; dkim=pass (2048-bit key) header.d=joshtriplett.org header.i=@joshtriplett.org header.b=Ut/KY46o; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VD7ui6g/; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 07F671D0014C
+	for <linux-man@vger.kernel.org>; Tue, 14 Apr 2026 13:06:19 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Tue, 14 Apr 2026 13:06:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	joshtriplett.org; h=cc:content-type:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1776186378; x=1776272778; bh=Nj6xfprvYm
+	1XtToADQ/Ro5P8Vp3FTee4hy+f1Rcx6QM=; b=Ut/KY46oNCCzs5B0Acq8aFPWgS
+	N6S9MEfBfI3t5EyPBFnRoDgDkK/WNNqp3kCKaZOKhnBzu6UAix1V5HsgB2vb3b7o
+	qmypUILokzXR2q7iLNw3hFYrEM6Y2cbJCY0i549chquZXKTBzZZw4krnHzapkE6l
+	rB3H8C1VNyPH+Wi+MXdyiauewwWEUFHZjn30FpL0F5V4mqg/+ekorD9VMbClAlCp
+	73ZJnRNK7GqsVWe9LaX3BfsYhMkzdLp7rJsBQsv8f5X2xVE4mN9N9J+JtyQGtufu
+	rqLihjpx8GyVWxPvm6AfFgAHKCJvZMpxrXef7e2y2rwUTvbp9B3bK+jpuzSA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1776186378; x=
+	1776272778; bh=Nj6xfprvYm1XtToADQ/Ro5P8Vp3FTee4hy+f1Rcx6QM=; b=V
+	D7ui6g/T+PQC3r7HkGZiW6IG4X9LIM4BlkMODnuEHkYwvRMdW2HVEQU+mYQV80uZ
+	ou9LCXmgLjVZcE27dfxnNGHVzfDZDqGSox1vhox54uLTzQob7ZMfUP1e6QCgLTZa
+	9O0MULK3EzhQKkjjFRSDlL4WZ10LcJUXweLst5Ei7PJfAQxNrcjVtnXLRDuzexq1
+	eMA4zJHnMnj3S/U/0mtj+ra/Hq2y2K++XbiPIQNxJ/GXQWBFdY5GA6KikWnWw3Sb
+	QiweG/+UaN4YHpOWtHbOUt/SURhRitFZ4UKCoKPIhMduyjNGzU2lIaqlcPM3tLGT
+	hAOfdf2DYOvntrlB9FNGA==
+X-ME-Sender: <xms:CnTeaXeZUi8Gn9AQ67L-d6MtV2s5fzbpKTWcCRQ6AbyEaBsTCWvfaQ>
+    <xme:CnTeaUJWYK6mfrh4IGvBiC2F3OdZ7JQlcR8URkUUNgZJ5liOfdSRsDiWyfymMIG8i
+    0oNYdY-iYeutxh3O2X5MHIJP6zMxiWCesRoMbC285oNQvWy3_g-uw>
+X-ME-Received: <xmr:CnTeaWJxfgkNAsmcl7iINGGkmyq_He2cor_jmc7i118pBPg9aO983OBqTw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdegudejvdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfggtggusehttdertddttddvne
+    cuhfhrohhmpeflohhshhcuvfhrihhplhgvthhtuceojhhoshhhsehjohhshhhtrhhiphhl
+    vghtthdrohhrgheqnecuggftrfgrthhtvghrnhepleelgeegtdejjeefuedvudefgefgke
+    dtfeekheevueevvddvhfegfffgvdfgffeknecuvehluhhsthgvrhfuihiivgeptdenucfr
+    rghrrghmpehmrghilhhfrhhomhepjhhoshhhsehjohhshhhtrhhiphhlvghtthdrohhrgh
+    dpnhgspghrtghpthhtohepuddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheplhhi
+    nhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:CnTeaeHTgY8pDpAM9Cgho6L-s6_geLKW2hXRn7f36DZuhdGNoPRapw>
+    <xmx:CnTeaTlSNNFjbUJo6iMOXub3jlFyfJCn4WJiYZ9Qx5vbCPs2u0YBAg>
+    <xmx:CnTeaTIlXRE9ddBXZqHxC-kmY9_y2UVlbRwTeToFsqfXEUN9ZXAvlg>
+    <xmx:CnTeacbLKsmFFSOqJd7d2Luag8X2KH5BbZ1qkVNMdJeLne4hvLihNQ>
+    <xmx:CnTeaZPdhjdHcwl9c1a-EGlHQXUW--_l4lIn81WIuBKYKWhe3DVmNPvE>
+Feedback-ID: i83e94755:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <linux-man@vger.kernel.org>; Tue, 14 Apr 2026 13:06:18 -0400 (EDT)
+Date: Tue, 14 Apr 2026 10:06:17 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: linux-man@vger.kernel.org
+Subject: TCP_DEFER_ACCEPT documentation should be more precise about rounding
+ to retransmits
+Message-ID: <ad50CQgF_gNtB1Kr@localhost>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Spamd-Result: default: False [-1.16 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_DKIM_ALLOW(-0.20)[joshtriplett.org:s=fm2,messagingengine.com:s=fm2];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5330-lists,linux-man=lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5331-lists,linux-man=lfdr.de];
+	DKIM_TRACE(0.00)[joshtriplett.org:+,messagingengine.com:+];
 	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
+	DMARC_NA(0.00)[joshtriplett.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RCVD_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gnoack3000@gmail.com,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[josh@joshtriplett.org,linux-man@vger.kernel.org];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	TO_DN_NONE(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: 833663F2CE0
+	NEURAL_HAM(-0.00)[-0.999];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,messagingengine.com:dkim]
+X-Rspamd-Queue-Id: 4CC313FCD6C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Missed this on the earlier commit; we should mention since which
-Landlock version these flags are available.  Users can correlate this
-with the Landlock ABI version as it can be queried through
-landlock_create_ruleset(2).
+`tcp(7)` says:
+> Takes an integer value (seconds), this can bound the maximum number of attempts TCP will make to complete the connection.
 
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- man/man2/landlock_restrict_self.2 | 2 ++
- 1 file changed, 2 insertions(+)
+However, it doesn't say *how* it bounds the attempts. From the kernel
+code, it appears to round up to the first retransmit time that's larger
+than the specified bound. Could the manpage please document this?
 
-diff --git a/man/man2/landlock_restrict_self.2 b/man/man2/landlock_restrict_self.2
-index 1265ea2feb91..99288b582fea 100644
---- a/man/man2/landlock_restrict_self.2
-+++ b/man/man2/landlock_restrict_self.2
-@@ -134,6 +134,8 @@ It can also be used with a
- value of \-1 to mute subdomain logs
- without creating a domain.
- .P
-+These flags are available since Landlock ABI version 7.
-+.P
- The following flag supports policy enforcement in multithreaded processes:
- .TP
- .B LANDLOCK_RESTRICT_SELF_TSYNC
--- 
-2.53.0
+(Discovered when adding Rust bindings to this, and trying to figure out
+and document the rounding behavior.)
 
+- Josh Triplett
 
