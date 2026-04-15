@@ -1,197 +1,188 @@
-Return-Path: <linux-man+bounces-5333-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5334-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eDguEvvX32mYZQAAu9opvQ
-	(envelope-from <linux-man+bounces-5333-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 15 Apr 2026 20:24:59 +0200
+	id OOwmCu3u32kCagAAu9opvQ
+	(envelope-from <linux-man+bounces-5334-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 15 Apr 2026 22:02:53 +0200
 X-Original-To: lists+linux-man@lfdr.de
 Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3FAB40712C
-	for <lists+linux-man@lfdr.de>; Wed, 15 Apr 2026 20:24:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 901DE407862
+	for <lists+linux-man@lfdr.de>; Wed, 15 Apr 2026 22:02:52 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 4EFA93013714
-	for <lists+linux-man@lfdr.de>; Wed, 15 Apr 2026 18:24:24 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 6DA4630471D2
+	for <lists+linux-man@lfdr.de>; Wed, 15 Apr 2026 20:01:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 01C7531AAA3;
-	Wed, 15 Apr 2026 18:24:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A23563822AC;
+	Wed, 15 Apr 2026 20:01:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BxcCYy9k"
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="G3IT/l+E"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918AE199FAB
-	for <linux-man@vger.kernel.org>; Wed, 15 Apr 2026 18:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776277461; cv=none; b=Vj0yRWbYZQNxWx11c9srgWZ7fpyLT2ykhCpKR7a/t8rLFg8iJbVhtFapJOMbQzKv8PsLihHIPj03IeDpSPTpy6JN5xhr8GreJOVbgy6LnEWhUfxd4XQTRmqacxs4xu+nkQjB9+NWpIQUUGAFZEG7Q3o7Y8W3N+K3lcVgU3tDfyI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776277461; c=relaxed/simple;
-	bh=Ql8oQS4RCBd7PJR213lrDUVoO7Cl9YBVM5uOBqvtGpI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kh9GKeUrOOBQkolUzHzt7oMp0qj6ZeaACQfPYj+vAGETROM1cCGsBGP+jFCuTy6875OI9xjf626KuAuCbGj+ZC1v4t5lOtDA4EoP1PqGIyOWlO5Gv2JFl863GZN547J3MisHhGXJ1TvP8SB+sv3kv1eh87/Gi6rSaKOlJIDBkIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BxcCYy9k; arc=none smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-7b6ae2ea4a1so21020927b3.2
-        for <linux-man@vger.kernel.org>; Wed, 15 Apr 2026 11:24:20 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FAC346A08
+	for <linux-man@vger.kernel.org>; Wed, 15 Apr 2026 20:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776283267; cv=pass; b=PdPse2GCaLup30OwvDH9wfWQtS5O6F0UvTsluCUbRZK69PEwJ5yZMJ4LXmgOvpFd5jsPz7RXql7gT+D/HXFgZTfvyDQcetz1Wf7albquRXeUmbvaZeeVnmB9/CUZO/QvJ7zp6VzW5FQirm0QShVe155Bz7hmSmCrkn7lI2/YB88=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776283267; c=relaxed/simple;
+	bh=l+7V8/NipQOuTjJ5zX+Tip9TgkxzAL1xAZn8bjkSqgE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Pxus84nINfzKfadP4Fb2OiXcT+UPK3AjIU2y09xv4rJHJqptfppk7sQiLogOC2pBUW3Dd06vQFqW28xrzq5qm9foj1nB3tA8x4cMEP3oG0lpgNejgVjalOlX10LxV23khmCGThXCXS2oPn6hVnkRPnkEEvp6wdQyH5GhmpYCcSg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=G3IT/l+E; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-b9b1ffbb9f5so1010294166b.2
+        for <linux-man@vger.kernel.org>; Wed, 15 Apr 2026 13:01:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776283264; cv=none;
+        d=google.com; s=arc-20240605;
+        b=SDXaXhY6uZ3HoMatgnYyhc/2vE6T+ySqSO2ZpMYi1/DHj/aRcyrxHZsd6vcGW4UIrj
+         DLz2Lf/cg1l5+M9GSwcPc7PeKHaFNtSw1KM7aq1K/ZM5kGOuaA2xZMwSoCRe+O7dF2n6
+         yaiA7d3L6tRVF8qEHq9YgizxJnG5KP119jzjPBqCKWyrNVWWHF1pC4YF6XzaMq9a80fv
+         vogH4ChKIVuXCfvlK8x+wD36ijYlY1AkDDbDiGTvALbdL8k+VDGfJ4RmFvv/Fr8hKT87
+         Nyc20HwpMeularvtdXq0xnWCts00HS+e2lI0/0drL2gDG0/raVPU8OpdduTMk9z78+uY
+         UqPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qP4Emrnk52MTac6K87r6Ysen2EeNpeoDgqiPnkPMxjc=;
+        fh=yA/a1jPVd947bHcWNFUYvgo5z/VIeE7zYBu0B/aM4GA=;
+        b=SSjt/IkVlcWTfCU5fjk425X8Zagc4491Eo+XyfY1p4M60d/qJX+qxB5JLDXPO+Zn8x
+         z7vdn8wUGSCbGb3FauKt/ejC91BBCUAfNwjl3NybtkthzkTn+lMd3EAcxRaMBwbjZMC3
+         eUFiWSP5Eh44Xs66/NPUeVnRITFVxbM5sC+y0weJaZyTzfd523F43hT06EAkgzCTVHQD
+         4FR0zom8kJYQ44lFkRQMJn/BzbxHgUFEvrSSCYl8r2jnZvfUbaI0Ufu4ftL0x4cwInMA
+         kloorL4DvLkGD+EgyWcR2xE35xrKT9g+/6Q95GulLDe4k848OWJ5KCvHu6lhmPzgk9jw
+         Zi7w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776277459; x=1776882259; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=y+Fxj1yhe55Btz1HBCPETFrGYXLVGS4JqTOZtWzWez0=;
-        b=BxcCYy9k8g+q0QSZ6FUbNiEdiqKp4XrtWSzjI2FhApWo+rWah0MTy6/sD5kiIc4skb
-         7ETdBTTkO5m0NaFzbVl9YZ3I4+YpNvNYkyw6BqJHBNQiacCKUHxc5AtUb7N4oeaVKJoP
-         6dZ27cjhXY3fFSSkPHpM2LNNPuo2Owkq0yx72fl9CmtMhsT8hZQIkR1B/HJM1saTB+Kx
-         3w7qsCSOfkgetmjXehqYXEypDnUWxAX1Qr3V6GjF+hpmoTjNSV+ZAT6Kxhxdkj/fRa8T
-         YXG+JuBbTQwOTRo0IQv68WrtSDoBL4OjonioidqMkH8TDkFwgt8HmjXeRzvynEhAwAE/
-         ZbSQ==
+        d=suse.com; s=google; t=1776283264; x=1776888064; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qP4Emrnk52MTac6K87r6Ysen2EeNpeoDgqiPnkPMxjc=;
+        b=G3IT/l+E1gT0CWt4PcXMH2rG83EVLpTQB0+iDj1X41/tiHlufykHRNrn3o3jbsf7Oh
+         ipj9tQ8O4mGuCx0BbOK0Swwz3ds28Xwhl/efjNCjR48p6l2Fa3qgHWw3j3l5GzktcibF
+         w7RQskCr+Rk0dOThqva68yzutQgcXR1RLJ2B4wOKAKZJzHF6/lfyCp3CVN8PADjTXVbx
+         D8d1HNzbFHPbhjOICdRUObkKkx2X7PtZrYeGq0OqStID3vMd88eRVcuKzAnbYBeWjUUW
+         +G6liCHrnYK5jhL8DiecoVffCHKpkvFbBjCSNCYHblEgdQ0p76j3lhcieymNzCx12kLn
+         tkIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776277459; x=1776882259;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=y+Fxj1yhe55Btz1HBCPETFrGYXLVGS4JqTOZtWzWez0=;
-        b=lYMDuZIiYxhK+Ps2mf6km/Nn0wQkBzFpZvIrseR5FajyvADc2RoJMgfe8KN6RawK8f
-         4lM2dYe61MTWNtIavLbfzhB312UDcsOTZHj+JItmV3bxqI/lZ53qsXqFbyqvDkPA5iMm
-         Ud+Cq+7kLR+Vg+L6p+fNREPLcNcTV6AdJ0MusNDIVThVKJiP086FuiDqhFU9MXAQhNFO
-         JaaaZnxN9gtb5YJRpbPiqN3DNCwL5AEg2RCpC8XHrEG/TTb+x8YZjURSnL/eKXc4LHpw
-         bz/sDhQj2UEgWJvgGnmyXZpr6YoL2J2Hn9+aSXA3HMVlSNHtij+QyA9rFbM5J+qbPldl
-         MT+g==
-X-Gm-Message-State: AOJu0YzZIxSQGI8syc/8XOYe0RBO0tEfbgf8gXK94NiH+3Pdk4y8tRdI
-	D+Dmd8VVkCBxvDsrNcyehwmBiHCJn+2breY3ZAGtOAY0WqhJQWAy7AKRHiruaQ==
-X-Gm-Gg: AeBDieu95WeOcuXWz8zvxks5Wx0Fz/lY+BwFXFJY8wPLJUIkOLONQeITyqYPhEQk36w
-	HQVczp3KWz/cOJL7APFUaf4sz2nhbE7MjJ+D1tCbtsGoX2pLI9nSma3fktlonYJyvlnMFz7zaEB
-	ERLM0DUZvmBHS//XSnsbRiK1VihRsR6RQjS7KthzKyAmALtfhpzlgKKwYu7ztvchTPjJbvTlE0O
-	WDqH+BLR2OBwnlXhxcc1QbtKQE+yPkmWynO3mgDYuJA4NjlRgL+FLTQTvDwpUtkKd0n5yjiLkr1
-	ede2l3o244RxokoZLPKiDgpummhwb5sZ8LR+KBnBhk9rf0BQkBPS8rwVbbrSazibjuZserHZ0Cp
-	KzkuXX3UxF2VaGbqJDnwvPGaCdRVldCg4YirN+vRubq7eoojQWk6Odic47XD/BW8I5yTnNyXM4S
-	aXqMdv76URgNRx
-X-Received: by 2002:a05:690c:7283:b0:7b4:dc3a:79c5 with SMTP id 00721157ae682-7b4dc3a845amr96127417b3.12.1776277459597;
-        Wed, 15 Apr 2026 11:24:19 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::48])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7b7667003casm12462757b3.11.2026.04.15.11.24.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Apr 2026 11:24:18 -0700 (PDT)
-Date: Wed, 15 Apr 2026 13:24:17 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Dirk =?utf-8?Q?M=C3=BCller?= <dmueller@suse.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [BUG] typo in man2/readlink.2
-Message-ID: <20260415182417.b6cvefbzk6ss3lmw@illithid>
-References: <CAN6Ha9b5Tujw=sB5MwhLhnt1XJodmH1TOfeZWJk_VWnWE_smzg@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1776283264; x=1776888064;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=qP4Emrnk52MTac6K87r6Ysen2EeNpeoDgqiPnkPMxjc=;
+        b=fxlUhVTqq5iHtOm8DyIuDV26eFru4jqCfrJnDY8tjMX7tqs0ivAYSgHNniS8Z139lr
+         MZwA2AmIblFmCa3d55KN/z3z6F//+QLkbG15cnWHiLCFPsV4oNUF68/NqHomCWo4mfxP
+         1RV0Ocqek5ZEy/frn3MxmfzRK5Z2z6XugYWd8voyrvwfMeArXs7o8rDlCc5/nYK31ghW
+         ZT0RYt+ZWiIGzQr1vbjs5ROYyElQvLu0O9LCIuzPn+Lg75eSoiHF64ut/XS/MJY6Qok0
+         2kSxk1XiILzQhnil3yZdnWor5HhkwMaK8C2ZLOMkj/IRDAy2S5X1Zjbb7kAiP0F0u6PY
+         nY0A==
+X-Gm-Message-State: AOJu0YxA9Isqc3FWsG+bxdLol8bQvGdzx7/VJ+jy4deB+IqrUb85iA7O
+	qU5P8K84heSTWlRMa9dysGfjYwq9cqidiqZFt1X6yv8aEa4B8/1Z6vN05/LVvCzSbShUyjaDmbo
+	c1TLAeCH4PZ2tkkIhnKWfN7ff3Lz8dFJg0Ca4r6n3Zw==
+X-Gm-Gg: AeBDieuRbBK4x/cIOUgos+lr+scaoNEY+8Od0KWWC1QQG0bRCUF7TX5z9NuxbftPL/L
+	2DYTsbMVEjrA0SB6VRZz0aTogVhg2Nai27i6NvKxF2cVRMSs7pbQnz+s3Ng3RHp8fOrfY6umT1E
+	Ranz4hPjyyOUSuMNI5QgfvSMyuQ/AAFJX6pIt82jJDtu3qvV2qHFCm6zuP1PKNrS/3mbl07Rb3Y
+	deqb2AreTykXPynpLwxoi1mVaQVz53KuaeI9UxWaysdFI6fnWmh4sDviqyCIuztsmEe1hn96ID9
+	zD9/2fwYXtGT1CCRcZuVHGZS2ER39xwySKJP5cRsySo3xuea7ZNtlsBkTxaZ5fbaDYe7VEihuph
+	PHI5Xlma0HafRNgbcqFslGMKz6tg6Eua2a5IRrXsKuHHy0yShRZAstMM9Ajg/bqzicmI5v6L4PA
+	GfhspBnt7w9SV0vOTuVKBXqUV6p/pfFxWjJI/fr0chpJryZaVY4woGqxHxq6OqgTqPAvg=
+X-Received: by 2002:a17:907:845:b0:b97:b2dc:91e2 with SMTP id
+ a640c23a62f3a-b9d724d93bemr1236669066b.16.1776283263931; Wed, 15 Apr 2026
+ 13:01:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="n3r3uqmymiv6fytf"
-Content-Disposition: inline
-In-Reply-To: <CAN6Ha9b5Tujw=sB5MwhLhnt1XJodmH1TOfeZWJk_VWnWE_smzg@mail.gmail.com>
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+References: <CAN6Ha9b5Tujw=sB5MwhLhnt1XJodmH1TOfeZWJk_VWnWE_smzg@mail.gmail.com>
+ <20260415182417.b6cvefbzk6ss3lmw@illithid>
+In-Reply-To: <20260415182417.b6cvefbzk6ss3lmw@illithid>
+From: =?UTF-8?B?RGlyayBNw7xsbGVy?= <dmueller@suse.com>
+Date: Wed, 15 Apr 2026 22:00:52 +0200
+X-Gm-Features: AQROBzA7PS7A1XnvMPLvt6h46CskT6XALLUuyVYyCvmJkvhLGHWp6fFZyA-3aUw
+Message-ID: <CAN6Ha9YYK7jD6D-_eKhHQA0dT3kfkGZuka31Pg+ka=mzt+QtxA@mail.gmail.com>
+Subject: Re: [BUG] typo in man2/readlink.2
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spamd-Result: default: False [-2.16 / 15.00];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5333-lists,linux-man=lfdr.de];
-	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TAGGED_FROM(0.00)[bounces-5334-lists,linux-man=lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
-	MISSING_XM_UA(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gbrandenrobinson@gmail.com,linux-man@vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dmueller@suse.com,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
 	TAGGED_RCPT(0.00)[linux-man];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,gnu.org:url,man7.org:url]
-X-Rspamd-Queue-Id: A3FAB40712C
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,gnu.org:url,suse.com:dkim]
+X-Rspamd-Queue-Id: 901DE407862
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Hi Branden,
 
---n3r3uqmymiv6fytf
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [BUG] typo in man2/readlink.2
-MIME-Version: 1.0
+On Wed, Apr 15, 2026 at 8:24=E2=80=AFPM G. Branden Robinson
+<g.branden.robinson@gmail.com> wrote:
 
-Hi Dirk,
+> >       ssize_t readlink(size_t bufsiz;
+> >                        const char *restrict path,
+> >                        char buf[restrict bufsiz], size_t bufsiz);
+> >
+> > I believe this is a typo and it should be:
+> >
+> >       ssize_t readlink(const char *restrict path,
+> >                        char buf[restrict bufsiz], size_t bufsiz);
+> This is something of a FAQ on this mailing list.
+> https://lore.kernel.org/linux-man/adupQhfJQ7kws17U@debian/
+> It's a GCC syntax extension.
+>
+> https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html
 
-At 2026-04-15T20:12:59+0200, Dirk M=FCller wrote:
-> Hi,
->=20
-> I noticed that man pages 6.17 release includes this in the Synopsis
-> section of man -l man/man2/readlink.2:
->=20
->       ssize_t readlink(size_t bufsiz;
->                        const char *restrict path,
->                        char buf[restrict bufsiz], size_t bufsiz);
->=20
-> I believe this is a typo and it should be:
->=20
->       ssize_t readlink(const char *restrict path,
->                        char buf[restrict bufsiz], size_t bufsiz);
->=20
-> instead.
+Oh, I understand that part. let me try again. The Synpsis shows 4
+parameters to the readlink() call:
 
-This is something of a FAQ on this mailing list.
+  ssize_t readlink(size_t, const char*, char buf[], size_t);
 
-https://lore.kernel.org/linux-man/adupQhfJQ7kws17U@debian/
+I believe it should actually be 3 parameters instead:
 
-It's a GCC syntax extension.
+  ssize_t readlink(const char*, char buf[], size_t);
 
-https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html
+with other words, the first argument is a pointer to the source link,
+not a repetition of bufsiz (which is at the end).
 
-> Sorry for not including a patch, but I am not sufficiently skilled at
-> editing man page sources :-)
+This page has the, what I consider correct synposis:
 
-Have you seen groff_man_style(7)?
+https://pubs.opengroup.org/onlinepubs/9699919799/functions/readlink.html
 
-https://man7.org/linux/man-pages/man7/groff_man_style.7.html
+ssize_t readlink(const char *restrict path, char *restrict buf,
+       size_t bufsize);
 
-</shameless self-plug>
+Again, I'm only commenting on the number of parameters, not the
+variadic length expression on parameter two (three in the original).
 
-(Unfortunately Michael hasn't updated to groff 1.24.{0,1} yet.)
-
-Regards,
-Branden
-
---n3r3uqmymiv6fytf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmnf18oACgkQ0Z6cfXEm
-bc41pg/8DwdEuonA8zWd8UcMFe7VntqaH7Z44oOSjwe4pmg3TJKvbwErlnxiF9U/
-02Rz5JkfWsx5m8VKF3loSI6ss6mG1OQxnGG9EyBXwzp0GWvbw5T8XV3zAIqL8w+N
-BND4J4nLjPVXmASPpDUjk7BnoSDqXmBCLi++Dx/669aRhCfmqP69R++Rer0L1QEF
-AmsW3cw4d7LpC3tbon/0cod/NbmQ5K31/mW7dbfOSn7n6jHvPcRsfkD7iw3/I0vg
-muYJJGwdYBwFFq5w/WTugjGZqUjlcLMky7Rh+Ky7ldDgVEhHFdx4Es5M9/x5+Jfw
-cd1mk5+GN3kbPSYTCh/q/eUMKtjy1/zURCc7iWwWNVEoLhK9UGlhx4gqCWptFamr
-JYZriSaX1BHaSJoblJrXQdA7bBLunUhxK3JEPCDmXpWlFsSjw8zVSxOKt4ed0hjI
-2PUQF0nDlZrVbgGb2cge7dtWkephEreXEPR9NdM/tkPeeSPhtSdna7ATFpp0L4xV
-qx7zMA4A2wFhuyuu5XqFeHy20R08wSqvx7Fh+TB0YpWonMz/ixoGOYM5JeZVQ3fB
-rhssuS1T2g0e3kYjh4hfiLo2b3OIBHGOvr80F3smTDzYsrzKWplMRKUDWNd3rX1I
-xPTrpnz898bZWFuYRwJyG+AzaOyhdRkVBzPKUYkYHKmbQq0mUHI=
-=cgTj
------END PGP SIGNATURE-----
-
---n3r3uqmymiv6fytf--
+Thanks,
+Dirk
 
