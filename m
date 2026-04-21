@@ -1,328 +1,173 @@
-Return-Path: <linux-man+bounces-5357-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5358-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id II1jDQWF52m+9gEAu9opvQ
-	(envelope-from <linux-man+bounces-5357-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 16:09:09 +0200
+	id uEfYBBm852mu/wEAu9opvQ
+	(envelope-from <linux-man+bounces-5358-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 20:04:09 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id D151443BC77
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 16:09:08 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7159E43E546
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 20:04:08 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 20B89301D61C
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 14:08:09 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 9A5FF3053CE6
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 17:58:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41F993D7D82;
-	Tue, 21 Apr 2026 14:08:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6A8B3064A9;
+	Tue, 21 Apr 2026 17:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fU+zbJC+"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHUdQLdt"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53EB3D7D9D
-	for <linux-man@vger.kernel.org>; Tue, 21 Apr 2026 14:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477E939DBD9
+	for <linux-man@vger.kernel.org>; Tue, 21 Apr 2026 17:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776780483; cv=none; b=k+eUPObayR83oJoe7AtQEPmnmORUjYeNIZfqAWZGTSVadPgRaSLlaPQsGyPKU4S05dbVp24TPSdEa5GdhV8X73Coz4jlSBJMpAq7Wa5Q5LZgNWYNkmsMD6MtEI8QuD2pLeFg1YxZGhUE0SlbC54QdfSrQDRuiuKlNP8qnyYW8Pc=
+	t=1776794300; cv=none; b=PO1FREQ2pWtmIApXHFBpxHQRjNMyJMJH/J0NNVR8J8LyAavDVhgdNlm2mDvzxd+I8vlUqFrGWEvCHaiMOAFcEPiD9jQurvx1e6m0cW0YJRuDtf9Re7IbZOXan4G41vpDSKPnbvlFHGia88DvXhqbqMEsBaz0FHo3ARcQcKeQOBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776780483; c=relaxed/simple;
-	bh=qQdFkJ3jaYzR5mifNahkzPyHByJEpB8TAMWHvmdyfGg=;
+	s=arc-20240116; t=1776794300; c=relaxed/simple;
+	bh=4KnT9e0nYvqkKjzzRQhZTyM52GdA4IMPzjRBuMb2VWI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GqYCZTKNAvvI74qXUitnaGb+1Z2o6oHiEAyje0v1J0AmMTiw0uoybqy6bbjE3VbaYxjJoJtKGXszZ9rcz/G1ZF2GbJdrMnI0v8Tmapuxwh9id6+TuAMGlxYcjns7KJjyt8SJZPB3pq79WudlCMFmbMQreytLLryHqVNKn3qg574=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fU+zbJC+; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41964C2BCB0;
-	Tue, 21 Apr 2026 14:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776780483;
-	bh=qQdFkJ3jaYzR5mifNahkzPyHByJEpB8TAMWHvmdyfGg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fU+zbJC+Z9qA7tQuE6/T7gRaw6rkjfrze2IRMyAKRs1BDnLyNsrlX24D/Ylt/bid0
-	 zq2BMkBAZxzJsZePA+kPipHSOiY7wxfM4CT4CGifWpSDgHE/qGnytR5CLccdLi6siG
-	 YO7q2HKnNOT3IhJGvGhRSyzVNPcfj5Fj68J+VIgl8f3FdvLaugP+gZLGUvfF10rJ1R
-	 QQGoHFi4/vA5C7WTLcQ754Ad/UUoc9VoZPHYRO9vbQu3TgJ13kbYRkSSGN6tDvGC9b
-	 36BMA9skkLapSYzfHehyvCEuHuxqKKWI9JHH9F+XrwB/IWGiUhNIfVtM8+4rQsgFGL
-	 EY0/R9R2OU0fw==
-Date: Tue, 21 Apr 2026 16:07:59 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Theodore Ts'o <tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Mingye Wang <arthur200126@gmail.com>, 
-	linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] random.{4,7}, getrandom.2: Adapt to Linux 5.6
- changes
-Message-ID: <aeeEEYqC_v-i5k6W@devuan>
-References: <5xemaly36nplgnzgpjymwdq44phbg5d43apdb5r7jnxoffjjpp@xgbyo2cksjch>
- <20251109023632.8515-2-arthur200126@gmail.com>
- <n2ajkqskaugqoqjtuxbuxrelepw2gskxzgyrrqsoybqgwtvqam@roe2jqcvnrab>
- <CAD66C+Z0iOJig457DQDVg+CgcVsE0C=wbuXK21we5XcNyGVizw@mail.gmail.com>
- <CAD66C+bS65y8KJu-P3ZcpKDR1MQAZW6fX-B99VycaY+OJAFiNA@mail.gmail.com>
- <tevwgko5kxlkooyvzqgvs67svntqlhhqpdewgooph7hdgc64hc@wskpnevhgwam>
- <aW1cv66DwJiydmyM@devuan>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vpw+Yh6QpkOEiQLoJsNagtzCwNeUl60Wm7QPLHtcF3rAqp2ZbL3ErdsWq49+u0bwsQN8yguwUsMUTxMyOifqQXo1KwV/M7bv1QIwMbcdB4F/PMEx4gPcaPu42hCIePmGemLmT3h4xNCgxlplBe4OLNJpH/KoM2x6ZUFpStlzeIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHUdQLdt; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488ab2db91aso61268485e9.3
+        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2026 10:58:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776794298; x=1777399098; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=+sahizZ39F8Ey1Slb2tUP0iAX78Ata04F9tTcodtd1g=;
+        b=UHUdQLdt53eQM/+PWgfD1ihxEtR7Twc55PMVz3j1PDV8mhunC1cpweWZdoG7ahEpvK
+         jUhq2g+KcHXD4ywxP7VcZEIFoa6oqkbvjeQGLtBwrl5NWARXud0qvwMMKKTqm17+nuL7
+         bCqbaNPUFvvBHGZRmfwWjnBsAA+OTAMOS+IMlJIxo+1sQ6fwW2dvQfrni4STzpixcLyX
+         MMrgAsMqON1sXctHaeLlP1S0hSdKEbjTfsxpzAXcL9hUn2tyYGkt2Dtxw6SeYtZDaOhv
+         h/F28ZfAjUhnTQhDq1GDthfDRthNSyKIyHlWy5uaCoH9q1Iz7kvYZiJQ99x1gwUik//B
+         R6Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776794298; x=1777399098;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+sahizZ39F8Ey1Slb2tUP0iAX78Ata04F9tTcodtd1g=;
+        b=Qpo5/FSMAEDjAROtLjkRSS5ivpMxFlUYBi3yXxJr74VMWu7agW0FveaWVpQ5kVB9WB
+         6nKeiZBoauw86lwYxSWy4NB7acqXA3VaPwGnzPcJgyzoShb4P6bRVlvS7rECUdUl1Wai
+         3yCEygOlWBdFqI2I/lBnoG4c83o7wruAjPBW1KyVHsZ/iCfXbw6BR/TjotK4b4jGS670
+         hTaAt2nILmGpXuik+Jx/q5Mcl9EHYUTCNIM5Dys0bNm3BcR8CwAn6cYJgk9bQxXxUzn2
+         KzjxF1jC+PqGIoOsSiYoHT7XuNfQ05G5ODcxtF4bvpEJmISCDx4Yw/JYS9YiN255pyJe
+         2Y2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/V0960JgOi31GCILjlm0y6wu1hoYcinzFXd5WpNsU61KPFNKk5kaHCIQJZt4bdrg7wT3Q1RwkMoZE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yym4BBG7rdIzgb3NNWqUcsXeNbMle9GcZvJwDLrH8hpe/jwySFr
+	m8nE/7J2F9jGtPQeaIFasH2qP234ViV2gQ80hMExL6C2WXBRs2A0iOeOPCSQ/O62
+X-Gm-Gg: AeBDiesrnm1FSsRlfjce/ofnnw4cL9wB50Mba4Imfu4em8KvDSHhVAKtlYfVoWVTspc
+	Rg6aKMj0vJ7CwJ199Z/EdLCKR3UASpe303UOl85enBbzkuRC/0djdyHK+PyhFm7dEWD9aaGohOj
+	R1Vv2vtvfbvAxd0oQpIZSlJkZhbUy6583nDYafoIvSdgtDGjzoF8jBrFJbMo2C7n+4Jw4lF/9zM
+	axkJsQDy0/Ml8Ea5Y2dSKXXjMYHNOaqIa4xKbRHBvJmVRQz3n4b5taNgOBwF2s/X6tB4/FcvV0M
+	twE72ZJ2+l7Hq8+7SiFl9Yu4rbkEKDVDEw6kf/O2//X4ybPNyZwSel8/TeK9mSHh66iJHCGiJ2P
+	P36PltXUvei2pdA+pHxYmupE4Mg/oYt8Gsa9bPSo2+Pdm33IE43edrYLA1wXnN5vOoZwQK4fQI1
+	wpeq0b2zpEJrEVRNmum/HgGD2sjGRQ4s2S9DtCKhb+SW9A/Jiu/Gs6bXRVEtlJc20BwpjnyA==
+X-Received: by 2002:a05:600c:a416:b0:488:90ac:8f71 with SMTP id 5b1f17b1804b1-488fb73a9fcmr224484455e9.5.1776794297324;
+        Tue, 21 Apr 2026 10:58:17 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc1c773fsm431717575e9.12.2026.04.21.10.58.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Apr 2026 10:58:16 -0700 (PDT)
+Date: Tue, 21 Apr 2026 19:58:07 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 2/4]
+ man/man[27]/{landlock_create_ruleset.2,landlock.7}: Document
+ LANDLOCK_CREATE_RULESET_ERRATA
+Message-ID: <20260421.ec0d503c0e84@gnoack.org>
+References: <20260420223517.8020-1-gnoack3000@gmail.com>
+ <20260420223517.8020-3-gnoack3000@gmail.com>
+ <aebBYT2DKJGekGXe@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="76kpjlqhyn65ofwa"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aW1cv66DwJiydmyM@devuan>
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aebBYT2DKJGekGXe@devuan>
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5357-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org];
-	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5358-lists,linux-man=lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
+	FROM_NEQ_ENVFROM(0.00)[gnoack3000@gmail.com,linux-man@vger.kernel.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: D151443BC77
+	TAGGED_RCPT(0.00)[linux-man];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: 7159E43E546
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Hello Alejandro!
 
---76kpjlqhyn65ofwa
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Theodore Ts'o <tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Mingye Wang <arthur200126@gmail.com>, 
-	linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] random.{4,7}, getrandom.2: Adapt to Linux 5.6
- changes
-Message-ID: <aeeEEYqC_v-i5k6W@devuan>
-References: <5xemaly36nplgnzgpjymwdq44phbg5d43apdb5r7jnxoffjjpp@xgbyo2cksjch>
- <20251109023632.8515-2-arthur200126@gmail.com>
- <n2ajkqskaugqoqjtuxbuxrelepw2gskxzgyrrqsoybqgwtvqam@roe2jqcvnrab>
- <CAD66C+Z0iOJig457DQDVg+CgcVsE0C=wbuXK21we5XcNyGVizw@mail.gmail.com>
- <CAD66C+bS65y8KJu-P3ZcpKDR1MQAZW6fX-B99VycaY+OJAFiNA@mail.gmail.com>
- <tevwgko5kxlkooyvzqgvs67svntqlhhqpdewgooph7hdgc64hc@wskpnevhgwam>
- <aW1cv66DwJiydmyM@devuan>
-MIME-Version: 1.0
-In-Reply-To: <aW1cv66DwJiydmyM@devuan>
+On Tue, Apr 21, 2026 at 02:16:38AM +0200, Alejandro Colomar wrote:
+> On 2026-04-21T00:35:15+0200, Günther Noack wrote:
+> > Document the LANDLOCK_CREATE_RULESET_ERRATA flag, which returns a
+> > bitmask of fixed issues for the current Landlock ABI version.
+> > 
+> > This mechanism was introduced in Linux 6.15, but backported to all
+> > older kernel releases where these errata fixes were backported to.
+> > On official Linux kernel releases, if landlock_create_ruleset() with
+> > LANDLOCK_CREATE_RULESET_ERRATA returns an error, this is equivalent to
+> > the case where none of the known errata have been fixed.
+> > 
+> > Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+> > ---
+> >  man/man2/landlock_create_ruleset.2 | 57 ++++++++++++++++++++++++++----
+> >  1 file changed, 51 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/man/man2/landlock_create_ruleset.2 b/man/man2/landlock_create_ruleset.2
+> > index d4eb5d827656..a24a4dd6cbb3 100644
+> > --- a/man/man2/landlock_create_ruleset.2
+> > +++ b/man/man2/landlock_create_ruleset.2
+> > @@ -116,11 +116,7 @@ Otherwise,
+> >  can be set to:
+> >  .TP
+> >  .B LANDLOCK_CREATE_RULESET_VERSION
+> > -If
+> > -.I attr
+> > -is NULL and
+> > -.I size
+> > -is 0, then the returned value is the highest supported Landlock ABI version
+> 
+> This fix (and the related changes below) should be done in a separate
+> patch.
+> 
+> Other than that, this patch LGTM.
 
-Hi Jason, Ted,
+Thanks for the review. I'll split it out and send a v3.
 
-Would you mind having a look at these thread?  The random(7/4) pages
-need some updates.  I'd need some expert in the random subsystem to work
-on these patches.  Mingye has been unresponsive since november.
-
-
-Have a lovely day!
-Alex
-
-On 2026-01-18T23:21:10+0100, Alejandro Colomar wrote:
-> Ping.  :)
->=20
-> On Mon, Nov 24, 2025 at 05:44:17PM +0100, Alejandro Colomar wrote:
-> > Hi Mingye,
-> >=20
-> > On Mon, Nov 10, 2025 at 11:51:30AM +0800, Mingye Wang wrote:
-> > > On Mon, Nov 10, 2025 at 11:05=E2=80=AFAM Mingye Wang <arthur200126@gm=
-ail.com> wrote:
-> > > >
-> > > > > Does /dev/urandom block when reading with read(2) before the pool=
- is
-> > > > ready?  I assume it blocks.
-> > > >
-> > > > From what I've heard it does not. Working on other comments.
-> > >=20
-> > [...]
-> > >=20
-> > > I am sending only the revised version of the patch you commented on
-> > > (the one that touches three files, random.{4,7}, getrandom.2). You
-> > > might notice that this patch is much larger. This is because when
-> > > editing the table I noticed that there's really no reason to keep the
-> > > "Pool" column around for 5.6+, but removing it also felt off. In the
-> > > end I just made two separate tables, but with identical cell-width
-> > > settings.
-> >=20
-> > Please split into more patches.  I think this patch could be broken into
-> > a set of many small patches, each of which does one thing.  5 or 10
-> > patches would be okay.
-> >=20
-> > > Speaking of cell-width settings, the existing version was not filling
-> > > the entire screen, which contravenes what man-pages(7) says about
-> > > using lbx. Adding an "x" does make it look nicer too.
-> > >=20
-> > > (I have no idea whether this is the fourth version, but it's
-> > > definitely after the third and five seems too many. In any case, I
-> > > will be incrementing this number in future patch submissions to keep
-> > > things navigable.)
-> > >=20
-> > > Regards,
-> > > Mingye Wang (Artoria2e5)
-> >=20
-> > Some review of v4:
-> >=20
-> > 	diff --git a/man/man4/random.4 b/man/man4/random.4
-> > 	index 0a651b03f..071fc99ef 100644
-> > 	--- a/man/man4/random.4
-> > 	+++ b/man/man4/random.4
-> > 	@@ -56,17 +56,29 @@ .SH DESCRIPTION
-> > 	 .I /dev/random
-> > 	 instead.
-> > 	 .P
-> > 	-The
-> > 	+.\" commit 30c08efec8884fb106b8e57094baa51bb4c44e32
-> > 	+Since Linux 5.6,
-> > 	 .I /dev/random
-> > 	-device is a legacy interface which dates back to
-> > 	+is identical to
-> > 	+.IR /dev/urandom ,
-> > 	+except that it blocks during early boot.
-> > 	+A jitter-based seeding technique added in Linux 5.4 should help reduce
-> > 	+block time.
-> > 	+.\" commit 50ee7529ec4500c88f8664560770a7a1b65db72b
-> > 	+.P
-> > 	+The pre-Linux 5.6
-> > 	+.I /dev/random
-> > 	+device was a legacy interface which dates back to
-> >=20
-> > I'd prefer 'Before Linux 5.6,' instead of 'The pre-Linux 5.6'.
-> >=20
-> > 	 a time where the cryptographic primitives used in the implementation
-> > 	 of
-> > 	 .I /dev/urandom
-> > 	 were not widely trusted.
-> > 	-It will return random bytes only within the estimated number of
-> > 	-bits of fresh noise in the entropy pool, blocking if necessary.
-> > 	+It would return random bytes only within the estimated number of bits=
- of fresh
-> > 	+noise in the entropy pool, blocking until additional environmental no=
-ise is
-> > 	+gathered.
-> > 	+This old
-> > 	 .I /dev/random
-> >=20
-> > Please use semantic newlines.  See man-pages(7):
-> >=20
-> > $ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
-> >    Use semantic newlines
-> >      In the source of a manual page, new sentences should be started on
-> >      new lines, long sentences should be split  into  lines  at  clause
-> >      breaks  (commas,  semicolons, colons, and so on), and long clauses
-> >      should be split at phrase boundaries.  This convention,  sometimes
-> >      known as "semantic newlines", makes it easier to see the effect of
-> >      patches, which often operate at the level of individual sentences,
-> >      clauses, or phrases.
-> >=20
-> > I'd write it as:
-> >=20
-> > ```
-> > It would return random bytes
-> > only within the estimated number of bits of fresh noise
-> > in the entropy pool,
-> > blocking until additional environmental noise is gathered.
-> > ```
-> >=20
-> > Same here:
-> >=20
-> > 	@@ -121,7 +133,8 @@ .SH DESCRIPTION
-> > 	 .BR read (2)
-> > 	 from
-> > 	 .I /dev/random
-> > 	-will return at most 512 bytes
-> > 	+has the same maximum size since Linux 5.6. Between Linux 3.16 and 5.5,
-> > 	+the maximum size was 512 bytes
-> > 	 .\" SEC_XFER_SIZE in drivers/char/random.c
-> > 	 (340 bytes before Linux 2.6.12).
-> > 	 .P
-> >=20
-> > Use .P instead of .PP here:
-> >=20
-> > 	diff --git a/man/man7/random.7 b/man/man7/random.7
-> > 	index fda408d38..65e21a07e 100644
-> > 	--- a/man/man7/random.7
-> > 	+++ b/man/man7/random.7
-> > 	@@ -54,17 +54,16 @@ .SS Initialization of the entropy pool
-> > 	 When a sufficient number of random bits has been collected, the
-> > 	 entropy pool is considered to be initialized.
-> > 	 .SS Choice of random source
-> > 	-Unless you are doing long-term key generation (and most likely not ev=
-en
-> > 	-then), you probably shouldn't be reading from the
-> > 	+Unless your program may run at early-boot, before the entropy pool
-> > 	+is initialized, there is no longer any palpable difference between
-> > 	 .I /dev/random
-> > 	-device or employing
-> > 	-.BR getrandom (2)
-> > 	-with the
-> > 	-.B GRND_RANDOM
-> > 	-flag.
-> > 	-Instead, either read from the
-> > 	+and
-> > 	 .I /dev/urandom
-> > 	-device or employ
-> > 	+since Linux 5.6 (see the table below).
-> > 	+.PP
-> > 	+On older kernels, either read from the
-> > 	+.I /dev/urandom
-> > 	+device or (especially if you are concerned with early boot) employ
-> > 	 .BR getrandom (2)
-> > 	 without the
-> > 	 .B GRND_RANDOM
-> >=20
-> >=20
-> > Have a lovely day!
-> > Alex
-> >=20
-> > --=20
-> > <https://www.alejandro-colomar.es>
-> > Use port 80 (that is, <...:80/>).
->=20
->=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es>
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-
---76kpjlqhyn65ofwa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmnnhLkACgkQ64mZXMKQ
-wqlxgQ/+MBNwArAg/PZcpaNDofLaRKbp9kUmcoss6yA7hEJpOYwFQ3QISaeddcIP
-QvYAuKK75goNfAmxVJj//xWUyEIq6Ixx9WVT9DmhOzZFIoJBURI34hKKRtfUfzDp
-bta425phVzxOQ8epLP885iDrolDXIrpkw3KI3EaVnCXgZOwOwfNu5cxtgXno5LpC
-xluZgVgn9iJvCzs9HsdTMT/UG5qgEzOgv6bULUoHZOdpe2t0OmzKtZJnuBYZmUPJ
-scIxb0eawGfHK1PpOLrKhBWs4ahONtkFdNyW0uHw2YDCZthoW7d8CECkaYn5qcPD
-axsBPvMMaLcIg4qBjklqZ4s0GCp6F0SkN0vhXfCl66RQbitwLkuu3TK1KXKsOk2T
-9/fjg3D1ST1J4niQXIni5fD98jlCalRmnwQI725kPa9jZlXW5SrI7U8QQTIiE131
-uPNyJjO/OvtS/6H1gIcGzrlUQvF9uodhn1YO1GRsIbE4C18bmzCxd6MJ4JmND5zd
-DxxrWGUUiPnCxTT78MWyHR2Wc5DUb89RHeYa7hitnWsAsc/aeFglRc3SgJlyf43w
-IUy9qqOgYtZdz4ymLxeDCYqiE4WoY8e7mqsB33rAYkq7O73A+vcdix6TBQ2k7ZEf
-jqRY42tAhTnoHomnln8ljFWBeLNtWgAoCbfs+qbu3u0PIETO9KQ=
-=8uxQ
------END PGP SIGNATURE-----
-
---76kpjlqhyn65ofwa--
+–Günther
 
