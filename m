@@ -1,88 +1,88 @@
-Return-Path: <linux-man+bounces-5361-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5362-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wG5NC4G852mu/wEAu9opvQ
-	(envelope-from <linux-man+bounces-5361-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 20:05:53 +0200
+	id WCEnI4u852mu/wEAu9opvQ
+	(envelope-from <linux-man+bounces-5362-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 20:06:03 +0200
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAAE143E590
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 20:05:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 131AF43E597
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 20:06:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id E3C733010D85
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 17:58:53 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 84BCF30557EB
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2026 17:58:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D27639DBF3;
-	Tue, 21 Apr 2026 17:58:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 264972FF65F;
+	Tue, 21 Apr 2026 17:58:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HCCuspS1"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HBNqvRdQ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52753A1E66
-	for <linux-man@vger.kernel.org>; Tue, 21 Apr 2026 17:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952B039E6FE
+	for <linux-man@vger.kernel.org>; Tue, 21 Apr 2026 17:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776794333; cv=none; b=NEFCKKKMfssTfhB49AlxGxnNdbooNEwJMQeDt1IoqsKr6CFQR5xkD7apefAX3jMiGgILnOMe0U2WqUMSHah0ZLELzaRJ60hHpuwML1mC36QP8jIy4R+Ya9wQMn5+l8BWOZgqT0DMH/JMvVQa/A8NfoNKV1+R8K6bkseGODarGKc=
+	t=1776794334; cv=none; b=sgU0fUL2/36YzdvfQ0EtMLTLjfjCerbpwQBLFJMndBTsgVcoBVpjF8hwXR4e0pE4ZYZbQjNzANHKHIxmLF1ZfT3VAytRJkTHBkK59M5N/OaVHVcxdNZbb/rHaGPq+xJUhx63dMOpNaTY0gmGcmvkP/DqtIPS5KKgJTrgYjoHlcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776794333; c=relaxed/simple;
-	bh=sWBa+2aRfQCX6pbtR+GRFDCJo82DcGVOpbkVsAteTE4=;
+	s=arc-20240116; t=1776794334; c=relaxed/simple;
+	bh=RMlmOgGuQdmhDOZNRQdYEAPdj6UEK4X5dv/lF+bWsn4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pwpVx8kBoygg3pEL5fr6NF+/6wZTB6M3+pWwvFSLyF0wKLG9OAJhuYYM3OK72XaUyQuzNjza6UrtjIqdNeyrsfz+Nhxx2fq5Dyp5Avryo1orMw5crkEDLu32ODrlRlzKIJoWbxK6q+4/aMc1MAuOezZKR/rwKitMPBLK6dfEYko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HCCuspS1; arc=none smtp.client-ip=209.85.221.45
+	 MIME-Version:Content-Type; b=clyK4DOgX6f6216KSHkKwr71zxLxccMdlh11ixjlww+hhKaRgDMzc1zEO9f8RPCDQcaBbft9bDlPxx9Q5S6b+9Dzq2oNGcvc7iMb3WGYFVsJ8vPvFUJ8WW8EGoBBVJqrEwzY8xc0MEC3XaAQnyWvD3V6psED8fR2RgZUn/OPA8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HBNqvRdQ; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-43fe3e22e33so3063020f8f.0
-        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2026 10:58:51 -0700 (PDT)
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488b0e1b870so73812485e9.2
+        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2026 10:58:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776794330; x=1777399130; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776794332; x=1777399132; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pjlb9jZvwH+TVUgU06pDUUmobeDsuusSNd8A1qP/7As=;
-        b=HCCuspS1dwwep0+3sUQCzFPpA3e3ei489TLy3bZevrOZ4uc29AOjMnAHqj3obsptHa
-         xptdKLQiYoC9bf03DZJWNyEZPhlduPYzetN6ejcVMqxjvG4X7uISIDLRbobS6hgk6A3X
-         ZPsfSo/CM3aj5mH8lnZGwRW5QwefO5kmbEEKH6N0VHlwq6hgZbOT19XzOHl3ZJ99jCci
-         jH3ozFBzx8HcSnHwlTtaMSeKT/lRldyPJJIFFwv7CaEj/8MqeAQvKKs/2v0KxOFPDoWN
-         a5alcLotBzvjQW7FBC5+nNG1+8iDC6tJjwh/RzH2+1o5lh7kTUXZz2QnYEHgheIcfecg
-         DDzw==
+        bh=E0h60i3tkyPpnZMCnFDsNo2bmt5bye/nwD0Nkb92MAg=;
+        b=HBNqvRdQ5bSm6QPrIJcRqesMSxCe9Ded20PZbImbpQ+657VEZst5u1wvb6k/td3ZIr
+         ubFEomDPyR/m1kI0lickcCac02WHiSwXRrfoqPF7cek0fMDOgKKRJdmqycAaJXbNLOZZ
+         50luC1lEgeDIvJhAxBKmOuUA5gf9a/cRYdEHhgrArv95pYPoc03eH/VTNAB8qYvycYNT
+         4qunS0nCzSNRQPC1phof2HZSy2Mw+M9sUy1gD2NZjibiaJPVRZLwSHELwo+3sEw+MSlw
+         +4ZwWH/u2x9yqBQyA2eLsUTck0IHKwHUwGtl4aCxDYTmZujLsUcQUzdBsqWs/1HUSdsu
+         7CvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776794330; x=1777399130;
+        d=1e100.net; s=20251104; t=1776794332; x=1777399132;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=pjlb9jZvwH+TVUgU06pDUUmobeDsuusSNd8A1qP/7As=;
-        b=pHE1tGNrvVrxUzwjRnP9IXdTEKoqdpif9mqA8+6fYXsF0uYgbaLXUS0kIh4c71Fv0j
-         JDWDnr0i/7pQB468I3z6x2MMyGYLTIyFEDvdUD8seyxhc8snJubwAPlIGcpHE+EjVZtu
-         ru24btieIQLRjkIpduZ55N84SRnb/Fin+fqCatAnJdv/gE1CY3nIYc+B2ujOri+PyGF4
-         ROx5OZWmBWkH21jel/mXLR5Yduop3VW3iUh7QejCje7kqzwVPY34EzU6M1fs3ZxxKG+n
-         k9GMaPoZvxI7oB7V1vffWg3ZeDjdkWMxmukj4a9bEo2O2xoCuDLhcmfsNhp15Q039Vxj
-         I2Og==
-X-Gm-Message-State: AOJu0YxplQnzzAyHClXRIkZXKxviFwJBcNUgJJFGTBuw3Ss82mB3JQas
-	4MBOrQNQvkA8TDIdc+IY6DbrKcCgkC2QLvrqsGrF14vIm5pajQLXaztI
-X-Gm-Gg: AeBDietKLPBxX5Qj0G8/0k9KAQkFNQJzloCGXUHrSOGUAqJzer7UKcOhej2I/q2oxgV
-	msstEkAOVgtUVqNuIzjDiuruehZVZFAkgtKqjEFlF3S+Kn1JjIvErl5n51OcLzvi0kWkE1bsQHG
-	OgrkCrMKobcXgXJOa0Oal1nF2eivS1b7LmTe72sNT75RYV7P5gRDXDqtIdglq3K4BXy3Txq+VRe
-	HYynkOO3EOhteXWrpWIA/PGNCD3Xf3JQ6VGilWYqmyH+G0b8rOEYI18w8cVjpQ+M6pB7GW+mK0k
-	DLJnST8Hsk2b62lRYsR+llPSutN+xPf+ffFS2d18CWp81X00Vpw6ALdmFMs/o68ffe6EzvtCeFZ
-	dihHeB95J4X3y2R5ByRBC+GexnlxjEVN0S2FmHmwEgISgdjC/QqYfL39tL9ridtcQP8+xxdZTNq
-	nm4UzMAy5gSUW6i7KDRYmLR4drIuhbO/TWBC8rIIMUW1CKm8ODnWRxO6+kx78=
-X-Received: by 2002:a5d:64e4:0:b0:43d:7828:1f81 with SMTP id ffacd0b85a97d-43fe3e1170fmr30095950f8f.41.1776794329796;
-        Tue, 21 Apr 2026 10:58:49 -0700 (PDT)
+        bh=E0h60i3tkyPpnZMCnFDsNo2bmt5bye/nwD0Nkb92MAg=;
+        b=EvPRoG9HXL0BPFYp3ck6XIRxLxExVJnzXCvE2MFDA5z7JaA/X180Ngq+VsiH2GQltd
+         A7YL/wdp/W9+bfsFF+BarwCjvF/QmoS1heprmVHEOt4yn+LUiqs5DXgsrJ3WnM0zPUEO
+         Dt5+9QBB9SVJmCBhtIYb7JCbjDICHjYgTZTqKQf+gpLIsB3f3UWIR4NYxd3zIhlc3PkZ
+         USeggEzNCTPbQTaCvGtZ02H+d+4QtMsWfqcAx9IkQIFsfo9+GglfDeKvrW6sVp0+A14R
+         KQ/uEXH0vPMipM6aeypDUTM/F8cKIlfgZeVdx8Tc8ndHnQzDfe84+gqnrF5WratIGzNP
+         GVTQ==
+X-Gm-Message-State: AOJu0YwmT7Ejt82vlHo+nVLkSiWH65Wi0HjsFCNxxXyWztcSRAvpeos2
+	Y3tJ9/SZ/Mlts7VRLE8jfWxNoxz/XKbK6zJBWGky55twwuAl7AXjQLQ4
+X-Gm-Gg: AeBDiet+o/Je41ELQUzFfLBA7WBLDMoZwI+1d0F1KTdGgGN5fookf7UdPPV9FttcjUe
+	BQx9MBIyBNE+XxRl6RystYBRS3HCO+SHx35FEaoCpjjHa4NtBz9W3Hh3iuDGSeyG5WSzkCy93/r
+	lr3+EBHKjFr+VBdRblXZCyQSVSvfcvcaKNmtJQJHRTLE0ZGXMR7JFhy4izt8JrXt66MbafapCcC
+	R1fQSfrOszNM5S0rz3jxDigJe3tykc4wT3k69UqHTU/Eo1+Rk0MG8GmyeTXqwaFLkoE1jquq5xN
+	Mf6bqL2NG7p04jKgoEsYwUMkAVajUm02OvF1RKpz3pXgTU+Obu4unkwJqByTkZq6A886wecmljJ
+	X5sjaJHnDC9mY3OVXDXTk4xy4tWmYR8u/yZI67qmMAeiAz8ThyzmULF9Llh62dw86/LIYT/45pq
+	T1LYjAi/EV65+aP/lyI6GtgSXiRQqr67MT8FEv1He3ENuFY/99Ep9OiYoqHfQ=
+X-Received: by 2002:a05:600c:350e:b0:488:a82f:bb95 with SMTP id 5b1f17b1804b1-488fb7861c0mr277985845e9.29.1776794331839;
+        Tue, 21 Apr 2026 10:58:51 -0700 (PDT)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e4eec9sm37217414f8f.34.2026.04.21.10.58.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4cc0f31sm39343240f8f.12.2026.04.21.10.58.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 10:58:48 -0700 (PDT)
+        Tue, 21 Apr 2026 10:58:51 -0700 (PDT)
 From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>,
 	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc: linux-man@vger.kernel.org,
 	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH v3 2/4] man/man[27]/{landlock_create_ruleset.2,landlock.7}: Document LANDLOCK_CREATE_RULESET_ERRATA
-Date: Tue, 21 Apr 2026 19:58:40 +0200
-Message-ID: <20260421175842.6870-3-gnoack3000@gmail.com>
+Subject: [PATCH v3 3/4] man/man[27]/{landlock_restrict_self.2,landlock.7}: Document LANDLOCK_RESTRICT_SELF_TSYNC (ABI v8)
+Date: Tue, 21 Apr 2026 19:58:41 +0200
+Message-ID: <20260421175842.6870-4-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260421175842.6870-1-gnoack3000@gmail.com>
 References: <20260421175842.6870-1-gnoack3000@gmail.com>
@@ -103,7 +103,7 @@ X-Spamd-Result: default: False [-1.16 / 15.00];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5361-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5362-lists,linux-man=lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com];
 	TO_DN_SOME(0.00)[];
@@ -123,88 +123,63 @@ X-Spamd-Result: default: False [-1.16 / 15.00];
 	TAGGED_RCPT(0.00)[linux-man];
 	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
-X-Rspamd-Queue-Id: CAAE143E590
+X-Rspamd-Queue-Id: 131AF43E597
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Document the LANDLOCK_CREATE_RULESET_ERRATA flag, which returns a
-bitmask of fixed issues for the current Landlock ABI version.
+Document the new LANDLOCK_RESTRICT_SELF_TSYNC flag, which applies the
+Landlock configuration atomically to all threads of the calling process.
 
-This mechanism was introduced in Linux 6.15, but backported to all
-older kernel releases where these errata fixes were backported to.
-On official Linux kernel releases, if landlock_create_ruleset() with
-LANDLOCK_CREATE_RULESET_ERRATA returns an error, this is equivalent to
-the case where none of the known errata have been fixed.
+Available since Linux 7.0 (Landlock ABI version 8).
 
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- man/man2/landlock_create_ruleset.2 | 36 ++++++++++++++++++++++++++++--
- 1 file changed, 34 insertions(+), 2 deletions(-)
+ man/man2/landlock_restrict_self.2 | 18 ++++++++++++++++++
+ man/man7/landlock.7               |  2 ++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/man/man2/landlock_create_ruleset.2 b/man/man2/landlock_create_ruleset.2
-index dd14f0ceba7c..9520c7269742 100644
---- a/man/man2/landlock_create_ruleset.2
-+++ b/man/man2/landlock_create_ruleset.2
-@@ -125,9 +125,38 @@ version.
- Unless noted otherwise,
- all features documented in these manual pages are available with the
- version 1.
+diff --git a/man/man2/landlock_restrict_self.2 b/man/man2/landlock_restrict_self.2
+index 9e80a40ee4a4..1265ea2feb91 100644
+--- a/man/man2/landlock_restrict_self.2
++++ b/man/man2/landlock_restrict_self.2
+@@ -133,6 +133,24 @@ It can also be used with a
+ .I ruleset_fd
+ value of \-1 to mute subdomain logs
+ without creating a domain.
++.P
++The following flag supports policy enforcement in multithreaded processes:
 +.TP
-+.B LANDLOCK_CREATE_RULESET_ERRATA
-+Return a bitmask of fixed issues
-+for the current Landlock ABI version.
-+If bit N is set (i.e.,
-+.IR "errata & (1 << (N - 1))" ),
-+then erratum N has been fixed in the running kernel.
++.B LANDLOCK_RESTRICT_SELF_TSYNC
++Applies the new Landlock configuration atomically
++to all threads of the current process,
++including the Landlock domain and logging configuration.
++This overrides the Landlock configuration of sibling threads,
++irrespective of previously established Landlock domains
++and logging configurations on those threads.
 +.IP
-+In addition to ABI versions,
-+Landlock's errata mechanism
-+tracks fixes for issues that
-+may affect backwards compatibility
-+or require userspace awareness.
++If the calling thread is running with
++.IR no_new_privs ,
++this operation enables
++.I no_new_privs
++on the sibling threads as well.
 +.IP
-+Only check errata if your application specifically relies on behavior
-+that changed due to the fix.
-+.IP
-+The full list of Landlock errata is available at
-+.UR https:\://docs.kernel.org/userspace\-api/landlock.html#landlock\-errata
-+.UE .
-+.IP
-+This flag is available on all Linux versions
-+where Landlock errata were fixed.
-+This specifically includes
-+all newest bugfix releases
-+of stable kernels
-+where Landlock is supported.
- .P
- If
- .B LANDLOCK_CREATE_RULESET_VERSION
-+or
-+.B LANDLOCK_CREATE_RULESET_ERRATA
- is set,
- then
- .I attr
-@@ -138,7 +167,8 @@ must be 0.
++This flag is available since Landlock ABI version 8.
+ .SH RETURN VALUE
  On success,
- .BR landlock_create_ruleset ()
- returns a new Landlock ruleset file descriptor,
--or a Landlock ABI version,
-+a Landlock ABI version,
-+or a Landlock errata bitmask,
- according to
- .IR flags .
+ .BR landlock_restrict_self ()
+diff --git a/man/man7/landlock.7 b/man/man7/landlock.7
+index bcf06ea30ad4..06910ccab5b1 100644
+--- a/man/man7/landlock.7
++++ b/man/man7/landlock.7
+@@ -476,6 +476,8 @@ _	_	_
+ 7	6.15	LANDLOCK_RESTRICT_SELF_LOG_SAME_EXEC_OFF
+ \^	\^	LANDLOCK_RESTRICT_SELF_LOG_NEW_EXEC_ON
+ \^	\^	LANDLOCK_RESTRICT_SELF_LOG_SUBDOMAINS_OFF
++_	_	_
++8	7.0	LANDLOCK_RESTRICT_SELF_TSYNC
+ .TE
  .P
-@@ -170,7 +200,9 @@ Non-NULL
- or non-zero
- .I size
- in combination with
--.BR LANDLOCK_CREATE_RULESET_VERSION .
-+.B LANDLOCK_CREATE_RULESET_VERSION
-+or
-+.BR LANDLOCK_CREATE_RULESET_ERRATA .
- .TP
- .B ENOMSG
- Empty accesses (i.e.,
+ Users should use the Landlock ABI version rather than the kernel version
 -- 
 2.53.0
 
