@@ -1,265 +1,202 @@
-Return-Path: <linux-man+bounces-5368-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5369-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sPLeN0D16Gl3SAIAu9opvQ
-	(envelope-from <linux-man+bounces-5368-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 18:20:16 +0200
+	id 0EsENaH56GnLSQIAu9opvQ
+	(envelope-from <linux-man+bounces-5369-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 18:38:57 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C18448752
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 18:20:15 +0200 (CEST)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id D0825448C7A
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 18:38:56 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 61A95303EC34
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 16:14:03 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 4770E30013BB
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 16:36:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1594B37475D;
-	Wed, 22 Apr 2026 16:14:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E19E937F8DC;
+	Wed, 22 Apr 2026 16:36:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lGx4Q+sd"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LT8wJrZK"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB628325495
-	for <linux-man@vger.kernel.org>; Wed, 22 Apr 2026 16:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F96A37DEAA
+	for <linux-man@vger.kernel.org>; Wed, 22 Apr 2026 16:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776874442; cv=none; b=Gh10+6Wf1EUhXIXFd0zTv4/V55ogplrY9olWCdML12Z1cD0Wzuz6jiIRy40k/g3hipK4Ok+UJ3Npul1ah/4No1/iWyQHZV1qMys1oZ46msMazxZXiczIwK9qSFvy82V3jx971xUTALvUn5ys+GNw88/qHvz99QKp+CH0lMKDE34=
+	t=1776875769; cv=none; b=uVAxb0l5zo87xBrfNJJj/cCEgGYwrFBgmS00rnRtqxIBrvLYZI94Jo5UBwzao/KpuT2BwwHlmpj2NP/oP/vMdDxBA+dr9jSp0lGecsjvwH0w4bP1YiO/pCXFhD5a131d91UvCz4PjF7SHUIYMJZ7Kw7B1nCBxze1lrF3u87L60g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776874442; c=relaxed/simple;
-	bh=NLWsA0yi+o2QQuOo2RuruqjskQFGSIWyp2acUHvZGBs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JhIbj4iSvk3az7fOBii5l/LCKPnKp/+iDOhS9odekgsNfa4ATE0pEkFegfMAQ6bSo7Ruh+Jnt4m1rPILiHHMpDdCNeA5GPQeJPTGSv9dTAah2/f/34PeROGICB3VcNQlAlW1UkYRrKq3+hgBT8a/cclVxKVnjoCc7Cicmuq4DA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lGx4Q+sd; arc=none smtp.client-ip=209.85.216.43
+	s=arc-20240116; t=1776875769; c=relaxed/simple;
+	bh=P5PLyCBNpv3/YSsZuwwl8ytvlSOGKplLtQ+3Rw02oKI=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fXGXAFHUEdSmDHLEkyY2Y/ooc/55CxqW2J/UbwSVnBX3uIzy+ykTWIO/EYmL5UTDZuNjoA7STRbr5PFlBkmg5MvXbgJe1cbNfCJiUJimxANyWDet9Y30+qk7Fv+rF5Xt98CBgp2oet9auwMgPPFQsaEvFf8jjCPL8x8nnoM9YkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LT8wJrZK; arc=none smtp.client-ip=209.85.167.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3591cc98871so2600842a91.3
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2026 09:14:01 -0700 (PDT)
+Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-479d9b155deso1215058b6e.3
+        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2026 09:36:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776874441; x=1777479241; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-description:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=9HLvC+H7u5a1yeHTO01Idv0eCZF9BVv1f8N9iZOJd14=;
-        b=lGx4Q+sdm0e+dZ1H5ib2mMtNU0KTpmKKXZRjZk5NVweWuLcO8/8bRiZttAi/i3hn5w
-         811ie50x1OBPbUrNRA2hiCdYPErm/eZHasUY9IPSfjLozCQGR4ZdIGyrqhzhXwmria88
-         6pwL90HwmjG49vzztC5lbVImy3vs+HuEJ5iPW9sxzN4EeMfYCtCnY+/d1MLiAwdYAg2D
-         7DduPKF0k7TBpGH6au8do4HSvWCgODZ2vt+oV/2esVObzB6L3/Y+RsXcCP46xTX3g6f5
-         jvRvJj0pBnlND9DS0y9q4qxaPwcGijfaNGZc2ZhJkJo6/AcuORPB43gsZ/PiGbExDo0K
-         0YGA==
+        d=gmail.com; s=20251104; t=1776875766; x=1777480566; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=PkHCZ81Wu88nal09ZavbyEi3y3XjUJGz06tMDK0xZGw=;
+        b=LT8wJrZKlakwkCQ69AE6khY5c5lr/jT0ZUidPnuc0VEfundpdo6YLUC6FC2y/yOjAX
+         tUffV9ZeqIbKkEY0FreeFwOgML/bf/HICpuAVl8r7qZroSJVnlLzQl26XRH1r0QG+beB
+         UI/OPR/qxfvb4o3N1oDQ5AsXZE08ldBua0GLDGeVA2tgiZMsfQTFBwbsjPq07uhd3uXc
+         6XhfvLc1yHyKULNpVO1v1yXwysc8t0oqA2BK9jcONrZQgwGkNIheDd8iCOztnBWrf2TO
+         qnl1ugx2TBhT8HiRrF+uppxcti26V5dVYKS3gKEHRAaVWb9yhM8PvxVeQoVBXERQU9xk
+         2lFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776874441; x=1777479241;
-        h=in-reply-to:content-disposition:content-description:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9HLvC+H7u5a1yeHTO01Idv0eCZF9BVv1f8N9iZOJd14=;
-        b=RLKSkF51/yTIP/TVje6WiffmdMqPqh1T6c+aEQ8fWWaFlZSwc3NtyqdaPVDQSEoGNb
-         goyJd/fcqU4MtzJtj4u22NLiUWtaE4rNnPYVzML4Jqd0PCJ/HAqbb6/cV1QBxIPov3ID
-         YTA3fYk9whK96TKB95QGx+526buar921ksW9ckGKHsGj39s9Ny/AJTWZOBZWyiEf98qZ
-         UJinROTcAIHPAZabgY0vQrne6WKbX42iCM/DqsYJYFjq194/cNN1QNRt+QG/RfSIBaCs
-         M/jymm03DbHYlhVYftzTYVutWb2HbVtJyIQKJUOekp3UYkMgDTmv92sC89xSOUyvi3BT
-         WgJg==
-X-Gm-Message-State: AOJu0YwAaQpaD/yN4bjfSEwyaSA/+J2DQON7iub8EeMww+nkKDL+DSHL
-	Rd6xSC20BFAlAmAquzs48BTrMlz5sVx5Az6iYi2sgqlUY4EvtzIuAFd+
-X-Gm-Gg: AeBDievzUQHUUKM82ERQtXF0QWzrssuqgPmuI8EkUyqxKm6WuJtJGLTycGdFj54G0zn
-	JHtloucesSF5li3Qm73giDwk9kBpDprJVWD25RbR3YWTtDWc27ByAFdtjpmglXkutiSVWosk7Dh
-	61TEwAbkR7kooYCqWbwiPPlUkJ8zqECpgrnxtI1MnTD3s/lHN6KitOv5g3u+AQFa9NKi/7FwoSN
-	zSFRgTnmG6ypjAMIfVzWtcge1wDX02YesMn/MAjnCoQEESQhp18AHGJ1MX17CwnGqGooTx6GBlO
-	yekkmNfgfUmCwKPidreDqKGyJzHHP8W3K6VxIgm8pjtoOTUG4mFuex+8cgWAywPpb3KqdkU70LZ
-	qmd21YKV6i62crWsQAw4uCydiY6Lx4M2tt9KpCxGs0QDQYULQ1nrzmZN93B678LKboamXMeYMQH
-	ZVn4V6SGFrGb4rsjx4sj3rEFKyhvHZtX8Fl27etYIF0fkg4dgLO5r3PvqxgsRE9uvcsnHQnQcsN
-	Nc5f20pC3qNpBdr
-X-Received: by 2002:a17:90b:5107:b0:35e:3aec:718b with SMTP id 98e67ed59e1d1-3614046e12amr21732095a91.15.1776874440826;
-        Wed, 22 Apr 2026 09:14:00 -0700 (PDT)
-Received: from cchengyang.duckdns.org (36-225-97-241.dynamic-ip.hinet.net. [36.225.97.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-361419739dfsm18390059a91.13.2026.04.22.09.13.58
+        d=1e100.net; s=20251104; t=1776875766; x=1777480566;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=PkHCZ81Wu88nal09ZavbyEi3y3XjUJGz06tMDK0xZGw=;
+        b=lP8TixqyDq00zolMwzghS1U1LvgaIybHrktvLiZsQC3r5elpeDEmqi33G7BTc1og96
+         ivaArhQPdudrPrE7Ubol+gp4RJGR4fGz36e2V9WaL+ozv9bRxCM9CEgGG7robQB4l3sj
+         3osw+P7Y6gTGA9MtSA2QSramO6oIYEBXjSTxefjWCzoaTFDHjBgMHrPUb415xGyImMyg
+         Z8UUO0JVoIa7oqdBsz4Fn+VFPwGXnBhEnnh5wlLaHF67bqYEDUIHpRN2d0/Q8vDXBzmm
+         fPWJTIpVhdE/CA0F0C57aQ+otKbL5f42RmSKr+q/pork0RENJwjDOAFfcWEv2vsWlawn
+         NXFw==
+X-Forwarded-Encrypted: i=1; AFNElJ/12PAVQjBGo03PIhGvdad1GDGUfeE9lUH2e6C+5XeKi6dosvlb3/SCnvEloXOlv35qx4uaBO7KTtI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyjN5/XA5jV8M/CkI/JddcCJk2u60hCO9YEU4dW1JvZgjFkT25W
+	vjCRmEd29aqeCTgzJSNuKfGmpGoG7w7Q4l6DaKqCQkzlJc6I/iyRxxjRlcQLCg==
+X-Gm-Gg: AeBDietsyZwHltnCs/YwYfj7O3h5YGnDKE4RlnbpltHKvcP3nD51yFOTyyS69WEBBGy
+	OvnVd/SGFgMyDt0rtZ/hkaTJt/eXnfYHSr4DJbw6KFo+1F6HRPtNmb9zoXOQTGKbqDqsnpkVcl0
+	3T+K/JujIbwnD8QgDuXXQHQEvy4Th/tpgqVCFBOatX+Bn9+gTkgfNzCWoVtzemMeuiRINN4LsqK
+	ZlIjyHTHfka09AGPeq2zkOJYAbFUKK/wXAkC+Ui1GPL2dFBFCm+T8uwJI0s4pIFuhTER1GKQdic
+	LCcKiQFLkRhl74N1lRrF9MoE2A5euwCkFqto/qZ/x/1c1eXlzhuUwHyuIhaSR27+K1BXZ6uQLWl
+	G3n06sSfAu12AV4wicQ88vNcQC/jzZW0+fyTMUHKYW9wYyjuaq/zDL3v75iQ9CD91tET8YkgeL9
+	sTKV9N6WG/Z/wQQFx5qmpBRu0=
+X-Received: by 2002:a05:6808:14c2:b0:479:fe0e:e83e with SMTP id 5614622812f47-479fe0ef603mr2198753b6e.14.1776875766340;
+        Wed, 22 Apr 2026 09:36:06 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-479fa22d792sm2640022b6e.1.2026.04.22.09.36.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Apr 2026 09:14:00 -0700 (PDT)
-Date: Thu, 23 Apr 2026 00:13:57 +0800
-From: Cheng-Yang Chou <yphbchou0911@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, sched-ext@lists.linux.dev, 
-	Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
-	Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, 
-	Ching-Chun Huang <jserv@ccns.ncku.edu.tw>, Chia-Ping Tsai <chia7712@gmail.com>
+        Wed, 22 Apr 2026 09:36:05 -0700 (PDT)
+Date: Wed, 22 Apr 2026 11:36:03 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
 Subject: Re: [PATCH] man7, man2: document SCHED_EXT policy
-Message-ID: <20260423000434.G45a2@cchengyang.duckdns.org>
+Message-ID: <20260422163603.xvgyqulnl7knxeem@illithid>
 References: <20260412181743.276652-1-yphbchou0911@gmail.com>
  <aejvcpOKmAxCnJQV@devuan>
+ <20260423000434.G45a2@cchengyang.duckdns.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Description: 
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4l6nqomcqe4rqrpz"
 Content-Disposition: inline
-In-Reply-To: <aejvcpOKmAxCnJQV@devuan>
-X-Spamd-Result: default: False [-2.16 / 15.00];
+In-Reply-To: <20260423000434.G45a2@cchengyang.duckdns.org>
+X-Spamd-Result: default: False [-3.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,lists.linux.dev,kernel.org,manifault.com,nvidia.com,igalia.com,ccns.ncku.edu.tw,gmail.com];
-	TAGGED_FROM(0.00)[bounces-5368-lists,linux-man=lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	TAGGED_FROM(0.00)[bounces-5369-lists,linux-man=lfdr.de];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
 	MISSING_XM_UA(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[yphbchou0911@gmail.com,linux-man@vger.kernel.org];
+	FROM_NEQ_ENVFROM(0.00)[gbrandenrobinson@gmail.com,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[linux-man];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	HAS_CD_HEADER(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,cchengyang.duckdns.org:mid]
-X-Rspamd-Queue-Id: 67C18448752
+	TAGGED_RCPT(0.00)[linux-man];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
+X-Rspamd-Queue-Id: D0825448C7A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Alejandro,
 
-On Wed, Apr 22, 2026 at 06:02:49PM +0200, Alejandro Colomar wrote:
-> > diff --git a/man/man2/sched_setattr.2 b/man/man2/sched_setattr.2
-> > index 80a0ac726dcf..d60678f00e72 100644
-> > --- a/man/man2/sched_setattr.2
-> > +++ b/man/man2/sched_setattr.2
-> > @@ -81,6 +81,10 @@ a deadline scheduling policy;
-> >  see
-> >  .BR sched (7)
-> >  for details.
-> > +.TP 14
-> > +.B SCHED_EXT
-> > +for extensible scheduling policies implemented via BPF
-> > +(see \fBsched_ext\fR(7)).
-> 
-> Please follow the style within that manual page.  We avoid \f unless
-> truly necessary.
+--4l6nqomcqe4rqrpz
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] man7, man2: document SCHED_EXT policy
+MIME-Version: 1.0
 
-Ack! This is my first time contributing here, so I'm still catching up
-on the specific style rules.
-> 
-> >  .P
-> >  The
-> >  .I attr
-> > @@ -95,7 +99,8 @@ struct sched_attr {
-> >      u32 sched_policy;      /* Policy (SCHED_*) */
-> >      u64 sched_flags;       /* Flags */
-> >      s32 sched_nice;        /* Nice value (SCHED_OTHER,
-> > -                              SCHED_BATCH) */
-> > +                              SCHED_BATCH,
-> > +                              SCHED_EXT) */
-> 
-> Why break the line?
-> 
-> >      u32 sched_priority;    /* Static priority (SCHED_FIFO,
-> >                                SCHED_RR) */
-> >      /* For SCHED_DEADLINE */
-> > @@ -218,8 +223,10 @@ This field specifies the nice value to be set when specifying
-> >  .I sched_policy
-> >  as
-> >  .B SCHED_OTHER
-> > +,
-> 
-> What's the reason for this weird formatting of the source code?  At this
-> point I wonder if this was generated by AI.
+[stripping distribution down to just the linux-man list and Alex]
 
-Yes, I used AI for the formatting, which I should disclose it, hence the
-weird layout. Apologies for that. I believe the content is solid, but the
-style needs adjusting. I'll send a v2. Thanks.
+At 2026-04-23T00:13:57+0800, Cheng-Yang Chou wrote:
+> On Wed, Apr 22, 2026 at 06:02:49PM +0200, Alejandro Colomar wrote:
+> > > @@ -218,8 +223,10 @@ This field specifies the nice value to be set wh=
+en specifying
+> > >  .I sched_policy
+> > >  as
+> > >  .B SCHED_OTHER
+> > > +,
+> >=20
+> > What's the reason for this weird formatting of the source code?  At
+> > this point I wonder if this was generated by AI.
+>=20
+> Yes, I used AI for the formatting, which I should disclose it, hence
+> the weird layout.
 
-> Please take into account 'CONTRIBUTING.d/ai'.
-> 
-> > +.BR SCHED_BATCH ,
-> >  or
-> > -.BR SCHED_BATCH .
-> > +.BR SCHED_EXT .
-> >  The nice value is a number in the range \-20 (high priority)
-> >  to +19 (low priority);
-> >  see
-> > diff --git a/man/man2/sched_setscheduler.2 b/man/man2/sched_setscheduler.2
-> > index b4c35543e5bf..825eb7290ee7 100644
-> > --- a/man/man2/sched_setscheduler.2
-> > +++ b/man/man2/sched_setscheduler.2
-> > @@ -67,6 +67,10 @@ and
-> >  for running
-> >  .I very
-> >  low priority background jobs.
-> > +.TP
-> > +.B SCHED_EXT
-> > +for extensible scheduling policies implemented via BPF
-> > +(see \fBsched_ext\fR(7)).
-> 
-> Please check formatting.
+I don't know, man, I stuck a comma on a line by itself in a man page
+just the other day.  ;-)
 
-Ack.
+https://lists.gnu.org/archive/html/groff-commit/2026-04/msg00282.html
 
-> >  .P
-> >  For each of the above policies,
-> >  .I param\->sched_priority
-> > diff --git a/man/man7/sched.7 b/man/man7/sched.7
-> > index 00926cd34ecf..2e73a4c716b9 100644
-> > --- a/man/man7/sched.7
-> > +++ b/man/man7/sched.7
-> > @@ -116,6 +116,13 @@ and
-> >  .BR sched_get_priority_max (2)
-> >  to find the range of priorities supported for a particular policy.
-> >  .P
-> > +Since Linux 6.12, there is an extensible BPF scheduling policy
-> > +.RB ( SCHED_EXT ),
-> > +which allows for custom scheduling algorithms to be implemented as BPF
-> > +programs.
-> > +See
-> > +.BR sched_ext (7).
-> > +.P
-> >  Conceptually,
-> >  the scheduler maintains a list of runnable threads for each possible
-> >  .I sched_priority
-> > @@ -529,6 +536,12 @@ priority (lower even than a +19 nice value with the
-> >  or
-> >  .B SCHED_BATCH
-> >  policies).
-> > +.SS SCHED_EXT: Extensible BPF Scheduling
-> > +Tasks with this policy are managed by an extensible scheduler class,
-> > +which allows for custom scheduling algorithms to be implemented as
-> > +BPF programs.
-> > +See
-> > +.BR sched_ext (7).
-> >  .\"
-> >  .SS Resetting scheduling policy for child processes
-> >  Each thread has a reset-on-fork scheduling flag.
-> > diff --git a/man/man7/sched_ext.7 b/man/man7/sched_ext.7
-> > new file mode 100644
-> > index 000000000000..7ea467e18b84
-> > --- /dev/null
-> > +++ b/man/man7/sched_ext.7
-> > @@ -0,0 +1,100 @@
-> > +.TH SCHED_EXT 7 2024-04-13 "Linux" "Linux Programmer's Manual"
-> > +.SH NAME
-> > +sched_ext \- Extensible BPF Scheduler Class
-> > +.SH SYNOPSIS
-> > +.B #include <linux/sched.h>
-> > +.PP
-> 
-> The use of P and PP seems very inconsistent.
-> 
++We prefix macro names with
++_ifstyle()dnl
++a dot
++.RB ( . ),
++_endif()dnl
++the default
++.I roff
++control character\c
++_ifstyle()dnl
++,
++_endif()dnl
++_ifnotstyle()dnl
++\&
++_endif()dnl
++in summaries and synopses.
 
-Ack.
+(Lest anyone hyperventilate, that's not a man(7) document per se, but an
+m4(1) document that _generates_ a man(7) document.)
 
--- 
-Cheers,
-Cheng-Yang
+Regards,
+Branden
+
+--4l6nqomcqe4rqrpz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmno+OoACgkQ0Z6cfXEm
+bc7eDhAArb01MMLM/F9V84urB71UBtzNEkDKS6naBhN5mhEuff+jrqSVkbk6LJ3l
+V0h8LsTRrEVMnjQPG4CZQ79Y5Ihhx5md/1LVZFmHkLEHLZmbD5VfwH/P6eX27HYt
+LUPm9x2rXDtqsRIKjoWlRnOrc1YC+Vqo2WZn8ayfC2ard1XO1N2K/rQI+TQc5KXz
+QOf1HxLhc+AvFm4AOfgIiq0kTG9gwTc/y1Jkk7P/eksWmsaGAcrl+O0XualHj94z
+x0/MosKndfWB2t4izOArtRaRcPhhuMoylvzR/iyH9lommWA7UB0vLRW5VRO+SmgR
+jCwVsL0d/5uhMP+w6EwfkFQyQoMKKGxDPqbWY9J335AbkyzMYbIBKW6lbJdQ2cMu
+9hmxx9sxSKVLSJUiWthTi8gffzAqlXj8vhWNNwQElsqDGmRDnhcT23gyPLABmSnQ
+/U/qQtgxvnRvtewfbDTu6OzXl8gWqqHa3HXvLMVs9oOWXqouKVyvBGGn/Apzhcb8
+RsFU3RCjCKLlayYi2WX3hToE7IpXtEJo3hwrS79g9DvXESOQAAcwtZecCSZmU+vB
+2hYbshdLoCyHWsvwlx2Ocksb7wstvFhaKTdwfDabU9sdeL+P2kUF2eM9/oD8UG4s
+/n6gt72CZwXKu5nGJcwlYrVNpz3KOaBTMmBildwzhlM1pBi+CYY=
+=AtD4
+-----END PGP SIGNATURE-----
+
+--4l6nqomcqe4rqrpz--
 
