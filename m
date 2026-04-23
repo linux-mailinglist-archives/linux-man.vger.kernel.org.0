@@ -1,284 +1,242 @@
-Return-Path: <linux-man+bounces-5390-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5391-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SLIPFC8Z6mk7uAIAu9opvQ
-	(envelope-from <linux-man+bounces-5390-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 15:05:51 +0200
+	id OC6lCCxO6mkhxgIAu9opvQ
+	(envelope-from <linux-man+bounces-5391-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 18:51:56 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB275452749
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 15:05:45 +0200 (CEST)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F3574551E5
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 18:51:55 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id EBD283014C0F
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 12:59:05 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 0858930A7D5C
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 16:44:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A85523845BC;
-	Thu, 23 Apr 2026 12:59:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B507537D137;
+	Thu, 23 Apr 2026 16:44:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bG2u0Aop"
+	dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b="LHZIzXK9"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DB83ED137
-	for <linux-man@vger.kernel.org>; Thu, 23 Apr 2026 12:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776949144; cv=pass; b=n5nQm3swl+dG6fyK1EKKkbm5xL2feKxbzCEro7Vvylda0H1Kiv4cDKhFJqXsmARmHKpPebYzsuigPf4ZN19SCACijg+XNsZTQGpbEw5CauPBuuYtYYudsiCvVurDbBzze7rzMpQaTGBzPfDaD04hgl2QOhI6TgldbVCRRoy6vB8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776949144; c=relaxed/simple;
-	bh=4rae3jvkCjQWMcvHSde4gAJUq4nke8pE4IKBx+HyCyg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b4oQkUoJWPXIoMVHLrV6oGcWKIOzhoY6ir7Xa4tF7unE/2r1W+fKkMx3Ct4bWzsVy3I2NVwjObcjVNw9es26esEdWPbRcimQo8PXsvNBaMysXCDCC7Oooi9RDUH2qVyRoZFTARuB4GdZuoQ6fk8G3Msj+IM5cIy7eX8yiD7m+C8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bG2u0Aop; arc=pass smtp.client-ip=209.85.208.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-38e12c67a6fso65693341fa.1
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2026 05:59:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776949141; cv=none;
-        d=google.com; s=arc-20240605;
-        b=KlPESyqKtjmAl1EE3KhEoxH1snlObXW/NIE42YyHKT4HTdfUTHPm0sHeIZazHN+OCo
-         5XNj4tvdUlYG2sxoHVMTpT3u7UMZXJ7DTev9Nz5jOZ8eqjwp7yrUn53XYu1JrIzzmue2
-         z168brYmE6eWMPy3eRZgstPK2LtyzXi7RQvL5uQf61uZD7yI9GDnBN2K2Ze4JgIQquan
-         V9teC06XORy8PcT0y37ooP7LxZh5y6VXrZM0FO032AK0xH8F2mVSE6VBFA/4F5DhwPKI
-         gySsmWv6lsJD8qRxjksmDkyCLwULV/9mPBpQ7QtrKp4/60I+QBSJlmmtX3o3UjGdH0Ke
-         9eZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EBoOCn6MiDkjwqqV0dZhBM0Mdu5029Jkm3x6gtbaC2A=;
-        fh=VTWHpDpUhHds2uj34ETBc4nqU8m/B2XquH+S9h87JD0=;
-        b=PqlFNG1XJ/utuvwUFbUIfl9j4Rsr9idtN9jY1VZHJRAqjvFa6ZlpDR+TOq7tyvlEvq
-         NNu1ejDFkjRdLfIaIqhtjiJJMbSUyNSUxpSadl/5+bTCupGLLef2DpVFq6iLM9soC5Uk
-         XCl3zb2ca7Iaa38WZ2bbJlJaKXGUhdL14u/Pwcd3f21B7mJsWi2HD3/Pr0aFkz6U5Npo
-         Jx1SSRg3bQezBRdrYqmB4yYI59JUiSUozx/L+a9FehuXo7bXIlRsG7OOrUsklGkzuHd0
-         mqrHQAfmx/Z+MduH/+MQplCZn9x6KOAdpVp2wUgo956wNDhPUWgHe8iuXM8y0KJiPXa5
-         NOdw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BAD2566E9
+	for <linux-man@vger.kernel.org>; Thu, 23 Apr 2026 16:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776962659; cv=none; b=olW8KqRQ9jMwMhFM9JEnbzhKj/ofMmzWfrcYWIsQNUch8HdXB+VI24g9XHidNhvgCeAQ1PVBi5fq1N+fokZ2UEA6HOfxCfG8xssTwHDx3lumJB/UVmv5D2cYGmRjoraFLDq14dJyhyd3khQftMt/zeG8DxPtGOOtD5spiPumiY8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776962659; c=relaxed/simple;
+	bh=pjBQHKxVpR1a0E5Gdd6suoj9LVz7aCG1aVO9QOMe0Gk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rQyRyGz0AoZCCKhHg9MKT4dFOpqDlVJcLl5pK0MX8xckwZSKtOcxt4deBn0OVmR0XXx9xLdYDKZQ2xLhKtkLAxq691afwhEm9IQC9wiQnHeK5udQKyy/mlFbQbz0twoVckNby+piU9+QeHhi/n6WhxbPf3v9+4p6B+zvq8oVSNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu; spf=pass smtp.mailfrom=dartmouth.edu; dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b=LHZIzXK9; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dartmouth.edu
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-50fc496c8baso20588571cf.3
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2026 09:44:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1776949141; x=1777553941; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EBoOCn6MiDkjwqqV0dZhBM0Mdu5029Jkm3x6gtbaC2A=;
-        b=bG2u0Aop56vhc+nRqkpeoGvOZnMa226qONh/rVp0mOEW8Jb5ARrCa+hd1kb1ia+SLt
-         3ZoBTUOdUPjOVYP2U0RpbAmgr7am8+MB1MnxOJrP4odc2kEL0gTiomU+tTqZ0294oA8F
-         0g2FKQqQWvJuSl1SPR9TG68yQJH3iraqMicM8U5aNP46RFaZ8yNdyu+jwSO2cLxhJfg7
-         hZWIdjuuGhCbcX7Gf10Gwdg3wWi51sS75wZ+bCWqTafp3KKkMmBP1nreH8BV+rdGUIw+
-         ifgtDS/EnSg6hTo8+qxoGPX4ErP+kMR/QoiXA/xMsHh7Zjw02LLYsAXFW5q0KUFuBdZs
-         XJFw==
+        d=dartmouth.edu; s=google1; t=1776962657; x=1777567457; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hMQF2Qiw2GzUJbOXH73g1EftLMT9CErk63qUkm44Tik=;
+        b=LHZIzXK9zjKeGwDCnn2HZHqXbd8atSwHQvOGlaADr2S5vxQ/QX2daSjcu5MaCQciPU
+         q2Uhhw/39LJFD5CySjFD7bmzstpB8LcclY1XouczGTY2mZeglkJHpTpTsDHXyhNLhNI7
+         RbbxfEs9oDvAjkRz0oZjtNmDEqcBzsmMOympTiazmB1b+oyPzZLU59AIJhXZTqc1jdL6
+         /J2iNaQB+P2HLyk8zPvKnVnAoFW8F6+zV7ZYfKr0q2jwwI7L5gD9z2vLD49ybQEV1XfB
+         q7hs4MTJmMTLRFsg5nvlrCwjDdqc2YL7Rp/6EmlgY/CTRBXhPXRrrBEhSoomuXlRpxZv
+         LjXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776949141; x=1777553941;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=EBoOCn6MiDkjwqqV0dZhBM0Mdu5029Jkm3x6gtbaC2A=;
-        b=oS3J1GFPbafASzQiDKMT+bZcLun1Y6RyVpFqTxccl4UnnQWzLyZaovhhg9qV7iqOs+
-         gGL0X0TVJe4r0Ha3I4hJUpKJiJh5jSDIhZibhFs/rQajGhdzHGtxJ2/XwOfjsZb/EB2H
-         /oi+S2cHOM1XMiU/kw9UhM9c/G8EawO6xaOfyRmEawOF+hcrMIXD7zeMN9uwUHSKpl2P
-         vVkNHuL+1xYipVY45ouebJ3Qrk7wr5feAW9gNaKREZWXXxhPpeOh5c0BR5k8ESQAk8Lx
-         33y7nODCuuUqIRBWjsQbWjZmcEOTQjghLUHuzbEwL7d8Km1IW4HbEQgcx/3bW0IxSYNq
-         UuAg==
-X-Forwarded-Encrypted: i=1; AFNElJ9LsV1Prbb+2BLDH6bbMuRzDk80lI8XgN2J59HJwTg9vBO2W6EHg9jMeODvAm+88tCEPKB5STpItEg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzuwijVg44K0qff7TBZrcUn2rLlepmxBCVWxDXGhnxoD9DABUxg
-	X+ALeIKTVbbCofN8ULmxh5/m/iitaRDuSxA96Yd4aGKRmNwB5eJpDi/OwL7LBYNbCowPKlXYtH7
-	HOkUGfV6FuPvfEg2Vvar5lU/yy7iqqHUSenFrypjT
-X-Gm-Gg: AeBDieuewTEeNayUteNY8Lz4hHWYrPtw+qggBExOgbJ+dVcL0lyfgaRjU81ULfc3v2u
-	uerGpjpHwt2QxHT8yP/2bytIavdu8RBSoX0Fm/ZG5MnVQlB7WKGiLpUeN+3UBwOUfdiSsGCDJ8P
-	HPTKblz4DGkSpkGiwcK0ThQfuVLSQwIkSFiDOk4OCZ5v3rJY217QVKQYxWNbuZFOvieDRKCKtGQ
-	WnKaV1qxdyJh5bv/Vkug+P39Qj5KhQRGg1021MKtDMIJWiAiZinI+eL0UgFz/ptw3TSP5wAZTGr
-	/7xr2oOs1aNEw3Rg9Nyfnzufdr0UAFmp5j17frFAu4p+43oQ6GeOI+S6X5JBo44zU0GWFh0TqMG
-	ZDmkt5ZDnfQHJEUY=
-X-Received: by 2002:a05:651c:4209:b0:38e:d870:1db5 with SMTP id
- 38308e7fff4ca-38ed8701e80mr69433801fa.7.1776949140643; Thu, 23 Apr 2026
- 05:59:00 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1776962657; x=1777567457;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hMQF2Qiw2GzUJbOXH73g1EftLMT9CErk63qUkm44Tik=;
+        b=MIdMRuXNGmwm2O1PbQwHRp2QV17FZ2HnxhjahOrZJNT/2TQU+wuIfuz0pUFUbOcOPF
+         BOLYOBmbokCtU2q12KGEwgvYDj9rH/R5GYyLEshFnt8SSQ832Y7/B/yGDaDa/LNtMrlr
+         Npfjgo/nJR3I8u8/3/0tqmD+Ou+zTsQrQPlyIaJWx+nCRefx/YYQDPTSFOthne/CZy56
+         tWDnlZLY0GzW14LSFzqjFd0eUteAiSr91sLmE3gv1Q1eECceXdeItgOHqARvFZiw3VXy
+         xvpjRGCr5suG0bd4AujYFtA9NIC5OwErk8syX2XfqZZOw34+h7GBo4EVvM/jkNz6o911
+         Qr1Q==
+X-Gm-Message-State: AOJu0YwGHdHYwI+nZuWh0X55VHHV6DDW5UAELq2yiuHc79/cq/fw1b6l
+	if5LghWdElCqcmfacVUVzJPHIsKDuooiIeZlTH/r9LBkxOxx1nUB7+5T7FjFU82xya4OoJAjWNg
+	iHvInMYg=
+X-Gm-Gg: AeBDievGkfggGQTeDQ4igE9qdXXiEFgyW64a4F+chICBu4rXbxkEKo+HgL10aIe8guz
+	zMI7q7QExS/xxi5TrwQU7fjnH03Wwe6IjJ6lwmA8OVxpWKfAIk+5NML6h7+ohqjN17tnop4Wk64
+	415LVL7fhh2vmOMFHMrLIBi00xWHKyI5HYCwxDnH6eQvf/iJ0+9fVIbkstFfjY1FJPh570nLg/n
+	XFSK9gnGGzfsUSwdEjUG8LbeqOaQMoi3PrFoyNnR5zRk9d8z+jfR2X5YRhFC/BgLjkJlU0eEqM2
+	jLHOfGUn0aZKKmnNgDRvgoDnjr4JIK5R8dMy8XW5CZ9c+1t712cojlDQWGkiL3/rTVeCy65jeFl
+	buzZyX2KpYrxeHmWVemrE7MU1KWM8wKf1+AYfcE1xlcTmWVmGbn3DVTXj3V2FhHF0jYlREmLuMU
+	EFNqbS4wZNAOHjSaVITmR1tC4Z6mRxfVraqf/GCMz1ObV03g9xXjDedXTYsrwIdHT0jkuEF+1x2
+	SlvRWEK35cjZgOKg29/9oOGHMV2NwMu3SWkz59Ym8GA2HiL4ASSxrh+a5BgmPAom8U4bxMcPehE
+	zajgCSM+TStkQacZZQgPGEWa4dd0APSaGQ4mqSw80z0z4/bqHtsLce5aMeYq8bmDuRwNzfRmYL4
+	TzMh0yeSB1yPWAX3yUHOOLRiGhkO0patTN+sNRyVAmypJXK9/QwAOhzrSKiOBn65JHNo05NWeZQ
+	MXbd0H6YBQq9yOVlckOwuSaIg=
+X-Received: by 2002:a05:622a:2517:b0:501:17a9:5ff5 with SMTP id d75a77b69052e-50e36b42a52mr411019971cf.21.1776962656905;
+        Thu, 23 Apr 2026 09:44:16 -0700 (PDT)
+Received: from localhost ([129.170.196.71])
+        by smtp.gmail.com with UTF8SMTPSA id d75a77b69052e-50e393ff941sm167047051cf.19.2026.04.23.09.44.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Apr 2026 09:44:16 -0700 (PDT)
+From: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+Subject: [PATCH] man/man2/mmap.2: Document when MAP_GROWSDOWN does/doesn't trigger growth
+Date: Thu, 23 Apr 2026 12:44:14 -0400
+Message-ID: <20260423164414.1952395-1-benjamin.p.kallus.gr@dartmouth.edu>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAHnCjA25b+nO2n5CeifknSKHssJpPrjnf+dtr7UgzRw4Zgu=oA@mail.gmail.com>
- <aejCaG6n9s7ak5TO@J2N7QTR9R3.cambridge.arm.com> <87zf2u28d1.ffs@tglx>
- <aekPXvvuKHKlETjm@J2N7QTR9R3.cambridge.arm.com> <87wlxy22x7.ffs@tglx>
- <c5331cd6-76c8-430d-978e-fcad164e48f6@huawei.com> <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
- <1e839a25-d15f-40d3-ad6a-20469fb6137c@efficios.com> <CACT4Y+bMH+q2C7Xg9oHRP5ZbmvLpMpYzrdAd7B6XoXYc8=22sQ@mail.gmail.com>
- <84e0a8f6-c24c-469a-82a4-e82e33b764b4@efficios.com>
-In-Reply-To: <84e0a8f6-c24c-469a-82a4-e82e33b764b4@efficios.com>
-From: Dmitry Vyukov <dvyukov@google.com>
-Date: Thu, 23 Apr 2026 14:58:48 +0200
-X-Gm-Features: AQROBzBMZhPIR5gRUuR2Cv8QJN7ZCnPb8ovR-0L9yVQuuYL1RfgenAYTSh02Kxg
-Message-ID: <CACT4Y+aSvv-n4gknRm8D=pLGsnh7PU3f5MTJSq4tTPqUWn80+A@mail.gmail.com>
-Subject: Re: [REGRESSION] rseq: refactoring in v6.19 broke everyone on arm64
- and tcmalloc everywhere
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>, linux-man@vger.kernel.org, 
-	Thomas Gleixner <tglx@linutronix.de>, Mark Rutland <mark.rutland@arm.com>, 
-	Mathias Stearn <mathias@mongodb.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun.feng@gmail.com>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, Chris Kennelly <ckennelly@google.com>, regressions@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	Blake Oler <blake.oler@mongodb.com>, Michael Jeanson <mjeanson@efficios.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-0.66 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
-	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	MID_CONTAINS_FROM(1.00)[];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[dartmouth.edu,none];
+	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
+	R_DKIM_ALLOW(-0.20)[dartmouth.edu:s=google1];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5390-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[huawei.com,vger.kernel.org,linutronix.de,arm.com,mongodb.com,kernel.org,gmail.com,google.com,lists.linux.dev,lists.infradead.org,infradead.org,efficios.com];
-	RCPT_COUNT_TWELVE(0.00)[18];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MAILSPIKE_FAIL(0.00)[2600:3c0a:e001:db::12fc:5321:query timed out];
+	TAGGED_FROM(0.00)[bounces-5391-lists,linux-man=lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	RCPT_COUNT_THREE(0.00)[3];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dvyukov@google.com,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[google.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	FROM_NEQ_ENVFROM(0.00)[benjamin.p.kallus.gr@dartmouth.edu,linux-man@vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[dartmouth.edu:+];
+	RCVD_COUNT_FIVE(0.00)[5];
 	TAGGED_RCPT(0.00)[linux-man];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,efficios.com:url,efficios.com:email,mail.gmail.com:mid]
-X-Rspamd-Queue-Id: BB275452749
+	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,dartmouth.edu:email,dartmouth.edu:dkim,dartmouth.edu:mid]
+X-Rspamd-Queue-Id: 8F3574551E5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, 23 Apr 2026 at 14:53, Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
->
-> On 2026-04-23 08:36, Dmitry Vyukov wrote:
-> > On Thu, 23 Apr 2026 at 14:29, Mathieu Desnoyers
-> > <mathieu.desnoyers@efficios.com> wrote:
-> >>
-> >> On 2026-04-23 01:53, Dmitry Vyukov wrote:
-> >> [...]
-> >>> +linux-man
-> >>>
-> >>> This part of the rseq man page needs to be fixed as well I think. The
-> >>> kernel no longer reliably provides clearing of rseq_cs on preemption,
-> >>> right?
-> >>>
-> >>> https://git.kernel.org/pub/scm/libs/librseq/librseq.git/tree/doc/man/=
-rseq.2#n241
-> >>
-> >> I'm maintaining this manual page in librseq.
-> >>
-> >>>
-> >>> "and set to NULL by the kernel when it restarts an assembly
-> >>> instruction sequence block,
-> >>> as well as when the kernel detects that it is preempting or deliverin=
-g
-> >>> a signal outside of the range targeted by the rseq_cs."
-> >>
-> >> I think you got two things confused here.
-> >>
-> >> 1) There is currently a bug on arm64 where it fails to honor the
-> >>      rseq ABI contract wrt critical section abort. AFAIU there is a
-> >>      fix proposed for this.
-> >>
-> >> 2) Thomas relaxed the implementation of cpu_id_start field updates
-> >>      so it only stores to the rseq area when the current cpu actually
-> >>      changes (migration).
-> >>
-> >> So AFAIU the statement in the man page is still fine. It's just arm64
-> >> that needs fixing.
-> >
-> >
-> > My understanding was that due to the ev->user_irq check here:
-> >
-> > +static __always_inline void rseq_sched_switch_event(struct task_struct=
- *t)
-> > ...
-> > +               bool raise =3D (ev->user_irq | ev->ids_changed) & ev->h=
-as_rseq;
-> > +
-> > +               if (raise) {
-> > +                       ev->sched_switch =3D true;
-> > +                       rseq_raise_notify_resume(t);
-> > +               }
-> >
-> > There won't be any rseq-related processing for threads preempted in
-> > syscalls, which means that rseq_cs won't be NULLed for threads
-> > preempted inside of syscalls.
->
-> Let's see if I understand your concern correctly. Scenario:
->
-> A thread is within a rseq critical section. It exits the critical
-> section without clearing the rseq_cs pointer, expecting the kernel
-> to lazily clear the rseq_cs pointer eventually when it detects that
-> it's not nested on top of the userspace critical section anymore.
-> It then calls a system call _outside_ of the rseq critical section,
-> but with rseq_cs pointer set. Based on the rseq man page wording,
-> it would then expect the preemption within the system call to guarantee
-> clearing that that pointer.
+The man page states that MAP_GROWSDOWN can only cause a mapping to
+grow by a single page.  This is incorrect; mappings can grow by many
+pages at a time, until reaching either the stack size limit or growing
+too close to another mapping.
 
-Yes, this is the scenario I had in mind.
+To observe that mappings can grow by more than one page, and that they
+are limited by the stack size limit, run the following C program with a
+stack size limit of 0x800000 bytes, and then again with a stack size limit
+of 0x801000 bytes, and observe that it segfaults as the comments describe.
 
-> Here is the relevant comment block in the man page:
+> struct page {
+>     char data[4096];
+> };
+> static_assert(sizeof(struct page) == 4096);
 >
->                       Updated by user-space, which sets the address of  t=
-he  cur=E2=80=90
->                       rently active rseq_cs at the beginning of assembly =
-instruc=E2=80=90
->                       tion sequence block, and set to NULL by the kernel =
-when  it
->                       restarts an assembly instruction sequence block, as=
- well as
-> >>>>>>>>>
->                       when the kernel detects that it is preempting or de=
-livering
->                       a  signal  outside  of  the  range targeted by the =
-rseq_cs.
-> >>>>>>>>>
->                            ^^^ this
+> void *const BASE_ADDRESS = (void *)0xabcdef000;
 >
-> The whole point about lazy-clearing of rseq_cs is that it _may_ happen wh=
-en
-> the kernel preempts or delivers a signal (or at any point really), but it=
-'s
-> just an optimization.
+> int main(int const argc, char const * const * const argv) {
+>     volatile struct page *p = mmap(
+>         BASE_ADDRESS,
+>         1,
+>         PROT_READ | PROT_WRITE,
+>         MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN | MAP_FIXED_NOREPLACE,
+>         -1,
+>         0
+>     );
+>                              // stack_limit=0x800000 // stack_limit=0x801000
+>     (p - 2047)->data[0] = 0; // no segfault          // no segfault
+>     (p - 2048)->data[0] = 0; // segfault             // no segfault
+>     (p - 2049)->data[0] = 0; // segfault             // segfault
+> }
+
+To observe that mappings stop growing when they get within 256 pages of
+the next lower mapping (instead of a single page, as the man page
+currently states), run the following program, and observe that it
+segfaults as the comments describe.
+
+> struct page {
+>     char data[4096];
+> };
+> static_assert(sizeof(struct page) == 4096);
 >
-> Updating the manual page with this wording would match the intent:
+> struct page *const BASE_ADDRESS = (void *)0xabcdef000;
 >
->                       Updated by user-space, which sets the address of  t=
-he  cur=E2=80=90
->                       rently active rseq_cs at the beginning of assembly =
-instruc=E2=80=90
->                       tion sequence block, and set to NULL by the kernel =
-when  it
->                       restarts an assembly instruction sequence block. Ma=
-y be set
->                       to NULL by the kernel when it detects that the curr=
-ent
->                       instruction pointer is outside of the range targete=
-d by
->                       the rseq_cs.
->                       Also needs to be set to NULL by user-space before  =
-reclaim=E2=80=90
->                       ing memory that contains the targeted struct rseq_c=
-s.
+> int main(int const argc, char const * const * const argv) {
+>     volatile struct page *p = mmap(
+>         BASE_ADDRESS,
+>         1,
+>         PROT_READ | PROT_WRITE,
+>         MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN | MAP_FIXED_NOREPLACE,
+>         -1,
+>         0
+>     );
 >
-> Thoughts ?
+>     struct page *p2 = mmap(
+>         BASE_ADDRESS - 258,
+>         1,
+>         PROT_READ | PROT_WRITE,
+>         MAP_ANONYMOUS | MAP_PRIVATE | MAP_FIXED_NOREPLACE,
+>         -1,
+>         0
+>     );
 >
-> Thanks,
+>     // no segfault (causes p to grow by a page)
+>     (p - 1)->data[0] = 0;
 >
-> Mathieu
+>     // unmap the test page
+>     munmap(p2, 1);
 >
-> --
-> Mathieu Desnoyers
-> EfficiOS Inc.
-> https://www.efficios.com
+>     // unmap the new page from p growing
+>     munmap((struct page *)p - 1, 1);
+>
+>     struct page *p3 = mmap(
+>         BASE_ADDRESS - 257,
+>         1,
+>         PROT_READ | PROT_WRITE,
+>         MAP_ANONYMOUS | MAP_PRIVATE | MAP_FIXED_NOREPLACE,
+>         -1,
+>         0
+>     );
+>
+>     // segfault because p can't grow due to proximity to p3
+>     (p - 1)->data[0] = 0;
+> }
+
+Fixes: 176b1a76 (2016-11-21; "mmap.2: Add (much) more detail on MAP_GROWSDOWN")
+Signed-off-by: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+---
+ man/man2/mmap.2 | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
+index 20b94c243..925b18ffc 100644
+--- a/man/man2/mmap.2
++++ b/man/man2/mmap.2
+@@ -276,11 +276,11 @@ should check the returned address against the requested address.
+ This flag is used for stacks.
+ It indicates to the kernel virtual memory system that the mapping
+ should extend downward in memory.
+-Touching an address in the "guard" page below the mapping will cause
+-the mapping to grow by a page.
+-This growth can be repeated until the mapping grows to within a
+-page of the high end of the next lower mapping,
+-at which point touching the "guard" page will result in a
++Touching an address below the mapping will cause the mapping to grow to
++accommodate the access.
++This growth can be repeated until the mapping crosses the stack size limit,
++or grows to within 256 pages of the high end of the next lower mapping,
++at which point accessing below the mapping will result in a
+ .B SIGSEGV
+ signal.
+ .TP
+-- 
+2.54.0
+
 
