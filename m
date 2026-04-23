@@ -1,183 +1,293 @@
-Return-Path: <linux-man+bounces-5383-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5384-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cN74ITT76WnkpwIAu9opvQ
-	(envelope-from <linux-man+bounces-5383-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 12:57:56 +0200
+	id MKAqHrUM6mn4sgIAu9opvQ
+	(envelope-from <linux-man+bounces-5384-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 14:12:37 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id E64E8450FD1
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 12:57:55 +0200 (CEST)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D8D0451CD8
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 14:12:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 4AA1D301C16F
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 10:51:53 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 410E73006085
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 12:11:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CCB433E4C97;
-	Thu, 23 Apr 2026 10:51:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 091383EBF3C;
+	Thu, 23 Apr 2026 12:11:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mongodb.com header.i=@mongodb.com header.b="cV3e3j+c"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XKU6GPXs"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3518C37C11D
-	for <linux-man@vger.kernel.org>; Thu, 23 Apr 2026 10:51:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776941512; cv=pass; b=ngGYHmbGxse7epaqdMm2g23VjxhR0T6o2yc6VoDGhIqswPGJPmctI/lof+O8qVU2JTNIZGwa4A7ZOxguSol9xlcStMSWR3h5BGvOvxGompGKAEkfPDJW+KgVUj4Gb5PNHd4Tc9HZmp2N8qh3xLYkj2ongZWA0g/HB+X8kvUe2kA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776941512; c=relaxed/simple;
-	bh=HwJeUPIs3Q9zE26Fm/1dIX8r2a7GFCDoFLztB0f7WGs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NkNCH2de65u+Y1y4L5Z9RVdR1HFw48iJUbxxV1XZPAw3gvdVhL4o09R01UhdkKeZhkU1RMxwxXTW6+Xd+UnlDTa21Ty61HaR1Vs6YyoBQEQ4Hzlk2Z44Z/xOEom/Vi2RJ57xfqXFFcmR01KYWohDDT/a9kZf/h9++fMxm9TSh+U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mongodb.com; spf=fail smtp.mailfrom=mongodb.com; dkim=pass (1024-bit key) header.d=mongodb.com header.i=@mongodb.com header.b=cV3e3j+c; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mongodb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mongodb.com
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6714fa8b955so11538238a12.0
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2026 03:51:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776941510; cv=none;
-        d=google.com; s=arc-20240605;
-        b=C10baGjks7NC7by3ojB1sG3NAQBYW+2dHS7yvGZBcm4Ag9u3slxgTIqu8H+LOvFYZi
-         IrMENjbDNxNsFylNUCrHsYdVUYB+Mu0fK2n0NgXodUGT84tZQ/jTuGNpAV5U3MlXJidN
-         Fqk3Ux3lTKW+vDDoDu6qPYpL88qudjah7IcNdws0/jHU3AhZY2SRwp7B5B5/TDZ6Q76T
-         cubPGBMchBFQt10gsdYm6SeVHLe4lI0mm0N/HfcU26/yzPhI6jCNtwygKpsRxC/gr0DZ
-         qI2KhbmwVjvU/vLSGSlP66D6diVJs5H2uu03zATjETp2fXSLtNsG3ukUgpKIl6hV6B7n
-         9dKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4u0NLqUbLY9OPqLjh5qipvi/NJ3ZqeW6p4Eergru/hM=;
-        fh=3adpBnRvpaDh3GpNIlkF0Oluj36xknmF2SQnHENfXTE=;
-        b=e5sa9FUnxNGLVkUvGeso/RWp5lDdOgDh2CPybVHNov1GEqPr6eMuP3sjc22E++KY4u
-         ZQb4VGM5qV7WNtPhTN0lhknfrds57oOqd8f7osn8gjTc5gqjXxbh/zEUkpCkIyrUR8U1
-         2Z9fic5NI5okLRrGHAqIqbm4nYXfN/JT8TyJHUCkcsgiNPwAwqQk4gLMDtSkXdpYuhaA
-         oLImzkE/yVDo5uVWdJC7FIhqoVKmxPpIa9Qdo5FOxMHJ6VkTGJye9VNoKgsypTvpy95w
-         ARUAAP89WD+4ekqJCWMU4MpO4+XgdaZ0ZZIIyEddk4FgsA+6odY3gvwmOLFPiAwP0wQj
-         2bCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mongodb.com; s=google; t=1776941510; x=1777546310; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4u0NLqUbLY9OPqLjh5qipvi/NJ3ZqeW6p4Eergru/hM=;
-        b=cV3e3j+coG+ea8vuj/Z+IwnYtCaGoKxN3eGKnWSYJNldzx+MZEJmEaH8ZznpGizyyI
-         5fGw3a+7ZLK7UVFu3yO7aPVNQ6EwDLZ3WWKi6jpyyi68wvMb7+fee8McoA5evyvjjNj9
-         uZ3BCBpOqs0jNuwgQyNVQ5+N1iq2tUjLkTsxo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776941510; x=1777546310;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=4u0NLqUbLY9OPqLjh5qipvi/NJ3ZqeW6p4Eergru/hM=;
-        b=tDiT3QqOWjIogjjq3YVciKei/kfCPV2YZ2Q7ftgY/KghUXbUcGHU+B0jlBtpXuK0DW
-         LC0OqZ5N++N+B4qlD1l4ZGbhbGlTdbUkZXmH4U61FIZ3xFaSee1CM2hDyQfRSDQsgmvj
-         Kp0DfSES9rS2qxOAIBte+5s2pcpdCEAB4xAxNG0kYhyrH/w47RwE0MdI5zWZBDvSVXh+
-         V1DlkGO8uQ8HeqDwnh9u5ZfBxWY+N6JCgNcjCuA3wDF2rLd0BxaGuNhUCjNeiAxvPn0A
-         flxYYkAOuOc/U5t3Wq2dz8H09AYFyXyME3x8Y1k0bt0wg7UEg2662OTeu4a2j0rHeO9i
-         TtIQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+FcW3K3NtfAmZaEVo9/ztuK2vNH8i7IFMwn+iyuLaMxJJ/Cc0Jy4rsh3Sb3OwgaApLScnBW77Jq74=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXn9mmgAxLSL/j7j4ixne76hBJiEbvgJxHFd85KnRuFSsSrKUF
-	dEu5bSaoC741+8/JtPuSF3r3EU5SNWl1VHEcf/m9/Tk70zNex1FkdAUoim39aagehagoFB3D5jk
-	LNODm3FoSxzyhBiS4M+kTsjGscYeONoD9PF0hyTSmCQ==
-X-Gm-Gg: AeBDietsODiV5dMbyjiSX6V26DqBv3aCn03JnPP72MUcf/IiY/HvEs33HF8K7VdrFMt
-	tsReZlCNUPHFW0ymOvSI1njSkAMwFpuzSHfq16MKQfArPzE7yGCu0BrJJ9pItUmTZKjqE3iUcXs
-	OJndHp2UgG3eqjtxsDzC0DeFkgHpN/E8fo/uD+30PD6e3O3+l1LIzPZIUwxt0P0EhofjyM/jwNz
-	aIcD6DKRG5U1T2Zd6OBhu5QiNRdV1oU1Abaa/XW0g+e/mstBqFkQvi+PV1ktYXtETB6xCzveLMd
-	3JeufEsFD5cax6vj9YW9RxxYAJo=
-X-Received: by 2002:a17:907:6c0e:b0:ba5:216c:56e6 with SMTP id
- a640c23a62f3a-ba5216c6068mr1253044166b.0.1776941509520; Thu, 23 Apr 2026
- 03:51:49 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB573E8684;
+	Thu, 23 Apr 2026 12:11:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776946313; cv=none; b=m+jXZjmJkOTa5tTOnDAE1wKPcCkQ9/GCzX8WSMSzZv/x9CHC8yCzal0/xJ+etEKTCtPEMn3S5EqzEHSFZgmHq1dL8XW8Y/E1GhlfiiPDKzoYCnY2qy8V31IeSQ1Ygx1sIbJAp5OKfrhwVkpcrBsxtZskqrXq/kitVMRpskXDGoE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776946313; c=relaxed/simple;
+	bh=L1/m3UVZCyk+ScG0LE/2fvksKX24JsimT5q08LcpUos=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nJqtAU9uxZNLx53DdPZP+TD9GAsj7ub2oL05sGsnuYWFeKct99Dtz70wYzyUZ2boyXF+GQug3Iwyc4uMYvsKY0ZFbDfMbM0Tx76Biuwqj15zs3kJfKRFJIbJt4garwDvQmEV8WFohvEz1azJcfytVBcKOylrEC0etn96+mmcrRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XKU6GPXs; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17264C2BCAF;
+	Thu, 23 Apr 2026 12:11:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776946313;
+	bh=L1/m3UVZCyk+ScG0LE/2fvksKX24JsimT5q08LcpUos=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XKU6GPXsVD8VNjlATQ/lKhPoqB20RQJ7rOETYqqFR/X1Fjgdc/cyCZk5q9QIg4nzb
+	 /jsd3o5oxP+h9ITB3Wgdy5aKNpnws+jgKz8+PFjRfnAavnz/WYHEGGd9P5c4uoQ1th
+	 /Yk5NtlPIyBhbTD9JFVdv5GWgN1ysARNB9Nd4B87CjQ0ESoINyk4XyOB6v4g0vA/7e
+	 qKsyWJ0KDMauEQZPTX63PV8jKnccEnzYDrroq6CZYYWzp+hsi6vpWjQoBYpn8ifR1V
+	 hD10Ii0NxDPL5ASMlVlviLgn//+mIOHQXW4doH284MdstVc1EP/zzG1eZnE0AJJmHO
+	 I2+uEH6ufxoQA==
+Date: Thu, 23 Apr 2026 14:11:45 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Dmitry Vyukov <dvyukov@google.com>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>, linux-man@vger.kernel.org, 
+	Thomas Gleixner <tglx@linutronix.de>, Mark Rutland <mark.rutland@arm.com>, 
+	Mathias Stearn <mathias@mongodb.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Boqun Feng <boqun.feng@gmail.com>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, Chris Kennelly <ckennelly@google.com>, 
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@kernel.org>, Blake Oler <blake.oler@mongodb.com>, 
+	Michael Jeanson <mjeanson@efficios.com>
+Subject: Re: [REGRESSION] rseq: refactoring in v6.19 broke everyone on arm64
+ and tcmalloc everywhere
+Message-ID: <aeoLLMcxtqShSOxs@devuan>
+References: <CAHnCjA25b+nO2n5CeifknSKHssJpPrjnf+dtr7UgzRw4Zgu=oA@mail.gmail.com>
+ <aejCaG6n9s7ak5TO@J2N7QTR9R3.cambridge.arm.com>
+ <87zf2u28d1.ffs@tglx>
+ <aekPXvvuKHKlETjm@J2N7QTR9R3.cambridge.arm.com>
+ <87wlxy22x7.ffs@tglx>
+ <c5331cd6-76c8-430d-978e-fcad164e48f6@huawei.com>
+ <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAHnCjA25b+nO2n5CeifknSKHssJpPrjnf+dtr7UgzRw4Zgu=oA@mail.gmail.com>
- <aejCaG6n9s7ak5TO@J2N7QTR9R3.cambridge.arm.com> <87zf2u28d1.ffs@tglx>
- <aekPXvvuKHKlETjm@J2N7QTR9R3.cambridge.arm.com> <87wlxy22x7.ffs@tglx>
- <c5331cd6-76c8-430d-978e-fcad164e48f6@huawei.com> <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
- <87ik9i0xlj.ffs@tglx>
-In-Reply-To: <87ik9i0xlj.ffs@tglx>
-From: Mathias Stearn <mathias@mongodb.com>
-Date: Thu, 23 Apr 2026 12:51:22 +0200
-X-Gm-Features: AQROBzA3iSwpg4ayUbVJtTBbvtVziiX6iVRBdfeBowQbJ9gb9fUCrFN004zqE30
-Message-ID: <CAHnCjA0UBNXfjHw=Y34OrAyGRNUtVF+zWd3ugyX6pd_mCk8K9w@mail.gmail.com>
-Subject: Re: [REGRESSION] rseq: refactoring in v6.19 broke everyone on arm64
- and tcmalloc everywhere
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: Dmitry Vyukov <dvyukov@google.com>, Jinjie Ruan <ruanjinjie@huawei.com>, linux-man@vger.kernel.org, 
-	Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Chris Kennelly <ckennelly@google.com>, regressions@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	Blake Oler <blake.oler@mongodb.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spamd-Result: default: False [-0.66 / 15.00];
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p6cum5clt6xozmtc"
+Content-Disposition: inline
+In-Reply-To: <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
+X-Spamd-Result: default: False [-2.26 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[mongodb.com,reject];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	R_DKIM_ALLOW(-0.20)[mongodb.com:s=google];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[bounces-5384-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5383-lists,linux-man=lfdr.de];
-	FROM_HAS_DN(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FREEMAIL_CC(0.00)[google.com,huawei.com,vger.kernel.org,arm.com,efficios.com,kernel.org,gmail.com,lists.linux.dev,lists.infradead.org,infradead.org,mongodb.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mathias@mongodb.com,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[mongodb.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
-	TAGGED_RCPT(0.00)[linux-man];
+	FREEMAIL_CC(0.00)[huawei.com,vger.kernel.org,linutronix.de,arm.com,mongodb.com,efficios.com,kernel.org,gmail.com,google.com,lists.linux.dev,lists.infradead.org,infradead.org];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,linutronix.de:email,mail.gmail.com:mid]
-X-Rspamd-Queue-Id: E64E8450FD1
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MAILSPIKE_FAIL(0.00)[2600:3c15:e001:75::12fc:5321:query timed out];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
+	TO_DN_SOME(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns,huawei.com:email]
+X-Rspamd-Queue-Id: 2D8D0451CD8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Apr 23, 2026 at 12:39=E2=80=AFPM Thomas Gleixner <tglx@linutronix.d=
-e> wrote:
-> The kernel clears rseq_cs reliably when user space was interrupted and:
->
->     the task was preempted
-> or
->     the return from interrupt delivers a signal
->
-> If the task invoked a syscall then there is absolutely no reason to do
-> either of this because syscalls from within a critical section are a
-> bug and catched when enabling rseq debugging.
->
-> The original code did this along with unconditionally updating CPU/MMCID
-> which resulted in ~15% performance regression on a syscall heavy
-> database benchmark once glibc started to register rseq.
 
-Just to be clear TCMalloc does not need either rseq_cs to be cleared
-or cpu_id_start to be written to on syscalls because it doesn't do
-syscalls from critical sections. It will actually benefit (slightly)
-from not updating cpu_id_start on syscalls.
+--p6cum5clt6xozmtc
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Dmitry Vyukov <dvyukov@google.com>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>, linux-man@vger.kernel.org, 
+	Thomas Gleixner <tglx@linutronix.de>, Mark Rutland <mark.rutland@arm.com>, 
+	Mathias Stearn <mathias@mongodb.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Boqun Feng <boqun.feng@gmail.com>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, Chris Kennelly <ckennelly@google.com>, 
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@kernel.org>, Blake Oler <blake.oler@mongodb.com>, 
+	Michael Jeanson <mjeanson@efficios.com>
+Subject: Re: [REGRESSION] rseq: refactoring in v6.19 broke everyone on arm64
+ and tcmalloc everywhere
+Message-ID: <aeoLLMcxtqShSOxs@devuan>
+References: <CAHnCjA25b+nO2n5CeifknSKHssJpPrjnf+dtr7UgzRw4Zgu=oA@mail.gmail.com>
+ <aejCaG6n9s7ak5TO@J2N7QTR9R3.cambridge.arm.com>
+ <87zf2u28d1.ffs@tglx>
+ <aekPXvvuKHKlETjm@J2N7QTR9R3.cambridge.arm.com>
+ <87wlxy22x7.ffs@tglx>
+ <c5331cd6-76c8-430d-978e-fcad164e48f6@huawei.com>
+ <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
 
-It is specifically in the cases where an rseq would need to be aborted
-(preemption, signals, migration, and membarrier IPI with the rseq
-flag) that TCMalloc relies on cpu_id_start being written. It does rely
-on that write even when not inside the critical section, because it
-effectively uses that to detect if there were any would-cause-abort
-events in between two critical sections. But since it leaves the
-rseq_cs pointer non-null between critical sections, so you dont need
-to add _any_ overhead for programs that never make use of rseq after
-registration, or add any overhead to syscalls even for those who do.
+Hello Dmitry,
+
+On 2026-04-23T07:53:55+0200, Dmitry Vyukov wrote:
+> On Thu, 23 Apr 2026 at 03:48, Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+> >
+> > On 4/23/2026 3:47 AM, Thomas Gleixner wrote:
+> > > On Wed, Apr 22 2026 at 19:11, Mark Rutland wrote:
+> > >> On Wed, Apr 22, 2026 at 07:49:30PM +0200, Thomas Gleixner wrote:
+> > >> Conceptually we just need to use syscall_enter_from_user_mode() and
+> > >> irqentry_enter_from_user_mode() appropriately.
+> > >
+> > > Right. I figured that out.
+> > >
+> > >> In practice, I can't use those as-is without introducing the excepti=
+on
+> > >> masking problems I just fixed up for irqentry_enter_from_kernel_mode=
+(),
+> > >> so I'll need to do some similar refactoring first.
+> > >
+> > > See below.
+> > >
+> > >> I haven't paged everything in yet, so just to cehck, is there anythi=
+ng
+> > >> that would behave incorrectly if current->rseq.event.user_irq were s=
+et
+> > >> for syscall entry? IIUC it means we'll effectively do the slow path,=
+ and
+> > >> I was wondering if that might be acceptable as a one-line bodge for
+> > >> stable.
+> > >
+> > > It might work, but it's trivial enough to avoid that. See below. That=
+ on
+> > > top of 6.19.y makes the selftests pass too.
+> >
+> > This aligns with my thoughts when convert arm64 to generic syscall
+> > entry. Currently, the arm64 entry code does not distinguish between IRQ
+> > and syscall entries. It fails to call rseq_note_user_irq_entry() for IRQ
+> > entries as the generic entry framework does, because arm64 uses
+> > enter_from_user_mode() exclusively instead of
+> > irqentry_enter_from_user_mode().
+> >
+> > https://lore.kernel.org/all/20260320102620.1336796-10-ruanjinjie@huawei=
+=2Ecom/
+> >
+> > >
+> > > Thanks,
+> > >
+> > >         tglx
+> > > ---
+> > >  arch/arm64/kernel/entry-common.c |   14 ++++++++++----
+> > >  1 file changed, 10 insertions(+), 4 deletions(-)
+> > >
+> > > --- a/arch/arm64/kernel/entry-common.c
+> > > +++ b/arch/arm64/kernel/entry-common.c
+> > > @@ -58,6 +58,12 @@ static void noinstr exit_to_kernel_mode(
+> > >       irqentry_exit(regs, state);
+> > >  }
+> > >
+> > > +static __always_inline void arm64_enter_from_user_mode_syscall(struc=
+t pt_regs *regs)
+> > > +{
+> > > +     enter_from_user_mode(regs);
+> > > +     mte_disable_tco_entry(current);
+> > > +}
+> > > +
+> > >  /*
+> > >   * Handle IRQ/context state management when entering from user mode.
+> > >   * Before this function is called it is not safe to call regular ker=
+nel code,
+> > > @@ -65,8 +71,8 @@ static void noinstr exit_to_kernel_mode(
+> > >   */
+> > >  static __always_inline void arm64_enter_from_user_mode(struct pt_reg=
+s *regs)
+> > >  {
+> > > -     enter_from_user_mode(regs);
+> > > -     mte_disable_tco_entry(current);
+> > > +     arm64_enter_from_user_mode_syscall(regs);
+> > > +     rseq_note_user_irq_entry();
+> > >  }
+> > >
+> > >  /*
+> > > @@ -717,7 +723,7 @@ static void noinstr el0_brk64(struct pt_
+> > >
+> > >  static void noinstr el0_svc(struct pt_regs *regs)
+> > >  {
+> > > -     arm64_enter_from_user_mode(regs);
+> > > +     arm64_enter_from_user_mode_syscall(regs);
+> > >       cortex_a76_erratum_1463225_svc_handler();
+> > >       fpsimd_syscall_enter();
+> > >       local_daif_restore(DAIF_PROCCTX);
+> > > @@ -869,7 +875,7 @@ static void noinstr el0_cp15(struct pt_r
+> > >
+> > >  static void noinstr el0_svc_compat(struct pt_regs *regs)
+> > >  {
+> > > -     arm64_enter_from_user_mode(regs);
+> > > +     arm64_enter_from_user_mode_syscall(regs);
+> > >       cortex_a76_erratum_1463225_svc_handler();
+> > >       local_daif_restore(DAIF_PROCCTX);
+> > >       do_el0_svc_compat(regs);
+>=20
+>=20
+> +linux-man
+>=20
+> This part of the rseq man page needs to be fixed as well I think. The
+> kernel no longer reliably provides clearing of rseq_cs on preemption,
+> right?
+>=20
+> https://git.kernel.org/pub/scm/libs/librseq/librseq.git/tree/doc/man/rseq=
+=2E2#n241
+
++Michael Jeanson
+
+That page seems to be maintained separately, as part of the librseq
+project.
+
+
+Have a lovely day!
+Alex
+
+>=20
+> "and set to NULL by the kernel when it restarts an assembly
+> instruction sequence block,
+> as well as when the kernel detects that it is preempting or delivering
+> a signal outside of the range targeted by the rseq_cs."
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--p6cum5clt6xozmtc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmnqDIEACgkQ64mZXMKQ
+wqkOhw/8Da6UA2wKZoxp9Y5pCSiWonaGR0g8b/70AFpL2NKqXjUZ0BFITNjSuFzE
+ieZst+w7in6RCa8NV7iEwTXriqqlUoyvkI8zhu3QVq3Z6L0BB7Nt82h3smtFxDXA
+U2Nm9emTrEbTBvrUbWOre0+e0moB+9fPzodmfgBesnk1h3vcq2MgpokO6bqqhSTY
+Y1iaKiiPY2P3nhtyyd3L/kCsQ2JezOBbkapiiOW5FRt5QiGxLBmfMxLVE3lWNGD+
+JxQoMw/g1BjXEv8AG0E85eEjc+gHMOCJ9HvCOBDs1Vvi1EqjWoZFTI+tADmp9IMa
+RgSZrliKss1nw2mfJ7rqii3BKxCGOFWqn7xT8MUO//V2D5ne+8TSiU2UCsTnlKJw
+cwnFOshth/uWpK7olfNwvmcBfruwAFumSjgD96R9rytgz3TFTL+uGEWaEJCV1KcJ
+LDPvNG/T1QgDr0CApWj2B3/GyxlIrYGs/6L3rUMQmXe11WmXMj+cFzFb5etWo9/H
+vXuqELiJVuIsWTON2xm73lDZl5ca1Sgx9xLgDSOvqGsUhGJLP4V0Q0oC7n0Lh4Hx
+92zGthChnwqyRA8Pyq67cdLjSm+L8QAGaWz1E/AuKfoKIGAe1TAePtJGcpl00BVI
+hOla9OLx9xKHnq+62YuE2+l65wO4s0+tSUOAX//7fMMIBWeEUcQ=
+=H2Wo
+-----END PGP SIGNATURE-----
+
+--p6cum5clt6xozmtc--
 
