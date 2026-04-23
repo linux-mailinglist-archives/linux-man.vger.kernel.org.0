@@ -1,297 +1,253 @@
-Return-Path: <linux-man+bounces-5380-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5381-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WHyRNRQq6Wn9VAIAu9opvQ
-	(envelope-from <linux-man+bounces-5380-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 22:05:40 +0200
+	id 4eoEMQe06WkJiAIAu9opvQ
+	(envelope-from <linux-man+bounces-5381-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 07:54:15 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B1F944A7A4
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 22:05:40 +0200 (CEST)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31A5A44D582
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 07:54:15 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 24D4D3022945
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2026 20:05:04 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 1A909301C966
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2026 05:54:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61CEA367F2F;
-	Wed, 22 Apr 2026 20:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D8E13806D9;
+	Thu, 23 Apr 2026 05:54:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vjh9lxhv"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tmLJgEok"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206B5330B14;
-	Wed, 22 Apr 2026 20:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776888303; cv=none; b=Kw7atRjQXxIq54D+Z4wosZ1OzQisKcU8gGT4zZfizFvSeCk2tK0I4R04QtxKwgMLydPu6RCxSlGkE397PbFXxtL1atKmEFDfI1rtLhumennnmo3ko/+Um3XUQGPmh7kMk8XHAbCJEAJZKjM0qc+AUY4gekCdYmrAq8d8rz8JE6g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776888303; c=relaxed/simple;
-	bh=wLvqoEm4PtAr+icPh3dgc2hv8RUzSjvHvFBqMMBrstY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=jp2NGSZpmVosQwvPODxxYoTjkC90jdMlg8FaLg5KxJAijZA0D3Fljn2hzzsDEzSLlO2rvM6m+bxhVn7Q9E5m8mGb/+mIqceG1wva2jq4LQn/y7i+F0ttsn5RRun/MB/jbJCMWVW+gZMxaRjuOm4YkQh04VuI7gK1bseXn9S3XII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vjh9lxhv; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70BCFC2BCB8;
-	Wed, 22 Apr 2026 20:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776888303;
-	bh=wLvqoEm4PtAr+icPh3dgc2hv8RUzSjvHvFBqMMBrstY=;
-	h=Date:From:To:Cc:Subject:From;
-	b=Vjh9lxhv2b8YgOF1Mzawvc48Fiq4fnMK2s2VExKE/0l2yeN73ZdVHcgZEJpNcJleI
-	 0MbIqoFiVFimP2+2IcizBh6bZYcb0F83fOlsXg2orBX4XkV3Y+6xVC37HgGdh8kVzT
-	 aF0LwKh9FbboACqlyfdq6HrWHvAuLIfRqa3/8wi+QhPkblPNIcOQ1qbBZQZoWO9iPL
-	 uRrCALU29X11o+bK/acSEOIuEzFD6qIPZuXsM2JM7n56zq3QMlbRBEa9CQLPD5YAaj
-	 ZURIn36ffayZAtXxT9DDrYu/w87uC4tQZbnpJ5vSU78CYL9swezXQ15Zeu6xRLLc+G
-	 dNHqapNJXsFAw==
-Date: Wed, 22 Apr 2026 22:04:52 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: man-pages-6.18 released
-Message-ID: <aekjQuAEaq1ILKAa@devuan>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11B9381B00
+	for <linux-man@vger.kernel.org>; Thu, 23 Apr 2026 05:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776923651; cv=pass; b=M+uoB9p3Im5YFdqI8v8oFybQyHDp6OzL7fSRi8OBTgZRLKbqwHShywAkrGbDXyJGR8VIciKYtDgKkHUTgEWhq9SJX/BHUMz1ee0kYBdG6it0VhYPxdXNJaF/OtAsIZdqcZiDWvQWkvb4dqzwhUEatALktriotkneg0JzdgFcipc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776923651; c=relaxed/simple;
+	bh=vHrBdwKKKidXyWyBJfuc2Ee2FZ3EZtkXD+yyVir6jas=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LKQPYUiwR0pITOJnFi2zC/5bousSHi9KtLwnB0Xad6IpLSGFwERwmbJgSImaLBnHO4OS1CyGBU0yiAKd6pYEFMLVBl7zO/IprvtpuXx/8KVm9ZKUR/ffumoVWjJsObFQgQ22VYyW7UU0n7nM0SZIXvpYCAkJV2+TyK119Jq+ouo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tmLJgEok; arc=pass smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-386b553c70eso50782741fa.0
+        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2026 22:54:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776923648; cv=none;
+        d=google.com; s=arc-20240605;
+        b=KXpPMVJ6CwIiEO1scOdB7n6RBe06q14Z0mHrvWU0orArwMgkfm85A0xaUqSgIMrbwz
+         mv0juY+uk96BtZ4p/kswgEN6m+bh7tA744wWGTBhj46QIT4cKBmxMr1zaNYCbeYqSsQ1
+         kUbELIOmv4q/bY7NIe5za2ZmmWSMUiDKsjmPYR33W7OXBebmIXZ/yodMlw96L1R5g/z8
+         yk+9VdXb/nuCLZiVnn6geYWocrzvVwYa0LMdkYsbwO/HgOlD0o1SlTzkk+k0FOcMjERN
+         sWLzYdobwP2D9EooIa2OQ1S5Q6M1n55R85JauHrb+4R3pi1r0bFwvzdI1bOGGGyC2fkO
+         92qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=WzRgT3Fy0ZOQHjWDkavm7hE9jcAag/PmRRQNI2oPYmE=;
+        fh=wV8OhYb+j/TJKWRh7GtHtBSwm11QbE4T4ZXeFKb6dBs=;
+        b=Z20zm/NpIpc0bubetO/QdlYkbRtmvg7p5S79NOz6txqn8zytBGNqxBQM1FdSVljGkz
+         FK8Z6aeS2dcozAye9oLTkELW1SjGd5rK4aipQP/q9rvlXZSjKpvCZRt+Mlzy9SaRMhjQ
+         nQlVRz85t9M2TUREnJlH2XQ+nQqpqbpbdc9/SqgzuSSn1XysP/Rp+CbRthCMqxblEcsq
+         5GxHh/cCGvlSB28T4vQzbIltawrXPTQAvJWu2Br8PSvWzsO8989kEI9CC+nz+4Sx59BD
+         44GvL+VEPRVBaNVs+K8eHgzJUvbQNTOp3gvGeDlJrgVhG8YiKpkqC8WakPv7JmS3dG/S
+         GYGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1776923648; x=1777528448; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=WzRgT3Fy0ZOQHjWDkavm7hE9jcAag/PmRRQNI2oPYmE=;
+        b=tmLJgEokJVuS0ke3zX0gKRgpZbXS5pQXqMtrZtuQyfgPFsa2nZMaYD07RrQPNUFWHg
+         u7KbmOF+Dhozcns+0YGpjDEHzTep4oPf7eKEGu9Jve4QL+T1D70tDgLYnj4T5+QwLTfc
+         eHpnc/hRXeVyT1ExKMWOqpBg6dk5ur8bltRkBQMHUZCv8TXYapjTs4NBOI9TE2xMpa0d
+         fiIl+rPgyqEiueFW288eJ3ZPCgUlMx3yHMtgOt7WHN8UIZ7HSx6MsBo/U+xpnBtdS0Om
+         x69vvObbPSO1FDIP0f5IXeteHcTsUTVSs5M3lWB5q11kvI8dpw2Fq+s/SrcPZ5semlb+
+         d/fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776923648; x=1777528448;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WzRgT3Fy0ZOQHjWDkavm7hE9jcAag/PmRRQNI2oPYmE=;
+        b=p7YOnRjmvCpHtRpr1rEo5JjnQpe04Y/nzlMkBXh0i5RkfqVaqNrsjmSI4uMzMoivAA
+         SKcVs4UlgVimdsKFw12eluMCUsVV+UWKDFrWovl/Y7RYpEN0h7sc8pGFeZZ96zAV3GKn
+         UrPcIAE6pABAcyb0LjE4y0jzRqmzSwlHAwlwe/HI0jq5IQWB00azb3MXDkqDGky6WbQF
+         R9gUeJMfRbSHEGzWZ05w9pg9+u/NMmnXzVf5GCOK9Gkcu3NKHgfZgXlfvQJRa2FRL0xC
+         5VoTLfCCy8yV/38yPFfslw+BKP4Oz6+RHW+g268ecmJ7nntBlQ6QRonRImLwBj2tHHZd
+         ZnVg==
+X-Forwarded-Encrypted: i=1; AFNElJ82/LG2vFjDPL7aqlELu6YmsQ6i/FDZXKvz7cbGMXRxjTIHSjDDKIRn43NOH1y4M12CsQGHkoFXWP8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMv4bCDwsuimaLYq8ifTaehsGFTLinw7qd0jdoMve6T7MYbMOW
+	Ekp+0q3wHod/PEdue0xvUvfyO3ok3edzKFrA0IpOccgbHifnbUl9+kRF30ZA1DXxY8jQCkQV94c
+	9PkdAU4fntXrKAeR3zS/SjXybOmWYDZSe+5Z8LmKt
+X-Gm-Gg: AeBDietfb29x7AKbcUWs3R2SrDKAJzJzRaJyRNacxkRPYfpxUSLBJhxP44GH0DcDYWT
+	zvF7Fs7pl2NTJouXlQ9uSNzqNehi7p3pJPGDkH3RCu6raQKWswXuK3M25cckk1ya9JtF9sUGIdP
+	VnNbHaZtjY7muRy3+Zgd3EomxACRWs646qupzt2maUsHYVA2LACPFU5wjV2EelN8Mqd1yT1LeCC
+	NZ41AG6bYh2UwsY02Z/Jzdubtxlp677Tmo1GebXLwBQJIy+A3/Dczkk62QXfpfxaVyHsCR7IXTx
+	/0T5N2X8fXMVodCEFTkPbKJQjeVHOgO3dGG/XtI/xYHHj946g0O1FKJ1u4z3tuEu9usGfhlTh+1
+	9G3RfH42dbtGptOeJ1g==
+X-Received: by 2002:a05:651c:555:b0:38e:99ba:ec77 with SMTP id
+ 38308e7fff4ca-38ec783f2ffmr78727471fa.14.1776923647481; Wed, 22 Apr 2026
+ 22:54:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4vd5mybzc3schzk5"
-Content-Disposition: inline
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+References: <CAHnCjA25b+nO2n5CeifknSKHssJpPrjnf+dtr7UgzRw4Zgu=oA@mail.gmail.com>
+ <aejCaG6n9s7ak5TO@J2N7QTR9R3.cambridge.arm.com> <87zf2u28d1.ffs@tglx>
+ <aekPXvvuKHKlETjm@J2N7QTR9R3.cambridge.arm.com> <87wlxy22x7.ffs@tglx> <c5331cd6-76c8-430d-978e-fcad164e48f6@huawei.com>
+In-Reply-To: <c5331cd6-76c8-430d-978e-fcad164e48f6@huawei.com>
+From: Dmitry Vyukov <dvyukov@google.com>
+Date: Thu, 23 Apr 2026 07:53:55 +0200
+X-Gm-Features: AQROBzDiWg3BhfVAmxsSMzsrj4-DDyCRyJJ_hjD1dpJPTaQSNdduKsPUw0QTTv0
+Message-ID: <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
+Subject: Re: [REGRESSION] rseq: refactoring in v6.19 broke everyone on arm64
+ and tcmalloc everywhere
+To: Jinjie Ruan <ruanjinjie@huawei.com>, linux-man@vger.kernel.org
+Cc: Thomas Gleixner <tglx@linutronix.de>, Mark Rutland <mark.rutland@arm.com>, 
+	Mathias Stearn <mathias@mongodb.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Chris Kennelly <ckennelly@google.com>, regressions@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
+	Blake Oler <blake.oler@mongodb.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Spamd-Result: default: False [-0.66 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
+	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5380-lists,linux-man=lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5381-lists,linux-man=lfdr.de];
 	FROM_HAS_DN(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_NONE(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FREEMAIL_CC(0.00)[linutronix.de,arm.com,mongodb.com,efficios.com,kernel.org,gmail.com,google.com,lists.linux.dev,vger.kernel.org,lists.infradead.org,infradead.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	RCPT_COUNT_THREE(0.00)[3];
+	FROM_NEQ_ENVFROM(0.00)[dvyukov@google.com,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[google.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
 	TAGGED_RCPT(0.00)[linux-man];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[meta.com:url,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,sourceware.org:email]
-X-Rspamd-Queue-Id: 3B1F944A7A4
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:email,tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,mail.gmail.com:mid]
+X-Rspamd-Queue-Id: 31A5A44D582
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-
---4vd5mybzc3schzk5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: man-pages-6.18 released
-Message-ID: <aekjQuAEaq1ILKAa@devuan>
-MIME-Version: 1.0
-
-Gidday!
-
-I'm proud to announce:
-
-	man-pages-6.18 - manual pages for GNU+Linux
-
-Tarball download:
-<https://www.kernel.org/pub/linux/docs/man-pages/>
-Git repository:
-<https://git.kernel.org/cgit/docs/man-pages/man-pages.git/>
-Online PDF book:
-<https://www.kernel.org/pub/linux/docs/man-pages/book/>
-
-Thanks to all the contributors to this release (in BCC)!
-And thanks to our sponsors!
-
-	$ sort --random-sort <SPONSORS;
-	Meta                 <https://www.meta.com/>
-	Hudson River Trading <https://www.hudsonrivertrading.com/>
-	Google               <https://opensource.google/>
-
-You are receiving this message either because:
-
-        a)  (BCC) You contributed to this release.
-
-        b)  You are subscribed to <linux-man@vger.kernel.org>,
-            <linux-kernel@vger.kernel.org>, or
-            <libc-alpha@sourceware.org>.
-
-        c)  (BCC) I have information (possibly inaccurate) that you are
-            the maintainer of a translation of the manual pages, or are
-            the maintainer of the manual pages set in a particular
-            distribution, or have expressed interest in helping with
-            man-pages maintenance, or have otherwise expressed interest
-            in being notified about man-pages releases.
-            If you don't want to receive such messages from me, or you
-            know of some other translator or maintainer who may want to
-            receive such notifications, send me a message.
-            If you want to be added to this list (which I store
-            encrypted), send me a message.
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D NEWS =3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Not much in this release.  It's actually a quite boring release, which
-is good for packagers.  Nothing they should care about.
-
-BTW, distros have started packaging the scripts provided in the previous
-release (Debian and Arch already provide manpages-bin).
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Linux Software=
- Map =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
-
-Begin4
-Title:          Linux man-pages
-Version:        6.18
-Entered-date:   2026-04-22
-Description:    Manual pages for GNU+Linux.  This package contains
-                manual pages for sections 2, 3, 4, 5, and 7, and
-                subsections of those.  Only a few pages are provided in
-                sections 1, 6, and 8, and none in 9.
-Keywords:       man pages
-Maintained-by:  Alejandro Colomar <alx@kernel.org>
-Primary-site:   http://www.kernel.org/pub/linux/docs/man-pages
-                2.7M  man-pages-6.18.tar.gz
-Copying-policy: several; the pages are all freely distributable as long as
-                nroff source is provided
-End
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Changes in man=
--pages-6.18 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Released: 2026-04-22, Aldaya
+On Thu, 23 Apr 2026 at 03:48, Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+>
+> On 4/23/2026 3:47 AM, Thomas Gleixner wrote:
+> > On Wed, Apr 22 2026 at 19:11, Mark Rutland wrote:
+> >> On Wed, Apr 22, 2026 at 07:49:30PM +0200, Thomas Gleixner wrote:
+> >> Conceptually we just need to use syscall_enter_from_user_mode() and
+> >> irqentry_enter_from_user_mode() appropriately.
+> >
+> > Right. I figured that out.
+> >
+> >> In practice, I can't use those as-is without introducing the exception
+> >> masking problems I just fixed up for irqentry_enter_from_kernel_mode(),
+> >> so I'll need to do some similar refactoring first.
+> >
+> > See below.
+> >
+> >> I haven't paged everything in yet, so just to cehck, is there anything
+> >> that would behave incorrectly if current->rseq.event.user_irq were set
+> >> for syscall entry? IIUC it means we'll effectively do the slow path, and
+> >> I was wondering if that might be acceptable as a one-line bodge for
+> >> stable.
+> >
+> > It might work, but it's trivial enough to avoid that. See below. That on
+> > top of 6.19.y makes the selftests pass too.
+>
+> This aligns with my thoughts when convert arm64 to generic syscall
+> entry. Currently, the arm64 entry code does not distinguish between IRQ
+> and syscall entries. It fails to call rseq_note_user_irq_entry() for IRQ
+> entries as the generic entry framework does, because arm64 uses
+> enter_from_user_mode() exclusively instead of
+> irqentry_enter_from_user_mode().
+>
+> https://lore.kernel.org/all/20260320102620.1336796-10-ruanjinjie@huawei.com/
+>
+> >
+> > Thanks,
+> >
+> >         tglx
+> > ---
+> >  arch/arm64/kernel/entry-common.c |   14 ++++++++++----
+> >  1 file changed, 10 insertions(+), 4 deletions(-)
+> >
+> > --- a/arch/arm64/kernel/entry-common.c
+> > +++ b/arch/arm64/kernel/entry-common.c
+> > @@ -58,6 +58,12 @@ static void noinstr exit_to_kernel_mode(
+> >       irqentry_exit(regs, state);
+> >  }
+> >
+> > +static __always_inline void arm64_enter_from_user_mode_syscall(struct pt_regs *regs)
+> > +{
+> > +     enter_from_user_mode(regs);
+> > +     mte_disable_tco_entry(current);
+> > +}
+> > +
+> >  /*
+> >   * Handle IRQ/context state management when entering from user mode.
+> >   * Before this function is called it is not safe to call regular kernel code,
+> > @@ -65,8 +71,8 @@ static void noinstr exit_to_kernel_mode(
+> >   */
+> >  static __always_inline void arm64_enter_from_user_mode(struct pt_regs *regs)
+> >  {
+> > -     enter_from_user_mode(regs);
+> > -     mte_disable_tco_entry(current);
+> > +     arm64_enter_from_user_mode_syscall(regs);
+> > +     rseq_note_user_irq_entry();
+> >  }
+> >
+> >  /*
+> > @@ -717,7 +723,7 @@ static void noinstr el0_brk64(struct pt_
+> >
+> >  static void noinstr el0_svc(struct pt_regs *regs)
+> >  {
+> > -     arm64_enter_from_user_mode(regs);
+> > +     arm64_enter_from_user_mode_syscall(regs);
+> >       cortex_a76_erratum_1463225_svc_handler();
+> >       fpsimd_syscall_enter();
+> >       local_daif_restore(DAIF_PROCCTX);
+> > @@ -869,7 +875,7 @@ static void noinstr el0_cp15(struct pt_r
+> >
+> >  static void noinstr el0_svc_compat(struct pt_regs *regs)
+> >  {
+> > -     arm64_enter_from_user_mode(regs);
+> > +     arm64_enter_from_user_mode_syscall(regs);
+> >       cortex_a76_erratum_1463225_svc_handler();
+> >       local_daif_restore(DAIF_PROCCTX);
+> >       do_el0_svc_compat(regs);
 
 
-New and rewritten pages
------------------------
++linux-man
 
-man2/
-	futex_waitv.2
+This part of the rseq man page needs to be fixed as well I think. The
+kernel no longer reliably provides clearing of rseq_cs on preemption,
+right?
 
-man3/
-	aprintf.3
-	io_destroy.3			(previously, io_destroy(2))
-	io_setup.3			(previously, io_setup(2))
-	rawmemchr.3			(previously, memchr(3))
-	stpcpy.3			(previously, strcpy(3))
-	strchrnul.3			(previously, strchr(3))
-	strdupa.3			(previously, strdup(3))
-	strnul.3
-	strtok_r.3			(previously, strtok(3))
+https://git.kernel.org/pub/scm/libs/librseq/librseq.git/tree/doc/man/rseq.2#n241
 
-
-Newly documented interfaces in existing pages
----------------------------------------------
-
-man2/
-	landlock_create_ruleset.2
-		struct landlock_ruleset_attr::scoped
-		LANDLOCK_RESTRICT_SELF_LOG_SUBDOMAINS_OFF
-		LANDLOCK_RESTRICT_SELF_LOG_SAME_EXEC_OFF
-		LANDLOCK_RESTRICT_SELF_LOG_NEW_EXEC_ON
-		LANDLOCK_CREATE_RULESET_ERRATA
-	landlock_restrict_self.2
-		LANDLOCK_RESTRICT_SELF_TSYNC
-	statmount.2
-		req.mnt_ns_id
-		STATMOUNT_MNT_NS_ID
-		STATMOUNT_MNT_OPTS
-		STATMOUNT_FS_SUBTYPE
-		STATMOUNT_SB_SOURCE
-		STATMOUNT_OPT_ARRAY
-		STATMOUNT_OPT_SEC_ARRAY
-		STATMOUNT_{UIDMAP,GIDMAP}
-		STATMOUNT_SUPPORTED_MASK
-		req.mnt_ns_fd
-		STATMOUNT_BY_FD
-	truncate.2
-		ENOSPC
-
-man3/
-	printf.3
-	scanf.3
-		%wN
-
-man5/
-	core.5
-		%f
-		FC
-
-man7/
-	landlock.7
-		LANDLOCK_RESTRICT_SELF_LOG_SUBDOMAINS_OFF
-		LANDLOCK_RESTRICT_SELF_LOG_SAME_EXEC_OFF
-		LANDLOCK_RESTRICT_SELF_LOG_NEW_EXEC_ON
-		LANDLOCK_CREATE_RULESET_ERRATA
-		LANDLOCK_RESTRICT_SELF_TSYNC
-
-New and changed links
----------------------
-
-man3/
-	strndupa.3			(strdupa(3))
-	vaprintf.3			(aprintf(3))
-
-
-Global changes
---------------
-
--  man/
-   -  man3/
-      -  Document how string functions relate to each other.
-   -  Separate documentation of system calls and of libaio wrappers.
-
-
-Changes to individual files
----------------------------
-
-The manual pages and other files in the repository have been improved
-beyond what this changelog covers.  To learn more about changes applied
-to individual pages, or the authors of changes, use git(1).
-
---=20
-<https://www.alejandro-colomar.es>
-
---4vd5mybzc3schzk5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmnpKdIACgkQ64mZXMKQ
-wqlWtQ//QXXOLXbnnQ/TCgH/JraGYTsN+nQVUHssFt2xrtw6+28mUkDfVMMZP3ZJ
-Aw95htNh3I/w5jFbJsmDwB6L54sVAMM+l00kPpHYFpDT+CiXxwkvAf2fepd3ykRK
-6RaHvEOyQoeLakF2rnwQGlyc/kUgI3MUNXyrFampApNGLa/NfmmO57bITUOUyefb
-Mi4k1yCXOiRvjS9GUguWtEOJslwcBRyW9rG1NgO+R4mMn/QvN0LtVg/zCLqcLWDn
-hhxq2MZI/Vrr2Ktt8hhs6htdQJBZjLN9kkVgVH4KMSbBHPhdrFzCbNuxccnDLbY5
-DTCgEevLdmK8OSNrYtBoiolFQB1gHY/u/wxkzas4yJXPgc1nVpFsJPBcuFec+4nz
-ikHWaNqVJeoYhtAPgyfiylc46Lv3URNGKL0NE7RKZI/2UjBG0VBnpZT4sPmgll7u
-4ehy/ayLtzG9Ql6yekvJ+XWTQL9KMhSEDOk9cZtkj41Dx4wm6H7c1c4lx+eRsny9
-SqpTqB+14KmpkHnlHpsnH91g0fRXMPxQo0EtWJE7LTpvSbyou4GEj2l4pYNWG3+Q
-ALuNgiN9RNffs3umSnbl2gY/kpfs18tJptrRa3l5R4UDAmaiC8Lszd8pRsGRkVRY
-QrxGnHgyn1Vps7BN5Es1GRW4B1qJPegH13s8Iyp0SU7hwmEYw5k=
-=Be46
------END PGP SIGNATURE-----
-
---4vd5mybzc3schzk5--
+"and set to NULL by the kernel when it restarts an assembly
+instruction sequence block,
+as well as when the kernel detects that it is preempting or delivering
+a signal outside of the range targeted by the rseq_cs."
 
