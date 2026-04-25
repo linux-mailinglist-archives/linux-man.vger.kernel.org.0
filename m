@@ -1,227 +1,246 @@
-Return-Path: <linux-man+bounces-5401-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5402-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OIeXNY7W7GkAdAAAu9opvQ
-	(envelope-from <linux-man+bounces-5401-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2026 16:58:22 +0200
+	id CAYIO6nY7GksdAAAu9opvQ
+	(envelope-from <linux-man+bounces-5402-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2026 17:07:21 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA65F466A7F
-	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2026 16:58:21 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 237A4466AAE
+	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2026 17:07:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 9EC7B30034BA
-	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2026 14:58:18 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 7F653300A8DC
+	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2026 15:07:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69B7036D9F5;
-	Sat, 25 Apr 2026 14:58:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E95DC35F180;
+	Sat, 25 Apr 2026 15:07:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i3u4Crsx"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O2BQ1C+N"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB11367F33
-	for <linux-man@vger.kernel.org>; Sat, 25 Apr 2026 14:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777129095; cv=none; b=tbym/17BL4+Co2Vgtstkd7ri9OZxudncgszHsgwul0ZL1+4WN1KYM3In0SYM+J2tkU5j2DY24hnVqT2UBHE4dPCw/P757BUfLl7O6QpQSk0pGIhPO12gnd0fdq7rSyZwnEfUwmtqjDd3IU38nf1avxPthvvJ2ubnidLHDXwLnEk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777129095; c=relaxed/simple;
-	bh=1u0TSlb8cvfpWJk5/v1muZWrEutx782QIOoYdairVz0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WpD7R3X6klV1UM2GVV13UV42l+uJliBdtwzA2IyBoSa1l/by9wtsUE6AtCPOEGfDXNqpifVycH/wOrxNpy8uqjjyOFogoW88f2D2Hyuo0GGDw0GwC+yqNROcuCwSFZIrtg8zGB93jeqV3P7tCZitD92Jw9I7aCqW30JflH6bFAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i3u4Crsx; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB54BC2BCB0;
-	Sat, 25 Apr 2026 14:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777129094;
-	bh=1u0TSlb8cvfpWJk5/v1muZWrEutx782QIOoYdairVz0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=i3u4Crsx790W1eKIingwTnmglRAW3L0vS6sTG/cCajgiEITQ39QT95MXPLPmy50Ix
-	 wH9QcuQq94VbwyuXY3PDX/HwpX5gTRIT3l98QenTuRO0n3HRWugou+IdH73OBwOrl3
-	 ciRcIIwXvab8Q9q3xdLpGVJeeFVo5WMyGmoSITFNIrA+bYfI7jQLEll2ExH7wKfNFE
-	 5aCMHni3qVfrjBXb6Exqr+PRQdNVpw6B69j4G9kUIdoasdYhQjX6eyLrmErqx1AZy3
-	 sBNKrJZRm5hEPi5pfsV1kY6rYpx0U2YXI6UhSiL23tkJ2CHacEsraR9tcyVzpNwWFd
-	 aJVmF1TBQTkVA==
-Date: Sat, 25 Apr 2026 16:58:11 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Dorjoy Chowdhury <dorjoychy111@gmail.com>
-Cc: linux-man@vger.kernel.org, brauner@kernel.org, jlayton@kernel.org
-Subject: Re: [PATCH 1/1] man/man2/openat2.2: Document OPENAT2_REGULAR flag
-Message-ID: <aezULCZu3eZhdUaq@devuan>
-References: <20260425134048.62616-1-dorjoychy111@gmail.com>
- <20260425134048.62616-2-dorjoychy111@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC97337688
+	for <linux-man@vger.kernel.org>; Sat, 25 Apr 2026 15:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777129637; cv=pass; b=HH84Go0//ufW+f2DhRYPdHrpthWDq6amdk/zs4MuHPr49A56JXEVK+STkewNcm6+XEcPUTUlL58themKEzasbZx9jSCivmL//5NPJ38HTUUjpKcufFUkjG9B9k2GIJckArXAD5QdCsoWsdYDwjpsUHBIJby9Ueh6AWF7lTqr4jo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777129637; c=relaxed/simple;
+	bh=gdtnTRxKXM6REgYXFeLaNeXNIAJcbupXuK/IpdBpCwc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=npCIJVrGNPDDoQ/H+SLHSDaTfUlW/XfvhiXxZ3rCZeojlUMmRTmoZVinw8YfigCDd7gIaz7gg1xxeo76JgqFs3JGh0B96TUqbpBkOVVRAx6xkyF8kVL2wlUtEvIB6QB7asaUsVfs5y9qm5/kARppbDTZUnpRojSIfVpeBFRPWVk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O2BQ1C+N; arc=pass smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-56d8d479149so2952834e0c.2
+        for <linux-man@vger.kernel.org>; Sat, 25 Apr 2026 08:07:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777129635; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Tj0PfU8lajLauV7EI07sgyAXzaBaA7282Tq7GgMmuRmCblaPi+2YJixbAA7HU376Rz
+         9hfq9RtD0R8LHSuSrB9V6lG+dFgWTn598GVZmiZeeLkEUSxurO8XzjNCiPf14gm2JJDV
+         XBUfyrMNTz+7oTVQjZyXuinZH3tGmPEd2k/F8bmhxyuIYbGH9dkXZLY8aNBhL3YD4UPO
+         RBQEcKjtygKVN5/P6NPw/pxssVgJL82/lc/DdDLMg+6JggRX89mHkSKP6bh3etVkb4DZ
+         OZnxTxmvGtGFY0Jboqsn/hN7o00mfdLk2YfNVgeqZTA7p1aVemcl0ugVup7mZcc/1en7
+         TODw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=E0bfUIbcPXIn01NiAZhRCKthvXzxL3yoWQc3Y07YIxE=;
+        fh=cXlsbC4aR9v5UZaEj5EmAyTHzc9v+PlVA11Y3ix8odI=;
+        b=WrWMiw3KNVyw4RTkHNJ86pAdqYicp7bG0PkpnzoT4y6rZwUfhSc5qd/o7FENfgAce3
+         aNnXw2pD+7+pQAs9ccvAFA8M9gej0mmUsJR4eun7U1bk0Ry9OBn+YKZR8jhJXZMM48Vr
+         8h2/ApJN5HyCxUO4N8bmKDv/2zJWFSvbjg5brOdqGpPN6UClFlqGvGxcCCf6c51tZSm4
+         uZWTw8OI7/WDYtkGwWPHXL5TBfgBr+MM3fIkpY8xR+f8F9+7nRNLxCDhcUFjy74yvw+j
+         YblCxNksOOZEX2Ja/mFC4JmsB5ucrtQFj35TNSQJ4voUKV32crIIPXRgPY/iapDaS+4W
+         Xofw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777129635; x=1777734435; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E0bfUIbcPXIn01NiAZhRCKthvXzxL3yoWQc3Y07YIxE=;
+        b=O2BQ1C+NZNcv2u8pBqFGJlOO4rxUZNS+TT3S+PkQVKIau6xMqaDSHaooGIYbBA9e1G
+         /rcHOFJKjsb6DJEjnhKBVSmws/vey3Dvd6wQJyuCXQyO/JXNfDCSQy22E7f05WKJFYeS
+         NB8f6kR0V19GKl/qpGKU5yQ1O/0VlbSA0WS5bEZERnjYE8UXfF9iISYLwl10jdClf++C
+         SQTWBjZimGD8Mfaled1tohZ3wqtDbvCsAgpD+oaA81mYnBWXwRxTAwMLQg5V2snnZTQH
+         SIqzHGJHH4ZEWOdX5Xsbwk9uti3VBeBC/PMv5ZFk0dHN8lTCwmHGJ3rByMT+iyRhaOgn
+         iicg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777129635; x=1777734435;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=E0bfUIbcPXIn01NiAZhRCKthvXzxL3yoWQc3Y07YIxE=;
+        b=f1j95bOSD44sWsJGGRalHT2PLufrtZFackLoCOB0Zka2yCBRvrsxhpLSqUqQjXO6zq
+         Hc/b+jxlr3yBPTAeofb7wIOPyt2WVGGpZJh4wtOwbPpEccnzJFdFuhwoiewKmmcg4a15
+         Aw65E2IPGj8Ht+5jSvEihMSlX3N0nPDlvQIchr1s4RtDDEFuacg2urYUwXkMVG3xOMP0
+         U+jlAV/7OgYehrk+fTICbC7LHBILTz3Oe/2lKMX1kvEIPXcKWZNIkRIg6dqEfCilAUEg
+         kTFqNM6mPKL50QsfoU54Qq927Iis2FTmctBQmmuvdCuBSa1SkZ82OlRykXp81v9Zt/cZ
+         dxhw==
+X-Gm-Message-State: AOJu0YzycwSMg6IJuvWIpR3F0XKYQGhjcOUXq3yvmnIARaqBtljvxrC6
+	TT/i5PMfzm80lPAbrlhMfQpaQU165C9+C6roVvHpwJ8igUFk352//hBCQO6XzNonFOq0SQU/hSY
+	KIJf7euqLh+Nu3cUxxOfTXkl5geIYiq4=
+X-Gm-Gg: AeBDies6pgTGL5LiWxI4yNFhk+NrpJ2SvEqzRLbRMGLlEi43X47ZYQi5lKAvH+Z4lMO
+	88sMi3hoxKGtQjtF8ecq2Jns0e9zQaBup3JL26WFrmk3N7ofL9jw5SApnRCDImri0qfTPIk6+fe
+	dR5pCmDmhb4JERdRYGc2aTQx6ARYKy6y044QSYrU4oqTGB7/3APMLWxzIQV7Dd25X4gyJVE8qBE
+	xquxtKkXaXGVmls0IlfnVv9Pp0pissDN+lj4TyIHLiY12bNp+hvIdUsGCQAF+Qb275ZDh0FWhVC
+	QrfCIqeOIg+FMweo1ilfoSj+KSC2odNtmpo2upQPgFPQn4zMbYwe
+X-Received: by 2002:a05:6122:3124:b0:56b:7484:39b with SMTP id
+ 71dfb90a1353d-56fa57fe337mr19407141e0c.4.1777129635227; Sat, 25 Apr 2026
+ 08:07:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ooykbtu2yreev6ku"
-Content-Disposition: inline
-In-Reply-To: <20260425134048.62616-2-dorjoychy111@gmail.com>
-X-Rspamd-Queue-Id: DA65F466A7F
+References: <20260425134048.62616-1-dorjoychy111@gmail.com>
+ <20260425134048.62616-2-dorjoychy111@gmail.com> <aezULCZu3eZhdUaq@devuan>
+In-Reply-To: <aezULCZu3eZhdUaq@devuan>
+From: Dorjoy Chowdhury <dorjoychy111@gmail.com>
+Date: Sat, 25 Apr 2026 21:07:04 +0600
+X-Gm-Features: AVHnY4KVDTzLdM2k9pjuDTF4LpTI_-0_D2gmGbYWbJci7f6SqcT6W6v7v9v18mU
+Message-ID: <CAFfO_h7eZdMUdgYhYc3pEYnYCWK=q6qFis0UmuK=4oh90ADRDQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] man/man2/openat2.2: Document OPENAT2_REGULAR flag
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, brauner@kernel.org, jlayton@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Queue-Id: 237A4466AAE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+X-Spamd-Result: default: False [-2.16 / 15.00];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[bounces-5402-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5401-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	RCPT_COUNT_THREE(0.00)[4];
 	NEURAL_HAM(-0.00)[-1.000];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	FROM_NEQ_ENVFROM(0.00)[dorjoychy111@gmail.com,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url]
+	FREEMAIL_FROM(0.00)[gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,mail.gmail.com:mid,devuan:email]
 
+Hey Alex,
 
---ooykbtu2yreev6ku
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Dorjoy Chowdhury <dorjoychy111@gmail.com>
-Cc: linux-man@vger.kernel.org, brauner@kernel.org, jlayton@kernel.org
-Subject: Re: [PATCH 1/1] man/man2/openat2.2: Document OPENAT2_REGULAR flag
-Message-ID: <aezULCZu3eZhdUaq@devuan>
-References: <20260425134048.62616-1-dorjoychy111@gmail.com>
- <20260425134048.62616-2-dorjoychy111@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20260425134048.62616-2-dorjoychy111@gmail.com>
+On Sat, Apr 25, 2026 at 8:58=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
+wrote:
+>
+> Hi Dorjoy,
+>
+> On 2026-04-25T19:39:28+0600, Dorjoy Chowdhury wrote:
+> > Signed-off-by: Dorjoy Chowdhury <dorjoychy111@gmail.com>
+> > ---
+> >  man/man2/openat2.2 | 19 +++++++++++++++++++
+> >  1 file changed, 19 insertions(+)
+> >
+> > diff --git a/man/man2/openat2.2 b/man/man2/openat2.2
+> > index f0770f3a0..42ebf22ea 100644
+> > --- a/man/man2/openat2.2
+> > +++ b/man/man2/openat2.2
+> > @@ -133,6 +133,19 @@ argument,
+> >  .BR openat2 ()
+> >  returns an error if unknown or conflicting flags are specified in
+> >  .IR how.flags .
+> > +.IP
+> > +.BR openat2 ()
+> > +also supports the below additional flags:
+> > +.RS
+> > +.TP
+> > +.BR OPENAT2_REGULAR " (since Linux 7.2)"
+> > +Only open the file specified by
+> > +.I path
+> > +if it is a regular file. If it is not a regular file,
+>
+> Please use semantic newlines.  See man-pages(7):
+>
+> $ MANWIDTH=3D72 man man-pages | awk '/Use semantic newlines/,/^$/'
+>    Use semantic newlines
+>      In the source of a manual page, new sentences should be started on
+>      new lines, long sentences should be split  into  lines  at  clause
+>      breaks  (commas,  semicolons, colons, and so on), and long clauses
+>      should be split at phrase boundaries.  This convention,  sometimes
+>      known as "semantic newlines", makes it easier to see the effect of
+>      patches, which often operate at the level of individual sentences,
+>      clauses, or phrases.
+>
+> That is, break the line after period.
+>
 
-Hi Dorjoy,
+Got it. Will fixup in v2. Thanks!
 
-On 2026-04-25T19:39:28+0600, Dorjoy Chowdhury wrote:
-> Signed-off-by: Dorjoy Chowdhury <dorjoychy111@gmail.com>
-> ---
->  man/man2/openat2.2 | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->=20
-> diff --git a/man/man2/openat2.2 b/man/man2/openat2.2
-> index f0770f3a0..42ebf22ea 100644
-> --- a/man/man2/openat2.2
-> +++ b/man/man2/openat2.2
-> @@ -133,6 +133,19 @@ argument,
->  .BR openat2 ()
->  returns an error if unknown or conflicting flags are specified in
->  .IR how.flags .
-> +.IP
-> +.BR openat2 ()
-> +also supports the below additional flags:
-> +.RS
-> +.TP
-> +.BR OPENAT2_REGULAR " (since Linux 7.2)"
-> +Only open the file specified by
-> +.I path
-> +if it is a regular file. If it is not a regular file,
+> > +.BR openat2 ()
+> > +fails with the error
+> > +.BR EFTYPE .
+>
+> Hmmm, this error code is new to me.
+>
+>         alx@devuan:~$ errno EFTYPE
+>         alx@devuan:~$ echo $?
+>         1
+>         alx@devuan:~$ man 3 errno | grep EFTYPE
+>         alx@devuan:~$ grepc EFTYPE /usr/include/
+>         alx@devuan:~$
+>
+> I don't see it documented, nor defined under </usr/include>.
+> Is this error code available in user space?
+> Is it a new error code?
+>
 
-Please use semantic newlines.  See man-pages(7):
+Yes. This is a new error code added in the patch series i.e., if the
+path is not a regular file, then this new error code is returned from
+the system call. Does the new error code need to be included anywhere
+else for man pages?
 
-$ MANWIDTH=3D72 man man-pages | awk '/Use semantic newlines/,/^$/'
-   Use semantic newlines
-     In the source of a manual page, new sentences should be started on
-     new lines, long sentences should be split  into  lines  at  clause
-     breaks  (commas,  semicolons, colons, and so on), and long clauses
-     should be split at phrase boundaries.  This convention,  sometimes
-     known as "semantic newlines", makes it easier to see the effect of
-     patches, which often operate at the level of individual sentences,
-     clauses, or phrases.
+> > +.RE
+> >  .TP
+> >  .I mode
+> >  This field specifies the
+> > @@ -471,6 +484,12 @@ and an escape from the root during path resolution=
+ was detected.
+> >  contains
+> >  .BR RESOLVE_NO_XDEV ,
+> >  and a path component crosses a mount point.
+> > +.TP
+> > +.B EFTYPE
+> > +.I how.flags
+> > +contains
+> > +.BR OPENAT2_REGULAR
+>
+> This should use B instead of BR.  BR is for alternating Bold and Roman.
+> B is for Bold.
+>
+> Other than these minor formatting issues, and the question about EFTYPE,
+> the patch looks good to me.  Thanks!
+>
 
-That is, break the line after period.
+Thanks. I will fixup.
 
-> +.BR openat2 ()
-> +fails with the error
-> +.BR EFTYPE .
+>
+> Have a lovely day!
 
-Hmmm, this error code is new to me.
+You too!
 
-	alx@devuan:~$ errno EFTYPE
-	alx@devuan:~$ echo $?
-	1
-	alx@devuan:~$ man 3 errno | grep EFTYPE
-	alx@devuan:~$ grepc EFTYPE /usr/include/
-	alx@devuan:~$=20
-
-I don't see it documented, nor defined under </usr/include>.
-Is this error code available in user space?
-Is it a new error code?
-
-> +.RE
->  .TP
->  .I mode
->  This field specifies the
-> @@ -471,6 +484,12 @@ and an escape from the root during path resolution w=
-as detected.
->  contains
->  .BR RESOLVE_NO_XDEV ,
->  and a path component crosses a mount point.
-> +.TP
-> +.B EFTYPE
-> +.I how.flags
-> +contains
-> +.BR OPENAT2_REGULAR
-
-This should use B instead of BR.  BR is for alternating Bold and Roman.
-B is for Bold.
-
-Other than these minor formatting issues, and the question about EFTYPE,
-the patch looks good to me.  Thanks!
-
-
-Have a lovely day!
-Alex
-
-> +flag and the path is not a regular file.
->  .SH STANDARDS
->  Linux.
->  .SH HISTORY
-> --=20
-> 2.53.0
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---ooykbtu2yreev6ku
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmns1n0ACgkQ64mZXMKQ
-wqmNXRAAurv4lgnG9n7w0vvCedIdUJDC6qVpFq3EhYAFdkzHtGtxCgAmHLQpszGC
-y6sUV5JSoxlFLXRfBnMwMmm18/AVuf9ZTINs5YnBpERKfdSEX6PR6JVLMaF107jh
-/g62vlvxsvW46A7KJdnJN/aRmWi+hI7I+uGJXvMi/Ja53P/YhaHgN0KoK/ro99mZ
-A1/OAbQm9YTLsl+Amp9cOR3h4+Gm/eEkNxk2msPib29kr+C1pyX3KwQqiv6jdHtE
-v/bfOfmX839ntxdsGUrOAXWmqsJ6Da83cN682zer/ZpuM0o5TJbwOOcYKfgWpxaj
-NlbzVl3bzakjnHE7lz31Ydl22BCVVqzTVnQwvy/3ThEVprEumcWf2zcNaz3mFV2Y
-SiogeCyXXp06e9DWzF5xv0pRg3CpV/yubrEwX94/xLqXa66C3K7rjsuhvmm+6bjm
-HxCMP/TDiaI0DfYROSZUd4P+JpC5c+UMDCFBlutJFaTMdtePT4MazwhYrp+CIm6F
-mgV/NpjtCwqEIUS0+JyJO0bwfKpi1EqZbhYsmnl/DwUBDBaUolwtmPDq018CNtv1
-A0hyzMbRevOE/3/g8ZsS1OUkWXMM6zBzvzirc2Rh5k5r6Wnc+rC1oAK2N3rEeWU6
-X3JwCIM6RpkHRsy8IrTH+dY3EpGtcNbqt/tWZTq+aoZLwI+GKf8=
-=CKBP
------END PGP SIGNATURE-----
-
---ooykbtu2yreev6ku--
+Regards,
+Dorjoy
 
