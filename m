@@ -1,50 +1,51 @@
-Return-Path: <linux-man+bounces-5431-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5432-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OJNOLDFG8WkcfgEAu9opvQ
-	(envelope-from <linux-man+bounces-5431-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 01:43:45 +0200
+	id iAzOCzJH8WmBfgEAu9opvQ
+	(envelope-from <linux-man+bounces-5432-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 01:48:02 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCDF48D64B
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 01:43:44 +0200 (CEST)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8FE48D7AF
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 01:48:01 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 4C64F3285314
-	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 23:36:52 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 33CC130BC002
+	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 23:37:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D0423D6487;
-	Tue, 28 Apr 2026 23:33:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D67F23E2751;
+	Tue, 28 Apr 2026 23:33:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="empWNvUD"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VhhbH8P1"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF273CD8D3;
-	Tue, 28 Apr 2026 23:33:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945353E1238;
+	Tue, 28 Apr 2026 23:33:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777419216; cv=none; b=L9up/RqHKbsS5VR7pNWte+eB5iuL8fGc7N4gNJ5W0nKNq7FJpC7iGmpYMEHNeFg/xik72oXPUkVUerq3jXnAkz87IFf/X/esb8GS/AV8A+RxGvxKXqkaZMjXWtJ1AR1SN6oYv+QQ7WBA2TemkKb8YAINrP/j4yR1nYIXZBIsW6U=
+	t=1777419221; cv=none; b=r3g9lbYzoUB072Xke707pO46HlpkbVKOflhwm30NnYud4r7KNcv8ME7kB+hVynYMsl6TqPSv3qrzdpbDRNGCY1qP0UyvXS2Ylc7TzSzRF+s2vVZLLoEAsTDwnVlw90HDJKjcFnpTlyHRu4UuQ/giZeL/R4bDbJngKRjQfkYZ0mQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777419216; c=relaxed/simple;
-	bh=QhWQTeIjll8FnQkwo7iOYgrMHne1/N0D/l+10UovomU=;
-	h=Date:Message-ID:From:To:Cc:Subject; b=Ww0LOxiIl/qEiG0a8j74JJz69geUKM0NZ2fDlz/3pbVrTscSFU0t5jRiXAC1QDP+6UNMLRnsKCd/GsvGDulkReYPCr0q6vb/wufMB3IIjhTdUiLiGtOrvNfsuf8FqS5xJ+UcPitbtTgkxhKWT48+yn9aAKB+99dYpuybKc7V0MU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=empWNvUD; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D1FC2BCB7;
-	Tue, 28 Apr 2026 23:33:34 +0000 (UTC)
+	s=arc-20240116; t=1777419221; c=relaxed/simple;
+	bh=q3X1KnnfJZ02/srklaWib7iUNJBMrUyFhloVAzkIzUQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=dN6OGaXMhwGGzWN7k/kaQfHeUZhx/7mG02eh0ecGI3gsaHpLj0DxEgbqTv5153GuXch6rnclGXlzSsFpCX6lW16LELdQxq+FJuSWrZeyaUcAKJfpQ8LaVzrHx8Q5tcDe6l4dBNUEeoHci2pxkxS4c7xUV9MLcko6Kldp4DECOGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VhhbH8P1; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788CFC4AF11;
+	Tue, 28 Apr 2026 23:33:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777419215;
-	bh=QhWQTeIjll8FnQkwo7iOYgrMHne1/N0D/l+10UovomU=;
-	h=Date:From:To:Cc:Subject:From;
-	b=empWNvUDe4gJU3gNTAOyjwtn0lHC17xvNPK+0cAdzsCCyPzw+OWSQ6nGhpzaXq5fJ
-	 lggw8e43aS0jIkbmOGntojha4NSzClAlQ/hygBDeqnwDeqNnMc/nD7lBvGCkGpSLtx
-	 qt/ZhUyx1vcyHbiQz0oGXO++x/HaPhTtFXggVSqUtFDeLSHVdQFkFov+/Y3qpMnYuV
-	 BoSeALlsKI2EotB06jtumi6V3OnP7yeKHTDRHXpYxh0K2FzZRtwqfila7Xt4GcuOHs
-	 2YKsgVVeS4KzxZHZLtqJiHraFqNeusr/t3cvmHp9GmhhcD+p950Rin6HEbQQSGykNI
-	 uG6q0+I24XsCQ==
-Date: Wed, 29 Apr 2026 01:33:31 +0200
-Message-ID: <20260428221058.149538293@kernel.org>
+	s=k20201202; t=1777419221;
+	bh=q3X1KnnfJZ02/srklaWib7iUNJBMrUyFhloVAzkIzUQ=;
+	h=Date:From:To:Cc:Subject:References:From;
+	b=VhhbH8P1cmP2mjIrXrURDBFguhE9B9ClrwDfZstdNKJxYJ7dhN0JS2fg86ljsosaK
+	 0mi8nT/DoWFrEinj/iHyqmguwZWU0DTr7Y+V7sAjELW1YnsF1uaP2DKeZDTYOxw3nc
+	 sChfejL9gQfNUdKmFCZquCmiLDBE+UQ4lKcww93W37pXf+BkSsohiG5nCoTtJfpHWB
+	 TC3y5q7jDDBb9p0TzqqjACb2Cwk2aE9zHg7OZ05ycdiSw98Zs3m5ouyPGvXd8MRltK
+	 4KMEfzt0wFhGLzFa50rt6IGCUnHYzKLOS4F6KACTD2CLs6JkYICd6EiDPMvr2x8VAj
+	 sPQ6BZcH7+nFQ==
+Date: Wed, 29 Apr 2026 01:33:37 +0200
+Message-ID: <20260428224427.271566313@kernel.org>
 User-Agent: quilt/0.68
 From: Thomas Gleixner <tglx@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
@@ -63,21 +64,22 @@ Cc: Mathias Stearn <mathias@mongodb.com>,
  Matthew Wilcox <willy@infradead.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Linus Torvalds <torvalds@linuxfoundation.org>
-Subject: [patch 00/10] rseq: Cure refactoring regressions 
+Subject: [patch 01/10] rseq: Set rseq::cpu_id_start to 0 on unregistration
+References: <20260428221058.149538293@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-X-Rspamd-Queue-Id: 1CCDF48D64B
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Rspamd-Queue-Id: 9F8FE48D7AF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.16 / 15.00];
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	SUBJECT_ENDS_SPACES(0.50)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -86,218 +88,75 @@ X-Spamd-Result: default: False [-1.16 / 15.00];
 	RCVD_COUNT_THREE(0.00)[4];
 	FUZZY_RATELIMITED(0.00)[rspamd.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5431-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5432-lists,linux-man=lfdr.de];
 	RCPT_COUNT_TWELVE(0.00)[16];
 	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[tglx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
 
-Mathias reported that as of Linux 6.19 TCMalloc fails to work with RSEQ,
-which is related to the non-ABI conforming usage of RSEQ by TCMalloc:
+The RSEQ rework changed that to RSEQ_CPU_UNINITILIZED, which is obviously
+incompatible. Revert back to the original behavior.
 
-  https://lore.kernel.org/CAHnCjA25b+nO2n5CeifknSKHssJpPrjnf+dtr7UgzRw4Zgu=oA@mail.gmail.com
-
-How we got there:
-
-  1) The original RSEQ implementation updates the rseq::cpu_id_start field
-     in user space more or less unconditionally on every exit to user
-     space, whether the CPU/MMCID have been changed or not.
-
-     That went unnoticed for years because nothing used rseq aside of
-     Google and TCMalloc. Once glibc registered rseq, this resulted in a
-     up to 15% performance penalty for syscall heavy workloads.
-
-  2) The rseq::cpu_id_start field is documented as read only for user
-     space in the ABI contract and guaranteed to be updated by the
-     kernel when a task is migrated to a different CPU.
-
-  3) TCMalloc abuses the sub-optimal implementation (see #1) and scribbles
-     over rseq::cpu_id_start for their own nefarious purposes.
-
-  4) As a consequence of #4 tcmalloc cannot be used together with any
-     other facility/library which wants to utilize the ABI guaranteed
-     properties of rseq::cpu_id_start in the same application.
-
-  5) tcmalloc violates the ABI from day one and has since refused to
-     address the problem despite being offered a kernel side rseq
-     extension to solve it many years ago and despite claiming to
-     be happy to accomodate.
-
-  6) When addressing the performance issues of RSEQ the unconditional
-     update stopped to exist under the valid assumption that the kernel has
-     only to satisfy the guaranteed ABI properties, which in turn broke
-     TCMalloc.
-
-Due to that everyone is in a hard place and up a creek without a paddle.
-
-After various solutions had been discussed and explored, it turned out that
-this can be solved sanely with the following focus points:
-
-  1) Keep it as simple as possible and avoid expensive workarounds for the
-     sake of TCMalloc
-
-  2) [Re]enable the wider ecosystem to leverage the full potential of RSEQ
-
-There are some unavoidable downsides which come with this:
-
-  1) TCMalloc compatible mode is mutually exclusive with the performance
-     optimizations which broke it in the first place
-
-  2) As a collateral damage older GLIBC versions, which do not implement
-     the variable sized RSEQ registration suffer from #1
-
-  3) Existing (time slice extensions) and future extended RSEQ features
-     can't be enabled for #1 and #2
-
-The required effort for solving these problems, the resulting maintenance
-burdens and the thereby inflicted road blocks for further improvements on
-the v2 ABI requirements are severe enough to accept that the unwillingness
-of a single entity to collaborate with the larger ecosystem for many years
-causes the collateral damage described in #2 and therefore #3.
-
-As Linus decreed the onus is on the lack of ABI compliance enforcement in
-the original RSEQ kernel implementation and the clever abuse is fine.
-That's technically correct, but in the context of the larger ecosystem a
-fundamentally flawed decision. Though that's a completely different
-discussion to have as it affects the long term sustainability of the Open
-Source ecosystem in general and the ability to protect it against rogue
-actors, which are thereby officialy entitled to hold a whole ecosystem
-hostage and force the people who provide them their operational base to go
-out on a limb to make progress. Despite public statements that they are
-aware of the ABI violations and "happy" to adjust as the kernel side
-evolves. Truly clever by some definition of clever.
-
-Back to the technical issues and the solution.
-
-Thanks to the laziness or lack of maintenance of various architectures the
-uptake of the generic entry code infrastructure is limited.
-
-That caused the optimization rework to keep the original code around pretty
-much unmodified plus-minus a few trivial details. So far the optimized code
-has been written so that the original code paths are optimized out by the
-compiler via compile time constant conditions (Kconfig options).
-
-That allows to replace these compile time constant conditions by runtime
-evaluations depending on the ABI mode of RSEQ. With some effort it was
-possible to reduce the impact of those runtime conditionals to vanish in
-the noise of performance counter based observations.
-
-That's the easy part. The more interesting question was how to distinguish
-between a v1 (legacy) and v2 (optimized and extended feature enabled) RSEQ
-registration to avoid putting the whole ecosystem back into the performance
-stone age.
-
-This came with two options:
-
-     1) A new registration feature flag, which would cause the whole
-     	ecosystem to adopt including the resulting consequences for CRIU
-     	and others.
-
-     2) Make the ABI variant depend on the registration size.
-
-#2 turned out to be the least horrible choice.
-
-The original RSEQ implementation, which TCMalloc depends on, registers a 32
-byte region (ORIG_RSEG_SIZE). This region has a 32 byte alignment
-requirement.
-
-The extension safe newer variant exposes the kernel RSEQ feature size via
-getauxval(AT_RSEQ_FEATURE_SIZE) and the alignment requirement via
-getauxval(AT_RSEQ_ALIGN). The alignment requirement is that the registered
-RSEQ region is aligned to the next power of two of the feature size. The
-kernel currently has a feature size of 33 bytes, which means the alignment
-requirement is 64 bytes.
-
-The TCMalloc RSEQ region is embedded into a cache line aligned data
-structure starting at offset 32 bytes so that bytes 28-31 and the
-cpu_id_start field at bytes 32-35 form a 64-bit little endian pointer with
-the top-most bit (63 set) to check whether the kernel has overwritten
-cpu_id_start with an actual CPU id value, which is guaranteed to not have
-the top most bit set.
-
-As this is part of TCMalloc's performance tuned magic, it's a pretty safe
-assumption, that TCMalloc won't use a larger RSEQ size.
-
-This allows the kernel to declare that registrations with a size greater
-than the original size of 32 bytes, which is the case since time slice
-extensions got introduced, as RSEQ ABI v2 with the following differences to
-the original behaviour:
-
-  1) Unconditional updates of the user read only fields (CPU, node, MMCID)
-     are removed. Those fields are only updated on registration, task
-     migration and MMCID changes.
-
-  2) Unconditional evaluation of the criticial section pointer is
-     removed. It's only evaluated when user space was interrupted and was
-     scheduled out or before delivering a signal in the interrupted
-     context.
-
-  3) The read/only requirement of the ID fields is enforced. When the
-     kernel detects that userspace manipulated the fields, the process is
-     terminated. This ensures that multiple entities (libraries) can
-     utilize RSEQ without interfering.
-
-  4) Todays extended RSEQ feature (time slice extensions) and future
-     extensions are only enabled in the v2 enabled mode.
-
-Registrations with the original size of 32 bytes operate in backwards
-compatible legacy mode without performance improvements and extended
-features.
-
-The following series implements exactly this and is based on v7.1-rc1. It
-applies cleanly to v7.0 and would need some minor tweaks to be backported
-to the already EOL v6.19.y kernel.
-
-It's also available from git with the extra benefit that the git branch
-contains also the related ARM64 fix, which affects not just the TCMalloc
-usage base for the conveniance of testers.
-
-    git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git core/rseq
-
-The combination in this tree survives:
-
-    - The kernel side (adjusted) selftests
-
-    - The provided TCMalloc tests (only partial for ARM64 as the provided
-      main TCMalloc tests are x86 only and TCMalloc is impossible to build
-      for mere mortals).
-
-Thanks to everyone involved for feedback, suggestions, testing and test
-cases!
-
-Thanks,
-
-	tglx
+Fixes: 0f085b41880e ("rseq: Provide and use rseq_set_ids()")
+Reported-by: Dmitry Vyukov <dvyukov@google.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
 ---
- Documentation/userspace-api/rseq.rst               |   94 +++++++++
- include/linux/rseq.h                               |   35 ++-
- include/linux/rseq_entry.h                         |  110 +++++------
- include/linux/rseq_types.h                         |    9 
- include/uapi/linux/rseq.h                          |    5 
- kernel/rseq.c                                      |  209 +++++++++++++--------
- kernel/sched/membarrier.c                          |   11 +
- tools/testing/selftests/rseq/Makefile              |    7 
- tools/testing/selftests/rseq/check_optimized.c     |   17 +
- tools/testing/selftests/rseq/legacy_check.c        |   65 ++++++
- tools/testing/selftests/rseq/param_test.c          |   22 +-
- tools/testing/selftests/rseq/rseq-abi.h            |    7 
- tools/testing/selftests/rseq/rseq.c                |   39 +--
- tools/testing/selftests/rseq/rseq.h                |    8 
- tools/testing/selftests/rseq/run_legacy_check.sh   |    4 
- tools/testing/selftests/rseq/run_param_test.sh     |   39 +++
- tools/testing/selftests/rseq/run_timeslice_test.sh |   14 +
- tools/testing/selftests/rseq/slice_test.c          |   12 -
- 18 files changed, 521 insertions(+), 186 deletions(-)
+ kernel/rseq.c |   20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
+--- a/kernel/rseq.c
++++ b/kernel/rseq.c
+@@ -236,11 +236,6 @@ static int __init rseq_debugfs_init(void
+ }
+ __initcall(rseq_debugfs_init);
+ 
+-static bool rseq_set_ids(struct task_struct *t, struct rseq_ids *ids, u32 node_id)
+-{
+-	return rseq_set_ids_get_csaddr(t, ids, node_id, NULL);
+-}
+-
+ static bool rseq_handle_cs(struct task_struct *t, struct pt_regs *regs)
+ {
+ 	struct rseq __user *urseq = t->rseq.usrptr;
+@@ -384,19 +379,22 @@ void rseq_syscall(struct pt_regs *regs)
+ 
+ static bool rseq_reset_ids(void)
+ {
+-	struct rseq_ids ids = {
+-		.cpu_id		= RSEQ_CPU_ID_UNINITIALIZED,
+-		.mm_cid		= 0,
+-	};
++	struct rseq __user *rseq = current->rseq.usrptr;
+ 
+ 	/*
+ 	 * If this fails, terminate it because this leaves the kernel in
+ 	 * stupid state as exit to user space will try to fixup the ids
+ 	 * again.
+ 	 */
+-	if (rseq_set_ids(current, &ids, 0))
+-		return true;
++	scoped_user_rw_access(rseq, efault) {
++		unsafe_put_user(0, &rseq->cpu_id_start, efault);
++		unsafe_put_user(RSEQ_CPU_ID_UNINITIALIZED, &rseq->cpu_id, efault);
++		unsafe_put_user(0, &rseq->node_id, efault);
++		unsafe_put_user(0, &rseq->mm_cid, efault);
++	}
++	return true;
+ 
++efault:
+ 	force_sig(SIGSEGV);
+ 	return false;
+ }
 
 
