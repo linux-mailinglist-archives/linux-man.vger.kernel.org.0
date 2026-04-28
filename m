@@ -1,56 +1,56 @@
-Return-Path: <linux-man+bounces-5421-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5422-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kJJgDhNm8GmWSwEAu9opvQ
-	(envelope-from <linux-man+bounces-5421-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 09:47:31 +0200
+	id AIytAotr8GlmTQEAu9opvQ
+	(envelope-from <linux-man+bounces-5422-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 10:10:51 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2056947F2F8
-	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 09:47:30 +0200 (CEST)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EC3C47FABE
+	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 10:10:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 5498E301A8C9
-	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 07:39:53 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id E35D3307C2C7
+	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 08:04:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18852340281;
-	Tue, 28 Apr 2026 07:39:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75000331A53;
+	Tue, 28 Apr 2026 08:04:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="cYqItfln"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="TeID8aFq"
 X-Original-To: linux-man@vger.kernel.org
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FEA34F25C;
-	Tue, 28 Apr 2026 07:39:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C5A34F27B;
+	Tue, 28 Apr 2026 08:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777361989; cv=none; b=Yfhu67ud8UHLaW02JMlvlaWolCCoq5iXuaQiuxKG5PxMM9gf3/q7nUDeIHUGPLUkGysiXsbhgCaPYr4WltR5iF5qNpt4SbL58cBx9usbXlRUTXMdO8xVJBOokw08+XPD7/O/cnnJ5/p/dzs0bIcu1bXj6ozOI5aUuFTSpSpU9T8=
+	t=1777363453; cv=none; b=Gc+cPWrUsziaefvp0v45E86m09uNRpgdtevyY9e4ZQ2DyoBYQxBJ/BHQPZFZoFZ454M2bTsa9wBvm1o9k/Ns9TZHB/+pHqambZ2dyFCmi9U/nO+Ro8nkaD36xnpUCZamRTXui7WuHL6Q1YKmCFI1wXuJC46SR/Fz5wHTmPO5XUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777361989; c=relaxed/simple;
-	bh=HjR9mNBc3rmKA9OA4BAbGe2qkGeDhWPIYIeGIljUhpc=;
+	s=arc-20240116; t=1777363453; c=relaxed/simple;
+	bh=HrHvz6p2egb5XfEYj1cV1dwO4N5ZIX8W2t7qiksw3HY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LZQbrC4S+W5QhMt2496RY8PbjWVS7VBrDz7DU9PJ5jNTpJC6ENjlkV1nVWUYY21A9NPZC7XzC2mv5EQhvNcL8FX63A+uzmbyAxwcrVOcRXkH4/E3m/SVH2Wn7kbbGymEpEL53JrvJz+V7wgKzVp9g3dLFTHk6bHaRhF0uf+sUCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=cYqItfln; arc=none smtp.client-ip=90.155.50.34
+	 Content-Type:Content-Disposition:In-Reply-To; b=doJCHXVAXSPi9AqA0bCa8MzKJSfP3HB9rR2j9T+5jJV63/8jfVH7eqF3o+SWzAw6rN/r7otZJdv1VryoaAaCrt0asrL9pu4aQkoFjDZ0GfbP+1ddNIjaKSU6aFjy5aZaKwzl4+DBLiSdncuuK+0FS/+nAyCHpXr1zdgIiLHtAEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=TeID8aFq; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=infradead.org
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=C8wvQC+PlO9yc4+E3jHjYIgN0HUdkd2mf8qqNlIWkPM=; b=cYqItflnufIelnJ28a7y9m3gmz
-	jM9orCHon1mV5yW7ku5+xXfxbxq/zdbbqjKuHvEDf6SR2TW4ISIRaC/+4ppeJmo2y+1XPJ3zIMS0n
-	UNVPioix3Kg/x2MIv8ZDLjCc/3tWg2ZbtXPtYsonJF8TYfRMp5lbx6gRItwYYiCkU90ADZ/AXtEmo
-	o1ssrUS5Kqh1lFdZ4oL/jyqd1hJL5T+nUhCLFlS7nBdNyMjd4lnpzP5dtBvkHeRQ0khOmPWQNLSRp
-	naHzfeM1lowG4VjKi7v0faMjO6IEingSlMemMbcCG5BwxLZbNj0Ev/jvMFqf9ycHuk8Y282KZLu8x
-	oTbbj+Xg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
-	id 1wHd2i-00000003Oh5-184w;
-	Tue, 28 Apr 2026 07:39:40 +0000
+	bh=3OaSAgTxjK2QR1QU0n+b0SIWBdszlU+aMsuYQB2OmPg=; b=TeID8aFq3/o1MU7dAA0ZD5tQ4e
+	sJexAflc0AubSphjKCeh8h+XA92B8ybTs7Jd2NQGp9ap+wkST6tykVFBs3VTiU4lpmCBub2DrOC/j
+	RT+ZkfpgNSxXdXAfMPKK/wme/PPAYKCXVFnhNjVWzPluO7vYSkDlC2EcWt1yhPCuS6zxIV9pC2L8Y
+	flWWh7ed5kDhru4zofOYYPcIDVjb4fWj/csMrYhgBlb8aCHGfoLI5zpOn86dU+sXRdT6C+3E1tjD1
+	SjgSMYAcFLyH+Ky/l9IX9VT5u26fTLI3dxgJWwtbZZJE7Wi4WTe5X8y8DcfjC1KYtWIFP0FVBxIZZ
+	ObGgwntQ==;
+Received: from 2001-1c00-8d85-4b00-266e-96ff-fe07-7dcc.cable.dynamic.v6.ziggo.nl ([2001:1c00:8d85:4b00:266e:96ff:fe07:7dcc] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+	id 1wHdQG-00000002LuV-3bGW;
+	Tue, 28 Apr 2026 08:04:01 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 5A32E301CEB; Tue, 28 Apr 2026 09:39:38 +0200 (CEST)
-Date: Tue, 28 Apr 2026 09:39:38 +0200
+	id 5DB3E301CEB; Tue, 28 Apr 2026 10:03:59 +0200 (CEST)
+Date: Tue, 28 Apr 2026 10:03:59 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Thomas Gleixner <tglx@kernel.org>
 Cc: Mathias Stearn <mathias@mongodb.com>,
@@ -70,7 +70,7 @@ Cc: Mathias Stearn <mathias@mongodb.com>,
 	Linus Torvalds <torvalds@linuxfoundation.org>
 Subject: Re: [REGRESSION] rseq: refactoring in v6.19 broke everyone on arm64
  and tcmalloc everywhere
-Message-ID: <20260428073938.GH3126523@noisy.programming.kicks-ass.net>
+Message-ID: <20260428080359.GI3126523@noisy.programming.kicks-ass.net>
 References: <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
  <87ik9i0xlj.ffs@tglx>
  <CAHnCjA0UBNXfjHw=Y34OrAyGRNUtVF+zWd3ugyX6pd_mCk8K9w@mail.gmail.com>
@@ -90,19 +90,19 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <87jyttz8cf.ffs@tglx>
-X-Rspamd-Queue-Id: 2056947F2F8
+X-Rspamd-Queue-Id: 8EC3C47FABE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.66 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
-	R_DKIM_ALLOW(-0.20)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
+	R_DKIM_ALLOW(-0.20)[infradead.org:s=desiato.20200630];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5421-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5422-lists,linux-man=lfdr.de];
 	FREEMAIL_CC(0.00)[mongodb.com,google.com,huawei.com,vger.kernel.org,arm.com,efficios.com,kernel.org,gmail.com,lists.linux.dev,lists.infradead.org,redhat.com,libc.org,infradead.org,linuxfoundation.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -119,115 +119,85 @@ X-Spamd-Result: default: False [-0.66 / 15.00];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[noisy.programming.kicks-ass.net:mid,sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns,infradead.org:dkim]
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,infradead.org:dkim]
 
 On Mon, Apr 27, 2026 at 12:04:48AM +0200, Thomas Gleixner wrote:
 
-> --- a/include/linux/rseq.h
-> +++ b/include/linux/rseq.h
-> @@ -9,6 +9,11 @@
->  
->  void __rseq_handle_slowpath(struct pt_regs *regs);
->  
-> +static __always_inline bool rseq_optimized(struct task_struct *t)
-> +{
-> +	return IS_ENABLED(CONFIG_GENERIC_IRQ_ENTRY) && likely(t->rseq.event.optimized);
-> +}
+> +Optimized RSEQ V2
+> +-----------------
 > +
->  /* Invoked from resume_user_mode_work() */
->  static inline void rseq_handle_slowpath(struct pt_regs *regs)
->  {
-> @@ -30,7 +35,7 @@ void __rseq_signal_deliver(int sig, stru
->   */
->  static inline void rseq_signal_deliver(struct ksignal *ksig, struct pt_regs *regs)
->  {
-> -	if (IS_ENABLED(CONFIG_GENERIC_IRQ_ENTRY)) {
-> +	if (IS_ENABLED(CONFIG_GENERIC_IRQ_ENTRY) && rseq_optimized(current)) {
-
-rseq_optimized() already implies GENERIC_IRQ_ENTRY
-
->  		/* '&' is intentional to spare one conditional branch */
->  		if (current->rseq.event.has_rseq & current->rseq.event.user_irq)
->  			__rseq_signal_deliver(ksig->sig, regs);
-> @@ -50,15 +55,21 @@ static __always_inline void rseq_sched_s
->  {
->  	struct rseq_event *ev = &t->rseq.event;
->  
-> -	if (IS_ENABLED(CONFIG_GENERIC_IRQ_ENTRY)) {
-> +	/*
-> +	 * Only apply the user_irq optimization for RSEQ ABI V2
-> +	 * registrations. Legacy users like TCMalloc rely on the historical ABI
-> +	 * V1 behaviour which updates IDs on every context swtich.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_GENERIC_IRQ_ENTRY) && rseq_optimized(t)) {
-
-idem.
-
-> --- a/include/linux/rseq_types.h
-> +++ b/include/linux/rseq_types.h
-> @@ -18,6 +18,7 @@ struct rseq;
->   * @ids_changed:	Indicator that IDs need to be updated
->   * @user_irq:		True on interrupt entry from user mode
->   * @has_rseq:		True if the task has a rseq pointer installed
-> + * @optimized:		RSEQ ABI V2 optimized mode
->   * @error:		Compound error code for the slow path to analyze
->   * @fatal:		User space data corrupted or invalid
->   * @slowpath:		Indicator that slow path processing via TIF_NOTIFY_RESUME
-> @@ -41,7 +42,7 @@ struct rseq_event {
->  			};
->  
->  			u8			has_rseq;
-> -			u8			__pad;
-> +			u8			optimized;
->  			union {
->  				u16		error;
->  				struct {
-
-I know you like the 'optimized' name, it is faster etc. However, the
-description there suggests: has_rseq_v2 not be a bad name.
-
-And while I write this, I figured we could have the value of has_rseq be
-2, rather than 1, but this might end up generating worse code, dunno,
-haven't tried yet.
-
-
-> +static bool rseq_length_valid(struct rseq __user *rseq, unsigned int rseq_len)
-> +{
-> +	if (rseq_len < ORIG_RSEQ_SIZE)
-> +		return false;
+> +On architectures which utilize the generic entry code and generic TIF bits
+> +the kernel supports runtime optimizations for RSEQ, which also enable
+> +enhanced features like scheduler time slice extensions.
 > +
-> +	/*
-> +	 * Ensure the provided rseq is properly aligned, as communicated to
-> +	 * user-space through the ELF auxiliary vector AT_RSEQ_ALIGN. If
-> +	 * rseq_len is the original rseq size, the required alignment is the
-> +	 * original struct rseq alignment.
-> +	 *
-> +	 * The rseq_len is required to be greater or equal than the original
-> +	 * rseq size.
-> +	 *
-> +	 * In order to be valid, rseq_len is either the original rseq size, or
-> +	 * large enough to contain all supported fields, as communicated to
-> +	 * user-space through the ELF auxiliary vector AT_RSEQ_FEATURE_SIZE.
-> +	 */
-> +	if (rseq_len < ORIG_RSEQ_SIZE)
-> +		return false;
-
-You just did that check, I doubt it'll have changed since the comment
-;-)
-
-> +	if (rseq_len == ORIG_RSEQ_SIZE)
-> +		return IS_ALIGNED((unsigned long)rseq, ORIG_RSEQ_SIZE);
+> +To enable them a task has to register the RSEQ region with at least the
+> +length advertised by getauxval(AT_RSEQ_FEATURE_SIZE).
 > +
-> +	return IS_ALIGNED((unsigned long)rseq, rseq_alloc_align()) &&
-> +		rseq_len >= offsetof(struct rseq, end);
-> +}
+> +If existing binaries register with RSEQ_ORIG_SIZE (32 bytes), the kernel
+> +keeps the legacy low performance mode enabled to fulfil the expectations
+> +existing users regarding the original RSEQ implementation behaviour.
+> +
+> +The following table documents the ABI and behavioral guarantees of the
+> +legacy and the optimized V2 mode.
+> +
+> +.. list-table:: RSEQ modes
+> +   :header-rows: 1
+> +
+> +   * - Nr
+> +     - What
+> +     - Legacy
+> +     - Optimized V2
+> +   * - 1
+> +     - The cpu_id_start, cpu_id, node_id and mm_cid fields (User mode read
+> +       only)
+> +     - Updated by the kernel unconditionally after each context switch and
+> +       before signal delivery
+> +     - Updated by the kernel if and only if they change, i.e. if the task
+> +       is migrated or mm_cid changes
+> +   * - 2
+> +     - The rseq_cs critical section field
+> +     - Evaluated and handled unconditionally after each context switch and
+> +       before signal delivery
+> +     - Evaluated and handled conditionally only when user space was
+> +       interrupted. Either after being preempted or before signal delivery
+> +       in the interrupted context.
+> +   * - 3
+> +     - Read only fields
+> +     - No strict enforcement except in debug mode
+> +     - Strict enforcement
+> +   * - 4
+> +     - membarrier(...RSEQ)
+> +     - All running threads of the process are interrupted and the ID fields
+> +       are rewritten and eventually active critical sections are aborted
+> +       before they return to user space.  All threads which are scheduled
+> +       out whether voluntary or not are covered by #1/#2 above.
+> +     - All running threads of the process are interrupted and eventually
+> +       active critical sections are aborted before these threads return to
+> +       user space. The ID fields are only updated if changed as a
+> +       consequence of the interrupt. All threads which are scheduled out
+> +       whether voluntary not are covered by #1/#2 above.
+> +   * - 5
+> +     - Time slice extensions
+> +     - Not supported
+> +     - Supported
 
-Given we really only differentiate between ORIG_RSEQ_SIZE (32) and
-sizeof(struct rseq), perhaps we should also add something like:
+I'm sure its cute when rendered, but when read as text this is nigh on
+unreadable.
 
-	if (rseq_len != sizeof(struct rseq))
-		return false;
-
-?
+> +The legacy mode is obviously less performant as it does unconditional
+> +updates and critical section checks even if not strictly required by the
+> +ABI contract. That can't be changed anymore as some users depend on that
+> +observed behavior, which in turn enables them to violate the ABI and
+> +overwrite the cpu_id_start field for their own purposes. This is obviously
+> +discouraged as it renders RSEQ incompatible with the intended usage and
+> +breaks the expectation of other libraries in the same application.
+> +
+> +The ABI compliant optimized mode, which respects the read only fields, does
+> +not require unconditional updates and therefore is way more performant. The
+> +kernel validates the read only fields for compliance. If user space
+> +modifies them, the process is killed. Compliant usage allows multiple
+> +libraries in the same application to benefit from the RSEQ functionality
+> +without disturbing each other.
+> +
 
