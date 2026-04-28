@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-5425-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5426-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gOz5Jbdx8GldTgEAu9opvQ
-	(envelope-from <linux-man+bounces-5425-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 10:37:11 +0200
+	id mAwRNo158GnMTwEAu9opvQ
+	(envelope-from <linux-man+bounces-5426-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 11:10:37 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id A73DD480441
-	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 10:37:10 +0200 (CEST)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A621480FD8
+	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 11:10:37 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id EFC9830131F7
-	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 08:18:44 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id C58A23026B62
+	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2026 08:37:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDDF63D3337;
-	Tue, 28 Apr 2026 08:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CAAD93D5673;
+	Tue, 28 Apr 2026 08:36:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KoiIKsZV"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjZl9ocH"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5163D0939;
-	Tue, 28 Apr 2026 08:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC0C2836A6;
+	Tue, 28 Apr 2026 08:36:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777364320; cv=none; b=mz6GFb6TbQwJSuGBnw+AteB+NPhWHyHGPAVV1d8quqsiGrOS0t+vgKLlrHOSHWjAw8w8/pWeFiHXTqQcXgCm6+06gF4KKxXj4kuXbcafVaoUzUkfvaU/UYwuRTDSEQI0v8j9WKpy/FjAbjbg57umHKAM1UpVmwUPRFqtXsFsxJA=
+	t=1777365405; cv=none; b=Is6Mw8TVt9/pkJ/iZ5DFgeVdF/tLBUYOEfOYJqXyaeAXQRvho5sjgqbqM6RLdWECEXvNxzB8AbJbYTmUr8FFTFDJpmm8d+tRvotpMZFBTZVwjsxHA9xuP4+44WTD2LoTHgAT4bgsfU5tF9n7814sh1NlXPvJ0DnPMxKSlHyB9zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777364320; c=relaxed/simple;
-	bh=MhezThA/nJ+hhYlIaaGQ8ij0+fmtxu+kVhgm7c/bqys=;
+	s=arc-20240116; t=1777365405; c=relaxed/simple;
+	bh=6431jNMlyh5TZtkffCv2Acjak2j02YoCm1/rh7vP68Y=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Ed1x3LFSRzVDKJISGykYM5iTYClfL+okp72/UfEoA+TL5wOOc6lcI9vQAv9VhBew7XjYXXx9AQNVqRg1U8sU5hDgfAQeHsqHfFzzJqvxog2xbzzQEEeM+yTe1x3vOsKnvAN6y93JxpNaefw3IPmIvb2+YsX7xxf+1ETHUR3AQrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KoiIKsZV; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7FA4C2BCB6;
-	Tue, 28 Apr 2026 08:18:39 +0000 (UTC)
+	 MIME-Version:Content-Type; b=ruWvf/FKe2LtR/MC5OBJCA0hT1nyM7AQPjudEjN0/FgOsUULul5ollaXvbPea3NQjGi3fHcSgdQmYNrDzXcCaRwB2I989d1snOsdymNBbmhlM2ZFer/wb3TbrD5vutYV4TXn01T7tSLojt8OAfSpIDdZeHEjzf50j+qLlQNURiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjZl9ocH; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561A3C2BCAF;
+	Tue, 28 Apr 2026 08:36:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777364320;
-	bh=MhezThA/nJ+hhYlIaaGQ8ij0+fmtxu+kVhgm7c/bqys=;
+	s=k20201202; t=1777365405;
+	bh=6431jNMlyh5TZtkffCv2Acjak2j02YoCm1/rh7vP68Y=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=KoiIKsZVUlhecxBNBYmQEotK+aS0RK1/dQsgOKul81md2mFjJYhmHKpjrJfr6Iz2D
-	 HQQW8Qf3mT3exqI38otWfZpNxkNc0n3uo2QpDP1OBDdiDq3SMP9PCdmVWMqXL4mjpY
-	 aXYPxRMk+IbwHdNuwi2PlqrV/KZxYzeaT32k3+emMojKxBTWNHLue8heBzpWmw2h86
-	 FiwlCoRxoxwBkCRxOuvUUadL3Kx9BBsMiIlwbc8b1kCgDoJ7A3K5o8ZQFQcqcJgTej
-	 HRm80v2iFmZMTpIjGKoQJcT56rr/m4f86WdE3+cfEeGgT6NxYSUVyQq9wfE+tBtzZW
-	 oPJA0BNAFcWLg==
+	b=bjZl9ocH4SCCsKL6l+xut4XRgQbREMkmZTjBz0W35LvibOIiSFM4swxDiBLi1B4kq
+	 CiYK9Q4JEB06BO80FC0P6bHV5Su4RUiMFTFE91SEHGNH8RIqFyaKrElslx6pHkrQF1
+	 8E+C9J4DD2WmyWL+PQ12DB4h4cEoj+ceqmG4fI1lwYCbKXkgF67rW/lIq0k9pwxsXM
+	 bDCN4ArLqgLMb7mH0rT9r0C5tVx8TqkGSu3EXmqvODEQfKT2cnddKCXa6Go7S4S0zt
+	 N7kxo15ymikiGVFMJnXvBpTWwgEbcgyLEYK89Q7hTrlRTlW97mNuUhNHoLKSUwFyLc
+	 FwENZ0Ur+VklQ==
 From: Thomas Gleixner <tglx@kernel.org>
-To: Dmitry Vyukov <dvyukov@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Mathias Stearn
- <mathias@mongodb.com>, Jinjie Ruan <ruanjinjie@huawei.com>,
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Mathias Stearn <mathias@mongodb.com>, Dmitry Vyukov
+ <dvyukov@google.com>, Jinjie Ruan <ruanjinjie@huawei.com>,
  linux-man@vger.kernel.org, Mark Rutland <mark.rutland@arm.com>, Mathieu
  Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas
  <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Boqun Feng
@@ -60,10 +60,8 @@ Cc: Peter Zijlstra <peterz@infradead.org>, Mathias Stearn
  Linus Torvalds <torvalds@linuxfoundation.org>
 Subject: Re: [REGRESSION] rseq: refactoring in v6.19 broke everyone on arm64
  and tcmalloc everywhere
-In-Reply-To: <878qa7zexc.ffs@tglx>
-References: <aekPXvvuKHKlETjm@J2N7QTR9R3.cambridge.arm.com>
- <87wlxy22x7.ffs@tglx> <c5331cd6-76c8-430d-978e-fcad164e48f6@huawei.com>
- <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
+In-Reply-To: <20260428080359.GI3126523@noisy.programming.kicks-ass.net>
+References: <CACT4Y+bxnQyHGdVNE1BYTx+Z2-cscLb38HYS9jBM5gPAz8=4bw@mail.gmail.com>
  <87ik9i0xlj.ffs@tglx>
  <CAHnCjA0UBNXfjHw=Y34OrAyGRNUtVF+zWd3ugyX6pd_mCk8K9w@mail.gmail.com>
  <87a4ut1njh.ffs@tglx>
@@ -72,10 +70,9 @@ References: <aekPXvvuKHKlETjm@J2N7QTR9R3.cambridge.arm.com>
  <87v7dgzbo7.ffs@tglx>
  <20260424150318.GE641209@noisy.programming.kicks-ass.net>
  <87se8kywhb.ffs@tglx> <87jyttz8cf.ffs@tglx>
- <CACT4Y+ZofNqpeDdgde969LzLznxbRb8CPB6m=CS2RiSmkSYPQQ@mail.gmail.com>
- <878qa7zexc.ffs@tglx>
-Date: Tue, 28 Apr 2026 10:18:36 +0200
-Message-ID: <875x5bzeeb.ffs@tglx>
+ <20260428080359.GI3126523@noisy.programming.kicks-ass.net>
+Date: Tue, 28 Apr 2026 10:36:41 +0200
+Message-ID: <87340fzdk6.ffs@tglx>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -83,7 +80,7 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain
-X-Rspamd-Queue-Id: A73DD480441
+X-Rspamd-Queue-Id: 7A621480FD8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.34 / 15.00];
@@ -94,18 +91,18 @@ X-Spamd-Result: default: False [4.34 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_MISSING_CHARSET(0.50)[];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5425-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5426-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	GREYLIST(0.00)[pass,body];
 	RCPT_COUNT_TWELVE(0.00)[22];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[infradead.org,mongodb.com,huawei.com,vger.kernel.org,arm.com,efficios.com,kernel.org,gmail.com,google.com,lists.linux.dev,lists.infradead.org,redhat.com,libc.org,linuxfoundation.org];
+	FREEMAIL_CC(0.00)[mongodb.com,google.com,huawei.com,vger.kernel.org,arm.com,efficios.com,kernel.org,gmail.com,lists.linux.dev,lists.infradead.org,redhat.com,libc.org,infradead.org,linuxfoundation.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
@@ -116,20 +113,18 @@ X-Spamd-Result: default: False [4.34 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
 	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
+	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns]
 
-On Tue, Apr 28 2026 at 10:07, Thomas Gleixner wrote:
->> Not sure if that's it, or there is something else.
+On Tue, Apr 28 2026 at 10:03, Peter Zijlstra wrote:
+> On Mon, Apr 27, 2026 at 12:04:48AM +0200, Thomas Gleixner wrote:
+>> +   * - 5
+>> +     - Time slice extensions
+>> +     - Not supported
+>> +     - Supported
 >
-> Can you try the updated version below?
+> I'm sure its cute when rendered, but when read as text this is nigh on
+> unreadable.
 
-Is there a pre-compiled version of those tcmalloc tests somewhere?
-
-I tried to build it from source, but I really have better things to do
-than wasting my time on debugging this bazel nonsense.
-
-Thanks,
-
-        tglx
+I tried the other table variants. They are even worse :)
 
