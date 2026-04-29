@@ -1,111 +1,111 @@
-Return-Path: <linux-man+bounces-5443-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5444-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YCldI+S/8WkbkQEAu9opvQ
-	(envelope-from <linux-man+bounces-5443-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 10:23:00 +0200
+	id iIdhOWjD8WkbkQEAu9opvQ
+	(envelope-from <linux-man+bounces-5444-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 10:38:00 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DC4A491234
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 10:22:56 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 677E449143B
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 10:37:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 19EFC300FC41
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 08:22:53 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id C4DFA30277C4
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 08:37:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 202C93B0AFB;
-	Wed, 29 Apr 2026 08:22:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6176438BF75;
+	Wed, 29 Apr 2026 08:37:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pdbYyv9y"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wSICSQ+q"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE5D3AF674
-	for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 08:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1137B3AE19D
+	for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 08:37:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777450971; cv=pass; b=IxrkqnccKjOFPPV1A9kiYWAhFKsBj6xREmH+/TUV0n42IHjoz1iEAM8w4Fa+JKKmaIOPHgzqrcOpfTtNNykYV3hHxRAXhxSYdtiZxmfuAJCZu5L0uE44yaiENYltxL6iaI1b/UznpXc1Zh40O5/cTY0MvwGQOVVU11RiZBT81lk=
+	t=1777451836; cv=pass; b=OIowHwiuEPj2/3hjOX6c3b9h+Cvok+zIOE3bEzGgyYrif6RlkHuOTi0PiZ2y7Vmx5PPT7g1BdjlttEZ775ZjI4rTPsaq7u76YrY92rkoPzUowNEllYLhVK1GRpoMh1Zo4401t8M3Obcdm+mDG13wsPpkn6MXFWBli72sHto93wc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777450971; c=relaxed/simple;
-	bh=QMIexiS3w30F+i/rgGUir2GUYE7nYg8msUQh5MMI2IQ=;
+	s=arc-20240116; t=1777451836; c=relaxed/simple;
+	bh=p+wBY0juLjY+wIPI3CEUuk+q//2kCqOjNQiqSgAGMYA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AOGWObkTzjk8n0Ipwqb5z7ZUn7qFGTEZlUyo1tDDFbaiUrXcwA/eUhMeR0v0L542oTihSnFaxVxJyJINnwLbs+/+buJxhryDi92cdS6gtczpJbG6dO4gbybnlzVdtAIy4B4Mq2ofmfgPO29t4B1/9WUpK/m+O4uFh9R6irLmf9Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pdbYyv9y; arc=pass smtp.client-ip=209.85.208.172
+	 To:Cc:Content-Type; b=usA9SdWEBmpiSQeJm7L+43ezPKeAOA34VIJgkh2zv1Tkj1ZKPZ7F7LJbNusaqGcj5MSqFxDxsodH6c+WQzG7k93BmYfN1ygVl96+F/VTN2zi9h9QogzZN2BJvUuWySXkTnnOzjUdwOP61JKFwQw/VfiIkGMaGELtB1xegLDsU9w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wSICSQ+q; arc=pass smtp.client-ip=209.85.167.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3878de20527so95268621fa.3
-        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 01:22:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777450969; cv=none;
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a3d42263e4so12207022e87.2
+        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 01:37:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777451831; cv=none;
         d=google.com; s=arc-20240605;
-        b=Q/wMR5HMzgCuQV9SnKBqdJXBLPYknx0u1Kwdt1qrb9z7ogGNmtx2uokEQ1cKMp4gFA
-         7LOFF8DwacEZOATRCm4QOXLXXT6uYM89VO9nA4jLXbwODaaokxfbCzJdLvjRDb/YusW4
-         sE7+aOx2h05zJf9hhQDjTWQ/CZw6o4IXUsB8HzhxDxvqEjd3uP5evpFor2SrE3630UoJ
-         xtMYpxpeifIGv0n27sST28+X1sDiyu0EaXE69K1FZ3cruj8e5V6uvqT1w0vOQQjhyWHU
-         nlvtq0VnUKuJ0eqlJXi8RvufCpGs7cvISdggEyOuBqumdWOUhC7Q7v7G8oIkKlDZnObA
-         cZPg==
+        b=JzITizqVrB+ZTgJrUc/6Ep888Hx3wm3gF9K2YHSltVc2D+BxThLnw5KlA6SydwFj0t
+         PiLgJ5ayHroekYza2L6JfJgDrk2n9sNClYSicGAeoQDppPfm6ZA6qweB6tuzePERlCiv
+         Yt4S/ceIb1linNrXkd02LSzTkSW1wowhchgFtBKH1cnIqzkNrvjqdmI0/DnprE7U/InS
+         DSoViFSsRo/KyV0qe0Fj8W5PrqwhWDBDpeli78Pkibl4SKvxZefIu2sShq9AjfG4ORYZ
+         eDJhvA57n/iG+lV8o/ZtDnaj9MoOfOqmTkX+ksOpYClzeRHS8rcT0kqRMEJyCGCHYMhe
+         bVMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=cR+LIUqKtMciQbVPi5gi+r/yye6H6/khj2zavabOARg=;
-        fh=Co6A1xTAOrqFjsLv1VEl8WsA2e9JhY8cESqoDFF9eqM=;
-        b=Na//qUyVeW5+/eLY7fDVp9mbGpLtyayco0JO99uUzCSNzRPEOzQD7YWckgKyDGgTIl
-         xtLxSGSrYKZf62r8aO/ThUSa49ICUQ1ItPmWdbxTylX+sP6TFpdqLc3pcx4lz9CfKnoW
-         ryVAcq/uvR/oa4YI9rvbAqtebaU8l/19WKIrqMHLHql8S6kt/0ZK5Yd8f1ItbHTjz4fx
-         qrQyjSm3Kps8PJd7mipGHv7Soyb0mnW0J8JWvx642FvMTcHWSNyacv5iWDEiY9qOWMdw
-         WM70CAEMglDPTpfIOeh67nXJ1YD77OrZaRzhN/EIdE5WpXH3XnoUAzXtth1lCE0642bb
-         BZFw==;
+        bh=TMm2b6fcDJ4VCBGYQ5BqcAM0hKQDzqSm7Hl9JCLIH6w=;
+        fh=FMAxpBpDBOEwYf/vMavmsUCp29tOJl550ZkpMxO9HvU=;
+        b=TbV9KupWZEd6c8f5ODlFk3R++YMF06w/uxCY2nQf9BL+O1TR6A2mcOyC6dA2MfhTZw
+         f2cKQcXhiUKoUw1bAg7S2cMjFdZS6HAZb0VJ8M52YxCJEd3XGHidcSMP5N3hPq6vZ1re
+         NwQRfOJYD7DGSm9TaBIuUWWE11a3cV90NbfzeBQzwaAxa9XcFHpYd1Loc8nhDbKKgE5d
+         aYPk+D58Capf5ttGDlrRH+XTK6TD7Nc9u+ljA/0uzyb7UfrBvuYtR2eft2qwo0qgFb/S
+         edgmykzZYYGEEiEUABJEfG8ytr+S1mBRgFwQeBN2xyu6R5RDaPqqP09jpDkMC4i9MBim
+         fbRg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1777450969; x=1778055769; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1777451831; x=1778056631; darn=vger.kernel.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=cR+LIUqKtMciQbVPi5gi+r/yye6H6/khj2zavabOARg=;
-        b=pdbYyv9y7ClgVH1cAJiecwGmpWsA9aRkpxMZ94fxekr0FQckKECU90vNsKsk99YJYS
-         jkqPgNwqTvNatr7d0I85mCqTiqwW/cbeBUnQe3aU+sLr//vRsXq9yIRoQenTbW9SKTzy
-         xFDfEkxqLIxCfydl3vLWs/d28jjryetc6JNwYCCd3zMsy1aCyHqqsINDJAN4M5ovliCl
-         RturjpLADVasG5YikK+XpchQ0KOmMOGCn6jexUlc8kvxcJPk959/FnMeSvb7W21zsv/j
-         BgZyqlonLA0UC2M3bP6vE95ovWS8oJeaQ9n/y9kCDwNbVTa3jOwmqdZdcq6/UfFts++E
-         Vi+Q==
+        bh=TMm2b6fcDJ4VCBGYQ5BqcAM0hKQDzqSm7Hl9JCLIH6w=;
+        b=wSICSQ+q7iJTl/1WkHk6I5v2lZAsMuQv7ugPwX1EXzVzlBTq5ya48LV3A5WDdFpTDR
+         EIRCCyliz7GCrqemHk4hm9yMTurUrdcCXHelNixeVB1PiEEsP/xN87VNf3DCh74hbEEQ
+         P9Pdbp4UjIEz1o1Cdtgxh0XhuBEDLCGPvvdvGgUCBFieplUcaOvWODg9R6dYa7J6AAOg
+         nRd/qQEgDGKTcOKCFJv22IzvzNYXyZ5D8bizpi6r+9egM+slTxgm5d3H/4DVKAOzQGx/
+         8VAQzgglLJTxPXLXCrtrArnZvlz+rTDbtMEY0FjnLSDHLYH+Pwkaf8Z1OwkMpa/Z5Y1z
+         H6Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777450969; x=1778055769;
+        d=1e100.net; s=20251104; t=1777451831; x=1778056631;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cR+LIUqKtMciQbVPi5gi+r/yye6H6/khj2zavabOARg=;
-        b=m4myo8MGPNGWG/uqkIWHZHb1EddMVlyVtHn6ub2ZxX3ytUaFhJSRiKsp3DuN0WV+QB
-         oTz9Pj6sX6pFEkOtJCsAdQMS3NPE1fGf5MkMYXPbc570RoQ2gVuIADjfnRgQR9R3DtJS
-         /jOsciKA18UZJeWIyUl1y3YkfWHdZvaIQa8ULnqezSDfCH+Nap4pVpxTrqCKKw+BXKzx
-         PHJK2wGWtPIGNq6GRnAviSPWq9E4vGIurWVHEi2XvX+EzRpKaj2KeBi2oZ3/XbczQwK/
-         pPvHUJCju42080rHBm/s7ca57MsABdFfEu4uiawWcJCWDrif0PCuJFwiySjYAqXCGk/v
-         u/hw==
-X-Forwarded-Encrypted: i=1; AFNElJ8BBlna1i5PqSf/vPPYah/pmEdK99RJcawZwkZAvtkRSFMnw3nWEGROAY01otolXuKUwE4h1oBqOR8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxfn31HzA1jnZb7/nPBG7liTWFmxFm9rumUN92La9OlHuZL2vOB
-	BNy6I+C+llDQMXNIL4K6CrVml08QIMcebSt4FjhDEwD52/x6kTjwN+0FPT+yJf6O9n44mRC960i
-	TJVCVJe/vQ7shBkwJ1j8xBH/s5nRDxgGF26quUjAjaHMRHlSDY/XqZuUgINQ=
-X-Gm-Gg: AeBDievVVWmxsRu6/jyHGZwbv4+97KuOxLkRMmPAi6+vrCiChqHFrmz98pte7Rf4nlB
-	s00bbYZLG5rADrnUJ0kiQxlZFInF3zCG2ITFg8grOkCXOhOg31kS4Kizj/5MDWJpiHGSXCsj4rK
-	Q95URjjJf85/jmYmglPHMol3J+UccA7oXNviBni6oDgj/Ltis3ngWeWDx3IsQz09i+vpTwLyzBe
-	lClda/Dp3LCzupvhT0apwYY/Y3EnoCWD8ZX6RgsQc5JQ8wgFAjzKOTAEOvpr//4Ti1jJD1YrxEc
-	bUZ6nwmQuOBiCkyr8h8Wv3qdnu46xw+4MYxZ+B/moJG2O3kAVNxXiEd4Ulerv6svDIbW7EmOSHH
-	BRh8tRNghf0Yzf9Iavw==
-X-Received: by 2002:a2e:9fc8:0:b0:38e:bf20:2758 with SMTP id
- 38308e7fff4ca-39240ccfc4bmr23514281fa.9.1777450968292; Wed, 29 Apr 2026
- 01:22:48 -0700 (PDT)
+        bh=TMm2b6fcDJ4VCBGYQ5BqcAM0hKQDzqSm7Hl9JCLIH6w=;
+        b=LCL8ik9HaTeh18zr0GbmIF0HjllUOAQM00CAVpsqWguv5vETe+NBxTHzZsW3Z2M0+b
+         5QFh/lVlBGHVtWW/5b0cC5V6lUujmuU6QqCGFhAGdib4HsakgXNDkoyvTosXEVv2HSoV
+         cLiLLHdUCyAnTebj+nM7FlfxRhAf1Grl2WiwKe2hNnKtzcTuGvF1ZzGQ6L4xT5B7lDmQ
+         LmuyUHD8AYt51HVjkrA/LdF3p29ke/EFfehXYfuP4TAJhLtdx373l/18M3bW+hjmqXRW
+         MQGCteW+qMBdQbdKAkeq7i6WlO515+xL4y+5W0SLUsrBQdoD03pZJc48Fn03B2X9E6cu
+         rwiQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/VPe3qZHEWGJ0wVeNs5PwdzgtYkWChErQGUsOqmUxFpYEMne4kUb56QPGhVAQ8pmX2EIyTaHm811U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw+BVNcctnlD3yZsQIUPcQJJZzusmJwrvxH94lSaHHjNqyEp43N
+	Q4iCFvh5OOPtE4mkOPcd4oDVKm7QgQmvUF6eKnrRu8ldbuazhTx3bqf/yRGw2tquP7ECmbLF10c
+	LfjLCygjCvRThw/tzp0JuahEt10JraKrSbar+E4Mk
+X-Gm-Gg: AeBDiev2/8zeP7nG9SjCYg/33pocxH6hlQ7DwTeKLyK4ySFub58CgV8L/vpMjwtikUt
+	gxOYJbtMXHYURf0Swf8mcFqFz1byMBHBfThD0cG+ilYAmNHIrtmjDfwMi85fZCnNgo7muhW5M4T
+	1Hqsf0ZqXlPrRSJOSuIru4CT3wxH0sj8CqmQvacPVniA3hmheSBZoZRIQGgHr1yyIsoa5+KOb9R
+	6FEd8ecDNm+F6PELXcF9hUaD5nZ1y/TlzAc2xTR/DcaxJNt0Vd5FI9jYpKEivQOKsuSCLntejfm
+	MHBxl5iwnokqpU+WnK+yxUM0F2P1NJNFA6ftlNia5DIctO5cBdMN/yIvEpcRpcsRqG/CzkU2ryO
+	vK5aXnW9BrTUOlxwUdA==
+X-Received: by 2002:a05:6512:10c7:b0:5a2:c05c:1199 with SMTP id
+ 2adb3069b0e04-5a749cf3cb3mr1165203e87.15.1777451830245; Wed, 29 Apr 2026
+ 01:37:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260428221058.149538293@kernel.org> <20260428224427.353887714@kernel.org>
-In-Reply-To: <20260428224427.353887714@kernel.org>
+References: <20260428221058.149538293@kernel.org> <20260428224427.437059375@kernel.org>
+In-Reply-To: <20260428224427.437059375@kernel.org>
 From: Dmitry Vyukov <dvyukov@google.com>
-Date: Wed, 29 Apr 2026 10:22:36 +0200
-X-Gm-Features: AVHnY4IX_PemTXtwPIZdYMebOlq58du3lkZPLQ-D2jLt8xvBVvze9Js-VpSakHE
-Message-ID: <CACT4Y+aSmUJOwdKdiNP4mKhGwjSOvS42ueByLdCj_P_aEZvu8g@mail.gmail.com>
-Subject: Re: [patch 02/10] rseq: Protect rseq_reset() against interrupts
+Date: Wed, 29 Apr 2026 10:36:58 +0200
+X-Gm-Features: AVHnY4Igk12Oy_shlJR0om__FeFvofb63SKKJnxwMZ7_ZWH22zkZb_Rsi2ddxN8
+Message-ID: <CACT4Y+bQrTsZg1nzRsMzBcRcYrf8jW99UMKpmhtY30=5kV0vTA@mail.gmail.com>
+Subject: Re: [patch 03/10] rseq: Dont advertise time slice extensions if disabled
 To: Thomas Gleixner <tglx@kernel.org>
 Cc: LKML <linux-kernel@vger.kernel.org>, Mathias Stearn <mathias@mongodb.com>, 
 	Peter Zijlstra <peterz@infradead.org>, linux-man@vger.kernel.org, 
@@ -116,20 +116,20 @@ Cc: LKML <linux-kernel@vger.kernel.org>, Mathias Stearn <mathias@mongodb.com>,
 	Matthew Wilcox <willy@infradead.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	Linus Torvalds <torvalds@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Rspamd-Queue-Id: 8DC4A491234
+X-Rspamd-Queue-Id: 677E449143B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
 	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
 	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5443-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5444-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCPT_COUNT_TWELVE(0.00)[16];
 	MIME_TRACE(0.00)[0:+];
@@ -140,40 +140,68 @@ X-Spamd-Result: default: False [-2.16 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[dvyukov@google.com,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[google.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,mail.gmail.com:mid]
 
 On Wed, 29 Apr 2026 at 01:33, Thomas Gleixner <tglx@kernel.org> wrote:
 >
-> rseq_reset() uses memset() to clear the tasks rseq data. That's racy
-> against membarrier() and preemption.
+> If time slice extensions have been disabled on the kernel command line,
+> then advertising them in RSEQ flags is wrong.
 >
-> Guard it with irqsave to cure this.
+> Adjust the conditionals to reflect reality, fixup the misleading comments
+> about the gap of these flags and the rseq::flags field.
 >
-> Fixes: faba9d250eae ("rseq: Introduce struct rseq_data")
-> Reported-by: Dmitry Vyukov <dvyukov@google.com>
+> Fixes: d6200245c75e ("rseq: Allow registering RSEQ with slice extension")
 > Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 > Cc: stable@vger.kernel.org
-> ---
->  include/linux/rseq.h |    1 +
->  1 file changed, 1 insertion(+)
->
-> --- a/include/linux/rseq.h
-> +++ b/include/linux/rseq.h
-> @@ -119,6 +119,7 @@ static inline void rseq_virt_userspace_e
->
->  static inline void rseq_reset(struct task_struct *t)
->  {
-> +       guard(irqsave)();
-
-This may deserve a comment for future readers, but otherwise:
 
 Reviewed-by: Dmitry Vyukov <dvyukov@google.com>
 
->         memset(&t->rseq, 0, sizeof(t->rseq));
->         t->rseq.ids.cpu_id = RSEQ_CPU_ID_UNINITIALIZED;
->  }
+> ---
+>  include/uapi/linux/rseq.h |    5 ++++-
+>  kernel/rseq.c             |    9 +++++----
+>  2 files changed, 9 insertions(+), 5 deletions(-)
+>
+> --- a/include/uapi/linux/rseq.h
+> +++ b/include/uapi/linux/rseq.h
+> @@ -28,7 +28,7 @@ enum rseq_cs_flags_bit {
+>         RSEQ_CS_FLAG_NO_RESTART_ON_PREEMPT_BIT  = 0,
+>         RSEQ_CS_FLAG_NO_RESTART_ON_SIGNAL_BIT   = 1,
+>         RSEQ_CS_FLAG_NO_RESTART_ON_MIGRATE_BIT  = 2,
+> -       /* (3) Intentional gap to put new bits into a separate byte */
+> +       /* (3) Intentional gap to keep new bits separate */
+>
+>         /* User read only feature flags */
+>         RSEQ_CS_FLAG_SLICE_EXT_AVAILABLE_BIT    = 4,
+> @@ -161,6 +161,9 @@ struct rseq {
+>          *      - RSEQ_CS_FLAG_NO_RESTART_ON_PREEMPT
+>          *      - RSEQ_CS_FLAG_NO_RESTART_ON_SIGNAL
+>          *      - RSEQ_CS_FLAG_NO_RESTART_ON_MIGRATE
+> +        *
+> +        * It is now used for feature status advertisement by the kernel.
+> +        * See: enum rseq_cs_flags_bit for further information.
+>          */
+>         __u32 flags;
+>
+> --- a/kernel/rseq.c
+> +++ b/kernel/rseq.c
+> @@ -462,10 +462,11 @@ SYSCALL_DEFINE4(rseq, struct rseq __user
+>                 return -EFAULT;
+>
+>         if (IS_ENABLED(CONFIG_RSEQ_SLICE_EXTENSION)) {
+> -               rseqfl |= RSEQ_CS_FLAG_SLICE_EXT_AVAILABLE;
+> -               if (rseq_slice_extension_enabled() &&
+> -                   (flags & RSEQ_FLAG_SLICE_EXT_DEFAULT_ON))
+> -                       rseqfl |= RSEQ_CS_FLAG_SLICE_EXT_ENABLED;
+> +               if (rseq_slice_extension_enabled()) {
+> +                       rseqfl |= RSEQ_CS_FLAG_SLICE_EXT_AVAILABLE;
+> +                       if (flags & RSEQ_FLAG_SLICE_EXT_DEFAULT_ON)
+> +                               rseqfl |= RSEQ_CS_FLAG_SLICE_EXT_ENABLED;
+> +               }
+>         }
+>
+>         scoped_user_write_access(rseq, efault) {
 >
 
