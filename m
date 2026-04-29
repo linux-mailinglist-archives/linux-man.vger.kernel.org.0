@@ -1,111 +1,111 @@
-Return-Path: <linux-man+bounces-5450-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5451-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cOEMKV7S8Wm3kgEAu9opvQ
-	(envelope-from <linux-man+bounces-5450-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 11:41:50 +0200
+	id cGkcAIjR8WlrkgEAu9opvQ
+	(envelope-from <linux-man+bounces-5451-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 11:38:16 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id E06BA492247
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 11:41:49 +0200 (CEST)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EA8F492164
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 11:38:15 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 7800A3043839
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 09:36:28 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id 07599300AB10
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 09:36:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8BC33A9618;
-	Wed, 29 Apr 2026 09:35:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D64AB3CA4A3;
+	Wed, 29 Apr 2026 09:35:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OpSQ7NzZ"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hgUoysgV"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4223C3C3437
-	for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 09:35:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4FA3C3C12
+	for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 09:35:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777455343; cv=pass; b=AgANeAykKazcH4CJvWvojv2XiWy87FmcUA8w0URTVXVD9F9Q8fzy5HPXliKPouomB9MKxYOCslBvK0WzUQdZuw2KZI+yJiaN6PHrYRvp5kugsGUQv20ekIRX1akZGeJ5HNZriDPtqnX5ychaJYXCwBWenxWIBG6wyQ6fBqDZmuQ=
+	t=1777455351; cv=pass; b=rCIRVY4Vx8K5E0v7eWjjQsePk7OtPKkW+1Joy4IE1yZ2Sw8AvB0UjGs2FWmZ0Q71C214JTuHolHw7qtK2Q8jv5I9zujktuB9l50opYGsC604jtFbW4xIWL7FdU05fEgcBdQUlg00By0cvoQlRhS5SF5eHdcQabN43Ar+vXCCruU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777455343; c=relaxed/simple;
-	bh=WltXveIE3Ur6uZ2aEQ9lkY70EHenjUuyjd+X+miHZ5M=;
+	s=arc-20240116; t=1777455351; c=relaxed/simple;
+	bh=R0OvMTCArEa6VcQHf94Bjb5fVmkI+2ZMgw6rEAreSHI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mOg4WBIRyzX5GCDeyKnG5nu/Dhyew++B1tj8LodcftVNqaZUoLikKjyG5qXudAa+16koJG3H/All0qvW7il0NCnSzFM90kAIlhiUFAQ0/EnYMHW0srqrva/f1kRgIVYE817Sxb0WH7XTPZ05YfdktbKE3DPRgW+g4Me8EtMV3rA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OpSQ7NzZ; arc=pass smtp.client-ip=209.85.208.176
+	 To:Cc:Content-Type; b=cJIxCd9uSycYcKr45bekJvoOu2FdzddozvHRfzU6sBZVF3Iat6HENzgYhDtrp87fDH7Q6y1XUskJO824mEdFjurIaDlLO4QFdvxEJEoPy16SbUe4SLZFDdUEm+u2kaWhZlXAHc6gZwPljvFas0O7LpstK1vX+xBguxcVAJNV3b0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hgUoysgV; arc=pass smtp.client-ip=209.85.208.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38def541b0bso106883741fa.1
-        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 02:35:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777455338; cv=none;
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38e9653b580so137832071fa.2
+        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 02:35:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777455348; cv=none;
         d=google.com; s=arc-20240605;
-        b=cRRhGQmJ3QGfD2hHn6TB22fK0GAD5ATt5ujIS6PefP97gW+yw5e0ugcJExnqiFhzry
-         vf7U7ZuCeptsqjUuX1y5Tf/WDgr4ZRiFy26bY2m5j6wIe272FsL2o3yfDgve5DTW2mfN
-         YLdab+GB9ua0FVjNvR7c4P/p5cMb6yIkVUP/aIl1cCSsHReic2T4wskH3Hw8X5wKT24o
-         GnMLuXM68SL/A3rAWaUn0bfXN6oX0DF8FR5NvfSMQIJ8HIbfwK3n4g7N8eKyOlOr7z7F
-         XjHDf3EBPJkhG1qCdb06MatJxSLEBDxnXYbL2cNCFJRbm309opIcASp2QW4HkpQ32LuW
-         S6Uw==
+        b=eVIEpIsCFL9EwP6E/jCYYXOzjHwePWcYc3KJiN7aYjR38dijI7BEXOH3eRNUlfWwb+
+         WBT179h7EZitA60kV9T3TSsZ5JEUnMJ0F2SQyUkZdHKa2qLNKk58lXTOzL9cZZVo3gHF
+         uUCJc7N8eVhi0NoKfThAcF/eil25aOfVOsEVXUlyNYFMcrhrMEzikjubvf5fMTapGVwr
+         NLIrxZ7GlnkTX7ktverDPrYRxv1mcTrP+r++1aea0uhskT+TaHcxEV4OGUdHT3F8soiT
+         bU1FikSUpTD/CvNXeXSYu8Yk8krYWOMdqBE15HGK0J7TyjugL2ytSJkpPcpiWm+pNarE
+         Xl3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=MC/t8j/mQ9vDSR1vAc9cFqH7pdGOSqVd0C7sXvmznkM=;
-        fh=T5NBd/BkLfuxOYwHyF+Wsnz/1dQOOsFXGGNRSgi3r20=;
-        b=bRzNqjk0o8BIyoWADbKjub2jegDjPBJXN+zYBGAc6wi2JvxgLT5U+NAJ8hCGnUKIAf
-         mw4CZVYgwUfzHRzzPjj9EvnHU17PgZk7JbW865bYBRfvfiPsrKz28D72AEV8GALtoHMb
-         5EcWiaJd9IxAc7pw5cIzxhzSnXQvalR9YXHvP+UczsRg9uy6LTktVDKMo+txvqaKhD+D
-         dt79d2t7lwcfK8ekpzpepNwoTvgezvGTwjULOiRwLlI1tDb5W7qbCeXdAeqYjEC7fURe
-         kCOHvAk4VEWEUUDesOnU1ChlybxIqUAUAr9USUU65tywLUmaP86O4rPOV2WCAz0OhgEU
-         BoHQ==;
+        bh=euQZZG6zQp/9wRvxqq+lTd5t7Vj1Lm8yoSr7I+5xZqI=;
+        fh=FfOgotzw2omV0UvXB88QFBK0UrcpF9/UFzGz1QxEGgk=;
+        b=PJa0FLP70WT36g9Bycrx5SDQoD/t2m5ry4q5MgQCeMQS1zQX+vNu1X25gNaPPsXyJF
+         Cy7IzOSU+HcldSIYv1gaNAdZrIl+OQq0EP6M6d4HGj3oSeQdrRcK2c6erFOraypBcQOw
+         kp9+ifjZ8BiescBk58c5EBEprWsD7wMWJzUjGhvtrDZcdYCLN8BgEG/Of17LQYmBxY2Z
+         EMPXJzTyuf8A8aLYs9EJ2v3/+f4rbzWMe1xBa/p3bxPHZIi95EVJMIMR7CwQPTsiHTJb
+         k3tEzKeHmJ2lPwMLrtCMa/L/6pvL116aDsuv5IleR551bkZo3rQfiDoFhPAYKU9y+GSR
+         oU0g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1777455338; x=1778060138; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1777455348; x=1778060148; darn=vger.kernel.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=MC/t8j/mQ9vDSR1vAc9cFqH7pdGOSqVd0C7sXvmznkM=;
-        b=OpSQ7NzZqPHEpBkTeIazUJpVoH3RNMI3wwlSdPyOcm9y1D7iOPj6bKI5ehZKA/tOuj
-         QeQWJjXscAOigHraIFK9Gr3T2SfzwHVFNwL3BqG/jHH7VMZTlbcmR5+ZbUnqu1LP93jM
-         hKRiH4dILC/B8pOhjmG7mLOZb6s5bka86/5kW2h98IwlAwaWsZjhzQtkt3mGAHtnJz0s
-         /CC+pdj7sINgEzNLZ08w9GO/JM5Q7v/pi752rY40rBnAbhRhn5NrWOaaB1eraReFYyOj
-         xqkKS8MTy4nip29g6PXHTnQWmJhSSDaMKtKlHRfj4HYwf7aePxtVNQ8kfUBd0LTrn6Rg
-         f8UQ==
+        bh=euQZZG6zQp/9wRvxqq+lTd5t7Vj1Lm8yoSr7I+5xZqI=;
+        b=hgUoysgVb37C9xdKF760wpOB7FKTePyg/UHbY31YkIaQmLYy9wY9bDJoGTu8Lm3QoM
+         bw7xNCKNTed9vTdQ0Cm0Gpd60zpgCOiEnhWkwM7gnJibkcncfAvhamAwOq9J57+lfy01
+         L3ko5fjvtWx+JFlnz3Q8oGZEjIYVrvfS8TMO4qyhVe6XTafCTKmxBqJz8WdWg6Vj40ji
+         1U4z1vAEH+sCGVydBRwD5kOEqEZKWzBW830KnF1KUcajwWVAExGphHwbd7Gc/z4GseA/
+         ohabZdJWuNeAIjzCXQialyJb6h5n6nwv9SAvP15GUpntzX6LfvBJKSMpS0y8CWN5tCTV
+         q8hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777455338; x=1778060138;
+        d=1e100.net; s=20251104; t=1777455348; x=1778060148;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MC/t8j/mQ9vDSR1vAc9cFqH7pdGOSqVd0C7sXvmznkM=;
-        b=OBGly47SKR3L3PpFUOgwNwUK+QXnKapB1Dku0eNPds+fBk/QHOu7S12hMMG6J+XF/B
-         h219A2TTuEicP0d7nyQYLtxA79CLtIBqlUygyquGNqW39+1WSRMa+Ll9buSvOFbgij7/
-         heKkeWlMhVrnAqDUaumhL6ZdKkS9i4WNmbW6ukZlLRf7L3v44zrO9eWKzJVcg2jnn1Mi
-         s0hQzHnbADe9aOmCinqYiOQgYU07B+bHiGwGQPFUP2jZDlBFoqu8GklUz56J6FoAfioy
-         P9BhSgAWxx3Mb3qZUg+KpgZXQtzMdqafgs1b8Uy8l+yp3lhlUpoEnmx86JrAetr93KBI
-         gtcQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+npWYtuPlAAMXP3lf1vyvi8VkOXMOSpqU6aZxadNbpAjZ/2CKrJAYF1+XbPL5OjMC+JwuBdGbLOAM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxwwv8h9RAROrbMpNSrRkCIifSsIQxfmND+065LCjaE6lsru3oC
-	5+ZbmAXF8droHZHEKFCgRL2uEqk0gOwzFQJvBz0rNbHZEr7FTW7x0p0/fhkUWUWGoFK2lNXjpXx
-	hMU4vYUwd4eDinqk2uTXJQgPh5tx83VeIz9prljQ/
-X-Gm-Gg: AeBDiev/vdDBvSFMmxYSlAOOuuGrsHm3C3ojEUlTd9XUBWzQBX/UeLNdEg6r4NGHdGn
-	1K4C8sRNlutebcYwSfXeAGfzQDoI/MX0UmvEZgbWOtdmPvw+UsofLoN7fCI4Nw7SK2ZDLvI2WNs
-	t/LjL0/qsvRoEQmNwpDbZPwMjjdBK5picCMYqHchBXm4VwtAs/iNOrGvtNGDtSY9pJZFMDOeETZ
-	L9dcSGRGAyrLs4oBoZRU4INMGH0OfpXT8ggz8Oza4cq+5slr9Tts5vDo5VZT7SMHZS6gE6MQkat
-	ZqUTmYA5A/SmTcvZK5DOoVo+gIWuKMKvtOxAroRLsm0alXXE+XIJ4o+N5GMnB3VkXwppZMEOOx6
-	vIa8/U3k5KciM5oCa8g==
-X-Received: by 2002:a05:651c:1443:b0:38e:8503:6fb5 with SMTP id
- 38308e7fff4ca-39240fd12dcmr24361711fa.30.1777455337912; Wed, 29 Apr 2026
- 02:35:37 -0700 (PDT)
+        bh=euQZZG6zQp/9wRvxqq+lTd5t7Vj1Lm8yoSr7I+5xZqI=;
+        b=FL8DqgHim07VDpSjLdVwEIBA/Gjm1nv9X2z6EUhVs5AD9WxHZbTdgHfsLHfEM69FNC
+         4nNl6SqqQnhCq0HD4B1p5hJfNmZOfG5i+BKy8MHgFXC141oAMz3Aypx/dWJmf9KZHEfm
+         lCAIjCHhH9jGshC8Sp5Ax78THng61ZIJTNBk1KiVmIA/jzEuefwGIjKA9VFtvZnrNW99
+         7ODJzzjpH3AQneY7ooiaydPvi+EK/H8IBreHe8ByjPLZdYKGFx8tgICLpQt0VvYZgsRP
+         8QKi7ARTqgNoei7seVEiFW0U3cpKZEdRM2jkxWzlmyX30JgzYjTcDDT/sMsmosniSRyq
+         RSkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+WDCaJNLfjYgmJbo1j6C84KQ/XLNDfaVTg9dYQKDCQ6QtIJAlW82zdC2fKgqCC+nu8LhPwYg4PrWc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlqAJfyT3MldHbf6ZotQ564Pz4GznNuDJGGpE6m8Nr2CJsWGbA
+	W4MU5iWZ5xZ7OMSaDZq/3c1DNMCe1rv3Nab7cH++VhpXTzY6J+8LnB49nIGtkF48j1Gj6CtLXwS
+	qrKq20C4MNKWtPZEvF4b7vhTsJyKXAoIy0mmC7y7j
+X-Gm-Gg: AeBDies0nZC5LmEGtjZMOAOgc4uuuyuYd5PRfJckT+QGPyomY2aqkVdh8TA7imCGv0U
+	lCQrdV4HmpkhLdYKthqLqskdME6MimQDE8MFMr0f+FHb3XZXzwHOv4BekG7e1UkQgd//jFatNC8
+	jgOL7/i8/NT3Ma59ibmTEAQMNZ8wZC0c3/SDfdCNnP1E9KJHgDbAGdyp7FdAVXnN9dDtG6VqHoK
+	3dyHdoJwAid+221NKMzGNxJ/W0/GjE8TrkmMmugKwzJm9D9b3fDLYusN87NGTSDmAPIjSOIIMfe
+	CB/daenZT24AY1yX/tgBPYL0XR7eEupjhDiy/H/ex5rvK+AlAUy4mZ0y1yMECnSd2l/agJ6xYAn
+	RdZbHZD/lyhcjYdLJldRTyaiCi5GG
+X-Received: by 2002:a2e:bc11:0:b0:38e:b7ba:106e with SMTP id
+ 38308e7fff4ca-3924bd35c34mr13008161fa.31.1777455347704; Wed, 29 Apr 2026
+ 02:35:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260428221058.149538293@kernel.org> <20260428224427.927160119@kernel.org>
-In-Reply-To: <20260428224427.927160119@kernel.org>
+References: <20260428221058.149538293@kernel.org> <20260428224428.009121296@kernel.org>
+In-Reply-To: <20260428224428.009121296@kernel.org>
 From: Dmitry Vyukov <dvyukov@google.com>
-Date: Wed, 29 Apr 2026 11:35:26 +0200
-X-Gm-Features: AVHnY4JWcx5RwvS1ETBhUNaOwCsFOdCg0RFgx5GBjcKW4zCPpMNeUkqHv3utI4Q
-Message-ID: <CACT4Y+aYy8H6ErGSh60ZUMCaqrMCeDh=jhH2WO=SOrsSyAhrNQ@mail.gmail.com>
-Subject: Re: [patch 09/10] rseq: Reenable performance optimizations conditionally
+Date: Wed, 29 Apr 2026 11:35:35 +0200
+X-Gm-Features: AVHnY4JZrVwQtMXb6Hn_c8EdH4qaAGhGec_kmcU19r2l_sbiixjINIDQ5dbikno
+Message-ID: <CACT4Y+ZVmKfHiMCSM6gbRXcc=n-cgCJWUGsxLmg-oV-HGXGMgg@mail.gmail.com>
+Subject: Re: [patch 10/10] selftests/rseq: Expand for optimized RSEQ ABI v2
 To: Thomas Gleixner <tglx@kernel.org>
 Cc: LKML <linux-kernel@vger.kernel.org>, Mathias Stearn <mathias@mongodb.com>, 
 	Peter Zijlstra <peterz@infradead.org>, linux-man@vger.kernel.org, 
@@ -116,20 +116,20 @@ Cc: LKML <linux-kernel@vger.kernel.org>, Mathias Stearn <mathias@mongodb.com>,
 	Matthew Wilcox <willy@infradead.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	Linus Torvalds <torvalds@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Rspamd-Queue-Id: E06BA492247
+X-Rspamd-Queue-Id: 7EA8F492164
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
 	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
 	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
+	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5450-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5451-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCPT_COUNT_TWELVE(0.00)[16];
 	MIME_TRACE(0.00)[0:+];
@@ -140,77 +140,15 @@ X-Spamd-Result: default: False [-2.16 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[dvyukov@google.com,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[google.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
+	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
 	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns,mail.gmail.com:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns,librseq.so:url]
 
 On Wed, 29 Apr 2026 at 01:34, Thomas Gleixner <tglx@kernel.org> wrote:
 >
-> Due to the incompatibility with TCMalloc the RSEQ optimizations and
-> extended features (time slice extensions) have been disabled and made
-> run-time conditional.
->
-> The original RSEQ implementation, which TCMalloc depends on, registers a 32
-> byte region (ORIG_RSEG_SIZE). This region has a 32 byte alignment
-> requirement.
->
-> The extension safe newer variant exposes the kernel RSEQ feature size via
-> getauxval(AT_RSEQ_FEATURE_SIZE) and the alignment requirement via
-> getauxval(AT_RSEQ_ALIGN). The alignment requirement is that the registered
-> RSEQ region is aligned to the next power of two of the feature size. The
-> kernel currently has a feature size of 33 bytes, which means the alignment
-> requirement is 64 bytes.
->
-> The TCMalloc RSEQ region is embedded into a cache line aligned data
-> structure starting at offset 32 bytes so that bytes 28-31 and the
-> cpu_id_start field at bytes 32-35 form a 64-bit little endian pointer with
-> the top-most bit (63 set) to check whether the kernel has overwritten
-> cpu_id_start with an actual CPU id value, which is guaranteed to not have
-> the top most bit set.
->
-> As this is part of their performance tuned magic, it's a pretty safe
-> assumption, that TCMalloc won't use a larger RSEQ size.
->
-> This allows the kernel to declare that registrations with a size greater
-> than the original size of 32 bytes, which is the cases since time slice
-> extensions got introduced, as RSEQ ABI v2 with the following differences to
-> the original behaviour:
->
->   1) Unconditional updates of the user read only fields (CPU, node, MMCID)
->      are removed. Those fields are only updated on registration, task
->      migration and MMCID changes.
->
->   2) Unconditional evaluation of the criticial section pointer is
->      removed. It's only evaluated when user space was interrupted and was
->      scheduled out or before delivering a signal in the interrupted
->      context.
->
->   3) The read/only requirement of the ID fields is enforced. When the
->      kernel detects that userspace manipulated the fields, the process is
->      terminated. This ensures that multiple entities (libraries) can
->      utilize RSEQ without interfering.
->
->   4) Todays extended RSEQ feature (time slice extensions) and future
->      extensions are only enabled in the v2 enabled mode.
->
-> Registrations with the original size of 32 bytes operate in backwards
-> compatible legacy mode without performance improvements and extended
-> features.
->
-> Unfortunately that also affects users of older GLIBC versions which
-> register the original size of 32 bytes and do not evaluate the kernel
-> required size in the auxiliary vector AT_RSEQ_FEATURE_SIZE.
->
-> That's the result of the lack of enforcement in the original implementation
-> and the unwillingness of a single entity to cooperate with the larger
-> ecosystem for many years.
->
-> Implement the required registration changes by restructuring the spaghetti
-> code and adding the size/version check. Also add documentation about the
-> differences of legacy and optimized RSEQ V2 mode.
->
-> Thanks to Mathieu for pointing out the ORIG_RSEQ_SIZE constraints!
+> Update the selftests so they are executed for legacy (32 bytes RSEQ region)
+> and optimized RSEQ ABI v2 mode.
 >
 > Fixes: d6200245c75e ("rseq: Allow registering RSEQ with slice extension")
 > Signed-off-by: Thomas Gleixner <tglx@kernel.org>
@@ -219,296 +157,240 @@ On Wed, 29 Apr 2026 at 01:34, Thomas Gleixner <tglx@kernel.org> wrote:
 Reviewed-by: Dmitry Vyukov <dvyukov@google.com>
 
 > ---
->  Documentation/userspace-api/rseq.rst |   94 ++++++++++++++++++++++
->  kernel/rseq.c                        |  144 ++++++++++++++++++++---------------
->  2 files changed, 178 insertions(+), 60 deletions(-)
+>  tools/testing/selftests/rseq/Makefile              |    7 ++-
+>  tools/testing/selftests/rseq/check_optimized.c     |   17 +++++++++
+>  tools/testing/selftests/rseq/param_test.c          |   22 +++++++----
+>  tools/testing/selftests/rseq/run_param_test.sh     |   39 +++++++++++++++++++++
+>  tools/testing/selftests/rseq/run_timeslice_test.sh |   14 +++++++
+>  tools/testing/selftests/rseq/slice_test.c          |    2 -
+>  6 files changed, 89 insertions(+), 12 deletions(-)
 >
-> --- a/Documentation/userspace-api/rseq.rst
-> +++ b/Documentation/userspace-api/rseq.rst
-> @@ -24,6 +24,97 @@ Quick access to CPU number, node ID
->  Allows to implement per CPU data efficiently. Documentation is in code and
->  selftests. :(
+> --- a/tools/testing/selftests/rseq/Makefile
+> +++ b/tools/testing/selftests/rseq/Makefile
+> @@ -17,11 +17,11 @@ OVERRIDE_TARGETS = 1
+>  TEST_GEN_PROGS = basic_test basic_percpu_ops_test basic_percpu_ops_mm_cid_test param_test \
+>                 param_test_benchmark param_test_compare_twice param_test_mm_cid \
+>                 param_test_mm_cid_benchmark param_test_mm_cid_compare_twice \
+> -               syscall_errors_test slice_test legacy_check
+> +               syscall_errors_test slice_test legacy_check check_optimized
 >
-> +Optimized RSEQ V2
-> +-----------------
-> +
-> +On architectures which utilize the generic entry code and generic TIF bits
-> +the kernel supports runtime optimizations for RSEQ, which also enable
-> +enhanced features like scheduler time slice extensions.
-> +
-> +To enable them a task has to register the RSEQ region with at least the
-> +length advertised by getauxval(AT_RSEQ_FEATURE_SIZE).
-> +
-> +If existing binaries register with RSEQ_ORIG_SIZE (32 bytes), the kernel
-> +keeps the legacy low performance mode enabled to fulfil the expectations
-> +of existing users regarding the original RSEQ implementation behaviour.
-> +
-> +The following table documents the ABI and behavioral guarantees of the
-> +legacy and the optimized V2 mode.
-> +
-> +.. list-table:: RSEQ modes
-> +   :header-rows: 1
-> +
-> +   * - Nr
-> +     - What
-> +
-> +     - Legacy
-> +     - Optimized V2
-> +
-> +   * - 1
-> +     - The cpu_id_start, cpu_id, node_id and mm_cid fields (User mode read
-> +       only)
-> +       .. Legacy
-> +     - Updated by the kernel unconditionally after each context switch and
-> +       before signal delivery
-> +       .. Optimized V2
-> +     - Updated by the kernel if and only if they change, i.e. if the task
-> +       is migrated or mm_cid changes
-> +
-> +   * - 2
-> +     - The rseq_cs critical section field
-> +       .. Legacy
-> +     - Evaluated and handled unconditionally after each context switch and
-> +       before signal delivery
-> +       .. Optimized V2
-> +     - Evaluated and handled conditionally only when user space was
-> +       interrupted and was scheduled out or before delivering a signal in
-> +       the interrupted context.
-> +
-> +   * - 3
-> +     - Read only fields
-> +       .. Legacy
-> +     - No strict enforcement except in debug mode
-> +       .. Optimized V2
-> +     - Strict enforcement
-> +
-> +   * - 4
-> +     - membarrier(...RSEQ)
-> +       .. Legacy
-> +     - All running threads of the process are interrupted and the ID fields
-> +       are rewritten and eventually active critical sections are aborted
-> +       before they return to user space.  All threads which are scheduled
-> +       out whether voluntary or not are covered by #1/#2 above.
-> +       .. Optimized V2
-> +     - All running threads of the process are interrupted and eventually
-> +       active critical sections are aborted before these threads return to
-> +       user space. The ID fields are only updated if changed as a
-> +       consequence of the interrupt. All threads which are scheduled out
-> +       whether voluntary or not are covered by #1/#2 above.
-> +
-> +   * - 5
-> +     - Time slice extensions
-> +       .. Legacy
-> +     - Not supported
-> +       .. Optimized V2
-> +     - Supported
-> +
-> +The legacy mode is obviously less performant as it does unconditional
-> +updates and critical section checks even if not strictly required by the
-> +ABI contract. That can't be changed anymore as some users depend on that
-> +observed behavior, which in turn enables them to violate the ABI and
-> +overwrite the cpu_id_start field for their own purposes. This is obviously
-> +discouraged as it renders RSEQ incompatible with the intended usage and
-> +breaks the expectation of other libraries in the same application.
-> +
-> +The ABI compliant optimized v2 mode, which respects the read only fields,
-> +does not require unconditional updates and therefore is way more
-> +performant. The kernel validates the read only fields for compliance. If
-> +user space modifies them, the process is killed. Compliant usage allows
-> +multiple libraries in the same application to benefit from the RSEQ
-> +functionality without disturbing each other. The ABI compliant optimized v2
-> +mode also enables extended RSEQ features like time slice extensions.
-> +
-> +
->  Scheduler time slice extensions
->  -------------------------------
+>  TEST_GEN_PROGS_EXTENDED = librseq.so
 >
-> @@ -37,7 +128,8 @@ scheduled out inside of the critical sec
+> -TEST_PROGS = run_param_test.sh run_syscall_errors_test.sh run_legacy_check.sh
+> +TEST_PROGS = run_param_test.sh run_syscall_errors_test.sh run_legacy_check.sh run_timeslice_test.sh
 >
->      * Enabled at boot time (default is enabled)
+>  TEST_FILES := settings
 >
-> -    * A rseq userspace pointer has been registered for the thread
-> +    * A rseq userspace pointer has been registered for the thread in
-> +      optimized V2 mode
+> @@ -62,3 +62,6 @@ include ../lib.mk
 >
->  The thread has to enable the functionality via prctl(2)::
->
-> --- a/kernel/rseq.c
-> +++ b/kernel/rseq.c
-> @@ -413,70 +413,23 @@ static bool rseq_reset_ids(void)
->  /* The original rseq structure size (including padding) is 32 bytes. */
->  #define ORIG_RSEQ_SIZE         32
->
-> -/*
-> - * sys_rseq - setup restartable sequences for caller thread.
-> - */
-> -SYSCALL_DEFINE4(rseq, struct rseq __user *, rseq, u32, rseq_len, int, flags, u32, sig)
-> +static long rseq_register(struct rseq __user * rseq, u32 rseq_len, int flags, u32 sig)
->  {
->         u32 rseqfl = 0;
->         u8 version = 1;
->
-> -       if (flags & RSEQ_FLAG_UNREGISTER) {
-> -               if (flags & ~RSEQ_FLAG_UNREGISTER)
-> -                       return -EINVAL;
-> -               /* Unregister rseq for current thread. */
-> -               if (current->rseq.usrptr != rseq || !current->rseq.usrptr)
-> -                       return -EINVAL;
-> -               if (rseq_len != current->rseq.len)
-> -                       return -EINVAL;
-> -               if (current->rseq.sig != sig)
-> -                       return -EPERM;
-> -               if (!rseq_reset_ids())
-> -                       return -EFAULT;
-> -               rseq_reset(current);
-> -               return 0;
-> -       }
-> -
-> -       if (unlikely(flags & ~(RSEQ_FLAG_SLICE_EXT_DEFAULT_ON)))
-> -               return -EINVAL;
-> -
-> -       if (current->rseq.usrptr) {
-> -               /*
-> -                * If rseq is already registered, check whether
-> -                * the provided address differs from the prior
-> -                * one.
-> -                */
-> -               if (current->rseq.usrptr != rseq || rseq_len != current->rseq.len)
-> -                       return -EINVAL;
-> -               if (current->rseq.sig != sig)
-> -                       return -EPERM;
-> -               /* Already registered. */
-> -               return -EBUSY;
-> -       }
-> -
-> -       /*
-> -        * If there was no rseq previously registered, ensure the provided rseq
-> -        * is properly aligned, as communcated to user-space through the ELF
-> -        * auxiliary vector AT_RSEQ_ALIGN. If rseq_len is the original rseq
-> -        * size, the required alignment is the original struct rseq alignment.
-> -        *
-> -        * The rseq_len is required to be greater or equal to the original rseq
-> -        * size. In order to be valid, rseq_len is either the original rseq size,
-> -        * or large enough to contain all supported fields, as communicated to
-> -        * user-space through the ELF auxiliary vector AT_RSEQ_FEATURE_SIZE.
-> -        */
-> -       if (rseq_len < ORIG_RSEQ_SIZE ||
-> -           (rseq_len == ORIG_RSEQ_SIZE && !IS_ALIGNED((unsigned long)rseq, ORIG_RSEQ_SIZE)) ||
-> -           (rseq_len != ORIG_RSEQ_SIZE && (!IS_ALIGNED((unsigned long)rseq, rseq_alloc_align()) ||
-> -                                           rseq_len < offsetof(struct rseq, end))))
-> -               return -EINVAL;
->         if (!access_ok(rseq, rseq_len))
->                 return -EFAULT;
->
->         /*
-> -        * The version check effectivly disables time slice extensions until the
-> -        * RSEQ ABI V2 registration are implemented.
-> +        * Architectures, which use the generic IRQ entry code (at least) enable
-> +        * registrations with a size greater than the original v1 fixed sized
-> +        * @rseq_len, which has been validated already to utilize the optimized
-> +        * v2 ABI mode which also enables extended RSEQ features beyond MMCID.
->          */
-> +       if (IS_ENABLED(CONFIG_GENERIC_IRQ_ENTRY) && rseq_len > ORIG_RSEQ_SIZE)
-> +               version = 2;
+>  $(OUTPUT)/slice_test: slice_test.c $(TEST_GEN_PROGS_EXTENDED) rseq.h rseq-*.h
+>         $(CC) $(CFLAGS) $< $(LDLIBS) -lrseq -o $@
 > +
->         if (IS_ENABLED(CONFIG_RSEQ_SLICE_EXTENSION) && version > 1) {
->                 if (rseq_slice_extension_enabled()) {
->                         rseqfl |= RSEQ_CS_FLAG_SLICE_EXT_AVAILABLE;
-> @@ -524,11 +477,10 @@ SYSCALL_DEFINE4(rseq, struct rseq __user
->  #endif
->
->         /*
-> -        * If rseq was previously inactive, and has just been
-> -        * registered, ensure the cpu_id_start and cpu_id fields
-> -        * are updated before returning to user-space.
-> +        * Ensure the cpu_id_start and cpu_id fields are updated before
-> +        * returning to user-space.
->          */
-> -       current->rseq.event.has_rseq = true;
-> +       current->rseq.event.has_rseq = version;
->         rseq_force_update();
->         return 0;
->
-> @@ -536,6 +488,80 @@ SYSCALL_DEFINE4(rseq, struct rseq __user
->         return -EFAULT;
->  }
->
-> +static long rseq_unregister(struct rseq __user * rseq, u32 rseq_len, int flags, u32 sig)
+> +$(OUTPUT)/check_optimized: check_optimized.c $(TEST_GEN_PROGS_EXTENDED) rseq.h rseq-*.h
+> +       $(CC) $(CFLAGS) $< $(LDLIBS) -lrseq -o $@
+> --- /dev/null
+> +++ b/tools/testing/selftests/rseq/check_optimized.c
+> @@ -0,0 +1,17 @@
+> +// SPDX-License-Identifier: LGPL-2.1
+> +#define _GNU_SOURCE
+> +#include <assert.h>
+> +#include <sched.h>
+> +#include <signal.h>
+> +#include <stdio.h>
+> +#include <string.h>
+> +#include <sys/time.h>
+> +
+> +#include "rseq.h"
+> +
+> +int main(int argc, char **argv)
 > +{
-> +       if (flags & ~RSEQ_FLAG_UNREGISTER)
-> +               return -EINVAL;
-> +       if (current->rseq.usrptr != rseq || !current->rseq.usrptr)
-> +               return -EINVAL;
-> +       if (rseq_len != current->rseq.len)
-> +               return -EINVAL;
-> +       if (current->rseq.sig != sig)
-> +               return -EPERM;
-> +       if (!rseq_reset_ids())
-> +               return -EFAULT;
-> +       rseq_reset(current);
+> +       if (__rseq_register_current_thread(true, false))
+> +               return -1;
 > +       return 0;
 > +}
+> --- a/tools/testing/selftests/rseq/param_test.c
+> +++ b/tools/testing/selftests/rseq/param_test.c
+> @@ -38,7 +38,7 @@ static int opt_modulo, verbose;
+>  static int opt_yield, opt_signal, opt_sleep,
+>                 opt_disable_rseq, opt_threads = 200,
+>                 opt_disable_mod = 0, opt_test = 's';
+> -
+> +static bool opt_rseq_legacy;
+>  static long long opt_reps = 5000;
+>
+>  static __thread __attribute__((tls_model("initial-exec")))
+> @@ -481,7 +481,7 @@ void *test_percpu_spinlock_thread(void *
+>         long long i, reps;
+>
+>         if (!opt_disable_rseq && thread_data->reg &&
+> -           rseq_register_current_thread())
+> +           __rseq_register_current_thread(true, opt_rseq_legacy))
+>                 abort();
+>         reps = thread_data->reps;
+>         for (i = 0; i < reps; i++) {
+> @@ -558,7 +558,7 @@ void *test_percpu_inc_thread(void *arg)
+>         long long i, reps;
+>
+>         if (!opt_disable_rseq && thread_data->reg &&
+> -           rseq_register_current_thread())
+> +           __rseq_register_current_thread(true, opt_rseq_legacy))
+>                 abort();
+>         reps = thread_data->reps;
+>         for (i = 0; i < reps; i++) {
+> @@ -712,7 +712,7 @@ void *test_percpu_list_thread(void *arg)
+>         long long i, reps;
+>         struct percpu_list *list = (struct percpu_list *)arg;
+>
+> -       if (!opt_disable_rseq && rseq_register_current_thread())
+> +       if (!opt_disable_rseq && __rseq_register_current_thread(true, opt_rseq_legacy))
+>                 abort();
+>
+>         reps = opt_reps;
+> @@ -895,7 +895,7 @@ void *test_percpu_buffer_thread(void *ar
+>         long long i, reps;
+>         struct percpu_buffer *buffer = (struct percpu_buffer *)arg;
+>
+> -       if (!opt_disable_rseq && rseq_register_current_thread())
+> +       if (!opt_disable_rseq && __rseq_register_current_thread(true, opt_rseq_legacy))
+>                 abort();
+>
+>         reps = opt_reps;
+> @@ -1105,7 +1105,7 @@ void *test_percpu_memcpy_buffer_thread(v
+>         long long i, reps;
+>         struct percpu_memcpy_buffer *buffer = (struct percpu_memcpy_buffer *)arg;
+>
+> -       if (!opt_disable_rseq && rseq_register_current_thread())
+> +       if (!opt_disable_rseq && __rseq_register_current_thread(true, opt_rseq_legacy))
+>                 abort();
+>
+>         reps = opt_reps;
+> @@ -1258,7 +1258,7 @@ void *test_membarrier_worker_thread(void
+>         const int iters = opt_reps;
+>         int i;
+>
+> -       if (rseq_register_current_thread()) {
+> +       if (__rseq_register_current_thread(true, opt_rseq_legacy)) {
+>                 fprintf(stderr, "Error: rseq_register_current_thread(...) failed(%d): %s\n",
+>                         errno, strerror(errno));
+>                 abort();
+> @@ -1323,7 +1323,7 @@ void *test_membarrier_manager_thread(voi
+>         intptr_t expect_a = 0, expect_b = 0;
+>         int cpu_a = 0, cpu_b = 0;
+>
+> -       if (rseq_register_current_thread()) {
+> +       if (__rseq_register_current_thread(true, opt_rseq_legacy)) {
+>                 fprintf(stderr, "Error: rseq_register_current_thread(...) failed(%d): %s\n",
+>                         errno, strerror(errno));
+>                 abort();
+> @@ -1475,6 +1475,7 @@ static void show_usage(int argc, char **
+>         printf("        [-D M] Disable rseq for each M threads\n");
+>         printf("        [-T test] Choose test: (s)pinlock, (l)ist, (b)uffer, (m)emcpy, (i)ncrement, membarrie(r)\n");
+>         printf("        [-M] Push into buffer and memcpy buffer with memory barriers.\n");
+> +       printf("        [-O] Test with optimized RSEQ\n");
+>         printf("        [-v] Verbose output.\n");
+>         printf("        [-h] Show this help.\n");
+>         printf("\n");
+> @@ -1602,6 +1603,9 @@ int main(int argc, char **argv)
+>                 case 'M':
+>                         opt_mo = RSEQ_MO_RELEASE;
+>                         break;
+> +               case 'L':
+> +                       opt_rseq_legacy = true;
+> +                       break;
+>                 default:
+>                         show_usage(argc, argv);
+>                         goto error;
+> @@ -1618,7 +1622,7 @@ int main(int argc, char **argv)
+>         if (set_signal_handler())
+>                 goto error;
+>
+> -       if (!opt_disable_rseq && rseq_register_current_thread())
+> +       if (!opt_disable_rseq && __rseq_register_current_thread(true, opt_rseq_legacy))
+>                 goto error;
+>         if (!opt_disable_rseq && !rseq_validate_cpu_id()) {
+>                 fprintf(stderr, "Error: cpu id getter unavailable\n");
+> --- a/tools/testing/selftests/rseq/run_param_test.sh
+> +++ b/tools/testing/selftests/rseq/run_param_test.sh
+> @@ -34,6 +34,11 @@ REPS=1000
+>  SLOW_REPS=100
+>  NR_THREADS=$((6*${NR_CPUS}))
+>
+> +# Prevent GLIBC from registering RSEQ so the selftest can run in legacy and
+> +# performance optimized mode.
+> +GLIBC_TUNABLES="${GLIBC_TUNABLES:-}:glibc.pthread.rseq=0"
+> +export GLIBC_TUNABLES
 > +
-> +static long rseq_reregister(struct rseq __user * rseq, u32 rseq_len, u32 sig)
-> +{
-> +       /*
-> +        * If rseq is already registered, check whether the provided address
-> +        * differs from the prior one.
-> +        */
-> +       if (current->rseq.usrptr != rseq || rseq_len != current->rseq.len)
-> +               return -EINVAL;
-> +       if (current->rseq.sig != sig)
-> +               return -EPERM;
-> +       /* Already registered. */
-> +       return -EBUSY;
+>  function do_tests()
+>  {
+>         local i=0
+> @@ -103,6 +108,40 @@ function inject_blocking()
+>         NR_LOOPS=
+>  }
+>
+> +echo "Testing in legacy RSEQ mode"
+> +echo "Yield injection (25%)"
+> +inject_blocking -m 4 -y -L
+> +
+> +echo "Yield injection (50%)"
+> +inject_blocking -m 2 -y -L
+> +
+> +echo "Yield injection (100%)"
+> +inject_blocking -m 1 -y -L
+> +
+> +echo "Kill injection (25%)"
+> +inject_blocking -m 4 -k -L
+> +
+> +echo "Kill injection (50%)"
+> +inject_blocking -m 2 -k -L
+> +
+> +echo "Kill injection (100%)"
+> +inject_blocking -m 1 -k -L
+> +
+> +echo "Sleep injection (1ms, 25%)"
+> +inject_blocking -m 4 -s 1 -L
+> +
+> +echo "Sleep injection (1ms, 50%)"
+> +inject_blocking -m 2 -s 1 -L
+> +
+> +echo "Sleep injection (1ms, 100%)"
+> +inject_blocking -m 1 -s 1 -L
+> +
+> +./check_optimized || {
+> +    echo "Skipping optimized RSEQ mode test. Not supported";
+> +    exit 0
 > +}
 > +
-> +static bool rseq_length_valid(struct rseq __user *rseq, unsigned int rseq_len)
-> +{
-> +       /*
-> +        * Ensure the provided rseq is properly aligned, as communicated to
-> +        * user-space through the ELF auxiliary vector AT_RSEQ_ALIGN. If
-> +        * rseq_len is the original rseq size, the required alignment is the
-> +        * original struct rseq alignment.
-> +        *
-> +        * In order to be valid, rseq_len is either the original rseq size, or
-> +        * large enough to contain all supported fields, as communicated to
-> +        * user-space through the ELF auxiliary vector AT_RSEQ_FEATURE_SIZE.
-> +        */
-> +       if (rseq_len < ORIG_RSEQ_SIZE)
-> +               return false;
+> +echo "Testing in optimized RSEQ mode"
+>  echo "Yield injection (25%)"
+>  inject_blocking -m 4 -y
+>
+> --- /dev/null
+> +++ b/tools/testing/selftests/rseq/run_timeslice_test.sh
+> @@ -0,0 +1,14 @@
+> +#!/bin/bash
+> +# SPDX-License-Identifier: GPL-2.0+
 > +
-> +       if (rseq_len == ORIG_RSEQ_SIZE)
-> +               return IS_ALIGNED((unsigned long)rseq, ORIG_RSEQ_SIZE);
+> +# Prevent GLIBC from registering RSEQ so the selftest can run in legacy
+> +# and performance optimized mode.
+> +GLIBC_TUNABLES="${GLIBC_TUNABLES:-}:glibc.pthread.rseq=0"
+> +export GLIBC_TUNABLES
 > +
-> +       return IS_ALIGNED((unsigned long)rseq, rseq_alloc_align()) &&
-> +               rseq_len >= offsetof(struct rseq, end);
+> +./check_optimized || {
+> +    echo "Skipping optimized RSEQ mode test. Not supported";
+> +    exit 0
 > +}
 > +
-> +#define RSEQ_FLAGS_SUPPORTED   (RSEQ_FLAG_SLICE_EXT_DEFAULT_ON)
-> +
-> +/*
-> + * sys_rseq - Register or unregister restartable sequences for the caller thread.
-> + */
-> +SYSCALL_DEFINE4(rseq, struct rseq __user *, rseq, u32, rseq_len, int, flags, u32, sig)
-> +{
-> +       if (flags & RSEQ_FLAG_UNREGISTER)
-> +               return rseq_unregister(rseq, rseq_len, flags, sig);
-> +
-> +       if (unlikely(flags & ~RSEQ_FLAGS_SUPPORTED))
-> +               return -EINVAL;
-> +
-> +       if (current->rseq.usrptr)
-> +               return rseq_reregister(rseq, rseq_len, sig);
-> +
-> +       if (!rseq_length_valid(rseq, rseq_len))
-> +               return -EINVAL;
-> +
-> +       return rseq_register(rseq, rseq_len, flags, sig);
-> +}
-> +
->  #ifdef CONFIG_RSEQ_SLICE_EXTENSION
->  struct slice_timer {
->         struct hrtimer  timer;
+> +./slice_test
+> --- a/tools/testing/selftests/rseq/slice_test.c
+> +++ b/tools/testing/selftests/rseq/slice_test.c
+> @@ -124,7 +124,7 @@ FIXTURE_SETUP(slice_ext)
+>  {
+>         cpu_set_t affinity;
+>
+> -       if (rseq_register_current_thread())
+> +       if (__rseq_register_current_thread(true, false))
+>                 SKIP(return, "RSEQ not supported\n");
+>
+>         if (prctl(PR_RSEQ_SLICE_EXTENSION, PR_RSEQ_SLICE_EXTENSION_SET,
 >
 
