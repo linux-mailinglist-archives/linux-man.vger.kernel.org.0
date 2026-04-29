@@ -1,396 +1,192 @@
-Return-Path: <linux-man+bounces-5451-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5452-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cGkcAIjR8WlrkgEAu9opvQ
-	(envelope-from <linux-man+bounces-5451-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 11:38:16 +0200
+	id AvVhImpB8mkapQEAu9opvQ
+	(envelope-from <linux-man+bounces-5452-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 19:35:38 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EA8F492164
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 11:38:15 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id D223C49838A
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 19:35:37 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 07599300AB10
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 09:36:44 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 35BE8301702E
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2026 17:35:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D64AB3CA4A3;
-	Wed, 29 Apr 2026 09:35:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73D743FE65F;
+	Wed, 29 Apr 2026 17:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hgUoysgV"
+	dkim=pass (2048-bit key) header.d=sap.com header.i=@sap.com header.b="Bi+Z6lDZ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013006.outbound.protection.outlook.com [40.107.159.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4FA3C3C12
-	for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 09:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E983806C9
+	for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 17:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.6
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777455351; cv=pass; b=rCIRVY4Vx8K5E0v7eWjjQsePk7OtPKkW+1Joy4IE1yZ2Sw8AvB0UjGs2FWmZ0Q71C214JTuHolHw7qtK2Q8jv5I9zujktuB9l50opYGsC604jtFbW4xIWL7FdU05fEgcBdQUlg00By0cvoQlRhS5SF5eHdcQabN43Ar+vXCCruU=
+	t=1777484135; cv=fail; b=dioZkgaMd9ImfHWQoYqKIIuGiSwG2pZvRksuyJZTCjKmRuJPHZZTBjNmbhCIRIX0MM8AXWxmf13C9HyibDENInahnpblHWbMEXLz4O/7aC1wJEoJHzRREX8nLfdwCmARJx+8JQ1NosYovRw5kkLN/BF7/4bobmRRQ4kfcd6PUXs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777455351; c=relaxed/simple;
-	bh=R0OvMTCArEa6VcQHf94Bjb5fVmkI+2ZMgw6rEAreSHI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cJIxCd9uSycYcKr45bekJvoOu2FdzddozvHRfzU6sBZVF3Iat6HENzgYhDtrp87fDH7Q6y1XUskJO824mEdFjurIaDlLO4QFdvxEJEoPy16SbUe4SLZFDdUEm+u2kaWhZlXAHc6gZwPljvFas0O7LpstK1vX+xBguxcVAJNV3b0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hgUoysgV; arc=pass smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38e9653b580so137832071fa.2
-        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2026 02:35:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777455348; cv=none;
-        d=google.com; s=arc-20240605;
-        b=eVIEpIsCFL9EwP6E/jCYYXOzjHwePWcYc3KJiN7aYjR38dijI7BEXOH3eRNUlfWwb+
-         WBT179h7EZitA60kV9T3TSsZ5JEUnMJ0F2SQyUkZdHKa2qLNKk58lXTOzL9cZZVo3gHF
-         uUCJc7N8eVhi0NoKfThAcF/eil25aOfVOsEVXUlyNYFMcrhrMEzikjubvf5fMTapGVwr
-         NLIrxZ7GlnkTX7ktverDPrYRxv1mcTrP+r++1aea0uhskT+TaHcxEV4OGUdHT3F8soiT
-         bU1FikSUpTD/CvNXeXSYu8Yk8krYWOMdqBE15HGK0J7TyjugL2ytSJkpPcpiWm+pNarE
-         Xl3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=euQZZG6zQp/9wRvxqq+lTd5t7Vj1Lm8yoSr7I+5xZqI=;
-        fh=FfOgotzw2omV0UvXB88QFBK0UrcpF9/UFzGz1QxEGgk=;
-        b=PJa0FLP70WT36g9Bycrx5SDQoD/t2m5ry4q5MgQCeMQS1zQX+vNu1X25gNaPPsXyJF
-         Cy7IzOSU+HcldSIYv1gaNAdZrIl+OQq0EP6M6d4HGj3oSeQdrRcK2c6erFOraypBcQOw
-         kp9+ifjZ8BiescBk58c5EBEprWsD7wMWJzUjGhvtrDZcdYCLN8BgEG/Of17LQYmBxY2Z
-         EMPXJzTyuf8A8aLYs9EJ2v3/+f4rbzWMe1xBa/p3bxPHZIi95EVJMIMR7CwQPTsiHTJb
-         k3tEzKeHmJ2lPwMLrtCMa/L/6pvL116aDsuv5IleR551bkZo3rQfiDoFhPAYKU9y+GSR
-         oU0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1777455348; x=1778060148; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=euQZZG6zQp/9wRvxqq+lTd5t7Vj1Lm8yoSr7I+5xZqI=;
-        b=hgUoysgVb37C9xdKF760wpOB7FKTePyg/UHbY31YkIaQmLYy9wY9bDJoGTu8Lm3QoM
-         bw7xNCKNTed9vTdQ0Cm0Gpd60zpgCOiEnhWkwM7gnJibkcncfAvhamAwOq9J57+lfy01
-         L3ko5fjvtWx+JFlnz3Q8oGZEjIYVrvfS8TMO4qyhVe6XTafCTKmxBqJz8WdWg6Vj40ji
-         1U4z1vAEH+sCGVydBRwD5kOEqEZKWzBW830KnF1KUcajwWVAExGphHwbd7Gc/z4GseA/
-         ohabZdJWuNeAIjzCXQialyJb6h5n6nwv9SAvP15GUpntzX6LfvBJKSMpS0y8CWN5tCTV
-         q8hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777455348; x=1778060148;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=euQZZG6zQp/9wRvxqq+lTd5t7Vj1Lm8yoSr7I+5xZqI=;
-        b=FL8DqgHim07VDpSjLdVwEIBA/Gjm1nv9X2z6EUhVs5AD9WxHZbTdgHfsLHfEM69FNC
-         4nNl6SqqQnhCq0HD4B1p5hJfNmZOfG5i+BKy8MHgFXC141oAMz3Aypx/dWJmf9KZHEfm
-         lCAIjCHhH9jGshC8Sp5Ax78THng61ZIJTNBk1KiVmIA/jzEuefwGIjKA9VFtvZnrNW99
-         7ODJzzjpH3AQneY7ooiaydPvi+EK/H8IBreHe8ByjPLZdYKGFx8tgICLpQt0VvYZgsRP
-         8QKi7ARTqgNoei7seVEiFW0U3cpKZEdRM2jkxWzlmyX30JgzYjTcDDT/sMsmosniSRyq
-         RSkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+WDCaJNLfjYgmJbo1j6C84KQ/XLNDfaVTg9dYQKDCQ6QtIJAlW82zdC2fKgqCC+nu8LhPwYg4PrWc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzlqAJfyT3MldHbf6ZotQ564Pz4GznNuDJGGpE6m8Nr2CJsWGbA
-	W4MU5iWZ5xZ7OMSaDZq/3c1DNMCe1rv3Nab7cH++VhpXTzY6J+8LnB49nIGtkF48j1Gj6CtLXwS
-	qrKq20C4MNKWtPZEvF4b7vhTsJyKXAoIy0mmC7y7j
-X-Gm-Gg: AeBDies0nZC5LmEGtjZMOAOgc4uuuyuYd5PRfJckT+QGPyomY2aqkVdh8TA7imCGv0U
-	lCQrdV4HmpkhLdYKthqLqskdME6MimQDE8MFMr0f+FHb3XZXzwHOv4BekG7e1UkQgd//jFatNC8
-	jgOL7/i8/NT3Ma59ibmTEAQMNZ8wZC0c3/SDfdCNnP1E9KJHgDbAGdyp7FdAVXnN9dDtG6VqHoK
-	3dyHdoJwAid+221NKMzGNxJ/W0/GjE8TrkmMmugKwzJm9D9b3fDLYusN87NGTSDmAPIjSOIIMfe
-	CB/daenZT24AY1yX/tgBPYL0XR7eEupjhDiy/H/ex5rvK+AlAUy4mZ0y1yMECnSd2l/agJ6xYAn
-	RdZbHZD/lyhcjYdLJldRTyaiCi5GG
-X-Received: by 2002:a2e:bc11:0:b0:38e:b7ba:106e with SMTP id
- 38308e7fff4ca-3924bd35c34mr13008161fa.31.1777455347704; Wed, 29 Apr 2026
- 02:35:47 -0700 (PDT)
+	s=arc-20240116; t=1777484135; c=relaxed/simple;
+	bh=5maRFM8tzZ9Uvd8r1tv6f2bSBtYX92LmupijkW4dbIg=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Xld0ijG4+V5K49SD5KPWklCw0dmDrefSUQ+HgjLzjGMgAdX2ij7jKImj3iBVA2eHVL/9Iys198PxeZioSi8JV26Cgz1yVlebbANThcQK0RFXLJ8CLfi/d8Zqy+5JJ8um4nMEzHJpL/w0o3Tlk740wVBz/SqnAnZ2LFhybziDLLo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sap.com; spf=pass smtp.mailfrom=sap.com; dkim=pass (2048-bit key) header.d=sap.com header.i=@sap.com header.b=Bi+Z6lDZ; arc=fail smtp.client-ip=40.107.159.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sap.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sap.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rgtgoyOMhMK41AiKN3fpiNWR+RALKcaljPhRb+5nMcdlyIby02UpZE0mKzoTmahJaSllGlI/csuAD4RUtEmPKtS3dXF3ZF/k0uJ0TMxCQnxarwRMXxJuSYKtJ7Rt7lidceerj3jgKEKzvh8fKhMFexO9VI5qNLOLzAURg70YZYlunLYQNfIuY7RapIvBcEB8sT/jigOk1+nkKPB/3q+88zUFeiFe922cSOvFySJLRZeXSP8KVV8QPUsvaIp3PnHC7SvrfRoBCpFPDLziKZTRWLJJPWv4naB/527O4yIXJu1lJYwemf+xyKOvL4kdPRt7oVSlyBBOE0mKnHuPCex13g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5maRFM8tzZ9Uvd8r1tv6f2bSBtYX92LmupijkW4dbIg=;
+ b=N1CokyEEzhC8nhsS5YLItfBZT9FuDiT+MwoWeu0vApp7muYKKhrKMsIm4wFKf5EvwJU3388pdPmuJiGyiTuKb9F5/u954hY9sT/bctjCYEsnqJvVDjaIr2YajO2PKdNoeAqZZ7w6xkHMp51g5dGVP4fX1LLK4cPC+zTCPI+uRuA8poC4vIS4UqRwznzaE+Bx5m9Q7kYnVv611k6Daa1bqd5PcJmupEelKg5x5wfQfGoQ++FTJzqtmt6jEF5rXEW50Aw0KzkzdTwt2CxRsCyLh6LJAK+gmRorZ7mDty29IORbkpmxWazeyk8Lu/LAn8L/CDrYIUl99zrmqNj3UskCPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sap.com; dmarc=pass action=none header.from=sap.com; dkim=pass
+ header.d=sap.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sap.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5maRFM8tzZ9Uvd8r1tv6f2bSBtYX92LmupijkW4dbIg=;
+ b=Bi+Z6lDZiwReed5ih0MxIUM7CJc2GxKEN2CZ3L2EqhtPMdfovI14HdxsekACCenFxpncsJGS+J87J6iuJHgc7j9baw2oAzBt8JhOa3a6UPL/+BrX59iwkdETbgS27MWjDfv33RQiPsglV9suUtDac9glV/b0GJLHKiyejbTJw+7gOSJ9RHqtbK0M6/L17rsQxQlY6bmHfRsqxQ1GpTv+mPCcKToZNIEaGKe6eGGfbTTcOsFY7bYKlAaP3CApExpRjP9qztIGXI60XoGSdd+K8gix8jexAVdN8Hx4ovIb6J7t3JYlbhPrZeEEhgODHV++ih1xbvoTe9cxQAokZdHSWQ==
+Received: from VI0PR02MB10873.eurprd02.prod.outlook.com
+ (2603:10a6:800:204::16) by BESPR02MB12318.eurprd02.prod.outlook.com
+ (2603:10a6:b10:ff::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Wed, 29 Apr
+ 2026 17:35:30 +0000
+Received: from VI0PR02MB10873.eurprd02.prod.outlook.com
+ ([fe80::e168:74a1:f841:e77]) by VI0PR02MB10873.eurprd02.prod.outlook.com
+ ([fe80::e168:74a1:f841:e77%6]) with mapi id 15.20.9846.025; Wed, 29 Apr 2026
+ 17:35:30 +0000
+From: "Schneider, Robert" <robert.schneider03@sap.com>
+To: Alejandro Colomar <alx@kernel.org>
+CC: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: [PATCH] man/man2/perf_event_open.2: ffix
+Thread-Topic: [PATCH] man/man2/perf_event_open.2: ffix
+Thread-Index: AdzX/nJyefIib3xVTrChahqJ3UcYlQ==
+Date: Wed, 29 Apr 2026 17:35:30 +0000
+Message-ID:
+ <VI0PR02MB10873E01B8EE1A99CDFD03F0F8F342@VI0PR02MB10873.eurprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=sap.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI0PR02MB10873:EE_|BESPR02MB12318:EE_
+x-ms-office365-filtering-correlation-id: c6e9f79f-8261-4efb-2eec-08dea615b571
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|38070700021|18002099003|56012099003;
+x-microsoft-antispam-message-info:
+ zCPL7ipcRNh+Rw73IoP/E/6OsH9hqOAeRP/Ta9p4gz27VXDfOjIwSakPCCCV/nfAweHM6g5w/T/+XVMF0QXsr8uraFIQwaOKHL6JwPwqtTjt32oCyl6sgwDRXYgnI2cviH89qrSGPD0KweexRhLatLFirrxHX1sB9Rlv4BW/TjZYTXKng+E1kpkTiCB60bHZe+wCJBCUP2tU6aW5BqWykubmFOyyzvW2cmpfcIo0mE7Ski9nbkJGogN6NWhsVZQCP2pTxr1v/LMr8/ed9MyLMYTVb94JnN1jVgDtTlwzNteo3pFwwraxx9LAhSdHXmlHHItUKt+2dnxEn8YkbDixm9/bWDnd0cioInK+OJnlqrEhMdZLxAoIHrB0LHwVqDU+f358y4IG3iGlKI7G5M0ou3Qv+eDGMPT/CS6px9JcylptwCFbUn3V5gHDSAGXXz2PpZ6d5UgCzFMG7VesgCTk7tDWCg66ZmlL3U6FZ75zlqzEGLW9KKsLZLiH19gXNxs5DPwL7NQ/p4Dur9sxXOkcerLkdyuV5BbKjW84FeQvAKO96BQhwLu5GnO8URd4ayiyRKZrrEUtzetG+oFWsFmASq5dWztPD7EJeGD6kY5jb1FOXzfDwpyAscD7oymHrISS8wHZ7kejHgPrRwHIGEd/QfK5NRZj2IsJYSxblEWzE9XLlwqzJUpMHqek3+zE8+4UhxIRxgLJcglsROr3TneOI7sTkVv0HahJIiu0ddEe/ltlMqJ952wdBo2yv/ZakftS9t36Lse5/dLgeKYwlcsGtZTLNxstcgE5fa6HOWKLh4s=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR02MB10873.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?MzZPZkxaZUk0ckUzaUFOZmdXYStTWGJzTXZQekRTZEErRkpGN2pCdFp5eWxk?=
+ =?utf-8?B?aEkyRHY2UDdiV3hGMmhyOHJYTzJnV202WjFyVk50WnNsSnNEMit2eEFNV0w3?=
+ =?utf-8?B?dG9MUk5ZUkFiZlphd1BvOE1sMFhkVVhzWWV1TTRxME9KTXdLdDNETnJ0ckFW?=
+ =?utf-8?B?bUs1dmhKQ3M0a1lPd25RamE0alRFL2o3aWNmQ0RRS2xjdTk2YUo4b2NsS3E1?=
+ =?utf-8?B?TWkrSDkrWXZQSGNqWlpEREtqMjZ2eWNkWG0zcmcxNDc5ZlZlSTJTN1hQcDFV?=
+ =?utf-8?B?K3k4Q1I1YXBac0RpdjJ6TVdRR3hKa2g3c2tnV3A0ai9TRjhJRUd6VEVvTUxG?=
+ =?utf-8?B?eGZndzBxeTd3VnlFWkNkZEV1aFp4SGpSUmJoZDh1ZHhNOEk0cThNU0c0ZUFQ?=
+ =?utf-8?B?TFVZM0ZncDd0aTJ1MVBiOUFhWnVmVlBCOWx6d2l0dUhkVTBKSklyOXZ0Q2JW?=
+ =?utf-8?B?ZW0yZ0pnU1FDUXErUjZDeWM5cTdJWjVEenZBMkd0MmptbGNWanhXWUZNWXVv?=
+ =?utf-8?B?cmJsOUtjZXhhd2J6SjE3WkNORUpUejgzcTVqOVZRWk90MVl5ZWw5UGo3V25H?=
+ =?utf-8?B?VHFtbDlWRzdzSkpmTVV2UFFKS0FWanZuS2xtb3YwZmFkeUNXc3NPWlpMbW9K?=
+ =?utf-8?B?a29MYnJNTFhUUWxBY2Z0RXNJVnZicG94d3VJMEw2NGJFeEJtMGNjYVl0SFV2?=
+ =?utf-8?B?alJFbksxVENiVG5WNlBUQXRUNUU0RzdUSnMvSGoydUZaRnY1bGJJeTlBZnBR?=
+ =?utf-8?B?NGJNK0FHcmYyY1pqRi9BdWlSL0tBR2pYd0ZLZkFnMFM5S2dpU2NxYmtnTDV4?=
+ =?utf-8?B?MUhZc1JseUt4Rk1ua21MalZZWkthNS9yTE1ZZTNZbDh0YUM2OEExVHdYeDZT?=
+ =?utf-8?B?OWIxSzFVcDVuSGVMejdsWVRkWGdwcFdXcVhMNlZKWDBiQkFxUllMTWtmYWti?=
+ =?utf-8?B?M0tIeW9vRytCOWZZeWFONjA5YWxhTWdZZlBjbHZqY3RDRHhiWGdNS1htbngr?=
+ =?utf-8?B?UkdJelVPcmZyYXhENjNKTndjVnRVdGszeERtNi9wcVFsRE5yOXhTVkh1OUQ3?=
+ =?utf-8?B?NXVuRERVbzA5TE9HWDh6eStJRWNHRVBnc0JvRWhXaVpTZXA3ZkV6SlNjN2NR?=
+ =?utf-8?B?NDFkZ003RFI4a2ovRUM1RWRqYjBmQ3VqalNWSzAxeWNDL2p2OENTNDM1d3c0?=
+ =?utf-8?B?QWFDVWZBMlF0M1FjSEhVd1ZoVG9jaElvWWZXTm4wMHJIelVzNDJBUkdsWC8v?=
+ =?utf-8?B?WnVpbXVkbkhsdHBXa0pKSitjQTQyTlhYTG1QRHQ3WFdsVVd5N3VraVZHRkFh?=
+ =?utf-8?B?V21BS09CbFV5TG11YXRBdmxtcUFLa0U1ZW1RTmFIR2VBYis1SUhrOWZGallY?=
+ =?utf-8?B?NlcxQTFEZVF3eVBxUld0VDlSdERqZGZ5cHh6eUdFcGVMZnhacWlmcHNGNTNR?=
+ =?utf-8?B?T0p4TnFpSGw4aHNxT2x2YWFnWVVoem1DNnJvNTcrUDE5ZVlUdzlKNzJVSjll?=
+ =?utf-8?B?Z1NiQU1YOGhhR3lsdjUwNDkzRldPS3JWdWRUZnZicUw1T2EzQ2h1UERQR2Vt?=
+ =?utf-8?B?bkx3NTVmSWUzWi9SUGV5ank1VTJaZVVsLzJoa3l1Qm5JTTgwUTROQTNKZWtq?=
+ =?utf-8?B?emVXVmFLUWFVRlozKzVUM2ltOEJYNUJBUng1N2dpQ08xcDh1RVdmUkFGTnJi?=
+ =?utf-8?B?UWdmOEQ0b1lCampodXZKOWg5OHczV05nODZXRUxZWXlhbGdxVjh4QU9IMDFG?=
+ =?utf-8?B?MVc4OWN4cnFFQnFONmJRK0RVTzdneHI2MVVtWWhnQ3lRYXdOenJiUHU1Vnpo?=
+ =?utf-8?B?RVlhSk52K0s5MTlMdlBEN3M3S3pwQTMzOXR6YzYrNVFCRVVSREx3NjJMNmtu?=
+ =?utf-8?B?UlE5cm5oYllCSWRxTmVQRGc4ZW5QbDBKQTduYzRHWjNFdEFxVjJmODlpZjBq?=
+ =?utf-8?B?NTNkZXkyM0NjSTJHYkc0a3J2c2ZEc1loSW9oSDBsZEkrNXRTMnFpVzNmSzY4?=
+ =?utf-8?B?R1ZsQUtwNjlLbnFHNzJTVy84WGxpRDEzd2N6RU1LSTBCSkRvbm1ka1NPdWlo?=
+ =?utf-8?B?czVQMFlVVXZJZDVUMC9TbnFNQnFUMXhXdU5obE5KM2NJSFNTT3NuT2JubjZZ?=
+ =?utf-8?B?KzdHYkdIZndRRTdhd3krR2FNdnpVd0k1YWY1c25WNU1yN2VEcjRzVkZ2cXRv?=
+ =?utf-8?B?TjdSbkNWdkZMOU5jMlI1b3NxMkNicldTZVV5eGc1NEE5TmtHby9vZU55eHcx?=
+ =?utf-8?B?TVJ4RmxPQ3dyQnpUdGk2Q0dnekFqUEZrUUFPeTJJR2VTUHNoTWdkN2grK1Rs?=
+ =?utf-8?B?K0J3QjRDQlV5THZYazV4WnV1RFJrWGE3R2xwSGNlT0NGc1hKRk9GZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260428221058.149538293@kernel.org> <20260428224428.009121296@kernel.org>
-In-Reply-To: <20260428224428.009121296@kernel.org>
-From: Dmitry Vyukov <dvyukov@google.com>
-Date: Wed, 29 Apr 2026 11:35:35 +0200
-X-Gm-Features: AVHnY4JZrVwQtMXb6Hn_c8EdH4qaAGhGec_kmcU19r2l_sbiixjINIDQ5dbikno
-Message-ID: <CACT4Y+ZVmKfHiMCSM6gbRXcc=n-cgCJWUGsxLmg-oV-HGXGMgg@mail.gmail.com>
-Subject: Re: [patch 10/10] selftests/rseq: Expand for optimized RSEQ ABI v2
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Mathias Stearn <mathias@mongodb.com>, 
-	Peter Zijlstra <peterz@infradead.org>, linux-man@vger.kernel.org, 
-	Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Chris Kennelly <ckennelly@google.com>, regressions@lists.linux.dev, 
-	Ingo Molnar <mingo@kernel.org>, Blake Oler <blake.oler@mongodb.com>, 
-	Florian Weimer <fweimer@redhat.com>, Rich Felker <dalias@libc.org>, 
-	Matthew Wilcox <willy@infradead.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Linus Torvalds <torvalds@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Rspamd-Queue-Id: 7EA8F492164
+X-OriginatorOrg: sap.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI0PR02MB10873.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6e9f79f-8261-4efb-2eec-08dea615b571
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2026 17:35:30.1406
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 42f7676c-f455-423c-82f6-dc2d99791af7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9vIDLz9tUhwN9WH2h1foE919BzJa9I04CBGSNAbCE1d4B5FEQeO9N/rzcgxwkNP06IlAJmxNcnlsQBbncnBLeBjB8oBdZ0L0eau5f/qj9h0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR02MB12318
+X-Rspamd-Queue-Id: D223C49838A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.16 / 15.00];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
-	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
+X-Spamd-Result: default: False [0.94 / 15.00];
+	ARC_REJECT(1.00)[cv is fail on i=2];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[sap.com,reject];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_DKIM_ALLOW(-0.20)[sap.com:s=selector1];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	TAGGED_FROM(0.00)[bounces-5452-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5451-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dvyukov@google.com,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[google.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
-	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns,librseq.so:url]
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[sap.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[robert.schneider03@sap.com,linux-man@vger.kernel.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	TAGGED_RCPT(0.00)[linux-man];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sap.com:dkim,sap.com:email,VI0PR02MB10873.eurprd02.prod.outlook.com:mid]
 
-On Wed, 29 Apr 2026 at 01:34, Thomas Gleixner <tglx@kernel.org> wrote:
->
-> Update the selftests so they are executed for legacy (32 bytes RSEQ region)
-> and optimized RSEQ ABI v2 mode.
->
-> Fixes: d6200245c75e ("rseq: Allow registering RSEQ with slice extension")
-> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-> Cc: stable@vger.kernel.org
-
-Reviewed-by: Dmitry Vyukov <dvyukov@google.com>
-
-> ---
->  tools/testing/selftests/rseq/Makefile              |    7 ++-
->  tools/testing/selftests/rseq/check_optimized.c     |   17 +++++++++
->  tools/testing/selftests/rseq/param_test.c          |   22 +++++++----
->  tools/testing/selftests/rseq/run_param_test.sh     |   39 +++++++++++++++++++++
->  tools/testing/selftests/rseq/run_timeslice_test.sh |   14 +++++++
->  tools/testing/selftests/rseq/slice_test.c          |    2 -
->  6 files changed, 89 insertions(+), 12 deletions(-)
->
-> --- a/tools/testing/selftests/rseq/Makefile
-> +++ b/tools/testing/selftests/rseq/Makefile
-> @@ -17,11 +17,11 @@ OVERRIDE_TARGETS = 1
->  TEST_GEN_PROGS = basic_test basic_percpu_ops_test basic_percpu_ops_mm_cid_test param_test \
->                 param_test_benchmark param_test_compare_twice param_test_mm_cid \
->                 param_test_mm_cid_benchmark param_test_mm_cid_compare_twice \
-> -               syscall_errors_test slice_test legacy_check
-> +               syscall_errors_test slice_test legacy_check check_optimized
->
->  TEST_GEN_PROGS_EXTENDED = librseq.so
->
-> -TEST_PROGS = run_param_test.sh run_syscall_errors_test.sh run_legacy_check.sh
-> +TEST_PROGS = run_param_test.sh run_syscall_errors_test.sh run_legacy_check.sh run_timeslice_test.sh
->
->  TEST_FILES := settings
->
-> @@ -62,3 +62,6 @@ include ../lib.mk
->
->  $(OUTPUT)/slice_test: slice_test.c $(TEST_GEN_PROGS_EXTENDED) rseq.h rseq-*.h
->         $(CC) $(CFLAGS) $< $(LDLIBS) -lrseq -o $@
-> +
-> +$(OUTPUT)/check_optimized: check_optimized.c $(TEST_GEN_PROGS_EXTENDED) rseq.h rseq-*.h
-> +       $(CC) $(CFLAGS) $< $(LDLIBS) -lrseq -o $@
-> --- /dev/null
-> +++ b/tools/testing/selftests/rseq/check_optimized.c
-> @@ -0,0 +1,17 @@
-> +// SPDX-License-Identifier: LGPL-2.1
-> +#define _GNU_SOURCE
-> +#include <assert.h>
-> +#include <sched.h>
-> +#include <signal.h>
-> +#include <stdio.h>
-> +#include <string.h>
-> +#include <sys/time.h>
-> +
-> +#include "rseq.h"
-> +
-> +int main(int argc, char **argv)
-> +{
-> +       if (__rseq_register_current_thread(true, false))
-> +               return -1;
-> +       return 0;
-> +}
-> --- a/tools/testing/selftests/rseq/param_test.c
-> +++ b/tools/testing/selftests/rseq/param_test.c
-> @@ -38,7 +38,7 @@ static int opt_modulo, verbose;
->  static int opt_yield, opt_signal, opt_sleep,
->                 opt_disable_rseq, opt_threads = 200,
->                 opt_disable_mod = 0, opt_test = 's';
-> -
-> +static bool opt_rseq_legacy;
->  static long long opt_reps = 5000;
->
->  static __thread __attribute__((tls_model("initial-exec")))
-> @@ -481,7 +481,7 @@ void *test_percpu_spinlock_thread(void *
->         long long i, reps;
->
->         if (!opt_disable_rseq && thread_data->reg &&
-> -           rseq_register_current_thread())
-> +           __rseq_register_current_thread(true, opt_rseq_legacy))
->                 abort();
->         reps = thread_data->reps;
->         for (i = 0; i < reps; i++) {
-> @@ -558,7 +558,7 @@ void *test_percpu_inc_thread(void *arg)
->         long long i, reps;
->
->         if (!opt_disable_rseq && thread_data->reg &&
-> -           rseq_register_current_thread())
-> +           __rseq_register_current_thread(true, opt_rseq_legacy))
->                 abort();
->         reps = thread_data->reps;
->         for (i = 0; i < reps; i++) {
-> @@ -712,7 +712,7 @@ void *test_percpu_list_thread(void *arg)
->         long long i, reps;
->         struct percpu_list *list = (struct percpu_list *)arg;
->
-> -       if (!opt_disable_rseq && rseq_register_current_thread())
-> +       if (!opt_disable_rseq && __rseq_register_current_thread(true, opt_rseq_legacy))
->                 abort();
->
->         reps = opt_reps;
-> @@ -895,7 +895,7 @@ void *test_percpu_buffer_thread(void *ar
->         long long i, reps;
->         struct percpu_buffer *buffer = (struct percpu_buffer *)arg;
->
-> -       if (!opt_disable_rseq && rseq_register_current_thread())
-> +       if (!opt_disable_rseq && __rseq_register_current_thread(true, opt_rseq_legacy))
->                 abort();
->
->         reps = opt_reps;
-> @@ -1105,7 +1105,7 @@ void *test_percpu_memcpy_buffer_thread(v
->         long long i, reps;
->         struct percpu_memcpy_buffer *buffer = (struct percpu_memcpy_buffer *)arg;
->
-> -       if (!opt_disable_rseq && rseq_register_current_thread())
-> +       if (!opt_disable_rseq && __rseq_register_current_thread(true, opt_rseq_legacy))
->                 abort();
->
->         reps = opt_reps;
-> @@ -1258,7 +1258,7 @@ void *test_membarrier_worker_thread(void
->         const int iters = opt_reps;
->         int i;
->
-> -       if (rseq_register_current_thread()) {
-> +       if (__rseq_register_current_thread(true, opt_rseq_legacy)) {
->                 fprintf(stderr, "Error: rseq_register_current_thread(...) failed(%d): %s\n",
->                         errno, strerror(errno));
->                 abort();
-> @@ -1323,7 +1323,7 @@ void *test_membarrier_manager_thread(voi
->         intptr_t expect_a = 0, expect_b = 0;
->         int cpu_a = 0, cpu_b = 0;
->
-> -       if (rseq_register_current_thread()) {
-> +       if (__rseq_register_current_thread(true, opt_rseq_legacy)) {
->                 fprintf(stderr, "Error: rseq_register_current_thread(...) failed(%d): %s\n",
->                         errno, strerror(errno));
->                 abort();
-> @@ -1475,6 +1475,7 @@ static void show_usage(int argc, char **
->         printf("        [-D M] Disable rseq for each M threads\n");
->         printf("        [-T test] Choose test: (s)pinlock, (l)ist, (b)uffer, (m)emcpy, (i)ncrement, membarrie(r)\n");
->         printf("        [-M] Push into buffer and memcpy buffer with memory barriers.\n");
-> +       printf("        [-O] Test with optimized RSEQ\n");
->         printf("        [-v] Verbose output.\n");
->         printf("        [-h] Show this help.\n");
->         printf("\n");
-> @@ -1602,6 +1603,9 @@ int main(int argc, char **argv)
->                 case 'M':
->                         opt_mo = RSEQ_MO_RELEASE;
->                         break;
-> +               case 'L':
-> +                       opt_rseq_legacy = true;
-> +                       break;
->                 default:
->                         show_usage(argc, argv);
->                         goto error;
-> @@ -1618,7 +1622,7 @@ int main(int argc, char **argv)
->         if (set_signal_handler())
->                 goto error;
->
-> -       if (!opt_disable_rseq && rseq_register_current_thread())
-> +       if (!opt_disable_rseq && __rseq_register_current_thread(true, opt_rseq_legacy))
->                 goto error;
->         if (!opt_disable_rseq && !rseq_validate_cpu_id()) {
->                 fprintf(stderr, "Error: cpu id getter unavailable\n");
-> --- a/tools/testing/selftests/rseq/run_param_test.sh
-> +++ b/tools/testing/selftests/rseq/run_param_test.sh
-> @@ -34,6 +34,11 @@ REPS=1000
->  SLOW_REPS=100
->  NR_THREADS=$((6*${NR_CPUS}))
->
-> +# Prevent GLIBC from registering RSEQ so the selftest can run in legacy and
-> +# performance optimized mode.
-> +GLIBC_TUNABLES="${GLIBC_TUNABLES:-}:glibc.pthread.rseq=0"
-> +export GLIBC_TUNABLES
-> +
->  function do_tests()
->  {
->         local i=0
-> @@ -103,6 +108,40 @@ function inject_blocking()
->         NR_LOOPS=
->  }
->
-> +echo "Testing in legacy RSEQ mode"
-> +echo "Yield injection (25%)"
-> +inject_blocking -m 4 -y -L
-> +
-> +echo "Yield injection (50%)"
-> +inject_blocking -m 2 -y -L
-> +
-> +echo "Yield injection (100%)"
-> +inject_blocking -m 1 -y -L
-> +
-> +echo "Kill injection (25%)"
-> +inject_blocking -m 4 -k -L
-> +
-> +echo "Kill injection (50%)"
-> +inject_blocking -m 2 -k -L
-> +
-> +echo "Kill injection (100%)"
-> +inject_blocking -m 1 -k -L
-> +
-> +echo "Sleep injection (1ms, 25%)"
-> +inject_blocking -m 4 -s 1 -L
-> +
-> +echo "Sleep injection (1ms, 50%)"
-> +inject_blocking -m 2 -s 1 -L
-> +
-> +echo "Sleep injection (1ms, 100%)"
-> +inject_blocking -m 1 -s 1 -L
-> +
-> +./check_optimized || {
-> +    echo "Skipping optimized RSEQ mode test. Not supported";
-> +    exit 0
-> +}
-> +
-> +echo "Testing in optimized RSEQ mode"
->  echo "Yield injection (25%)"
->  inject_blocking -m 4 -y
->
-> --- /dev/null
-> +++ b/tools/testing/selftests/rseq/run_timeslice_test.sh
-> @@ -0,0 +1,14 @@
-> +#!/bin/bash
-> +# SPDX-License-Identifier: GPL-2.0+
-> +
-> +# Prevent GLIBC from registering RSEQ so the selftest can run in legacy
-> +# and performance optimized mode.
-> +GLIBC_TUNABLES="${GLIBC_TUNABLES:-}:glibc.pthread.rseq=0"
-> +export GLIBC_TUNABLES
-> +
-> +./check_optimized || {
-> +    echo "Skipping optimized RSEQ mode test. Not supported";
-> +    exit 0
-> +}
-> +
-> +./slice_test
-> --- a/tools/testing/selftests/rseq/slice_test.c
-> +++ b/tools/testing/selftests/rseq/slice_test.c
-> @@ -124,7 +124,7 @@ FIXTURE_SETUP(slice_ext)
->  {
->         cpu_set_t affinity;
->
-> -       if (rseq_register_current_thread())
-> +       if (__rseq_register_current_thread(true, false))
->                 SKIP(return, "RSEQ not supported\n");
->
->         if (prctl(PR_RSEQ_SLICE_EXTENSION, PR_RSEQ_SLICE_EXTENSION_SET,
->
+Rml4ZXMgLlRQIGxpc3QgZm9yIFBFUkZfU0FNUExFX0JSQU5DSF9DQUxMX1NUQUNLLg0KDQpTaWdu
+ZWQtb2ZmLWJ5OiBSb2JlcnQgU2NobmVpZGVyIDxyb2JlcnQuc2NobmVpZGVyMDNAc2FwLmNvbT4N
+Ci0tLQ0KIG1hbi9tYW4yL3BlcmZfZXZlbnRfb3Blbi4yIHwgMSArDQogMSBmaWxlIGNoYW5nZWQs
+IDEgaW5zZXJ0aW9uKCspDQoNCmRpZmYgLS1naXQgYS9tYW4vbWFuMi9wZXJmX2V2ZW50X29wZW4u
+MiBiL21hbi9tYW4yL3BlcmZfZXZlbnRfb3Blbi4yDQppbmRleCBkZjBhMTk5ZS4uYWU1ODg0NTEg
+MTAwNjQ0DQotLS0gYS9tYW4vbWFuMi9wZXJmX2V2ZW50X29wZW4uMg0KKysrIGIvbWFuL21hbjIv
+cGVyZl9ldmVudF9vcGVuLjINCkBAIC0xNTQ3LDYgKzE1NDcsNyBAQCAuU1MgQXJndW1lbnRzDQog
+LkJSIFBFUkZfU0FNUExFX0JSQU5DSF9OT19UWCAiIChzaW5jZSBMaW51eCAzLjExKSINCiAuXCIg
+Y29tbWl0IDEzNWM1NjEyYzQ2MGY4OTY1N2M0Njk4ZmUyZWE3NTNmNmY2Njc5NjMNCiBCcmFuY2gg
+bm90IGluIHRyYW5zYWN0aW9uYWwgbWVtb3J5IHRyYW5zYWN0aW9uLg0KKy5UUA0KIC5CUiBQRVJG
+X1NBTVBMRV9CUkFOQ0hfQ0FMTF9TVEFDSyAiIChzaW5jZSBMaW51eCA0LjEpIg0KIC5cIiBjb21t
+aXQgMmM0NGIxOTM2YmIzYjEzNWEzZmFjOGIzNDkzMzk0ZDQyZTUxY2Y3MA0KIEJyYW5jaCBpcyBw
+YXJ0IG9mIGEgaGFyZHdhcmUtZ2VuZXJhdGVkIGNhbGwgc3RhY2suDQoNClJhbmdlLWRpZmYgYWdh
+aW5zdCB2MDoNCi06ICAtLS0tLS0tLSA+IDE6ICBkNTk3ZGM5OCBtYW4vbWFuMi9wZXJmX2V2ZW50
+X29wZW4uMjogZmZpeA0KLS0NCjIuNTEuMA0K
 
