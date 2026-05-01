@@ -1,173 +1,196 @@
-Return-Path: <linux-man+bounces-5454-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5455-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yNiVKOX59GnmGgIAu9opvQ
-	(envelope-from <linux-man+bounces-5454-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Fri, 01 May 2026 21:07:17 +0200
+	id YCu7NkD69GnmGgIAu9opvQ
+	(envelope-from <linux-man+bounces-5455-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Fri, 01 May 2026 21:08:48 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BCA34AF0AD
-	for <lists+linux-man@lfdr.de>; Fri, 01 May 2026 21:07:16 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 49C6A4AF0C4
+	for <lists+linux-man@lfdr.de>; Fri, 01 May 2026 21:08:47 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 311213010177
-	for <lists+linux-man@lfdr.de>; Fri,  1 May 2026 19:06:54 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 80BCF3006B7D
+	for <lists+linux-man@lfdr.de>; Fri,  1 May 2026 19:08:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD0B4359A7E;
-	Fri,  1 May 2026 19:06:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40BB335E952;
+	Fri,  1 May 2026 19:08:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Z4fKUavl";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RO730pmd"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZNTqjnxm";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HhRgMSre"
 X-Original-To: linux-man@vger.kernel.org
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1B029B764
-	for <linux-man@vger.kernel.org>; Fri,  1 May 2026 19:06:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB04B316905
+	for <linux-man@vger.kernel.org>; Fri,  1 May 2026 19:08:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777662413; cv=none; b=LvwN8bwkvNY1HsQrqmCLEPcdPcbVOhIXuwC28iYYwcWHnIb1UZT6jQ2+RsKetkg83UUMfTU9hEtD5vCNAWI30aB4NxuTU9QY0EMuGMVfEKDlnyQEyqMcdw6iK4uB2ea4gXURgRO/RdX5NtN9B3zOh0sPLTY7THgwvZVfH/AKKpU=
+	t=1777662508; cv=none; b=psor5D4dwrF/irMhTPbG0VTi/NrJCsyWJVhuaSX901iRfrpGpKvKoayVyzBwOJAZLNWYrV9guv3rlZY56m+JvV8JbSJqV6lX0mm57Soeo1afkVi6IahHerLO2SFRqnVEn6jUHdtm9FFwX2yMGdOWn3Cura+Vk6KnD9Zbrgv5+Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777662413; c=relaxed/simple;
-	bh=z6QcZp3UBgbxuAq04TRVKwaj24VBgn2sqBU39ZhOPZE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WOaAtwnv7ucWpxP5lydr5u7SDlkk24/++dW8AYaHbj8W2aTq8kWhUqqGr7svDbZys53zbq6xHJbi6sXBx77Bg2/9eJId7FnVSDFVvNPgM/9LXe8L+9jL2R1mPIU+QqAIcqyuOVpAD4avsUhvDuQpMkJFsiB9QAscEZtkzI0FLUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Z4fKUavl; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RO730pmd; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1777662508; c=relaxed/simple;
+	bh=hF4rYSQMg7AqI7qWcp97oB61JSvV4JC95ETXHROWdmQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kn7zbA8DPWrQuBAYgx5sgKgMZODsPykyM7vw8+broBQSqPNPmwXpjjfTQApZGG090qPbdXXnPOODoIhqTccRiagCrSdJeNNwuEy70gKNec3qFRehBzZEqY0+ipVHJMn1dnLEyjEdomXtBsyJ0TifZpy/5PVXmRH3xh1LEgV4h90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZNTqjnxm; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HhRgMSre; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1777662411;
+	s=mimecast20190719; t=1777662505;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=OpwajQJkijZobZsWTt39O3Cgh+PRAgN6Cg8DcRrV3fM=;
-	b=Z4fKUavlhcNmEVCTmz2KGu9tt4gu311OWxKybabdeBAOu92Th/hpRabG7VM4A9DrQDg8vE
-	8OpDtfk5/MSNAxtl9kN0dQZ7Mwj5SddEKTmq/DWMGCbWYXSLbJLGB+NrTxEq/bvNZv83Aw
-	W6CORIVKHM/NF1ZEHq5Rqo7sV9vY0yE=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=srxKrZXs+13VHoikplDeDYfDrXO63OPRqgk7Ot2z5UU=;
+	b=ZNTqjnxmSEpWOiAYDQRvlR9E6VSnM+egTPFOt9bwB/ZCdXpKcC5Upm/GqECap57LrE+8EA
+	9BkaIPLTr5pS5LEcXTT79ecu/7H8mfG7gldio2IQ7i4NVmPTDmIvlnWSET0atZgjKAsa8W
+	5n0Z3j/n/XZDiZCxSTxESnDwPbOVO2A=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-407-SDi8uae7NFOJgljMm-9_mg-1; Fri, 01 May 2026 15:06:50 -0400
-X-MC-Unique: SDi8uae7NFOJgljMm-9_mg-1
-X-Mimecast-MFC-AGG-ID: SDi8uae7NFOJgljMm-9_mg_1777662409
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50d5d1c2289so51566221cf.2
-        for <linux-man@vger.kernel.org>; Fri, 01 May 2026 12:06:50 -0700 (PDT)
+ us-mta-141-qbMbE7k5O2abV01rrfBLXw-1; Fri, 01 May 2026 15:08:24 -0400
+X-MC-Unique: qbMbE7k5O2abV01rrfBLXw-1
+X-Mimecast-MFC-AGG-ID: qbMbE7k5O2abV01rrfBLXw_1777662504
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d6bf346adso34401291cf.1
+        for <linux-man@vger.kernel.org>; Fri, 01 May 2026 12:08:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1777662409; x=1778267209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OpwajQJkijZobZsWTt39O3Cgh+PRAgN6Cg8DcRrV3fM=;
-        b=RO730pmdntDfaGfG+3ifehr84ec9yNbao9lzDuOGCNxiLS8PkM92+LUMKG8JvPkG6F
-         smDhiNZH/yTem7YgYZxSQ8Y3ZqCoLcxQ3Pvkdkqf/cJdfpKsiCFfhgC7+elGRccnaWJV
-         4lqT9qNZ+GpETZTvHGda+1tgYK/3fAQbWXWPnOiupYglHiCiGCHFwDMRxhhayL6m3mus
-         LaG/SFrLVl8/TfLiPLE9xzpcC4onlOGMQCuYBN71cRMXM13q+ZGIxf36eiXnUc4YsZCs
-         ajLziv0yog6liOVEiQNK0W4vDjPQciFW7GJYYohJ4ffxMCcWTPifwViF9i7ONsqI/n2k
-         OjDA==
+        d=redhat.com; s=google; t=1777662504; x=1778267304; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=srxKrZXs+13VHoikplDeDYfDrXO63OPRqgk7Ot2z5UU=;
+        b=HhRgMSreNwHukjr9sSEiD0RR/OR5PEwc4ubbm7TDj5D1xc2c9XZLq0HWz+H4uie6Qs
+         apmnmCy6l78QIaATKH3+Pe1IGf17USWeDIa/cd2oH5HjFunpLMiq6IhQlyKf6b0DZzxa
+         HhR6cr76Nnc9bFm0sSan2Q3WpzyBFGwQltNS0XtuUqVqnb/UyLdEoKxcIDT//6UgWNF3
+         XI26SC/pFAf6lGr6B63aO40R5qQsPctZUG7ToFWMjXaIOTTseVaDQjpJV478gBiahAxK
+         uqPiON1Nl5Oc+haY6KAkBnkvkk/DovJLf4kBWtpKfzfH9W6PWHO4VrcqCXXjJDNAhf0K
+         zXFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777662409; x=1778267209;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1777662504; x=1778267304;
+        h=content-transfer-encoding:in-reply-to:organization:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OpwajQJkijZobZsWTt39O3Cgh+PRAgN6Cg8DcRrV3fM=;
-        b=MIUzEUgNRa9OgrRv3ZoOui+v7Btpf1QeqtApq4AIOrXi/+ivCCni/S25J1p3LIFPf3
-         e9noJRxd1h6v/gXfg5Py3al11ftvnM8oHKPSQhtgaWUGCUzRWpmmPecz4NX9i6kFeUCc
-         lM4cxTSEvmljnKcP9a4iqeQigs2SRaNsU/k2zA+qubr+cimfimFzxeeQEUiqhu7puRDU
-         CJWrxdsCZwAViH8Bvf2PmgRenjFJ1a2AU0xL7OvhK4uBEJnBn7f7SBEyWhBFNirwTdHL
-         AHLvAenisH9BS457GMDqA2aXYjYt4ezITp75iDl0tyorJOvqkyZ9+k6owDT+4Ci7O2UM
-         TTzQ==
-X-Gm-Message-State: AOJu0YylJW3VMk4s8FEg+0iUtmVlIqt4Oor9qvQgrx3j3UcnG56zeoyw
-	Cx7bDllMcPpdbR6CZaiPCWAUEWdKfR1+HhLktwxF2pKU7cJiEWw+e6POjRYMy31p6PycjaaFU7n
-	qZGQ8Eq77NlzSaqQ/i2JW45ZBmpVaYcPljEVWl1c2Z9fxkhcdkbHuSDR0MnmaZPPxhc+uzg==
-X-Gm-Gg: AeBDietS7zgFVWYVC2dSftcvknZ4RYl6R26hRsR5VWgUNq6EVDl0vDGD43PMTLiQ2FR
-	pPfVtVFh10pyrdSGtC/DlOL3yoDhCUBgWKw08bwiQO0H8JU9VhqUVx889KEIrWZcwXjRkrjsMqE
-	7PTGi8pCkOzjNAq4miW45FXiqhVv2SWSRVWujUpQX2gy5AndRbvxFA7GdgqlgA9ykpUCvjxVwCc
-	f9Cs5yUdIqqSyMmNMCGFtJTzFcJymiOxz4Nlj03VGm3a0PAjwN8h5eOM8G31LVwcdUZXCPPMQF4
-	7e4rHHCLcj5Zcae9xAZnwNaslaeDEfsCAPF5z2vmHOmdQLbLJH2KekQCyzX6h0R8jSkJ//60PYd
-	ujr0p8YujG+ZDZyuFr3T+dBf4QZXslsyvpLffjznE6515MEqB1ht1BM+a3+Ve/1bc
-X-Received: by 2002:ac8:57c9:0:b0:50f:b17d:7e53 with SMTP id d75a77b69052e-5104bf6baeamr7146771cf.47.1777662409394;
-        Fri, 01 May 2026 12:06:49 -0700 (PDT)
-X-Received: by 2002:ac8:57c9:0:b0:50f:b17d:7e53 with SMTP id d75a77b69052e-5104bf6baeamr7146021cf.47.1777662408646;
-        Fri, 01 May 2026 12:06:48 -0700 (PDT)
-Received: from pfrankli-thinkpadp16vgen1.rmtusma.csb ([2601:189:4702:48e0:7c65:14b:9590:9d04])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-510408e2112sm21608521cf.5.2026.05.01.12.06.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 12:06:48 -0700 (PDT)
-From: Patsy Griffin <patsy@redhat.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Carlos O'Donell <carlos@redhat.com>,
-	Patsy Griffin <patsy@redhat.com>
-Subject: [PATCH] man/man5/core.5: Update compression format for systemd-coredump
-Date: Fri,  1 May 2026 15:06:09 -0400
-Message-ID: <20260501190609.3604026-1-patsy@redhat.com>
-X-Mailer: git-send-email 2.51.1
+        bh=srxKrZXs+13VHoikplDeDYfDrXO63OPRqgk7Ot2z5UU=;
+        b=GQ9U7qrljnAaJccK5gGGbyunY5uB1kVBaLd/eBIkQHkF5JdGt54jfX2hLS/38MoOHY
+         ouiDDHal2LVn5Mb7/hCWDNoyOTZJC+oCvSEipQ+x4NJdaghl0Db1mk6PrCmhH3rh69PP
+         FCKmE5X0ou33tLEtXGqOTlwxS0MQa45poupW2x55qqSP/vn6Dr4Nsk2PtjOQwZwgQEQi
+         +fC6whJlTJCIQej621Vutu4wf7/JHJPR8cfjAYddxnh3Ylw97eUzMgVMsJvxbFwKyx2f
+         Alf6D2h/8QfhbaPPhoTeqPx/YnwKbpaDuzCm4989JsBBMMifLKxCLlq61K70nZ1wUVgb
+         CplQ==
+X-Gm-Message-State: AOJu0Yw1Kjol4MTVRv6c7dpZSsqJOeQiAALI5cUZuZigm2jpx2vDeu2y
+	ZUHHohSitX0h/aydrQuMA/S62xImjLeAPI13/e6grfmEkMlKaNK00qaMSEKaBlYz0pJA+snPRN1
+	OhOlOhVRyU/i7YI653wl8BpjijwgwGC3exc5mC0RVKBagWlQeF25eUUvYpiSz0sMe59wRIQ==
+X-Gm-Gg: AeBDietCJGrWexyp9zLZeP+bYMDp3IhHc5cGtswP4MjDBClNw/SOYq/d78W6x0Ahnt4
+	GDLegMxvZjjheDvAUOTVTNbnJCXOgb2ccMiiH8SCXqhFw75oWPb1Xmf7mCpsobj6gi7yvc9Eb3e
+	wUJCb0z9ENtEVWB1iDFOJXDL8q0SU5LesZLLyiqcnwrfEcQDTQs4Mhi8bLXjQM0NdEbAQ60krNl
+	MdZ4MpkSFxzfSXbltvlo2aMNj7A60NeCR6NZxJh8hwcMopx/QLCxqRypVT8I9tw2gJiOfEjqooF
+	yOye0h2EHDrpMHBFZfHrbcTIbYJLaNzRp1kwDOzj0tJ7TmyrwqeGZ3Odc9KgRLh5GGtfd9IuNhL
+	dsiVMJ6jgjziRxt/svTsSkbzx7/yRXpv1EieyM4qM2xAov8F5YsjqvZwZATnE3TL5C0R/12NF+I
+	DP97Br2EdqU/ivp7gJPEKOExC0TdZZtOYi
+X-Received: by 2002:a05:622a:550c:b0:50e:c093:9051 with SMTP id d75a77b69052e-5104bef1bc4mr8211051cf.30.1777662503566;
+        Fri, 01 May 2026 12:08:23 -0700 (PDT)
+X-Received: by 2002:a05:622a:550c:b0:50e:c093:9051 with SMTP id d75a77b69052e-5104bef1bc4mr8210491cf.30.1777662503133;
+        Fri, 01 May 2026 12:08:23 -0700 (PDT)
+Received: from [192.168.0.116] ([198.48.244.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51040b86535sm24434031cf.27.2026.05.01.12.08.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 01 May 2026 12:08:22 -0700 (PDT)
+Message-ID: <eb5c6c20-48a3-46a9-9918-12beffb8e6bc@redhat.com>
+Date: Fri, 1 May 2026 15:08:21 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 1BCA34AF0AD
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] man/man5/core.5: Update compression format for
+ systemd-coredump
+To: Patsy Griffin <patsy@redhat.com>, Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <20260501190609.3604026-1-patsy@redhat.com>
+Content-Language: en-US
+From: Carlos O'Donell <carlos@redhat.com>
+Organization: Red Hat, LLC.
+In-Reply-To: <20260501190609.3604026-1-patsy@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 49C6A4AF0C4
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.66 / 15.00];
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719,redhat.com:s=google];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5454-lists,linux-man=lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_NEQ_ENVFROM(0.00)[patsy@redhat.com,linux-man@vger.kernel.org];
-	RCPT_COUNT_THREE(0.00)[4];
-	PRECEDENCE_BULK(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
-	NEURAL_HAM(-0.00)[-1.000];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_FROM(0.00)[bounces-5455-lists,linux-man=lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	DKIM_TRACE(0.00)[redhat.com:+];
+	RCPT_COUNT_THREE(0.00)[3];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[carlos@redhat.com,linux-man@vger.kernel.org];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[linux-man];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
 
-As of version 246, systemd-coredump defaults to zstd compression
-for core dumps, rather than lz4.
+On 5/1/26 3:06 PM, Patsy Griffin wrote:
+> As of version 246, systemd-coredump defaults to zstd compression
+> for core dumps, rather than lz4.
+> 
+> Signed-off-by: Patsy Griffin <patsy@redhat.com>
 
-Signed-off-by: Patsy Griffin <patsy@redhat.com>
----
- man/man5/core.5 | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+LGTM.
 
-diff --git a/man/man5/core.5 b/man/man5/core.5
-index 4da5819b6..83c49d42d 100644
---- a/man/man5/core.5
-+++ b/man/man5/core.5
-@@ -515,9 +515,14 @@ program:
- In this case, core dumps will be placed in the location configured for
- .BR systemd\-coredump (8),
- typically as
--.BR lz4 (1)
--compressed files in the directory
-+.BR zstd (1)
-+compressed files
-+ending in ".zst"
-+.\" Since Systemd 246:
-+.\" commit ef5924aa313d1892bb491c870ba3c429454dfc76
-+in the directory
- .IR /var/lib/systemd/coredump/ .
-+Compression on or off is configurable via coredump.conf(5).
- One can list the core dumps that have been recorded by
- .BR systemd\-coredump (8)
- using
+I thought coredump.conf allowed you to specify which compression format,
+but I was wrong, you can only turn it on or off. This looks correct and on
+my system all my coredumps are *.zst today. Best to update this to match
+latest deployments.
+
+Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+
+> ---
+>   man/man5/core.5 | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man/man5/core.5 b/man/man5/core.5
+> index 4da5819b6..83c49d42d 100644
+> --- a/man/man5/core.5
+> +++ b/man/man5/core.5
+> @@ -515,9 +515,14 @@ program:
+>   In this case, core dumps will be placed in the location configured for
+>   .BR systemd\-coredump (8),
+>   typically as
+> -.BR lz4 (1)
+> -compressed files in the directory
+> +.BR zstd (1)
+> +compressed files
+> +ending in ".zst"
+> +.\" Since Systemd 246:
+> +.\" commit ef5924aa313d1892bb491c870ba3c429454dfc76
+> +in the directory
+>   .IR /var/lib/systemd/coredump/ .
+> +Compression on or off is configurable via coredump.conf(5).
+>   One can list the core dumps that have been recorded by
+>   .BR systemd\-coredump (8)
+>   using
+
+
 -- 
-2.51.1
+Cheers,
+Carlos.
 
 
