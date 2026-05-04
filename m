@@ -1,57 +1,57 @@
-Return-Path: <linux-man+bounces-5461-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5462-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id JQMeCByZ+GkAxAIAu9opvQ
-	(envelope-from <linux-man+bounces-5461-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 04 May 2026 15:03:24 +0200
+	id wAJNDoOZ+GkAxAIAu9opvQ
+	(envelope-from <linux-man+bounces-5462-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 04 May 2026 15:05:07 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1634B4BD618
-	for <lists+linux-man@lfdr.de>; Mon, 04 May 2026 15:03:22 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 450614BD679
+	for <lists+linux-man@lfdr.de>; Mon, 04 May 2026 15:05:05 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 42D313038C73
-	for <lists+linux-man@lfdr.de>; Mon,  4 May 2026 13:01:04 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 859D930056D3
+	for <lists+linux-man@lfdr.de>; Mon,  4 May 2026 13:03:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5070D3D8102;
-	Mon,  4 May 2026 13:01:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 10B243D6476;
+	Mon,  4 May 2026 13:03:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ig0X5VqM"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q/KsH8AV"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F583D5256
-	for <linux-man@vger.kernel.org>; Mon,  4 May 2026 13:01:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83063D47BB
+	for <linux-man@vger.kernel.org>; Mon,  4 May 2026 13:03:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777899663; cv=none; b=JWY0k6vFsP74Dnn/YW2qBLM9SH+R4wz3n5jJQaV45T0An/0gQbWjnw1Rq2t57XRv74FATVQbhyLDa5J9z8ANQESm6HTp0r67JzFbqFpaUzdP1yoiKkSGw5Am66oDP+Krt0r6WV0PWXn9fs2pxVjG1CHmbcmRCTHw4EQkPrxvaiU=
+	t=1777899823; cv=none; b=LFBLnYVeogK//CJNV+VmofFg1R3fuZEqOTHivfyLkq17hoHOwNlTZ6ajsDYsumuuVxDoUaReaS3VXAhtXJ9qVUEW4JuB0wkOGA2gNR1XlXljuchJxFTFkn/rs4Pxbrsb1O5ppf6JZIGPa5N70oWd0l++u192MFIWOULXX4XcjmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777899663; c=relaxed/simple;
-	bh=0QFJwNyFGonzifioCC1y3p5VMVvFb3raw3cdV62NLe0=;
+	s=arc-20240116; t=1777899823; c=relaxed/simple;
+	bh=9TerBu+zMGoH6L+ZncQs4Q8o50cyiZRVKzx41GLp+3I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b2FL4RnVZluPptDESExwhvQLWmI15jDjSXElvQGBdu+1R6FWCl+oMSYfo1hVn2fSX86dSSTxbdlVfEglLHCR69EdzBgTQyCPW0K59Be91D9NMpqxKVZEWAlzVvqPwQlR+30H58tHMweNhLgdLmOp8W5QaVcbLvxnm2swc57EpBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ig0X5VqM; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF5CC2BCB8;
-	Mon,  4 May 2026 13:01:01 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nac/JVyE9n76lCxq1C3tl7ekYiNdI6Xsag2L8HPYvsns9Oz1zK8Gipj7EqSJJJwdLDSd/UZ5gap2W1MEbv7FpdtYmsCCs4JzKI/G3bPAIOZ20LspqonbNbpI5M2+p4Bawg3Qfm6ZW/5whYXTsqvf1AHQHZkds6TqFF7YUNasuaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q/KsH8AV; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8780C2BCB9;
+	Mon,  4 May 2026 13:03:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777899662;
-	bh=0QFJwNyFGonzifioCC1y3p5VMVvFb3raw3cdV62NLe0=;
+	s=k20201202; t=1777899823;
+	bh=9TerBu+zMGoH6L+ZncQs4Q8o50cyiZRVKzx41GLp+3I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ig0X5VqMWdwDlP+odv+9CJJALJE+VUT12t4dydd1Sok8RfbsZkw+KzoyrK/BVzC7D
-	 zDI/AJZYLdFKgaxb7yyw9b3TMtovR34AkQBQWmFv81ttq7Ht5jLKe/3l98nPUjDFwT
-	 nB2XnK/VKGBb1DJxQRBhpGZtugxA7/6mrtZIBs1wR6guMrfd0EMpNLuHlb3ZhmMnhS
-	 /SjBfzoutMyzIyEpiL2ddktfxHEq3ZRQKSlaCa9uSWI57SDAgIVzoWAaNtMsfxnxE9
-	 J6qiEmVo96PjUnBFpwAMfR3NrUkA/88kCh1pN+9QJfyAlmlTnHB4Lwt3K/9GWNAo1A
-	 9cuL9bgnNg5SQ==
-Date: Mon, 4 May 2026 15:00:57 +0200
+	b=q/KsH8AVD5gKXCBUUJ2pvWKTIbe0Yx/uX75+BTuxj39Npu5YOXCBpFu1zVBhbRpy7
+	 5xqhfzY+zXJ3BhtD5/t8z5LKp3zroab/7uUVgQKRgp1MXXJ+9LUCWjC7ir5E9oKV5V
+	 wT2497Ncei48HlhA+BGikA3EUb4ltmXH4BoyTNTlzvZXGRgKNQRyzHNUVhGc/QeliF
+	 oSGg/qwkOEKmddU5R7gfnlAq6Qy5lyZJIorwj6xK7QMW9cs8i4BQX9lP6EQt22iXza
+	 WgDE1h4txsHYMBZPwXGhfuwuQ7BnFDoQiTrgjP8KOT/aGp0HC5OuiNs3YU0SI3qheb
+	 GRTy+fLeyngyQ==
+Date: Mon, 4 May 2026 15:03:40 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/mmap.2: Document when MAP_GROWSDOWN
- does/doesn't trigger growth
-Message-ID: <afiVz8xRiJ0jQzXZ@devuan>
-References: <20260423164414.1952395-1-benjamin.p.kallus.gr@dartmouth.edu>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] Update Landlock docs to Landlock ABI v8
+Message-ID: <afiY-vIzayaFx2MP@devuan>
+References: <20260422192330.7623-1-gnoack3000@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,10 +59,10 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r3ckfbegg3ecmchh"
+	protocol="application/pgp-signature"; boundary="jiugrigsycillkps"
 Content-Disposition: inline
-In-Reply-To: <20260423164414.1952395-1-benjamin.p.kallus.gr@dartmouth.edu>
-X-Rspamd-Queue-Id: 1634B4BD618
+In-Reply-To: <20260422192330.7623-1-gnoack3000@gmail.com>
+X-Rspamd-Queue-Id: 450614BD679
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
@@ -70,246 +70,136 @@ X-Spamd-Result: default: False [-3.76 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5461-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5462-lists,linux-man=lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	NEURAL_HAM(-0.00)[-1.000];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,open-std.org:url,devuan:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
 
 
---r3ckfbegg3ecmchh
+--jiugrigsycillkps
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/mmap.2: Document when MAP_GROWSDOWN
- does/doesn't trigger growth
-Message-ID: <afiVz8xRiJ0jQzXZ@devuan>
-References: <20260423164414.1952395-1-benjamin.p.kallus.gr@dartmouth.edu>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] Update Landlock docs to Landlock ABI v8
+Message-ID: <afiY-vIzayaFx2MP@devuan>
+References: <20260422192330.7623-1-gnoack3000@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20260423164414.1952395-1-benjamin.p.kallus.gr@dartmouth.edu>
+In-Reply-To: <20260422192330.7623-1-gnoack3000@gmail.com>
 
-Hi Ben,
+Hi G=C3=BCnther!
 
-On 2026-04-23T12:44:14-0400, Ben Kallus wrote:
-> The man page states that MAP_GROWSDOWN can only cause a mapping to
-> grow by a single page.  This is incorrect; mappings can grow by many
-> pages at a time, until reaching either the stack size limit or growing
-> too close to another mapping.
+On 2026-04-22T21:23:28+0200, G=C3=BCnther Noack wrote:
+> Hello!
 >=20
-> To observe that mappings can grow by more than one page, and that they
-> are limited by the stack size limit, run the following C program with a
-> stack size limit of 0x800000 bytes, and then again with a stack size limit
-> of 0x801000 bytes, and observe that it segfaults as the comments describe.
-
-Would you mind pasting a shell session that runs it with both stack
-limits?
-
+> Thanks for the review!  Here's the fourth round of the patch set, this
+> time just adding the missing ABI version information.  Added another
+> small patch in the same style for the adjacent Landlock man page where
+> it applies.  (The third Landlock manpage, landlock_create_ruleset.2,
+> doesn't need it because one flag is available since the start and the
+> errata flag is available where needed and backported everywhere, as
+> previously discussed.)
 >=20
-> > struct page {
-> >     char data[4096];
-> > };
-> > static_assert(sizeof(struct page) =3D=3D 4096);
-> >
-> > void *const BASE_ADDRESS =3D (void *)0xabcdef000;
-
-I'd prefer upper-casing the hex value, to differentiate it visually
-=66rom the 'x':
-
-	0xABCDEF000;
-
-If this seems too packed, C23 now allows using a digit separator:
-
-	alx@devuan:~/tmp$ cat s.c=20
-	void *const BASE_ADDRESS =3D (void *)0xA'BCDE'F000;
-	alx@devuan:~/tmp$ gcc -Wall -Wextra -S s.c=20
-	alx@devuan:~/tmp$=20
-
-> >
-> > int main(int const argc, char const * const * const argv) {
-
-Unrelated, but you can define int main(void) without parameters.  That's
-allowed by ISO C.  Here's a quote of C23, but this is allowed by any
-version of ISO C:
-
-	5.1.2.3.2 Program startup
-	1	The function called at program startup is named main.
-		The implementation declares no prototype for this function.
-		It shall be defined with a return type of int
-		and with no parameters:
-
-			int main(void) { /* ... */ }
-
-		or with two parameters
-		(referred to here as argc and argv,
-		though any names may be used,
-		as they are local to the function in which they are declared):
-
-			int main(int argc, char *argv[]) { /* ... */ }
-
-		or equivalent;6)
-		or in some other implementation-defined manner.
-
-<https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf#paragraph.5.1.2=
-=2E3.2>
-
-> >     volatile struct page *p =3D mmap(
-> >         BASE_ADDRESS,
-> >         1,
-> >         PROT_READ | PROT_WRITE,
-> >         MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN | MAP_FIXED_NOREPLA=
-CE,
-> >         -1,
-> >         0
-> >     );
-> >                              // stack_limit=3D0x800000 // stack_limit=
-=3D0x801000
-> >     (p - 2047)->data[0] =3D 0; // no segfault          // no segfault
-> >     (p - 2048)->data[0] =3D 0; // segfault             // no segfault
-> >     (p - 2049)->data[0] =3D 0; // segfault             // segfault
-> > }
+> Kept the cover letter title as is, to reduce confusion (but the part
+> where Landlock ABI v8 gets described is already submitted).
 >=20
-> To observe that mappings stop growing when they get within 256 pages of
-> the next lower mapping (instead of a single page, as the man page
-> currently states), run the following program, and observe that it
-> segfaults as the comments describe.
+> =E2=80=93G=C3=BCnther
 
-Would you mind running the program and pasting that here too?
-
->=20
-> > struct page {
-> >     char data[4096];
-> > };
-> > static_assert(sizeof(struct page) =3D=3D 4096);
-> >
-> > struct page *const BASE_ADDRESS =3D (void *)0xabcdef000;
-> >
-> > int main(int const argc, char const * const * const argv) {
-> >     volatile struct page *p =3D mmap(
-> >         BASE_ADDRESS,
-> >         1,
-> >         PROT_READ | PROT_WRITE,
-> >         MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN | MAP_FIXED_NOREPLA=
-CE,
-> >         -1,
-> >         0
-> >     );
-> >
-> >     struct page *p2 =3D mmap(
-> >         BASE_ADDRESS - 258,
-> >         1,
-> >         PROT_READ | PROT_WRITE,
-> >         MAP_ANONYMOUS | MAP_PRIVATE | MAP_FIXED_NOREPLACE,
-> >         -1,
-> >         0
-> >     );
-> >
-> >     // no segfault (causes p to grow by a page)
-> >     (p - 1)->data[0] =3D 0;
-> >
-> >     // unmap the test page
-> >     munmap(p2, 1);
-> >
-> >     // unmap the new page from p growing
-> >     munmap((struct page *)p - 1, 1);
-> >
-> >     struct page *p3 =3D mmap(
-> >         BASE_ADDRESS - 257,
-> >         1,
-> >         PROT_READ | PROT_WRITE,
-> >         MAP_ANONYMOUS | MAP_PRIVATE | MAP_FIXED_NOREPLACE,
-> >         -1,
-> >         0
-> >     );
-> >
-> >     // segfault because p can't grow due to proximity to p3
-> >     (p - 1)->data[0] =3D 0;
-> > }
->=20
-> Fixes: 176b1a76 (2016-11-21; "mmap.2: Add (much) more detail on MAP_GROWS=
-DOWN")
-> Signed-off-by: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-> ---
->  man/man2/mmap.2 | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->=20
-> diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
-> index 20b94c243..925b18ffc 100644
-> --- a/man/man2/mmap.2
-> +++ b/man/man2/mmap.2
-> @@ -276,11 +276,11 @@ should check the returned address against the reque=
-sted address.
->  This flag is used for stacks.
->  It indicates to the kernel virtual memory system that the mapping
->  should extend downward in memory.
-> -Touching an address in the "guard" page below the mapping will cause
-> -the mapping to grow by a page.
-> -This growth can be repeated until the mapping grows to within a
-> -page of the high end of the next lower mapping,
-> -at which point touching the "guard" page will result in a
-> +Touching an address below the mapping will cause the mapping to grow to
-> +accommodate the access.
-> +This growth can be repeated until the mapping crosses the stack size lim=
-it,
-> +or grows to within 256 pages of the high end of the next lower mapping,
-> +at which point accessing below the mapping will result in a
-
-Thanks!  The diff seems reasonable.  Please adjust the commit message
-and resend.
+I've applied the both patches of the patch set.  Thanks!
 
 
 Have a lovely day!
 Alex
 
->  .B SIGSEGV
->  signal.
->  .TP
+>=20
+> P.S.: I have a half-finished commit for the upcoming Linux 7.1 release
+> as well; I can send this one soon, I assume it's OK to send these
+> slightly before the release, given that the code is already on Linux
+> master?
+>=20
+>=20
+> Change Log
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> v4:
+>   - mention ABI versions for flags next to the tagged paragraph title
+>     where they are described
+>     - 1/2: do that in landlock_restrict_self.2 (based on v3's patch 4)
+>     - 2/2: do that in landlock_add_rule.2 as well
+>   - earlier patches 1,2,3 from v3 were already merged
+>=20
+> v3:
+>   - split the size/attr clarifications from the "errata" patch into a
+>     separate commit
+>   - earlier patch from v2 about the "scoped" EINVAL error was already
+>     merged
+>  =20
+> v2:
+>   - landlock_create_ruleset.2: added a tiny patch to add a missing
+>     mention of "scoped" in the errors list.
+>   - landlock_create_ruleset.2: various reformulations for errata
+>   - earlier patch from v1 about the default ABI version assumption was
+>     already merged (thanks!)   =20
+>=20
+> G=C3=BCnther Noack (2):
+>   man/man2/landlock_restrict_self.2: Document ABI requirement for
+>     logging flags
+>   man/man2/landlock_add_rule.2: mention ABI version for
+>     LANDLOCK_RULE_NET_PORT
+>=20
+>  man/man2/landlock_add_rule.2      | 2 +-
+>  man/man2/landlock_restrict_self.2 | 6 +++---
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+>=20
 > --=20
-> 2.54.0
+> 2.53.0
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---r3ckfbegg3ecmchh
+--jiugrigsycillkps
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmn4mIMACgkQ64mZXMKQ
-wqkcHRAArzGMZv/VlYJfaF1ZLdF36GQHsDFxGQpXXlvL5iM4O7iGPm88nnhMoUAi
-pMyn2DPP1yPHGREcJkgFvUB1K+4vNggzWzfW8YoA5AxE1NvLEmxGmtQkF3jrYJXN
-9Pa/2BK7t27gEektOJypkfWUbnBhw4Tp91v4I9yjrLd7R/hax8+nqEVgENveSkoX
-7Opq52EPt87l2cCaIkpAeTwPTBReT3IC5bPgWoej0hBEQfZrik76k1gTf41pKO2+
-ba1K9MqEOfrNGthmlCnvIEqPnBTBW8Z68Y4BFeyr1EZOBO0ye8GYaATZzXXMyQVu
-EdfBt/07emPo7A0Q9/82b3gY5kckjJJuqO2LKy8V4Nq8ORY2uTmgvSftN9SmOjCk
-eEGZBQ+49XiYBnLQXbwWpyeDePCoDzYNJSKYLzGOpILmktDS2clRyTQwGgKdEDY1
-02xF7EdBu8L1Ze6ToRdzM/A3qiXspVkiPr7YUbYYiSclXAycJuMl/KYnxW8ztCSq
-HmszYIfm8537LulL3aO1dUaLP07yZy4MDff1bt0WkRgkSC7O409J4m60wZFpEmsE
-mYrxt7W5XHaYDy9A/4a8D28UlD/vt3oIm3kNM7sfe+VblnGfJo8JZXZ+tWrPszvl
-/w3JFCJvcNggQ5UndweLctP8D7wAc4MYvSvD97gRegGwjtTdPz4=
-=H9ub
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmn4mSsACgkQ64mZXMKQ
+wqmtUg//SnZmF15ZnZI9p/tUwLCzU8Q0p9wlfKxUUzwwEMpZGmuSl5n0crDcrjUX
+q6oi/hw5XenUJyCABRXGvPq7ownqP6Hh1Gy06Ij3/4yRUaG2SvpjfQCuD43t2G8D
+st8zW1w+9FVl84wtnRKDbiP5t26bFsO22ZU8vfxGtGq56cf3OE5opG7RltwFl16q
+OmEW19h2L0gmBQwQYQzbB/JHUBT5/qQbjKaEQkeZFJiU3OGDTsCC8x8oJWnSBlGK
+lvi+ItXwjV4rQLug+UxinF8GHm0AB2pREeeXAoWWbmEQG6SlLVv6VWDT8kfxctQY
+Ny4wyNCd7K4MkTOwW9JQJ+it/qXmFvHquIU3BgEzCtG7pEQHs0WVCbFb/CZF0qd6
+KvPTQS3GvsRwha6pIIz7SBktiijjTDpXzKjV5pPb3jU3PTBbfFzOT1A7zn5Ab4lN
+BYmauHUmDo061GqAtuVLCtdfKA21flIj25KNEGga1xvgV73A/Ue2gdlaJgJm90Dm
+cr0MpFEDmZkDlCM5+0T84s9nC2X/Ptx0Tz1G/YTTrt02B2CkhIayphF5NqVbnpLk
+UDS6rHwDew4euIhFjsaMrYv1ZvJ8rL+EogATR6JcI56Eg4Juwmlwt0rvBcwgWmbo
+DTQa1XNgn+PH9kjB4LzEjXa2KYvZI/dMnoHD+2LhQYGHtJaA0Rg=
+=TpPd
 -----END PGP SIGNATURE-----
 
---r3ckfbegg3ecmchh--
+--jiugrigsycillkps--
 
