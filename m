@@ -1,140 +1,165 @@
-Return-Path: <linux-man+bounces-5463-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5464-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uFViOn3K/GlhTwAAu9opvQ
-	(envelope-from <linux-man+bounces-5463-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 07 May 2026 19:23:09 +0200
+	id uMksJNvi/GmGVAAAu9opvQ
+	(envelope-from <linux-man+bounces-5464-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 07 May 2026 21:07:07 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 690244ECD1A
-	for <lists+linux-man@lfdr.de>; Thu, 07 May 2026 19:23:09 +0200 (CEST)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id 386D74EDB99
+	for <lists+linux-man@lfdr.de>; Thu, 07 May 2026 21:07:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 3D8EE30164BE
-	for <lists+linux-man@lfdr.de>; Thu,  7 May 2026 17:23:08 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id 31AD93005AB3
+	for <lists+linux-man@lfdr.de>; Thu,  7 May 2026 19:07:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 929A03793CD;
-	Thu,  7 May 2026 17:23:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FCC63B19DC;
+	Thu,  7 May 2026 19:07:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b="fNO9/gK2"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BjWOvrwB";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="P29axd4d"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5082E1F02
-	for <linux-man@vger.kernel.org>; Thu,  7 May 2026 17:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778174585; cv=pass; b=knG/5TANhVrArGVuxf5CEKJo4ZgOkerUB4VeZUIlK3teWHr5pFcF0IhwlC2WIxmQYNWk29RVsoc5BC4paqNpyD9idKhK+tvhPDvC2xsrx0rZECLA/6KF5JRHw8W6NMIS+O4YavrQANVYubAj+xFHuoorhAwGQHo/EQodjGHbCX0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778174585; c=relaxed/simple;
-	bh=Eg9Fxh+VHcqS3x0ixCXioDDXrG7V8urNjpIqlU1EUP0=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=mLEz9z4bKDGrUQufDT643uAWkioCBcsU11XVwF3iRGl9QlqVMU2oPjEtgpIUu7Ij/LaTcetxZ5o5uJCZWxtDKfe7++oJyl3e+9Fg4T+HJ4iWLkQZKb86S/KrehuHc8B2WUZUxf/zt0qfGMw/JqTtYZNhLY7QH8zZvegHa5hm2wM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu; spf=pass smtp.mailfrom=dartmouth.edu; dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b=fNO9/gK2; arc=pass smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dartmouth.edu
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5a860667fabso1042420e87.0
-        for <linux-man@vger.kernel.org>; Thu, 07 May 2026 10:23:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778174582; cv=none;
-        d=google.com; s=arc-20240605;
-        b=gVTVj97jTOHTNRtD+eko4M1il61soCZM4jkh/Ih9zLzyPqRU7kQ+tFlAw0t8LWjzMy
-         zTKvh91B/EpazS71w3fiIJinqtVXsSSPukrJ7FK6hrmyKYnblK1jy6c3CghBvESf6G+Y
-         iZ2XTi2G/oYGl9dyES9WDYF7jRERwU/GJwWfFI7shfRgi1NfUTHq4Xmh3LouhAkGbe1S
-         G4jInbtYIKrgTfAxMkWiXU/TNpRrXeQ0woXLUN9m9t2hWwmRqQA0Y1NdTArXzhJzbYi0
-         4Qftc2cb4LLTIaY/XfFCB59jdtzh0S8NUnF+P+SawZYEvN+GfPbADU+4CA0dr05yRPll
-         lJXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Eg9Fxh+VHcqS3x0ixCXioDDXrG7V8urNjpIqlU1EUP0=;
-        fh=JLs3X17LX38q8J3KB3kPXEvIV3DdPs5leVEJ9b+is9g=;
-        b=SfSDpmPq2QRWj1/Akfty0cxgvKy3O0wm05NHSlLCdZLquB2mrdJglwUsLiy+J8tBgf
-         67YRAMYTuRFn0QtTfhpztqith3k43IBZl59wMjiWvPgeItL+rDlSgztIhsQJsaAvq/Gt
-         WE2Wm2XKThQQKdkxHxV2UGggMsAfACDWQDZwIQGwV6uOyFltWNEkhm4PN66sAKrYALb8
-         eObm5ifbu4fJ/mBUrGfHKWmDkzowCuZNuyFyX4uxktiJVrXh2WnvnZgF+b3AQTwcQ21R
-         jVSZ+Tv6fXl2zWAe6IVnv0IHYz9pASmTyuPfOob6T+yMXkTix5vNZGD9Fcrcio/ZRqg2
-         yYdw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D969631B114
+	for <linux-man@vger.kernel.org>; Thu,  7 May 2026 19:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778180825; cv=none; b=OmhFz2NwSTrHvCTpL+RkDCk+RILcvnLf2P7RSGz+gBP37BkRJBIHtSeO7xrwN3ctxoQsqNi/VVlWsa0/WpEwdWWDsA+T00+NQBe+17ZKjeWOjJfFr4nmG2zF6exoJp0Fqcgv6iLIN9wzpTFuklxe0jm8EXO7CxYnm8Jd2ZzTBVs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778180825; c=relaxed/simple;
+	bh=tKlgOyuB4HFuC5Jt+2GiGEtLaQr6uN5hSxj1LlTBzd0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kl3/xO4W7EwJL+xU4ATrOPf1+jkAwQobYMu3JXQmVaBwxjux5iIuZcVESLB7E4Ddh6jHx75Z3ShIP/l30OWkPQofQZZ+3cGFOAdjrow6qP7kuQpqetzcH5w1iLAJhOaxC09ZEvR2VOkwxVz9RA7eDYTHA8/JGAd5ls5WXwhlf+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BjWOvrwB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=P29axd4d; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1778180822;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=nQ3HWwcTVuF6ZRjW/Oo5gK0MwdJAmpQsyWGmdU443jY=;
+	b=BjWOvrwBBDolLK3+q7Eisj5+57/TSbW2DineGv6fIpfhS19nOZjLN1Kiyyy8/pLBFHPJad
+	ywPg/Lti6ILLAo+KZBjuRpJsl9QlQiLwY8hUBxompZ2WZCjFrsoO9JyBcHIfqgLYGUXexv
+	jmmUg/Gq1kvBAhviE2tiBnF0LiI4hw4=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-633-smj3SOgZM6qgixQwWuoq5A-1; Thu, 07 May 2026 15:07:01 -0400
+X-MC-Unique: smj3SOgZM6qgixQwWuoq5A-1
+X-Mimecast-MFC-AGG-ID: smj3SOgZM6qgixQwWuoq5A_1778180821
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-902e74da582so335316985a.1
+        for <linux-man@vger.kernel.org>; Thu, 07 May 2026 12:07:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dartmouth.edu; s=google1; t=1778174582; x=1778779382; darn=vger.kernel.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Eg9Fxh+VHcqS3x0ixCXioDDXrG7V8urNjpIqlU1EUP0=;
-        b=fNO9/gK22ZSUyg+EgWr6ktNDKiatV+EfQCmMf/ZwFTk23bEeChgXY/7483Ceq7AlP8
-         g6gTr5nXOFPBhJF3dFC1cy4Il0lKVBoTR9a6uSNiR35ghOafNY51fJIEZvsfceYmK8gQ
-         WPbzCKa2hpSVuYTJKHmu7PYZa6f3ZbqSFw9pyXE5f+unydtA28ARvroApjGAeE8lR7Ky
-         XpRbQtTc1SvFJeHo1rYw3FxKalRkMj1bs7a8PeNLO6UkFkWwMl216HOFg2WUgpWdtsaw
-         gEFTjCWOGdWkk2Ebe3YdUC/M2I598RDrSxD8i+tEyi40w+ks7BMMiZlQ67Agoqh2LDSQ
-         b/vw==
+        d=redhat.com; s=google; t=1778180821; x=1778785621; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nQ3HWwcTVuF6ZRjW/Oo5gK0MwdJAmpQsyWGmdU443jY=;
+        b=P29axd4dC8r4rS3qInGrE7s8z+r/ryy1Cz6p7St2A58AyXGy46/8WaSuhLDu8jRwr3
+         Qz/qtdWjFvz4esK3i035BiZrgjS7s0pTDOj+kRHP38veVI+68aT40P9YC3Wa4YXs0sKA
+         8J60gHHTYJrdTflYMjEYSSwa/VLCt8IZKx3+Igq+WtYsh2q7mTZ/lPfYDI5wc4KDT6U5
+         MSp9KD9IEv2zUWHd2jgi6w749au4RC65QWBM2Zj8YYID7WEl8MmBQoPjtcWlcmus9Yjq
+         GujguavIGmAZAJ06ITWBROvpT0uC9dD6uO859x5meaxqA0k+PIhhtYYrOVAL2OYhrdcr
+         +bfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778174582; x=1778779382;
-        h=to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Eg9Fxh+VHcqS3x0ixCXioDDXrG7V8urNjpIqlU1EUP0=;
-        b=W9Pg7kA44hNTa9V6WBWLkJR5C8Yv7X0Z2ZkwioJh12i5F9I0bF8Dc4KT4xXzePaS6C
-         pc8nWMd3A8ofe7XjxR2ekmtKKW18yDcjlPTwmRq5JM38WcgGlE5s3Zgs2VT045NlxJdr
-         9ZIchHC0sTwV7q0b5mSfXwKbUbevX7ASp83fqedJm3WafKrzL5Dk1fDxePrR/q02BzPv
-         p8ufvckhy5xBBx6UU61Kox3YHb8T6dgT4fc+vOHomlXNSFoSLqTNp2JOO7Xaow8rT43t
-         Z1v5mI9Pl9d7e/gcmd5atUB/KeQdb81NdRX3Fah30Tmb30gf0SJOLlMsFNBz3To6EY+F
-         N6Mw==
-X-Gm-Message-State: AOJu0YzzFOlwp5mVRhTfOvve4BaFTe8wdpiSVEwxlJzXdQqfbPKnOllM
-	rQkPACF4R4MMuRHjiI88fHI2j3KO8ipLUvOXZ7eAGu2adh8awMDXGSOsTsb2lviT3QiCaSnG9hi
-	yn6j6zQk3ruXYTbabVjSeXO3Ugm7OpCEehhaCVpm88ScpIv1/ER/zMpo=
-X-Gm-Gg: AeBDiesFATpoR/xLw6I/JCxYcYXhcbSRLBKSqErpW8/+OI0qk5uKfSkf1g7VY08w2Lu
-	04ljotXMHYw9VeElujupKBuX442/S2MpC+oGbOHXAon+zHkq4sUfQ7eN2juvdaa7IlwlmUeO94T
-	TYTc7YYlKS1iElixx7jwaIX5HgaH61fw3evKm7xzcy/OTHUNTJLmWZgXnFU6AfqZAEViEDmjvSC
-	fzkV6tOy7g9xwskMKKdJmW+49L9d/A9EHlMnfPy6bkeOnew/hT2ljOtPJxrfU16UJbVIsqjZzaE
-	PegJufA0Fg==
-X-Received: by 2002:a05:6512:b8b:b0:5a8:7f4a:dc65 with SMTP id
- 2adb3069b0e04-5a887adf444mr3502695e87.12.1778174581241; Thu, 07 May 2026
- 10:23:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778180821; x=1778785621;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nQ3HWwcTVuF6ZRjW/Oo5gK0MwdJAmpQsyWGmdU443jY=;
+        b=CZgGSAxAEZuWqJd0VZVbpliv+IsDvZT/Ys4PDqtrKKDjFpvwEjj+1FMmMN0sbLS+4R
+         G14DhqoEgKoFRv9MRkAFxPSk5zKOs5rBA+cm1uaHbrjTtkBgKISvMUCFpOZmXpi9snFe
+         +6cd5Hb9CjtWbkpQNMqpL+K8pUyM3lN9DWCTzYj+Dle8Ek9ZXJ4vu2Bn6ZUFwq93eg2S
+         XhvJGsP4IQ/ZdCJZxq1rfd5kU96coZAvy6AkYKQ3vN0TqQr6pQiP0WUCVrVXeoK3W5C3
+         gbGmf++m8i9H/VpalLNNuofl1fMWxr4gl55mbIg7gYoZGT2Id7RU9Dr/GeMA421RWgbm
+         xWLw==
+X-Gm-Message-State: AOJu0YzW6ML6p/KlwJIw3mtll792h8Vo+kFo0W2iMjsMBxWv9wQ/9ZYH
+	eY2ApU65GaPkHxbVNASkWg48y8nZ20KumN39TrRqx6Qgw+gW9dWw2xTSbCa5P4Beo8wqPRtkEpR
+	HDAFEkRzoP5WuhWrR6+s4XO29Fdfk7UOu4LqyuwyH67610m3iEITvNAI8196j4Q==
+X-Gm-Gg: AeBDievNEHApF5TpNS6OgbHkCqx0xAp0Fc6y/XcfMq+XCy3DKqZm9/HJegZSelBUVv0
+	/fm4+twgEWkeAJtXEB2rJ12QyqLLMS/lRyfd5bvEdu8wNA0VsC5gNuxCPdGNNlZupQcT4/lqmVs
+	1MWqaaJvyM/GlWaGQP4RqUAQSQxhI7NNzN1u/+gHLIR6g6G+Hf1QUKAURBjX4y6VaPm5/mztTCp
+	0FHhkkrwnrhti62MrpuBVURPkVRd3c3craQ7RQk+Gb84ek2TxkaBLAAX8u0t6TZzx23WGEtJMYl
+	RjPbxmkSSEM4tAcIG4iVVSLBue4nWIMZeplnmnV8wUTHz+llQxRBNe/itE7c8q2DTDezQA5ZrWM
+	UXI4h2LXl/7Fiy8/8+tSe2N3Xo+tJ7s1YSTlGSTBFToqLfJWdPiaT5w==
+X-Received: by 2002:a05:620a:7017:b0:8cd:b52c:598f with SMTP id af79cd13be357-904d70c2b2fmr1358824085a.59.1778180821079;
+        Thu, 07 May 2026 12:07:01 -0700 (PDT)
+X-Received: by 2002:a05:620a:7017:b0:8cd:b52c:598f with SMTP id af79cd13be357-904d70c2b2fmr1358817685a.59.1778180820600;
+        Thu, 07 May 2026 12:07:00 -0700 (PDT)
+Received: from pfrankli-thinkpadp16vgen1.rmtusma.csb ([2601:189:4702:48e0:7c65:14b:9590:9d04])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-904f810e354sm570733185a.45.2026.05.07.12.06.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 12:07:00 -0700 (PDT)
+From: Patsy Griffin <patsy@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Carlos O'Donell <carlos@redhat.com>,
+	Patsy Griffin <patsy@redhat.com>
+Subject: [PATCH 1/2] man/man7/suffixes.7: Add .zst suffix
+Date: Thu,  7 May 2026 15:05:07 -0400
+Message-ID: <20260507190508.386186-1-patsy@redhat.com>
+X-Mailer: git-send-email 2.51.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Douglas McIlroy <douglas.mcilroy@dartmouth.edu>
-Date: Thu, 7 May 2026 13:22:44 -0400
-X-Gm-Features: AVHnY4LTJ0TYVyCc4-Wu0chBVNOoydw2H7gYNGQPUsakn3_10F-MPDjroW74vIE
-Message-ID: <CAKH6PiUk2L35i4i4TYkEP5VWH8DWodgRDLqUTSRQ27MB20HRhA@mail.gmail.com>
-Subject: mkstemp(3)
-To: linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Rspamd-Queue-Id: 690244ECD1A
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 386D74EDB99
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.16 / 15.00];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[dartmouth.edu,none];
-	R_DKIM_ALLOW(-0.20)[dartmouth.edu:s=google1];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
+X-Spamd-Result: default: False [-0.66 / 15.00];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
+	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719,redhat.com:s=google];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCPT_COUNT_ONE(0.00)[1];
-	TAGGED_FROM(0.00)[bounces-5463-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5464-lists,linux-man=lfdr.de];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[douglas.mcilroy@dartmouth.edu,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[dartmouth.edu:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
-	TAGGED_RCPT(0.00)[linux-man];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,dartmouth.edu:dkim,tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
+	FROM_NEQ_ENVFROM(0.00)[patsy@redhat.com,linux-man@vger.kernel.org];
+	RCPT_COUNT_THREE(0.00)[4];
+	PRECEDENCE_BULK(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
+	NEURAL_HAM(-0.00)[-1.000];
+	DKIM_TRACE(0.00)[redhat.com:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns]
 X-Rspamd-Action: no action
 
-The synopses of mkstemp(3) that I have seen, e.g. in ubuntu 13.3.0,
-say incorrectly that it is declared in <stdlib.h>. It is not in gcc's
-<stdlib.h>, and should not be, because stdlib.h is part of the C
-standard and mkstemp is a construct of Unix, not C. (It returns a file
-descriptor.)
+Signed-off-by: Patsy Griffin <patsy@redhat.com>
+---
+ man/man7/suffixes.7 | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Doug McIlroy
+diff --git a/man/man7/suffixes.7 b/man/man7/suffixes.7
+index e21ac3ab8..3e17afc77 100644
+--- a/man/man7/suffixes.7
++++ b/man/man7/suffixes.7
+@@ -255,6 +255,11 @@ File compressed using
+ T}
+ \&.zip	\f[B]zip\f[](1) archive
+ \&.zoo	\f[B]zoo\f[](1) archive
++\&.zst	T{
++File compressed using
++.BR zstd (1)
++format
++T}
+ \&\[ti]	Emacs or \f[B]patch\f[](1) backup file
+ \&rc	startup (`run control') file, e.g., \f[I].newsrc\f[]
+ .TE
+-- 
+2.51.1
+
 
