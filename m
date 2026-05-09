@@ -1,146 +1,116 @@
-Return-Path: <linux-man+bounces-5477-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5479-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uM7cCvNw/2lJ6gAAu9opvQ
-	(envelope-from <linux-man+bounces-5477-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sat, 09 May 2026 19:37:55 +0200
+	id +DOsLCqG/2nd7QAAu9opvQ
+	(envelope-from <linux-man+bounces-5479-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sat, 09 May 2026 21:08:26 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id A408B500CD1
-	for <lists+linux-man@lfdr.de>; Sat, 09 May 2026 19:37:54 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4494B501268
+	for <lists+linux-man@lfdr.de>; Sat, 09 May 2026 21:08:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 46970301992B
-	for <lists+linux-man@lfdr.de>; Sat,  9 May 2026 17:37:30 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id D7182300F9E9
+	for <lists+linux-man@lfdr.de>; Sat,  9 May 2026 19:08:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC6563BD237;
-	Sat,  9 May 2026 17:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 687A234753B;
+	Sat,  9 May 2026 19:08:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=buffet.re header.i=@buffet.re header.b="f0OBncLl"
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="m73SAa85"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mx1.buffet.re (mx1.buffet.re [51.83.41.69])
+Received: from master.debian.org (master.debian.org [82.195.75.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400BB2D6E64
-	for <linux-man@vger.kernel.org>; Sat,  9 May 2026 17:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.83.41.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D0A4A3E
+	for <linux-man@vger.kernel.org>; Sat,  9 May 2026 19:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778348249; cv=none; b=XHMsdBrGmPsyO7YH/jj7PX04D2rVVEvgTbz9weYX9VW+8N8JxsdPLTji0CqYlcqJCXe9XKFuX5AnDbJXL17j9GkelR5LXJYjKoLNZdPkn1n7/DtD/PmQmXKKTSwVkO+SMR99ephcGi6wPo7wFWdO6PSWXuSGdP6dJA0lufQStNk=
+	t=1778353704; cv=none; b=NDOsQObCsYyXqHAkF6BLfZxeLXxHBHyWofWFie/jIS8M0jE+cKLASNVnFKPsRvFOBnCXGsOqqU2BToC/CdWir53oOqLn9bhew9e/FqWuxUPr/rfNh0zH2u3KX699sgTyh3QwotN+4KKI7LE5DchisxIlgVn6VIlTKQuYPWyd3QQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778348249; c=relaxed/simple;
-	bh=BeN35Oa5pDf/WyvTxCd1aqW2/c4Q2m7og7jCL5x/ltc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VkBN/H2XMPk+qvsyCSoKnVSC30/potQmlh27syXd6RW7cTxpe2MyxuyYJsGCBmFpQkuTD1mpAXWbSZglZfnOTyuYcRmDx+kyT2OxbDm7m9tmX5u5haSolRM7qKltc/giagTgW9EGi1Q8mDsgd/RL09eCcGOm6oKgAhDGQTJEs9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=buffet.re; spf=pass smtp.mailfrom=buffet.re; dkim=pass (2048-bit key) header.d=buffet.re header.i=@buffet.re header.b=f0OBncLl; arc=none smtp.client-ip=51.83.41.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=buffet.re
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=buffet.re
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=buffet.re; s=mx1;
-	t=1778348240; bh=BeN35Oa5pDf/WyvTxCd1aqW2/c4Q2m7og7jCL5x/ltc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=f0OBncLl6J9ei7XIEkDIKUZtfTDBXoKSfmgT5WqOUWfbXYN16L0JhhIfw3W0XacNI
-	 CsGZGOIqheotumD0ptPDDhVWREsPmZBnL/17uzdNqLYKaJ3MPdRvK/aSfE+0Ye+d4o
-	 3R6KBeqVUrX1L1BazMxchwipsxJWl7tb64Q689+rxoMgvkKVAWr7i7u3xUFC2ZPVX2
-	 kacDD2GiwIuTW4TBN9H0fiW5QVXKwT2Cv8T5M5CCTmvPeIwez8TYUx/Mw5l0Oo12W/
-	 eVnCASuYqh6c0AuUFEN43Ubk/DrIjjRKEMtKDxrHhUdugt3f5x21l/p9T3ptKLQ4gu
-	 8alW1DwJag8Uw==
-Received: from localhost.localdomain (unknown [10.0.1.3])
-	by mx1.buffet.re (Postfix) with ESMTPSA id 10972125928;
-	Sat,  9 May 2026 19:37:20 +0200 (CEST)
-From: Matthieu Buffet <matthieu@buffet.re>
+	s=arc-20240116; t=1778353704; c=relaxed/simple;
+	bh=uz+l1+Gvoj3fnMIbJyB14UlzCwCoKJhvz3+tsnFCZPI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WCxrWNt/7tKqgbW+izF2g3L0I/eCv+xKnQfizdNiHA4rC8gy+J7T1cWtTaticVMn095DUZua5J3KAui6361pDFLQvBVRdzPP/Gtk2x2ZHhmDUH6hEYU2p2vDyfVn0GsKsUNipwuFED9DNKhneP1BWyNnxDVl1a84KAifvHU04yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=master.debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=m73SAa85; arc=none smtp.client-ip=82.195.75.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=master.debian.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.master; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-ID:Content-Description:
+	In-Reply-To:References; bh=jowajpFVZ0xeH87bj/2T4o7Ff2RSPd1B+ie8rwQkTRk=; b=m7
+	3SAa85s+SlyYuIKsfvUMBnk5TU3GAnkqVIbEncLJuFuB0urfzDw1dbb8nHrgM2TK0IMBXuQfdeZY8
+	r3cmuOCV6s0IgZ7xhNYsHjPIo/e96eLn2YKT+ge+mQMyLPazY230uALlSHWG06iD15tcMvJqCO+MN
+	QCy6GzMVzUD0QOeds8le45UYdQOYX/OgoKjIUpDpr1WWxKjSdIrMgLyxp874uJaIILRLsyjFBhm7E
+	IqgBvTM7MfBbxdGUaf7j2wtCJO1iUIrX9CIrbUpGTt4fmz6GctJfdfQahJm8sHzHgq154UQOBhEWC
+	4Kz8XPmUmYpORj4ROdNokwLMWUzAt5EQ==;
+Received: from guillem by master.debian.org with local (Exim 4.96)
+	(envelope-from <guillem@master.debian.org>)
+	id 1wLmks-000Ryr-2b;
+	Sat, 09 May 2026 18:50:26 +0000
+From: Guillem Jover <guillem@debian.org>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Matthieu Buffet <matthieu@buffet.re>
-Subject: [PATCH 1/1] man/man7/pid_namespaces.7: Fix process/namespace hierarchy restrictions
-Date: Sat,  9 May 2026 19:37:11 +0200
-Message-Id: <20260509173711.1920769-2-matthieu@buffet.re>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260509173711.1920769-1-matthieu@buffet.re>
-References: <20260509173711.1920769-1-matthieu@buffet.re>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH 0/3] dpkg/Debian related terminology improvements/fixes
+Date: Sat,  9 May 2026 20:50:19 +0200
+Message-ID: <20260509185022.289672-1-guillem@debian.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: A408B500CD1
+X-Rspamd-Queue-Id: 4494B501268
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.66 / 15.00];
+X-Spamd-Result: default: False [-1.16 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[buffet.re,quarantine];
-	R_DKIM_ALLOW(-0.20)[buffet.re:s=mx1];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	DMARC_POLICY_ALLOW(-0.50)[debian.org,none];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_DKIM_ALLOW(-0.20)[debian.org:s=smtpauto.master];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5479-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5477-lists,linux-man=lfdr.de];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	RCPT_COUNT_THREE(0.00)[3];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[matthieu@buffet.re,linux-man@vger.kernel.org];
+	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[buffet.re:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[guillem@debian.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[debian.org:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	TAGGED_RCPT(0.00)[linux-man];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[hadrons.org:email,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
 X-Rspamd-Action: no action
 
-setns() actually allows forking new processes directly into grandchild
-PID namespaces, so the parent of a process can be in grandparent PID
-namespace. Indeed, the only restriction in setns() is that the target
-PID namespace needs to be a descendant (direct child or not) of the PID
-namespace of the caller.
+From: Guillem Jover <guillem@hadrons.org>
 
-Additionally, that restriction is not a consequence of the paragraph
-before: add a new paragraph break to remove the implication, and add the
-actual reasoning (fork() APIs needs to be able to return a valid PID in
-the namespace of their caller).
+Hi!
 
-Signed-off-by: Matthieu Buffet <matthieu@buffet.re>
----
- man/man7/pid_namespaces.7 | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+This series includes some fixes/improvements to dpkg/Debian adjacent
+information and terminology.
 
-diff --git a/man/man7/pid_namespaces.7 b/man/man7/pid_namespaces.7
-index f7e0aeded..39b9331ca 100644
---- a/man/man7/pid_namespaces.7
-+++ b/man/man7/pid_namespaces.7
-@@ -207,14 +207,20 @@ because doing so would change the caller's idea of its own PID
- (as reported by
- .BR getpid ()),
- which would break many applications and libraries.
--.P
- To put things another way:
- a process's PID namespace membership is determined when the process is created
- and cannot be changed thereafter.
--Among other things, this means that the parental relationship
--between processes mirrors the parental relationship between PID namespaces:
--the parent of a process is either in the same namespace
--or resides in the immediate parent PID namespace.
-+.P
-+Additionally, because
-+.BR fork(2)
-+and its variants need to return a meaningful new PID in the namespace of
-+their caller, the parental relationship between processes needs to loosely
-+mirror the parental relationship between PID namespaces. To that end,
-+.BR setns (2)
-+is restricted to only accept descendant PID namespaces (direct children or not).
-+Thus, a process can only be forked in a direct child PID namespace, or in a
-+grandchild PID namespace (in which case it will be assigned a PID in all
-+ancestor namespaces).
- .P
- A process may call
- .BR unshare (2)
+Thanks,
+Guillem
+
+Guillem Jover (3):
+  */: Say OpenPGP instead of PGP
+  man/man7/suffixes.7: Add xz suffixes
+  man/man7/suffixes.7: Clarify Debian artifacts description
+
+ CONTRIBUTING.d/mail             |  8 ++++----
+ CONTRIBUTING.d/patches/sendmail |  2 +-
+ man/man7/suffixes.7             | 10 ++++++----
+ 3 files changed, 11 insertions(+), 9 deletions(-)
+
 -- 
-2.47.3
+2.53.0
 
 
