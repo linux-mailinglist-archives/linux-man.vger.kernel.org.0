@@ -1,58 +1,58 @@
-Return-Path: <linux-man+bounces-5490-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5491-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GNE9JEMCAWrePgEAu9opvQ
-	(envelope-from <linux-man+bounces-5490-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 11 May 2026 00:10:11 +0200
+	id fafuBpRjBGruHwIAu9opvQ
+	(envelope-from <linux-man+bounces-5491-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 13 May 2026 13:42:12 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5707506A15
-	for <lists+linux-man@lfdr.de>; Mon, 11 May 2026 00:10:10 +0200 (CEST)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B871532719
+	for <lists+linux-man@lfdr.de>; Wed, 13 May 2026 13:42:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 963DD300D142
-	for <lists+linux-man@lfdr.de>; Sun, 10 May 2026 22:10:09 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 3C4FB30BE608
+	for <lists+linux-man@lfdr.de>; Wed, 13 May 2026 11:40:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C41130EF95;
-	Sun, 10 May 2026 22:10:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEBAA3FE379;
+	Wed, 13 May 2026 11:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIe+gyu0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RVmaBBxY"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF96A26738B
-	for <linux-man@vger.kernel.org>; Sun, 10 May 2026 22:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A150D3FA5D8
+	for <linux-man@vger.kernel.org>; Wed, 13 May 2026 11:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778451009; cv=none; b=jtOEzpyjPRiirrp3ytLSW4BSq0mdv3uX2BTWKeX16ZEGPVyyTFeoA47CZwF148mquVcb8VzEAh2r9SqFFPaWbIUSI9sWd2eqL/i79x2JK7tDaVcjzlhDacblqzRebYB/Ir/ht/CD8S78y5vps4GPldTdTzcSuWKOrbc647N14nk=
+	t=1778672442; cv=none; b=raFuZrUzcwnavznsGa8098csioP16lkCffoayGpcd+iYw/jEn4cz2EPsHzyIXoQjN5X1PqAvx5dOhV3dRXNphDIZ91tM5TmK04zr/zRR5DJtvAa81BhFQNl6j/Gv41EA2fD33ePC9dBFKiF/taZN2WPiXa3CfU5wGNKz/D0YQNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778451009; c=relaxed/simple;
-	bh=SPKrtMwY8Pb8AN3QUWqaTvmKELsC4oNv7r0vL3aa1rM=;
+	s=arc-20240116; t=1778672442; c=relaxed/simple;
+	bh=58ZTDZ4gpXs0vGdeIGYZ0HexfFKB5JZ3zVLtVWDHxyY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=guv5OCB94o0+kxgcsm6DesZOKu5cWhGMFG1YUfeIyOvGNwqnELzakpE8m9Nt3I3RBgqrhBFhM2I/NVA2EATGi6N1Dsnn81zbTMXwEPWfheQWdMl29pvo1Botj4f81r5mdOPKRPXZyiQHxJ8t67TaLmfEpR8Xk/p0IawM7C1Ovzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIe+gyu0; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3D6C2BCB8;
-	Sun, 10 May 2026 22:10:07 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=k2mPrzI6UghUnLIiDKuIwVyj/ZOhIYKS/7w7bbErZq/7BlujtmYMbQqgkT/x/J15OVtC2LlttrncRLsNaqRWBIKH/fDW+OJr3xt5aId66nbJj48Lax/s3zynUqXgDsdMNRFN0iN/W3UWV4RhUX5zbQOy4I3wXx+HvK5jTsNlm/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RVmaBBxY; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F28EC2BCB7;
+	Wed, 13 May 2026 11:40:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778451008;
-	bh=SPKrtMwY8Pb8AN3QUWqaTvmKELsC4oNv7r0vL3aa1rM=;
+	s=k20201202; t=1778672442;
+	bh=58ZTDZ4gpXs0vGdeIGYZ0HexfFKB5JZ3zVLtVWDHxyY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kIe+gyu0xmbXCeUi5U90QNpOL92i85m3kydAs1it/yjMM9wZGVMsc+IlOUZlcYLPX
-	 FjCkxg8rsszpiSA7ZsC0AWyu0/jH6BMHvsxrVXqx1TBfRcWqE0C615V6I//O2dGqH1
-	 rYPszmIVuCsGEW5sC0nECKI3eALXHEETF8deq6ojGAIamcNTQ5zRtQXSnJRCZUAY7g
-	 hB4dY0HmXsEndoD+JGueAwsQRvx5k9IFofvcux4SFufhq1hAUb8/UcvZfJ8q5RKvoE
-	 vXfCMLu6BZTst/L2Yar2pi1YvE4+onb0Rok3TlY969KB1wxOvWvP4HDObI+WYNhSrh
-	 gkT4lpH+mXq6w==
-Date: Mon, 11 May 2026 00:10:06 +0200
+	b=RVmaBBxYhpq14Nb43FEegVOAyi1doDqpMhrIaVA/FXs8UONzF+zweNSQqZjTMT+uT
+	 EnWMVQsQZ/ZCaSzOrJdiQC7edL1OoPWq7Fmv5Pl/nrk37Zln2mOFJEpkbQbrrYS/iR
+	 r1iJtIJqiZ2ziNnr4+dPniQJ5yLAVg/IdazEvChcI7VGzWmtw0SPxjv8+wqQcTuWwU
+	 6wu2LqzDTvjIWdjXUmYWAgN/SoTNpClfQrdDFk+mS28c8yYTXYM3d0qXynZ5w8FdwB
+	 MWqkoi2TKkbhq4GSHbx+VRSbAqCXXcfkJkwBCuV3gUnrWIBV8zRICit2YhLUmN5kFi
+	 N2YV688T5IPZw==
+Date: Wed, 13 May 2026 13:40:39 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Guillem Jover <guillem@debian.org>
+To: Matthieu Buffet <matthieu@buffet.re>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/3] man/man7/suffixes.7: Clarify Debian artifacts
- description
-Message-ID: <agECCxJPoa4zXefb@devuan>
-References: <20260509185022.289672-1-guillem@debian.org>
- <20260509185022.289672-4-guillem@debian.org>
+Subject: Re: [PATCH v3 1/2] man/man7/pid_namespaces.7: Fix requirements on
+ namespace+process trees
+Message-ID: <agRi-dosgYg5EK8h@devuan>
+References: <75614ec3-0def-4cdd-b45c-17d21cf8357b@buffet.re>
+ <20260513083339.27911-1-matthieu@buffet.re>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,70 +60,75 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="thk4hl5w4cryr3is"
+	protocol="application/pgp-signature"; boundary="wxenms3u6tqugegj"
 Content-Disposition: inline
-In-Reply-To: <20260509185022.289672-4-guillem@debian.org>
-X-Rspamd-Queue-Id: E5707506A15
+In-Reply-To: <20260513083339.27911-1-matthieu@buffet.re>
+X-Rspamd-Queue-Id: 7B871532719
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5490-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	TAGGED_FROM(0.00)[bounces-5491-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	TO_DN_SOME(0.00)[]
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,buffet.re:email,tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
 X-Rspamd-Action: no action
 
 
---thk4hl5w4cryr3is
+--wxenms3u6tqugegj
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Guillem Jover <guillem@debian.org>
+To: Matthieu Buffet <matthieu@buffet.re>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/3] man/man7/suffixes.7: Clarify Debian artifacts
- description
-Message-ID: <agECCxJPoa4zXefb@devuan>
-References: <20260509185022.289672-1-guillem@debian.org>
- <20260509185022.289672-4-guillem@debian.org>
+Subject: Re: [PATCH v3 1/2] man/man7/pid_namespaces.7: Fix requirements on
+ namespace+process trees
+Message-ID: <agRi-dosgYg5EK8h@devuan>
+References: <75614ec3-0def-4cdd-b45c-17d21cf8357b@buffet.re>
+ <20260513083339.27911-1-matthieu@buffet.re>
 MIME-Version: 1.0
-In-Reply-To: <20260509185022.289672-4-guillem@debian.org>
+In-Reply-To: <20260513083339.27911-1-matthieu@buffet.re>
 
-Hi Guillem,
+Hi Matthieu,
 
-On 2026-05-09T20:50:22+0200, Guillem Jover wrote:
-> From: Guillem Jover <guillem@hadrons.org>
+[CC +=3D linux-man@]
+
+(You forgot to CC the list.)
+
+On 2026-05-13T10:33:38+0200, Matthieu Buffet wrote:
+> Creating processes in non-direct-child PID namespaces has been possible
+> since the addition of setns() support for PID namespaces in commit
+> 57e8391d3276 (2012-11-19; "pidns: Add setns support"). The tree check in
+> pidns_install() in kernel/pid_namespace.c has always allowed
+> non-direct-child PID namespaces, but was written inline instead of the
+> more readable current pidns_is_ancestor() helper (possibly explaining
+> the confusion).
 >=20
-> The terminology for these artifacts was "recently" updated to make
-> them consistent and more clear, where both dpkg and the Debian Policy
-> now have matching terminology. Refer to the dpkg man pages for further
-
-I've changed inter-sentence space to 2.
-
-> information and format description.
->=20
-> Signed-off-by: Guillem Jover <guillem@hadrons.org>
+> Fixes: 6e377abf9 (2014-09-13; "pid_namespaces.7: Parent process relations=
+hips mirror parent PID namespace relationships")
+> Signed-off-by: Matthieu Buffet <matthieu@buffet.re>
 
 Thanks!  I've applied the patch.
 
@@ -132,58 +137,56 @@ Cheers,
 Alex
 
 > ---
->  man/man7/suffixes.7 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  man/man7/pid_namespaces.7 | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/man/man7/suffixes.7 b/man/man7/suffixes.7
-> index 8487bb5a1..8408aaadd 100644
-> --- a/man/man7/suffixes.7
-> +++ b/man/man7/suffixes.7
-> @@ -79,7 +79,7 @@ Suffix	File type
->  \&.csh	\f[B]csh\f[](1) shell script
->  \&.cxx	equivalent to \f[I].cc\f[]
->  \&.dat	data file
-> -\&.deb	Debian software package
-> +\&.deb	Debian binary package (\f[B]deb\f[](5))
->  \&.def	Modula-2 source for definition modules
->  \&.def	other definition files
->  \&.desc	initial part of mail message unpacked with
-> @@ -91,7 +91,7 @@ command output)
->  T}
->  \&.dir	dbm data base directory file
->  \&.doc	documentation file
-> -\&.dsc	Debian Source Control (source package)
-> +\&.dsc	Debian source package control file (\f[B]dsc\f[](5))
->  \&.dtx	LaTeX package source file
->  \&.dvi	TeX's device independent output
->  \&.el	Emacs-Lisp source
+> diff --git a/man/man7/pid_namespaces.7 b/man/man7/pid_namespaces.7
+> index 1068d5be5..b19afd505 100644
+> --- a/man/man7/pid_namespaces.7
+> +++ b/man/man7/pid_namespaces.7
+> @@ -214,11 +214,12 @@ and cannot be changed thereafter.
+>  Among other things,
+>  this means that
+>  the parental relationship between processes
+> -mirrors
+> +loosely mirrors
+>  the parental relationship between PID namespaces:
+>  the parent of a process
+>  is either in the same namespace
+> -or resides in the immediate parent PID namespace.
+> +or resides in an ancestor PID namespace
+> +(immediate parent or not).
+>  .P
+>  A process may call
+>  .BR unshare (2)
+>=20
+> base-commit: 9afc5a7cfa9ecd91db055abb875e3b83d086f6b5
 > --=20
-> 2.53.0
->=20
+> 2.47.3
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---thk4hl5w4cryr3is
+--wxenms3u6tqugegj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoBAj0ACgkQ64mZXMKQ
-wqlEEA//b2aY0ah6YM/g+xmeKPg4bk3apZCq4CKnBPuuNrTvZqU99l73z4RlGF8/
-fG8hebsW5bQ0lQIz1wQZyRF9MI5ELocHstp+C9abWuLXw3nBSxKdT3WIIDAuvwuZ
-/CKM0lAx39j0VhvH3ndEmnSDHb+NO5Zg49R8siBUiuUEFOVfs3hr5LVPXrlZJQcT
-j2VZjk4ZAVKqdP45p3E2JbKisBwbWcySr0y7RTGXI7FizJhbAyZdcRoUTdFK0GaP
-8i6riHNDS7WvgVIK05s8nnlkAdtJcZiBUCchnivVYSQD7VPIx3Tchp4iXNEqGc1i
-XhT/K6/ICDq+2R0OrnSKnR2bGPCUbb+J8H1GoGICq3Y5CVh7RzNrEjKLhHDtumlO
-B9mdLt1pgcdEuBO/oDMpO0EYzg/tE4ZXQkUD3hEy/qjNy7w/ywyvQDUk/GXO2RVI
-1zeedhZXtIQUNgD3T8uQSparuiuu4nL2wLS8jQ+RdgCcrUE5u5zW5qMdEPq75VSv
-yt8rHxhWbH8IGM8hqEDEdm4exHwK82+eYQmX2vz5XauvZVCI+jWugQS96npv/ZJd
-4MPKvz3ECSXytqe2DjzGNKSVqoqXlP5QvAsvv/jqoxyOdSdi7lzC4iNDcEnDAZhE
-wPUAPZfjaKmq1BENfCkH1O1e2GSV6V+vsE9Bl2Nxydfv2NvPLK8=
-=dm0j
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoEYzYACgkQ64mZXMKQ
+wqlgNw/9EGxZiZeAYEriBqlQg2WV1qD7y4L4stLzCxSsdeZF27GrNLHSkiDZsF6W
+u9MgPheF74CWn7Y7ZOfLhpDN6s0OFbEICmo6WLkGOK9ETueJ6Vz8VVHMnoYUwemG
+sBghn9La2B4+ricSzGvb9+OkgONXwatU1R8ehcpnM66JbZcvTDABk0AfxLRZlCFP
+aYBsoW0vwZltJNh/nLr425adF8ouLK6bB18oAItLw4nV3V+FubZMFDDcI895ojwj
+Z71hnoxLok5o0NskEZk8TsCRugOMvW96b93yguzHKe616gspk+9OacIP8Q+jPVEG
+Q2rOHJ6sqU5hCT6C18ZE3v6T8iYTuN9/teUayEhrFF8Ds4wO4PJIHX8xtLXefeTc
+PkUL1vn+3wamo3Mcb5m6LiLqk78bhDW+sWPIX9hU7qDQrr/DwP0nxDHe6rVz3Mjz
+pmErg+760LOPxLqYSJi5glXTohr6DDrzV9M4Nz39YELh7U7CEe0iTie8qZtvic5h
+CAtPK3sfuJNdKWsbIFQAfJ+Z3TgE7mZqUZRVCrImtnsXxnlMWT5OsIdOlCBBffkz
+hCXTYR/t2WctsHjkDzWFfv+a+Iojpu4RapLKS9h9zuX2r1fHAmB6W0msLAzYpMJF
+jDkOuZ3sCzSPNoa7WS93bSNj5cx7474/E7cWzh0el/qXc3p1FIE=
+=I3+c
 -----END PGP SIGNATURE-----
 
---thk4hl5w4cryr3is--
+--wxenms3u6tqugegj--
 
