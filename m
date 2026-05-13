@@ -1,208 +1,125 @@
-Return-Path: <linux-man+bounces-5492-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5493-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cLHxGYJjBGq6HgIAu9opvQ
-	(envelope-from <linux-man+bounces-5492-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 13 May 2026 13:41:54 +0200
+	id qJZSHg31BGoTQwIAu9opvQ
+	(envelope-from <linux-man+bounces-5493-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 00:02:53 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B2FE532711
-	for <lists+linux-man@lfdr.de>; Wed, 13 May 2026 13:41:53 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id B990D53B380
+	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 00:02:52 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id CCDEA303D037
-	for <lists+linux-man@lfdr.de>; Wed, 13 May 2026 11:41:52 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id C5B67302B3A1
+	for <lists+linux-man@lfdr.de>; Wed, 13 May 2026 22:02:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 052953D525B;
-	Wed, 13 May 2026 11:41:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7AA6E3C3453;
+	Wed, 13 May 2026 22:02:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vf1soxjD"
+	dkim=pass (2048-bit key) header.d=tvoss.eu header.i=@tvoss.eu header.b="E7zxnWB/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B143FE342
-	for <linux-man@vger.kernel.org>; Wed, 13 May 2026 11:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C194D1F0E25
+	for <linux-man@vger.kernel.org>; Wed, 13 May 2026 22:02:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778672510; cv=none; b=SanpXKVdHsJC+jbJqTRmGXAe6WFyjZiFPOHKICb2Kc8KJWVL3VjzDxvyV0GhjznEMs6hNj/ed/0m/Gj5JqJlIVrjwejudenIvUdO7oYLqIwdgNGvddggc8XHU9Lv2+N2xA6a3327mG+NJ+C4zcqeNTAYXoJvMb5r3IMBLtJaUMo=
+	t=1778709769; cv=none; b=GOLJ5X4kbgSesa1QveQWuPsV0eSk6K8iJ//cfxe210pjCwGfWEFQGUwvKhRdrrKTOg0TTopjAZSl9fgvHDqPNVtmPPisyPgKH5jMImY2N5sW/BsY5xnNIqkztcjvhAeDOAaBLdyagIHR1S35OrB5URQ5YJg7gfzE84tvPGd4i6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778672510; c=relaxed/simple;
-	bh=iGDUAhs4hUDDJB0OO+pOjb61D+3AHfRls4W53ktTGTQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EFPQJnAroRWzG17F7FGYoIPO0W+MOby21hT4Lqro2ecR/n7EoISSvvu2Rz1WRmXQztZPmWynknV+FcNzG753ehaQwPhjINmlAuzkwwdPlyz9LQXyzN7dBgdHEGcyOK5CZUi12ECtamivYQvEF3DFHkKLDxLxeDe3hjg+Xz8m0Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vf1soxjD; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7060AC2BCB7;
-	Wed, 13 May 2026 11:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778672510;
-	bh=iGDUAhs4hUDDJB0OO+pOjb61D+3AHfRls4W53ktTGTQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Vf1soxjDjOIqM/drU0yUrwl2FBDgL16aPGdFDx7EosFVt2k00pjP6iiIvhkxz395H
-	 hQ99TWIQK+nSV5CkgeUr5klya56/c1yqjNCnM4bscvC7m/aoWQhzuy8SV0dJKaVcsM
-	 6EbquwyMOybEvk+8q/J0jiCzNZCCq5Whb+qHMgMJox86kSMPwz1DonpKw6SKE4u3uh
-	 q49r3KTnVIzqHVpHt8/QzLe+hhOsQu+2gHMyHWBFKdM4DEHWCac/hdhaYgDpDk4+Ng
-	 jHzT5UU5gPgUV2InRfgBy/dkKyvVP2Z5k6mBy/+ZD8J1b/GNzrUeoAh8uqTVMYB2bQ
-	 AjiqBH2UCysaQ==
-Date: Wed, 13 May 2026 13:41:46 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Matthieu Buffet <matthieu@buffet.re>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] man/man7/pid_namespaces.7: Add setns restriction
- and reasoning
-Message-ID: <agRjUNiEyfvDxRl0@devuan>
-References: <75614ec3-0def-4cdd-b45c-17d21cf8357b@buffet.re>
- <20260513083339.27911-1-matthieu@buffet.re>
- <20260513083339.27911-2-matthieu@buffet.re>
+	s=arc-20240116; t=1778709769; c=relaxed/simple;
+	bh=V8R+KQm1aGgQk/GxGyMkHP/u9Hxl2uV7+jcc/OEm1r4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NHofuACgYUYkpUdsXc+WJiib4gxX26iHosYIhCTpry4v4cOHydMljqy13WumEnfCMrM4hAX5n/p0GPFCyNPTCoGYdP9Iwy85GtmiltzxTfcynN1EW+3iS/6rKpt5GHK3ZqjdCCYIKSoH/z8WVvDTYMRKCB5gP62xRzlwKLJByB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tvoss.eu; spf=pass smtp.mailfrom=tvoss.eu; dkim=pass (2048-bit key) header.d=tvoss.eu header.i=@tvoss.eu header.b=E7zxnWB/; arc=none smtp.client-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tvoss.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tvoss.eu
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tvoss.eu; s=key1;
+	t=1778709763;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=vlZyatzx+BSQUlHFFuZ48VuS+GzAF7k1S+HBJckufYY=;
+	b=E7zxnWB/FLrojkqPmKJsD01Ho5LK1O94cvFl20T/wVBVpMatI1YCZfLQ7FEFL4ah9kF0hk
+	BZaps2lN0QjuiIBNV+mQAcbWREKrDAUVbr2DWj7dcygUMUOrT6eFaA4j4+ApClBeVREWvB
+	SkMuXum/7KpxxkfRJDiXo1yop2oxuzVn4cWR0bFcr1XLuGrcm8rZUZlnt20GaGizPns88D
+	vUj5zz3Y4OcjQTDeRYFHVYkbETtGsyvDl7D9mdcxbB0bT1F2sH/ivpE+PmRISsKeHWZ6/l
+	62kQxkAarq36/WWC/3JbwZdkmGFrhD/qdQyAoaCEKv8lSKT2aHjj7yl/xcSIJw==
+From: Thomas Voss <mail@tvoss.eu>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Thomas Voss <mail@tvoss.eu>
+Subject: [PATCH] man/man2/copy_file_range.2: ffix
+Date: Thu, 14 May 2026 00:01:53 +0200
+Message-ID: <b9f152d28bcff7ae45189138485e122d696defe6.1778709713.git.mail@tvoss.eu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uftser3ci3vqjigd"
-Content-Disposition: inline
-In-Reply-To: <20260513083339.27911-2-matthieu@buffet.re>
-X-Rspamd-Queue-Id: 0B2FE532711
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
+X-Rspamd-Queue-Id: B990D53B380
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [-1.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[tvoss.eu,quarantine];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_DKIM_ALLOW(-0.20)[tvoss.eu:s=key1];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5492-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5493-lists,linux-man=lfdr.de];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[tvoss.eu:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns,alejandro-colomar.es:url,buffet.re:email]
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mail@tvoss.eu,linux-man@vger.kernel.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	TAGGED_RCPT(0.00)[linux-man];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,tvoss.eu:email,tvoss.eu:mid,tvoss.eu:dkim]
 X-Rspamd-Action: no action
 
+Hi!
 
---uftser3ci3vqjigd
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Matthieu Buffet <matthieu@buffet.re>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] man/man7/pid_namespaces.7: Add setns restriction
- and reasoning
-Message-ID: <agRjUNiEyfvDxRl0@devuan>
-References: <75614ec3-0def-4cdd-b45c-17d21cf8357b@buffet.re>
- <20260513083339.27911-1-matthieu@buffet.re>
- <20260513083339.27911-2-matthieu@buffet.re>
-MIME-Version: 1.0
-In-Reply-To: <20260513083339.27911-2-matthieu@buffet.re>
+Just came across this formatting issue in copy_file_range(2).  I went
+ahead and wrote a quick fix and also did some searching for similar bugs
+across the rest of the manuals with Awk, but didn’t come across
+anything.
 
-[CC +=3D linux-man@]
+— Thomas
 
-Hi Matthieu,
+Signed-off-by: Thomas Voss <mail@tvoss.eu>
+---
+ man/man2/copy_file_range.2 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-(You forgot to CC the list.)
+diff --git a/man/man2/copy_file_range.2 b/man/man2/copy_file_range.2
+index de502867d..a8ed82c4f 100644
+--- a/man/man2/copy_file_range.2
++++ b/man/man2/copy_file_range.2
+@@ -211,7 +211,8 @@ provided a user-space fallback implementation when the kernel did not
+ implement this system call.
+ .\" glibc.git 5a659ccc0ec2 (2019-06-28; "io: Remove copy_file_range emulation [BZ #24744]")
+ Since glibc 2.30, that fallback has been removed; the function now
+-fails with ENOSYS if the kernel lacks support for .BR copy_file_range ().
++fails with ENOSYS if the kernel lacks support for
++.BR copy_file_range ().
+ .SH NOTES
+ If
+ .I fd_in
+-- 
+2.54.0
 
-On 2026-05-13T10:33:39+0200, Matthieu Buffet wrote:
-> The logical implication between PID namespaces being readonly after
-> process creation and process trees needing to loosely mirror PID
-> namespaces is not trivial to follow. Part of that implication is
-> implicit: since PID namespace membership is readonly, one has to use
-> fork() or one of its variants to "change" PID namespace, and these APIs
-> need to return a valid child PID in the parent namespace. The
-> consequence could also be made more explicit (setns() will fail on
-> non-descendant PID namespaces) while explaining how this is implemented.
->=20
-> Signed-off-by: Matthieu Buffet <matthieu@buffet.re>
-
-I've applied the patch.  Thanks!
-
-
-Cheers,
-Alex
-
-> ---
->  man/man7/pid_namespaces.7 | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
->=20
-> diff --git a/man/man7/pid_namespaces.7 b/man/man7/pid_namespaces.7
-> index b19afd505..c4a4a2723 100644
-> --- a/man/man7/pid_namespaces.7
-> +++ b/man/man7/pid_namespaces.7
-> @@ -211,8 +211,12 @@ which would break many applications and libraries.
->  To put things another way:
->  a process's PID namespace membership is determined when the process is c=
-reated
->  and cannot be changed thereafter.
-> -Among other things,
-> -this means that
-> +.P
-> +Because of this,
-> +and because system calls to create a process
-> +in another namespace
-> +need to return a meaningful new PID
-> +in the namespace of their caller,
->  the parental relationship between processes
->  loosely mirrors
->  the parental relationship between PID namespaces:
-> @@ -220,6 +224,15 @@ the parent of a process
->  is either in the same namespace
->  or resides in an ancestor PID namespace
->  (immediate parent or not).
-> +This is enforced by the design of
-> +.BR clone (2)
-> +and
-> +.BR unshare (2),
-> +while
-> +.BR setns (2)
-> +is restricted to only accept
-> +the current PID namespace
-> +and its descendants.
->  .P
->  A process may call
->  .BR unshare (2)
-> --=20
-> 2.47.3
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---uftser3ci3vqjigd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoEY3kACgkQ64mZXMKQ
-wqnImhAAgMGUKCUBYSDinEAxeZx5g29KXCq4jnbGs6kchYnKpeN2qTmcQojg1wUI
-mMe3uNfF4MX/UKlUQJZZvMUX9Mb6V2Jtu5y40NSd3BJxcGO+O5nhjLuunlDnHGEo
-OBO65sLIx+lln6kiNrqKmTdhMQVZxjOimIjVNicS/IvK0Lxswo55yQKfyxEdJTNP
-0w8/bjberpbaYdHk6Ct0UWgRF0GDxjscNgjhEypuNyUgK0+kPlGcN3ta0gv8zr1N
-xMzT6s+07OySQnakM9zLsyvDQrScPJXVnzzTgTIK0miNT4sYyF2plUfzm2kdhTwk
-yigvdH053qOfc2l/7wtymtNPuhlJGLrY7iWJ3EuWdRVX15kVofb5BQFlKliwKxVL
-aXnEaJ7SP+LxiMzpVOnAXymwa+d4OrQadgyLM2cFmCVKvAbTIDh2nQiL45vMjMyb
-9gEgaSgMB035HBHzYoWlcbrFW7nc7IdTceZ7exh6z1UvjkT73+wGMLZoZp3V8tX5
-N56Zn9m59TwWCJGG8anD5nSYzkgftzxfBNcUHgaw+QVzeoQpNWgz/HAdpFpgPXw7
-FORmJwpzY7ccZMKXgOnZmAefrV7AJ+fc+wt5fgpDIFNqXIYSqJwmPLQud+g2rroX
-hxl+bwudfz/c2mOY9B4Kiw0q0l5+70ybiXt3NfD0jJaK+EseZoM=
-=tPwq
------END PGP SIGNATURE-----
-
---uftser3ci3vqjigd--
 
