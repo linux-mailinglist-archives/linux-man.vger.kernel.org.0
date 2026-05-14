@@ -1,191 +1,150 @@
-Return-Path: <linux-man+bounces-5498-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5499-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MBzaLvSJBWrGYAIAu9opvQ
-	(envelope-from <linux-man+bounces-5498-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 10:38:12 +0200
+	id mAFBFlatBWrkZgIAu9opvQ
+	(envelope-from <linux-man+bounces-5499-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 13:09:10 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id B450B53F63D
-	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 10:38:11 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id A32E0540D0B
+	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 13:09:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id B6C8A30091DB
-	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 08:38:08 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 46B3D3011F19
+	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 11:09:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A7C13ABD8D;
-	Thu, 14 May 2026 08:38:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF477388E5E;
+	Thu, 14 May 2026 11:09:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OAK5+Drf"
+	dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b="Cz6eL/9k";
+	dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b="ltmk2B5w"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B473B6C01
-	for <linux-man@vger.kernel.org>; Thu, 14 May 2026 08:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778747886; cv=none; b=DUd3oYIcZJD5ewfugeFyym5fMey0zJ2NSUgIGGZgOaG3QlkMwIHEN7jexR3t18CgHIc6c9BVVidNPplLHmcH4C+N5xNKOX4Gp229jFlQqEh1eByoj5+j1Q+jgCPX/Pzb55veAaZzB3yRc0xbfLgapTFSrfcvKO4OsSJAJb8YewA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778747886; c=relaxed/simple;
-	bh=7KjWpV2b9CK/01JEi+KbNPjRG4Hej/P5RAi0qfsFMww=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pljNG3xNrrJBoWDzgXm8CXPUWGci82kno6MUSKHySx4d5ZPT21oTj4hEZCVvbxjZ26hylMYKylIPrRAbvEIl2Qo2D7qdi7FjxQKtiFecHZwzosFsQn/g/guCLQ/LOtFRIIAe1m7a8JHuI7HufqJODHWW8xa9Bnyz8YRyVHkEYdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OAK5+Drf; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so7141427f8f.2
-        for <linux-man@vger.kernel.org>; Thu, 14 May 2026 01:38:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778747883; x=1779352683; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=icFod8sYo0Mq7jYIaSNOfqIC4oHdPKxVTY42TAhdDgU=;
-        b=OAK5+DrfJZPvBBwBLvEcFQWpL+7Jt1Jrik9iMAqZoMZq7UEzmIugDzUe+GUEyyP3PN
-         pFROWezMBFobrdytRE/YJNwQIh8sqwvwQxZB+/7Z39HYPuGeXDNa230YqsN/0rlj20pH
-         bwML8grwi9J9u6E7JTcnO136H03uzNQWU9KnW1GcT+suZ+65XGbZrr2UsCJSn5bFc8Zj
-         RrZHtacZhvBiOP2Rdi1JgPXJGcD8CPpucLIPo64QRiZ+Hjv7NgtRuc5INpXtHq+dRbW3
-         PopaotwFcBdQbWEPTWOGXgQEVD3Y7Z5OW/wOq0RbSdr4gV8svRmRpnGOMV5/U+YjIi4R
-         LmSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778747883; x=1779352683;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=icFod8sYo0Mq7jYIaSNOfqIC4oHdPKxVTY42TAhdDgU=;
-        b=qhggRegRKDx8gduBpFafpbJvliPUyjXog3AYDvGLRfnuebRZwhrueNFICVjD06XXqc
-         aVzuWopXzUXSDd1rJw0ZE1A4OmUZl3sNa5xIDncQjptrZNWxvHwZODms/hNm/48yylON
-         0RYwwGG+iTo3pHXoQnZP6NQGtklV+ZBjHIv4cAU6/DOE5hCsbXGoqdmQX59SxIs6oCOC
-         kJ7oR4qUa3iIh2b1/PJUtcsLU4SzbKF/JXaeVnYJvK1Z8+6lqrA+udvrjYxXWP8f8+Uo
-         +Yu1wmdZ20U5ES5MMNxwno0WSAp9/WDs6VLbI4xuOomhQHmztW0xh5uKVkUcs1X929/D
-         7tmg==
-X-Gm-Message-State: AOJu0Ywb6w5dg1CEfFffShaQu5Q6hUKmcP8yXs+W9Nt6fncfXCfcGqxx
-	AXTqwqbO6w6d8VpqRTDjtEVFZnvNxyP1BOWPZJnoUydUVVbnnwTmQMcu
-X-Gm-Gg: Acq92OF1Hvd/zFydxxoHdHq9J+g9pirfhoxK2iD3gcA9SmqyNFZ/5IgHfDD4fpVfzFi
-	FuCP/g2gv0ibinsjPZvX4GHDneu4uH47sl9z/2cuLqGstcF0JF+x+LhMbhzyWi0TaQImQCkWYrk
-	lIXJ8Q1WeTVMdHSq+3PYNC5tO2314aXfsi62C5Us/pfCsGdWfW0ROxDXNVqNeIvWIKHcRRM3H2m
-	Sc0vC77GWVKQvNEraac/WY2A80DL2MXkl0RK+W3oYoWrv6wxqIpIyHHVSaukaQWtyk2NWdmmgQE
-	4zoe0Dqc85UfcZCCdG2ZLBKeswEQZm68hgkqiIyT+AHLLjP+K9OJ99Ur5e4t06N0nTylwiuQgQB
-	Zay5ecHVoLivXJY8YfjSIjHbLSS+oLDvMUAOknwWur5Ucqi4FnQrd2s4BtQEKTxdzJENBuMlgdm
-	29fxk9iY+LytEewGiremGPuPBjTxVW3jHt6FQ=
-X-Received: by 2002:a05:6000:2310:b0:456:f186:7af8 with SMTP id ffacd0b85a97d-45c57ededb1mr10498500f8f.4.1778747883164;
-        Thu, 14 May 2026 01:38:03 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:8308:b093:bb00::6033])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0fe13b4sm5041126f8f.28.2026.05.14.01.38.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2026 01:38:02 -0700 (PDT)
-Sender: Alban Crequy <muadda@gmail.com>
-From: Alban Crequy <alban.crequy@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	David Hildenbrand <david@kernel.org>,
-	Alban Crequy <alban.crequy@gmail.com>,
-	Alban Crequy <albancrequy@microsoft.com>
-Subject: [PATCH] process_vm_readv.2: correct partial transfer granularity
-Date: Thu, 14 May 2026 10:36:59 +0200
-Message-ID: <20260514083659.139971-1-alban.crequy@gmail.com>
-X-Mailer: git-send-email 2.45.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A7B3F412A
+	for <linux-man@vger.kernel.org>; Thu, 14 May 2026 11:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778756945; cv=pass; b=bS/rbxbnCJB99j+65m2+gpi8bHrUcVaeCenx0wet+w7spRQoaXs5+LMYTy8TKfEAXZkEdjwlz1UoOCz7r1Ee7eaIrpxWH1gh5pKa/JSTVqRkOpdZmV/ffR6k7g7EmjKtLUuVu05i4URMLPVoOtpP/MeegmlOPM/AokwXCBLUGMc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778756945; c=relaxed/simple;
+	bh=Vv7WL8JL0OZ9vJ9e5fy/DLeqk7jiRPatk/NBGWcnF1k=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oFzfiEjPpeLmph67vb9Xhn++SwLrIvtFvx7la3NCz/VjK3MUGTvSQf7SdvO2/yuHS05p+XOSvU6q4QWQ/KYsQCbcMrKu/qllg2BkcGtNZVXbS92u1GcibM40p1z6zaqn7iiCEXOvIGYC7n6XUZmupxdexGA1aA70V+qRlDde8Jc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=clisp.org; spf=pass smtp.mailfrom=clisp.org; dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b=Cz6eL/9k; dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b=ltmk2B5w; arc=pass smtp.client-ip=85.215.255.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=clisp.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clisp.org
+ARC-Seal: i=1; a=rsa-sha256; t=1778756216; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=SWCn9vK0k2n61+1jPRebZyASAM86RAQ1H++UBjcaJzKO2tGwuauNYSzn2NXDY82E6c
+    y/0bSlNQ7+LuYXbway+kY2PDHr0AoNHE0msBP5wakx8hP3JJbVJgoMlHD5z1kIXwdBEP
+    o1/HZ5Ftt26FNJHZ5jHpIQM1ZGGauzNLtQI0reSIERnwepEGG4wYb8SX3Cwbg+K3dEh0
+    rDQCynpwHdBx5NFN5A5SUz5F8Pi+XX/0f9Epn02YdyXx8QtWwv1C40oGJvnkWGELwIIR
+    Z/gUxf5EIhQ5S/A26uPn586H0saSZ+AJkbfDmmgEY4nrpNWOfsHM2Q7tr7OlgNjk2xqm
+    2S+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1778756216;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=W4wyKGLfhGfuBfPQPZLgbCUynNACQrXnV8o8vD9Sloo=;
+    b=XYlAFOJ82PiJ00Xv1piTlDwelUpwk1Fz44nUYb7rC7MOaWD14FwsVdoS4YuC6J6Rq8
+    e9cjjb+XBCubkcizrLAtdli823gsGAdIVLeGF4uhnOOIBaggFLEdr9RRlBLArOYTfR2i
+    YdhjLXMFV1zzD6eULs85PEilCGJFhXRhX+xvg5FaKiYfuuGRCvguxmDnxXt0+o9LL2F9
+    g5D1yu2Yj+o+GYcdL0ggei1WKz2j1vePCgPzkLv4MZGgqanK1Oqs/GSUHbBsl7KET6lb
+    wRvVSOnLDDvzmqaR8BNivDvz5GVhs+p3DUMxHC3GGbNY3pMhvV7zT9Mye7HXCSxcWidK
+    gGtg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1778756216;
+    s=strato-dkim-0002; d=clisp.org;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=W4wyKGLfhGfuBfPQPZLgbCUynNACQrXnV8o8vD9Sloo=;
+    b=Cz6eL/9kKCQShH7das1o/L8kYBnzLVo46t1eF9Oo1FsmKKdhrn8kija0nDg3G7Lxr8
+    r3L0EQnL1L4p6Oo4LIUxu25FfRl+9AWaRQKdAFjp0vsD0t2l8+jDe99vWz2YdHpsNLZb
+    eNibECRdcoHtm9dtWVoD3B1CvgRm+QbBvocDD7vhjqPVKTIagZPU4ox9qeoQWVpvcEc8
+    0Pe33+hebCUQCLgKLo5Ftha6hXVZsCUnoY6qbUH9Y1mnNQd2LM4HpK89k1IEkAHvmjw+
+    iYDYTrkf+KUzdMg4ChCou3X6+rkdnoYXR80E+vraXhkCtbQMzU46obmz9O6TWmcMWQ5f
+    Hj9g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1778756216;
+    s=strato-dkim-0003; d=clisp.org;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=W4wyKGLfhGfuBfPQPZLgbCUynNACQrXnV8o8vD9Sloo=;
+    b=ltmk2B5wkPJZCi64MpTRUsg8FHJTMqoOchjuxfluBKpZoyOSdGRIaIaTXgo6/a7gxN
+    pvTNTGku6sDsk2J1WCAg==
+X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlLnY4jECd2hdUABIYZgv6aLDTL6Xv7xN28vQ8goKMrR/7NYCSr6k+btzwwWnLK1g="
+Received: from nimes.localnet
+    by smtp.strato.de (RZmta 55.0.1 AUTH)
+    with ESMTPSA id Necda424EAutyDC
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Thu, 14 May 2026 12:56:55 +0200 (CEST)
+From: Bruno Haible <bruno@clisp.org>
+To: linux-man@vger.kernel.org
+Subject: clumsy cast in dlopen.3
+Date: Thu, 14 May 2026 12:56:55 +0200
+Message-ID: <21436742.Yz81rIOvuz@nimes>
+Organization: GNU
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: B450B53F63D
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-Rspamd-Queue-Id: A32E0540D0B
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.16 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-1.16 / 15.00];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[clisp.org,reject];
+	CTE_CASE(0.50)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[clisp.org:s=strato-dkim-0002,clisp.org:s=strato-dkim-0003];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,gmail.com,microsoft.com];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5498-lists,linux-man=lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[albancrequy@gmail.com,linux-man@vger.kernel.org];
+	TAGGED_FROM(0.00)[bounces-5499-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	HAS_ORG_HEADER(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[clisp.org:+];
 	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_NONE(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[bruno@clisp.org,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns]
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
 X-Rspamd-Action: no action
 
-From: Alban Crequy <albancrequy@microsoft.com>
+The dlopen.3 man page contains this text:
 
-The man page claimed that partial transfers apply at the granularity
-of iovec elements and that these system calls won't split a single
-iovec element. This is correct for local iovecs (which are validated
-upfront) but incorrect for remote iovecs: the kernel processes remote
-memory at page granularity via pin_user_pages_remote(), so a partial
-transfer can occur within a single remote iovec element at a page
-boundary.
+                  *(void **) &cosine = dlsym(handle, "cos");
 
-For example, if a remote iovec spans two pages and the second page is
-unmapped, the syscall returns the number of bytes from the first page
-(a partial transfer within one iovec element), not -1/EFAULT.
+              This (clumsy) cast conforms with the ISO C standard and will
+              avoid any compiler warnings.
 
-I verified this by testing process_vm_readv() and process_vm_writev()
-with a 2-page remote iovec where the second page was unmapped via
-munmap(). Both returned one page worth of bytes (a short read/write),
-confirming page-granularity partial transfers.
+However, such a cast violates the strict aliasing rules of ISO C, no?
 
-I was prompted to check the current behaviour by the LKML review on
-my patch (not merged yet) on process_vm_readv adding new flags:
-https://lore.kernel.org/lkml/8b29da5b-e260-4b77-a640-8abb447291d1@kernel.org/
+The proper workaround is to use a union:
 
-The inaccurate text was introduced in commit 0b01869b0a59
-("process_vm_readv.2: Cleanups after comments from Mike Frysinger
-and Christopher Yeoh", 2012-04-14), based on a misinterpretation of
-a review comment. The original man page text by Christopher Yeoh
-correctly described partial transfers without claiming iovec-element
-granularity.
+  union { double (*cosine) (double); void *pointer; } u;
 
-Note: process_vm_writev.2 is a .so redirect to process_vm_readv.2,
-so this fix applies to both pages.
+  u.pointer = dlsym(handle, "cos");
+  ...
+  printf("%f\n", u.cosine(2.0));
 
-Fixes: 0b01869b0a59 ("process_vm_readv.2: Cleanups after comments from Mike Frysinger and Christopher Yeoh")
-Signed-off-by: Alban Crequy <albancrequy@microsoft.com>
----
- man/man2/process_vm_readv.2 | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Bruno
 
-diff --git a/man/man2/process_vm_readv.2 b/man/man2/process_vm_readv.2
-index 66554a2cf..2ccfe60d0 100644
---- a/man/man2/process_vm_readv.2
-+++ b/man/man2/process_vm_readv.2
-@@ -192,10 +192,13 @@ returns the number of bytes read and
- returns the number of bytes written.
- This return value may be less than the total number of requested bytes,
- if a partial read/write occurred.
--(Partial transfers apply at the granularity of
-+(Partial transfers apply at the granularity of pages in the remote process.
-+If a remote
- .I iovec
--elements.
--These system calls won't perform a partial transfer that splits a single
-+element spans multiple pages and one of those pages is invalid
-+or not resident,
-+data may be transferred from/to the pages preceding the failing page,
-+resulting in a partial transfer that splits a single
- .I iovec
- element.)
- The caller should check the return value to determine whether
--- 
-2.45.0
+
 
 
