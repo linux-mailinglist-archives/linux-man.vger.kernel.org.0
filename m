@@ -1,88 +1,88 @@
-Return-Path: <linux-man+bounces-5516-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5517-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CCknDIldB2pa0QIAu9opvQ
-	(envelope-from <linux-man+bounces-5516-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 19:53:13 +0200
+	id UCQjCSReB2pa0QIAu9opvQ
+	(envelope-from <linux-man+bounces-5517-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 19:55:48 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E0CC555A8C
-	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 19:53:12 +0200 (CEST)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9918B555B4F
+	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 19:55:47 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id CE72B312AC95
-	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 16:58:37 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 25709314A01C
+	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 16:58:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF7A54CA260;
-	Fri, 15 May 2026 16:58:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A40844CA287;
+	Fri, 15 May 2026 16:58:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ICYfeg7E"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d8Ec4jh8"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5CF2949E0
-	for <linux-man@vger.kernel.org>; Fri, 15 May 2026 16:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F39F2949E0
+	for <linux-man@vger.kernel.org>; Fri, 15 May 2026 16:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778864315; cv=none; b=G+NlWcEc2CRaW8f1c/lys0HR8NYLinGtSOwqUnBfBux1l+Q2btaDLvDQX+rVzMrDjpaqxEPvzh2n3HxPIDqRAeH/Gb8hFCyK8DKS7iCu9jDPpJ0x4/t9C0k31P9M3kssi7Ayty6DlsjfEujTgm4ET6PD7onSTDWto35gg9R3leo=
+	t=1778864317; cv=none; b=Btvkemq0Qnhjk6jAz/HLFPe+t4jh5ZKq9Gtdaps0KFAIUyDwenvdThOLiaIVohFOKJliKcsrB6xpq79RR7A8xKNHS2MAh+JDa4TY6GTFOBTSHhQ/nvtSF7BGmGR+dmbo/MGs6Q0/GMtqqVVbbpGnLib8Y9aj2D2ql9sH6q8Zuuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778864315; c=relaxed/simple;
-	bh=aOW29KsEsPKr5IyovFJ+H32kegbnSXRp4LBFmZFBMyw=;
+	s=arc-20240116; t=1778864317; c=relaxed/simple;
+	bh=//u9CMvdAIqoW+IFAJ/4+RIuAhzkszFsXJg7MVQ76Rs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FPNDbtPbKVPq0ULl4P2ILBioUfaKiIBFqyRR5GVBIA2Yef5Ah/8gKzK0Zx321iBswS5RCmIx0LuiXJ2cxWbmKz89rrlx2Zqd9J1FSwZQgsTxDVYPTdzGOZizDtmmOb2HuMA3GBiXULNExDDkllvtyrD/5XJpe3RsOE/yDjLfO/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ICYfeg7E; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version:Content-Type; b=t9ZuCXsgZAX5n3wYOGD0zTRtntp0fuhc91Uqg/3sslyQmmeMwD4NqF/9SzfhYHBrJzL+An7fdtQzeNDbf4esxUAkV7ld8+ldyepQJTaTDk0QNGF3WgMYq5mYYas45V5+pLCCo/jtBGqSYHiGetxnJjd3dkJwMInAOS++MPKRnes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d8Ec4jh8; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-48909558b3aso471635e9.0
-        for <linux-man@vger.kernel.org>; Fri, 15 May 2026 09:58:33 -0700 (PDT)
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43fe3e22e33so6489f8f.0
+        for <linux-man@vger.kernel.org>; Fri, 15 May 2026 09:58:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778864312; x=1779469112; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778864314; x=1779469114; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=16EsOp3eaSFn3pBUz7En7t6xoZMCNtymbdImWO/l98w=;
-        b=ICYfeg7EJtdsTBHWaPi3slkq8jkqJKN9T+tmylFQMMHJjhfciDtc439u3GMiv5awpa
-         yV8Yxh183UcvFqxaTCpRQF4fCHqkGnZNvXfpsDEiR2pNPPxC6houXBzcvlzCxb7JZbmi
-         VHZQHojXIGjUI0rMVkVUNtN69ARPGW5gM+El8qD/5zzCewOVsWj77rIcQ64eQcrSNXGu
-         AO8kh/G5J068C+lNICikvNN+yR6jCxO5LssgER30ciU5h/XSSSEfRmQzh4Oy68jegRbr
-         WlaaD132rTRSHsitAoTtMiGXK7vy5EGtWrxd6XjkQuo3BCGNfi7B3xbpqqh6F3Dz6G5Q
-         vd9A==
+        bh=P9nyXzUOs0YRNU/wuqTWEHYUSQPzqCYPHEoz+WyNpv0=;
+        b=d8Ec4jh8UYemt9cuBVocNMda8WWMW4YoA+bvqRnh+1lw4+zkXQ8ZtparCRVoH7qX8L
+         q9eUndTfBdzSIRntCq2Zx5ZPp6PiF/Gsob6EkmtB5mK0r+sN7GvVsCXVBe2ycFXJe2Lh
+         sfzTeAyodAWAmzVg+gHKEIMi3179cVxKbysDOGZBs1l9kitbQIfVoYj6zZY5Dav4ZPeG
+         GWsi+cR4PfnNtycEb1GuFiJqlO2MfhNN3ukk2rHRBvfHIRsSWLd5Y5qS2/FXLT/4zoCq
+         XVDMTr0WD31Sx6Vu7/GFfI2snHX/s5reReW45t1blA3Nz1E+C+aAlpbzYF9pP4POE4I9
+         HtTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778864312; x=1779469112;
+        d=1e100.net; s=20251104; t=1778864314; x=1779469114;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=16EsOp3eaSFn3pBUz7En7t6xoZMCNtymbdImWO/l98w=;
-        b=nmr/9LCmYZx+WT7SwUk2wi784EXVKMQX2rzbD+VIaQUId05FO+AZsoSI5/dUcq40GM
-         xQir6SSR5OgZ7ZstRP9Sl64ytVpGCBDd1mNK8cA7mCjGuI4rO5rQupLVL0XWYYSt7kxs
-         VkO3H3cpimkg2vIlDDdyAz0bld/+Nuy3WjNClZcKYexE+zpsowxRiGPgXnHruIgNYKBm
-         9T0P07JTSNtQ4hUzyUJIwmVTD6PdFV0f4xgptaylX13XoTayBH+V/EvaebqQSGjsYg0f
-         7+UAL7RQCu6/Tft2qQhAfH9kojn0AL0E9HcuOC4szA2ooZKkl45zjruBTpJSdqlxabD2
-         hgkg==
-X-Gm-Message-State: AOJu0YztsnrP7ASSZx6luy0b4BKEJwAaYSDquOQkm5F2uyVD5vxNsNbD
-	bnmS9rD8xWP+lYl4izWtoEvCCYBAf5vGzk3sLpPNjU3XM0f5kRDNKIWd
-X-Gm-Gg: Acq92OFcn9+AcTylnmQY5dSrG3DJRm5AA+q74/lzPRyqPsc63jO1B7iujOM10gUnoaK
-	k/KE9ni6Nwb/n+94h8Ml/jlpvZnxSEPY5iDNa+u8GEkSqFJAh5AdvnuS2C64+0D5R6WUGAU5Th3
-	ysbg7FtBbpBousO1OHYJKpH349VM6WZKpO+ib2fBMUKZvI7/Jw9tEWQ1T9mGO5iFi9fuK/Z+7lx
-	Vu7glVg7E4mRuSr7Ux1+R/MytdmLPWs/s4/Oxi1ph5DypwiQe8id6oN4BEHZ8oD5s/LV+zjcSJo
-	l8syWgdsjm1aGUu3Ve6FzGKJEtuF3ZRt72t94v7LgQbQF2CMTN9j/2RdZlq9zjQlV5EVv0kS3mn
-	jYmufTgRd1Rh/flUvbUE2EE5e1xAP4MffYOlCg+hHiB7kwuCfCux2T3+gYgaZu9TaqnuBv4DuRu
-	Cj8ggbWGBbO/W4xwWZm/axQoeLnPYsQiMkCmT6kPHCjPP0r1hN
-X-Received: by 2002:a05:600d:10:b0:48f:e230:2a21 with SMTP id 5b1f17b1804b1-48fe662fd6bmr59144645e9.32.1778864312381;
-        Fri, 15 May 2026 09:58:32 -0700 (PDT)
+        bh=P9nyXzUOs0YRNU/wuqTWEHYUSQPzqCYPHEoz+WyNpv0=;
+        b=gyX+xU2cHDuqWNTprKyDO1oqVb9r4J7vypK/8XGuXpveyKebWSO4fdLjte9KmReX7e
+         Qpx8hVhkyj+Udkoi6GPpcE/VMhjKSm9p52D0V8KMyUjbIClC8HBPvdlAhgTyiITbkihM
+         1oMNLe5ly3FYaRtyvtEJ6YMRqz9NhyMHf82EdolptAdsqj+t5h84Ps8hNSwBSSc+MUyL
+         61n40utkDGx/HpTD6cJ2ODZveHMF4TT2yUKkY6BNO4+P7Kiugl254idEtbTczHYRAlTP
+         MdYrxha5TNUPAOuNHOA+mXSVKp7UXGBzgIgHN842K1Zp0X3pfMCxHDjuMcW8VfY46Kre
+         cD+A==
+X-Gm-Message-State: AOJu0YyNngyT68U+Y6TocTMaEWvjMSxGXWJN7FsHlgsjvZJ8RsnhiAWq
+	MlBqS3nbreg+6vZ7AB3w869T7h+YXfw1RXejL/ZH3wf4kZbuOx1TbP5L
+X-Gm-Gg: Acq92OHJjJpB9jzzF994MYXqIhOf5dxGiZf/dGjhCI3rwGlFXYrHsjPw4nMosYJ/l50
+	MTR8ZE60wgAa0f2xekFVw+axoW4gcvP3TyTXFmG+cEf+862A9XX/q686UElWEWLzlbg45peXHcn
+	nKrYNHezRJF8PcmGD9W8q/bYIBeaN/df3k3VV7WiHAvTxs1zEqV7Vnu82zmTdgIilclqhyVXRcu
+	sQPAwT6R9ZaKLPRRR7s0VSM/ujL9LFa0UF8/05L0Ww13HBI4TAjJxew5cFbsQLNc4ZGi6KAtlU3
+	CNgDYTuJ4/utFilLTJzFbt20L3YO/FH0LWgcaiBFDE0jNvbxpkcheDfm7rNIr105wtAYFTvc9cZ
+	0sADYxHQG4PYhlfGYyYaoWcoW0QGThqe75/UTY17ElECX6FVvbBb4D32rZwaa1KkSnMgyRQiDGd
+	rsf9Pcsb9EkQTwwfykj8AQSq9Kgc44bT57MhNLAoW/G+OZW1tj
+X-Received: by 2002:a05:600c:5ca:b0:48f:e6de:1cb9 with SMTP id 5b1f17b1804b1-48fe6de1dd2mr40573355e9.19.1778864314480;
+        Fri, 15 May 2026 09:58:34 -0700 (PDT)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe5ab527asm83916495e9.11.2026.05.15.09.58.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe5694fcasm64645815e9.5.2026.05.15.09.58.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 09:58:32 -0700 (PDT)
+        Fri, 15 May 2026 09:58:33 -0700 (PDT)
 From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>,
 	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc: linux-man@vger.kernel.org,
 	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH v2 2/3] man/man7/landlock.7: Simplify references to ABI versions
-Date: Fri, 15 May 2026 18:57:52 +0200
-Message-ID: <20260515165753.8830-3-gnoack3000@gmail.com>
+Subject: [PATCH v2 3/3] man/man7/landlock.7: Document LANDLOCK_ACCESS_FS_RESOLVE_UNIX (ABI v9)
+Date: Fri, 15 May 2026 18:57:53 +0200
+Message-ID: <20260515165753.8830-4-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260515165753.8830-1-gnoack3000@gmail.com>
 References: <20260515165753.8830-1-gnoack3000@gmail.com>
@@ -94,18 +94,18 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 8E0CC555A8C
+X-Rspamd-Queue-Id: 9918B555B4F
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.16 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5516-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5517-lists,linux-man=lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com];
 	TO_DN_SOME(0.00)[];
@@ -123,117 +123,116 @@ X-Spamd-Result: default: False [-1.16 / 15.00];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns]
 X-Rspamd-Action: no action
 
-* Use cardinal numbers for referring to Landlock ABI versions,
-  where possible.
+Document the new LANDLOCK_ACCESS_FS_RESOLVE_UNIX filesystem access right,
+which controls lookups of pathname UNIX domain sockets.  Restricts both
+connect(2) and sendmsg(2) with an explicit recipient address to UNIX
+sockets created outside the Landlock domain (same semantics as
+LANDLOCK_SCOPE_* flags).  Denied attempts return EACCES.
 
-* Adopt the format already used in landlock_restrict_self(2),
-  where the ABI versions are described next to the flag names
-  in their tagged paragraphs.  For example:
-
-    .TP
-    .BR FLAG "  (since Landlock ABI version X)"
+Available since Linux 7.1 (Landlock ABI version 9).
 
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- man/man7/landlock.7 | 26 ++++++++------------------
- 1 file changed, 8 insertions(+), 18 deletions(-)
+ man/man7/landlock.7 | 54 ++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 44 insertions(+), 10 deletions(-)
 
 diff --git a/man/man7/landlock.7 b/man/man7/landlock.7
-index 0e3a11489af2..60915bdd9728 100644
+index 60915bdd9728..55cd002d5789 100644
 --- a/man/man7/landlock.7
 +++ b/man/man7/landlock.7
-@@ -89,7 +89,7 @@ these system calls truncate existing files when overwriting them
- .B LANDLOCK_ACCESS_FS_READ_FILE
- Open a file with read access.
- .TP
--.B LANDLOCK_ACCESS_FS_TRUNCATE
-+.BR LANDLOCK_ACCESS_FS_TRUNCATE "  (since Landlock ABI version 3)"
- Truncate a file with
- .BR truncate (2),
- .BR ftruncate (2),
-@@ -98,10 +98,8 @@ or
- .BR open (2)
- with
- .BR O_TRUNC .
--.IP
--This access right is available since the third version of the Landlock ABI.
- .TP
--.B LANDLOCK_ACCESS_FS_IOCTL_DEV
-+.BR LANDLOCK_ACCESS_FS_IOCTL_DEV "  (since Landlock ABI version 5)"
- Invoke
- .BR ioctl (2)
- commands on an opened character or block device.
-@@ -137,8 +135,6 @@ whose implementations are safe and return the right error codes
+@@ -135,6 +135,36 @@ whose implementations are safe and return the right error codes
  .BR FICLONERANGE ,
  .BR FIDEDUPERANGE )
  .RE
--.IP
--This access right is available since the fifth version of the Landlock ABI.
++.TP
++.BR LANDLOCK_ACCESS_FS_RESOLVE_UNIX "  (since Landlock ABI version 9)"
++Look up pathname UNIX
++domain sockets
++.RB ( unix (7)).
++On UNIX domain sockets,
++this restricts both calls to
++.BR connect (2)
++and
++.BR sendmsg (2)
++with an explicit recipient address.
++.IP
++This access right applies only to connections to UNIX server sockets
++which were created outside the newly created Landlock domain
++(e.g., from within a parent domain or from an unrestricted process).
++Newly created UNIX servers
++within the same Landlock domain
++continue to be accessible.
++In this regard,
++.B LANDLOCK_ACCESS_FS_RESOLVE_UNIX
++has the same semantics as the
++.BI LANDLOCK_SCOPE_ *
++flags.
++.IP
++If a resolution attempt is denied,
++the operation returns an
++.B EACCES
++error,
++in line with other filesystem access rights
++(but different to denials for abstract UNIX domain sockets).
  .P
  Whether an opened file can be truncated with
  .BR ftruncate (2)
-@@ -191,19 +187,17 @@ Create (or rename or link) a block device.
- .B LANDLOCK_ACCESS_FS_MAKE_SYM
- Create (or rename or link) a symbolic link.
- .TP
--.B LANDLOCK_ACCESS_FS_REFER
-+.BR LANDLOCK_ACCESS_FS_REFER "  (since Landlock ABI version 2)"
- Link or rename a file from or to a different directory
- (i.e., reparent a file hierarchy).
- .IP
--This access right is available since the second version of the Landlock ABI.
--.IP
- This is the only access right which is denied by default by any ruleset,
- even if the right is not specified as handled at ruleset creation time.
- The only way to make a ruleset grant this right
- is to explicitly allow it for a specific directory
- by adding a matching rule to the ruleset.
- .IP
--In particular, when using the first Landlock ABI version,
-+In particular, when using Landlock ABI version 1,
- Landlock will always deny attempts to reparent files
- between different directories.
- .IP
-@@ -245,14 +239,12 @@ error code takes precedence over
- These flags enable to restrict a sandboxed process
- to a set of network actions.
+@@ -468,6 +498,8 @@ _	_	_
+ \^	\^	LANDLOCK_RESTRICT_SELF_LOG_SUBDOMAINS_OFF
+ _	_	_
+ 8	7.0	LANDLOCK_RESTRICT_SELF_TSYNC
++_	_	_
++9	7.1	LANDLOCK_ACCESS_FS_RESOLVE_UNIX
+ .TE
  .P
--This is supported since Landlock ABI version 4.
--.P
- The following access rights apply to TCP port numbers:
- .TP
--.B LANDLOCK_ACCESS_NET_BIND_TCP
-+.BR LANDLOCK_ACCESS_NET_BIND_TCP "  (since Landlock ABI version 4)"
- Bind a TCP socket to a local port.
- .TP
--.B LANDLOCK_ACCESS_NET_CONNECT_TCP
-+.BR LANDLOCK_ACCESS_NET_CONNECT_TCP "  (since Landlock ABI version 4)"
- Connect an active TCP socket to a remote port.
- .\"
- .SS Scope flags
-@@ -260,16 +252,14 @@ These flags enable isolating a sandboxed process from a set of IPC actions.
- Setting a flag for a ruleset will isolate the Landlock domain
- to forbid connections to resources outside the domain.
+ Users should use the Landlock ABI version rather than the kernel version
+@@ -553,7 +585,8 @@ attr.handled_access_fs =
+         LANDLOCK_ACCESS_FS_MAKE_SYM |
+         LANDLOCK_ACCESS_FS_REFER |
+         LANDLOCK_ACCESS_FS_TRUNCATE |
+-        LANDLOCK_ACCESS_FS_IOCTL_DEV;
++        LANDLOCK_ACCESS_FS_IOCTL_DEV |
++        LANDLOCK_ACCESS_FS_RESOLVE_UNIX;
+ .EE
+ .in
  .P
--This is supported since Landlock ABI version 6.
--.P
- The following scopes exist:
- .TP
--.B LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET
-+.BR LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET "  (since Landlock ABI version 6)"
- Restrict a sandboxed process from connecting to an abstract UNIX socket
- created by a process outside the related Landlock domain
- (e.g., a parent domain or a non-sandboxed process).
- .TP
--.B LANDLOCK_SCOPE_SIGNAL
-+.BR LANDLOCK_SCOPE_SIGNAL "  (since Landlock ABI version 6)"
- Restrict a sandboxed process from sending a signal
- to another process outside the domain.
- .\"
+@@ -568,14 +601,15 @@ and only use the available subset of access rights:
+  * numbers hardcoded to keep the example short.
+  */
+ __u64 landlock_fs_access_rights[] = {
+-    (LANDLOCK_ACCESS_FS_MAKE_SYM  << 1) \- 1,  /* v1                  */
+-    (LANDLOCK_ACCESS_FS_REFER     << 1) \- 1,  /* v2: add "refer"     */
+-    (LANDLOCK_ACCESS_FS_TRUNCATE  << 1) \- 1,  /* v3: add "truncate"  */
+-    (LANDLOCK_ACCESS_FS_TRUNCATE  << 1) \- 1,  /* v4: TCP support     */
+-    (LANDLOCK_ACCESS_FS_IOCTL_DEV << 1) \- 1,  /* v5: add "ioctl_dev" */
+-    (LANDLOCK_ACCESS_FS_IOCTL_DEV << 1) \- 1,  /* v6: same            */
+-    (LANDLOCK_ACCESS_FS_IOCTL_DEV << 1) \- 1,  /* v7: same            */
+-    (LANDLOCK_ACCESS_FS_IOCTL_DEV << 1) \- 1,  /* v8: same            */
++    (LANDLOCK_ACCESS_FS_MAKE_SYM     << 1) \- 1,  // v1
++    (LANDLOCK_ACCESS_FS_REFER        << 1) \- 1,  // v2: add "refer"
++    (LANDLOCK_ACCESS_FS_TRUNCATE     << 1) \- 1,  // v3: add "truncate"
++    (LANDLOCK_ACCESS_FS_TRUNCATE     << 1) \- 1,  // v4: TCP support
++    (LANDLOCK_ACCESS_FS_IOCTL_DEV    << 1) \- 1,  // v5: add "ioctl_dev"
++    (LANDLOCK_ACCESS_FS_IOCTL_DEV    << 1) \- 1,  // v6: same
++    (LANDLOCK_ACCESS_FS_IOCTL_DEV    << 1) \- 1,  // v7: same
++    (LANDLOCK_ACCESS_FS_IOCTL_DEV    << 1) \- 1,  // v8: same
++    (LANDLOCK_ACCESS_FS_RESOLVE_UNIX << 1) \- 1,  // v9: add "resolve_unix"
+ };
+ \&
+ int abi = landlock_create_ruleset(NULL, 0,
+@@ -588,7 +622,7 @@ if (abi == \-1) {
+     perror("Unable to use Landlock");
+     return;  /* Graceful fallback: Do nothing.  */
+ }
+-abi = MIN(abi, 8);
++abi = MIN(abi, 9);
+ \&
+ /* Only use the available rights in the ruleset.  */
+ attr.handled_access_fs &= landlock_fs_access_rights[abi \- 1];
 -- 
 2.54.0
 
