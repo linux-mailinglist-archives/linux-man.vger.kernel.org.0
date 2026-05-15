@@ -1,163 +1,194 @@
-Return-Path: <linux-man+bounces-5507-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5508-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2CspMmBCBmqWhQIAu9opvQ
-	(envelope-from <linux-man+bounces-5507-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 23:45:04 +0200
+	id CGWNI0feBmp4ogIAu9opvQ
+	(envelope-from <linux-man+bounces-5508-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 10:50:15 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C396547216
-	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 23:45:04 +0200 (CEST)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3340B54BBB3
+	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 10:50:15 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id E16C4300D14F
-	for <lists+linux-man@lfdr.de>; Thu, 14 May 2026 21:45:02 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id B90C33035B2F
+	for <lists+linux-man@lfdr.de>; Fri, 15 May 2026 08:44:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77FB13CBE79;
-	Thu, 14 May 2026 21:45:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9A3E9346FA6;
+	Fri, 15 May 2026 08:44:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZ8o5/kv"
+	dkim=pass (2048-bit key) header.d=bfs.de header.i=@bfs.de header.b="VTv2pWpd"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mxdmz01-muc.bfs.de (mxdmz01-muc.bfs.de [193.174.230.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDD93CD8B5
-	for <linux-man@vger.kernel.org>; Thu, 14 May 2026 21:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4EF31A56C
+	for <linux-man@vger.kernel.org>; Fri, 15 May 2026 08:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.174.230.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778795102; cv=none; b=iIznPq+PNuRmT9WF+oWRPaYNfsmV5v200WAwG8HFqm0sSc0hz3PUn9yXsYzBkYiHsHQPhJktpMYJ+zsxL4KJtaA0iLz1odZzjTBsfQ/lIIXmHoIENC5K7NPohFv5KyO7dqGlPWCCU9Rj+Vm691FXZStGKp7+hwUAB62Uk7jblY8=
+	t=1778834663; cv=none; b=TjM1kuCPwtpAK8c1wMSKNUPKC+HbfRL53WRKj4wlLIU4+LMZ6TmLeCc8VNwGT2286Zmt4ehLFhAZQ4ik79KNLa1ZIPMPsIWz1QuxTudXhSWKQfVheki4+lIiNfUQh/LBlph3AWmWVRnb3EsBDw5e9d9CDIfc1mEs4vX4NfQOXqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778795102; c=relaxed/simple;
-	bh=7y/eCUoKhmlH32wuIyfhHjAlPNCmMOvLYts9U74vFOw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jyGbcnsvef8v1ygrDiQz8Liix5GO55UdVypdJ6ahcx61YxYlJgro0e7QI08cBV5bCa3tuSdiNkBLyFif3HfjF7NhZzd1HGxSPGGTnrOFWb6FhVqmFG7HwiyBKCo2YGiT7qY+t7btICt6/1sj63oQ5ZPXfIowagdm7JORn+ZbX28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZ8o5/kv; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557ACC2BCB3;
-	Thu, 14 May 2026 21:45:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778795102;
-	bh=7y/eCUoKhmlH32wuIyfhHjAlPNCmMOvLYts9U74vFOw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DZ8o5/kv51iFotlCyDcp2YxxVXHNyCJQUpz/JcC8fBydOrWLVcXSg/60+SXY14c5i
-	 0789hsdSeUQxW/DE7AoaD0Hhj37iKI3P/PLlloYL4AzCE1SfVGPJXlQAmTwmfTVpLR
-	 tntl+/rfBtBUlB9LFr3dUGqrtQIUGM4L2xZET1j4NOzNEiRGABwX1/6n5NsAuux7sK
-	 P4GqdPBQAKr4hQflH464p9ezX7fA/1xs1cmUoCy/Uul4rlyEAlqSrd0XfWuC0qmR//
-	 UM5pijjSuxMCYT1+Nv8zfocDa4TypP9nBuDsYrwzLrTWrQuZxRkNCRS0PFWM4m7MRa
-	 WptM6RVMv4AXA==
-Date: Thu, 14 May 2026 23:44:58 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Kalevi Kolttonen <kalevi@kolttonen.fi>
-Cc: linux-man@vger.kernel.org
-Subject: Re: reallocarray() is now part of POSIX
-Message-ID: <agZCDN26GeEF7aXP@devuan>
-References: <agY7IsrJiFZdAreh@14-5A-FC-31-E8-67>
- <agY88e74EJ72Vli7@devuan>
- <agZAyPqsPJ4khpp0@14-5A-FC-31-E8-67>
+	s=arc-20240116; t=1778834663; c=relaxed/simple;
+	bh=9K0T3pvMl1V+eY2uE0ge9aoVBPQd7JBk8B/BmDrn8l4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=cMldMKWMZv+IjHAfUbL/vkknt48iF4FVMz6xpCsJQ7qkZZx964WfybjJJNsJXBYzWR55Yd6MvxyBNSOnGgsKdmPJHZAPNXfRpG+z9PrnxDrmXwHbJT+OHjhI9ZA0sZOGFYRrJlYOa30d38C8VbHzgWP44ygXVCBDL/PxXeodtT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bfs.de; spf=pass smtp.mailfrom=bfs.de; dkim=pass (2048-bit key) header.d=bfs.de header.i=@bfs.de header.b=VTv2pWpd; arc=none smtp.client-ip=193.174.230.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bfs.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bfs.de
+Received: from mxint01-sz.bfs.intern (unknown [127.0.0.1])
+	by mxdmz01-muc.bfs.de (Postfix) with ESMTPS id 4AE19200DBC8;
+	Fri, 15 May 2026 10:35:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+	t=1778834151;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jCaGkVioMY57X8bPC0UkRipuvym39sXyQXR8BCv+EiY=;
+	b=VTv2pWpdlzjUXVNSJKiL8tkmZ1HXy+923Izp4iI63RQTgiMcmiYE/yd10NFP9p7q8i04na
+	wPkcvDgEmLBBtO8uw9IygVAudORHmGLpfvv6gFq/Ixh6zixJ/tkG276bjJSarrGtfe/EQC
+	6s7eudE4pFACRLO4x+ZXPuuAcrzfF57+6IDB923x1qhfHMEGWWtDotMrsVKI3z3/tQwv/Q
+	FFoUu5W8EwP9D/rDdUE41I+NhI+Ewyxt7zdzHQFuv0uGtHYzxylQ91qSHbVp+vi8d19uUf
+	aPVLFxymAP6W4+g64G9RlYz2ZIfZkackslhXG9RYaD4Tp5qZbSeqxp49fT3brQ==
+Received: from SRVEX01-MUC.bfs.intern (SRVEX01-MUC.bfs.intern [127.0.0.1])
+	by mxint01-sz.bfs.intern (Postfix) with ESMTP id 2052F121C9;
+	Fri, 15 May 2026 10:35:51 +0200 (CEST)
+Received: from srvex02-muc.bfs.intern (127.0.0.1) by SRVEX01-MUC.bfs.intern
+ (127.0.0.1) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Fri, 15 May
+ 2026 10:35:50 +0200
+Received: from srvex02-muc.bfs.intern (127.0.0.1) by srvex02-muc.bfs.intern
+ (127.0.0.1) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 15 May
+ 2026 10:35:50 +0200
+Received: from srvex02-muc.bfs.intern ([fe80::30d2:b726:c839:d6eb]) by
+ SRVEX02-MUC.bfs.intern ([fe80::30d2:b726:c839:d6eb%15]) with mapi id
+ 15.02.2562.037; Fri, 15 May 2026 10:35:50 +0200
+From: Walter Harms <wharms@bfs.de>
+To: Alejandro Colomar <alx@kernel.org>, Bruno Haible <bruno@clisp.org>
+CC: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, Martin Uecker
+	<uecker@tugraz.at>
+Subject: AW: clumsy cast in dlopen.3
+Thread-Topic: clumsy cast in dlopen.3
+Thread-Index: AQHc45IaGeAQSzmTJ0euHKV9upcd+LYNQSQAgAGATBg=
+Date: Fri, 15 May 2026 08:35:49 +0000
+Message-ID: <face5848c7aa40ba94d37f25ccbd62e9@bfs.de>
+References: <21436742.Yz81rIOvuz@nimes>,<agWw2-7U82vIKSWI@devuan>
+In-Reply-To: <agWw2-7U82vIKSWI@devuan>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jehkr5b2yiyfrfpm"
-Content-Disposition: inline
-In-Reply-To: <agZAyPqsPJ4khpp0@14-5A-FC-31-E8-67>
-X-Rspamd-Queue-Id: 2C396547216
+X-TM-AS-Product-Ver: SMEX-14.0.0.3223-9.1.2019-29034.000
+X-TM-AS-Result: No-10--9.849700-5.000000
+X-TMASE-MatchedRID: NZHPueotO27WoQfP/4VrGa+PVXTqz06pmHJMNyf2CIF5omhgu+tgnLe6
+	urPFlSt5H2xok6cGGNCMeZ6i9qe6pSW9+BUMmcWnRYNhzuZZjRBelLFkoMPMWGSzaPMNx4CM29n
+	5Hk4dqlQd79Smn/h5xGZstws+BA3RcXL3P3dqoBzPEeDcxvUDjLrAb7W5NbXgwo4K6CWyCV66bH
+	aJlEOyckPK70P2TTBJfMSygnDluNOFY6M/5HNX1hqsS/8jaA/KC4F2niBR3WVql71aeJbD/KzSb
+	gI3g0INWjsaYI4lh3X4sfhU+lJX6+9j9/4eIKuSH4pNnFLAi64f/bharsPs65/xTVk+in8fc80f
+	4yYjTLAxWmoO+aNxi37cGd19dSFd
+X-TM-AS-User-Approved-Sender: No
+X-TM-AS-User-Blocked-Sender: No
+X-TMASE-Result: 10--9.849700-5.000000
+X-TMASE-Version: SMEX-14.0.0.3223-9.1.2019-29034.000
+X-TM-SNTS-SMTP:
+	C25E43873B097C3ABB17603693B010CFBABE7315881BCE1A5D284D5E6F8C37A92000:9
+X-Rspamd-Queue-Id: 3340B54BBB3
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	DMARC_POLICY_ALLOW(-0.50)[bfs.de,quarantine];
+	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
+	R_DKIM_ALLOW(-0.20)[bfs.de:s=dkim201901];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5507-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5508-lists,linux-man=lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns,bfs.de:mid,bfs.de:dkim];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns,alejandro-colomar.es:url]
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[bfs.de:+];
+	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
+	MISSING_XM_UA(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[wharms@bfs.de,linux-man@vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[linux-man];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
+Hello,
+I agree the cast is not nice, (someone for a extension of C standard ?)
+but i have to admit that i have never seen the trick with the union.
+But it needs some explaination. The comment in the example is already huge,
+i would ask for a comment subsektion for this behavier here.
 
---jehkr5b2yiyfrfpm
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Kalevi Kolttonen <kalevi@kolttonen.fi>
-Cc: linux-man@vger.kernel.org
-Subject: Re: reallocarray() is now part of POSIX
-Message-ID: <agZCDN26GeEF7aXP@devuan>
-References: <agY7IsrJiFZdAreh@14-5A-FC-31-E8-67>
- <agY88e74EJ72Vli7@devuan>
- <agZAyPqsPJ4khpp0@14-5A-FC-31-E8-67>
-MIME-Version: 1.0
-In-Reply-To: <agZAyPqsPJ4khpp0@14-5A-FC-31-E8-67>
+btw: the original code in the example looks like this ...
+cosine =3D (typeof(double (double)) *) dlsym(handle, "cos");
 
-Hi Kalevi,
+my2c
+ wh
 
-On 2026-05-15T00:38:16+0300, Kalevi Kolttonen wrote:
-> On Thu, May 14, 2026 at 11:29:40PM +0200, Alejandro Colomar wrote:
-> > You probably have an old version of the manual page.  The current manual
-> > page documents POSIX.1-2024:
->=20
-> You are quite right! Fedora 44 has man-pages 6.13-3. I am very
-> surprised that they do not ship the latest man pages because
-> usually the latest Fedora is well up-to-date.
->=20
-> Thanks for the info! I guess I should contact Fedora about this.
+________________________________________
+Von: Alejandro Colomar <alx@kernel.org>
+Gesendet: Donnerstag, 14. Mai 2026 13:29:20
+An: Bruno Haible
+Cc: linux-man@vger.kernel.org; Martin Uecker
+Betreff: Re: clumsy cast in dlopen.3
 
-I contacted Carlos recently.  They seem to be finishing the packaging of
-the lastest release.  I expect they'll finish in few weeks.
+Hi Bruno,
+
+On 2026-05-14T12:56:55+0200, Bruno Haible wrote:
+> The dlopen.3 man page contains this text:
+>
+>                   *(void **) &cosine =3D dlsym(handle, "cos");
+>
+>               This (clumsy) cast conforms with the ISO C standard and wil=
+l
+>               avoid any compiler warnings.
+>
+> However, such a cast violates the strict aliasing rules of ISO C, no?
+
+I think I agree.  Dereferencing the pointer &cosine with a type
+different than the type of the object is not allowed.  I've CCed Martin,
+who might be able to confirm.
+
+>
+> The proper workaround is to use a union:
+>
+>   union { double (*cosine) (double); void *pointer; } u;
+>
+>   u.pointer =3D dlsym(handle, "cos");
+>   ...
+>   printf("%f\n", u.cosine(2.0));
+
+This is seems much better, indeed.
 
 
-Cheers,
+Have a lovely day!
 Alex
 
->=20
-> br,
-> KK
->=20
+>
+> Bruno
+>
+>
+>
+>
 
---=20
+--
 <https://www.alejandro-colomar.es>
-
---jehkr5b2yiyfrfpm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoGQlQACgkQ64mZXMKQ
-wqkCzQ//aB6KvGKlZsVZ4+KdLr1KOmrbl9wZCILfz24ty4lyA9gni33L00HgQj5j
-zQRraiP2uvp4X0VFs4c+E+nXiUD6jy88uN/h21yLrIoKQ9uj4hTV45wwfgKKv7s+
-2LozOVF/0ruhXHzLp+QNf8HgQd6If+A5FNf07cF/ZejRZr9Fbn/zgJ1L2oLMFEbv
-LtkeeJNlm2AJTOrLdU66/lWxSmg8NZpNGNn2zbvX9FEmUYX+ZRmV7tpnubIPUWPi
-ED219BrKHZlABY8ZdaN0mLTYwuizU4BiZVz7qAnYyBA4YWgu1jHUAWDoNCpBazOj
-LWqQN7QuC5BAaM3GoFJI0Cw1MECoeuDa/1DrY88hxnJAi4ajI61en9GVDaCgi5F2
-QqHTC31jW27rrhZVgZ/UVi3C5s952e9gyzlQXFK/DaFWlIQSk5aDSxfwiofxudRQ
-3OZHqDpEu1EdAotuAZpy1eGSU4hcRenBt9hUEq1p+3IsFg7d0zE3qTn0biOFb3Q1
-rFbD5SrDHSQn2e1OD8H0BjUTzCvEL6H2nTC3VdcxWVKv0ZypsWiPa0eSAY6D3A1i
-jh+u7IXwdXwoT2ZQLp6uxE89XPrux958r47GOx2zC4ks25VDIxa0KSzCVwWc6G2J
-bWINz3+No9Uq7qxae80qBQQX2xxW7zfMzY7rwuMm7AMtA0H8FRQ=
-=8FNa
------END PGP SIGNATURE-----
-
---jehkr5b2yiyfrfpm--
 
