@@ -1,126 +1,144 @@
-Return-Path: <linux-man+bounces-5528-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5529-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YNTxEP+mCGpizgMAu9opvQ
-	(envelope-from <linux-man+bounces-5528-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sat, 16 May 2026 19:18:55 +0200
+	id EIBBC1q0CGr31wMAu9opvQ
+	(envelope-from <linux-man+bounces-5529-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sat, 16 May 2026 20:15:54 +0200
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE10655CDE5
-	for <lists+linux-man@lfdr.de>; Sat, 16 May 2026 19:18:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C58F555D0C3
+	for <lists+linux-man@lfdr.de>; Sat, 16 May 2026 20:15:53 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 2D356300558B
-	for <lists+linux-man@lfdr.de>; Sat, 16 May 2026 17:18:54 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id BA8033005A8A
+	for <lists+linux-man@lfdr.de>; Sat, 16 May 2026 18:15:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2543F3E8352;
-	Sat, 16 May 2026 17:18:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D66C2199920;
+	Sat, 16 May 2026 18:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S6MRVuCK"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Px7S7t/m"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9813E7BDB
-	for <linux-man@vger.kernel.org>; Sat, 16 May 2026 17:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B15C33987
+	for <linux-man@vger.kernel.org>; Sat, 16 May 2026 18:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778951932; cv=none; b=fHqCT7KYg3BEjXpu7KJwf23kingmFZ8TNiMygrWWr47o9ZW3YLCRt2PVvPWI20TxaE9gAA1jljCy87qMtOmYcdxPx88Ne07JY3lAluW1UxXsTDjmcQJR8kG+x1LHYqxejX8CD5vzPby8lC6ohbyDGn0VCCr/pC6QOro1mn95L+4=
+	t=1778955351; cv=none; b=grC4op3z2yfOUL9tMigYiG8P5EBBT9Cvhj6CyNmN3RgDRYLsMLLButlWVKy7O9agZoqWDzCI2ADWqkh6QETYDeCP+SJ8oR8yEa7dMZ6cmB3aI7NmTvvWoHDaHVUqXvrNE5u4CXGB0lOGGLgCldbGK7ZjKxfsjKHCr3PDq0+fjd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778951932; c=relaxed/simple;
-	bh=I2Eg7AHc5rweROmZoneLV0OYFaJvZvKtEQQHJFdP0HU=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZxaGsExmtadzIX6bhsFTxukAY9T7l6drYIciAf5bo5vEAls5DvD8HtLx7/FB0EC2dT0rK2xW8MWTq+zH9haSKmwSqyqW2KybDjGVsAOLRyz/WwFE0r5IbCAZzBQIkLJVd6wDolmg+ypHza7oXwiEvYmoUWtuo89WfzktNn3O4gM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S6MRVuCK; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 92304C19425
-	for <linux-man@vger.kernel.org>; Sat, 16 May 2026 17:18:52 +0000 (UTC)
+	s=arc-20240116; t=1778955351; c=relaxed/simple;
+	bh=e0tOkirjTfULQzsxLhkYRAt9rGxAfN8q6mgX/Kcdd9I=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=jqiKBNF8/zw6D2Uu7+JKhtItVklgAFZj+YNV3Jy+O1AQzAOhwT/MFRlFjl5ReqvSt6HzJAHLCrqGVx3UTlz19U8TgRg69CNT1N1JPL8XL8GBPASRv2PkfGZrjbF8wer/5nMIZ/L8K60inUrUiABFnPY17HAzcvciRbCXEOo5ZkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Px7S7t/m; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A015C19425;
+	Sat, 16 May 2026 18:15:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778951932;
-	bh=I2Eg7AHc5rweROmZoneLV0OYFaJvZvKtEQQHJFdP0HU=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=S6MRVuCKqHBw4JTpy+CNI47Vpc88bGD6/n5pfkbmJ5zaQzN1nqSqCif9sqigvE4qS
-	 AhBIQ+VogxZPDyWJgsf1xHlvN16agxEvkP15MtEfQqRpr8RO1ESj2Fn2SCZRG4K9m8
-	 3bmUDc9QLB4443LWlcNWW9M1vmOQbMtQG+9EKEbfoqcWsHPkdE/ErmIci2lib8L14X
-	 Cx1UsLeGkTGhl6Z3Nhsuk3IKqHfo09wyV2fPdotsLCapGaB8J8gWapGLsSDW9eMYv0
-	 PBpxJtiJw8TO21hkwl5oBZ+FgCTt+9v6xuqqxh55xUNRMoGnIVvE0vmS4pM3kJxOTL
-	 uIHcJUK/ipX8w==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 8607CC53BBF; Sat, 16 May 2026 17:18:52 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: linux-man@vger.kernel.org
-Subject: [Bug 221533] strstr/c23/constness
-Date: Sat, 16 May 2026 17:18:52 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: linux@treblig.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-221533-11311-3RoETPdxgD@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-221533-11311@https.bugzilla.kernel.org/>
-References: <bug-221533-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+	s=k20201202; t=1778955351;
+	bh=e0tOkirjTfULQzsxLhkYRAt9rGxAfN8q6mgX/Kcdd9I=;
+	h=Date:From:To:Cc:Subject:From;
+	b=Px7S7t/m1D0ygV7nooFDYl+yV1nwOVHX5yFhMLnv5vRWyp0Wc2KhpKdDOYPQUbLBK
+	 VeO4UzVQhQSaAXcjgwE665458WhMrvgBLujST2Rq4tZtRGvN5KfjtbHxYwlXrXZeXN
+	 PxGMJ4+ziBNk+qGyGXeW9hrXaHRJ198w27OI4pPTYhUP4zn7PEQDoCduQvSIUilrF+
+	 m0hNIAqdJ0GhngXIiCWmDjYFhPruoQWtyruKZlw6G0Wu7QV5HTtB+mKx/KVjqz2TFO
+	 OBfa9kDXz8Rn73sYUgJcyt7u3WDSOC/6vDKrOhWvBJKaDJxxtCKpqhyayifmceBmew
+	 d2KGREX85WItg==
+Date: Sat, 16 May 2026 20:15:47 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: libc-alpha@sourceware.org
+Cc: linux-man@vger.kernel.org
+Subject: non-standard const-preserving string APIs
+Message-ID: <agizh06CdDnhDvAB@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: CE10655CDE5
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="efvcfid2fu7qcudh"
+Content-Disposition: inline
+X-Rspamd-Queue-Id: C58F555D0C3
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.16 / 15.00];
+X-Spamd-Result: default: False [-3.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_NEQ_ENVFROM(0.00)[bugzilla-daemon@kernel.org,linux-man@vger.kernel.org];
-	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
-	MIME_TRACE(0.00)[0:+];
-	FROM_NO_DN(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
-	TAGGED_FROM(0.00)[bounces-5528-lists,linux-man=lfdr.de];
-	TO_DN_NONE(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5529-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+]
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_NONE(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns]
 X-Rspamd-Action: no action
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221533
 
---- Comment #2 from Dr. David Alan Gilbert (linux@treblig.org) ---
-Yep, makes sense; I tripped over it yesterday in one of qemu's tests (someo=
-ne
-has already sent a test).
+--efvcfid2fu7qcudh
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: libc-alpha@sourceware.org
+Cc: linux-man@vger.kernel.org
+Subject: non-standard const-preserving string APIs
+Message-ID: <agizh06CdDnhDvAB@devuan>
+MIME-Version: 1.0
 
-Thanks!
+Hi!
 
-Dave
+I'm working on documenting the recent API change of strchr(3) et al.
+to adapt to C23.  While doing that, I've realized that the related APIs
+that are not standardized by ISO C, such as memrchr(3), have not been
+changed consistently with their relatives.  Has this been discussed?
+
+I think the inconsistency might be dangerous.  Should we change the
+other string functions accordingly?
+
+
+Have a lovely day!
+Alex
 
 --=20
-You may reply to this email to add a comment.
+<https://www.alejandro-colomar.es>
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+--efvcfid2fu7qcudh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoItE0ACgkQ64mZXMKQ
+wqnf0Q/+Nig40KOljYVR/ImGYVtQ3wUnS5716OXfIQNIJi8rl6p9FOtF1MDt/oyn
+DKTm3RBWmoQ14rsmfXTKYEvLDB/eryQXyAo488RGV69utk+zE+lZ1DMM3cjlBbG4
+oZ/QnpMfp0W+sWP8csNfZLFIJfGBHNsO67zOqTGGm6gUF9vUnZxiVJId6EoUZxdx
+OAidYsOqVa04m0MuSdoq1wrvgvr1VS5OBWxw59hj+btcwf+8gKOw2NvahiNjUYRm
+OXTB8T5MKklbB5RtVoOP3h4DwN3qzngpsVogwxPK3zpudTx8UVZ3rldMmxg51Wk2
+4ilOX9BPJeI3LWtotvOv2Y1TgimMkPoXiZj44apfe11+/A3TabVW0oIQUNUqUN0y
+coB3ZDNO7yPyEguqOHKSqQeKUIABqbMzVdVAGy6vkaZDuh1lR9/AWzMKREqlhpCy
+prZTOKSpSiiO/9ymFJIE/n2+EnI0X4B0uZT78FTeF0ziEju26286zzy2wmSIfthf
+iVFsVWzVqfwrojcYyR8eZCEKQ8Iey99tM1ZLM0XE+1x8PMBTV48/rGgxpyb5SX4w
+c4FCeJjI+vJgvkAHaJfp8Q7RTolhjVZzcK58XSGomZ4m4ribTqtgNJ3ZLqAi7IyF
+RFPG8L24jL+dlUz6UTMwKtLXSWqWMg9Dt6hoXE+EQXBMKwTpjq0=
+=p7/c
+-----END PGP SIGNATURE-----
+
+--efvcfid2fu7qcudh--
 
