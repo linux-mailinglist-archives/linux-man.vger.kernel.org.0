@@ -1,145 +1,166 @@
-Return-Path: <linux-man+bounces-5536-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5537-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kEpNKB2zCWq3lgQAu9opvQ
-	(envelope-from <linux-man+bounces-5536-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Sun, 17 May 2026 14:22:53 +0200
+	id OJ3JM9XJCWropQQAu9opvQ
+	(envelope-from <linux-man+bounces-5537-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Sun, 17 May 2026 15:59:49 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 386F1560F16
-	for <lists+linux-man@lfdr.de>; Sun, 17 May 2026 14:22:48 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 357B25616F5
+	for <lists+linux-man@lfdr.de>; Sun, 17 May 2026 15:59:49 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 48CCD3007F66
-	for <lists+linux-man@lfdr.de>; Sun, 17 May 2026 12:22:47 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 4FD57300A634
+	for <lists+linux-man@lfdr.de>; Sun, 17 May 2026 13:59:47 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CCE8B36212D;
-	Sun, 17 May 2026 12:22:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 681CD277C9D;
+	Sun, 17 May 2026 13:59:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FqBvjNO3"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FS4u1dgY"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8174B361DBE
-	for <linux-man@vger.kernel.org>; Sun, 17 May 2026 12:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3D525782A
+	for <linux-man@vger.kernel.org>; Sun, 17 May 2026 13:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779020566; cv=none; b=c594//XCcEIt0tVJXdammRrCTSxR4A81CBphYSU6glnO7KRfIyYvgchiijHxvoWYrx2m1i9+bin8d7SrbgH0sR3CZvLTCSJ7rPu60fueBNyksDLpl5y+tnuOHpZZ2OxyTnkqW5e2Uj9m5a7u9zZ5aVI3HtZGtOG5TDCqQ/Ov/Vg=
+	t=1779026386; cv=none; b=m4LsOw98nCLR2lHewrN5BmNcmqr65VBM6/17veJUCMOI1jTtQ8GMe7pBOnWzenB1d4T8eDFI7Jqf9s1xb0+m8IVIMpuAcjQewfdMydnSsNqHhjh7q4sEvjSRAkosZrFMN2jUQrLzUEx2sTsO3i8298e5kubUAdajK2+zOv280UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779020566; c=relaxed/simple;
-	bh=i+31P7kcIhN0LMsQ8/Ex4lRX+bGn005nv3+e7X787lc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Kt1Lw3I+ad2mdwWrEMX1spt59ycVJPAPrqnvq3sPgg9s8AZYsTXNakKUihlJ7RgMqFSNCGSbVAevzSIh2P8YfV5HAVBfJmaw9/bm2Y/2c9zJhzbf+e2AI4aI83rvVvk5JNwbOu0HdN2T44Xs3xGeog6lpU9UfX4jfYOlmK0AJyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FqBvjNO3; arc=none smtp.client-ip=74.125.82.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1357c851a48so314823c88.1
-        for <linux-man@vger.kernel.org>; Sun, 17 May 2026 05:22:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779020564; x=1779625364; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V3iiKD2eMwoSQ79tsXaHOrjDA+YFIKcI3Xgl+V6iSDk=;
-        b=FqBvjNO3KIahpCLxb9Nq82y/c7bWOXc1T8hy1HzTUbNofMiQ8LclXlKx4YDtjZfncy
-         Zak+sil7moa0+JwSZTQbFTpLRdxhp/z/MejNq2YnS11MhTWHn5KhZp8/Y70bF1daAZkc
-         ixsj/dWV91bHUMUjtCsgysL/sN0iWPan2yE3TaZsez3EXgTupiJM3Grm5TxBhlwx92jF
-         9TACRVMseL1c36d2hDXBYj8vyj8PD6Cn/wKoK84EHyefZvS+ajR1B80prlWHGttqCbHB
-         jvKW3flyKiYEpF0kvGSGy8k3k9KNrGrWKELT4J1AOQWwTDVmxqwYiisMVGZm/NdAW3SA
-         eDFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779020564; x=1779625364;
-        h=content-transfer-encoding:in-reply-to:organization:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V3iiKD2eMwoSQ79tsXaHOrjDA+YFIKcI3Xgl+V6iSDk=;
-        b=HRtbjD6TQdqi8tzYvKJojzs5JN+WV7dOkbauDe/Vv6bns93bQJXI5ApsCCBeFCceQG
-         K1Kaepc+oTSlw8ZgtWQmWLSq+NkwwMSOq6NqcGmW3WCoLLaCM0B00WKWhoIrCa+vxU3j
-         CWJUakChjSJg+zpuvf5+4TTAjbGJHyEzzbE06DQA4BdumHdBqjLVnDxROIYWrxxaMa67
-         2WUonsB9CxsAmP1GiiCQHzZlWKlj9S6K3QtVj/8ngCaAUHHzP1lfxZIGEEp7EV8osbIF
-         Gee+ujStbK5CjvnW3ku67ktsoFj7YWRXhRrdcx+9akLTLjvkc9h0us/i9wKi3xnP0ktV
-         oPIQ==
-X-Gm-Message-State: AOJu0Yy+3kcKyIsQ8iGlDWKV72N5BuzWrFieYb4hEsr5rGQEPvsL7VD/
-	mfF46HBIjkqjag33MXgupcxX4maopSUxGkorGS5zV+0qchZ6wF53a6NiWL48/XrzfwUyBWwpRP3
-	Qdenu
-X-Gm-Gg: Acq92OEJmbOs2Y3syuhAr6F1m2GtJpAyv9dUQU5f/CyWOIdOfeMevMKxldJlixfIvb+
-	7jj2Z25Ya66FgN6D6QilCurNu7Zb17LfY7GeQ8DJnbiBpUYyfn5um0M6JrT3cP+Nh6JIarTseKp
-	v+Z1mVGhIIyciZvEcCb3lHI5DAwDmvmD072IwEInQF1XQ98ZHHxgos/A5pEEzJQqPoFha605cg0
-	zTKyKCmZioRDrXuGXsfQY0KY+CxtbDmOArPhmXJyzlevJwhP3I6TrcwUVVQH9KsAEqqy3nlNyqx
-	STTkRJiwPkLV31+Iyr2ZZsgG2uudlt7+brNr9DcQJ6RmMf3Z+KfkAEsCBUCJR3Hj5fBmTT2xHYv
-	cxPpT7Y172N5Utb+1KHAD/nswILVz1q2WJVUBcRtdM85tZlOjS2y64ToLwO4X81Pds0KMuBoDc+
-	TcWImljeOuilgSk5WMfkz8kzOyScvDu35Eh7+eMyk9saRObiBWcBSYXZ6MLMiGFqeaaCuOY3w/Q
-	eFiYHrwQ90GtYyBqz7g2PMKINPwMo1I2g==
-X-Received: by 2002:a05:7022:45a7:b0:134:df7f:a5cf with SMTP id a92af1059eb24-1350484244bmr4163876c88.29.1779020564415;
-        Sun, 17 May 2026 05:22:44 -0700 (PDT)
-Received: from ?IPV6:2804:1b3:a7c1:d905:84db:45cd:c147:22e0? ([2804:1b3:a7c1:d905:84db:45cd:c147:22e0])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-134cc33a618sm17451800c88.12.2026.05.17.05.22.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 17 May 2026 05:22:43 -0700 (PDT)
-Message-ID: <c57574d1-9031-4ae6-8cd1-0e74931b9af6@linaro.org>
-Date: Sun, 17 May 2026 09:22:41 -0300
+	s=arc-20240116; t=1779026386; c=relaxed/simple;
+	bh=a+4/lKcWPgH0KXFxqBDJk+LyVpy1+3NjBYslwuh6XXk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fj4q5SKUpBdv322KxmJcFS3ppmvH7QI4+KknjnMZVXBPoQPo7V6zFbn1GI5cOV2p2YTqyh14gg+04RwG2twT1FGlfpii57UIQq3jL1X5RMP9npgOpTD1+in/1NR2fAaEUHZcELeTE+w8E/9UeGLh+wupndZ4lT93I+6iIvA6LhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FS4u1dgY; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBABEC2BCF5;
+	Sun, 17 May 2026 13:59:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779026385;
+	bh=a+4/lKcWPgH0KXFxqBDJk+LyVpy1+3NjBYslwuh6XXk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FS4u1dgYelw+Coajq2MKSPuRarfC/9JJo5paH6ZmmFi1GWtBHj+CrKpGSJ/XjkNbx
+	 F80gM6a4w1iP9OjM7VJuag0YYqD/uKSGNLkkqsmLiTTNd29FOyVYcQTynyQtYQw+sV
+	 ba1s5bXOmrC6X5ycSmYV0+lPjnT31vUTwHWO11BFMWBwJ8kD2n4w8wsU0xW/9ekagy
+	 7YG/5spcAKWK2v/uWwFK0m5uvbpkZvHQoev26hsL+B9I7qStb0R9VUg3flQmbRUSzi
+	 voSSLSjXqiDD8oMtW8boU3gAbA2gE+syVGQ7nFfTUHnHWYe76f0JLc+sr5pQr1OixX
+	 Ky9I3nKQ8gkNw==
+Date: Sun, 17 May 2026 15:59:42 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+Cc: libc-alpha@sourceware.org, linux-man@vger.kernel.org
+Subject: Re: non-standard const-preserving string APIs
+Message-ID: <agnIOfwI5KKGwS_I@devuan>
+References: <agizh06CdDnhDvAB@devuan>
+ <c57574d1-9031-4ae6-8cd1-0e74931b9af6@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: non-standard const-preserving string APIs
-To: Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org
-Cc: linux-man@vger.kernel.org
-References: <agizh06CdDnhDvAB@devuan>
-Content-Language: en-US
-From: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
-Organization: Linaro
-In-Reply-To: <agizh06CdDnhDvAB@devuan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 386F1560F16
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="t62r5oul5n7eqwzp"
+Content-Disposition: inline
+In-Reply-To: <c57574d1-9031-4ae6-8cd1-0e74931b9af6@linaro.org>
+X-Rspamd-Queue-Id: 357B25616F5
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.16 / 15.00];
+X-Spamd-Result: default: False [-3.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_FROM(0.00)[bounces-5536-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5537-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[adhemerval.zanella@linaro.org,linux-man@vger.kernel.org];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	NEURAL_HAM(-0.00)[-1.000];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns]
 X-Rspamd-Action: no action
 
 
+--t62r5oul5n7eqwzp
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+Cc: libc-alpha@sourceware.org, linux-man@vger.kernel.org
+Subject: Re: non-standard const-preserving string APIs
+Message-ID: <agnIOfwI5KKGwS_I@devuan>
+References: <agizh06CdDnhDvAB@devuan>
+ <c57574d1-9031-4ae6-8cd1-0e74931b9af6@linaro.org>
+MIME-Version: 1.0
+In-Reply-To: <c57574d1-9031-4ae6-8cd1-0e74931b9af6@linaro.org>
 
-On 16/05/26 15:15, Alejandro Colomar wrote:
-> Hi!
-> 
-> I'm working on documenting the recent API change of strchr(3) et al.
-> to adapt to C23.  While doing that, I've realized that the related APIs
-> that are not standardized by ISO C, such as memrchr(3), have not been
-> changed consistently with their relatives.  Has this been discussed?
-> 
-> I think the inconsistency might be dangerous.  Should we change the
-> other string functions accordingly?
-I think it is reasonable to support const-preserving to the GNU interfaces as
-well. Are you preparing a patch?
+Hi Adhemerval,
+
+On 2026-05-17T09:22:41-0300, Adhemerval Zanella Netto wrote:
+>=20
+>=20
+> On 16/05/26 15:15, Alejandro Colomar wrote:
+> > Hi!
+> >=20
+> > I'm working on documenting the recent API change of strchr(3) et al.
+> > to adapt to C23.  While doing that, I've realized that the related APIs
+> > that are not standardized by ISO C, such as memrchr(3), have not been
+> > changed consistently with their relatives.  Has this been discussed?
+> >=20
+> > I think the inconsistency might be dangerous.  Should we change the
+> > other string functions accordingly?
+> I think it is reasonable to support const-preserving to the GNU interface=
+s as
+> well. Are you preparing a patch?
+
+Yup, I will.  Thanks!
+
+
+Have a lovely day!
+Alex
+
+P.S.:  Adhemerval, would you mind having a look at my other recent patch
+set?  It was 'Add [v]aprintf(3)'.  The message-ID was:
+
+	Message-ID: <cover.1776882798.git.alx@kernel.org>
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--t62r5oul5n7eqwzp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoJyc4ACgkQ64mZXMKQ
+wqm3cg//Z7hmDDTnEFvhjOp7L7cwEbMvCtRwoo9PQvSZnf/ea91dPVgDhgL8ppaG
+AV5DTvUihstzbGcRrHpAYPg3o0fR2NPpK3qHlZeeEchfAzpEhXc+gQmcGcDvwuQi
+bEclo5xTrav5EIHKmciXWoTdSJQJZdWxVZn0rXdbFgy8CFu7ZMPElRnRXiLslhrr
+K5yKCThR0FIJPQF/SF6HkUMFAx4IvNtr8Sza4rtSe0eV7K1OAcPjuKlylmhf2t+X
+BsLji0X2pgCdnAERc8eF4mcKlGl2FDLKfVlpIN1dMeDA3L4GWv0svrnrXOZvuKlL
+e9D4GuI4Gk9ciJg7NmbZ+Vj9raCa5lTq/3IUtaVVlSjxZ3qi8d7kEpHmu4b3zWJP
+mPzoSvtTB0jSwpkZAk9PyF3/VVELbp8ydkW8OZI3YZPr+1Te/0Dz2u+UtSrHojq9
+07SkgHH1Wo+0MVjiidTC9r79lPAfVcHedDi3HOhxz39g27VJKoxg+AMc/fIoqhxv
+PPMoJx8+rJMKatFRzBOYJgiGnrgnJdjjQcYZYiVIJyjNwnuTCJCeMYIZm0Z87WG8
+tv9pT5MySqzyqcYQHSkh4YWswhH7k+bHR2Y18/zvCIObfz0bHVRZjR/q/o/y77Rz
+gc1veGLHqWh6Od/kqPCgetRBZebgijUHeK/RzR+swpzOEaGIAl4=
+=8E24
+-----END PGP SIGNATURE-----
+
+--t62r5oul5n7eqwzp--
 
