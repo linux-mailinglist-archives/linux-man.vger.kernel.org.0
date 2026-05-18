@@ -1,57 +1,57 @@
-Return-Path: <linux-man+bounces-5541-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5542-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +EUuAmmECmqv2AQAu9opvQ
-	(envelope-from <linux-man+bounces-5541-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 05:15:53 +0200
+	id OMvzCJiTCmrL3gQAu9opvQ
+	(envelope-from <linux-man+bounces-5542-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 06:20:40 +0200
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B5B25655B2
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 05:15:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9D15659ED
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 06:20:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 4B051300E395
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 03:15:51 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 9FDA23016537
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 04:20:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA12A37AA7D;
-	Mon, 18 May 2026 03:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B16437FF41;
+	Mon, 18 May 2026 04:20:37 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9AD35E94F
-	for <linux-man@vger.kernel.org>; Mon, 18 May 2026 03:15:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFBD376BC2
+	for <linux-man@vger.kernel.org>; Mon, 18 May 2026 04:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779074150; cv=none; b=F2+m/kSPeTYkM8LvqagvxdxvJDXNQTy7yVdhvFMEoQsvdPEvBOVjU37bRdNYIOCmS43bgSrXJQ0Mte8xcV4YauiXsCgqulk8Tkkq548RXZGp5MMfkfQWjlvLpq7a6cc5xx3uY8DXxMb0OxgqjM06qujYj6jqfSpJy8Bo+hHwvqI=
+	t=1779078037; cv=none; b=p+bHCs8J7IaRJTGhvJU0/PG9igkBOithFmjJuk+qfgqNRrtGA359VpCjn+1lv0CMOfTCz8UP5smiC9Dl39xvtZ1Yn0Y+z20L/8/VFJfqdg4Jf4xDWBw0nSZpCPdIizdlwYll6F+kibYggPD4x9f93hIed53xoLlE+kels4nVrBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779074150; c=relaxed/simple;
-	bh=7GnJUB9ZdZwFMsMmT6dofqmKqxRAqcgkqG+aQI9LU8M=;
+	s=arc-20240116; t=1779078037; c=relaxed/simple;
+	bh=Lf1VH1HLgoIZLhKO45NQQ0kBQODcD5Ndfm65OtQM9+g=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=pWMcTPq6MT7A2GyJiYpr+bA8Fya2bWOArvgPoCmJh039gMTVE0sJYaGRDsknVfY4yRZLj5Cl1QiHc6tcoBOUpIH3AlUBF3iCNXw03oaNG6UKT70ORZsdcU5RN6jT3PmSxhLMT09iBqNNkgAoU15iYB/fBKox0RgsyTtHQfDQTrM=
+	 Content-Disposition; b=dYk+IGFHv+F1G8Cp8EOELFLGO/+x0JCyXgJq0O/HNVVGNVZZpmpyNyFwmxoj6A7AN3FkaE/7LZPXTPEx5PLHCrmxQWKyHFHrHsY4mjulffQDGwdUEiLxbnKI/af3dkT0KM8Fe8LnF3854OyW0Vlc+ibG5TlDcWPG+xuPc9q8bl0=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=disroot.org; arc=none smtp.client-ip=178.21.23.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Received: from mail01.disroot.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 81FC726E03;
-	Mon, 18 May 2026 05:15:47 +0200 (CEST)
+	by disroot.org (Postfix) with ESMTP id E7A262707D;
+	Mon, 18 May 2026 06:20:31 +0200 (CEST)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id X2QmO9p2NQ3x; Mon, 18 May 2026 05:15:47 +0200 (CEST)
-Date: Mon, 18 May 2026 04:15:44 +0100
+ id Tc4ms2BepyIg; Mon, 18 May 2026 06:20:31 +0200 (CEST)
+Date: Mon, 18 May 2026 05:20:27 +0100
 From: funsafemath <funsafemath@proton.me>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH v2 2/2] man/man2/seccomp.2: Document
- SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV
-Message-ID: <agqEQZ9QenxnEkqv@nix-mail>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=953; i=funsafemath@proton.me;
- h=from:subject; bh=xTXiXBkV3EMBYVbsf/Wlb1S3RsbJ+Cxs0L9cIcF11hY=;
- b=owGbwMvMwCV2QvA6L+scLT/G02pJDFlcFWfep13yU9DWe7VxeeK/5xMbdZ0mli3ySnlx6tPDo
- 5POTjWd3VHKwiDGxSArpsgisfCOr5Su+mf7z6mqMHNYmUCGMHBxCsBEMtwYGTZNEpvq2adtFrrh
- 2pPbGndVF4YkVzIeOvHpBm/WTfmEG5cYGdb+/2NnnfT+kNyjys2iPQsimdVOPzmfyc/NePpb4hL
- mTA4A
+Subject: [PATCH] man/man2/seccomp_unotify.2: wfix
+Message-ID: <agqTcfOqY8Jq06Ff@nix-mail>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1173;
+ i=funsafemath@proton.me; h=from:subject;
+ bh=k3L2VFzMBQ5exngDtEkmh8eHMNP065y4LNMT4e1eUpQ=;
+ b=owGbwMvMwCV2QvA6L+scLT/G02pJDFlck75wPLfoZuT9t64yUHP6iswlGdG6jlPCy7c9bFr7+
+ eMpmQVyHaUsDGJcDLJiiiwSC+/4Sumqf7b/nKoKM4eVCWQIAxenAExELoeRYcvT2b+j8rYxTDsV
+ 03N2v+RpY73bS49m92a/j+w5XiEpos3IsIrnkPCi+8e3aGsEKb0OyZLvCGI4/2rLfh/pRplt7le
+ 5mAA=
 X-Developer-Key: i=funsafemath@proton.me; a=openpgp;
  fpr=B07EE98D22F23DFB077429C0DF66F4774CE714D5
 Precedence: bulk
@@ -61,10 +61,9 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wsk2g7yvwphn3gg2"
+	protocol="application/pgp-signature"; boundary="qqtyldpianwnowfz"
 Content-Disposition: inline
-In-Reply-To: <agjZM97qL3w4JZBX@nix-mail>
-X-Rspamd-Queue-Id: 8B5B25655B2
+X-Rspamd-Queue-Id: 7E9D15659ED
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.56 / 15.00];
 	SIGNED_PGP(-2.00)[];
@@ -78,7 +77,7 @@ X-Spamd-Result: default: False [-1.56 / 15.00];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5541-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5542-lists,linux-man=lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	MISSING_XM_UA(0.00)[];
@@ -95,59 +94,65 @@ X-Spamd-Result: default: False [-1.56 / 15.00];
 X-Rspamd-Action: no action
 
 
---wsk2g7yvwphn3gg2
+--qqtyldpianwnowfz
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: [PATCH v2 2/2] man/man2/seccomp.2: Document
- SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV
+Subject: [PATCH] man/man2/seccomp_unotify.2: wfix
 MIME-Version: 1.0
 
-Document the SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV flag,
-which makes the process ignore non-fatal signals until the supervisor sends=
- a response
-
-Relevant kernel documentation: <Documentation/userspace-api/seccomp_filter.=
-rst>
+There are two documented flags, but the sentence states there is only one.
 
 Signed-off-by: funsafemath <funsafemath@proton.me>
 ---
- man/man2/seccomp.2 | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ man/man2/seccomp_unotify.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man/man2/seccomp.2 b/man/man2/seccomp.2
-index a2776aab7..d01a9eeaa 100644
---- a/man/man2/seccomp.2
-+++ b/man/man2/seccomp.2
-@@ -256,6 +256,14 @@ .SH DESCRIPTION
- .B SECCOMP_FILTER_FLAG_TSYNC
- flags together results in
- .BR EINVAL .
-+.TP
-+.BR SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV " (since Linux 5.19)"
-+.\" commit c2aa2dfef243efe213a480a1ee8566507a5152f4
-+Ignore non-fatal signals until the supervisor sends a response.
-+.IP
-+The
-+.B SECCOMP_FILTER_FLAG_NEW_LISTENER
-+flag must be set.
- .RE
+diff --git a/man/man2/seccomp_unotify.2 b/man/man2/seccomp_unotify.2
+index a5c1a4423..0b4fc7239 100644
+--- a/man/man2/seccomp_unotify.2
++++ b/man/man2/seccomp_unotify.2
+@@ -716,22 +716,22 @@ .SS SECCOMP_IOCTL_NOTIF_ADDFD
+ .in
+ .P
+ The fields in this structure are as follows:
  .TP
- .BR SECCOMP_GET_ACTION_AVAIL " (since Linux 4.14)"
+ .I id
+ This field should be set to the notification ID
+ (cookie value) that was obtained via
+ .BR SECCOMP_IOCTL_NOTIF_RECV .
+ .TP
+ .I flags
+-This field is a bit mask of flags that modify the behavior of the operatio=
+n.
+-Currently, only one flag is supported:
++This field is a bit mask of flags that modify the behavior of the operatio=
+n,
++as described below:
+ .RS
+ .TP
+ .B SECCOMP_ADDFD_FLAG_SETFD
+ When allocating the file descriptor in the target,
+ use the file descriptor number specified in the
+ .I newfd
+ field.
+ .TP
+ .BR SECCOMP_ADDFD_FLAG_SEND " (since Linux 5.14)"
+ .\" commit 0ae71c7720e3ae3aabd2e8a072d27f7bd173d25c
 --=20
 2.52.0
 
 
---wsk2g7yvwphn3gg2
+--qqtyldpianwnowfz
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQQYodxNGi0n8z/zZSXIEdcNBZwqTgUCagqEXgAKCRDIEdcNBZwq
-ThWmAQCrTZP9XSJ+mCRPimzGQbCmW4jHN45YrBZ46XpPmGlBmwD+PUCQWujc7Cje
-XWymUyDIumi2sq90cPSW6oI77G9V/ww=
-=GwqF
+iHUEABYKAB0WIQQYodxNGi0n8z/zZSXIEdcNBZwqTgUCagqTigAKCRDIEdcNBZwq
+TsX1AQCOPJt7YMckOlHsHRib0Oxg2suhe0BOuAz5jhflEvq0twEAk7olH3a8blzS
+P/6Hu8tvSnx33uA71/NOHICJDg2+UgE=
+=y3TJ
 -----END PGP SIGNATURE-----
 
---wsk2g7yvwphn3gg2--
+--qqtyldpianwnowfz--
 
