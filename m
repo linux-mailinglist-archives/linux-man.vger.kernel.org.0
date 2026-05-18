@@ -1,170 +1,159 @@
-Return-Path: <linux-man+bounces-5554-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5555-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2I2LGBMvC2plEQUAu9opvQ
-	(envelope-from <linux-man+bounces-5554-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 17:24:03 +0200
+	id oBBPGfhKC2o7FQUAu9opvQ
+	(envelope-from <linux-man+bounces-5555-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 19:23:04 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA53E56FDEA
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 17:24:02 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id C3AA3571952
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 19:23:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 0527E305EA22
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 15:17:56 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 6B524303E2D5
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 17:19:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFB93378838;
-	Mon, 18 May 2026 15:17:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6CBD383C80;
+	Mon, 18 May 2026 17:19:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zg/StF0i"
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tw2z6I00"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D5237105A
-	for <linux-man@vger.kernel.org>; Mon, 18 May 2026 15:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709841DC1AB
+	for <linux-man@vger.kernel.org>; Mon, 18 May 2026 17:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779117473; cv=none; b=ZN+T2Euq0qtKLxgWMkGJN2aOSOoiQ2JVP4lr6kQTrioF2wz3NpQD/fMFszMLjkoAPPwGsC86cb2vBSUvIGg5Idfusg+8LakhF6t5UdNnAOue8lhqZCNCSn9a4xrDJe1sGjxUgdbi8X5y6DylRZH3tvfja9IQOjdtsdr13sL7Rcg=
+	t=1779124793; cv=none; b=eUzmrqHRESMBKHCk9gFOjU9nc23WVzK5zAO3uRTmWuP45Ag3SVOOObRDAnkpcPCsaP97r/yTJOrPxxdvcqyO+EHKo6dQJn/9ylGff/Ikcqqaa667AdPF/GcJIuWhHxGvj5pZpGch+E2NOTlIbIHQY9H8Pm2iSF47JMJao5L0aCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779117473; c=relaxed/simple;
-	bh=Yc7Ha+ht6G4QU2pJlLLsewVy5nlCN7FFfrlEwGMKW5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M+Wv4s1MiEUNGz1uGi1MRbKuacmNGWfMX8VlJkZUg76ZnqzoVjRHwG/gGKxIiewiP8GR34lig5cCoGn0Q0Pf5JMjeG76OyX4ORZswxuN6FohT+fChnJAt/rSK8p8CJlyRnsW08wqjZAKSPsjhWkpVbUJVJQpQCqu8ajI+0g2Gek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zg/StF0i; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6DDC2BCC6;
-	Mon, 18 May 2026 15:17:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779117472;
-	bh=Yc7Ha+ht6G4QU2pJlLLsewVy5nlCN7FFfrlEwGMKW5s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Zg/StF0iMHvmOdPoN72LXNY0DHbDdO6OhHbiDSd2/XKUw1oRgpit+Ly4KsRTC92u8
-	 cE5vj3ly8D7OSRAGa7dx0zgQEtPaZkEFXr4XHqvfn0vKamZLfK4xyHb+NQSc6eBf9h
-	 vN6woVTeHP3OdebDCyUoGSYoHWb37JP3XJNQAOBBBTYfZewJzn7xzC4gMA2KpC1yvy
-	 zc/hdSD+Pn6+qoEAeOodxxYOclcGNza0PrHhjRdWwvpQD9euZIO6F32PCfS+rjlZp2
-	 AQHSnXYJIchR96W4jPIPPGrGXE6t9IHwWwL7UfPPo4M2by9lj8agZDjHrOlEI7GiGz
-	 7q+yBo4Jasgaw==
-Date: Mon, 18 May 2026 17:17:49 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: libc-help@sourceware.org
-Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org, 
-	Petr Gajdos <pgajdos@suse.cz>
-Subject: Why is caddr_t used in quotactl(2)?
-Message-ID: <agssqAsUt9aYBsHX@devuan>
-References: <9d328eab7a632ac87f48bcfe88c0e5c3cca18d2a.1778951437.git.alx@kernel.org>
- <kf4k33gsaax2v2iwzfprvogsyfqxbjdldpkdefwraaea2ytijx@tm7g2gul3h53>
- <agsKOHLgfGkiyE1r@devuan>
- <b2kszapero3mb6q3763rrgjjfltkvt7aapm6s7oakpbpepfypk@mwybch7ayyqd>
+	s=arc-20240116; t=1779124793; c=relaxed/simple;
+	bh=h7vN+FR8/l4rOzQm5Mol67F9VlbVk6QD84EgaLr6GJ4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y7/cU6cLF6NIh/Cl9BiUg2ufqBz/6wWxQlS8EnSRPyMBrZ1EW8eGFxMbhcGYQ1Q3L8hmW4QDjNcwU5Roack/E4arZMYd+D8aKFQ5qTyAuTk4HsbqvooshTgLIBHn8E4GUAlXPQ9f+Yl4NlzVqpInZ3aeHV72RWLRGt+KbrEtFls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tw2z6I00; arc=none smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51306c36c3eso31730771cf.0
+        for <linux-man@vger.kernel.org>; Mon, 18 May 2026 10:19:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779124791; x=1779729591; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ho9+fH+gp3mSGU3Jbw9Q/JjZyUGLdNr3d0SpXBmC3Uw=;
+        b=tw2z6I002oyQe51HoxCdrsyUmklj9RnJsfXV6MVbRm1D7U8UtSxbk7cKdlK9MyFK8S
+         62PIAXZaVNTVPLMIirojd//jWIULQmBAQzx9BTV14AAZ9oqH1K+sgymw9RlHZMOobpTK
+         4lhhDbl1EEhWPPoIqqm4TWiSav8lGm7OVPOyeOd/F2ldno5khWmbQNtbIU6KrA4s5IHf
+         Zdp2kD3hcZ3hLj5YtuUk58m3W2fc7bPlb5LQKFIXznWdLHCqTFdAfwHazIbxq0b7e3Vn
+         afzwdqf8lN2HILTJGuYSYLoSanl76FYUr9l3D3dTpqXAIT/bO04jje1kCdAoF2v96rpv
+         8lfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779124791; x=1779729591;
+        h=content-transfer-encoding:in-reply-to:organization:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ho9+fH+gp3mSGU3Jbw9Q/JjZyUGLdNr3d0SpXBmC3Uw=;
+        b=ExNpTK9jIOqBvcvIaeXpDsyXSnQxF6DUW4hwhVj7N+gYndeQPCIIkFEJ8x6q3RgszN
+         /Y9GzIfu76C0EqcBYsxqd3tmUcPM7Fn6JHCiJII52/EgAgphUGjt5OxFXIW1dyS1Mi86
+         Bwa/RJF0mzYkwTxouhSTuP+y3LbcB8q6O54rnvsLmXoEfQ+ez+K4/NV+SLHqPBujRonV
+         OJ54xcoY0FnExQgAf84AroboqlXOcwTLOma4rd27e/++0CKXUZf7w22dg7qWKDXE91ff
+         SctvFqX5MBtApzsB9YcQ6lO+vdqIKdF3nyz84JEFi0IHFvFti0HGhg99/b48fJ1293PN
+         oShw==
+X-Forwarded-Encrypted: i=1; AFNElJ+7J79HOXANHZW+NkNyOqVYnEnoW1hddx/b7HfBbbB5qUtGQhpH5/PG/OxFL9KT/5Xxl2UFGdwqwKM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwpuoNaPL3RArKDsPMZelweQFYaHRYUQgWrH8S9eig3mKzOGGOS
+	1OwfR1K/88c5u6B+xwzrE2Onvm7lju8/Wgs+JMOJB9fb83+v0lWzt6ajo1P1Yma+UrY=
+X-Gm-Gg: Acq92OFsixwclvu3vOMMrmJdbEKsEuMJInLdH+BHsHbyKAolZBi2yz9XSaHbadtxKSI
+	O3sM8I/vnVF7ViYHqtaDysbRHjhScC3LSi8H4JQc4a82/eWGq6Yt2KUj5f08XSYiXKgGgWmqSze
+	LlQKEM9As093VKZvliSLvUa7VHtZjCStv9twNlkxMucF8R+SC0RC+WTH1ZVpxYhv+d5xnOFTLTc
+	7rixG0FxbxY2V09D0Scsai9CsfWGE1Q0AOyNSxCacarsA7PFXXs2sAWY2TP0Mg8G8Cn1w8hXS9R
+	WgS+x24uSzlDXMp/OG1iqU3WrryP2SgjNd9OW72NKyYaYMnJGemEyqI76rMi+PBO+wmdy/5RHbB
+	FQuj+UNZoXlgPVExJVtX+KyirHvEzgPAEn6O5OmpXnHfMFhbVf03kuFx/uVleXhZRUsyF12NsTj
+	4XBsNR4A2F1C+By1/fLwvcMt0jqchnl3D/el9YrTFCqhNETbllBgYVr0kr4ovqquQKAarXyoRof
+	/Crj2q8YkTWTiALTMkITFerZKe7p0+ROA==
+X-Received: by 2002:a05:622a:4d8d:b0:50d:db76:55cd with SMTP id d75a77b69052e-5165a3053a9mr230983181cf.52.1779124791144;
+        Mon, 18 May 2026 10:19:51 -0700 (PDT)
+Received: from ?IPV6:2804:1b3:a7c1:d905:ade5:9efb:f9fb:f113? ([2804:1b3:a7c1:d905:ade5:9efb:f9fb:f113])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ca3618fe0bsm61287856d6.25.2026.05.18.10.19.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 10:19:50 -0700 (PDT)
+Message-ID: <0c1e8b52-68d3-4be4-84aa-8ab5bdfee29a@linaro.org>
+Date: Mon, 18 May 2026 14:19:46 -0300
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="572tlykgh3k5orhw"
-Content-Disposition: inline
-In-Reply-To: <b2kszapero3mb6q3763rrgjjfltkvt7aapm6s7oakpbpepfypk@mwybch7ayyqd>
-X-Spamd-Result: default: False [-2.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	SUBJECT_ENDS_QUESTION(1.00)[];
+User-Agent: Mozilla Thunderbird
+Subject: Re: non-standard const-preserving string APIs
+To: Alejandro Colomar <alx@kernel.org>, Florian Weimer <fweimer@redhat.com>
+Cc: libc-alpha@sourceware.org, linux-man@vger.kernel.org
+References: <agizh06CdDnhDvAB@devuan>
+ <c57574d1-9031-4ae6-8cd1-0e74931b9af6@linaro.org> <agnIOfwI5KKGwS_I@devuan>
+Content-Language: en-US
+From: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+Organization: Linaro
+In-Reply-To: <agnIOfwI5KKGwS_I@devuan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5554-lists,linux-man=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5555-lists,linux-man=lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:rdns,tor.lore.kernel.org:helo,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: EA53E56FDEA
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[adhemerval.zanella@linaro.org,linux-man@vger.kernel.org];
+	RCPT_COUNT_THREE(0.00)[4];
+	RCVD_COUNT_FIVE(0.00)[5];
+	TAGGED_RCPT(0.00)[linux-man];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:mid,linaro.org:dkim,sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo]
+X-Rspamd-Queue-Id: C3AA3571952
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---572tlykgh3k5orhw
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: libc-help@sourceware.org
-Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org, 
-	Petr Gajdos <pgajdos@suse.cz>
-Subject: Why is caddr_t used in quotactl(2)?
-Message-ID: <agssqAsUt9aYBsHX@devuan>
-References: <9d328eab7a632ac87f48bcfe88c0e5c3cca18d2a.1778951437.git.alx@kernel.org>
- <kf4k33gsaax2v2iwzfprvogsyfqxbjdldpkdefwraaea2ytijx@tm7g2gul3h53>
- <agsKOHLgfGkiyE1r@devuan>
- <b2kszapero3mb6q3763rrgjjfltkvt7aapm6s7oakpbpepfypk@mwybch7ayyqd>
-MIME-Version: 1.0
-In-Reply-To: <b2kszapero3mb6q3763rrgjjfltkvt7aapm6s7oakpbpepfypk@mwybch7ayyqd>
 
-[looping libc-help@]
+On 17/05/26 10:59, Alejandro Colomar wrote:
+> Hi Adhemerval,
+> 
+> On 2026-05-17T09:22:41-0300, Adhemerval Zanella Netto wrote:
+>>
+>>
+>> On 16/05/26 15:15, Alejandro Colomar wrote:
+>>> Hi!
+>>>
+>>> I'm working on documenting the recent API change of strchr(3) et al.
+>>> to adapt to C23.  While doing that, I've realized that the related APIs
+>>> that are not standardized by ISO C, such as memrchr(3), have not been
+>>> changed consistently with their relatives.  Has this been discussed?
+>>>
+>>> I think the inconsistency might be dangerous.  Should we change the
+>>> other string functions accordingly?
+>> I think it is reasonable to support const-preserving to the GNU interfaces as
+>> well. Are you preparing a patch?
+> 
+> Yup, I will.  Thanks!
+I will try to take a look, but I recall from previous weekly calls that Florian
+has raised objection that this does not solve the overflow issue (not without
+further extra changes).
 
-Hi all,
-
-On 2026-05-18T17:05:59+0200, Jan Kara wrote:
-> Hi Alejandro!
->=20
-> On Mon 18-05-26 14:51:45, Alejandro Colomar wrote:
-> > Also, I wonder why caddr_t was used at all, instead of void*.  It seems
-> > to unnecessarily require a cast, which could have been avoided with
-> > void*.  In quotactl_fd(), since we need to use syscall(2), which is
-> > variadic, I'll document the correct pointer types, instead of caddr_t*.
->=20
-> For this I don't have a good answer. It was like that for ages... I guess
-> you can ask glibc guys - the kernel uses void * but glibc uses caddr_t.
-
-Does anyone know why glibc uses caddr_t in quotactl(2)?  It seems to me
-that void* would be obviously better, by not needing a cast.
-
--  Why was it added in the first place, given the kernel uses void*
-   internally?
-
--  Can we change it now to be void*?
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---572tlykgh3k5orhw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoLLZwACgkQ64mZXMKQ
-wqkZ/A//Uqg+g8HPp0Ijz+3pzpfxjE0z9pX030CAJyHjXke+9qg27F5iiLjXu7sZ
-6cJ+EDPqtIlKkFTO5ITvX6P2dKj0WaZ2XfMnD7/vCLEksHqyLEBJnF0a5ur7tPkD
-TISLEk9UhiwPPcGj82n3LcE1wn9OIyOaIqcc3jyZgDhOav5560Uevmf7O1VxQn+S
-FO5fYKSwEyfVZLVm+2uCghexauecf00D0jXA4zxYh5ljGDG7LZ0dLM4urHtmYnqJ
-k0P+3nL/1JgrQ2Oyda0tXsCupWhoIhqtmzR3c60z8OyJD92KUeGrKslYvGA8Q7DM
-qU9nafM+t1aKNds1trCCjnNA0oiN+uz2FMHdRYaSPI/4z7ltEDOBA5EzoS2SJDea
-049EhGa+ji7ujrWB9yD+Q+0uuIkqkzySRl23qoRFv4CCny8Ww5z6khbv3lwURwM4
-YQRAchZjT1NhWPemDs4vCeRKqy1UhBmaMWkd9QcUUKTrCFcoyOe3zRJAcvAzRWsh
-vNotrfWQvYUctIPWC7VnJI8aYYZCzpq1ofv633je9vTJ8jHO1CDdsrxf+OcavWA5
-WOJ3bIvoZgcuLTp/BhvWj5kWQch1H1WOUp+4IgXDZ40Cjoc/qn1vNThSl/bhJ8pb
-HaRKJIwLtSi13QOo+qpQFgrbZVxgjbzr1VUfekctLFs9gJ3iXDw=
-=Mjqt
------END PGP SIGNATURE-----
-
---572tlykgh3k5orhw--
+I am not sure if he still keep his objection, nor if it is would a blocker for
+this new api.
 
