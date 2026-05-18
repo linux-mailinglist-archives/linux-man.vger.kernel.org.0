@@ -1,161 +1,180 @@
-Return-Path: <linux-man+bounces-5546-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5548-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kCx9DK/pCmpt9QQAu9opvQ
-	(envelope-from <linux-man+bounces-5546-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 12:27:59 +0200
+	id EElHD0L6CmpF+wQAu9opvQ
+	(envelope-from <linux-man+bounces-5548-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 13:38:42 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
-	by mail.lfdr.de (Postfix) with ESMTPS id C83CA56AB0B
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 12:27:58 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 283F056BB33
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 13:38:41 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 2FB733008C13
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 10:27:58 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 4DACF301C88A
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2026 11:28:49 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B88363E8685;
-	Mon, 18 May 2026 10:27:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 299C93F39D1;
+	Mon, 18 May 2026 11:28:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zqs/RsBH"
+	dkim=pass (2048-bit key) header.d=kramkow.ski header.i=@kramkow.ski header.b="ixpktuHr"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from aion.slow.network (aion.slow.network [95.179.232.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E7B3E8662
-	for <linux-man@vger.kernel.org>; Mon, 18 May 2026 10:27:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAE33F54C7
+	for <linux-man@vger.kernel.org>; Mon, 18 May 2026 11:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.179.232.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779100072; cv=none; b=EmG3g1giiHArfOLa9oZAezew6GGq6YPo4E876BdNJEqH4RpIGWl+qLNQFEiCaZKxrRdLBduaKZFrEvPu35Oo+Vwg8OEZcaORLGmv0wEiVbcyjoGg+4IWOiyYCenHxmc654u69lHsM+foRuSUzs65dQUWK+d4g9hNE0hcAEDJOo0=
+	t=1779103724; cv=none; b=hBqCSIxB458ukkwZR+VIU6rfPpLaDhbLrOxpO/04wW9l0ctwMlu2OfP6xaep6kJG/X3LrjM4+D0guAy/4UlXviAHxgjuIlPNY8VMsZIFDMulP5msljMLW/niW0+mqtb9y8vbxVL88M8HvnDEWoIlSylKfWUagrHrQ/kI7rpYLyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779100072; c=relaxed/simple;
-	bh=b80uNcMDX69DUIbWkgv/H9QTz7pkxF8vXVMNHXOL1vM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UHBNt88B3a/8iLBbDkFJU76tKxYCDTay+e/Ck0k+shrtxqHi9Pg2HKZmz7e4MobdWQIfT8Iq7uj0SWHs4yJRy4o+D4O3esfzsfQ6tAw/DoIp53Gz7QZzEMwe06jHibDYoFx08h3K5s681FkFbHVxN00ipxDSIP7SpmkEUfE7jqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zqs/RsBH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A51C2BCB7;
-	Mon, 18 May 2026 10:27:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779100070;
-	bh=b80uNcMDX69DUIbWkgv/H9QTz7pkxF8vXVMNHXOL1vM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Zqs/RsBHDLwCdmrPniiKxF9h86cb4im2S2e92D1gdebfVvA2nWTUqFHggqgmel+pf
-	 byDoDfpVxExDq8Z4sfictoI72YLqi4GIIj0ItAWkvJanuBJ2SazTa51hBvI12/Cy5J
-	 jdz3RXnx3+GOV9VOY7TMUsIPMkkNu+DJGpZ3ewbQNKwIMW92pR5k75M/44LOsGUHZ4
-	 DwzX0qICuu4SHO3o4ognt5Juz9nrjfhOavo5Wwdv0mdJWqDNiqBQyaIJqthv/cOrEL
-	 MOy5JJBoapR2vVocdiaIkBQ7u5A16i31E80hMNJs+xfr3ei5LhywepcH660veR5JD2
-	 EoW2sGyhY5kZg==
-Date: Mon, 18 May 2026 12:27:47 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-man@vger.kernel.org, Petr Gajdos <pgajdos@suse.cz>, 
-	Jan Blunck <jblunck@novell.com>
-Subject: Re: [PATCH v1] man/man2/quotactl.2: tfix
-Message-ID: <agrpfWkAA6g-WGGF@devuan>
-References: <9d328eab7a632ac87f48bcfe88c0e5c3cca18d2a.1778951437.git.alx@kernel.org>
- <kf4k33gsaax2v2iwzfprvogsyfqxbjdldpkdefwraaea2ytijx@tm7g2gul3h53>
+	s=arc-20240116; t=1779103724; c=relaxed/simple;
+	bh=s2DD8+GodHrotPklb+9y0gjVnRSVRFWcMGLcG00CaPw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=aiunLckrNKtNISi8D6cZMWM49EmfhclSXQ1L9Qtqm9clB2TP99QwEPzpijx8ILLSWCWOjX7NwUKfLINIUbdVzO33GvyrY5q/Yh55s54kfc4anCP5tN/DfLI3jk8tXYqWcphgEOVXvQfXFdKHOHOCJhSr6YIzThZ2IaXP8zdCB2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kramkow.ski; spf=pass smtp.mailfrom=kramkow.ski; dkim=pass (2048-bit key) header.d=kramkow.ski header.i=@kramkow.ski header.b=ixpktuHr; arc=none smtp.client-ip=95.179.232.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kramkow.ski
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kramkow.ski
+Received: from erebus.slow.network (erebus.slow.network [109.74.205.187])
+	by aion.slow.network (OpenSMTPD) with ESMTPS id 4e72da6c (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Mon, 18 May 2026 12:21:54 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=20220506; bh=s2DD8+GodHr
+	otPklb+9y0gjVnRSVRFWcMGLcG00CaPw=; h=in-reply-to:references:from:
+	subject:cc:to:date; d=kramkow.ski; b=ixpktuHr4dKXE0QzUOumnDV4tVe3PhgwM
+	kJPoA1AomK6gilAwRnomL7Xol5uh4jVivV/M91VpNzyYpfkVaS20xIEPocDmvEOwue2bCU
+	l+MVojqdYQ6bVpQbgwMU6JD3fK2jEHkUBHWjGgK7wVYaeEoIJJyqCGj/zyxfIdVXOlz56Q
+	ybsTXDNC3Cc3cbBll5WBGJMAdOuKgs7iieQnALlDgjeo7TWs7cpbJq1HlzfvjAiY4iBo8x
+	O0e7X2Cd/tHqpEt9ax5EZnevBCS2jH5VaKDi4pjgp3/9rU2gjoMOTwb9TpODfeD3ybT+rB
+	2UNg8YcpNBHbcX3s6t2mS4twMhtxg==
+Received: from localhost (flit-04-b2-v4wan-169180-cust382.vm32.cable.virginm.net [81.96.161.127])
+	by erebus.slow.network (OpenSMTPD) with ESMTPSA id 8ab473a2 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Mon, 18 May 2026 11:21:51 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r3ducmmiyeakcxy6"
-Content-Disposition: inline
-In-Reply-To: <kf4k33gsaax2v2iwzfprvogsyfqxbjdldpkdefwraaea2ytijx@tm7g2gul3h53>
-X-Rspamd-Queue-Id: C83CA56AB0B
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 18 May 2026 12:21:50 +0100
+Message-Id: <DILRHLVWZ1H4.3KE7ITJLCLV17@kramkow.ski>
+To: "Alejandro Colomar" <alx@kernel.org>
+Cc: <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] man/man2/ioctl_tty.2: Fix references to TCSETS(2const)
+From: "Tomasz Kramkowski" <tomasz@kramkow.ski>
+X-Mailer: aerc
+References: <20260501145701.66573-1-tomasz@kramkow.ski>
+ <afe6kmdqSAY6HrR7@devuan>
+In-Reply-To: <afe6kmdqSAY6HrR7@devuan>
+X-Rspamd-Queue-Id: 283F056BB33
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [-1.65 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW(-0.50)[kramkow.ski,quarantine];
+	MV_CASE(0.50)[];
+	R_DKIM_ALLOW(-0.20)[kramkow.ski:s=20220506];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5546-lists,linux-man=lfdr.de];
+	XM_UA_NO_VERSION(0.01)[];
+	TAGGED_FROM(0.00)[bounces-5548-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[kramkow.ski:+];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	FROM_NEQ_ENVFROM(0.00)[tomasz@kramkow.ski,linux-man@vger.kernel.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns,novell.com:email]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kramkow.ski:email,kramkow.ski:mid,kramkow.ski:dkim]
 X-Rspamd-Action: no action
 
+Hey Alex,
 
---r3ducmmiyeakcxy6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-man@vger.kernel.org, Petr Gajdos <pgajdos@suse.cz>, 
-	Jan Blunck <jblunck@novell.com>
-Subject: Re: [PATCH v1] man/man2/quotactl.2: tfix
-Message-ID: <agrpfWkAA6g-WGGF@devuan>
-References: <9d328eab7a632ac87f48bcfe88c0e5c3cca18d2a.1778951437.git.alx@kernel.org>
- <kf4k33gsaax2v2iwzfprvogsyfqxbjdldpkdefwraaea2ytijx@tm7g2gul3h53>
-MIME-Version: 1.0
-In-Reply-To: <kf4k33gsaax2v2iwzfprvogsyfqxbjdldpkdefwraaea2ytijx@tm7g2gul3h53>
+On Sun May 3, 2026 at 10:14 PM BST, Alejandro Colomar wrote:
+> Hi Tomasz,
+>
+> On 2026-05-01T15:57:01+0100, Tomasz Kramkowski wrote:
+>> Change the duplicate references to refer to all of the different
+>> variants of the TC{GET,SET{S,S2,W}{,W,F}} constants.
+>>=20
+>> This looks to be a bug which was introduced during a restructuring.
+>
+> Would you mind adding a Fixes:' tag for that bug?  It would help for
+> reviewing.
+>
+> See <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CON=
+TRIBUTING.d/patches/trailer#n16>
+> and <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CON=
+TRIBUTING.d/git#n46>.
 
-Hi Jan,
+Fixes: e59976296 (2024-06-13; "ioctl_tty.2, TC[SG]ET*.2const: Split TC[SG]E=
+T* from ioctl_tty(2)")
 
-On 2026-05-18T12:20:50+0200, Jan Kara wrote:
-> On Sat 16-05-26 19:12:08, Alejandro Colomar wrote:
-> > It seems most likely that this was a typo, and that Q_XQUOTAON was
-> > meant.
-> >=20
-> > Fixes: 1eeddf25 (2010-06-16; "quotactl.2: Major updates")
-> > Cc: Jan Kara <jack@suse.cz>
-> > Cc: Petr Gajdos <pgajdos@suse.cz>
-> > Cc: Jan Blunck <jblunck@novell.com>
-> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
->=20
-> Right. Thanks for the fix. Feel free to add:
->=20
-> Reviewed-by: Jan Kara <jack@suse.cz>
+I hope this is sufficient, but if not, let me know and I will re-send
+the patch with the tag.
 
-Thanks!  Added and pushed.
+Thanks,
 
+Tomasz
 
-Have a lovely day!
-Alex
+> Have a lovely night!
+> Alex
+>
+>>=20
+>> Signed-off-by: Tomasz Kramkowski <tomasz@kramkow.ski>
+>> ---
+>>  man/man2/ioctl_tty.2 | 16 ++++++++--------
+>>  1 file changed, 8 insertions(+), 8 deletions(-)
+>>=20
+>> diff --git a/man/man2/ioctl_tty.2 b/man/man2/ioctl_tty.2
+>> index 1d6e279c0..cb2776867 100644
+>> --- a/man/man2/ioctl_tty.2
+>> +++ b/man/man2/ioctl_tty.2
+>> @@ -42,21 +42,21 @@ whenever possible.
+>>  .TQ
+>>  .BR TCSETSF (2const)
+>>  .TP
+>> -.BR TCGETS (2const)
+>> +.BR TCGETS2 (2const)
+>>  .TQ
+>> -.BR TCSETS (2const)
+>> +.BR TCSETS2 (2const)
+>>  .TQ
+>> -.BR TCSETSW (2const)
+>> +.BR TCSETSW2 (2const)
+>>  .TQ
+>> -.BR TCSETSF (2const)
+>> +.BR TCSETSF2 (2const)
+>>  .TP
+>> -.BR TCGETS (2const)
+>> +.BR TCGETA (2const)
+>>  .TQ
+>> -.BR TCSETS (2const)
+>> +.BR TCSETA (2const)
+>>  .TQ
+>> -.BR TCSETSW (2const)
+>> +.BR TCSETAW (2const)
+>>  .TQ
+>> -.BR TCSETSF (2const)
+>> +.BR TCSETAF (2const)
+>>  .SS Locking the termios structure
+>>  .TP
+>>  .BR TIOCGLCKTRMIOS (2const)
+>> --=20
+>> 2.51.0
+>>=20
 
 --=20
-<https://www.alejandro-colomar.es>
-
---r3ducmmiyeakcxy6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoK6aIACgkQ64mZXMKQ
-wqkiTA//RqDOIL1AFm72DRWMLblMW/5L0WKQ612XC3YcZocxxdFPlQ0huZpdRhW+
-6WfuTN3z+d97NR4HttlpxgSYo1Ec3pqeNcy0EiM39MfmYoay73iFTff1xm0GKsie
-3kaeleHWZLHfG1a+Yeg99/g7ihTG3q551FehI4kAveI7KRictSGDFrAxBGLgWkLq
-TkEam/6vVAT4mImTIXtgoq8lM/kwZJoeYdTcPTkbExPb/cZgpTXvu8LpiD/gQ9YO
-O7mgfPC4ctqTnpCIbMgnNNaUdZ/ID/58Kw0xvQ0AoOGfcMKboNjLL+s1hP/Couw8
-bJLQEZbNUD4pMdbsfO47MrWLO+Xu849rpa6RB4BOY+Ht7UlRblksCn7zswR0RQ/w
-2SqifQxsfWRN1dvXfMJY2AIPMRm3QsOI16dqquJ9zaqLfMtPM3rU5M+FiQsXEkD/
-ybJJyB7DZRpeZN9BmTgWGhtrGC8sdFy8mJpl87lPcZfIqDrfCIE5bVxSw1JKlSc2
-/LOyyzalf6nTRepTjxRYesrE2MIQxHGRY9xToRRHCLl8ZIWo705OBtz0pO29bdxj
-AVXn7eB2w8R6smy5WDyImjW+LxWfKnbtXq0sg+G9DLHQ+Qm1ZYKQrMmbaE9XqQjd
-jOYN4S56hGwPTsJUsuuki/dv0ULB22ufrPcFjn3DBdSEZs8fR/4=
-=vMc+
------END PGP SIGNATURE-----
-
---r3ducmmiyeakcxy6--
+Tomasz (Tom) Kramkowski
 
