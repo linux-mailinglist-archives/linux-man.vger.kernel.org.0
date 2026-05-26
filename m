@@ -1,144 +1,168 @@
-Return-Path: <linux-man+bounces-5597-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5598-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eIdUBlN6FGokNgcAu9opvQ
-	(envelope-from <linux-man+bounces-5597-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 25 May 2026 18:35:31 +0200
+	id eJpGLpZpFWqyUwcAu9opvQ
+	(envelope-from <linux-man+bounces-5598-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 26 May 2026 11:36:22 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84EE75CCED2
-	for <lists+linux-man@lfdr.de>; Mon, 25 May 2026 18:35:30 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B4B75D36DD
+	for <lists+linux-man@lfdr.de>; Tue, 26 May 2026 11:36:22 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 4D36A30117AE
-	for <lists+linux-man@lfdr.de>; Mon, 25 May 2026 16:35:29 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id BA1AF30107F5
+	for <lists+linux-man@lfdr.de>; Tue, 26 May 2026 09:31:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF41638228F;
-	Mon, 25 May 2026 16:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE8AA3C4B87;
+	Tue, 26 May 2026 09:31:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="QMpdJ2bc"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4ck0gYN"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285D1335568
-	for <linux-man@vger.kernel.org>; Mon, 25 May 2026 16:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BE73A9D95
+	for <linux-man@vger.kernel.org>; Tue, 26 May 2026 09:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779726926; cv=none; b=Wlro0BwlKgN28ZXhqxRc0gETFNyNiyChgLPem4bkeaf4gfudriIqYFwlExyJ87LIXBYSjxlaUIPOrYY776hwACFNfOiNxuTGino3i/soyjB0v/G3t3RxqvxWcU/HLssuWmIjoSPAOrMXfii+7a78pebwtPf+E0uOD+nzbWqg15U=
+	t=1779787866; cv=none; b=UQW5SG2+wFs6IhKTJAXSJc6knPub7w325jgBhrsWIqkk5OJudb5azgALGYoNR64gy0X3ULutRWvodM9PQUL3uTbs3QAKeQJioPBv02qE7x9RbuPCP4LgZ+1MtZh6QqI5IPVmtyLOdmJ1LwH1YFvH9Q3zIRoyZ9K8fYhRqVMvquQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779726926; c=relaxed/simple;
-	bh=ieqGdAcGwsxr7hkj6CwhFhgMVpXqhy/0jXEsQOKvBaI=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=MMouYcU+W+zyIPkR/TDXkgU6DFYfP6ZAk5PacVPhwtHzZSIKFNWwPUE9umZFSweLC3RVs4JHDfFWuf8Gpm+Ysd7I7PSZ6JvF/4Y+l8HTyhNxeyvIjvzgVpw3GFTg6/DRmQCPwjtw8mkd3oL+3ONpgKZIzIlGeZjFwGrtWbQyLDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=QMpdJ2bc; arc=none smtp.client-ip=57.129.93.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1779726909; x=1779986109;
-	bh=2i3Qav51qbFS70r+Xmmh4gvzOJlV98HuZdrO6+TIj5Q=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=QMpdJ2bce6sObLWsQojwdje7lt52+YS6kWmIsR8yVAOH66I8Yms+LUHpk3WYTYOuE
-	 hhNkDVR2BEszFdsF2VZ5w8stypa3NfhJnIdDkIvxGBaeI7rb/huDaYmgZBzKKNrl+r
-	 nMpEFmRvohenpQtepy7vkB9Np+F7Eoo2YTnMB9MyjCCc/hBbaf0ru/EAAheQP9FBLe
-	 WYeIBOcRdkjbG9a01gojctyoGj9lNrHcv8Lak/Ar9qrZI+ukDY+gwviXnReNypLAGa
-	 LSvfmXWgjIsDulQ+NXvUGGcp2RdDdUPC81WGIz3J2AvidzyL8c2zXgePztIr/nYGG0
-	 yNMjq59LIkkQg==
-Date: Mon, 25 May 2026 16:35:05 +0000
-To: Alejandro Colomar <alx@kernel.org>
-From: Evan <felisevan@protonmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: [PATCH v1] man7/feature_test_macros.7: tfix
-Message-ID: <NVnggFXrKY_T_kEGNivWpJI-z3Ztwoyzp3gqTE22JG1-JQfhpNY42bISSPC2fhr90tzYI0QguUcNn3kD0ugpFcI6p-Q8G7KUknOfxOPRGAw=@protonmail.com>
-Feedback-ID: 23113616:user:proton
-X-Pm-Message-ID: fabad10080c8aef0850b7659d892b3a7dcf99094
+	s=arc-20240116; t=1779787866; c=relaxed/simple;
+	bh=86UOsq7nh/jJ9NNTAFcnPAFn/4LQ/JQIYF8rFQQw5sc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ox1MaVsPtW9gVj0l/ws8uOQVW5g+RLX3FzPMgC8Q6wHVu+UKYwC4PLHXR4Qr6/Gxt08iNU+PxXVBjzxY0goQlJtPk2clQq7Cbjv4XztcumLenq6n6MYPWRe5F2IFWlSfRIcRhSApuXGC4nYbAtoBqeIk6q2Pa/h6u6TxvrjJLWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4ck0gYN; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421B41F000E9;
+	Tue, 26 May 2026 09:31:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779787865;
+	bh=x+6X6r/1L0jGcM2fDpLS+DEmt+oNVnFKDM/qNq2yQ8I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G4ck0gYNQzlVBtX5REq0snx4wevj5lgHW2jCohjsRdE+xUmUaO4znQ1SSEVSIwWv5
+	 GT/Dtjac06qlMfogrulEroKjjk3C8CafBbe6CwebJ54IeS4X1+uOlDSq+OPrnONMlH
+	 dd4cpVUiva5sUck8/j6sL2SL0I4/+YEI1bcD8akClIRE0AgnabQmCLeqcl4ML+gaPD
+	 m4S+0O5eKD7BsDLm3doqm+J6kSGbkDx0RDdVxBtMmchfodf59o5qbH+q/GUaxlbeML
+	 6STo1UJRpd/qkj7cEKtq5d7wGj0otwCZmBW6G32gcAh4JmJEKfoVBp90b3Qz5rZEji
+	 186ZUmKjudZGA==
+Date: Tue, 26 May 2026 12:30:58 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: alx@kernel.org, linux-man@vger.kernel.org, linux-mm@kvack.org,
+	akpm@linux-foundation.org, peterx@redhat.com, david@kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH man-pages v1 0/6] userfaultfd: document read-write
+ protect mode
+Message-ID: <ahVoUsqYBY642VLS@kernel.org>
+References: <20260525122816.1956804-1-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="b1=_2BgwCJufqtZpIIXghDFF1Ys38sIl3vQbPKX7VUSr8w"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525122816.1956804-1-kirill@shutemov.name>
 X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[protonmail.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[protonmail.com:s=protonmail3];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5597-lists,linux-man=lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	HAS_ATTACHMENT(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	TAGGED_FROM(0.00)[bounces-5598-lists,linux-man=lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FREEMAIL_FROM(0.00)[protonmail.com];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[felisevan@protonmail.com,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[protonmail.com:+];
+	FROM_NEQ_ENVFROM(0.00)[rppt@kernel.org,linux-man@vger.kernel.org];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
 	TAGGED_RCPT(0.00)[linux-man];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:rdns,tor.lore.kernel.org:helo,sourceware.org:url]
-X-Rspamd-Queue-Id: 84EE75CCED2
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo]
+X-Rspamd-Queue-Id: 4B4B75D36DD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
---b1=_2BgwCJufqtZpIIXghDFF1Ys38sIl3vQbPKX7VUSr8w
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+On Mon, May 25, 2026 at 01:28:10PM +0100, Kiryl Shutsemau wrote:
+> This series documents userfaultfd read-write protection tracking
+> (UFFDIO_REGISTER_MODE_RWP), a working-set tracking mechanism for VM
+> guest memory landing in Linux 7.2.
+> 
+> The matching kernel series ("userfaultfd: working set tracking for VM
+> guest memory") was sent against the mm tree:
+> https://lore.kernel.org/all/20260525113737.1942478-1-kas@kernel.org/
 
-Fixed two typos in the _REENTRANT description under the "Feature test
-macros understood by glibc" section.  Changed "199606L" to "199506L".
-For the corresponding glibc source code, see:
+The content of the docs looks fine to me.
 
-<https://sourceware.org/git?p=3Dglibc.git;a=3Dblob;f=3Dinclude/features.h;h=
-=3Dc080ad4260f40e633f6df951408d0a822ac2fb3d;hb=3DHEAD#l350>
+Leaving groff and organization to Alex :)
 
-Signed-off-by: felisevan <felisevan@protonmail.com>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
+> == New UAPI documented ==
+> 
+>   UFFDIO_REGISTER_MODE_RWP    registration-mode bit (UFFDIO_REGISTER.2const)
+>   UFFD_FEATURE_RWP            capability bit          (UFFDIO_API.2const)
+>   UFFD_FEATURE_RWP_ASYNC      async resolution        (UFFDIO_API.2const)
+>   UFFDIO_RWPROTECT            install/remove RWP      (new page)
+>   UFFDIO_SET_MODE             runtime mode toggle     (new page)
+>   UFFD_PAGEFAULT_FLAG_RWP     new pagefault.flags bit (userfaultfd.2)
+>   PAGE_IS_ACCESSED            PAGEMAP_SCAN bit        (kernel docs only)
+> 
+> == Series layout ==
+> 
+>   1. userfaultfd.2: overview, registration mode entry, new pagefault
+>      flag, VERSIONS line, and an "Userfaultfd read-write protect mode"
+>      section.
+>   2-3. New UFFDIO_RWPROTECT.2const and UFFDIO_SET_MODE.2const pages.
+>   4. UFFDIO_API.2const: UFFD_FEATURE_RWP, UFFD_FEATURE_RWP_ASYNC,
+>      and 1 << _UFFDIO_SET_MODE.
+>   5. UFFDIO_REGISTER.2const: UFFDIO_REGISTER_MODE_RWP and
+>      1 << _UFFDIO_RWPROTECT.
+>   6. ioctl_userfaultfd.2: reference the two new ioctls.
+> 
+> Order: new pages first so the cross-references in patches 4-6 link
+> to pages that already exist.
+> 
+> Kiryl Shutsemau (5):
+>   UFFDIO_RWPROTECT.2const: New page
+>   UFFDIO_SET_MODE.2const: New page
+>   UFFDIO_API.2const: Document UFFD_FEATURE_RWP{,_ASYNC} and 1 <<
+>     _UFFDIO_SET_MODE
+>   UFFDIO_REGISTER.2const: Document UFFDIO_REGISTER_MODE_RWP and 1 <<
+>     _UFFDIO_RWPROTECT
+>   ioctl_userfaultfd.2: Reference UFFDIO_RWPROTECT and UFFDIO_SET_MODE
+> 
+> Kiryl Shutsemau (Meta) (1):
+>   userfaultfd.2: Add read-write protect mode
+> 
+>  man/man2/ioctl_userfaultfd.2          |   4 +
+>  man/man2/userfaultfd.2                | 152 +++++++++++++++++++++++++-
+>  man/man2const/UFFDIO_API.2const       |  29 +++++
+>  man/man2const/UFFDIO_REGISTER.2const  |  21 ++++
+>  man/man2const/UFFDIO_RWPROTECT.2const | 117 ++++++++++++++++++++
+>  man/man2const/UFFDIO_SET_MODE.2const  |  95 ++++++++++++++++
+>  6 files changed, 414 insertions(+), 4 deletions(-)
+>  create mode 100644 man/man2const/UFFDIO_RWPROTECT.2const
+>  create mode 100644 man/man2const/UFFDIO_SET_MODE.2const
+> 
+> 
+> base-commit: 9a4bfd0e50745c2649b6291db40b58e37c9c1c6b
+> -- 
+> 2.54.0
+> 
 
---b1=_2BgwCJufqtZpIIXghDFF1Ys38sIl3vQbPKX7VUSr8w
-Content-Type: application/octet-stream; name=v1-0001-man7-feature_test_macros.7-tfix.patch
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename=v1-0001-man7-feature_test_macros.7-tfix.patch
-
-RnJvbSAzOGVlMGI2ZTU1MzYzNzJkYzg4OTY3OTA3OTg3NGJlNjRiODdkYzhhIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBmZWxpc2V2YW4gPGZlbGlzZXZhbkBwcm90b25tYWlsLmNvbT4K
-RGF0ZTogTW9uLCAyNSBNYXkgMjAyNiAxODoxNDoxNCArMDIwMApTdWJqZWN0OiBbUEFUQ0ggdjFd
-IG1hbjcvZmVhdHVyZV90ZXN0X21hY3Jvcy43OiB0Zml4ClRvOiBBbGVqYW5kcm8gQ29sb21hciA8
-YWx4QGtlcm5lbC5vcmc+CkNjOiA8bGludXgtbWFuQHZnZXIua2VybmVsLm9yZz4KCkZpeGVkIHR3
-byB0eXBvcyBpbiB0aGUgX1JFRU5UUkFOVCBkZXNjcmlwdGlvbiB1bmRlciB0aGUgIkZlYXR1cmUg
-dGVzdAptYWNyb3MgdW5kZXJzdG9vZCBieSBnbGliYyIgc2VjdGlvbi4gIENoYW5nZWQgIjE5OTYw
-NkwiIHRvICIxOTk1MDZMIi4KRm9yIHRoZSBjb3JyZXNwb25kaW5nIGdsaWJjIHNvdXJjZSBjb2Rl
-LCBzZWU6Cgo8aHR0cHM6Ly9zb3VyY2V3YXJlLm9yZy9naXQ/cD1nbGliYy5naXQ7YT1ibG9iO2Y9
-aW5jbHVkZS9mZWF0dXJlcy5oO2g9YzA4MGFkNDI2MGY0MGU2MzNmNmRmOTUxNDA4ZDBhODIyYWMy
-ZmIzZDtoYj1IRUFEI2wzNTA+CgpTaWduZWQtb2ZmLWJ5OiBmZWxpc2V2YW4gPGZlbGlzZXZhbkBw
-cm90b25tYWlsLmNvbT4KLS0tCiBtYW4vbWFuNy9mZWF0dXJlX3Rlc3RfbWFjcm9zLjcgfCA0ICsr
-LS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvbWFuL21hbjcvZmVhdHVyZV90ZXN0X21hY3Jvcy43IGIvbWFuL21hbjcvZmVhdHVy
-ZV90ZXN0X21hY3Jvcy43CmluZGV4IDQ2OWU5NzMxLi4wYmZjZDkyMSAxMDA2NDQKLS0tIGEvbWFu
-L21hbjcvZmVhdHVyZV90ZXN0X21hY3Jvcy43CisrKyBiL21hbi9tYW43L2ZlYXR1cmVfdGVzdF9t
-YWNyb3MuNwpAQCAtNTcyLDcgKzU3Miw3IEBAIC5TUyBGZWF0dXJlIHRlc3QgbWFjcm9zIHVuZGVy
-c3Rvb2QgYnkgZ2xpYmMKIGhhcyBiZWVuIHRvIGVuYWJsZSBvbmUgb3IgdHdvIG9mIHRoZSBzYW1l
-IGRlY2xhcmF0aW9ucyB0aGF0CiBhcmUgYWxzbyBlbmFibGVkIGJ5IGRlZmluaW5nCiAuQiBfUE9T
-SVhfQ19TT1VSQ0UKLXdpdGggYSB2YWx1ZSBvZiAxOTk2MDZMIG9yIGdyZWF0ZXIuCit3aXRoIGEg
-dmFsdWUgb2YgMTk5NTA2TCBvciBncmVhdGVyLgogLklQCiAuQiBfUkVFTlRSQU5UCiBpcyBub3cg
-b2Jzb2xldGUuCkBAIC01ODAsNyArNTgwLDcgQEAgLlNTIEZlYXR1cmUgdGVzdCBtYWNyb3MgdW5k
-ZXJzdG9vZCBieSBnbGliYwogLkIgX1JFRU5UUkFOVAogaXMgZXF1aXZhbGVudCB0byBkZWZpbmlu
-ZwogLkIgX1BPU0lYX0NfU09VUkNFCi13aXRoIHRoZSB2YWx1ZSAxOTk2MDZMLgord2l0aCB0aGUg
-dmFsdWUgMTk5NTA2TC4KIElmIGEgaGlnaGVyIFBPU0lYIGNvbmZvcm1hbmNlIGxldmVsIGlzCiBz
-ZWxlY3RlZCBieSBhbnkgb3RoZXIgbWVhbnMgKHN1Y2ggYXMKIC5CIF9QT1NJWF9DX1NPVVJDRQot
-LSAKMi40My4wCgo=
-
---b1=_2BgwCJufqtZpIIXghDFF1Ys38sIl3vQbPKX7VUSr8w--
-
+-- 
+Sincerely yours,
+Mike.
 
