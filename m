@@ -1,168 +1,191 @@
-Return-Path: <linux-man+bounces-5611-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5612-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GMeGJlI3F2ra9QcAu9opvQ
-	(envelope-from <linux-man+bounces-5611-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 20:26:26 +0200
+	id sNDaCB54F2ruFggAu9opvQ
+	(envelope-from <linux-man+bounces-5612-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 01:02:54 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 492EE5E8F75
-	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 20:26:25 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 721615EAD54
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 01:02:52 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id A98AB309B465
-	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 18:19:34 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 30A4731273F3
+	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 22:59:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5261D46AF2C;
-	Wed, 27 May 2026 18:16:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C91593C942C;
+	Wed, 27 May 2026 22:59:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PvYo2mqs"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fmCAFRcl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A114657F5
-	for <linux-man@vger.kernel.org>; Wed, 27 May 2026 18:16:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807873C3BE5;
+	Wed, 27 May 2026 22:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779905764; cv=none; b=cesTnnOcFHWhGvRZATX+xYm7+TcyqW+kTC1bfWWzO2UIKKqtygWMS6/Z87T1UFHxXEEOpRQqQOIKLbzSg9lpDFk2aJIuVGZ4721Bj8gSSdaMMJeGZW4BsX0zGph9dGRxablLlPX7pCRq3bG0D30GB1J33HeuAWwLGHwdSof7HFY=
+	t=1779922790; cv=none; b=dyxu2HkXX/8ll43JZGd/XVRzL+OMU0SU6O+MEvx/5rNfmZNryPIB35JpYd8rOKBZLCMicPgDprYUM58w+vaMwFsS3dZ8d/5AVdfcTtBuyNxjc1wY/14vfts7TQEgsmf+2DDArAAv/hdHjGoYMMcxI4lLJhuJXz3SNUSLrOE2E8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779905764; c=relaxed/simple;
-	bh=2O98pcDodvf/w5L1Uqu7/tQOCDHAp85xEdv7VYL7Blk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=npTR/hje+eeCQV3VbagN/dhPsny+qLMs1tGCtFb4K857F0ZAhzvKvW+n3/9tsQkn1hvrlP73pRL3uimSnUtU8229VWKNPRb6wFJOcQFEhmCwF1gLUdtnK25wQ0Hli9REk2ASt5bJK6vO+S8+uWtCHlaqCmKgy8Xi16fmLEW4ChU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PvYo2mqs; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4896c22fcbaso102748735e9.0
-        for <linux-man@vger.kernel.org>; Wed, 27 May 2026 11:16:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779905761; x=1780510561; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cc56agp3MwuW21VE5gH+ln5C8u11biR7qsKK3i4wPsw=;
-        b=PvYo2mqs/wh7+Gtx9zjLfbJ4dAsqBIAiMC3it/PnYlA43003rlAxkgsoUSSiqYBXYb
-         2FXd3+RiHxISB1a5AqebJd4dzH23POSbtKcMfO5uM0RJkmrfCUrt45bHhMGOIBKEJkEy
-         09Xpvo/aEl58LcbawVEmTwyLZiQl0rVHYGWQRUA6E0qQIIFSB+xQx4OO7Iq3x6w7lNU2
-         AIgerfSXKE8SdoA3AsFAPs6BB7J4cZR8H8MQvQ/ux94QNRzjg3ebCvjftV3mRdIzHj5s
-         Dq20M4+dsLveoMCOlnXx0QVNJmPuju5OUjTjUc+hg7fd0bD41gRIerw0Q928iJ65jGEv
-         rzTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779905761; x=1780510561;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cc56agp3MwuW21VE5gH+ln5C8u11biR7qsKK3i4wPsw=;
-        b=lh+nTC5okBKw7Y7hVh4ErOQXJbQ+t30RxdcHQC8krKuHA0fqhGKbbm35mlTCj5e/Bq
-         1qaqFLXMmiqq4T5sg1zydOH4TxccdgjXeLx4ntJccK1RUXtc1QVHd3p2EUxH9qxuw+cW
-         3ejDt+CoKWchSKDcPHdtsiaHvbJxf6XaBCngNSvvf/k0xzt30M+xZmjmhINUNAW1SlVF
-         xP/8W5V9+KyD0zc+GdY2QSakWqVfts++nN8JkBaCfZFWsRWoRSgyTTeIZwXF5UPRGVNx
-         ycIqDfAJmmgY4sAY4H12GCh2E8XQfz3CPf54glI2z5zN+bkRHUZx7DNOblojGuaxs9E4
-         Apeg==
-X-Forwarded-Encrypted: i=1; AFNElJ+xQM9MUnyV30rUbLU7qJHXm6dldyjg4zCjWscVottl7HrqY0mR99ZY4tEdfpRNiM1Xr08KF7Z/qrY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+q8rJ8PFOK/dmJ2HAMjchbjMgFlbgoRkLtXDoxJ0krS+vAOqS
-	ij1Jbc0myXTi1Q7Zn4gpO1y/if20KLX9vcAVJVmSQD39MjY2tJhtNZCR
-X-Gm-Gg: Acq92OFolDeFjD+AUUZMAT5w3rzLo+n5+oUdPE6IzeYc6UikG/f2IcdntnVkn/W9JNh
-	pTN7v9zVbVX5Th0kN3JWKybPtH8Rc4tS8C5631TeOIj2vw5/fCKtTPIK25hTHrMXUTKXIbrxII8
-	pCu3eXLDXqsx0TiObTmYnHtzkTw7LYgqouXsj5P8ZGwlYhl1k+lhnnepyJ5UA1HRNt0tQ+MGPf/
-	RWt5FmVqCCItbiPq24V2rwwiA8l3ohpFsKC5FQkNnov0yJxInYrIOrg9acm49QBaLREk+rqwBBE
-	CRzBT9TOPyhYkQ866xOAAYv0wiJ2wL5SMr0aq+iD6Q8mgTKnEXpmAl/3QuD3xDxfKiGw63RKP6b
-	EA5VUpr599zvIECx7OV4bY5RQ56y0GJIym1qj4emEUKWqy9uu/fnf8o5SN6228+IsNesfOagx8F
-	1s5nHY80BggyZqmtWY4X8mWT1SxUCKNA==
-X-Received: by 2002:a05:600c:35c8:b0:490:44eb:c1e7 with SMTP id 5b1f17b1804b1-49044ebc2d5mr442432465e9.30.1779905760422;
-        Wed, 27 May 2026 11:16:00 -0700 (PDT)
-Received: from localhost ([212.73.77.104])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4904526c926sm736405855e9.1.2026.05.27.11.15.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 11:15:59 -0700 (PDT)
-From: Askar Safin <safinaskar@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>,
-	linux-man@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] man/man3/errno.3: clarify ENOTSUP and EOPNOTSUPP
-Date: Wed, 27 May 2026 18:15:48 +0000
-Message-ID: <20260527181549.2237547-1-safinaskar@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1779922790; c=relaxed/simple;
+	bh=oQgI+Cpt5Cjxq5aXu+mjJw6wzyd5STwTq+YPT6wYOz4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r5XiKWivQ9hFvpAgzF/JNy2eaulj5d9MlIybxZ2wr4CgMkIH1hWGR31iauvLT9eEVvaZx2DFEaqjCJ1ao/0GfPjFJOlfI9bAuQQryUediu8XnoMAbs7TW1kG4EEZEA9Y+YGWSmP8JdFYBkn2oEC/nbx6EH2VVSis7gW8tjiJD3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fmCAFRcl; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A8F1F000E9;
+	Wed, 27 May 2026 22:59:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779922789;
+	bh=2fmxC0as6KB14C/4wMktDVeqEbR+gAWpUdu5rwDaqhQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fmCAFRclm76H7SXK35o1n3gV60ReoROS34TBCcPlbqLKk5IH+PbedczEsIr0m9Leh
+	 UO5LqjaUoJ+EalPjXZXwG8KylWP8thzln0ybY56k0nuPyUsBys59O94kks90IBtFf0
+	 7zV2zeWEzHEcSoF/zDkwklCu9OG4SMWW1G6N9NXAZFyAb/JToDU75wE5vOZpWt8dzv
+	 h2sToDwAU1OMHUYv4L0efIZqBNyfTYFk7A7qxvJb8RXhrAC+1oFL5oo96jD+/7SZDo
+	 K8KiDkUY7Ue2vfN5BwN7a2j1hfXPHlKxxjFG+o/uDGOxTh+EzIs4q3Q17K2dWvWTJ3
+	 n9rGXXCPsRxhg==
+Date: Thu, 28 May 2026 00:59:44 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Askar Safin <safinaskar@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] man/man3/errno.3: clarify ENOTSUP and EOPNOTSUPP
+Message-ID: <ahd3SmZZqnzP0-O2@devuan>
+References: <20260527181549.2237547-1-safinaskar@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-0.66 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jupvnftsgti6v3vj"
+Content-Disposition: inline
+In-Reply-To: <20260527181549.2237547-1-safinaskar@gmail.com>
+X-Spamd-Result: default: False [-3.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5611-lists,linux-man=lfdr.de];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[gmail.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[safinaskar@gmail.com,linux-man@vger.kernel.org];
+	TAGGED_FROM(0.00)[bounces-5612-lists,linux-man=lfdr.de];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	RCVD_COUNT_FIVE(0.00)[5];
-	TAGGED_RCPT(0.00)[linux-man];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:rdns,sto.lore.kernel.org:helo]
-X-Rspamd-Queue-Id: 492EE5E8F75
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	TAGGED_RCPT(0.00)[linux-man];
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo,opengroup.org:url,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: 721615EAD54
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-As revealed by Christian Brauner recently
-( https://lore.kernel.org/all/20260527-fotowettbewerb-abwinken-einfach-83db3411945b@brauner/ ),
-EOPNOTSUPP is widely used on Linux to mean "Operation not supported",
-as opposed to "Operation not supported on socket".
 
-Also, as seen in POSIX issue 8:
-https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/errno.h.html
-POSIX doesn't require ENOTSUP and EOPNOTSUPP to be distinct, so
-let's update that, too.
+--jupvnftsgti6v3vj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Askar Safin <safinaskar@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] man/man3/errno.3: clarify ENOTSUP and EOPNOTSUPP
+Message-ID: <ahd3SmZZqnzP0-O2@devuan>
+References: <20260527181549.2237547-1-safinaskar@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20260527181549.2237547-1-safinaskar@gmail.com>
 
-Signed-off-by: Askar Safin <safinaskar@gmail.com>
----
- man/man3/errno.3 | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Hi Askar,
 
-diff --git a/man/man3/errno.3 b/man/man3/errno.3
-index a070dab..fdd2710 100644
---- a/man/man3/errno.3
-+++ b/man/man3/errno.3
-@@ -477,13 +477,14 @@ Name not unique on network.
- No such device or address (POSIX.1-2001).
- .TP
- .B EOPNOTSUPP
--Operation not supported on socket (POSIX.1-2001).
-+Operation not supported (POSIX.1-2001).
-+According to POSIX.1 this is "Operation not supported on socket",
-+but on Linux it effectively means just "Operation not supported".
- .IP
- .RB ( ENOTSUP
- and
- .B EOPNOTSUPP
--have the same value on Linux, but
--according to POSIX.1 these error values should be distinct.)
-+have the same value on Linux.)
- .TP
- .B EOVERFLOW
- Value too large to be stored in data type (POSIX.1-2001).
+On 2026-05-27T18:15:48+0000, Askar Safin wrote:
+> As revealed by Christian Brauner recently
+> ( https://lore.kernel.org/all/20260527-fotowettbewerb-abwinken-einfach-83=
+db3411945b@brauner/ ),
+> EOPNOTSUPP is widely used on Linux to mean "Operation not supported",
+> as opposed to "Operation not supported on socket".
+>=20
+> Also, as seen in POSIX issue 8:
+> https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/errno.h.html
+> POSIX doesn't require ENOTSUP and EOPNOTSUPP to be distinct, so
+> let's update that, too.
+>=20
+> Signed-off-by: Askar Safin <safinaskar@gmail.com>
 
-base-commit: 9a4bfd0e50745c2649b6291db40b58e37c9c1c6b
--- 
-2.47.3
+I've applied the patch; thanks!
 
+
+Have a lovely night!
+Alex
+
+> ---
+>  man/man3/errno.3 | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/man/man3/errno.3 b/man/man3/errno.3
+> index a070dab..fdd2710 100644
+> --- a/man/man3/errno.3
+> +++ b/man/man3/errno.3
+> @@ -477,13 +477,14 @@ Name not unique on network.
+>  No such device or address (POSIX.1-2001).
+>  .TP
+>  .B EOPNOTSUPP
+> -Operation not supported on socket (POSIX.1-2001).
+> +Operation not supported (POSIX.1-2001).
+> +According to POSIX.1 this is "Operation not supported on socket",
+> +but on Linux it effectively means just "Operation not supported".
+>  .IP
+>  .RB ( ENOTSUP
+>  and
+>  .B EOPNOTSUPP
+> -have the same value on Linux, but
+> -according to POSIX.1 these error values should be distinct.)
+> +have the same value on Linux.)
+>  .TP
+>  .B EOVERFLOW
+>  Value too large to be stored in data type (POSIX.1-2001).
+>=20
+> base-commit: 9a4bfd0e50745c2649b6291db40b58e37c9c1c6b
+> --=20
+> 2.47.3
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--jupvnftsgti6v3vj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoXd2AACgkQ64mZXMKQ
+wqnAow/9E60Jk/qH4/yEGYLJNs1arozKvMpYouPq3f8NGCZJBKnRx3PuvfGLH9i3
+0rqKszGLReJwBtdXYdd75d+hC+v6ADoTwC4oaCu+gfWdUXPld0zxLS4z9wKg7zbE
+ulrcFdw87VglLyCPVGS+zrb85AaG3Gr67Lwz+XI8FNe/f8omCiplH2kpWyGwfml1
+6td0HB021IqEVZ8xV2zFeEdIqW6byigWbM3bsdAY3PFvbM5JDALpHVIPKfel2RAW
+dmNVrcNdkpl3UMu50K75o6w8rQBAzyimEmkBhcemPvMLWO8odhXoow8ATb9kxp62
+NC8R4QhY87Vh6dwotGxnVq8J4Uu75u+z64Ce7Irz19Q3d7PRGPc4U/IanlHpLVcb
+/AbOfJ7uHvz6ybxO582yoCPqARbq5UVYjdd2viK6NbULODFx719lRgiTEHpuoiyo
+4sRtauibduuQDxVub8mWTFvVWi1iwqHtBlv1kO/NC6/xFEykktMJaA0DYwEazdph
+UY5V5fLBPKxTqTDPodHravMAxt7A3a/QaVEKnAo2J3xwXiaLPlHTsfq0IPkauzsH
+AhhZx0XppScOJSX5jumYGyFhvmuc9hhj94wsz2eUa64W5keed4UbYzHVprNh+910
+kRclE23KAa/kuoesRoGZ0ayx+xcpFCub/3G3v2e8wygmSlIAj1E=
+=GfzF
+-----END PGP SIGNATURE-----
+
+--jupvnftsgti6v3vj--
 
