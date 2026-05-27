@@ -1,167 +1,178 @@
-Return-Path: <linux-man+bounces-5609-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5610-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gBbtJtsgF2rt5wcAu9opvQ
-	(envelope-from <linux-man+bounces-5609-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 18:50:35 +0200
+	id CM5hHUwyF2rd7wcAu9opvQ
+	(envelope-from <linux-man+bounces-5610-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 20:05:00 +0200
 X-Original-To: lists+linux-man@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDF825E807F
-	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 18:50:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC9E45E8AAB
+	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 20:04:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 80DBD3003EEC
-	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 16:46:51 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id C2C4930056DA
+	for <lists+linux-man@lfdr.de>; Wed, 27 May 2026 17:58:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44B9A30C15E;
-	Wed, 27 May 2026 16:46:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 550CA44DB85;
+	Wed, 27 May 2026 17:58:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=man7.org header.i=@man7.org header.b="ZvyZTRrK"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DK8t21x/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C9243E9D5
-	for <linux-man@vger.kernel.org>; Wed, 27 May 2026 16:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779900408; cv=pass; b=rE9IdMY90qNeA0uCsLqH6rUracFDxh9ooHsgdatQmValbaEEZNUpQSsZ+healbfFYBBwf98rJi5jwndNaHqZKXc2gDP+7wcjdSbZDqVjedI4erxqK92XsrbUQGrNd4Y6SvdCZMj91Ek1sgc1uJgzOH5Br2QKmNtI94lgs+4JGzw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779900408; c=relaxed/simple;
-	bh=ZGk/k1Hw4KRXJ27tqEA8eayO0JbXOk5kio5UISwhWX0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tESOdRZZjs3ocTMlQBwCJYQytQzeNtB/97KnWvwa5Z43qPGvoEE8+l+Yep21x7p7VftRmCwOJaZdMUmjVc+w0cL6JGoo6tksOZJ4iNmgo7c9xGvxjpWudd9TYqseOiE/SmbZISDCwg7mbCEloMF7ef5GbHk8aOnHUwcW0eiOzgU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=man7.org; spf=pass smtp.mailfrom=man7.org; dkim=pass (2048-bit key) header.d=man7.org header.i=@man7.org header.b=ZvyZTRrK; arc=pass smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=man7.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=man7.org
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4891b0786beso79690815e9.1
-        for <linux-man@vger.kernel.org>; Wed, 27 May 2026 09:46:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779900403; cv=none;
-        d=google.com; s=arc-20240605;
-        b=isv62OvrgHF1Mz9tjCD7d3dhqMM0P3AvtBr9M6JkWVRzF4njeRhCb5hG3xyivU5HH3
-         FVrvpXYS0r03fPEZ9HJh7kK8kRPZb3BtT5WJybfCH6r6QW/oucW2Jj8mlFFVLIGU8YvT
-         i/E6QjWnE507l3ZfKOt21aOxUq/mENrgfyIsyCVGvDo5Jke1Do/C4y5qPga+N9BOuNjH
-         tBDdETjJ8xGCctsUnSnkAfj8kSUUluEWciLuaZJ7sc0hkOmx6J7+3qTHVrdBTC5r2zgt
-         0IM5m43HrkyrMjDG3mPCqR/6q20rLhfI1jRtWIkcLQPz5AHzUIXXE8cvN8j96QAlC/fC
-         KemQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=eUwrAdatpZSnMXlHZB606ZR259DWzstZLe3HM19jBKc=;
-        fh=Fwyl30e8p6At0u6ZDO56Qp9ECRF9CZFFVR4HTAIaCcI=;
-        b=SshhH8XNvBWnakwpBqSTvLipRbSks3RGNZrQz4FVhpXro8XCXScy6+Io3pQLCcNY0J
-         ABoS2gPMGnw+fje2vLdfz+I5WEevilHQ2MTGzfRBvGn3tKvjVP+5koQN/3/8GbGFSSMH
-         8BFHw04VVN0L57MB66KEZ6kHw5m09wDyYv4M8HqfAH7u3bxP7EBzGFa4vmBmROkAxuEd
-         iRR1lUoyVVdcfXQc7l6bIQb1VB9vHqCpX+boVIL4CPNMXVfKUmVxBIHP06BLjgF2XPlv
-         38S8iFNj3KbzwQmElM5Xl8LVMgx/KqbxewTwX/Lmp7K3mMnUlQKkWFiVxWbappGCKYm7
-         FdFA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=man7.org; s=google; t=1779900403; x=1780505203; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=eUwrAdatpZSnMXlHZB606ZR259DWzstZLe3HM19jBKc=;
-        b=ZvyZTRrKR/UhJK8RF8LTvGsNR5ghH+dC3fHuDaBkebFql/+8hhpc89eS6o+4zKcore
-         vHuNGoTE84Sduu+A9fptdkBFMEzGNxIfm3DGkCZSE8MsTok7s7T+/KlKkOVYXN+B/mLx
-         Nex915Zpt0AeoeffREgI4Rcxri/g9CUWRB/MSeW5TVnlVWJOlzIDA4qsrnNyzBQOzByV
-         5LJtppDQWeO24zKY7NtcFUU/gSlcqPWeaBwrmEXH+jDFAXw03WcH5z4aC+UMqNUouH48
-         aU6tsyAO4PsGiPo1t4/fR+BkhGsOryOBOIilL983qrTXyFapnMjpMEmbsnhf9Fagq22R
-         63eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779900403; x=1780505203;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eUwrAdatpZSnMXlHZB606ZR259DWzstZLe3HM19jBKc=;
-        b=DXJy5C0E2wOH08C/jMcsJzpHW9LhJLK2hb1YkUKO73pwWqA1jGKKrVG94dJcxdeL/j
-         HRG3Qv/SfMCFrHTAVADS7hz3grXaxRyme5r0Qzon8f4mV1JUheuIc7mraHkPor97/O2k
-         aLKupNIPqXlN+6uJyihwScWrhS0V1/TPRxwzQdub8/r61f7nYDUDxjK6t4qfUwmrWluV
-         U84skVEYEUQ0zj1n/JJFHsymg7tcDyU3TeJsSbd+u+IeCsySDnrCvyG2AsyUuUn3iz2Q
-         dOW3pPyLraPOqDoFycpRXhjGnFxOpOwFSdD6TiaXiGbxAPAPkGfsKUBq5OaRRRaJDTnF
-         EMKg==
-X-Gm-Message-State: AOJu0YxJU8nA+YqZVdlUx464nj+jdroVzHmqLJFn+KZI/tBb16qE0imE
-	5Flgm9RLJBBWVXK6ZKA/U+IYYNgLQrKnV+8KWh+5n0aS+PLbmLsFK85QOqXmvIClaM+G2ydmR2q
-	OdPme9yk53/QQltEbDeyuKC7Mn/IfoyzyNZNyXA6Gl2PUYEhjenn9
-X-Gm-Gg: Acq92OEWGM/C2ndZkwx43cy/Awkyq4qQSTxiXbCN8lpmmXLi3s1kYXtdeBOY3b6YnxY
-	1cV+QFxMbghMFvlGgQUJFQ4GFB7TdshrKFPoKLgVyG4utcSBkE9SZHm+S23+6/bxWIZE/NwgaAQ
-	Kgpb5dsPkVRf9Su71HKt32X944g8WmzdCz3qWMvdCesm+q2f3o+lXia9oPBO4nvjPeuPXh+qCAV
-	9Q8xurmHihIiG/Bt0e4bMyrVzFgCWR1ZdWTs0iNRDUBADNStixtJDBmAep2ucFBtdlWZGpq8Gfk
-	undQnVuDQ7q2NZJ6LPQeH5IU+0kIO6138F/l9Ud2pe5IYbFcsNmlmjJrjB4JxTZzfIDahnwJ0Ol
-	l9ivA
-X-Received: by 2002:a05:600c:4510:b0:48a:53ea:140b with SMTP id
- 5b1f17b1804b1-490428ddf15mr373968285e9.28.1779900403028; Wed, 27 May 2026
- 09:46:43 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB0A44DB73
+	for <linux-man@vger.kernel.org>; Wed, 27 May 2026 17:58:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779904714; cv=none; b=X6mlb/T62SkOsEBGYG6MgILQm6L8Bm2krtOkECUceeuXEIMylb6+qMpqGk9uteKfemL73x6xo/7H3QfMeNJn1nFdVPNhXD9nUEl0mBQMtAKmgXGgeEwo4QAaqCz7LEFcKQsZkK0fWyAggn+9pBrGAXVYSpXwaf1eG/3Kq9WgkUc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779904714; c=relaxed/simple;
+	bh=bPToN+UDiJpY5uAJOa2XaiHvHWK+0RbEEy/q+pU23xk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Br47brAPylx11YVwPzN2M8w0gQvPnOHir0cc9jTz30VheuL6tTU2yUOdwk3WZIIp4jXSU9TAHgdK89844Zc/fy9KrDkCnxztZKnjJgkuf6tNQJPp05gYNq9l5t5ZNhh4+Qb7Zxo7el1eUEWQxWRqxzKT80Mqpc0hGf8jdRWTSOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DK8t21x/; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0391F000E9;
+	Wed, 27 May 2026 17:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779904712;
+	bh=aRig4eFVWbWZ/v0nT12CQcjcjB6msQnQQYaUtCOQPnM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DK8t21x/weLgqmfU3pB7DEEYWzT4ARsgd+0i/BWhMSrdPvfevlzw4hrYwCM9ARzmS
+	 sFkS75+XDSZC0lwkXYvmlG34X4SpX4d/y0km998fjw1D8QiuTWkJt64LCx/F/R3DIa
+	 oo/ShpRfiMAqKU3C8oWfsY7U/HNGRaxM7opvGzWLmMq4v+vTlW7rysbvMvyi4RMElO
+	 d7hlb37Qre31GL4rtGUrEISyJcii5dDKpqx244EmPGWgmRjIFSx7eNhNSjLH22wJpR
+	 aGZcwwJzJM5uliSGlrfiWWD9QHcEl8rxprruP3fkE6VyO/OdkRoBnBRuW/u+YOnuXA
+	 Nt018B1oPZQ4Q==
+Date: Wed, 27 May 2026 19:58:28 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: "Michael Kerrisk (man7.org)" <mtk@man7.org>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: Re: Mangled function prototypes (phantom arguments)
+Message-ID: <ahcvtYzeadqmhk62@devuan>
+References: <CAFs=pgbvWhm7KUcdyt=ELT66FNuLNjqh3Ek-1d9V6sY2npJ5jg@mail.gmail.com>
+ <ahbxJGIK8Qf4AqVl@devuan>
+ <CAFs=pgYAfonz99yGyoS+h76v7YrfT8=f4yg6zQFqDPgm8XfsoQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAFs=pgbvWhm7KUcdyt=ELT66FNuLNjqh3Ek-1d9V6sY2npJ5jg@mail.gmail.com>
- <ahbxJGIK8Qf4AqVl@devuan>
-In-Reply-To: <ahbxJGIK8Qf4AqVl@devuan>
-From: "Michael Kerrisk (man7.org)" <mtk@man7.org>
-Date: Wed, 27 May 2026 18:46:06 +0200
-X-Gm-Features: AVHnY4KSQispP8UgCfKs5eq6GtqqtX-p-_00DEubfL4YUQxWeZkg9x6NMeKhzpw
-Message-ID: <CAFs=pgYAfonz99yGyoS+h76v7YrfT8=f4yg6zQFqDPgm8XfsoQ@mail.gmail.com>
-Subject: Re: Mangled function prototypes (phantom arguments)
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Spamd-Result: default: False [-2.16 / 15.00];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[man7.org,none];
-	R_DKIM_ALLOW(-0.20)[man7.org:s=google];
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xpvqyofzahcmskut"
+Content-Disposition: inline
+In-Reply-To: <CAFs=pgYAfonz99yGyoS+h76v7YrfT8=f4yg6zQFqDPgm8XfsoQ@mail.gmail.com>
+X-Spamd-Result: default: False [-3.76 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	TO_DN_ALL(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	TAGGED_FROM(0.00)[bounces-5609-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5610-lists,linux-man=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mtk@man7.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[man7.org:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	TAGGED_RCPT(0.00)[linux-man];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[man7.org:url,man7.org:email,man7.org:dkim,sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo,mail.gmail.com:mid]
-X-Rspamd-Queue-Id: EDF825E807F
+	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: CC9E45E8AAB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hello Alex,
 
-Thanks for responding.
+--xpvqyofzahcmskut
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "Michael Kerrisk (man7.org)" <mtk@man7.org>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: Re: Mangled function prototypes (phantom arguments)
+Message-ID: <ahcvtYzeadqmhk62@devuan>
+References: <CAFs=pgbvWhm7KUcdyt=ELT66FNuLNjqh3Ek-1d9V6sY2npJ5jg@mail.gmail.com>
+ <ahbxJGIK8Qf4AqVl@devuan>
+ <CAFs=pgYAfonz99yGyoS+h76v7YrfT8=f4yg6zQFqDPgm8XfsoQ@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAFs=pgYAfonz99yGyoS+h76v7YrfT8=f4yg6zQFqDPgm8XfsoQ@mail.gmail.com>
 
-> > The problems have all resulted in prototypes adding a phantom first
-> > argument. See for example this prototype from read.2:
+Hi Michael,
+
+On 2026-05-27T18:46:06+0200, Michael Kerrisk (man7.org) wrote:
+> Hello Alex,
+>=20
+> Thanks for responding.
+>=20
+> > > The problems have all resulted in prototypes adding a phantom first
+> > > argument. See for example this prototype from read.2:
+> > >
+> > >        ssize_t read(size_t count;
+> > >                     int fd, void buf[count], size_t count);
 > >
-> >        ssize_t read(size_t count;
-> >                     int fd, void buf[count], size_t count);
->
-> This is valid C (except for the array of void, but that's a separate
-> topic).
+> > This is valid C (except for the array of void, but that's a separate
+> > topic).
+>=20
+> As we see, I'm not keeping up with my C :-).
 
-As we see, I'm not keeping up with my C :-).
+To be fair, this is a very little-known feature (even though it's a very
+old one).  I (and a few others) are trying to make it more well known,
+as it's quite interesting.
 
-Is this a GNU extension? Or part of the standard? Or an upcoming part
-of the standard?
+>=20
+> Is this a GNU extension? Or part of the standard? Or an upcoming part
+> of the standard?
 
-Thanks,
+It is a very old GNU extension.  For decades, almost nobody had been
+interested in it (I've never seen it used in the wild).  One or two
+years ago, we started discussing it in the C Committee; several of us
+want it to be standard.  However, Clang is vetoing it.
 
-Michael
 
--- 
-Michael Kerrisk, man7.org Training and Consulting
-mtk@man7.org, http://man7.org/training/
-"The Linux Programming Interface" -- http://man7.org/tlpi/
+Cheers,
+Alex
+
+>=20
+> Thanks,
+>=20
+> Michael
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--xpvqyofzahcmskut
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoXML8ACgkQ64mZXMKQ
+wqlVfBAAvq2LRhaAYWmXaYmM8jaZYPqZbQ971GEmHxOYzpQ+nTF1npmekg00G92X
+PsXIQNA8Fbpb2gMe9euukL7AcDaSK55pr8Ku8sC3dTykIRiUSfBSW35dPzYVuyBd
+vkB/x+Op00wyOOs3D0irIIIcKpam2JAEZooU4fdSgmSOMl7J3aZha0IbMRLUofuz
+4jtaH1YwFgWPjFa/sQ1txmZp9JZ4Vhs7+7EJR3Z1p7q4yK6FvhPVgswr5kMtzmaP
+Ii5T9oiaNEaFmTwladCa/AvY6IHBHxIOSjKMaljpVnxEagcGpMdNhtgpoIr4pMMA
+hNSnrPgEQnsAJ+0bKxHQTRamfKegUtc9w/lAF81BaB/nHnIBpZPRF1US1Zk+Po+v
+bzZoP2aq72Wgu1vr74PKAm8IYNly/FNW808Wo8L59mgGO36ORjKeQTMKCSIYABxK
+lWq+avodxd8x2LoSiumtuSmDE4omNO/gJnJAZ/B+SEdSUKIugZrtlNWMdf4I3Wbl
+Fe8DcuO9V3a++Kdv/Ky/gT5FkKugqSyzUwrThHf83JyJZU5WjZRD/xlKYl5JVrkM
+mcBcIM/1r/PJxzT3lnIfw8tLIJe22NH+nf46OVD9qid1vVc5ViGdzGRfqCCD+ohZ
+f6AX1TtThB1HIZj9Pk7JdE3G4+Rh5ie1zz5fGwddxhHqes8FNWw=
+=4yy0
+-----END PGP SIGNATURE-----
+
+--xpvqyofzahcmskut--
 
