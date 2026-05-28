@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-5615-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5616-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8NgcEHUoGGrneggAu9opvQ
-	(envelope-from <linux-man+bounces-5615-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 13:35:17 +0200
+	id 8OXOLb0sGGqwfAgAu9opvQ
+	(envelope-from <linux-man+bounces-5616-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 13:53:33 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id D36D45F1573
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 13:35:16 +0200 (CEST)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D6BE5F19CA
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 13:53:33 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sto.lore.kernel.org (Postfix) with ESMTP id 28BA6301D017
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 11:35:16 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id A70A630433D5
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 11:48:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E9423E3DA6;
-	Thu, 28 May 2026 11:35:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44AB53CF02B;
+	Thu, 28 May 2026 11:48:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgiImtAX"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e79SGiL4"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87703D45DC
-	for <linux-man@vger.kernel.org>; Thu, 28 May 2026 11:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77A32FE591
+	for <linux-man@vger.kernel.org>; Thu, 28 May 2026 11:48:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779968113; cv=none; b=GgAtmjwQPsM4y+J31YHqe8nDP8BPONRPPCRt8Cju8+xb0xqaDdbywIZxID+i4sFZM8yFjBoGHDCYvXp7Lreo1nLRxE3/WC2DJIF/HFTZffckYRvoVT7l2Zvfrc5znIHoJrJQw5J4VNPzvnicz68d2AFGpGXYW66OE2LPI34l1UU=
+	t=1779968923; cv=none; b=oJfmoJTY2OiwSTrvWpwlRiTIwg+vS+wHzI3CePWYkh8cKYHduDDiHSuU/UpoiMDZFip562LSC5U4/Yc8ROpMsPJsXAqSksgfOtmXlkE1yY03J/qzudx0pC2baNalkjVA8EZCOiA46AJLYACCAQAiHO0J1Hfb49TnEqMAo+fdwlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779968113; c=relaxed/simple;
-	bh=A6l9jupAOmvUmYPOysd/fDglcZngtoSFD4aIznfsZ2w=;
+	s=arc-20240116; t=1779968923; c=relaxed/simple;
+	bh=iIi4GXjz8VO+dp8buYWt+ROpbMllXMBIWQ7a79XQPa0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DumnupFL4LETd+oYB943TmrXGa17Qf7srlm+EV5UA0xfrJw4gcu/zmTFCThAxd+xlegXYGKJ/s6f79L4dM5JJTKnJSytTkHoKoQZfq2qv/QuZZAwswFgFVPof9TbDilIth1CTzEIxKZIz0R9OzE7MBFqjaTOOTxWKi/+ScVWsgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgiImtAX; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E0A1F000E9;
-	Thu, 28 May 2026 11:35:09 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=e8ds+JqkC+Jo5hScSM1f5ubsTAf7cYYuK1KiQkk5fgc4t1aPz6ZVjFbx1rPguhMPS6Hgc37O8bodUkQno0BA39/iD4foMTPOXimF38R2rIgDf++u0FnB35A10WTR+p6WhjX/mLi6FZZ5QrllEE1HN4YPWW9t15CMA425Df6s60o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e79SGiL4; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B081F000E9;
+	Thu, 28 May 2026 11:48:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779968111;
-	bh=ruFpPhXsGQIJ/UMg9Z/s1s8Xp6FcTk0KT+S0MJ952Es=;
+	s=k20260515; t=1779968921;
+	bh=jtbdOj7dZrbjiLwjaaye4NR8UuAsQaAsdqw0x+wMVeM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CgiImtAXkdhz2HvATBTeMMypfjO7poAFeP3qCLX7fxpYqV9+F98ee2HkX+i0EEFO/
-	 pr7CiVUim3+xa3htEU4eM/SIPYC6w+8S1aHxcdUhFFcgkV0Vp1q/xPQPIyrSd66qVY
-	 Ygv6a+RKB/uYxT5nr51RLoqlBvtkGPOhAkW85yGZUca5YWY6msvhbxv3Kb26IiuB7J
-	 pIwKycCK4TKx7nMEMIhRXvvp4dTUVKx0VZ36vQMNm2kxJVKg+gnnPAW8sqVW1JFP7o
-	 7hm3iefDTsQoHEgolsXy6g6dQrCN3PLsxSdGFOJoeiygjjCTaAhYs27l07IrbLDxsb
-	 VUaWpBXl2ajZA==
-Date: Thu, 28 May 2026 13:35:06 +0200
+	b=e79SGiL4GzTsOLjx4fZH6K3UfBGnomyIpw08Vpi+p61jwIX6Ru9LlRW7lfVQam9LB
+	 UpFLHUlEFEMqZcmyRgtfXz91bWZRHzxyP/KUzpgeObI7d5HDvqpQlM2e/b7JS+Ti2f
+	 t9KrpB/kWSoGrt01WMGXpi3W8JIB68rISoiEwLcviSgAs1xNc0DH8Eq8t+acQkDG8i
+	 V+cz01xeZRtlxbWRLdWxO7ftWIQvjIiFVRCLL7gax6zNAkMQEhxuugMYFuu2P7WL8Y
+	 VOhTGnPkWQWcZGE3gssp/5fD88dLK31DjT14nzHdGDrWaUxFrU6AKVnco6SEe1efrO
+	 OqVsyUA8bf5Xw==
+Date: Thu, 28 May 2026 13:48:37 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Kiryl Shutsemau <kirill@shutemov.name>
 Cc: linux-man@vger.kernel.org, linux-mm@kvack.org, 
 	akpm@linux-foundation.org, rppt@kernel.org, peterx@redhat.com, david@kernel.org, 
 	kernel-team@meta.com, Kiryl Shutsemau <kas@kernel.org>
-Subject: Re: [PATCH v2 2/6] UFFDIO_RWPROTECT.2const: New page
-Message-ID: <ahgoSq87Hbk5e0J8@devuan>
+Subject: Re: [PATCH v2 3/6] UFFDIO_SET_MODE.2const: New page
+Message-ID: <ahgricY0ShOw5wR_@devuan>
 References: <20260526134149.2831720-1-kirill@shutemov.name>
- <20260526134149.2831720-3-kirill@shutemov.name>
+ <20260526134149.2831720-4-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -61,27 +61,27 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="azoyzbjhbeoj3i73"
+	protocol="application/pgp-signature"; boundary="bsg7w76kuxswidxj"
 Content-Disposition: inline
-In-Reply-To: <20260526134149.2831720-3-kirill@shutemov.name>
+In-Reply-To: <20260526134149.2831720-4-kirill@shutemov.name>
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c04:e001:36c::/64:c];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
 	FROM_HAS_DN(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5615-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5616-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:+];
-	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
+	ASN(0.00)[asn:63949, ipnet:2600:3c04::/32, country:SG];
 	MISSING_XM_UA(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	PRECEDENCE_BULK(0.00)[];
@@ -91,13 +91,13 @@ X-Spamd-Result: default: False [-3.76 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:rdns,sto.lore.kernel.org:helo,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: D36D45F1573
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,tor.lore.kernel.org:rdns,tor.lore.kernel.org:helo]
+X-Rspamd-Queue-Id: 3D6BE5F19CA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---azoyzbjhbeoj3i73
+--bsg7w76kuxswidxj
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -106,57 +106,55 @@ To: Kiryl Shutsemau <kirill@shutemov.name>
 Cc: linux-man@vger.kernel.org, linux-mm@kvack.org, 
 	akpm@linux-foundation.org, rppt@kernel.org, peterx@redhat.com, david@kernel.org, 
 	kernel-team@meta.com, Kiryl Shutsemau <kas@kernel.org>
-Subject: Re: [PATCH v2 2/6] UFFDIO_RWPROTECT.2const: New page
-Message-ID: <ahgoSq87Hbk5e0J8@devuan>
+Subject: Re: [PATCH v2 3/6] UFFDIO_SET_MODE.2const: New page
+Message-ID: <ahgricY0ShOw5wR_@devuan>
 References: <20260526134149.2831720-1-kirill@shutemov.name>
- <20260526134149.2831720-3-kirill@shutemov.name>
+ <20260526134149.2831720-4-kirill@shutemov.name>
 MIME-Version: 1.0
-In-Reply-To: <20260526134149.2831720-3-kirill@shutemov.name>
+In-Reply-To: <20260526134149.2831720-4-kirill@shutemov.name>
 
-Hi Kiryl,
-
-On 2026-05-26T14:41:45+0100, Kiryl Shutsemau wrote:
-> Document the UFFDIO_RWPROTECT ioctl (since Linux 7.2). It installs or
-> removes read-write protection on a range that was registered with
-> UFFDIO_REGISTER_MODE_RWP, and is also how a handler resolves an
-> UFFD_PAGEFAULT_FLAG_RWP notification.
+On 2026-05-26T14:41:46+0100, Kiryl Shutsemau wrote:
+> Document the UFFDIO_SET_MODE ioctl (since Linux 7.2). It toggles
+> userfaultfd feature bits at runtime; currently only UFFD_FEATURE_RWP_ASYNC
+> is toggleable, and enabling it requires UFFD_FEATURE_RWP to have been
+> negotiated at UFFDIO_API time.
 >=20
-> Cover the two mode bits (UFFDIO_RWPROTECT_MODE_RWP and
-> UFFDIO_RWPROTECT_MODE_DONTWAKE, mutually exclusive), the populated-
-> pages-only semantics, the anon vs file-backed reclaim behaviour, the
-> explicit-drop list (MADV_DONTNEED, hole-punch, truncation), and the
-> EINVAL/EAGAIN/ENOENT/EFAULT errors returned by the kernel.
+> Describe the uffdio_set_mode struct (enable/disable pair, must not
+> overlap), the serialization against in-flight page faults that lets a
+> single userfaultfd switch between async detection and synchronous
+> eviction without re-registering its ranges, and the EINVAL/EFAULT
+> errors returned by the kernel.
 >=20
 > Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
 > Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Thanks!  I've applied the patch (with a few minor tweaks).
+Patch applied; thanks!
 
 
-Have a lovely day!
+Cheers,
 Alex
 
 > ---
->  man/man2const/UFFDIO_RWPROTECT.2const | 122 ++++++++++++++++++++++++++
->  1 file changed, 122 insertions(+)
->  create mode 100644 man/man2const/UFFDIO_RWPROTECT.2const
+>  man/man2const/UFFDIO_SET_MODE.2const | 98 ++++++++++++++++++++++++++++
+>  1 file changed, 98 insertions(+)
+>  create mode 100644 man/man2const/UFFDIO_SET_MODE.2const
 >=20
-> diff --git a/man/man2const/UFFDIO_RWPROTECT.2const b/man/man2const/UFFDIO=
-_RWPROTECT.2const
+> diff --git a/man/man2const/UFFDIO_SET_MODE.2const b/man/man2const/UFFDIO_=
+SET_MODE.2const
 > new file mode 100644
-> index 000000000000..42654a834cd5
+> index 000000000000..b71632011a4c
 > --- /dev/null
-> +++ b/man/man2const/UFFDIO_RWPROTECT.2const
-> @@ -0,0 +1,122 @@
+> +++ b/man/man2const/UFFDIO_SET_MODE.2const
+> @@ -0,0 +1,98 @@
 > +.\" Copyright, the authors of the Linux man-pages project
 > +.\"
 > +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
 > +.\"
-> +.TH UFFDIO_RWPROTECT 2const (date) "Linux man-pages (unreleased)"
+> +.TH UFFDIO_SET_MODE 2const (date) "Linux man-pages (unreleased)"
 > +.SH NAME
-> +UFFDIO_RWPROTECT
+> +UFFDIO_SET_MODE
 > +\-
-> +read-write-protect or un-protect a userfaultfd-registered memory range
+> +toggle userfaultfd runtime mode bits
 > +.SH LIBRARY
 > +Standard C library
 > +.RI ( libc ,\~ \-lc )
@@ -166,59 +164,49 @@ _RWPROTECT.2const
 ants */"
 > +.B #include <sys/ioctl.h>
 > +.P
-> +.BI "int ioctl(int " fd ", UFFDIO_RWPROTECT, struct uffdio_rwprotect *" =
-argp );
+> +.BI "int ioctl(int " fd ", UFFDIO_SET_MODE, struct uffdio_set_mode *" ar=
+gp );
 > +.P
 > +.B #include <linux/userfaultfd.h>
 > +.P
 > +.fi
 > +.EX
-> +.B struct uffdio_rwprotect {
-> +.BR "    struct uffdio_range  range;" "  /* Range to change RWP on */"
-> +.BR "    __u64                mode;" "   /* Mode flags */"
+> +.B struct uffdio_set_mode {
+> +.BR "    __u64  enable;" "   /* Feature bits to set */"
+> +.BR "    __u64  disable;" "  /* Feature bits to clear */"
 > +.B };
 > +.EE
 > +.SH DESCRIPTION
-> +Read-write-protect or un-protect a userfaultfd-registered memory range
-> +registered with mode
-> +.BR UFFDIO_REGISTER_MODE_RWP .
+> +Toggle userfaultfd features that may be flipped at runtime.
 > +.P
-> +The following mode bits are supported:
-> +.TP
-> +.B UFFDIO_RWPROTECT_MODE_RWP
-> +When this mode bit is set,
-> +the ioctl installs read-write protection
-> +on every page present in the range specified by
-> +.IR range .
-> +Otherwise the ioctl removes read-write protection from the range,
-> +which is also how a fault handler resolves an
-> +.B UFFD_PAGEFAULT_FLAG_RWP
-> +notification.
-> +.TP
-> +.B UFFDIO_RWPROTECT_MODE_DONTWAKE
-> +When this mode bit is set,
-> +do not wake up any thread
-> +that waits for page-fault resolution after the operation.
-> +This can be specified only if
-> +.B UFFDIO_RWPROTECT_MODE_RWP
-> +is not specified.
+> +Bits set in
+> +.I enable
+> +turn the named features on;
+> +bits set in
+> +.I disable
+> +turn them off.
+> +The two fields must not overlap.
+> +Today only
+> +.B UFFD_FEATURE_RWP_ASYNC
+> +is a valid bit in either field;
+> +any other bit causes the ioctl to fail with
+> +.BR EINVAL .
+> +Enabling
+> +.B UFFD_FEATURE_RWP_ASYNC
+> +also requires
+> +.B UFFD_FEATURE_RWP
+> +to have been negotiated at
+> +.BR UFFDIO_API (2const)
+> +time.
 > +.P
-> +Read-write protection only affects pages
-> +that are currently populated in the range;
-> +unmapped addresses are left untouched.
-> +For anonymous mappings,
-> +protection is preserved across page reclaim
-> +(the marker rides on the swap entry)
-> +and migration.
-> +For shmem and file-backed mappings,
-> +protection is dropped when the backing page is reclaimed.
-> +Callers must also re-arm a range with
-> +.B UFFDIO_RWPROTECT
-> +after any operation that explicitly drops the underlying page:
-> +.B MADV_DONTNEED
-> +on anonymous memory,
-> +hole-punch on shmem,
-> +truncation of a file mapping.
+> +The operation is serialized against in-flight page faults,
+> +so the new mode takes effect
+> +only after every fault that started before the call has finished,
+> +and any fault that starts after the call observes the new mode.
+> +This allows a single userfaultfd
+> +to switch between lightweight async detection
+> +and synchronous eviction
+> +without re-registering its ranges.
 > +.SH RETURN VALUE
 > +On success,
 > +0 is returned.
@@ -228,37 +216,23 @@ argp );
 > +.SH ERRORS
 > +.TP
 > +.B EINVAL
-> +The
-> +.I start
-> +or the
-> +.I len
-> +field of the
-> +.I uffdio_range
-> +structure was not a multiple of the system page size;
+> +A bit other than
+> +.B UFFD_FEATURE_RWP_ASYNC
+> +was specified in
+> +.I enable
 > +or
-> +.I len
-> +was zero;
-> +or the specified range was otherwise invalid;
-> +or an invalid mode bit was specified;
+> +.IR disable ;
+> +the two fields overlap;
 > +or
-> +.B UFFDIO_RWPROTECT_MODE_DONTWAKE
-> +was specified together with
-> +.BR UFFDIO_RWPROTECT_MODE_RWP .
-> +.TP
-> +.B EAGAIN
-> +The process was interrupted;
-> +retry this call.
-> +.TP
-> +.B ENOENT
-> +The range specified in
-> +.I range
-> +is not valid.
-> +For example, the virtual address does not exist,
-> +or part of the range is not registered with
-> +.BR UFFDIO_REGISTER_MODE_RWP .
+> +.B UFFD_FEATURE_RWP_ASYNC
+> +was requested without
+> +.B UFFD_FEATURE_RWP
+> +having been negotiated.
 > +.TP
 > +.B EFAULT
-> +Encountered a generic fault during processing.
+> +.I argp
+> +refers to an address that is outside the calling process's
+> +accessible address space.
 > +.SH STANDARDS
 > +Linux.
 > +.SH HISTORY
@@ -279,25 +253,25 @@ argp );
 --=20
 <https://www.alejandro-colomar.es>
 
---azoyzbjhbeoj3i73
+--bsg7w76kuxswidxj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoYKGkACgkQ64mZXMKQ
-wqk+2BAAl3LZrDJYQbpJXu9NCgWxCQB1upmmlNwbVz1ZRo63QMxR26snfRM98hUH
-elXYppn3Oe7wmLuwzPu6EAhJCc/DBXRictit79NTRfOgIiXwPy7dfndI2Sfoqk4o
-zDwJ6WjQCz8pqIIjKodcHK04x0chYnnz24+tu6bmTTKMWEVnDPgb57QuB/o5yoaV
-p2UhGpBddPKWrDcbhqZTzx0v6KjcjT30kdv2y5W/O2U3ruNh/90M2z5xHS9L/y92
-ahcR4DBtEEKDW1VNSGO3oSELJmFRL7uX9b/jLCFxroG5DDHhdUASbHQfmBlxpw4+
-Ywn0t/lm7ArQF7yWFJ7hBzkpWMBfTFr+/u5G9WW4gexd6gySl7YKefyzIsdT3H6x
-QZsaiETkxlC3qYz8wM2+YjnquKef4DRaM3m0KCLqnSjbCPJaazMLnZjK24wTZj4K
-oh6s578mPayPFMYsWNlUSjh9NQvGxHJQPUNqMLALgm1B+E5y4OjaMgGeImrZtfaf
-qRf1VGDW5TRFOxiiZJ18w3ND5hn5bY11Rog8SFF5UbKasqPvg72fUm9N7AsYhO1L
-YQ+pqHO0c68QInJZC+m6yBRPS4L6e7lxAkJJ+rwfCkf4KnRHRp3l/gduyMHGN2ym
-FGRzMUXIDud753oPo2STb3qyPXit4dv3KuqLB+OGM58iEB1MVyY=
-=DZ0D
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoYK5UACgkQ64mZXMKQ
+wql/WQ//afWC0mC5rCJgq/i3ach2mS9uIDpeNT1GKSy/ZkRNFWr/wvf5R3m0bfAf
+nYx6Tmfmv6TwAOAbihKy2aZNjaWLuRBjRP5mOMN8PgUzEGnHggIy/cynidr+xH2b
+e6RlYHh3Wxr5fT35AoKV5JphZWNQ9zrS0bT+9vuJxIXCbxzPMPsFCXXP0cR4QWRN
+7+Njq3bm8hu7xToOVc/gfA7JCyD5sk/r4OC0pJ0o/d5NUevd5NxIYDTldBCbLKi1
+b62LwVkHR8hTWqEwsA6VxrPeDxlr60wi7Sn1RA5ithVR3cJd5Qn89dIP3nI1JBVV
+qC9fyqURBnW0ueLBNH4rzOIrcKJ4M1/nwcS4cIZ2UgipjsTkI2xmcSqKubnZsFcN
+LICIYr1iKlqYU95RKYY2VaSUXbG+OvUvWPX2xk2O3RGzk/2HsWzl8QzPiZ+KHQoJ
+ofLfTiK0Vjan7P71l9pRtFWgMA7ixEEu0D2nm6aWv1iDfFrYwNu2tt3b/nGHlZRc
+A33qtc8sKm1eqvehczgOLbYVTuCcF+XF/gZLPq8DESbqzLnZ/R00biE2xfzpBK5+
+ajXR2usE6gqC9NRSEAQptkAhWtFG8Cs33NZOXHHzUnU0DyHRjaJpKf0rGCQgCl+b
+BgiAAzrsIJNVTdsqmEo/zmNTUwZr2alQAIcp6/R1Fz2ogqLRKfM=
+=nY/F
 -----END PGP SIGNATURE-----
 
---azoyzbjhbeoj3i73--
+--bsg7w76kuxswidxj--
 
