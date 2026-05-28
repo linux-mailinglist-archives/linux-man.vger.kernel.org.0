@@ -1,178 +1,186 @@
-Return-Path: <linux-man+bounces-5617-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5618-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id J8R9K3cxGGpsgAgAu9opvQ
-	(envelope-from <linux-man+bounces-5617-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 14:13:43 +0200
+	id 2DMMBjw/GGqahwgAu9opvQ
+	(envelope-from <linux-man+bounces-5618-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 15:12:28 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id B12075F1EA7
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 14:13:42 +0200 (CEST)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8522A5F2851
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 15:12:27 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id 3479E3025AE6
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 12:11:43 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id EA4903050F60
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2026 13:06:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7761F3E6DFF;
-	Thu, 28 May 2026 12:11:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DE313EFD0B;
+	Thu, 28 May 2026 13:06:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTdMWha4"
+	dkim=pass (2048-bit key) header.d=man7.org header.i=@man7.org header.b="AUzu37a4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A393E639F
-	for <linux-man@vger.kernel.org>; Thu, 28 May 2026 12:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779970300; cv=none; b=suQ6GevzoOsGpKD5ut7KXk7UuUOYTFrFmTG3yA1jqP48LPkGr19g5zk0r47nnhnqkykQzvP2miMySoISzV9BCxnI8m8umZCRMUCiZmjy00JmP+pFDernwodeVlhFLqj/sHSySf8cvHQmVWStO6jZ388EiPnQJMESGy5OHNE2C/k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779970300; c=relaxed/simple;
-	bh=qNCfRso9qitpPmG/sxGOyP411pzREKDoiPctgQ/QaqU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U1RixHXhlD4oVR0OEDCQIULBDUXlfTv5H+UJENYSe7jbIIcRJ0Qe7gqSPV1LDr8hym5VewrIAzi6WMxHjKda3gYsuvie4QhEVSt0vCxHaItE3+eMgLOTLUSYiW9uIjGu9B/dwsVLVaGA1/x7jD/H8BGNIHdRSn6cwA/Xjd9dybA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTdMWha4; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE521F000E9;
-	Thu, 28 May 2026 12:11:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779970298;
-	bh=fOvg2ATf2ueU6R3Jgx5GHXTG9wxccznih/Am3KArFqQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gTdMWha4ghbvzHf/Hg3biX4+DxmgIM3qIXWxJL2Vm8gPqgHjH84PU/vZXVSw66d6g
-	 XPIYg4kSTGNinabNyDX9hdQAbByfXcSq48u0in2IEylnzKIZ0okK6eoSR7vGIogVQ5
-	 xiHvg3Ym5shtPaCwU9QZSqehPvt6me3EVpt2FE7TwRrsPeOCCo0lKqQbYO0o/Dez2U
-	 VZZOeXn7lX4jdBBZ5Vv9OfvQcQtYy4nlB9GXi62px53VIzAMEVCaiaixb0GR1vgA68
-	 WbsimVa5oKl68nAO1iXADUj3YH4SHJ3xSmimmrnCpf57rgNkXzJModV15xL8jGCHxX
-	 QPgRJf0mNLyvQ==
-Date: Thu, 28 May 2026 14:11:35 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Kang-Che Sung <explorer09@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: mbrtowc(3) state after an invalid sequence "undefined" or
- "unspecified"?
-Message-ID: <ahgw1XTxn7iJ6B_3@devuan>
-References: <CADDzAfOZqQgVdEdn5skkkGPzUf7XiOGnmA0w7HZMkcQTpE7VKw@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40AA3B6359
+	for <linux-man@vger.kernel.org>; Thu, 28 May 2026 13:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779973610; cv=pass; b=oV4EI/YlO4gNfarUu0Lyc/7PRh7LyLKeIqWLYptHz0Vp/WInRRz8Q8NrDqklOW5bHCMBQyPWQFv2zOM7/DMCVRG4DXduq6rfP/fxCud8ENAySqBF6gkjqKcgmW5XcCf/oQ8Ez5mG/UC9s1EFemdKpk5ZaoaNeNtCY4xn9qL5Wts=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779973610; c=relaxed/simple;
+	bh=AP4w+kcECRF6deUkhpygLKOwtXsjkSRbYvn0EpaAAiE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rvBg0S9vZBQfIV1VS+bwjO7V3xpaXFUY82xidLPxQTZ6Om3gA/Uo/O/O5YR2HogKmqQ5ga/Z1tqFgqLKhyAgFGvTHRJxDSrZSYF1mr9bfCrp9vX70v9weaoggbAUfWjFyz0xf0kyf5ZiaehclDCvYcZRn1rEZgqE2pRCaw6mfgs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=man7.org; spf=pass smtp.mailfrom=man7.org; dkim=pass (2048-bit key) header.d=man7.org header.i=@man7.org header.b=AUzu37a4; arc=pass smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=man7.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=man7.org
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49041e84237so53663775e9.1
+        for <linux-man@vger.kernel.org>; Thu, 28 May 2026 06:06:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779973607; cv=none;
+        d=google.com; s=arc-20240605;
+        b=RJyr62dkqsOIO6BQghhRW7mC8fQvOWRHALAdt6CSO6Dq3f4w+3wOC9mWsjDIuLxwpx
+         kdi+YkaZYTu/CIQCc5fmeV/L+3qZbFzirxxBkH//SZQh48Z67nRdBhdmmcjjW8QlkPZG
+         hbNFOkYtVUJuoRgz2XpmT44Xz93KL0KIZJqTSmcBtXN9L0NJwckBLC0SUP+9UYQgiM8i
+         sndSE3El8mpNq6Rf90Uim9BDAiHUn6WhNfWoh7kI08lxZo9rejNCFThfkIwt5cMFzr9q
+         gEjRZo5KfeDZT9yhgxnWecS48XCj96L7GVYY0cq9v4OXevbjxK2sCXoGCyHRRJ1ni3ho
+         BtZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=yYdpWfUJntppaD19fkeEzC0kW4I+fN5pXJnZ1TQ7o3c=;
+        fh=Fwyl30e8p6At0u6ZDO56Qp9ECRF9CZFFVR4HTAIaCcI=;
+        b=kM9UcZx028fUIwvXVYD+JR4/hRC0gqFcGLzyPSvV18+yOqqPO9G0JPd4fb0+EtTK55
+         E/1lNEb3IpgIS1rWoh4QlqZX5SQvZFF437HRFx6LvlAOoyMjGUDoIaa0RZQufkOiHeC7
+         JLF6+DyTU3yUtRqaNCQKtK6czSb54DaNN2GCb28Qy1nMsrU+LUnoVsHm3dxtgtcnV+YC
+         D8XlvgIBkoqyNwUiqv7mGHHyasamZeGm3w6cHgLAQ62olo5HJ3M/Qr0gm7T55TLQO2x8
+         Ql7iZ5MMuuu+33z7NTUOS8c2zUwrawXdOM2izK0PKNRXHrewOX+HBe5p1AqqcgM3q0X2
+         lrmA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=man7.org; s=google; t=1779973607; x=1780578407; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=yYdpWfUJntppaD19fkeEzC0kW4I+fN5pXJnZ1TQ7o3c=;
+        b=AUzu37a4Qc668OMlMLe5XepAO+BEqDk+DKY+RpX8gIjIHlwrsy5bXfAR2z7SRoiP0F
+         piXJWkK9pneQZbKgnbgj3pclU9/gRowB2X4XsONGBz+6uqJupRsBCiJveh8wMnpC5lRw
+         ErggiNAzznhZsVpg+lpVauYe8tf5A50XASCkb3pvMbD7cFM/zV3msytpDRqtAFpzAB+2
+         YtAa2DHgoNaCyIp9X/VwPIPuZExdsNs5kH5OaYTNoq8O+slGmSlP/UxMvuwn7/eVaCAb
+         zu1BH9HRlJKaikecxueXOpsthmtHS+8jNQMUhNCQ8XzUuKdXy9dcPlrUtHmOtP4kRJt/
+         iWkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779973607; x=1780578407;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yYdpWfUJntppaD19fkeEzC0kW4I+fN5pXJnZ1TQ7o3c=;
+        b=Pk2bUzQ3CWlP2erH9KvK24+puRdn20de/gsO/VjGvaLBoM8HKB9MIivzuvLECEoJ7K
+         iT5/Oz+xAhaZ/8NMbmxQFk0deMTheZKwJ3TIYFpQIG8eZXDml5Dok87m5QrUh5XdNiPv
+         M4Xr954T6qkM4O87GXjPHCCEb6qbuzrqJ4Jn/jxVICBX0KULtVW5MaZlL3EyohECqWcd
+         hqfjlNlP1O1VVNYomL8pB2YlvLUUW3Iygy5WgqK9w9LXduPF8enZn1t7q4Dc8rliEqul
+         ACHYNVymLXQ85jow9zSSfZx3/Qjt0zx3sTfll/zfBLw2oLNJbW0ynn0vLo5k3pnTLPEv
+         nY5A==
+X-Gm-Message-State: AOJu0YxC5HjQQgyjW3G7ufgbsgSlkQrEOp5jqARAR37lKNG54aTHxne1
+	8dAFDos0FIn6KFYrARzEwbpBJLaG7Wq3Lt2YWep1Z6P/RAh9fWwLECnNUzqhUdaN8Oy175PL5md
+	PK0qqskWMeJp564mAshucDuQfI/mDz/3BwvjaNsL4og==
+X-Gm-Gg: Acq92OHEFk3Z2a1UZV/en7aiiJcQ3GKrO082OuJIENS+1aSOZdIue/pl/wnmR7kkEDo
+	SylO4L+ZAmjpi5fzEnotNmROpXvmmPjKs74vgCRkhnBISm/pyBrO9KzvQoPTQWciJqE5TD5opin
+	5mX9PtYyokg0KX48nx54xdK54nWbCUlzT0QH1cT2V104/GNFl3Yf3Nloo2G96QaYpxadC8p5FAx
+	tQEj7j7GRdAs5MMcL9Q059N5rnR3cvHev6oP0od8sew/unFp5AKXK/6IFnuf2fGZlJej2XlwIcJ
+	Ymxou6p0/wmmOw2dR0MrVoIpJqNxnATgn3wLGIDqKOvGaBJWxx6R7aYW9ZjDFE6jd8gU106n8Gk
+	MiTzO
+X-Received: by 2002:a05:600c:674f:b0:48a:5339:a46 with SMTP id
+ 5b1f17b1804b1-490947a9a16mr22504085e9.9.1779973607011; Thu, 28 May 2026
+ 06:06:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3xfvo73phkpjsyw3"
-Content-Disposition: inline
-In-Reply-To: <CADDzAfOZqQgVdEdn5skkkGPzUf7XiOGnmA0w7HZMkcQTpE7VKw@mail.gmail.com>
-X-Spamd-Result: default: False [-2.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	SUBJECT_ENDS_QUESTION(1.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
+References: <CAFs=pgbvWhm7KUcdyt=ELT66FNuLNjqh3Ek-1d9V6sY2npJ5jg@mail.gmail.com>
+ <ahbxJGIK8Qf4AqVl@devuan> <CAFs=pgYAfonz99yGyoS+h76v7YrfT8=f4yg6zQFqDPgm8XfsoQ@mail.gmail.com>
+ <ahcvtYzeadqmhk62@devuan>
+In-Reply-To: <ahcvtYzeadqmhk62@devuan>
+From: "Michael Kerrisk (man7.org)" <mtk@man7.org>
+Date: Thu, 28 May 2026 15:06:10 +0200
+X-Gm-Features: AVHnY4LTCfPuwtXhBfau_tOA_XACne-fXBJEfDp66H3tCOLf7xgrZM9ipSY5TGk
+Message-ID: <CAFs=pgaaDgMULDkwrewtegogQQCZjCFqEPUEkAfKpT67rEWZ1Q@mail.gmail.com>
+Subject: Re: Mangled function prototypes (phantom arguments)
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Spamd-Result: default: False [-2.16 / 15.00];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[man7.org,none];
+	R_DKIM_ALLOW(-0.20)[man7.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5617-lists,linux-man=lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
+	RCPT_COUNT_TWO(0.00)[2];
+	TAGGED_FROM(0.00)[bounces-5618-lists,linux-man=lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	FROM_NEQ_ENVFROM(0.00)[mtk@man7.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[man7.org:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:rdns,sin.lore.kernel.org:helo,opengroup.org:url,alejandro-colomar.es:url]
-X-Rspamd-Queue-Id: B12075F1EA7
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo,mail.gmail.com:mid]
+X-Rspamd-Queue-Id: 8522A5F2851
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Hi Alex,
 
---3xfvo73phkpjsyw3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Kang-Che Sung <explorer09@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: mbrtowc(3) state after an invalid sequence "undefined" or
- "unspecified"?
-Message-ID: <ahgw1XTxn7iJ6B_3@devuan>
-References: <CADDzAfOZqQgVdEdn5skkkGPzUf7XiOGnmA0w7HZMkcQTpE7VKw@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CADDzAfOZqQgVdEdn5skkkGPzUf7XiOGnmA0w7HZMkcQTpE7VKw@mail.gmail.com>
+On Wed, 27 May 2026 at 19:58, Alejandro Colomar <alx@kernel.org> wrote:
+>
+> Hi Michael,
+>
+> On 2026-05-27T18:46:06+0200, Michael Kerrisk (man7.org) wrote:
+> > Hello Alex,
+> >
+> > Thanks for responding.
+> >
+> > > > The problems have all resulted in prototypes adding a phantom first
+> > > > argument. See for example this prototype from read.2:
+> > > >
+> > > >        ssize_t read(size_t count;
+> > > >                     int fd, void buf[count], size_t count);
+> > >
+> > > This is valid C (except for the array of void, but that's a separate
+> > > topic).
+> >
+> > As we see, I'm not keeping up with my C :-).
+>
+> To be fair, this is a very little-known feature (even though it's a very
+> old one).  I (and a few others) are trying to make it more well known,
+> as it's quite interesting.
 
-Hi Kang-Che,
+I don't think the Linux system call and C library manual pages are a
+good place to promote this obscure GNU feature. It is confusing
+people, including me. (I came to making this report because several
+people have reported this "bug" on various pages rendered at
+man7.org.)
 
-On 2026-05-21T23:08:20+0800, Kang-Che Sung wrote:
-> Hi, Alejandro (or anyone else interested),
->=20
-> There's a discrepancy in the wording of the mbrtowc(3) function (and
-> similarly, mbsrtowcs(3) function) between in POSIX and ISO C. It could be
-> reported as an issue to POSIX (the Austin Group), and I am not sure if you
-> can do that.
->=20
-> In ISO C (I checked in both C99 and C23, in particular the N3220 draft),
-> there's a statement that if mbrtowc() returns a (size_t)(-1) as an encodi=
-ng
-> error occurs, "the conversion state is unspecified".
->=20
-> POSIX (see <
-> https://pubs.opengroup.org/onlinepubs/9799919799/functions/mbrtowc.html>),
-> for the same part it says "the conversion state is undefined".
->=20
-> This wording difference matters when the "unspecified behavior" and
-> "undefined behavior" are technically different. An example is how the
-> mbstate_t object can be reused after an invalid sequence is encountered.
-> When the state is said to be "undefined" it's implied to be not usable
-> again (unless it is reset, e.g., by an `mbrtowc(NULL, "", 1, ps)` call).
-> When it's "unspecified" then implementations can allow the state to be
-> reused for certain encodings (possible for UTF-8, for example).
->=20
-> This is something I discovered accidentally when researching the multibyte
-> functions in the C standard library and how they work with an encoding li=
-ke
-> UTF-8.
+Please consider reverting these changes. These markings use
+little-understood, nonportable syntax. The manual page synopses should
+be in standard, portable C that is *easy* to understand.
 
-Thanks!  I've opened this bug report:
+Thanks,
 
-<https://www.austingroupbugs.net/view.php?id=3D1982>
+Michael
 
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---3xfvo73phkpjsyw3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoYMPEACgkQ64mZXMKQ
-wqmrWhAAmrsmfmyyr+xR3eqvrSYFm8XCsWHquyrq9MlVI9+Q2wjcXyPJOO4X8cLf
-tNxB1Lq9LRWU6Ub2tCslG8wFhsiz1h9QDL0NzrEePG4lLVfmj862D/L2dYa53Yk/
-JpXAIvewFxbKGiv8Bj5O6ioNGRvT1Mk0AVbfM0TRTjd14ejFj2PLaQo+EaOXYER4
-74JHYBiUJia52A1HRLFW0itVK7a8Q125/eJu8IzmNUJqXi19zrXXAmiJym66Yhk8
-qaO+tNsf5F/7Ri/GN+2Hf95WkbydkgVFtAVAww7tNTAfnKRW0Cn1+6Lci2bQtMSD
-/RIocWKBFOxZtFhJCxmZ5Bsw/lZmA1omkZcuFPpZHDaS+gHoWtMX7SD1bhpoCHaY
-QsX1kpERV6BfjWZgGfX5byOeJCA+xnXgfiJN+TC5RuOfcqQ1ShDIloUqb0zAMoBR
-qefGW3zwY9VZSZlRFPuSDQlu04/R0AQNPVGrJE8q3nG3cSvw/ddLVcCXxixUwbqP
-GdrskCi1k1zBPf6wWamagkEEe04F5qhQVH6jz3lhfUxRC3HOEH8ZxpaXNt9tHmfJ
-UBsZH4nj7+OoAbDRppq3pY6wZUibcbJgHeySRgLx/IrC64JRBcEJt3MThof6it6y
-stgkEIhfeGrIY517rkpHn4EBMgampoFXAWtG5YOjkkh7XIe3mNI=
-=Shh1
------END PGP SIGNATURE-----
-
---3xfvo73phkpjsyw3--
+-- 
+Michael Kerrisk, man7.org Training and Consulting
+mtk@man7.org, http://man7.org/training/
+"The Linux Programming Interface" -- http://man7.org/tlpi/
 
