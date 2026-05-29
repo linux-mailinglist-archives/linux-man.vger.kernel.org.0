@@ -1,165 +1,181 @@
-Return-Path: <linux-man+bounces-5635-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5636-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kMaBDu6kGWrEyAgAu9opvQ
-	(envelope-from <linux-man+bounces-5635-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Fri, 29 May 2026 16:38:38 +0200
+	id aBH/BJfNGWqNzAgAu9opvQ
+	(envelope-from <linux-man+bounces-5636-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Fri, 29 May 2026 19:32:07 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 825AC603BA4
-	for <lists+linux-man@lfdr.de>; Fri, 29 May 2026 16:38:37 +0200 (CEST)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id AE329606828
+	for <lists+linux-man@lfdr.de>; Fri, 29 May 2026 19:32:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 97AE73288CD7
-	for <lists+linux-man@lfdr.de>; Fri, 29 May 2026 14:26:26 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id DC6B13069528
+	for <lists+linux-man@lfdr.de>; Fri, 29 May 2026 17:28:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12C923B3C1A;
-	Fri, 29 May 2026 14:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AD11386441;
+	Fri, 29 May 2026 17:27:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5ybmv35"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EBpgZLY3"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D5A33F8D9
-	for <linux-man@vger.kernel.org>; Fri, 29 May 2026 14:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFDA3859F0
+	for <linux-man@vger.kernel.org>; Fri, 29 May 2026 17:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780064769; cv=none; b=Czio7+ZyyDPcmV+9GliAvtfoIDT+JEFRBk4n8Tlzhkbr5S6s8hmpR3iBxom3wu/EkkkvlzE0kU7fn4b+cuOjweWOBgkQMKrw12Mg+F0dMN69MeMn7ZLJQ8iDYTWcNCObKtrpdv9vMou6GLtZKJ1Os2wYU2p9wfow9Xd1dNJMmtc=
+	t=1780075670; cv=none; b=sWv1KM/xTPsipQuvKew3qmqTxkOmvgs0U38ry7UPraAGbjGYPCcd7s4Q6bZxXz62sbqft4XeY7NBX1i4ZjWyqWcVVjlQF1gl6b/U2vIzisxDgrpqt+5SdbLKso3jIUGJ6k0/GH2aVVDvp6vSw6/6/Hu10RskqLE/abSUUFmKj0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780064769; c=relaxed/simple;
-	bh=tW9Wp9kHmk1Co4W3h0NX5t3NXiYQ7A3Y7O7mp+MozmY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W6iWD3GlKQlGjTgTnuTHxr6+KP9ZKqUpFeES/WKfZCuqBtzPLxP80mE46A71Umht4H24jBkUCfD4BAvmyE77qJ2kWTOpmnpjFdTtixgj1nacoxeAI/3/rbsHwhRgicvNoLFHZMk/S9AazHNcbhJKZPNS5WPJGtyTuyGYIyQu8MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5ybmv35; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14EC1F00893;
-	Fri, 29 May 2026 14:26:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780064768;
-	bh=2U2K71yi5PrL96Vo5JE8dy1bli1X+eNv05dtog1h61s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H5ybmv35H/h/K57YjmTTy/TvDBJreL8O+c/PviePtZhhSTbOOMeR5Jp+uh3PG+0B4
-	 eFZvlKkT5eNmEtQVhLBcFK9sy6W388ZED/lMINxlOoYBUsUonKu49XmkTjzom1wt1x
-	 AeEdGjeI/zmXF4KP2XENv/KFNXP07vHgaRrg0DP/59OXTVphP8a6d6DLGhxjqsDZlm
-	 dAidw44ZKp3e8qOPbrr8J2zBA/ixXP4MDjjL2JvQIjQIgKM88suGm6AcDDnnhVtVmm
-	 Tg7BSvN0BFxUbZDf9rlGR2sBihJnoU7StTSCP6peiINr3IDKrkoMV/f2lX9crdRbyO
-	 Dz3vI8mIR5ggQ==
-Date: Fri, 29 May 2026 16:26:04 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Chris Adams <chrisadams741@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Linux Man Rendering Issue - Resend
-Message-ID: <ahmhiZwvC_BgEqMl@devuan>
-References: <CAJ8owHS3QMOykxJTveCSB5iSiSUVKtswVjDaBJ6cos06whB3AA@mail.gmail.com>
+	s=arc-20240116; t=1780075670; c=relaxed/simple;
+	bh=fAktiUpSZP15Q/bKIpxU0tnb6CaSxI63AleOteLRFhg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HS3pQDGz6E02xepN6dUks4Q2b6Xd7qkhhvniq1wAUm7MPiebC3Si8n6CW/4qGKYSN3avMkFcoB1jwTwqe8+1hsNr2oJPP94RuRV79kzdMDgFfF5+38RHmDaxuNo4ziye2anf6K8VeOBeY12LNlc2uhL5aoQQ8fBOvYC69/ESAVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EBpgZLY3; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4891ca4ce02so2235e9.1
+        for <linux-man@vger.kernel.org>; Fri, 29 May 2026 10:27:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1780075666; x=1780680466; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=85ALWsPr3bven76gnOdRecqCaNgtkddpS3RLL8wWr8o=;
+        b=EBpgZLY3+njr7il5nsigIQB3SetWHoIf5y3+l6LmmCToqPszw/W9IS+bbMowu+WxVN
+         Xy2bsH6SJFbdoi7HslcHby6knh4y69gW1jE1/VgobbokfvyT2VXk4pV7eNh3RFc2cKPa
+         zu+WOYKoPsixLw6u4ZCmhuxj+7JBczK8pYos49uvJiM3e7/BA0G5ANAvWcddEQNtAlPf
+         ubDcwi3m4DG4WQII+0so3ZHwV5PQUqWgttUTA/0wV8okzbxloUVxcgXpjEitTiTyr8aK
+         MA8LeaEwsUwM1nO9z2wVaIQZTngnf4IAlka7n77PNKLCJA8Zo5H6QekLEw8n2oGDbSM7
+         MaCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780075666; x=1780680466;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=85ALWsPr3bven76gnOdRecqCaNgtkddpS3RLL8wWr8o=;
+        b=DtMQ4SyO4whYSUjn0uOFujBB8a+nrQYxD2HmjqsYOhvg1Lgfiu6Mc8qimC1a0RplYQ
+         I7wUhyPyBXKF/g64u8teGHSoFfeOl5aa2OAtv/u5yJZSBKYS5YuySdCOTJza0FycbDcQ
+         A7oGLwqsxAhxlOEhCvlbHsBBnCnh0ngtSlQrGIpFJCNlwkIZ36iJ1shhKkNJgYzg4CKl
+         tr2B51USVm1VaeRN1B7QML7v/qdkXimNGvRSWGq0sImzKpnLgX+1SrRFvx3lnnXVxhBs
+         NxS+dN47wcCj8QjIt+lcLFpEHg4Y87zQmoKohxfqNcCLliUTgzF5MR1UNnlxu/UNsANP
+         DRcw==
+X-Gm-Message-State: AOJu0YzkK70+tFnCzubw0GHxPfXAkNJ97Nn6rNtHtG9CLbVpjtodcai6
+	nZ65TfG2mMizW5tWlaqyn2mynV5WUELRRX6I1oV0dKejQWBE6ZjT9F7bRsjzjFrgRw==
+X-Gm-Gg: Acq92OE/6C0PQ1CrFI7Zbt/vQqiIC8NvH6iQjCsCId+YM7fJlbvUqY6JVsvT3DNaHin
+	8uWcPXZam4o4FDrc+HU12G23C+gYqmrX1QU7ccqc1jv9YHfrlHygAOhP+puCAtIJmG/FkviYowv
+	+BqYyxVptn9oy3Aql6IcpqlBpcI39JefYkt8IvgutInV9SZ5WayNIRXnPPrwYID9MV7Vajm8aoT
+	qQ/mxz63yT0lVB1OW3eVoLqEAH3ocuBNfj70Jr8gfLFvhIq9UcW8gNN9ccupms4gKxzETAqqjCI
+	Y6UUxilUXB+u2lSeqKJTkegTTOkPTvHX0Rf1k7N/LhxopE7v17jtCYy9S7jVC3XNNDwX8F5fnqp
+	XPbrMNl7HFMs4n36d1rmRU06XrvrBKONuCIev4k256pyR30dEZ7LvL+RAligBkklVYyVzLjkwSR
+	Qy55+W2tL4EEQUxImAY+YTyiicRVuC7QIxbFdMfA4tSDVdx2iSRuUvXjS8EZaA
+X-Received: by 2002:a05:600c:8a0d:20b0:47d:1e65:e841 with SMTP id 5b1f17b1804b1-490a2d38b01mr1535e9.9.1780075665742;
+        Fri, 29 May 2026 10:27:45 -0700 (PDT)
+Received: from localhost ([2a00:79e0:288a:8:d743:bf7b:2a4:a9a2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c0b8a11sm18620525e9.16.2026.05.29.10.27.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 29 May 2026 10:27:45 -0700 (PDT)
+From: Jann Horn <jannh@google.com>
+Date: Fri, 29 May 2026 19:27:39 +0200
+Subject: [PATCH] man/man2/fanotify_mark.2: AT_FDCWD plus NULL path doesn't
+ work
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ln4l42uv4fwphf6p"
-Content-Disposition: inline
-In-Reply-To: <CAJ8owHS3QMOykxJTveCSB5iSiSUVKtswVjDaBJ6cos06whB3AA@mail.gmail.com>
-X-Spamd-Result: default: False [-3.76 / 15.00];
-	SIGNED_PGP(-2.00)[];
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260529-fan-mark-cwd-v1-1-cdfb3b5b6d7c@google.com>
+X-B4-Tracking: v=1; b=H4sIAIrMGWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDUyNL3bTEPN3cxKJs3eTyFF3DZHMzA0MDs9S0NEsloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAJGpbGnAAAAA=
+X-Change-ID: 20260529-fan-mark-cwd-1c760106eff9
+To: Alejandro Colomar <alx@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Amir Goldstein <amir73il@gmail.com>, Matthew Bobrowski <repnop@google.com>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jann Horn <jannh@google.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780075660; l=1197;
+ i=jannh@google.com; s=20240730; h=from:subject:message-id;
+ bh=fAktiUpSZP15Q/bKIpxU0tnb6CaSxI63AleOteLRFhg=;
+ b=hJ5GktEo+vJE7QpLWOYRXPPB5iwKBbBqD8iZUaDnywVjF1mwymGbV/ip3JMGKU3iYtYqsl9ye
+ eC7zM0ArIzHDJSpUt0GJNM4eqgoq9A2tLOyFUVkIf8vE9ncoRKTNjwg
+X-Developer-Key: i=jannh@google.com; a=ed25519;
+ pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+X-Spamd-Result: default: False [-2.16 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
+	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
+	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
 	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[bounces-5636-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCPT_COUNT_TWO(0.00)[2];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TAGGED_FROM(0.00)[bounces-5635-lists,linux-man=lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FREEMAIL_TO(0.00)[kernel.org,suse.cz,gmail.com,google.com];
+	DKIM_TRACE(0.00)[google.com:+];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[172.232.135.74:from];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
 	NEURAL_HAM(-0.00)[-1.000];
 	PRECEDENCE_BULK(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[linux-man];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
+	FROM_NEQ_ENVFROM(0.00)[jannh@google.com,linux-man@vger.kernel.org];
+	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[100.90.174.1:received,209.85.128.48:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo]
-X-Rspamd-Queue-Id: 825AC603BA4
+	TAGGED_RCPT(0.00)[linux-man];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:rdns,sto.lore.kernel.org:helo]
+X-Rspamd-Queue-Id: AE329606828
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+The fanotify_mark.2 manpage claims that AT_FDCWD works with a NULL path,
+but there is no kernel code for that - in fanotify_find_path(), in the
+`if (filename == NULL)` block, the fd is only used for a normal FD
+lookup.
 
---ln4l42uv4fwphf6p
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Chris Adams <chrisadams741@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Linux Man Rendering Issue - Resend
-Message-ID: <ahmhiZwvC_BgEqMl@devuan>
-References: <CAJ8owHS3QMOykxJTveCSB5iSiSUVKtswVjDaBJ6cos06whB3AA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAJ8owHS3QMOykxJTveCSB5iSiSUVKtswVjDaBJ6cos06whB3AA@mail.gmail.com>
+This was also already the case when this manpage was written back in
+2014, so remove the bogus documentation.
 
-Hi Chris,
+Fixes: c200b422d ("fanotify_mark.2: New page documenting fanotify_mark(2)")
+Signed-off-by: Jann Horn <jannh@google.com>
+---
+ man/man2/fanotify_mark.2 | 8 --------
+ 1 file changed, 8 deletions(-)
 
-On 2026-05-29T10:16:40-0400, Chris Adams wrote:
-> Hello,
->=20
-> I=E2=80=99m writing to let you know that the rendering of links within the
-> description sections of Linux manual pages is currently borked. I
-> apologize if this is a known issue. Behavior persists across standard
-> browsers and devices. Thank you for your work on this project!
+diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
+index e561ffd21..a3b77537c 100644
+--- a/man/man2/fanotify_mark.2
++++ b/man/man2/fanotify_mark.2
+@@ -560,14 +560,6 @@ defines the filesystem object to be marked.
+ .IP \[bu]
+ If
+ .I path
+-is NULL, and
+-.I dirfd
+-takes the special value
+-.BR AT_FDCWD ,
+-the current working directory is to be marked.
+-.IP \[bu]
+-If
+-.I path
+ is absolute, it defines the filesystem object to be marked, and
+ .I dirfd
+ is ignored.
 
-Thanks!  This was reported earlier today:
+---
+base-commit: 9db8ca91f920b9aba40ed68de6b8da0ca9dbefaa
+change-id: 20260529-fan-mark-cwd-1c760106eff9
 
-<https://lore.kernel.org/linux-man/20260529111929.7vvqnyie3ankf4ec@illithid=
-/T/>
+Best regards,
+--  
+Jann Horn <jannh@google.com>
 
-man7.org is Michael Kerrisks's page, and is not officially part of this
-project.  However, I do have contact with Michael, and he has received
-the report (I don't know if he's read it yet, though).
-
-
-Have a lovely day!
-Alex
-
-> Best,
->=20
-> Chris Adams
->=20
-> *Message resent due to linux-man spam filter.
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---ln4l42uv4fwphf6p
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoZofwACgkQ64mZXMKQ
-wqkjAw/9GBe4QM2ixoPVblKkQO4i+dtXlf1+WJ/S1uY8O4dIL3P7zY+0ItG7nKTk
-9v7p6NkgoSwITHjy2G6mh5tsji+lBDz4KOUKeDgYTJzaXSkH/H8MGp2R+2c1PzaF
-oSeF68fF6Kq3GetN8jKxipUPBmdSK3/hQOe8L9WoCbHoa4yrGbWGWDAIdWyVVtAx
-1LfIbFm8m6SbHdfWCC7QT0Kp2FK6TJ1zX5NfHkzYP03RSCu4h3gw4Zedq4zX3sO/
-aPQdQiu0AdqtO/Ei+QKuNefzXiUvU6yY56QQugxQn8NVH9nMJHa0pNyhj2lfeEFP
-PLolxAzNx6MJF4YKIdYz8nIzFzW7/X2wEFMEKrWte9M+w7QvygLqan5/T1T4qbnu
-6PbKEWRYYECXxBBE6QtMilzjspDnxA7FT096+wW5ct3iV+X+5FpisEdMVKX6UtXX
-iJWhC+k3Ju1g+YZ31sXPC9YpFAKKV0PRuRokShES7UdqqzwYF8ddsPQOJzACL1qt
-UgFDbnaapl+GFssth6kWf9aO2e7JFHi8ZMJPkVabbebx/lV/FsJNB6zcH0MlttZV
-3iuh6NdiGP4yNARZAIrN5VosgRvH0zTPZQC7v6MCBL3NG5yR6duPyeZJjuVY6/YX
-cvonLjXJobW8y8BUxMue8pNVQqkgSVcEg/5uozKYexQtYTfimxw=
-=6Qyy
------END PGP SIGNATURE-----
-
---ln4l42uv4fwphf6p--
 
