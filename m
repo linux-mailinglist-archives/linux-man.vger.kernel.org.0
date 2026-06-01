@@ -1,62 +1,60 @@
-Return-Path: <linux-man+bounces-5641-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5642-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cFdNIocFHmpRggkAu9opvQ
-	(envelope-from <linux-man+bounces-5641-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 02 Jun 2026 00:19:51 +0200
+	id 6O+nKtIYHmokhQkAu9opvQ
+	(envelope-from <linux-man+bounces-5642-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Tue, 02 Jun 2026 01:42:10 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90337625E06
-	for <lists+linux-man@lfdr.de>; Tue, 02 Jun 2026 00:19:50 +0200 (CEST)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
+	by mail.lfdr.de (Postfix) with ESMTPS id AAC0E626651
+	for <lists+linux-man@lfdr.de>; Tue, 02 Jun 2026 01:42:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id C91BF3017CE5
-	for <lists+linux-man@lfdr.de>; Mon,  1 Jun 2026 22:19:47 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 1C6C2300C7CB
+	for <lists+linux-man@lfdr.de>; Mon,  1 Jun 2026 23:41:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DAD137F010;
-	Mon,  1 Jun 2026 22:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 077DB365A1D;
+	Mon,  1 Jun 2026 23:41:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPMz8iQn"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QhdoyoH3"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4A336213D;
-	Mon,  1 Jun 2026 22:19:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC09342C80
+	for <linux-man@vger.kernel.org>; Mon,  1 Jun 2026 23:41:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780352384; cv=none; b=gUNEipYlELXfHGhCucXM+asko9niS34BT2bQG+NKfPoNaZ7nAcQOUxTXRc00Taxz3uwFNdwhjWrTlKXUofCxXSztok9UvWlnOPoGOAQmiPnVENqgKti2bzwP6themON2jxWQABOe8xFZ4Yx1xXUi6OUKHKj4edV1dS/la+flEaQ=
+	t=1780357315; cv=none; b=Fk3x/klT2ymy2gMuDdjDRuMPL76pjVqb4A0LvHI7z+eXg+0hAZRgiuQD3gltj6EaHux4kk8+bjAmTmRhgmj8UW3cCmEk9X9kIBJsKO1NxS1LgW+ocNCQ6g7eBjdmL1O/XXXvGme6lyelagg7Uo/LgUTb5/FT83427sUKLCCrFGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780352384; c=relaxed/simple;
-	bh=Wrd2uCdZw8mXDwER0LLO5AB0qYC2dGZDcclVnlBQm/E=;
+	s=arc-20240116; t=1780357315; c=relaxed/simple;
+	bh=BDcvapnHeUUB+ghuJdncPepL5UtZXjQgyC8wD1dwLJQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IILWOKSpe4ETdBhzxLQWWyOkw0NKB+5+ZE8tNv6YLA90n4Grj33M3cZjAHIHwsHtjSmFAg9QbToGkqcTr/0ciABX5qMRcRh+2x0hVPfO1/JCvuntmdi+vLHmEfQLe3L/jGIhJ5zkLSCzgoOJKC1jWzmM8JAsr2Lz2+EWPmVLQp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPMz8iQn; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24AC81F00893;
-	Mon,  1 Jun 2026 22:19:40 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=EdfjVuRnIyXA4vX1FJxpAuunpGmNeADxxLw2t31q1R1dg1MR36abx5KOizb/KIABaQywZJSYG1fu41YZ9s9d2KBMQMnLf8jHBWCUpZ98VJmeHjgmwsT/X3qd5nVkFmzubV5rADoipzjMqpY1lOFsYY/35tMz53zvLcsgtQAHC7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QhdoyoH3; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78FC1F00893;
+	Mon,  1 Jun 2026 23:41:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780352382;
-	bh=UGpo5gp1GklDKAAjSvOFnlQNXmY+Rax1chqUL9Ybcr4=;
+	s=k20260515; t=1780357314;
+	bh=yYaho2fb17roRNJm7Je2htGhE4T/MRbsXbRiy/FR468=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lPMz8iQn4dV2e2nihs7PsqNqYvx3eMV5OVLHcd0VTwds3VDDftXqI+GwEU9wi7g+r
-	 J1WZTF+KV83gAZEz6DxQuZB1VvJRRlcqOrKz+gMDTNos/qs7AnqDqy8OYB4WsUoq2P
-	 BV/hFMC5v4ltkY4Iez9tLfcKnWUlTudZY7QV0RRdh4xAbcw10IBiS/YU/dayNa0AZJ
-	 nvD7nTKWsGOtikq58NUWA2kAdzL3n2riHfJqnZnG911xlBs4gwDzODtb1927vUHUUZ
-	 uM7z3vPmjEmhBeh+uP0j8DiVDCKa7hEHzzxZkkowtyB7a6oPx6+6Tp5bTCEWuOwAxz
-	 c5X0a7PxABc1Q==
-Date: Tue, 2 Jun 2026 00:19:39 +0200
+	b=QhdoyoH3RRdxvXvdMwJXNfBwch/1VO+tU3436/qxDSZeS3qlbqgqt3U8HRJynY7wY
+	 Fm5JBzwClUSZ6fS8GUFi03hMPXxocHIX+H7aBdSKYi67KiSV0nc9X4VWV0Uevo7ty7
+	 gi2VIrKYsl55P3Q6tF1ZbZmT62axIMYI+v/M8NsofBiMoQj/4lfP//SwyVNy8yyTjt
+	 +fSuALHTMAfwROn3wsWl6O2J8CHrgZwxEIzEmfAJHUc7bzGgMbgLc29Dd1HDW93pDh
+	 1FjP/Vaw/A95b0WeKx2G+O/Z66EE9WnqUhmLFFnFL00620S6jQI95ufOQrPMHJpGQ5
+	 XhEGPdsq6N7tw==
+Date: Tue, 2 Jun 2026 01:41:48 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>, 
-	Heinrich Schuchardt <xypron.glpk@gmx.de>
-Cc: Jann Horn <jannh@google.com>, Jan Kara <jack@suse.cz>, 
-	Matthew Bobrowski <repnop@google.com>, linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] man/man2/fanotify_mark.2: AT_FDCWD plus NULL path
- doesn't work
-Message-ID: <ah4FXUpcE-6xlcDs@devuan>
-References: <20260529-fan-mark-cwd-v1-1-cdfb3b5b6d7c@google.com>
- <CAOQ4uxiHU5xK=_FsOBkkB0go9ACBb2fYcdVE6T2o=MYDcxaiaQ@mail.gmail.com>
- <ahoIuOuC7q5M24dV@devuan>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Hugh Dickins <hughd@google.com>, linux-man@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2] man/man2const/F_{ADD,GET}_SEALS.2const: document
+ F_SEAL_EXEC
+Message-ID: <ah4YmXpL6rxHlo4r@devuan>
+References: <20260529140557.1624507-1-pratyush@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -64,165 +62,189 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uykuwuxrsiirp5cu"
+	protocol="application/pgp-signature"; boundary="bj4mrrqlkuc6upa5"
 Content-Disposition: inline
-In-Reply-To: <ahoIuOuC7q5M24dV@devuan>
+In-Reply-To: <20260529140557.1624507-1-pratyush@kernel.org>
 X-Spamd-Result: default: False [-3.76 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64:c];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.15)[generic];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5641-lists,linux-man=lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	TAGGED_FROM(0.00)[bounces-5642-lists,linux-man=lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,gmx.de];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:+];
-	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
+	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
 	MISSING_XM_UA(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	PRECEDENCE_BULK(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alejandro-colomar.es:url,sin.lore.kernel.org:rdns,sin.lore.kernel.org:helo]
-X-Rspamd-Queue-Id: 90337625E06
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:rdns,sin.lore.kernel.org:helo,alejandro-colomar.es:url]
+X-Rspamd-Queue-Id: AAC0E626651
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---uykuwuxrsiirp5cu
+--bj4mrrqlkuc6upa5
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>, 
-	Heinrich Schuchardt <xypron.glpk@gmx.de>
-Cc: Jann Horn <jannh@google.com>, Jan Kara <jack@suse.cz>, 
-	Matthew Bobrowski <repnop@google.com>, linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] man/man2/fanotify_mark.2: AT_FDCWD plus NULL path
- doesn't work
-Message-ID: <ah4FXUpcE-6xlcDs@devuan>
-References: <20260529-fan-mark-cwd-v1-1-cdfb3b5b6d7c@google.com>
- <CAOQ4uxiHU5xK=_FsOBkkB0go9ACBb2fYcdVE6T2o=MYDcxaiaQ@mail.gmail.com>
- <ahoIuOuC7q5M24dV@devuan>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Hugh Dickins <hughd@google.com>, linux-man@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2] man/man2const/F_{ADD,GET}_SEALS.2const: document
+ F_SEAL_EXEC
+Message-ID: <ah4YmXpL6rxHlo4r@devuan>
+References: <20260529140557.1624507-1-pratyush@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <ahoIuOuC7q5M24dV@devuan>
+In-Reply-To: <20260529140557.1624507-1-pratyush@kernel.org>
 
-Hi,
+Hi Pratyush,
 
-On 2026-05-29T23:45:55+0200, Alejandro Colomar wrote:
-> Hi Jann, Amir,
+On 2026-05-29T16:05:55+0200, Pratyush Yadav wrote:
+> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 >=20
-> On 2026-05-29T23:38:11+0200, Amir Goldstein wrote:
-> > On Fri, May 29, 2026 at 7:27=E2=80=AFPM Jann Horn <jannh@google.com> wr=
-ote:
-> > >
-> > > The fanotify_mark.2 manpage claims that AT_FDCWD works with a NULL pa=
-th,
-> > > but there is no kernel code for that - in fanotify_find_path(), in the
-> > > `if (filename =3D=3D NULL)` block, the fd is only used for a normal FD
-> > > lookup.
-> > >
-> > > This was also already the case when this manpage was written back in
-> > > 2014, so remove the bogus documentation.
-> > >
-> > > Fixes: c200b422d ("fanotify_mark.2: New page documenting fanotify_mar=
-k(2)")
-> > > Signed-off-by: Jann Horn <jannh@google.com>
-> >=20
-> > Hah,  never noticed this.
-> > Apparently, hallucinations already existed in 2014 :D
-> >=20
-> > Acked-by: Amir Goldstein <amir73il@gmail.com>
+> F_SEAL_EXEC was added in Linux v6.3. It blocks changing of the exec bits
+> once added. Document it.
 >=20
-> Thanks!  I've added the author of the fixed commit in the recipients.
-> I'll apply on Monday or so.
+> Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+> ---
+>=20
+> Notes:
+>     I discovered this was missing when working on [0]. I had to look at t=
+he
+>     code to figure out how it was supposed to behave.
+>    =20
+>     Changes in v2:
+>     - Re-write the documentation by hand.
+>    =20
+>     [0] https://lore.kernel.org/linux-mm/20260505133922.797635-1-pratyush=
+@kernel.org/
 
-I've applied the patch and tag now.  Thanks!
+Thanks!  I've applied the patch, with a few minor tweaks:
+
+	diff --git i/man/man2const/F_GET_SEALS.2const w/man/man2const/F_GET_SEALS.=
+2const
+	index f41e1748acd0..686a92fddefe 100644
+	--- i/man/man2const/F_GET_SEALS.2const
+	+++ w/man/man2const/F_GET_SEALS.2const
+	@@ -178,13 +178,15 @@ .SH DESCRIPTION
+	 while sharing that buffer on a "read-only" basis with other processes.
+	 .TP
+	 .BR F_SEAL_EXEC " (since Linux 6.3)"
+	-If this seal is set, the execute mode bits of the file cannot be modified.
+	+If this seal is set,
+	+the execute mode bits of the file cannot be modified.
+	 Attempting to change the execute mode bits via
+	 .BR fchmod (2)
+	 or similar will fail with
+	 .BR EPERM .
+	-This results in a memfd that is either permanently executable or
+	-permanently un-executable.
+	+This results in a memfd that is
+	+either permanently executable
+	+or permanently not executable.
+	 .IP
+	 Adding this seal implicitly adds
+	 .BR F_SEAL_GROW ,
+	@@ -193,7 +195,8 @@ .SH DESCRIPTION
+	 and
+	 .BR F_SEAL_FUTURE_WRITE .
+	 This ensures that the executable code is not writeable.
+	-All the pre-requisites to add the implied seals must be met to successful=
+ly add
+	+All the pre-requisites to add the implied seals must be met
+	+to successfully add
+	 .BR F_SEAL_EXEC .
+	 .SH RETURN VALUE
+	 .TP
 
 
 Have a lovely night!
 Alex
 
 >=20
+>  man/man2const/F_GET_SEALS.2const | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
 >=20
-> Have a lovely night!
-> Alex
+> diff --git a/man/man2const/F_GET_SEALS.2const b/man/man2const/F_GET_SEALS=
+=2E2const
+> index 175025c10..f41e1748a 100644
+> --- a/man/man2const/F_GET_SEALS.2const
+> +++ b/man/man2const/F_GET_SEALS.2const
+> @@ -176,6 +176,25 @@ will fail with
+>  Using this seal,
+>  one process can create a memory buffer that it can continue to modify
+>  while sharing that buffer on a "read-only" basis with other processes.
+> +.TP
+> +.BR F_SEAL_EXEC " (since Linux 6.3)"
+> +If this seal is set, the execute mode bits of the file cannot be modifie=
+d.
+> +Attempting to change the execute mode bits via
+> +.BR fchmod (2)
+> +or similar will fail with
+> +.BR EPERM .
+> +This results in a memfd that is either permanently executable or
+> +permanently un-executable.
+> +.IP
+> +Adding this seal implicitly adds
+> +.BR F_SEAL_GROW ,
+> +.BR F_SEAL_SHRINK ,
+> +.BR F_SEAL_WRITE ,
+> +and
+> +.BR F_SEAL_FUTURE_WRITE .
+> +This ensures that the executable code is not writeable.
+> +All the pre-requisites to add the implied seals must be met to successfu=
+lly add
+> +.BR F_SEAL_EXEC .
+>  .SH RETURN VALUE
+>  .TP
+>  .B F_GET_SEALS
 >=20
-> >=20
-> > > ---
-> > >  man/man2/fanotify_mark.2 | 8 --------
-> > >  1 file changed, 8 deletions(-)
-> > >
-> > > diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
-> > > index e561ffd21..a3b77537c 100644
-> > > --- a/man/man2/fanotify_mark.2
-> > > +++ b/man/man2/fanotify_mark.2
-> > > @@ -560,14 +560,6 @@ defines the filesystem object to be marked.
-> > >  .IP \[bu]
-> > >  If
-> > >  .I path
-> > > -is NULL, and
-> > > -.I dirfd
-> > > -takes the special value
-> > > -.BR AT_FDCWD ,
-> > > -the current working directory is to be marked.
-> > > -.IP \[bu]
-> > > -If
-> > > -.I path
-> > >  is absolute, it defines the filesystem object to be marked, and
-> > >  .I dirfd
-> > >  is ignored.
-> > >
-> > > ---
-> > > base-commit: 9db8ca91f920b9aba40ed68de6b8da0ca9dbefaa
-> > > change-id: 20260529-fan-mark-cwd-1c760106eff9
-> > >
-> > > Best regards,
-> > > --
-> > > Jann Horn <jannh@google.com>
-> > >
-> >=20
->=20
+> base-commit: 9db8ca91f920b9aba40ed68de6b8da0ca9dbefaa
 > --=20
-> <https://www.alejandro-colomar.es>
-
-
+> 2.54.0.1013.g208068f2d8-goog
+>=20
+>=20
 
 --=20
 <https://www.alejandro-colomar.es>
 
---uykuwuxrsiirp5cu
+--bj4mrrqlkuc6upa5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoeBXoACgkQ64mZXMKQ
-wqmSKQ/+OB9qZsXi0bFw5jXsbSic3/Z1rzCXQ+cBWfkikbxPIrHk0izfD9Qx9Azs
-3pRZu56HL5ygbdjTLUwgMM5zu8GQ8p9aTfl/HAm4TxVBa0PPqO9ZY4+B1QiqR4HZ
-jW0QNZWLh7AsFJ/fIxMV7QPogB9l2rml90dHTuTNfYgIqjvpuDXTNxnuHkC8NFrD
-vL66WGgUVPRrNd4iIlqxBMdThxBS7P/5zQctgS42oRtMmJhzYZq52q4nnxEg9kGm
-P00pxwLR2qZbOaQfc0mdhkIcu9HU9jDBekbnTEpqw/oFoGTDGfl7zgGSEPVCjWox
-tIWvbJFrXRFAGxn5KdRYOyK/y0nuiW4lh0h/fARy4fAND0h9QiR8TNkZbv09Csec
-aEHp99ydR3yELLtbUinc/QNZ0xv5iOgzVdAdqjZZNeUjm2/wwRkW7I9mdeZf0DTL
-3D9aTK+eKS8rGqOw+lSkxdPQ+BY4Mkqqe0GvxgGeb77MjmVBWX/hExnFxwTZGarv
-TKh9fmQIeHP3d9auQfomP/rEZHrId6m915sJW9Gf0myif/YRMvbAbRyoIzT056Dp
-jMNtQh1lR8CFHHnElpkgYt7yLsaWeyeUV1WSNJ5xZ17vOKX/AqxIHysycSnen1fc
-jpXrucVD0wBMzRhNarejoCV8/rQeHrSi2hHiD6Jo4XuobP+nhDQ=
-=8Bu2
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoeGLwACgkQ64mZXMKQ
+wqlumw//R7PxIUzCmHCHyJWiab8qt4v7Y9PBVejZoH7w7WSFvfQ4jOBXwNgQ6/4l
+mY4p04QrV07jGNbiEENcyOIpjVPCp/ziub5Wg8IK86jmhq+P1KGpTIEtJTNa83oO
+zegeo0R469vpW2ABOOZX0L0z+NnPmQD9TwIqTNEs9QV5V0BaJY/vwFpLm1bw3hRW
+Hm1QTUUk0WCP0gZQ7oHvK4U3gTff2pEfxpTPGhxQ0vSBs+c1xx0C4GE+DWb2MD2E
+G5fkdVfV1ggx6xZ1z0mRBQKN0u8d745nXIOwCoA3bMBx1BL4vpxnm0610tslc0jB
+6MYRIw5U6UnzqLVCBa+I3v2gCFVFj7yO6HJWZ8n0aEMJq1E0WK2nOmFNedWqi7wS
+EUo0F29Eg4Gl3TVAFt8P5WdMh/czz3D1vG32B6kClEQLQ8fFyzeYd3jZZ0v7eJz5
+MR0nSjaDOflJme8cLe2GEr1D0SwROc95bVv5ezUqzFhTIdyeCfzR4BsPJNQXm7Zb
+WLQoy4b8IsqAU+VP486ZyLDv8/vjcGDWi/anW3ZawIPZvLopKVVmVXSNwe6heMAI
+CKuQVgxq06Gfy8qJhBIISqjYZwISPJaGD3+nxx1VQbOVUzSicK7hSSZkmAOwfH77
+y7ZFpXGudIHOPWjvh09z5/y7JBCo1k+9h/3f/CngXuweHounNHk=
+=7Zav
 -----END PGP SIGNATURE-----
 
---uykuwuxrsiirp5cu--
+--bj4mrrqlkuc6upa5--
 
