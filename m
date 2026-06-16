@@ -1,170 +1,182 @@
-Return-Path: <linux-man+bounces-5656-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5657-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ijFSNMTFMWrWpwUAu9opvQ
-	(envelope-from <linux-man+bounces-5656-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jun 2026 23:53:08 +0200
+	id zLaRNqrJMWqJqAUAu9opvQ
+	(envelope-from <linux-man+bounces-5657-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jun 2026 00:09:46 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4718A6957CF
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jun 2026 23:53:08 +0200 (CEST)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [172.232.135.74])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80B75695890
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jun 2026 00:09:46 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=redhat.com header.s=mimecast20190719 header.b=OZ7pZ0TE;
-	dkim=pass header.d=redhat.com header.s=google header.b=PW4fIPbo;
-	spf=pass (mail.lfdr.de: domain of "linux-man+bounces-5656-lists+linux-man=lfdr.de@vger.kernel.org" designates 172.105.105.114 as permitted sender) smtp.mailfrom="linux-man+bounces-5656-lists+linux-man=lfdr.de@vger.kernel.org";
-	dmarc=pass (policy=quarantine) header.from=redhat.com;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=V97N9cjc;
+	spf=pass (mail.lfdr.de: domain of "linux-man+bounces-5657-lists+linux-man=lfdr.de@vger.kernel.org" designates 172.232.135.74 as permitted sender) smtp.mailfrom="linux-man+bounces-5657-lists+linux-man=lfdr.de@vger.kernel.org";
+	dmarc=pass (policy=quarantine) header.from=kernel.org;
 	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1")
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 52F2D3049E10
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jun 2026 21:53:07 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id EE7CA3016663
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jun 2026 22:09:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F0703803E8;
-	Tue, 16 Jun 2026 21:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5989A3AB460;
+	Tue, 16 Jun 2026 22:09:43 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B15A331EA5
-	for <linux-man@vger.kernel.org>; Tue, 16 Jun 2026 21:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F75E3A7186
+	for <linux-man@vger.kernel.org>; Tue, 16 Jun 2026 22:09:41 +0000 (UTC)
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781646784; cv=none; b=hp/IRewrrjEsHrgphePv10ChZY2/HRW4d8tNrgvvZ1cY646vnen32tYeqx/ae9C86uHqNqrftsr8I5uXiKbEigu0XuDnU7Nd0N/tDvPkCd8OSXJRjRwxxxwCPa4WofEtz8XTN9NTkRv/jKx0LfpV+9XqQWIZPdeR8/srSmPTHqQ=
+	t=1781647783; cv=none; b=NtumDoviJpHeSBtSikqMNEZnn8S4/e0oyF2maFApCvYemt61E1yBHit2paIK6MjKlNX0qTRKqTlTGBfIoZO2ziMXCK9Lrg2FEXhDo8A6L+NLlrdVTJkX0IFOKeEFNSHNdRgqDGLpmPQ8XlVF4mvDHMbySq+7u8cHSUpkKSdKFEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781646784; c=relaxed/simple;
-	bh=ozXxA496cy4c7pZlAJZcWvXvD0NI+8QF+FmcGVSIv3s=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=fanpIOV3QDirSv8N8SHpO7kcFuF9hU20piJKLetaRcsnK9EGKSIzRXdx7mYwseUay6KpkBOxLpukRXRQXfrUhIccLVT8QNWou/82xgvrHcK6Kwbbg2GEJkD0Uu5khG9+efVirwybo2Y4XOPDl8DAzzKWSU6/C+lR+IQwJn7H5EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OZ7pZ0TE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PW4fIPbo; arc=none smtp.client-ip=170.10.129.124
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781646782;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wP4Dup0BNTJzy5JGue2n42Y8cFH9+s77xB2Q1Y9OfVo=;
-	b=OZ7pZ0TEfDlpCm7JdDAGO//OIbHliBpw3cJHmjObxmlfff06fhx56Jt9q8pE1KlZgIS8kA
-	EkEp9R33NUw2QUs9K00LdxYm06USKolbSwHtNzUabFgcIImjLQ92OSVlCSzdZziEcjGIqI
-	oKc5ApiyOxdussLnWXHHUAvpobrGJZU=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-465-iC0gT0h8PwWOvXGVNFSbcQ-1; Tue, 16 Jun 2026 17:53:00 -0400
-X-MC-Unique: iC0gT0h8PwWOvXGVNFSbcQ-1
-X-Mimecast-MFC-AGG-ID: iC0gT0h8PwWOvXGVNFSbcQ_1781646779
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4625e71d3ccso96060f8f.0
-        for <linux-man@vger.kernel.org>; Tue, 16 Jun 2026 14:53:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781646779; x=1782251579; darn=vger.kernel.org;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=wP4Dup0BNTJzy5JGue2n42Y8cFH9+s77xB2Q1Y9OfVo=;
-        b=PW4fIPboIURtZwl5Qgm/khjheWiu3RjCB8RypgoBvDHoEmmy8MyhD9SzC+Q8povqcm
-         YJ2f1iNXFm1FGcQ3893ICPg4wfUN3Ca6UeMEWP7oI+hQaOptPGh2XoZY6nqGPSWpDJ7V
-         6FS6VSyJJ2VGx/OYZytU3b17UvUO/0lGVqnvrfnLB7gBpuSd+13k6FqIZ/7BX+QVy2rJ
-         Bz5a3MNs+/cWjld9v2rtCTvZ9/20Hfm7oQh5xpvJhM1ZVgMDOVz4K/8lFvDf+sVZ06Nu
-         VjY7veZ6cN6te21kZjzWS8sztDP08yfejXcQaoEiwMwGT1/8EJ/Th0+O5EPsRtm4sbLJ
-         NZZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781646779; x=1782251579;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wP4Dup0BNTJzy5JGue2n42Y8cFH9+s77xB2Q1Y9OfVo=;
-        b=qekttw1rGBIyRVxl+q4+gNmPoL7MuyXLMaiG+9lcDIrMOutjibQCA8eYDZglDqwbDD
-         BBLaB3dJwbicmVcKoMXvbvbNj6UoWx5msRarL5R3lDWzl2HfM94mX9V8AZGmkqtrUoxn
-         SVoQMdNa8N5lktR2n3DKaIBQtuZZkTLA3V7VaqGVFxD5QEpEkgBHYN3XNm1FaiiUYfjh
-         ydsQvFHyglHS/NUSOgPQGw7/C+SbmSDpsn47BZXu6dENLARyhE+0BTa1NuKDOX/VexZe
-         VjCCRP4I5A0cXc4vn9SkUbTHElaQeCtDI843v1eRZr6dHYvyZDdvdiRZ57J39sSTSsqN
-         3dTQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9y8pHQYfF3sTe6aUnnsL7GY25xMYe/vXGdNj7uDXdWTcevCia1Rs62Y40cifuyPs3DE0Hi0QZakvA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbmXA1kwiHjGithveFQEcmq5QfgaaGJFg5mYSQ6JpAljjvKrQi
-	2FzrxLUBK+V2uL7cfj6CY+HI6PInjak5ja6GhleFeWWpyQvuC0UCThiqoTcJx5hb7Zm9Vr/zZdH
-	NN40UlFT7qXZRx/S5d6TjpKtNkjlxTIRpu0K72tS58dvBd/wSYvzNIOdAXDqKfW4JK51NDg==
-X-Gm-Gg: AfdE7cl9cxMS83yfEqYp5K0ugP4nHODUUKvIDCIEXWGBDLtzQl4h/oQsbvJ4OhU2Mxu
-	bKCMdCmkSfafmSmMad1I0VTo5wni+acSfID8GCXHb7a1Dxo4fwmNyaK36uZmHfAOdWrlhrrpTYN
-	cZ39S8rN5PPw499PxSGi104dCd3Q4+lXFBGcMnjMZ7eHm7W4l0aq6cpqA7YwfNPQFF1dzLSfe0v
-	dX5RqhdphcwzLrA4MeMumyykZ6+m46iAz3CV+2g8mPCgJhM0IUiT2y50V4hup7h12gwJ4DdC02w
-	l6alZBj66CnfIbbQXzqNm9Ec5XMpOqrCEvBCmtkkpZKtK7qc8V2XCJgl8omzfvLl0erlymUqqJw
-	ZgnKZcbTiFqcW7Rz64TUmViXD1mpT2+O0FhFaOyerC6llIKb7vbtF
-X-Received: by 2002:a05:6000:25c8:b0:45f:3385:bceb with SMTP id ffacd0b85a97d-46268f14e59mr720974f8f.4.1781646779483;
-        Tue, 16 Jun 2026 14:52:59 -0700 (PDT)
-X-Received: by 2002:a05:6000:25c8:b0:45f:3385:bceb with SMTP id ffacd0b85a97d-46268f14e59mr720947f8f.4.1781646779098;
-        Tue, 16 Jun 2026 14:52:59 -0700 (PDT)
-Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f3basm45453590f8f.12.2026.06.16.14.52.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 14:52:58 -0700 (PDT)
-Received: from jsm28 (helo=localhost)
-	by digraph.polyomino.org.uk with local-esmtp (Exim 4.98.2)
-	(envelope-from <josmyers@redhat.com>)
-	id 1wZbiL-00000003Dqb-3AJn;
-	Tue, 16 Jun 2026 21:52:57 +0000
-Date: Tue, 16 Jun 2026 21:52:57 +0000 (UTC)
-From: Joseph Myers <josmyers@redhat.com>
-To: Alejandro Colomar <alx@kernel.org>
-cc: libc-alpha@sourceware.org, gcc@gcc.gnu.org, linux-man@vger.kernel.org
+	s=arc-20240116; t=1781647783; c=relaxed/simple;
+	bh=HD93vC5GUSjBPvwkbLAfkCcpqogXKTDVtXeHijoQENw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pwGsPJhUnIC9wGKHA04OiLvpE0bHDAzkCU3vRLZDTWUxrFvDrYA3rha/pV3/l5DM1g0xkWj/NTCohO41b//62PVibtv/sbWokWn6/6tO63KKwXwj9Mt5UeMAFAfGq5sTfD2IEjaT8iAajD8NVvswywAvZefg7ydoatoD+BRGHVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V97N9cjc; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D159B1F000E9;
+	Tue, 16 Jun 2026 22:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781647781;
+	bh=Ft2gXqosUq+mjpoBM632V0zqSraNHqN3W2FI0zraMas=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V97N9cjcR9sQyA50CB3MEuHv1iWLC0k9vxTOnKuFcdDRVG9PEB795anDg1oJzAL+g
+	 UoV3DCOxr29fgrdS6YXjD7zO6jlShSAUySKsMKI5Alrw/C8VVRDenxOsUVKWqhVegb
+	 xDVZNv6Y/vN8gbRikccKV29LDGbIOCIL4u6FB85KRT2zC5qu//fkoiw0M1LOvtyt0l
+	 ufYP14majmM8nac+3AMhADR6tudiCG9BD5RgFINSjQrmylbC07n0wOInEnTSDY39rv
+	 VCcpYC8L0z+y4vB1nWVuw+PCEUjQ3DDL4vwdrl0XIKSx+v34sswOV4z58KXjTQP0bb
+	 I+I7DxDz2t18g==
+Date: Wed, 17 Jun 2026 00:09:37 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Joseph Myers <josmyers@redhat.com>
+Cc: libc-alpha@sourceware.org, gcc@gcc.gnu.org, linux-man@vger.kernel.org
 Subject: Re: _ISOCxx_SOURCE
-In-Reply-To: <ajG7DCFNQPXb11nr@devuan>
-Message-ID: <a514153e-7842-0cfa-92c9-a4137c58b153@redhat.com>
-References: <ai1DVieT3gTr4J5S@devuan> <c357346a-ecd1-761e-47c4-5c1357b32c59@redhat.com> <ajBpIbEH_7KkJrld@devuan> <b22b20d8-b4bb-ce86-7865-87ac4ed7df25@redhat.com> <ajG7DCFNQPXb11nr@devuan>
+Message-ID: <ajHIbvWy9iCilUCX@devuan>
+References: <ai1DVieT3gTr4J5S@devuan>
+ <c357346a-ecd1-761e-47c4-5c1357b32c59@redhat.com>
+ <ajBpIbEH_7KkJrld@devuan>
+ <b22b20d8-b4bb-ce86-7865-87ac4ed7df25@redhat.com>
+ <ajG7DCFNQPXb11nr@devuan>
+ <a514153e-7842-0cfa-92c9-a4137c58b153@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="op66v3eztbmgsmcn"
+Content-Disposition: inline
+In-Reply-To: <a514153e-7842-0cfa-92c9-a4137c58b153@redhat.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.16 / 15.00];
+X-Spamd-Result: default: False [-6.76 / 15.00];
+	WHITELIST_SPF_DKIM(-3.00)[kernel.org:d:+,kernel.org:s:+];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719,redhat.com:s=google];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
+	R_SPF_ALLOW(-0.20)[+ip4:172.232.135.74:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5656-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5657-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[tor.lore.kernel.org:rdns,tor.lore.kernel.org:helo,vger.kernel.org:from_smtp];
-	FORGED_RECIPIENTS(0.00)[m:alx@kernel.org,m:libc-alpha@sourceware.org,m:gcc@gcc.gnu.org,m:linux-man@vger.kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	FORWARDED(0.00)[lists@lfdr.de];
-	FORGED_SENDER(0.00)[josmyers@redhat.com,linux-man@vger.kernel.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
-	TO_DN_SOME(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[josmyers@redhat.com,linux-man@vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[4];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_RECIPIENTS(0.00)[m:josmyers@redhat.com,m:libc-alpha@sourceware.org,m:gcc@gcc.gnu.org,m:linux-man@vger.kernel.org,s:lists@lfdr.de];
+	FORWARDED(0.00)[lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-man];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.232.128.0/19, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vger.kernel.org:from_smtp,sto.lore.kernel.org:rdns,sto.lore.kernel.org:helo,devuan:mid,alejandro-colomar.es:url]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4718A6957CF
+X-Rspamd-Queue-Id: 80B75695890
 
-On Tue, 16 Jun 2026, Alejandro Colomar via Gcc wrote:
 
-> If one uses a modern GCC with an old glibc (which doesn't know C23),
-> then, using -std=c23 will be problematic: the compiler will enable C23
-> language mode, but the library will entirely and silently ignore
-> _ISOC23_SOURCE, because it doesn't know about it, thus falling back to
-> C89 mode (I guess), and thus will for example enable things like
-> gets(3).
+--op66v3eztbmgsmcn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Joseph Myers <josmyers@redhat.com>
+Cc: libc-alpha@sourceware.org, gcc@gcc.gnu.org, linux-man@vger.kernel.org
+Subject: Re: _ISOCxx_SOURCE
+Message-ID: <ajHIbvWy9iCilUCX@devuan>
+References: <ai1DVieT3gTr4J5S@devuan>
+ <c357346a-ecd1-761e-47c4-5c1357b32c59@redhat.com>
+ <ajBpIbEH_7KkJrld@devuan>
+ <b22b20d8-b4bb-ce86-7865-87ac4ed7df25@redhat.com>
+ <ajG7DCFNQPXb11nr@devuan>
+ <a514153e-7842-0cfa-92c9-a4137c58b153@redhat.com>
+MIME-Version: 1.0
+In-Reply-To: <a514153e-7842-0cfa-92c9-a4137c58b153@redhat.com>
 
-Since the relevant checks in features.h are based on __STDC_VERSION__ > 
-something or __STDC_VERSION__ >= something, it will fall back to the most 
-recent C standard version known by that glibc version, which is probably 
-what you want.
+Hi Joseph,
 
--- 
-Joseph S. Myers
-josmyers@redhat.com
+On 2026-06-16T21:52:57+0000, Joseph Myers wrote:
+> On Tue, 16 Jun 2026, Alejandro Colomar via Gcc wrote:
+>=20
+> > If one uses a modern GCC with an old glibc (which doesn't know C23),
+> > then, using -std=3Dc23 will be problematic: the compiler will enable C23
+> > language mode, but the library will entirely and silently ignore
+> > _ISOC23_SOURCE, because it doesn't know about it, thus falling back to
+> > C89 mode (I guess), and thus will for example enable things like
+> > gets(3).
+>=20
+> Since the relevant checks in features.h are based on __STDC_VERSION__ >=
+=20
+> something or __STDC_VERSION__ >=3D something,
 
+Ahh, yup, it has || for either _ISOCxx_SOURCE or __STDC_VERSION__.  That
+makes sense.
+
+> it will fall back to the most=20
+> recent C standard version known by that glibc version, which is probably=
+=20
+> what you want.
+
+Hmmm, it is.  Then it's all fine.  Thanks!
+
+
+Cheers,
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--op66v3eztbmgsmcn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmoxyaAACgkQ64mZXMKQ
+wqkHrg/9Ep2vkbS1z27rXKvEIncJS8qAiLhYb1XZZjud6N5MR/hCfb7+9B+AOQxN
+vzw7vSzPDvHYJjb9K69OB8X6/bn+3dn97MopJYFnMx8vvkpo44S24gkqk2F93a+r
+CgHs5+8zExFPvxWsXKxKVevLdcui6pLj/JrbY1T9uxE84Z6U2EerfpiXgjoj5dRd
+6EW4bIMBps4Rc+XnTJZYgq4qVNDZUOrFhiLj1GEFIe/fO8zG+XayWbbdvrUsCNiV
+bg4UQITNYud4LT7F3WldAm9cfktWhID4cllT2mUzBW8xTQVP3gkTTTlwVfCBoGS1
+cJH7Hf7T2QUxuNownqtvx7HjL5VZXrW2r7PkQo4eHRgp2KlszIx1FAtaEDSImi2W
+CtXYEoKi3ynlKQXGpn0yMqoIP2GOFlnZFjgPzI9cQMwCfvdt2eisoXeKRgkwgEXJ
+y7vMTkqgiCHm55Ase2BKBvFyve7XZJ38zQadWfLVze0PGDv6nKkwRWofRTgToHmM
+KNe+YF3Juz8fG6RqKZV98R9zlT6p5Z8pmPxuYndJVUa4Xt3UUaSDPnowA+NlqrRW
+DfratKzfkapffcqSTHB1tFK9LkQELjLRzt4ElTFc4M/ZfRf0c5YM1NFmH3s0c1K3
+PEeOoB1PL7bjTXJ8dKNJqNzTJLd5uaBJ4EEUQTw2ViFa3lWUAQg=
+=WQp5
+-----END PGP SIGNATURE-----
+
+--op66v3eztbmgsmcn--
 
