@@ -1,50 +1,50 @@
-Return-Path: <linux-man+bounces-5659-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5658-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Dg1VITMWNWpNmwYAu9opvQ
-	(envelope-from <linux-man+bounces-5659-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2026 12:13:07 +0200
+	id mTzFDQMVNWoGmwYAu9opvQ
+	(envelope-from <linux-man+bounces-5658-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2026 12:08:03 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5A986A5252
-	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2026 12:13:06 +0200 (CEST)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
+	by mail.lfdr.de (Postfix) with ESMTPS id 355576A51EB
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2026 12:08:02 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=none;
-	spf=pass (mail.lfdr.de: domain of "linux-man+bounces-5659-lists+linux-man=lfdr.de@vger.kernel.org" designates 172.234.253.10 as permitted sender) smtp.mailfrom="linux-man+bounces-5659-lists+linux-man=lfdr.de@vger.kernel.org";
+	spf=pass (mail.lfdr.de: domain of "linux-man+bounces-5658-lists+linux-man=lfdr.de@vger.kernel.org" designates 104.64.211.4 as permitted sender) smtp.mailfrom="linux-man+bounces-5658-lists+linux-man=lfdr.de@vger.kernel.org";
 	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1")
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 942D63009F94
-	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2026 10:11:58 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 552943006D56
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2026 10:07:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7629363089;
-	Fri, 19 Jun 2026 10:11:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EEE4336894B;
+	Fri, 19 Jun 2026 10:07:56 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
 Received: from a3.inai.de (a3.inai.de [144.76.212.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B752F363F
-	for <linux-man@vger.kernel.org>; Fri, 19 Jun 2026 10:11:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F29936B04E
+	for <linux-man@vger.kernel.org>; Fri, 19 Jun 2026 10:07:52 +0000 (UTC)
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781863917; cv=none; b=PF0UTeIrAtjHUw6b1x4mRTSKQQZx5Fq0Vzskn2cGx2bfOsQTO+8rpjVRWBJR8xYpd7bF1GqJ93t3UkVz7Gkw/B7bkH1G5/L6zT5df8VeLHr/rNjqdYut9FYrzoGE6aMRvXih2nTBSKv3AC9qBW5QZZV5lvjdcvsUY8rAXLUW4fo=
+	t=1781863676; cv=none; b=fm4uGAWsfo90tgtgNOs8bMvhNXSJ8xYz6SiVgJAW6SHgztqj1YL1/DFbRhovki882qNr4cyUy7U9/W3Y5Fn+AO3fMs3Nbrb9iZ4Utwm7lyzgCfrRVNQBPSixZMJLlhQa//0LtEyHxHJyDFFtCDLPFCGb1XXCn5IlZB8AFnZzsRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781863917; c=relaxed/simple;
-	bh=XnjNqZxLvPcxJRxHiQceb+/jikzHsn+yF5PAmWZNUog=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XoKUjeGiw11jxrJX9W/rgSynZty7Z4EedUokXBeMjfQ3xxPaO8UE8Rge/zcKCdtE4k3K+gWTfrrsQtw+W7xxyAOuwphpgjB7zd+FgwqejJ7sYL2YwEPDarlAXNdTVnDnYsMNqTL3H60llTcJnKqjhZVqNrHtnMdgeXjAqkCJBu8=
+	s=arc-20240116; t=1781863676; c=relaxed/simple;
+	bh=fL8+KLGQGiSfCXOK4LbYQ0UrP+sPeC/fNBkejn+dBZ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aydt1IRm9Mx8jbSmOF52mxaD/i45ba+TaDM8GnXaQheAldFu8pWX1tlu47xZ4PKUOCw360VP9UYVHg2CDUb3mMkvtd5d2U2zs7/A6GVuWfVaHPXcmngaQptAxZSi+DeQO29oLWlwZMSiJGlKVh510zYK0ZIPFWPkrO3PIn/W7R4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inai.de; spf=pass smtp.mailfrom=inai.de; arc=none smtp.client-ip=144.76.212.145
 Received: by a3.inai.de (Postfix, from userid 65534)
-	id 23F4F10040BEAE; Fri, 19 Jun 2026 12:06:17 +0200 (CEST)
+	id CD3DA1003F05BD; Fri, 19 Jun 2026 12:07:50 +0200 (CEST)
 X-Spam-Level: 
 Received: from a4.inai.de (a4.inai.de [IPv6:2a01:4f8:202:600a::a4])
-	by a3.inai.de (Postfix) with ESMTP id EB97F1004094BB;
-	Fri, 19 Jun 2026 12:06:16 +0200 (CEST)
+	by a3.inai.de (Postfix) with ESMTP id A94FC1003F05BD;
+	Fri, 19 Jun 2026 12:07:50 +0200 (CEST)
 From: Jan Engelhardt <jengelh@inai.de>
 To: alx@kernel.org
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH] console_codes.4: document more xterm codes
-Date: Fri, 19 Jun 2026 12:06:16 +0200
-Message-ID: <20260619100616.73786-1-jengelh@inai.de>
+Subject: [PATCH v2] console_codes.4: document more xterm codes
+Date: Fri, 19 Jun 2026 12:07:11 +0200
+Message-ID: <20260619100750.73857-1-jengelh@inai.de>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -58,11 +58,11 @@ X-Spamd-Result: default: False [0.04 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[bounces-5659-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5658-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	DMARC_NA(0.00)[inai.de];
 	PRECEDENCE_BULK(0.00)[];
@@ -73,7 +73,7 @@ X-Spamd-Result: default: False [0.04 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER(0.00)[jengelh@inai.de,linux-man@vger.kernel.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
 	FROM_NEQ_ENVFROM(0.00)[jengelh@inai.de,linux-man@vger.kernel.org];
 	TO_DN_NONE(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
@@ -83,17 +83,20 @@ X-Spamd-Result: default: False [0.04 / 15.00];
 	TAGGED_RCPT(0.00)[linux-man];
 	R_DKIM_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo,vger.kernel.org:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vger.kernel.org:from_smtp,sin.lore.kernel.org:rdns,sin.lore.kernel.org:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D5A986A5252
+X-Rspamd-Queue-Id: 355576A51EB
 
 Signed-off-by: Jan Engelhardt <jengelh@inai.de>
 ---
+v2:
+* Removed a copy-paste leftover in the wording of OSC mode 17/19
+
  man/man4/console_codes.4 | 48 ++++++++++++++++++++++++++++++++++++----
  1 file changed, 44 insertions(+), 4 deletions(-)
 
 diff --git a/man/man4/console_codes.4 b/man/man4/console_codes.4
-index a742cf36f..2d5328059 100644
+index a742cf36f..d92522e27 100644
 --- a/man/man4/console_codes.4
 +++ b/man/man4/console_codes.4
 @@ -753,14 +753,54 @@ Set icon name and window title to
@@ -127,12 +130,12 @@ index a742cf36f..2d5328059 100644
 +ESC ] 16 ; \f[I]txt\f[] ST	Set the Tektronix background color to \f[I]txt\f[].
 +ESC ] 17 ; \f[I]txt\f[] ST	T{
 +Set the background text color for reverse video (provided it is not substituted
-+with 6;3;1) to \f[I]txt\f[], which in effect becomes the background color.
++with 6;3;1) to \f[I]txt\f[].
 +T}
 +ESC ] 18 ; \f[I]txt\f[] ST	Set the Tektronix cursor color to \f[I]txt\f[].
 +ESC ] 19 ; \f[I]txt\f[] ST	T{
 +Set the foreground text color for reverse video (provided it is not substituted
-+with 6;3;1) to \f[I]txt\f[], which in effect becomes the foreground color.
++with 6;3;1) to \f[I]txt\f[].
 +T}
 +ESC ] 46 ; \f[I]name\f[] ST	T{
  Change log file to
