@@ -1,184 +1,204 @@
-Return-Path: <linux-man+bounces-5663-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5664-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id xETcMTO1O2qLbggAu9opvQ
-	(envelope-from <linux-man+bounces-5663-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2026 12:45:07 +0200
+	id JkYGI0m6O2qtbwgAu9opvQ
+	(envelope-from <linux-man+bounces-5664-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2026 13:06:49 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BAC36BD775
-	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2026 12:45:06 +0200 (CEST)
+Received: from sin.lore.kernel.org (sin.lore.kernel.org [IPv6:2600:3c15:e001:75::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F94E6BD8C9
+	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2026 13:06:48 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20201202 header.b=YSpgQsa2;
-	spf=pass (mail.lfdr.de: domain of "linux-man+bounces-5663-lists+linux-man=lfdr.de@vger.kernel.org" designates 2600:3c0a:e001:db::12fc:5321 as permitted sender) smtp.mailfrom="linux-man+bounces-5663-lists+linux-man=lfdr.de@vger.kernel.org";
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=FxchrtBz;
+	spf=pass (mail.lfdr.de: domain of "linux-man+bounces-5664-lists+linux-man=lfdr.de@vger.kernel.org" designates 2600:3c15:e001:75::12fc:5321 as permitted sender) smtp.mailfrom="linux-man+bounces-5664-lists+linux-man=lfdr.de@vger.kernel.org";
 	dmarc=pass (policy=quarantine) header.from=kernel.org;
 	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1")
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 2515130F4B82
-	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2026 10:43:03 +0000 (UTC)
+	by sin.lore.kernel.org (Postfix) with ESMTP id 7FB533009385
+	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2026 11:06:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 05CED27B32C;
-	Wed, 24 Jun 2026 10:43:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D2FA282F05;
+	Wed, 24 Jun 2026 11:06:42 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD442BE02C
-	for <linux-man@vger.kernel.org>; Wed, 24 Jun 2026 10:43:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CEF12C534
+	for <linux-man@vger.kernel.org>; Wed, 24 Jun 2026 11:06:40 +0000 (UTC)
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782297782; cv=none; b=Itw8IRof8PUekBPemAYKkgk1qbvbn1aG3WopERNw6lKZEYjXepahLqifdrlQ5dwMnuGYr8Tn/2N0FRPtYUz3shdU2ZwQk814J/KuNGxy3xccfnK++R/O9nHUv+9XNFlnGbUTOJbSu7C5Vm/8Yue2I1Yl7CHjQzbIkaLWGs0IjdY=
+	t=1782299202; cv=none; b=N9g19HNULY+Xlso5bcBK+6saYT4leax4psW1LGbluVGBX74tsxW+kE5cB/kibR2ZcbZsvFXdVc7L5A6q60lYfcPhtuqnziaYz5w6KrhUbQLQURd/G+XK1GPGdj3rS9XOFj9hoWYG9rruHyIOvKsH4tUtgUMkIShSrHnbdaanDe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782297782; c=relaxed/simple;
-	bh=5tAyU0tEkai5DL/s7RVSd0WSk/RH+bxWsVxf+Lb9gqM=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tHD4tBZBp/yjRSWxCMCVJMs7sljL6eyVU+wqMeaj3wRu1xuOsClxz590w2SjL7Uz6rAMFEL5vlORQHoRuLNCZrTSl96aSQ3MKetAxWaHqAKn3OBzoExrRslyxslH1AXu9YCsNbZ6CkxoSENi2exIhNUPGfimhJsQqu14bkf+BhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSpgQsa2; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5A718C2BCC6
-	for <linux-man@vger.kernel.org>; Wed, 24 Jun 2026 10:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782297782;
-	bh=5tAyU0tEkai5DL/s7RVSd0WSk/RH+bxWsVxf+Lb9gqM=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=YSpgQsa2kCzCBLA1cDQNXW3nmDhYoHdy4xA87qLqrfwK4I//G72EoYIIwMCgW9XQ1
-	 2KDaqyjvUxOpuxIdVQCULXRhqsu72hLFPxuHaLBUlpEXMYYqnCnxv1/zwgEWDqVJo5
-	 0lRNWpKyTT8de9/F4HjeF1lxzigFkvdT3GspeRzLNQM+fKZcLVDFeKEtSy/yxG4FqU
-	 up990xTIAfZy4xnbD0vcBNljr2ZoACZtVT7NBRkt55IOAmJLHtFCQ4qvll8L7Jpy5p
-	 XObvQ38hnOceNaHrMy9+KkIw7gtYtD2nzhwX+yhjJW+WrCekQ0YfRZaHtcicVCcyGY
-	 oFCzt+q6kwc2g==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 443BCC53BC5; Wed, 24 Jun 2026 10:43:02 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: linux-man@vger.kernel.org
-Subject: [Bug 221686] README.d/ is not mentioned in README
-Date: Wed, 24 Jun 2026 10:43:02 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: enhancement
-X-Bugzilla-Who: alx@kernel.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-221686-11311-znaOwvXnK5@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-221686-11311@https.bugzilla.kernel.org/>
-References: <bug-221686-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+	s=arc-20240116; t=1782299202; c=relaxed/simple;
+	bh=Q2bdMr4OpPYcvHkrN7y3C1n4X39PNzyBBZCs7fMCc9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NMRA6Q77TMOktFwL1H5QeY0Xi3Hf1pI5bpUhej8dG8Ugl2m1bM9Su02SIQjqRKmnrHw1LjhsZLRwkjpvnwkmmY+eGRvLttG+GHekqR0LSD2Q4kmNerAdadZTeaj7PeU55EaUjUnDkMIA3zrIotXSEUgA/TebfSwN5rxluSUlHQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FxchrtBz; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D470F1F00A3F;
+	Wed, 24 Jun 2026 11:06:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782299200;
+	bh=e421bAh2kfcf1GGcyxvleAmrb8RBJUUyrl7kAKfuVCw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FxchrtBzfupZcBfpvysMubdq+u+yl+nq391jNOvBvXz/iw/CvFu85IAfUa8fC9w3o
+	 Jy+JJbiSd//ZM1pvbhaa/3e186TKxisHLFOwDPvPoq8eU/yb2Plf6ld6b/OSp5PqDF
+	 TwemgvXV6Y0MKp8FbfrHowWawMaxiIXvibGiJ85Zp3dX6wIUjpGSFc+MJiSX/geAJY
+	 LBxY3r0/uLXG+uF4FTDLXNnZ53R8QOOmbyn4ZSs1+MLNe/I7ZWYPLgYNUyRdO5dyHo
+	 HQhdVjEzD9sUPmLmNr7NcYF57f+LbBpAk45VpYLJE+11YR9Xp8T9JOX1iD2h7IG+uS
+	 etYefCh6tbMDg==
+Date: Wed, 24 Jun 2026 13:06:37 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Jan Engelhardt <jengelh@inai.de>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] console_codes.4: document more xterm codes
+Message-ID: <aju5-L_vItUNO-i0@devuan>
+References: <20260619100750.73857-1-jengelh@inai.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qkxnbu4o7ztnrugv"
+Content-Disposition: inline
+In-Reply-To: <20260619100750.73857-1-jengelh@inai.de>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-5.16 / 15.00];
+X-Spamd-Result: default: False [-6.76 / 15.00];
 	WHITELIST_SPF_DKIM(-3.00)[kernel.org:d:+,kernel.org:s:+];
+	SIGNED_PGP(-2.00)[];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip6:2600:3c0a:e001:db::/64:c];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c15:e001:75::/64];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5663-lists,linux-man=lfdr.de];
-	FROM_NEQ_ENVFROM(0.00)[bugzilla-daemon@kernel.org,linux-man@vger.kernel.org];
-	RCPT_COUNT_ONE(0.00)[1];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:linux-man@vger.kernel.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:jengelh@inai.de,m:linux-man@vger.kernel.org,s:lists@lfdr.de];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RCPT_COUNT_TWO(0.00)[2];
 	FORWARDED(0.00)[lists@lfdr.de];
-	FORGED_SENDER(0.00)[bugzilla-daemon@kernel.org,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	FROM_NO_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	TO_DN_NONE(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PRECEDENCE_BULK(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:2600:3c0a::/32, country:SG];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vger.kernel.org:from_smtp,sea.lore.kernel.org:rdns,sea.lore.kernel.org:helo,osdl.org:email,jasonyundt.email:email]
+	TAGGED_FROM(0.00)[bounces-5664-lists,linux-man=lfdr.de];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alx@kernel.org,linux-man@vger.kernel.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:2600:3c15::/32, country:SG];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vger.kernel.org:from_smtp,devuan:mid]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 2BAC36BD775
+X-Rspamd-Queue-Id: 6F94E6BD8C9
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221686
 
---- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
-On 2026-06-24T10:24:56+0000, bugzilla-daemon@kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D221686
+--qkxnbu4o7ztnrugv
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jan Engelhardt <jengelh@inai.de>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] console_codes.4: document more xterm codes
+Message-ID: <aju5-L_vItUNO-i0@devuan>
+References: <20260619100750.73857-1-jengelh@inai.de>
+MIME-Version: 1.0
+In-Reply-To: <20260619100750.73857-1-jengelh@inai.de>
+
+Hi Jan,
+
+Sorry for the delay.
+
+On 2026-06-19T12:07:11+0200, Jan Engelhardt wrote:
+> Signed-off-by: Jan Engelhardt <jengelh@inai.de>
+> ---
+> v2:
+> * Removed a copy-paste leftover in the wording of OSC mode 17/19
 >=20
->             Bug ID: 221686
->            Summary: README.d/ is not mentioned in README
->            Product: Documentation
->            Version: unspecified
->           Hardware: All
->                 OS: Linux
->             Status: NEW
->           Severity: enhancement
->           Priority: P3
->          Component: man-pages
->           Assignee: documentation_man-pages@kernel-bugs.osdl.org
->           Reporter: jason@jasonyundt.email
->         Regression: No
+>  man/man4/console_codes.4 | 48 ++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 44 insertions(+), 4 deletions(-)
 >=20
-> The README file for the Linux man-pages project has a section named =E2=
-=80=9CFiles=E2=80=9D
-> that lists a bunch of different files and directories and describes them.=
- The
-> =E2=80=9CFiles=E2=80=9D section mentions the CONTRIBUTING file, the CONTR=
-IBUTING.d/ directory
-> and the README file, but it does not mention the README.d/ directory. It
-> would
-> be better if the README mentioned the README.d/ directory.
+> diff --git a/man/man4/console_codes.4 b/man/man4/console_codes.4
+> index a742cf36f..d92522e27 100644
+> --- a/man/man4/console_codes.4
+> +++ b/man/man4/console_codes.4
+> @@ -753,14 +753,54 @@ Set icon name and window title to
+>  T}
+>  ESC ] 1 ; \f[I]txt\f[] ST	Set icon name to \f[I]txt\f[].
+>  ESC ] 2 ; \f[I]txt\f[] ST	Set window title to \f[I]txt\f[].
+> -ESC ] 4 ; \f[I]num\f[]; \f[I]txt\f[] ST	Set ANSI color \f[I]num\f[] to \=
+f[I]txt\f[].
+> -ESC ] 10 ; \f[I]txt\f[] ST	Set dynamic text color to \f[I]txt\f[].
+> -ESC ] 4 6 ; \f[I]name\f[] ST	T{
+> +ESC ] 4 ; \f[I]num\f[] ; \f[I]txt\f[] ST	Set color \f[I]num\f[] (0-255) =
+to \f[I]txt\f[].
+[...]
+> +ESC ] 46 ; \f[I]name\f[] ST	T{
 
-Hi Jason!
-
-Thanks!  I've pushed the following patch:
-
-        commit dab26703f0de1206afe2990b26c084932e792e60
-        Author: Alejandro Colomar <alx@kernel.org>
-        Date:   2026-06-24 12:41:41 +0200
-
-            README: Document README.d/*
-
-            Reported-by: Jason Yundt <jason@jasonyundt.email>
-            Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-        diff --git a/README b/README
-        index d994e3c12f28..6dbcd97a1546 100644
-        --- a/README
-        +++ b/README
-        @@ -31,6 +31,7 @@ Files
-                Notes for maintainers.
-
-            README
-        +   README.d/*
-                Main information about the project and the repository.
-
-            RELEASE
+This patch mixes additions with formatting changes.  Please move the
+formatting changes to a separate patch, so that the diff is smaller.
 
 
 Have a lovely day!
 Alex
 
---=20
-You may reply to this email to add a comment.
+>  Change log file to
+>  .I name
+>  (normally disabled by a compile-time option).
+>  T}
+> -ESC ] 5 0 ; \f[I]fn\f[] ST	Set font to \f[I]fn\f[].
+> +ESC ] 50 ; \f[I]fn\f[] ST	T{
+> +Set font to \f[I]fn\f[] (normally disabled; cf. the "allowFontOps" resou=
+rce)
+> +T}
+> +ESC ] 104 ; \f[I]num\f[] ST	Reset color for mode 4;\f[I]num\f[]
+> +ESC ] 105 ; \f[I]num\f[] ST	Reset color for mode 5;\f[I]num\f[]
+> +ESC ] 106 ; \f[I]num\f[] ; \f[I]val\f[] ST	T{
+> +Exactly equal to 6;\f[I]num\f[];\f[I]val\f[]. (no "reset" logic)
+> +T}
+> +ESC ] 110 ST	Reset color for mode 10. (The pattern repeats until 119.)
+> +ESC ] \f[I]mode\f[] ; ? ST	T{
+> +Query the respective property/color/etc. (modes 4,5,10-19,50)
+> +T}
+>  .TE
+>  .P
+>  It recognizes the following with slightly modified meaning
+> --=20
+> 2.54.0
+>=20
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+--=20
+<https://www.alejandro-colomar.es>
+
+--qkxnbu4o7ztnrugv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmo7uj0ACgkQ64mZXMKQ
+wqlrxA//f2q8QJiBTFqholWKBSqwZ+vjNH2mYZD8GVLlk1Va+ALZvZXR1hAd1btw
+prsUhSwqm10NvXIoHmg0ZpUxuLFhvJlEaPwiqiPIS+kt9za6XUOibyOTDCybiM2U
+KeCbaTds/bkhF+JnZfF9GXKn/hQ0CcAYyM9UMfLnnGxm8T3Iaeuq9sUDQqbBMkeJ
+hJr1gHa0oMJwjzjxAFk9oqgMYLscvnL+C3m11gOGC5QnlEdbHsjFv/yQIY4o3r3y
+GjxTseOcc43df9VZQ+bmFiyZ/MatUXQVSjh77SFkKocd+njU1cm9LQo8pudv3tHI
+r/sjT/j1h1OrFvhMfo462veDQRj3P3E20p+Z9/qT89QvCLvT+XSngEoMSH/3DNZV
+FI39NwrUUdoHrJh0fFvu987BE3U2uS3R0DnIPe9JK73+oEejc+OtT5YHPHfvRY6Z
+sTh0pJlET6VkphPm1cLrkf4oOjMCndiRZc+9MEzt3mL04ChJt29SKQgS519hEXxj
+WhSlVke5hE/HsT8wnvNVd7n2LE81tOuScp6UXB/9bYT2c8TMf/AWKWrJ0amfRAxt
+XYajfyQ4HuawK/YfZulJkCeu4AH3+i/lh5NPx+S3i6pSZGAN603aBXDdwGzcgMkT
+rKMSyQqMPBb3WsS84BlrgW0zEZKzx3ZTZw3NFcGRz4oeFTtrCSA=
+=SwtO
+-----END PGP SIGNATURE-----
+
+--qkxnbu4o7ztnrugv--
 
