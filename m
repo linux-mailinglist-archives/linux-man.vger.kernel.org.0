@@ -1,153 +1,312 @@
-Return-Path: <linux-man+bounces-5745-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-5746-lists+linux-man=lfdr.de@vger.kernel.org>
 Delivered-To: lists+linux-man@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id HD2SECHYVGrpfgAAu9opvQ
-	(envelope-from <linux-man+bounces-5745-lists+linux-man=lfdr.de@vger.kernel.org>)
-	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2026 14:20:49 +0200
+	id AfQDEEURVWpvjgAAu9opvQ
+	(envelope-from <linux-man+bounces-5746-lists+linux-man=lfdr.de@vger.kernel.org>)
+	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2026 18:24:37 +0200
 X-Original-To: lists+linux-man@lfdr.de
-Received: from sin.lore.kernel.org (sin.lore.kernel.org [104.64.211.4])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4277B74ADEE
-	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2026 14:20:48 +0200 (CEST)
+Received: from sto.lore.kernel.org (sto.lore.kernel.org [IPv6:2600:3c09:e001:a7::12fc:5321])
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C1974D904
+	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2026 18:24:36 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=smrk.net header.s=20221002 header.b=ik+3Ocoi;
-	spf=pass (mail.lfdr.de: domain of "linux-man+bounces-5745-lists+linux-man=lfdr.de@vger.kernel.org" designates 104.64.211.4 as permitted sender) smtp.mailfrom="linux-man+bounces-5745-lists+linux-man=lfdr.de@vger.kernel.org";
-	dmarc=pass (policy=none) header.from=smrk.net;
+	dkim=pass header.d=redhat.com header.s=mimecast20190719 header.b=QhpvgxVE;
+	spf=pass (mail.lfdr.de: domain of "linux-man+bounces-5746-lists+linux-man=lfdr.de@vger.kernel.org" designates 2600:3c09:e001:a7::12fc:5321 as permitted sender) smtp.mailfrom="linux-man+bounces-5746-lists+linux-man=lfdr.de@vger.kernel.org";
+	dmarc=pass (policy=quarantine) header.from=redhat.com;
 	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1")
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sin.lore.kernel.org (Postfix) with ESMTP id A5C69305B3FC
-	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2026 12:12:11 +0000 (UTC)
+	by sto.lore.kernel.org (Postfix) with ESMTP id 2484430099BD
+	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2026 16:24:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F69E388E4D;
-	Mon, 13 Jul 2026 12:11:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7105240BCCD;
+	Mon, 13 Jul 2026 16:24:33 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.smrk.net (mail.smrk.net [45.76.87.244])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABE11F3B8A
-	for <linux-man@vger.kernel.org>; Mon, 13 Jul 2026 12:11:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E02408619
+	for <linux-man@vger.kernel.org>; Mon, 13 Jul 2026 16:24:30 +0000 (UTC)
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783944701; cv=none; b=jhYXAgPa5/K1lC/I206/8ZGF/MwG0WfFk3psx6LGL6Ik4WF1mo9wsN0yy5qd/EHcfoSLps9pldHuA7wz8eSty9sL/oUVkT/9ePLdwBLE4Cvs7UwJOm3eBQzcyKbC1v1771teODo77zkRzEgJjLotkvG1j/I1QqrxLXJbyIdPVgU=
+	t=1783959873; cv=none; b=NI5+oV7rgeYeTWTp5xYi9RfPjrmV9GFxnuAY/ZdB6pcZNXJcSXdxaB9PalFVRGvDjc6Wl7tWowpbNFLR5OHvaNkwCAB0KndmlFgGw49YCw37KjZoDKhceuEI4x/zgEuu135z1Er/a5eE1Jp3KxdmkwLmOjmvfQeIvWd6KG1Gxcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783944701; c=relaxed/simple;
-	bh=TNY5vv91qAszBNO31H8m2ZVp5RKgMnHhuOA1jhb2LQA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dI72Rx7a4g2jvGytYNDw2LiO4yUKTVDIhNOwE0g5d7j6bq9TbKrIfkN6OoeGSHiq/smlJ6dkNi/PpA2kxPtjUdM52pst18f5Ytn/4SV3NzIG0S1SKaYb2Bh/ciDxtgnJuYNWMRqPYB2qZXpoT/meSSvUvY4YryqWUPBPLvnlCVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smrk.net; spf=pass smtp.mailfrom=smrk.net; dkim=pass (2048-bit key) header.d=smrk.net header.i=@smrk.net header.b=ik+3Ocoi; arc=none smtp.client-ip=45.76.87.244
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smrk.net; s=20221002;
-	t=1783944696;
+	s=arc-20240116; t=1783959873; c=relaxed/simple;
+	bh=jekg7t9MElWWSwzJM/eP1m1f6JAmmxdrvKYo0pX/HfA=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:MIME-Version:
+	 Content-Type; b=RSK6EEoBWKMnah0KqnOqTzUeHq/9M2SHKf2S2a/aAbED3VOmVKzODL/j3HzB7TjQBk1jCq/SZbIzy5ewoW9IduRbZViDGTcVWtwXirh583L2uMTAw5F3hdQnI7Qg2c9nUibUIPGlUNZctjlzcqQASw17zK9gHLYwKyroi7r/dIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QhpvgxVE; arc=none smtp.client-ip=170.10.129.124
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783959869;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=a8QjduzcjkkB2swhLZnJAguEhDEe8OQDkhUVgPw388k=;
-	b=ik+3Ocoii/YLptC+EpqsLXLtCNEwbz8cUD2aBi1+8WZzXwACJBIUUKZe5TD2T7VGisC0nn
-	SNS4YTrJ2E5vubMR05hx3s5Qq4fIXh6cxnXdQUDYyisMcXWnAC/iWCa/9077iWrA7RTASj
-	Gv+SeEPWR2nAOQ+PXVHYuI5DqNM4N5oK+yd+NPx3B2bEcNKogiayQRpDQVos1hvGOhQhC2
-	bjSS9lUAeirn1Avd/m1anc3ILq0TJSD+hgMJVqanMLH9qnpDXZqqzyD8UBcfwmrrt2kkLP
-	Ib7mxB2UYN6rR5LgohfJs00MmKX7escgIr79b6YvAsGOIaKyaS6DeMZ1UOFYKA==
-Received: from localhost (<unknown> [192.168.5.2])
-	by smrk (OpenSMTPD) with ESMTPSA id 2c91268d (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Mon, 13 Jul 2026 14:11:36 +0200 (CEST)
-From: =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@smrk.net>
+	 in-reply-to:in-reply-to; bh=onDsNo7FzqaeqlolqH0TWwPfRPu+AHtS4kXWFiuT1xI=;
+	b=QhpvgxVENcz5qJEo3erndquFDhQ4FGL9U2jwMcW8UCLUpSIm79hyoY+YVyCaYSBzxx82Ma
+	qrp3VsQT4LZX29QYnpNaDTImU+toIzU/M+4PtvZE+icilXH6aslvTuv4NZELa/GrC+LCpx
+	eVY9TEvYelXBKLbyKp6TRyipkdH9dWw=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-631-KcpwCz-mMxS0hNICppVvkQ-1; Mon,
+ 13 Jul 2026 12:24:27 -0400
+X-MC-Unique: KcpwCz-mMxS0hNICppVvkQ-1
+X-Mimecast-MFC-AGG-ID: KcpwCz-mMxS0hNICppVvkQ_1783959866
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7AD511805A11;
+	Mon, 13 Jul 2026 16:24:26 +0000 (UTC)
+Received: from greed.delorie.com (unknown [10.22.89.250])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1C9873000B51;
+	Mon, 13 Jul 2026 16:24:25 +0000 (UTC)
+Received: from greed.delorie.com.redhat.com (localhost [127.0.0.1])
+	by greed.delorie.com (8.16.1/8.16.1) with ESMTP id 66DGOJMS1004598;
+	Mon, 13 Jul 2026 12:24:19 -0400
+From: DJ Delorie <dj@redhat.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Mike Rapoport <rppt@linux.ibm.com>
-Subject: [PATCH] man/man2/memfd_secret.2: tfix
-Date: Mon, 13 Jul 2026 14:11:11 +0200
-Message-ID: <20260713121111.372487-1-stepnem@smrk.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <alEfVXgJBmtlCtH0@devuan>
-References: <20260709153422.210312-1-stepnem@smrk.net> <alEfVXgJBmtlCtH0@devuan>
+Cc: linux-man@vger.kernel.org
+Subject: Re: man/man8/ldconfig.8: document system-wide tunables
+In-Reply-To: <alFWqYWKJkQQxtJ6@devuan> (message from Alejandro Colomar on
+ Fri, 10 Jul 2026 22:33:10 +0200)
+Date: Mon, 13 Jul 2026 12:24:19 -0400
+Message-ID: <xnjyqy97t8.fsf@greed.delorie.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.09 / 15.00];
-	R_MIXED_CHARSET(1.25)[subject];
+X-Spamd-Result: default: False [-1.66 / 15.00];
 	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[smrk.net,none];
-	R_DKIM_ALLOW(-0.20)[smrk.net:s=20221002];
-	R_SPF_ALLOW(-0.20)[+ip4:104.64.211.4:c];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
+	R_SPF_ALLOW(-0.20)[+ip6:2600:3c09:e001:a7::/64:c];
 	MAILLIST(-0.15)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_FROM(0.00)[bounces-5745-lists,linux-man=lfdr.de];
+	TAGGED_FROM(0.00)[bounces-5746-lists,linux-man=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:alx@kernel.org,m:linux-man@vger.kernel.org,m:rppt@linux.ibm.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[stepnem@smrk.net,linux-man@vger.kernel.org];
+	FORGED_RECIPIENTS(0.00)[m:alx@kernel.org,m:linux-man@vger.kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[dj@redhat.com,linux-man@vger.kernel.org];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[4];
+	RCPT_COUNT_TWO(0.00)[2];
 	FORWARDED(0.00)[lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[redhat.com:+];
+	ASN(0.00)[asn:63949, ipnet:2600:3c09::/32, country:SG];
+	MISSING_XM_UA(0.00)[];
 	PRECEDENCE_BULK(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[stepnem@smrk.net,linux-man@vger.kernel.org];
-	DKIM_TRACE(0.00)[smrk.net:+];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-man];
+	FROM_NEQ_ENVFROM(0.00)[dj@redhat.com,linux-man@vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sto.lore.kernel.org:helo,sto.lore.kernel.org:rdns,vger.kernel.org:from_smtp,ld.so:url,greed.delorie.com:mid];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:104.64.192.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sin.lore.kernel.org:helo,sin.lore.kernel.org:rdns,vger.kernel.org:from_smtp]
+	ALIAS_RESOLVED(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-man];
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4277B74ADEE
+X-Rspamd-Queue-Id: C9C1974D904
 
-Fixes: ac5edfeb1dd6 (2021-08-27; "memfd_secret.2: New page describing memfd_secret() system call")
-Cc: Mike Rapoport <rppt@linux.ibm.com>
-Signed-off-by: Štěpán Němec <stepnem@smrk.net>
----
-On Fri, 10 Jul 2026 18:44:19 +0200
-Alejandro Colomar wrote:
 
-> I think I'd fix this typo in a separate commit, since it's a meaningful
-> typo (both EMFILE and ENFILE exist, and they have a slightly different
-> meaning).
->
-> In the fix, please include the following tags:
->
-> 	Fixes: ac5edfeb1dd6 (2021-08-27; "memfd_secret.2: New page describing memfd_secret() system call")
-> 	Cc: Mike Rapoport <rppt@linux.ibm.com>
+How about this?
 
-Fair enough.
-
-FWIW, out of abundance of caution (admittedly verging on paranoia), I
-did verify that unprivileged memfd_secret distinguished EMFILE and
-ENFILE as expected (brought about by setrlimit for the former and
-limiting fs.file-max for the latter in a VM running a recent alpine-edge
-image) before sending the original patch, but the hypothesis that this
-was anything other than a typo or a copy-paste error seemed too
-far-fetched to mention that.
-
- man/man2/memfd_secret.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man/man2/memfd_secret.2 b/man/man2/memfd_secret.2
-index 0ea4b8e93c37..4033adc75772 100644
---- a/man/man2/memfd_secret.2
-+++ b/man/man2/memfd_secret.2
-@@ -119,7 +119,7 @@ .SH ERRORS
- .B EMFILE
- The per-process limit on the number of open file descriptors has been reached.
+diff --git a/man/man5/ld.so.conf.5 b/man/man5/ld.so.conf.5
+index 481cf9152..aa27b73f6 100644
+--- a/man/man5/ld.so.conf.5
++++ b/man/man5/ld.so.conf.5
+@@ -9,6 +9,14 @@ .SH DESCRIPTION
+ This file contains a list of directories,
+ one per line,
+ in which to search for libraries.
++The file allows lines to start with the word
++.I include
++followed by a path wildcard,
++and will include any files matching that wildcard.
++The file is parsed by
++.B \%ldconfig
++and the results stored in
++.IR /etc/ld.so.cache .
+ .SH FILES
+ .I /etc/ld.so.conf
+ .SH SEE ALSO
+diff --git a/man/man5/tunables.conf.5 b/man/man5/tunables.conf.5
+new file mode 100644
+index 000000000..d24eb0fa5
+--- /dev/null
++++ b/man/man5/tunables.conf.5
+@@ -0,0 +1,86 @@
++.TH tunables.conf 5 (date) "Linux man-pages (unreleased)"
++.SH NAME
++tunables.conf \- System-wide tunables configuration file
++.SH SYNOPSIS
++.nf
++.B /etc/tunables.conf
++.fi
++.SH DESCRIPTION
++Each line in the file
++.I /etc/tunables.conf
++specifies a tunable,
++which is a name and value separated by an equals sign.
++For a list of valid tunables,
++please consult the glibc manual.
++The file allows lines to start with the word
++.I include
++followed by a path wildcard,
++and will include any files matching that wildcard.
++The file is parsed by
++.B \%ldconfig
++and the results stored in
++.IR /etc/ld.so.cache .
++.P
++Each line may include zero or more words or symbols at the beginning:
++.TP
++.B overridable
++.TQ
++.B +
++Allow the tunable to be overridden by the environment variable
++(this is the default).
++.TP
++.B nonoverridable
++.TQ
++.B \-
++Do not allow the tunable to be overridden by the environment variable.
++.TP
++.B onlysecure
++.TQ
++.B @
++The tunable only applies to AT_SECURE
++(such as setuid, or elevated capabilities)
++processes.
++.TP
++.B nonsecure
++.TQ
++.B $
++The tunable only applies to non-AT_SECURE processes (this is the default).
++.TP
++.B anysecure
++.TQ
++.B *
++The tunable only applies to both AT_SECURE and non-AT_SECURE processes.
++.P
++The file may also contain
++.I filters ,
++which limit the tunables following it, up to the end of the file
++(or end of the included file, or start of a new included file)
++or a line with only
++.B []
++on it.  The syntax is:
++.IP
++.EX
++.RI [ filter : pattern ]
++.EE
++.TP
++.B proc
++The
++.I proc
++filter limits the following tunables to processes starting from the
++file matching the pattern.
++The file may be fully qualified or just the basename.
++.P
++Example config file:
++.IP
++.EX
++glibc.malloc.arenas_max=5
++onlysecure glibc.malloc.arenas_max=1
++-glibc.pthread.rseq=1
++[proc:/bin/bad.program]
++-glibc.pthread.rseq=0
++.EE
++.SH FILES
++.I /etc/ld.so.conf
++.SH SEE ALSO
++.BR ld.so (8),
++.BR ldconfig (8)
+diff --git a/man/man8/ld.so.8 b/man/man8/ld.so.8
+index 5f3c22ef2..40f129b71 100644
+--- a/man/man8/ld.so.8
++++ b/man/man8/ld.so.8
+@@ -792,7 +792,8 @@ .SH FILES
  .TP
--.B EMFILE
-+.B ENFILE
- The system-wide limit on the total number of open files has been reached.
+ .I /etc/ld.so.cache
+ File containing a compiled list of directories in which to search for
+-shared objects and an ordered list of candidate shared objects.
++shared objects and an ordered list of candidate shared objects,
++and any system-wide tunables to be applied.
+ See
+ .BR ldconfig (8).
  .TP
- .B ENOMEM
-
--- 
-2.55.0
+diff --git a/man/man8/ldconfig.8 b/man/man8/ldconfig.8
+index 9ac146b44..234169504 100644
+--- a/man/man8/ldconfig.8
++++ b/man/man8/ldconfig.8
+@@ -17,6 +17,8 @@ .SH SYNOPSIS
+ .IR conf ]
+ .RB [ \-r\~\c
+ .IR root ]
++.RB [ \-t\~\c
++.IR tunconf ]
+ .IR directory \~.\|.\|.
+ .YS
+ .SY /sbin/ldconfig
+@@ -85,6 +87,13 @@ .SH DESCRIPTION
+ .P
+ Failure to follow this pattern may result in compatibility issues
+ after an upgrade.
++.P
++If the file
++.I /etc/tunables.conf
++exists,
++it contains tunables to be applied to all processes.
++These tunables are stored
++in the cache and applied to every process at its startup.
+ .SH OPTIONS
+ .TP
+ .BI \-\-format= fmt
+@@ -157,6 +166,12 @@ .SH OPTIONS
+ .I root
+ as the root directory.
+ .TP
++.BI \-t\~ tunconf
++Use
++.I tunconf
++instead of
++.IR /etc/tunables.conf .
++.TP
+ .B \-\-verbose
+ .TQ
+ .B \-v
+@@ -178,8 +193,6 @@ .SH OPTIONS
+ is also specified,
+ the cache is still rebuilt.
+ .SH FILES
+-.\" FIXME Since glibc-2.3.4, "include" directives are supported in ld.so.conf
+-.\"
+ .\" FIXME Since glibc-2.4, "hwcap" directives are supported in ld.so.conf
+ .PD 0
+ .TP
+@@ -190,11 +203,17 @@ .SH FILES
+ See
+ .BR ld.so.conf (5).
+ .TP
++.I /etc/tunables.conf
++See
++.BR tunables.conf (5).
++.TP
+ .I /etc/ld.so.cache
+ contains an ordered list of libraries found in the directories
+ specified in
+ .IR /etc/ld.so.conf ,
+-as well as those found in the trusted directories.
++as well as those found in the trusted directories,
++and any system-wide tunables listed in
++.IR /etc/tunables.conf .
+ .PD
+ .SH SEE ALSO
+ .BR ldd (1),
 
 
